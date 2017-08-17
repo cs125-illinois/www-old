@@ -58,6 +58,7 @@ module.exports = function(grunt) {
     }
   });
 
+	grunt.registerTask('run', ['http-server']);
 	grunt.registerTask('default', ['packages', 'build']);
 }
 // vim: ts=2:sw=2:et:ft=javascript
