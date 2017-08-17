@@ -1,20 +1,38 @@
-const metalsmith = require('metalsmith');
+const metalsmith = require('metalsmith'),
+      tmp = require('tmp'),
+      removeEmptyDirectories = require('remove-empty-directories'),
+      rsync = require('rsync');
 
 const _ = require('underscore');
 
 const defaults = {
   'verbose': false,
   'source': 'src',
-  'destination': '.build'
+  'destination': 'build'
 };
 
 function build(config, done) {
   config = _.extend(_.clone(defaults), config || {});
+  var temporaryDestination = tmp.dirSync().name;
   metalsmith(__dirname)
     .source(config.source)
-    .destination(config.destination)
+    .destination(temporaryDestination)
     .clean(true)
-    .build(done);
+    .build(function(err) {
+      if (err) {
+        done(err);
+      } else {
+        removeEmptyDirectories(temporaryDestination);
+        var copyToRealDestination = new rsync()
+          .flags('rlpgoDc')
+          .delete()
+          .source(temporaryDestination + "/")
+          .destination(config.destination);
+        copyToRealDestination.execute(function (err) {
+          done(err);
+        });
+      }
+    });
 }
 
 if (require.main === module) {
@@ -28,7 +46,7 @@ if (require.main === module) {
   module.exports = function (grunt) {
     grunt.registerTask('build', 'Build the site.', function(config) {
       var done = this.async();
-      build(config, done);
+      build(this.options(), done);
     });
   }
 }
