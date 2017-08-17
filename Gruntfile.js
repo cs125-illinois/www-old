@@ -1,4 +1,7 @@
-const path = require('path');
+const path = require('path'),
+      fs = require('fs'),
+      _ = require('underscore'),
+      touch = require('touch');
 
 module.exports = function(grunt) {
 	grunt.initConfig({
@@ -11,6 +14,7 @@ module.exports = function(grunt) {
         destination: '<%= destination %>'
       }
     },
+    'clean': ['<%= destination %>'],
     'http-server': {
       'build': {
         root: path.join(__dirname, '<%= destination %>'),
@@ -23,10 +27,37 @@ module.exports = function(grunt) {
         runInBackground: false,
         openBrowser: true
       }
+    },
+    'npm-command': {
+      options: {
+        cmd: 'install',
+      },
+      quiet: {
+        options: {
+          args: '--progress=false'
+        }
+      }
     }
 	});
-	require('./index.js')(grunt);
+
   grunt.loadNpmTasks('grunt-http-server');
-	grunt.registerTask('default', ['build']);
+  grunt.loadNpmTasks('grunt-npm-command');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+
+	require('./index.js')(grunt);
+  grunt.registerTask('after:npm-command', function () {
+    touch('node_modules');
+  });
+  grunt.registerTask('packages', 'Update packages if needed.', function () {
+    var packageJSONTime = fs.statSync('package.json').mtime.getTime();
+    var doInstall = _.every(fs.readdirSync('node_modules').concat('.'), function (file) {
+      return fs.statSync(path.join('node_modules', file)).mtime.getTime() < packageJSONTime;
+    });
+    if (doInstall) {
+      grunt.task.run(['npm-command', 'after:npm-command']);
+    }
+  });
+
+	grunt.registerTask('default', ['packages', 'build']);
 }
 // vim: ts=2:sw=2:et:ft=javascript
