@@ -1,5 +1,9 @@
 const metalsmith = require('metalsmith'),
-      tmp = require('tmp'),
+      buildDate = require('metalsmith-build-date'),
+      drafts = require('metalsmith-drafts'),
+      webpack = require('ms-webpack');
+
+const tmp = require('tmp'),
       removeEmptyDirectories = require('remove-empty-directories'),
       rsync = require('rsync');
 
@@ -11,13 +15,23 @@ const defaults = {
   'destination': 'build'
 };
 
+var webpackConfiguration = require('./webpack.config.js');
+
 function build(config, done) {
   config = _.extend(_.clone(defaults), config || {});
   var temporaryDestination = tmp.dirSync().name;
+  webpackConfiguration.output.path = temporaryDestination;
   metalsmith(__dirname)
     .source(config.source)
     .destination(temporaryDestination)
-    .clean(true)
+    .use(buildDate())
+    .use(drafts())
+    .use(webpack(webpackConfiguration))
+    .use(function (files, metalsmith, done) {
+      var metadata = metalsmith.metadata();
+      console.log(JSON.stringify(metadata.webpack.assets, null, 2));
+      done();
+    })
     .build(function(err) {
       if (err) {
         done(err);

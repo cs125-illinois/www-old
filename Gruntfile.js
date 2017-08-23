@@ -37,7 +37,7 @@ module.exports = function(grunt) {
           args: '--progress=false'
         }
       }
-    }
+    },
 	});
 
   grunt.loadNpmTasks('grunt-http-server');
