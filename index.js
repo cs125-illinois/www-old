@@ -1,6 +1,9 @@
 const metalsmith = require('metalsmith'),
       buildDate = require('metalsmith-build-date'),
       drafts = require('metalsmith-drafts'),
+      partial = require('metalsmith-partial'),
+      inPlace = require('metalsmith-in-place'),
+      layouts = require('metalsmith-layouts'),
       webpack = require('ms-webpack');
 
 const tmp = require('tmp'),
@@ -26,6 +29,16 @@ function build(config, done) {
     .destination(temporaryDestination)
     .use(buildDate())
     .use(drafts())
+    .use(partial({
+      directory: './layouts/partials',
+      engine: 'handlebars'
+    }))
+    .use(inPlace({
+      pattern: '**/*.html.hbs',
+    }))
+    .use(layouts({
+      engine: 'handlebars'
+    }))
     .use(webpack(webpackConfiguration))
     .build(function(err) {
       if (err) {
