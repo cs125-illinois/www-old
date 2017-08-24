@@ -27,11 +27,6 @@ function build(config, done) {
     .use(buildDate())
     .use(drafts())
     .use(webpack(webpackConfiguration))
-    .use(function (files, metalsmith, done) {
-      var metadata = metalsmith.metadata();
-      console.log(JSON.stringify(metadata.webpack.assets, null, 2));
-      done();
-    })
     .build(function(err) {
       if (err) {
         done(err);

@@ -26,6 +26,18 @@ module.exports = {
         })
       }
     ]
+  },
+  stats: {
+    hash: false,
+    version: false,
+    timings: false,
+    assets: false,
+    chunks: false,
+    modules: false,
+    reasons: false,
+    children: false,
+    source: false,
+    publicPath: false
   }
 }
 // vim: ts=2:sw=2:et:ft=javascript
