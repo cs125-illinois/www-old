@@ -30,7 +30,6 @@ function build(config, done) {
   metalsmith(__dirname)
     .source(config.source)
     .destination(temporaryDestination)
-    .clean(true)
     .use(ignore([
       'fonts/*',
       'css/*'
