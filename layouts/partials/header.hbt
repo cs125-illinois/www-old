@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    {{#each metadata.webpack.assetsByType['css'] }}
+    {{#each webpack.assetsByType.css }}
     <link rel="stylesheet" href="{{ this }}" >
     {{/each}}
 
-    {{#each metadata.webpack.assetsByType['js'] }}
+    {{#each webpack.assetsByType.js }}
     <script src="{{ this }}" async></script>
     {{/each}}
   </head>
