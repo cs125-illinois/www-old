@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     publicPath: '/',
     filename: 'js/[name].[chunkhash].js'
   },
-  entry: ['bootstrap', './css/overrides.scss'],
+  entry: ['bootstrap', './css/overrides.scss', './fonts/fonts.css'],
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -15,7 +16,7 @@ module.exports = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
     }),
-    new ExtractTextPlugin('css/[name].[chunkhash].css')
+    new ExtractTextPlugin('css/[name].[chunkhash].css'),
   ],
   module: {
     rules: [
@@ -24,7 +25,24 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           use: [ 'css-loader', 'sass-loader' ]
         })
-      }
+      },
+      {
+        test: /\.(css)$/,
+        use: ExtractTextPlugin.extract({
+          use: [ 'css-loader' ]
+        })
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'fonts/'
+            }
+          }
+        ]
+      },
     ]
   },
   stats: {

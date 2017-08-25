@@ -4,6 +4,7 @@ const metalsmith = require('metalsmith'),
       partial = require('metalsmith-partial'),
       inPlace = require('metalsmith-in-place'),
       layouts = require('metalsmith-layouts'),
+      ignore = require('metalsmith-ignore'),
       webpack = require('ms-webpack');
 
 const tmp = require('tmp'),
@@ -27,6 +28,7 @@ function build(config, done) {
   metalsmith(__dirname)
     .source(config.source)
     .destination(temporaryDestination)
+    .clean(true)
     .use(buildDate())
     .use(drafts())
     .use(partial({
@@ -39,7 +41,16 @@ function build(config, done) {
     .use(layouts({
       engine: 'handlebars'
     }))
+    .use(ignore([
+      'fonts/*',
+      'css/*'
+    ]))
     .use(webpack(webpackConfiguration))
+    .use(function (files, metalsmith, done) {
+      var metadata = metalsmith.metadata();
+      console.log(JSON.stringify(metadata.webpack.assets, null, 2));
+      done();
+    })
     .build(function(err) {
       if (err) {
         done(err);

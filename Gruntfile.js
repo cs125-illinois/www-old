@@ -38,11 +38,54 @@ module.exports = function(grunt) {
         }
       }
     },
+    'googlefonts': {
+      build: {
+        options: {
+          fontPath: '<%= source %>/fonts/',
+          cssFile: '<%= source %>/fonts/fonts.css',
+          httpPath: './',
+          fonts: [
+            {
+              family: 'Open Sans',
+              subsets: [
+                'latin',
+                'latin-ext',
+              ],
+              styles: [
+                '400', '700', '400i', '700i'
+              ]
+            },
+            {
+              family: 'Overpass',
+              subsets: [
+                'latin',
+                'latin-ext',
+              ],
+              styles: [
+                '400', '700', '400i', '700i'
+              ]
+            }
+          ]
+        }
+      }
+    },
+    'lineending': {
+      dist: {
+        options: {
+          overwrite: true,
+        },
+        files: {
+          '': ['<%= source %>/fonts/fonts.css']
+        }
+      }
+    }
 	});
 
   grunt.loadNpmTasks('grunt-http-server');
   grunt.loadNpmTasks('grunt-npm-command');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-google-fonts');
+  grunt.loadNpmTasks('grunt-lineending');
 
 	require('./index.js')(grunt);
   grunt.registerTask('after:npm-command', function () {
@@ -60,5 +103,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('run', ['http-server']);
 	grunt.registerTask('default', ['packages', 'build']);
+  grunt.registerTask('fonts', ['googlefonts', 'lineending']);
 }
 // vim: ts=2:sw=2:et:ft=javascript
