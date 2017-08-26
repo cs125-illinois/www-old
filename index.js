@@ -23,7 +23,7 @@ const defaults = {
 function build(config, done) {
   config = _.extend(_.clone(defaults), config || {});
 
-  const temporaryDestination = tmp.dirSync().name;
+  const temporaryDestination = tmp.dirSync({ mode: 0775 }).name;
   var webpackConfiguration = require('./webpack.config.js');
   webpackConfiguration.output.path = temporaryDestination;
 
@@ -51,7 +51,7 @@ function build(config, done) {
       } else {
         removeEmptyDirectories(temporaryDestination);
         var copyToRealDestination = new rsync()
-          .flags('rlpgoDc')
+          .flags('rlgoDc')
           .delete()
           .source(temporaryDestination + "/")
           .destination(config.destination);
