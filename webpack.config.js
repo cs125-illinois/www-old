@@ -8,7 +8,7 @@ module.exports = {
     publicPath: '/',
     filename: 'js/[name].[chunkhash].js'
   },
-  entry: ['bootstrap', './css/site.scss', './fonts/fonts.css', './css/index.scss' ],
+  entry: ['bootstrap', './css/site.scss', './fonts/fonts.css' ],
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',

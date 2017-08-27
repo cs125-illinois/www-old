@@ -1,0 +1,103 @@
+// Put site customizations here, before we import the rest of Bootstrap's
+// rules.
+
+// Color system
+
+$white:  #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:  #000;
+
+$grays: (
+  100: $gray-100,
+  200: $gray-200,
+  300: $gray-300,
+  400: $gray-400,
+  500: $gray-500,
+  600: $gray-600,
+  700: $gray-700,
+  800: $gray-800,
+  900: $gray-900
+);
+
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #dc3545;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #28a745;
+$teal:    #20c997;
+$cyan:    #17a2b8;
+$illinois-orange: #E84A27;
+$illinois-blue: #13294b;
+
+$colors: (
+  blue: $blue,
+  indigo: $indigo,
+  purple: $purple,
+  pink: $pink,
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+  teal: $teal,
+  cyan: $cyan,
+  white: $white,
+  gray: $gray-600,
+  gray-dark: $gray-800,
+  illinois-orange: $illinois-orange,
+  illinois-blue: $illinois-blue
+);
+
+$theme-colors: (
+  primary: $blue,
+  secondary: $gray-600,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800,
+  illinois-orange: $illinois-orange,
+  illinois-blue: $illinois-blue
+);
+
+// Navbar
+
+$navbar-light-color:                rgba($illinois-orange,.5);
+$navbar-light-hover-color:          rgba($illinois-orange,.7);
+$navbar-light-active-color:         rgba($illinois-orange,.9);
+$navbar-light-disabled-color:       rgba($illinois-orange,.3);
+$navbar-light-toggler-border-color: rgba($illinois-orange,.1);
+
+@import "~bootstrap/scss/bootstrap";
+
+// Globals
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Navbar
+
+nav.navbar {
+  font: {
+    family: "Overpass", $font-family-sans-serif;
+    size: $font-size-lg;
+  }
+  border: {
+    bottom: 4px dashed $illinois-orange;
+  }
+}
+
+// vim: ts=2:sw=2:et:ft=sass
