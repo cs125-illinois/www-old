@@ -1,10 +1,16 @@
+const appRootPath = require('app-root-path'),
+      path = require('path');
+
 const metalsmith = require('metalsmith'),
       ignore = require('metalsmith-ignore'),
       buildDate = require('metalsmith-build-date'),
       drafts = require('metalsmith-drafts'),
-      registerPartials = require('./lib/registerPartials'),
+      permalinks = require('metalsmith-permalinks'),
+      registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js')),
       inPlace = require('metalsmith-in-place'),
       layouts = require('metalsmith-layouts'),
+      fixPath = require(path.join(appRootPath.toString(), 'lib/fixPath.js')),
+      active = require(path.join(appRootPath.toString(), 'lib/active.js')),
       webpack = require('ms-webpack');
 
 const tmp = require('tmp'),
@@ -41,9 +47,12 @@ function build(config, done) {
     .use(inPlace({
       pattern: '**/*.html.hbs',
     }))
+    .use(permalinks({ relative: false }))
     .use(layouts({
       engine: 'handlebars'
     }))
+    .use(fixPath())
+    .use(active())
     .build(function(err) {
       if (err) {
         done(err);
