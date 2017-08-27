@@ -5,9 +5,9 @@ const metalsmith = require('metalsmith'),
       ignore = require('metalsmith-ignore'),
       buildDate = require('metalsmith-build-date'),
       drafts = require('metalsmith-drafts'),
-      permalinks = require('metalsmith-permalinks'),
       registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js')),
       inPlace = require('metalsmith-in-place'),
+      permalinks = require('metalsmith-permalinks'),
       layouts = require('metalsmith-layouts'),
       fixPath = require(path.join(appRootPath.toString(), 'lib/fixPath.js')),
       active = require(path.join(appRootPath.toString(), 'lib/active.js')),
@@ -44,6 +44,11 @@ function build(config, done) {
     .use(drafts())
     .use(registerPartials())
     .use(webpack(webpackConfiguration))
+    .use(function (files, metalsmith, done) {
+      var metadata = metalsmith.metadata();
+      console.log(JSON.stringify(metadata.webpack, null, 2));
+      done();
+    })
     .use(inPlace({
       pattern: '**/*.html.hbs',
     }))
