@@ -81,9 +81,20 @@ $navbar-light-toggler-border-color: rgba($illinois-orange,.1);
 
 @import "~bootstrap/scss/bootstrap";
 
+// Globals
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
 // Navbar
 
 nav.navbar {
+  font: {
+    family: "Overpass", $font-family-sans-serif;
+    size: $font-size-lg;
+  }
   border: {
     bottom: 4px dashed $illinois-orange;
   }
