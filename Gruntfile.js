@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     'http-server': {
       'build': {
         root: path.join(__dirname, '<%= destination %>'),
-        port: 8008,
+        port: 8125,
         host: "127.0.0.1",
         cache: 0,
         showDir: false,
