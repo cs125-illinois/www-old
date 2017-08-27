@@ -11,9 +11,9 @@
     {{/if }}
 
     {{#if js }}
-      <link rel="stylesheet" href="{{ lookup webpack.assets js }}">
+      <script src="{{ lookup webpack.assets js }}" async></script>
     {{else}}
-      <link rel="stylesheet" href="{{ lookup webpack.assets 'site.js' }}">
+      <script src="{{ lookup webpack.assets 'site.js' }}" async></script>
     {{/if }}
   </head>
 

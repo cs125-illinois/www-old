@@ -44,11 +44,6 @@ function build(config, done) {
     .use(drafts())
     .use(registerPartials())
     .use(webpack(webpackConfiguration))
-    .use(function (files, metalsmith, done) {
-      var metadata = metalsmith.metadata();
-      console.log(JSON.stringify(metadata.webpack, null, 2));
-      done();
-    })
     .use(inPlace({
       pattern: '**/*.html.hbs',
     }))
