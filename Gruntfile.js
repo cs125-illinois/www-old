@@ -52,7 +52,7 @@ module.exports = function(grunt) {
                 'latin-ext',
               ],
               styles: [
-                '400', '700', '400i', '700i'
+                '400', '700', '400i', '600', '700'
               ]
             },
             {
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                 'latin-ext',
               ],
               styles: [
-                '400', '700', '400i', '700i'
+                '400', '700', '400i', '600', '700'
               ]
             }
           ]
