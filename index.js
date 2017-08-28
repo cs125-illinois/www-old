@@ -5,6 +5,8 @@ const metalsmith = require('metalsmith'),
       ignore = require('metalsmith-ignore'),
       buildDate = require('metalsmith-build-date'),
       drafts = require('metalsmith-drafts'),
+      filemetadata = require('metalsmith-filemetadata'),
+      asciidoc = require('metalsmith-asciidoc'),
       registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js')),
       webpack = require('ms-webpack'),
       inPlace = require('metalsmith-in-place'),
@@ -30,6 +32,8 @@ const defaults = {
   'destination': 'build'
 };
 
+var syllabusPattern = 'syllabus/**/*.adoc';
+
 function build(config, done) {
   config = _.extend(_.clone(defaults), config || {});
 
@@ -48,6 +52,7 @@ function build(config, done) {
     ]))
     .use(buildDate())
     .use(drafts())
+    .use(asciidoc())
     .use(registerPartials())
     .use(webpack(webpackConfiguration))
     .use(inPlace({
@@ -63,7 +68,7 @@ function build(config, done) {
       spellcheck({ dicFile: 'dicts/en_US.dic',
                    affFile: 'dicts/en_US.aff',
                    exceptionFile: 'dicts/spelling_exceptions.yaml',
-                   checkedPart: "div#content",
+                   checkedPart: "#content",
                    failErrors: false,
                    verbose: !quiet})))
     .use(msif(config.check,

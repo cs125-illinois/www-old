@@ -59,7 +59,7 @@ $colors: (
 );
 
 $theme-colors: (
-  primary: $blue,
+  primary: $illinois-blue,
   secondary: $gray-600,
   success: $green,
   info: $cyan,
@@ -70,10 +70,16 @@ $theme-colors: (
   illinois-orange: $illinois-orange,
   illinois-blue: $illinois-blue
 );
+
+// Links
+
+$link-color:            lighten($illinois-blue, 40%);
+
 // Fonts
 
 $font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $headings-font-family: "Overpass", $font-family-sans-serif;
+$headings-font-weight: 700;
 
 // Navbar
 
@@ -82,6 +88,49 @@ $navbar-light-hover-color:          rgba($illinois-orange,.7);
 $navbar-light-active-color:         rgba($illinois-orange,.9);
 $navbar-light-disabled-color:       rgba($illinois-orange,.3);
 $navbar-light-toggler-border-color: rgba($illinois-orange,.1);
+
+// Sidebar
+
+.cs125-toc {
+  @supports (position: sticky) {
+    position: sticky;
+    top: 4rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+  order: 2;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  font-size: .875rem;
+}
+
+.section-nav {
+  padding-left: 0;
+  border-left: 1px solid #eee;
+
+  ul {
+    padding-left: 1rem;
+
+    ul {
+      display: none;
+    }
+  }
+}
+
+.toc-entry {
+  display: block;
+
+  a {
+    display: block;
+    padding: .125rem 1.5rem;
+    color: #99979c;
+
+    &:hover {
+      color: $blue;
+      text-decoration: none;
+    }
+  }
+}
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -96,6 +145,10 @@ b, strong {
   font-weight: bold;
 }
 
+#content {
+  padding-top: 90px;
+}
+
 // Navbar
 
 nav.navbar {
@@ -108,4 +161,4 @@ nav.navbar {
   }
 }
 
-// vim: ts=2:sw=2:et:ft=sass
+// vim: ts=2:sw=2:et:ft=scss
