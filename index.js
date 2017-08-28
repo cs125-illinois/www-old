@@ -6,12 +6,16 @@ const metalsmith = require('metalsmith'),
       buildDate = require('metalsmith-build-date'),
       drafts = require('metalsmith-drafts'),
       registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js')),
+      webpack = require('ms-webpack'),
       inPlace = require('metalsmith-in-place'),
       permalinks = require('metalsmith-permalinks'),
       layouts = require('metalsmith-layouts'),
       fixPath = require(path.join(appRootPath.toString(), 'lib/fixPath.js')),
       active = require(path.join(appRootPath.toString(), 'lib/active.js')),
-      webpack = require('ms-webpack');
+      msif = require('metalsmith-if'),
+      spellcheck = require('metalsmith-spellcheck'),
+      formatcheck = require('metalsmith-formatcheck'),
+      linkcheck = require('metalsmith-linkcheck');
 
 const tmp = require('tmp'),
       fs = require('fs'),
@@ -33,6 +37,8 @@ function build(config, done) {
   var webpackConfiguration = require('./webpack.config.js');
   webpackConfiguration.output.path = temporaryDestination;
 
+  var quiet = (config.quiet == true);
+
   metalsmith(__dirname)
     .source(config.source)
     .destination(temporaryDestination)
@@ -53,6 +59,17 @@ function build(config, done) {
     }))
     .use(fixPath())
     .use(active())
+    .use(msif((config.check),
+      spellcheck({ dicFile: 'dicts/en_US.dic',
+                   affFile: 'dicts/en_US.aff',
+                   exceptionFile: 'dicts/spelling_exceptions.yaml',
+                   checkedPart: "div#content",
+                   failErrors: false,
+                   verbose: !quiet})))
+    .use(msif(config.check,
+      formatcheck({ verbose: !quiet , failWithoutNetwork: false })))
+    .use(msif(config.check,
+      linkcheck({ verbose: !quiet , failWithoutNetwork: false })))
     .build(function(err) {
       if (err) {
         done(err);
