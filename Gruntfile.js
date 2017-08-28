@@ -1,7 +1,8 @@
 const path = require('path'),
-      fs = require('fs'),
+      fs = require('fs-extra'),
       _ = require('underscore'),
-      touch = require('touch');
+      touch = require('touch'),
+      yamljs = require('yamljs');
 
 module.exports = function(grunt) {
 	grunt.initConfig({
@@ -78,16 +79,14 @@ module.exports = function(grunt) {
           '': ['<%= source %>/fonts/fonts.css']
         }
       }
-    }
+    },
 	});
 
   grunt.loadNpmTasks('grunt-http-server');
-  grunt.loadNpmTasks('grunt-npm-command');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-google-fonts');
   grunt.loadNpmTasks('grunt-lineending');
 
-	require('./index.js')(grunt);
   grunt.registerTask('after:npm-command', function () {
     touch('node_modules');
   });
@@ -97,10 +96,28 @@ module.exports = function(grunt) {
       return fs.statSync(path.join('node_modules', file)).mtime.getTime() < packageJSONTime;
     });
     if (doInstall) {
+      grunt.loadNpmTasks('grunt-npm-command');
       grunt.task.run(['npm-command', 'after:npm-command']);
     }
   });
 
+  grunt.registerTask('people', 'Set up staff bio directories from YAML file.', function () {
+    var course = yamljs.load(path.join(__dirname, grunt.config('source'), 'course.yaml'));
+    var userTemplate = `---
+bio: true
+# Write your biography below this header in Markdown format.
+# If you want to use AsciiDoc, rename this file to have an .adoc extension.
+# You can also add attributes to this front matter in YAML format.
+---
+`;
+    _.each(course.staff, function (staff) {
+      var bioPath = path.join(__dirname, grunt.config('source'), 'people', staff.email.split('@')[0], 'index.md');
+      fs.mkdirsSync(path.dirname(bioPath));
+      fs.writeFileSync(bioPath, userTemplate);
+    });
+  });
+
+  require('./index.js')(grunt);
 	grunt.registerTask('run', ['http-server']);
 	grunt.registerTask('default', ['packages', 'build']);
   grunt.registerTask('fonts', ['googlefonts', 'lineending']);
