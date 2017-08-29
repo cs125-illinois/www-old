@@ -10,14 +10,16 @@ module.exports = {
   },
   entry: {
     site: [
-      'bootstrap',
+      './js/site.js',
       './css/_site.scss',
-      './fonts/fonts.css'
+      './fonts/fonts.css',
+      './fonts/font-awesome.css'
     ],
     index: [
-      'bootstrap',
+      './js/site.js',
       './css/index.scss',
-      './fonts/fonts.css'
+      './fonts/fonts.css',
+      './fonts/font-awesome.css'
     ]
   },
   plugins: [
