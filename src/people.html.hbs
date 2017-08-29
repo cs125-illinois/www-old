@@ -16,6 +16,12 @@ layout: single.hbt
           <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
           <div class="card-body">
             <h4 class="card-title text-center">{{{ this.name }}}</h4>
+              <p class="card-text">
+              Teaching lectures{{#if this.sections}}
+                and {{ inflect this.sections.length "section" "sections" }}
+                {{ and_list this.sections }}.
+                {{else}}.{{/if}}
+              </p>
           </div>
         </div>
       </div>
@@ -32,10 +38,11 @@ layout: single.hbt
           <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
           <div class="card-body">
             <h4 class="card-title text-center">{{{ this.name }}}</h4>
-            <p class="card-text">
               {{#if this.sections }}
-              Teaching {{ inflect this.sections.length "section" "sections" }}
-              {{ and_list this.sections }}.</p>
+                <p class="card-text">
+                  Teaching {{ inflect this.sections.length "section" "sections" }}
+                  {{ and_list this.sections }}.
+                </p>
               {{/if}}
           </div>
         </div>
@@ -53,10 +60,11 @@ layout: single.hbt
           <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
           <div class="card-body">
             <h4 class="card-title text-center">{{{ this.name }}}</h4>
-            <p class="card-text">
               {{#if this.sections }}
-              Assisting with {{ inflect this.sections.length "section" "sections" }}
-              {{ and_list this.sections }}.</p>
+                <p class="card-text">
+                  Assisting with {{ inflect this.sections.length "section" "sections" }}
+                  {{ and_list this.sections }}.
+                </p>
               {{/if}}
           </div>
         </div>
