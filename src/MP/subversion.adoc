@@ -78,6 +78,25 @@ operation.
 Regardless of whether you save your files in Eclipse or any other way, you
 have to commit them to your repository before it will save and remember them.
 
+=== Version Comments
+
+Version control systems also allow you to add your own notes to each commit.
+//
+This is called a _comment_.
+//
+Comments should summarize what changes are included in the new version of the
+project.
+//
+Good comments are extremely helpful to other developers that are trying to
+understand how the code is evolving.
+//
+All version control systems have ways to view the list of version with their
+comments.
+//
+This can be useful when you want to see how things have changed, or back up
+and use an older version of a project where some feature was working that
+isn't any more.
+
 === Merging Changes
 
 Second, version control systems help you merge changes made by different
@@ -128,6 +147,12 @@ But first we have to configure Eclipse to use your CS 125 subversion
 repository.
 
 === Connecting to Your Repository
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+<iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Lyje5yMGFHE" allowfullscreen></iframe>
+</div>
+++++
 
 All repositories for this semester are stored as subfolders under
 //
@@ -182,6 +207,12 @@ To see what it currently contains, right click on it and click "Refresh".
 
 === Adding Projects to Your Repository
 
+++++
+<div class="embed-responsive embed-responsive-4by3">
+<iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/cI7OtJQWFVY" allowfullscreen></iframe>
+</div>
+++++
+
 When you start a new project in Eclipse, the files are initially stored
 locally and not synchronized with your remote repository.
 //
@@ -224,3 +255,68 @@ refer to the latest version of a project, so you should check out that version
 unless you want an earlier one for some reason.
 //
 . Click "Finish". The project should now appear in your workspace.
+
+=== `svn commit`: Committing Changes to Your Repository
+
+image::https://hikaruzone.files.wordpress.com/2015/10/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png?w=800&h=559[float="right", 150]
+
+Remember: version control systems only save the change you have made when you
+tell them to.
+//
+This is called a _commit_, and the process called _committing_.
+//
+Given that committing is essentially saving your changes, this have given rise
+to memes like the one on the right&mdash;although it refers to
+https://git-scm.com/[Git], another popular version control system.
+
+Once you commit a version of a file, Subversion will remember its committed
+contents forever&mdash;even if you change or delete it.
+//
+So you should get into the habit of committing early and often.
+//
+Here are some good times to commit your code:
+
+* You just started a project&mdash;make sure to record it in its initial
+state!
+//
+* You just finished writing a function&mdash;that way you can always get back
+to that version if you make changes later.
+//
+* You just passed one test case&mdash;make sure that Subversion remembers what
+worked forever!
+//
+* You are about to take a break or go to bed.
+//
+* The MP deadline is in thirty minutes&mdash;or in five minutes!
+
+**Get in the habit now of committing your code regularly.**
+//
+Version control systems are very efficient at storing commits, and so the
+overhead of performing them is small.
+//
+Better to have things saved than to want desperately to get back to a previous
+version or remember how you did something and not have it committed.
+
+Note that most version control systems will require you to tell them the first
+time you want to add a new file to a project.
+//
+Once you do this once, that file will be tracked in the future&mdash;but there
+is an initial step that you may sometimes miss.
+
+Here's how to generate a Subversion commit using Eclipse:
+
+. You should have the Project Navigator view open&mdash;the typical view that
+you use when writing, testing, and debugging your code.
+//
+. Right click on the Eclipse project you want to commit and select "Team
+&rarr; Commit".
+//
+. Add a comment to your commit! Comments are really important to helping
+others&mdash;and you&mdash;understand what changed from this commit to the
+last one. Get in the habit of writing good ones footnote:["New." is not a good
+commit message.].
+//
+. If your commit includes new files, select them or click "Select All" to add
+all new files at once.
+//
+. Click OK to finish your commit.
