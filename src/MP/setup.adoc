@@ -7,6 +7,10 @@ changefreq: monthly
 layout: single.hbt
 spelling_exceptions:
   - VCS
+  - Ninite
+  - SDK
+  - JDK
+  - x64
 ---
 :sectnums:
 
@@ -28,6 +32,7 @@ Version Control System (VCS).
 //
 This guide will help you install these tools.
 
+[[eclipse]]
 == Eclipse
 
 [.lead]
@@ -57,6 +62,111 @@ As of late August 2017 that is Eclipse Oxygen.
 
 === Windows
 
+The easiest solution for Windows machines is to use the very nice
+https://ninite.com/[Ninite] bundled installed
+footnote:[https://ninite.com/[Ninite] is actually the creation of a student I
+know from college&dash;which is how I found out about it.]
+//
+It will allow you to install both the Java Software Development Kit (SDK) and
+the Eclipse Integrated Development Environment (IDE) at the same time.
+
+Here are the steps to follow:
+
+. Go to https://ninite.com/[`ninite.com`].
+//
+. At minimum you need to check the "Eclipse" and the "JDK x64 8" boxes
+footnote:[Of course, if you want other software this is a good time to get
+it!].
+//
+. Download and run the installer.
+
+At this point you should be able to find Eclipse in your installed
+applications, or as a shortcut on your desktop.
+
 === Mac
 
-=== Linux
+On Mac there are two steps to installing Eclipse.
+//
+First, you must install the Java Software Development Kit (SDK):
+
+. Go to
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[this
+website].
+//
+Accept the license agreement and download the Java SE Development Kit for Mac
+OS X.
+//
+. Run the installer to complete the installation.
+
+Next, install the latest version of Eclipse:
+
+. Go to https://eclipse.org/[`eclipse.org`] and click on the download link.
+Continue by clicking on the download link on the next page.
+//
+. Download and run the installer to complete the installation.
+
+By default Eclipse installs itself into an `eclipse` folder in your home
+directory.
+//
+If you want it in your applications, move the installed binary into your
+Applications folder.
+
+=== Ubuntu and Chromebooks
+
+Sit tight&mdash;instructions coming shortly.
+
+== Eclipse Plugins
+
+[.lead]
+//
+Once you have <<eclipse, Eclipse installed>>, continue by installing several
+plugins.
+//
+Plugins extend Eclipse by providing new features or capabilities.
+
+
+=== Subversive Subversion Plugin
+
+https://subversion.apache.org/[Subversion] is a software verison control
+system (VCS).
+//
+It allows both individual developers and teams to work together more
+effectively.
+//
+You will use Subversion to retrieve your machine problem (MP) assigments, and
+to submit your solutions.
+
+To install the Subversive Subversion Eclipse plugin, follow the following
+instructions:
+
+. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
+//
+. Search for "subversive".
+//
+. Install the latest version of the "Subversive - SVN Team Provider" plugin.
+//
+. Restart Eclipse.
+
+Now we need to install some additional software to allow Subversion to connect
+to our course repository.
+//
+Continue by following these instructions to set up so-called Subversive
+connectors:
+
+. Open the Eclipse software sources dialog: "Help &rarr; Install New
+Software".
+//
+. Work with
+`http://community.polarion.com/projects/subversive/download/eclipse/6.0/update-site/`
+and click "Add".
+//
+. Name the repository anything you want&mdash; "Subversive Connectors" is
+fine.
+//
+. Select both the "Subversive SVN Connectors" and "Subversive SVN Connectors
+Sources" checkboxes.
+//
+. Complete the rest of the installation dialog. When it prompts you about
+installing untrusted sources, click install anyway.
+//
+. Eclipse should restart again, at which point you are all done.
