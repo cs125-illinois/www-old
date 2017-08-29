@@ -123,7 +123,6 @@ plugins.
 //
 Plugins extend Eclipse by providing new features or capabilities.
 
-
 [[subversive]]
 === Subversive Subversion Plugin
 
@@ -170,6 +169,45 @@ Sources" checkboxes.
 installing untrusted sources, click install anyway.
 //
 . Eclipse should restart again, at which point you are all done.
+
+=== checkstyle
+
+When you write code, style matters.
+//
+This is particularly important as you start to work with others.
+//
+Inconsistent style produces code that is hard for others to read and understand.
+
+As a result, almost all large footnote:[and even most small] software projects
+produce _style guidelines_.
+//
+These are rules about how code should be formatted to ensure consistency across
+multiple developers.
+//
+Some languages, like https://golang.org/[Go], have even gone as far to make
+certain stylistic choices part of the code language specification.
+
+To prepare you for the big wide communal world of programming, we're going to
+have you install and use an Eclipse style checking plugin.
+//
+http://checkstyle.sourceforge.net/[checkstyle] is a Java style checking tool
+that is used and supported by large companies that write Java&mdash;including
+Google footnote:[Most Android app development is done in Java.].
+//
+Our style guidelines are based on the
+http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html[Sun
+Code Conventions].
+
+Installing the checkstyle plugin for Eclipse is fairly easy by using the
+software marketplace:
+
+. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
+//
+. Search for "checkstyle".
+//
+. Install the latest version of the "CheckStyle" plugin.
+//
+. Restart Eclipse.
 
 == Subversion
 
