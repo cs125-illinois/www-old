@@ -111,7 +111,7 @@ project.
 For CS 125, you will use a single repository that holds all of the Java source
 code files that you will use this semester&mdash;both in labs and during the
 machine problems footnote:[Normally you'd split up each assignment into
-separate repositories, but this configuration is easier for us to maintain.].
+separate repositories, but this setup is easier for our purposes.].
 
 For CS 125 your subversion repository is stored on a remote server:
 `https://subversion.ews.illinois.edu/`.
@@ -119,21 +119,101 @@ For CS 125 your subversion repository is stored on a remote server:
 So the steps required to use Subversion effectively&mdash;your version control
 _workflow_&mdash;consist of adding Eclipse projects to your repository,
 committing changes to your files, and adding new files to your repository.
+//
+But first we have to configure Eclipse to use your CS 125 subversion
+repository.
 
-//==== Adding projects to your repository
+=== Connecting to Your Repository
+
+All repositories for this semester are stored as subfolders under
+`https://subversion.ews.illinois.edu/svn/fa17-cs125/`.
 //
-//When you start a new project in Eclipse, the files are initially stored
-//locally and not synchronized with your remote repository.
-////
-//To add a project to your repository and begin tracking changes using
-//Subversion, follow the following steps:
+To get the URL for your repository, simply add your Illinois NetID.
 //
-//. Make sure that you are in the Java perspective: "Window &rarr; Perspective
-//&rarr; Open Perspective &rarr; Java).
-////
-//. Click on "Team &rarr; Share Project". Select the SVN option and click next.
-////
-//. Your CS 125 repository that you have added previously should be listed under "Use
-//existing repository location". Select it.
-////
-//. Choose a name for the new folder that will be created in your repository.
+Here are a few examples:
+
+* I'm NetID `challen`, so my repository is
+//
+`https://subversion.ews.illinois.edu/svn/fa17-cs125/challen`.
+//
+* If my dog Chuchu went to school here
+//
+footnote:[We tried that once, but it
+//
+https://www.change.org/p/davis-hall-administrators-let-chuchu-come-back[didn't
+work out perfectly].], his NetID would be `chuchu` and his repository would be
+//
+`https://subversion.ews.illinois.edu/svn/fa17-cs125/chuchu`.
+//
+I'm not sure what he'd store in there though&mdash;maybe bones?
+//
+* If my dog Xyz went to school here, her NetID would be `purrprincess`, and
+her repository would be
+//
+`https://subversion.ews.illinois.edu/svn/fa17-cs125/chuchu`.
+
+Hopefully by now you get the pattern.
+//
+Now that you have the link to your Subversion repository ready, let's set up
+Eclipse to use it:
+
+. Start by opening the Eclipse SVN Repository Perspective: "Window &rarr;
+Perspective &rarr; Open Perspective &rarr; Other... &rarr; SVN Repository
+Explorer".
+//
+. Now select "New &rarr; Repository Location".
+//
+. Insert the link to your Subversion repository that you computed above.
+//
+. Eclipse will prompt you for your Illinois AD username (NetID) and password.
+Enter them. You may want to choose to save your credentials so that you are
+not repeatedly prompted for your username and password.
+
+At this point you can view your repository.
+//
+To see what it currently contains, right click on it and click "Refresh".
+
+=== Adding Projects to Your Repository
+
+When you start a new project in Eclipse, the files are initially stored
+locally and not synchronized with your remote repository.
+//
+To add a project to your repository and begin tracking changes using
+Subversion, follow the following steps:
+
+. Make sure that you are in the Java perspective: "Window &rarr; Perspective
+&rarr; Open Perspective &rarr; Java).
+//
+. Click on "Team &rarr; Share Project". Select the SVN option and click next.
+//
+. Your CS 125 repository that you have added previously should be listed under "Use
+existing repository location". Select it.
+//
+. Choose a name for the new folder that will be created in your repository.
+//
+. At this point you should be able to browse to your repository using the "SVN
+Repository Perspective" and see that the new project has been added. Cool!
+Welcome to version control.
+
+=== `svn checkout`: Retrieving Projects from Your Repository
+
+Now you've figured out how to add things to your repository.
+//
+But how do you retrieve stuff that is already there?
+
+Subversion refers to this process as a _checkout_.
+//
+To checkout a project in Eclipse, follow the following instructions:
+
+. Start by opening the Eclipse SVN Repository Perspective.
+//
+(Refer to the instructions above if you've forgotten how to do that.)
+//
+. Next we need to find the project that we want to open using the repository
+browser. Once you've located it, right click on it and select "Checkout".
+//
+. Select "Check out as a project in the workspace". Subversion uses `HEAD` to
+refer to the latest version of a project, so you should check out that version
+unless you want an earlier one for some reason.
+//
+. Click "Finish". The project should now appear in your workspace.
