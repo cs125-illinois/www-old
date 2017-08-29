@@ -17,6 +17,7 @@ const metalsmith = require('metalsmith'),
       layouts = require('metalsmith-layouts'),
       fixPath = require(path.join(appRootPath.toString(), 'lib/fixPath.js')),
       active = require(path.join(appRootPath.toString(), 'lib/active.js')),
+      external = require(path.join(appRootPath.toString(), 'lib/external.js')),
       footnotes = require(path.join(appRootPath.toString(), 'lib/footnotes.js')),
       msif = require('metalsmith-if'),
       spellcheck = require('metalsmith-spellcheck'),
@@ -73,6 +74,7 @@ function build(config, done) {
     }))
     .use(fixPath())
     .use(active())
+    .use(external())
     .use(footnotes())
     .use(msif((config.check),
       spellcheck({ dicFile: 'dicts/en_US.dic',
