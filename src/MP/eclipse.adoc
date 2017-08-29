@@ -1,5 +1,5 @@
 ---
-title: "CS 125 Environment Setup"
+title: "Eclipse Setup"
 description:
   Prepare your computer to complete the Java-based machine problems (MPs).
 priority: 0.5
@@ -9,6 +9,12 @@ spelling_exceptions:
   - Ninite
   - x64
   - /Chromebooks?/
+  - checkstyle
+  - CheckStyle
+  - Combinator
+  - Swieskowski
+  - Buildship
+  - testng
 ---
 :sectnums:
 
@@ -22,13 +28,10 @@ code using the
 //
 http://www.eclipse.org/home/index.php[Eclipse]
 //
-Integrated Development Environment (IDE) and submit your assignments using the
+Integrated Development Environment (IDE), augmented with several plugins.
 //
-http://www.eclipse.org/home/index.php[Subversion]
-//
-Version Control System (VCS).
-//
-This guide will help you install, configure, and understand these tools.
+This guide will help you install and configure this important and powerful
+tool.
 
 [[eclipse]]
 == Eclipse
@@ -81,6 +84,21 @@ it!].
 At this point you should be able to find Eclipse in your installed
 applications, or as a shortcut on your desktop.
 
+If you're nervous about using Ninite&mdash;despite
+their backing by http://www.ycombinator.com/[Y Combinator] and glowing reviews
+by http://www.ycombinator.com/[PC World] and others&mdash;perhaps this will
+assuage your fears.
+//
+I actually went to school with
+https://www.crunchbase.com/person/patrick-swieskowski#/entity[Patrick
+Swieskowski], one of the Ninite co-founders.
+//
+He's both a great guy and a tremendous developer.
+//
+I would trust him to install software on my machine footnote:[I actually found
+out about Ninite because I looked him up once. Normally I have little interest
+in Windows software.].
+
 === Mac
 
 On Mac there are two steps to installing Eclipse.
@@ -122,6 +140,12 @@ Once you have <<eclipse, Eclipse installed>>, continue by installing several
 plugins.
 //
 Plugins extend Eclipse by providing new features or capabilities.
+//
+Remembers: computers are powerful and _love_ performing repetitive tasks.
+//
+So they are great at doing things like <<checkstyle, checking our code for formatting
+problems>>, <<testng,running tests>>, and <<gradle, building large projects from multiple source code
+files>>.
 
 [[subversive]]
 === Subversive Subversion Plugin
@@ -170,6 +194,7 @@ installing untrusted sources, click install anyway.
 //
 . Eclipse should restart again, at which point you are all done.
 
+[[checkstyle]]
 === checkstyle
 
 When you write code, style matters.
@@ -207,136 +232,71 @@ software marketplace:
 //
 . Install the latest version of the "CheckStyle" plugin.
 //
-. Restart Eclipse.
+. Restart Eclipse if it doesn't automatically.
 
-== Subversion
+[[testng]]
+=== TestNG
 
-[.lead]
+Writing good tests are an important part of effective software development.
 //
-https://subversion.apache.org/[Subversion] is a source code version control
-system (VCS), also known as _version control_.
+Eclipse comes with built-in support for the http://junit.org/[JUnit] testing
+framework, but we may want to experiment with another testing framework called
+http://testng.org/[TestNG].
 //
-Version control systems are at the heart of how programmers manage and share
-source code.
+It has some nice features that JUnit lacks&mdash;even if it has a much uglier
+website.
 
-=== Why Use Source Version Control?
+The process is quite similar to the one for <<checkstyle, checkstyle>>:
 
-A source code repository is a bit like the shared folders that are provided by
-services like https://www.dropbox.com[Dropbox], https://www.box.com[Box], and
-https://drive.google.com[Google Drive].
+. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
 //
-You can save files and folders and share them with other users in various
-ways.
+. Search for "testng".
 //
-Some of these tools even track allow you to undo and redo changes and see how
-files have changed over time.
+. Install the latest version of the "TestNG for Eclipse" plugin.
 //
-These are useful tools, and a great way to collaborate with others in a
-variety of different scenarios.
-//
-So it's normal to wonder: what's different about source version control?
+. Restart Eclipse if it doesn't automatically.
 
-Compared to tools like Dropbox, source version control provides programmers
-with several important advantages.
+[[gradle]]
+=== Gradle
 
-==== Versioning entire projects
+Building large software projects consisting of multiple source code files is a
+complex process.
+//
+To address this problem, developers frequently use so-called _build systems_
+to automate this process.
+//
+Build systems can intelligently determine what steps need to be taken to build
+a complete application, automatically do things like check style (using tools
+like <<checkstyle, checkstyle>>) or run tests (using tools like <<testng,
+TestNG>>.
 
-First, version control systems track the version of _all the files in each repository_,
-rather than individual files separately.
+https://gradle.org/[Gradle] is a build system.
 //
-Programming frequently involves making a set of changes to a group of files
-that together accomplish something&mdash;like fixing a bug or adding a new
-feature.
+It is frequently used for Java projects, but can be used to build a variety of
+different kinds of software projects.
 //
-So when you commit your work using Subversion, it remembers the state of all
-the files in your repository at that time.
+Gradle is actually so important that Eclipse already comes with it
+pre-installed.
 //
-This allows you to compare what your project looked like at different times,
-and undo an entire set of changes that might have caused a problem.
+Unfortunately, the bundled version is out of date so we need to update it
+manually.
 
-Note that this also means that Subversion **does not** track all the changes
-you save to a file.
-//
-Unless you commit your changes, they are not saved to your repository.
-//
-This may seem like an annoyance&mdash;after all, systems like Dropbox will
-sync your files every time you save them.
+Here's what to do:
 
-But when programming this turns out to be a _huge_ advantage.
+. Open the Eclipse software sources dialog: "Help &rarr; Install New
+Software".
 //
-Let's say you save a version of `Foo.java` to test&mdash;but it contains
-errors.
+. Work with
+`http://download.eclipse.org/buildship/updates/e46/releases/2.x/`
+and click "Add".
 //
-Now if you are using Dropbox, everyone has that broken version of the file.
+. Select the single option that appears "Buildship: Eclipse Plug-ins for
+Gradle"
 //
-But if you are using Subversion, you can test your code, notice the errors,
-and fix them before committing.
+. Eclipse will think for a moment, claim that it can't do what you want, but
+provide the option to "Update my installation...". Just hit next.
+//
+. Hit next, accept the license agreement, and finish.
+//
+. Restart Eclipse if it doesn't automatically.
 
-A Subversion footnote:[or Git] commit is really their equivalent of the save
-operation.
-//
-Regardless of whether you save your files in Eclipse or any other way, you
-have to commit them to your repository before it will save and remember them.
-
-==== Merging changes
-
-Second, version control systems help you merge changes made by different
-developers&mdash;even to the same file.
-//
-Say that `Foo.java` has 1000 lines.
-//
-Alice makes a change at the top of the file.
-//
-Concurrently, Bob makes a change to the bottom of the file.
-//
-Systems like Dropbox will typically force you to address this conflict by
-choosing either Alice's version of the file or Bob's.
-//
-But version control systems can frequently _automatically_ merge
-non-overlapping changes to source code files&mdash;allowing you to choose to
-combine the changes from Alice with the changes from Bob.
-//
-When you are working in large teams on large software projects, this
-capability is extremely handy.
-
-=== Introduction to Subversion
-
-Now that you agree that using version control is useful, let's go through
-the basics of how to use Subversion.
-
-Subversion organizes your files into a _repository_.
-//
-A repository can contain any number of files organized any way you like.
-//
-But a single repository usually contains all of the code used by a single
-project.
-//
-For CS 125, you will use a single repository that holds all of the Java source
-code files that you will use this semester&mdash;both in labs and during the
-machine problems footnote:[Normally you'd split up each assignment into
-separate repositories, but this configuration is easier for us to maintain.].
-
-For CS 125 your subversion repository is stored on a remote server:
-`https://subversion.ews.illinois.edu/`.
-//
-So the steps required to use Subversion effectively&mdash;your version control
-_workflow_&mdash;consist of adding Eclipse projects to your repository,
-committing changes to your files, and adding new files to your repository.
-
-//==== Adding projects to your repository
-//
-//When you start a new project in Eclipse, the files are initially stored
-//locally and not synchronized with your remote repository.
-////
-//To add a project to your repository and begin tracking changes using
-//Subversion, follow the following steps:
-//
-//. Make sure that you are in the Java perspective: "Window &rarr; Perspective
-//&rarr; Open Perspective &rarr; Java).
-////
-//. Click on "Team &rarr; Share Project". Select the SVN option and click next.
-////
-//. Your CS 125 repository that you have added previously should be listed under "Use
-//existing repository location". Select it.
-////
-//. Choose a name for the new folder that will be created in your repository.

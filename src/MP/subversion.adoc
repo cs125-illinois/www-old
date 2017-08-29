@@ -1,0 +1,139 @@
+---
+title: "Introduction to Subversion"
+description:
+  Understand how to use the Subversion version control system.
+priority: 0.5
+changefreq: monthly
+layout: single.hbt
+---
+:sectnums:
+
+[.lead]
+//
+https://subversion.apache.org/[Subversion] is a source code version control
+system (VCS), also known as _version control_.
+//
+Version control systems are at the heart of how programmers manage and share
+source code.
+
+== Why Use Source Version Control?
+
+A source code repository is a bit like the shared folders that are provided by
+services like https://www.dropbox.com[Dropbox], https://www.box.com[Box], and
+https://drive.google.com[Google Drive].
+//
+You can save files and folders and share them with other users in various
+ways.
+//
+Some of these tools even track allow you to undo and redo changes and see how
+files have changed over time.
+//
+These are useful tools, and a great way to collaborate with others in a
+variety of different scenarios.
+//
+So it's normal to wonder: what's different about source version control?
+
+Compared to tools like Dropbox, source version control provides programmers
+with several important advantages.
+
+=== Versioning Entire Projects
+
+First, version control systems track the version of _all the files in each repository_,
+rather than individual files separately.
+//
+Programming frequently involves making a set of changes to a group of files
+that together accomplish something&mdash;like fixing a bug or adding a new
+feature.
+//
+So when you commit your work using Subversion, it remembers the state of all
+the files in your repository at that time.
+//
+This allows you to compare what your project looked like at different times,
+and undo an entire set of changes that might have caused a problem.
+
+Note that this also means that Subversion **does not** track all the changes
+you save to a file.
+//
+Unless you commit your changes, they are not saved to your repository.
+//
+This may seem like an annoyance&mdash;after all, systems like Dropbox will
+sync your files every time you save them.
+
+But when programming this turns out to be a _huge_ advantage.
+//
+Let's say you save a version of `Foo.java` to test&mdash;but it contains
+errors.
+//
+Now if you are using Dropbox, everyone has that broken version of the file.
+//
+But if you are using Subversion, you can test your code, notice the errors,
+and fix them before committing.
+
+A Subversion footnote:[or Git] commit is really their equivalent of the save
+operation.
+//
+Regardless of whether you save your files in Eclipse or any other way, you
+have to commit them to your repository before it will save and remember them.
+
+=== Merging Changes
+
+Second, version control systems help you merge changes made by different
+developers&mdash;even to the same file.
+//
+Say that `Foo.java` has 1000 lines.
+//
+Alice makes a change at the top of the file.
+//
+Concurrently, Bob makes a change to the bottom of the file.
+//
+Systems like Dropbox will typically force you to address this conflict by
+choosing either Alice's version of the file or Bob's.
+//
+But version control systems can frequently _automatically_ merge
+non-overlapping changes to source code files&mdash;allowing you to choose to
+combine the changes from Alice with the changes from Bob.
+//
+When you are working in large teams on large software projects, this
+capability is extremely handy.
+
+== Introduction to Subversion
+
+Now that you agree that using version control is useful, let's go through
+the basics of how to use Subversion.
+
+Subversion organizes your files into a _repository_.
+//
+A repository can contain any number of files organized any way you like.
+//
+But a single repository usually contains all of the code used by a single
+project.
+//
+For CS 125, you will use a single repository that holds all of the Java source
+code files that you will use this semester&mdash;both in labs and during the
+machine problems footnote:[Normally you'd split up each assignment into
+separate repositories, but this configuration is easier for us to maintain.].
+
+For CS 125 your subversion repository is stored on a remote server:
+`https://subversion.ews.illinois.edu/`.
+//
+So the steps required to use Subversion effectively&mdash;your version control
+_workflow_&mdash;consist of adding Eclipse projects to your repository,
+committing changes to your files, and adding new files to your repository.
+
+//==== Adding projects to your repository
+//
+//When you start a new project in Eclipse, the files are initially stored
+//locally and not synchronized with your remote repository.
+////
+//To add a project to your repository and begin tracking changes using
+//Subversion, follow the following steps:
+//
+//. Make sure that you are in the Java perspective: "Window &rarr; Perspective
+//&rarr; Open Perspective &rarr; Java).
+////
+//. Click on "Team &rarr; Share Project". Select the SVN option and click next.
+////
+//. Your CS 125 repository that you have added previously should be listed under "Use
+//existing repository location". Select it.
+////
+//. Choose a name for the new folder that will be created in your repository.
