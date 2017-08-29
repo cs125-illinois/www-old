@@ -149,8 +149,12 @@ repository.
 === Connecting to Your Repository
 
 ++++
+<div class="row justify-content-center mt-3 mb-3">
+<div class="col-12 col-lg-8">
 <div class="embed-responsive embed-responsive-4by3">
 <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Lyje5yMGFHE" allowfullscreen></iframe>
+</div>
+</div>
 </div>
 ++++
 
@@ -208,8 +212,12 @@ To see what it currently contains, right click on it and click "Refresh".
 === Adding Projects to Your Repository
 
 ++++
+<div class="row justify-content-center mt-3 mb-3">
+<div class="col-12 col-lg-8">
 <div class="embed-responsive embed-responsive-4by3">
 <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/cI7OtJQWFVY" allowfullscreen></iframe>
+</div>
+</div>
 </div>
 ++++
 
@@ -320,3 +328,60 @@ commit message.].
 all new files at once.
 //
 . Click OK to finish your commit.
+
+=== `svn update`: Retrieving Changes to Your Repository
+
+Committing allows you to save your changes to the project in your repository.
+//
+To retrieve updates made by others, you perform an _update_.
+
+Subversion, like other version control systems, provides you with control over
+when you receive updates.
+//
+This is another big advantage when compared with systems like Dropbox that
+propagate changes immediately.
+//
+If you are working with others, you may not want to see their changes
+immediately&mdash;particularly if they might interfere with what you are
+working on.
+//
+Having to update manually means that you get to choose a moment when you are
+ready to receive changes.
+
+In CS 125 you are working on assignments independently&mdash;so you might ask,
+who else would be updating my repository?
+//
+There are two possible answers to that question!
+//
+First, we may use your Subversion repository to return grades and testing
+results to you.
+//
+We do this by adding new files to your repository that you then retrieve the
+next time you update.
+//
+It's also possible that you may choose to work on two different
+machines&mdash;a laptop and a desktop at home.
+//
+Assuming you have set up Eclipse and Subversion properly on both, you can use
+the update command on one machine to retrieve commits made on the other.
+
+Here's how you perform an update in Eclipse:
+
+. Right click on the project that you want to update.
+//
+. Click "Team &rarr; Update HEAD". This will get you the latest changes.
+
+At this point it is possible that the changes made by others have conflicted
+with yours.
+//
+If this happens, Eclipse will mark the files in your project for you to fix.
+
+== How to Learn More
+
+As usual the internet is the best way to find out more about anything related
+to technology.
+//
+There are great Subversion tutorials out there that you can find on Google.
+//
+Or ask a member of the course staff for help footnote:[although some of them
+will try to convince you to start learning Git...].
