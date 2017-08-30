@@ -139,6 +139,7 @@ bio: true
 				icons: {
 					android: true,
 					appleIcon: true,
+          appleStartup: false,
 					coast: { offset: 25 },
 					favicons: true,
 					firefox: true,
