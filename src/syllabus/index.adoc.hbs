@@ -8,6 +8,10 @@ description: >
 priority: 0.8
 changefreq: monthly
 layout: single.hbt
+datatables:
+  labtable:
+    pageLength: 5
+    lengthMenu: [ 5, 10, 25 ]
 ---
 :sectnums:
 :linkattrs:
@@ -201,7 +205,7 @@ You can find out more about the entire staff on the link:/people/[people page].
 All of the CS 125 lectures are usually near capacity, so **please attend the
 lecture that you are registered for.**
 
-[.table.table-striped.table-sm,options='header',cols='4*^']
+[.table.table-striped.table-sm.spelling_exception,options='header',cols='4*^']
 |===
 | # | Days | Time | Location
 
@@ -218,22 +222,11 @@ lecture that you are registered for.**
 
 === Labs
 
-[.small]
---
-
-[.table.table-sm.colgroup,cols="^1,^2,^2,^2,^4,^4",options="header"]
+[[labtable]]
+[.table.table-sm.colgroup.datatables.spelling_exception,cols="^1,^2,^2,^2,^4,^4",options="header"]
 |===
 
 | # | Days | Time | Location | TA | Doyens
-
-|===
-
-++++
-<div style="overflow:auto; height:500px;">
-++++
-
-[.table.table-sm.colgroup,cols="^1,^2,^2,^2,^4,^4"]
-|===
 
 {{#each course.timesByType.lab }}
 
@@ -247,10 +240,5 @@ lecture that you are registered for.**
 {{/each}}
 
 |===
-
-++++
-</div>
-++++
---
 
 // vim: ts=2:sw=2:et:ft=asciidoc

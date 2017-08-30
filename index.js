@@ -80,13 +80,14 @@ function build(config, done) {
     }))
     .use(sections())
     .use(permalinks({ relative: false }))
+    .use(hacks.preLayout())
     .use(layouts({
       engine: 'handlebars'
     }))
     .use(fixPath())
     .use(active())
     .use(external())
-    .use(hacks())
+    .use(hacks.postLayout())
     .use(msif((config.check),
       spellcheck({ dicFile: 'dicts/en_US.dic',
                    affFile: 'dicts/en_US.aff',
