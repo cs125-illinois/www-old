@@ -55,18 +55,22 @@ function build(config, done) {
     .use(ignore([
       'fonts/*',
       'css/*',
-      '*.swp',
-      '*.swo'
+      '**/*.swp',
+      '**/*.swo'
     ]))
     .use(buildDate())
     .use(drafts())
     .use(metadata({
       course: 'course.yaml'
     }))
+    .use(people.sortRoles())
+    .use(inPlace({
+      pattern: '**/*.adoc.hbs',
+    }))
     .use(asciidoc())
     .use(markdown())
     .use(footnotes())
-    .use(people())
+    .use(people.addBios())
     .use(registerPartials())
     .use(webpack(webpackConfiguration))
     .use(sections())
