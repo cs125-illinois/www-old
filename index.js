@@ -9,6 +9,7 @@ const metalsmith = require('metalsmith'),
       metadata = require('metalsmith-metadata'),
       asciidoc = require('metalsmith-asciidoc'),
       markdown = require('metalsmith-markdown'),
+      sections = require(path.join(appRootPath.toString(), 'lib/sections.js')),
       people = require(path.join(appRootPath.toString(), 'lib/people.js')),
       registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js')),
       webpack = require('ms-webpack'),
@@ -64,6 +65,7 @@ function build(config, done) {
     }))
     .use(asciidoc())
     .use(markdown())
+    .use(sections())
     .use(people())
     .use(registerPartials())
     .use(webpack(webpackConfiguration))
