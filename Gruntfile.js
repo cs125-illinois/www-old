@@ -150,17 +150,18 @@ bio: true
       function (err, response) {
 				if (err) {
           console.log(err);
-					return;
+					return done();
 				}
         var files = response.images.concat(response.files);
         _.each(files, function (file) {
-          var path = path.join(grunt.config('source'), 'img/favicon', file.name);
-          fs.mkdirsSync(path);
-          fs.writeFileSync(path, file.contents);
+          var filePath = path.join(grunt.config('source'), 'img/favicon', file.name);
+          fs.mkdirsSync(path.dirname(filePath));
+          fs.writeFileSync(filePath, file.contents);
         });
-        var faviconTemplate = path.join(grunt.config('source'), 'layouts/partials/favicon.hbt');
-        fs.mkdirsSync(path);
-        fs.writeFileSync(path, response.html.join('\n'));
+        var faviconTemplate = 'layouts/partials/favicon.hbt';
+        fs.mkdirsSync(path.dirname(faviconTemplate));
+        response.html.push('\n');
+        fs.writeFileSync(faviconTemplate, response.html.join('\n'));
         return done();
 			});
   });
