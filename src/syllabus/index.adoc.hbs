@@ -174,7 +174,7 @@ calendaring program.
 </div>
 ++++
 
-[[sections]]
+[[times]]
 == Dates and Times
 
 [.lead]
@@ -182,20 +182,75 @@ calendaring program.
 CS 125 consists of lecture taught in an active learning format, weekly lab
 sections, and office hours.
 //
-Lectures are taught by the link:/people/#instructiors[instructors],
+You will attend three one-hour lecture per week, one two-hour lab section, and
+many office hours.
+
+Lectures are taught by one the link:/people/#instructiors[instructors]:
 //
-labs by the link:/people/#tas[{{ course.roles.TA.length }} TAs],
+pass:[{{#or_list course.staffByRole.Instructor}}{{ this.name }}{{/or_list}}].
 //
-and office hours are staffed by our link:/people/#doyens[_{{ course.roles.Doyen.length }}_
+Labs are led the link:/people/#tas[{{ course.staffByRole.TA.length }} TAs],
+//
+and office hours are staffed by our link:/people/#doyens[_{{ course.staffByRole.Doyen.length }}_
 Illinoisan Doyens].
 //
 You can find out more about the entire staff on the link:/people/[people page].
-//
-You will attend three one-hour lecture per week, one two-hour lab section, and
-hopefully many office hours.
 
 === Lectures
 
+All of the CS 125 lectures are usually near capacity, so **please attend the
+lecture that you are registered for.**
+
+[.table.table-striped.table-sm,options='header',cols='4*^']
+|===
+| # | Days | Time | Location
+
+{{#each course.timesByType.lecture }}
+
+| {{ this.section }}
+| {{ this.days }}
+| {{ this.start}}&ndash;{{ this.end }}
+| {{ this.location }}
+
+{{/each}}
+
+|===
+
 === Labs
+
+[.small]
+--
+
+[.table.table-sm.colgroup,cols="^1,^2,^2,^2,^4,^4",options="header"]
+|===
+
+| # | Days | Time | Location | TA | Doyens
+
+|===
+
+++++
+<div style="overflow:auto; height:500px;">
+++++
+
+[.table.table-sm.colgroup,cols="^1,^2,^2,^2,^4,^4"]
+|===
+
+{{#each course.timesByType.lab }}
+
+| {{ this.section }}
+| {{ this.days }}
+| {{ this.start}}&ndash;{{ this.end }}
+| {{ this.location }}
+| {{ this.instructor.name }}
+| pass:[{{#and_list this.doyens }}{{ this.name }}{{/and_list}}]
+
+{{/each}}
+
+|===
+
+++++
+</div>
+++++
+--
 
 // vim: ts=2:sw=2:et:ft=asciidoc

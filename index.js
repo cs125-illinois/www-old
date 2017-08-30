@@ -10,7 +10,7 @@ const metalsmith = require('metalsmith'),
       asciidoc = require('metalsmith-asciidoc'),
       markdown = require('metalsmith-markdown'),
       sections = require(path.join(appRootPath.toString(), 'lib/sections.js')),
-      people = require(path.join(appRootPath.toString(), 'lib/people.js')),
+      course = require(path.join(appRootPath.toString(), 'lib/course.js')),
       registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js')),
       webpack = require('ms-webpack'),
       inPlace = require('metalsmith-in-place'),
@@ -20,6 +20,8 @@ const metalsmith = require('metalsmith'),
       active = require(path.join(appRootPath.toString(), 'lib/active.js')),
       external = require(path.join(appRootPath.toString(), 'lib/external.js')),
       footnotes = require(path.join(appRootPath.toString(), 'lib/footnotes.js')),
+      people = require(path.join(appRootPath.toString(), 'lib/people.js')),
+      hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js')),
       msif = require('metalsmith-if'),
       spellcheck = require('metalsmith-spellcheck'),
       formatcheck = require('metalsmith-formatcheck'),
@@ -60,18 +62,18 @@ function build(config, done) {
     ]))
     .use(buildDate())
     .use(drafts())
+    .use(registerPartials())
     .use(metadata({
       course: 'course.yaml'
     }))
-    .use(people.sortRoles())
+    .use(course())
     .use(inPlace({
       pattern: '**/*.adoc.hbs',
     }))
     .use(asciidoc())
     .use(markdown())
     .use(footnotes())
-    .use(people.addBios())
-    .use(registerPartials())
+    .use(people())
     .use(webpack(webpackConfiguration))
     .use(inPlace({
       pattern: '**/*.html.hbs',
@@ -84,6 +86,7 @@ function build(config, done) {
     .use(fixPath())
     .use(active())
     .use(external())
+    .use(hacks())
     .use(msif((config.check),
       spellcheck({ dicFile: 'dicts/en_US.dic',
                    affFile: 'dicts/en_US.aff',

@@ -1,4 +1,5 @@
 import 'bootstrap';
+import 'datatables.net';
 
 $(function () {
   // Turn on popovers and toggle on interior clicks.
