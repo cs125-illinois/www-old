@@ -73,10 +73,10 @@ function build(config, done) {
     .use(people.addBios())
     .use(registerPartials())
     .use(webpack(webpackConfiguration))
-    .use(sections())
     .use(inPlace({
       pattern: '**/*.html.hbs',
     }))
+    .use(sections())
     .use(permalinks({ relative: false }))
     .use(layouts({
       engine: 'handlebars'

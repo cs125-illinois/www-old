@@ -2,7 +2,8 @@ const path = require('path'),
       fs = require('fs-extra'),
       _ = require('underscore'),
       touch = require('touch'),
-      yamljs = require('yamljs');
+      yamljs = require('yamljs'),
+      favicons = require('favicons');
 
 module.exports = function(grunt) {
 	grunt.initConfig({
@@ -115,6 +116,53 @@ bio: true
       fs.mkdirsSync(path.dirname(bioPath));
       fs.writeFileSync(bioPath, userTemplate);
     });
+  });
+
+  grunt.registerTask('favicons', "Create favicons.", function () {
+    var done = this.async();
+	  favicons(path.join(grunt.config('source'), 'img/logos/cs125-60x60.png'),
+      {
+				appName: 'CS 125',
+				appDescription: 'CS 125: Introduction to Computer Science at the University of Illinois',
+				developerName: 'CS 125 Course Staff',
+				developerURL: 'https://cs125.cs.illinois.edu/people/',
+				background: "#fff",
+				theme_color: "#e84a27",
+				path: "/img/favicon/",
+				display: "standalone",
+				orientation: "portrait",
+				start_url: "/?homescreen=1",
+				version: "0.1",
+				logging: false,
+				online: false,
+				preferOnline: false,
+				icons: {
+					android: true,
+					appleIcon: true,
+					appleStartup: true,
+					coast: { offset: 25 },
+					favicons: true,
+					firefox: true,
+					windows: true,
+					yandex: true
+				}
+			},
+      function (err, response) {
+				if (err) {
+          console.log(err);
+					return;
+				}
+        var files = response.images.concat(response.files);
+        _.each(files, function (file) {
+          var path = path.join(grunt.config('source'), 'img/favicon', file.name);
+          fs.mkdirsSync(path);
+          fs.writeFileSync(path, file.contents);
+        });
+        var faviconTemplate = path.join(grunt.config('source'), 'layouts/partials/favicon.hbt');
+        fs.mkdirsSync(path);
+        fs.writeFileSync(path, response.html.join('\n'));
+        return done();
+			});
   });
 
   require('./index.js')(grunt);

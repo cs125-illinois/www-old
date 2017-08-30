@@ -37,7 +37,7 @@ $yellow:  #ffc107;
 $green:   #28a745;
 $teal:    #20c997;
 $cyan:    #17a2b8;
-$illinois-orange: #E84A27;
+$illinois-orange: #e84a27;
 $illinois-blue: #13294b;
 
 $colors: (
@@ -144,6 +144,25 @@ body {
 
 b, strong {
   font-weight: bold;
+}
+
+.person {
+
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: $headings-font-family;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.1rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.2rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.4rem;
+  }
 }
 
 #content {
