@@ -53,7 +53,9 @@ function build(config, done) {
     .destination(temporaryDestination)
     .use(ignore([
       'fonts/*',
-      'css/*'
+      'css/*',
+      '*.swp',
+      '*.swo'
     ]))
     .use(buildDate())
     .use(drafts())
