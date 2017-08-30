@@ -65,10 +65,11 @@ function build(config, done) {
     }))
     .use(asciidoc())
     .use(markdown())
-    .use(sections())
+    .use(footnotes())
     .use(people())
     .use(registerPartials())
     .use(webpack(webpackConfiguration))
+    .use(sections())
     .use(inPlace({
       pattern: '**/*.html.hbs',
     }))
@@ -79,7 +80,6 @@ function build(config, done) {
     .use(fixPath())
     .use(active())
     .use(external())
-    .use(footnotes())
     .use(msif((config.check),
       spellcheck({ dicFile: 'dicts/en_US.dic',
                    affFile: 'dicts/en_US.aff',
