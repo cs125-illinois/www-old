@@ -62,10 +62,10 @@ function build(config, done) {
     ]))
     .use(buildDate())
     .use(drafts())
-    .use(registerPartials())
     .use(metadata({
       course: 'course.yaml'
     }))
+    .use(registerPartials())
     .use(course())
     .use(inPlace({
       pattern: '**/*.adoc.hbs',
