@@ -201,9 +201,15 @@ a.external:after {
 // Navbar
 
 nav.navbar {
+  font-size: 1.1rem;
+  @include media-breakpoint-up(md) {
+    font-size: 1.25rem;
+  }
+  @include media-breakpoint-up(lg) {
+    font-size: 1.5rem;
+  }
   font: {
     family: "Overpass", $font-family-sans-serif;
-    size: $font-size-lg;
   }
   border: {
     bottom: 4px dashed $illinois-orange;
