@@ -3,6 +3,15 @@
 <div id="content" class="container-fluid">
   <div class="row">
     <div class="col-md-1 col-xl-2"></div>
+    {{#if TOC }}
+    <div class="cs125-toc">
+      <nav id="toc" class="nav flex-column">
+        {{#each TOC }}
+        <a class="nav-link" href="#{{{ this.id }}}">{{{ this.text}}}</a>
+        {{/each}}
+      </nav>
+    </div>
+    {{/if}}
     <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5">
       <h1> {{{ title }}}</h1>
       {{{ contents }}}
