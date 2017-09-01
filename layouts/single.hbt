@@ -13,7 +13,9 @@
     </div>
     {{/if}}
     <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5">
-      <h1> {{{ title }}}</h1>
+      {{#unless notitle }}
+        <h1>{{{ title }}}</h1>
+      {{/unless}}
       {{{ contents }}}
     </main>
   </div>
