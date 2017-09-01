@@ -104,49 +104,6 @@ $navbar-light-active-color:         rgba($illinois-orange,.9);
 $navbar-light-disabled-color:       rgba($illinois-orange,.3);
 $navbar-light-toggler-border-color: rgba($illinois-orange,.1);
 
-// Sidebar
-
-.cs125-toc {
-  @supports (position: sticky) {
-    position: sticky;
-    top: 4rem;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
-  }
-  order: 2;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-size: .875rem;
-}
-
-.section-nav {
-  padding-left: 0;
-  border-left: 1px solid #eee;
-
-  ul {
-    padding-left: 1rem;
-
-    ul {
-      display: none;
-    }
-  }
-}
-
-.toc-entry {
-  display: block;
-
-  a {
-    display: block;
-    padding: .125rem 1.5rem;
-    color: #99979c;
-
-    &:hover {
-      color: $blue;
-      text-decoration: none;
-    }
-  }
-}
-
 @import "~bootstrap/scss/bootstrap";
 @import "sidebar";
 
