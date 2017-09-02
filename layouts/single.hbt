@@ -14,7 +14,14 @@
           <ul class="section-nav">
             {{#each TOC }}
             <li class="toc-entry">
-              <a class="nav-link" href="#{{{ this.id }}}">{{{ this.text}}}</a>
+              <a class="nav-link" href="#{{ id }}">{{ text }}</a>
+              {{#if children}}
+                <ul>
+                  {{#each children}}
+                    <li><a class="nav-link" href="#{{ id }}">{{ text }}</a></li>
+                  {{/each}}
+                </ul>
+              {{/if}}
             </li>
             {{/each}}
           </ul>
