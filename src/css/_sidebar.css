@@ -1,25 +1,55 @@
-.cs125-toc {
+.sidebar, .toc {
+  font-family: $headings-font-family;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  a.nav-link, a.sidebar-link {
+    display: block;
+    padding: .25rem 1.5rem;
+    font-weight: 500;
+    color: $illinois-orange;
+    text-decoration: none;
+
+    &:hover, &.active {
+      font-weight: bold;
+    }
+    &.active {
+      color: $illinois-blue;
+    }
+  }
+
   @supports (position: sticky) {
     position: sticky;
     top: 100px;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-size: 1rem;
 }
 
-.section-nav {
-  padding-left: 0;
-  border-left: 1px solid #eee;
-
+.sidebar {
+  font-size: 1.2rem;
+  & .section-nav {
+    padding-right: 0;
+    border-right: 1px solid lighten($illinois-orange, 40%);
+  }
+  ul {
+    padding-right: 1rem;
+  }
+  margin-left: -15px;
+}
+.toc {
+  font-size: 1rem;
+  & .section-nav {
+    padding-left: 0;
+    border-left: 1px solid lighten($illinois-orange, 40%);
+  }
   ul {
     padding-left: 1rem;
-
-    ul {
-      display: none;
-    }
   }
 }
 
@@ -51,37 +81,26 @@
 
 .cs125-sidebar {
   order: 0;
-  // background-color: #f5f2f9;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  font-family: $headings-font-family;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  font-size: 1.2rem;
 
   @include media-breakpoint-up(md) {
     @supports (position: sticky) {
       position: sticky;
-      top: 4rem;
+      top: 100px;
       z-index: 1000;
-      max-height: calc(100vh - 4rem);
+      max-height: calc(100vh - 100px);
     }
-    border-right: 1px solid rgba(0,0,0,.1);
+    border-right: 1px solid lighten($illinois-orange, 40%);
   }
-
   @include media-breakpoint-up(xl) {
     max-width: 320px;
   }
 }
 
 .cs125-links {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  margin-right: -15px;
-  margin-left: -15px;
-
-  @include media-breakpoint-up(md) {
-    @supports (position: sticky) {
-      max-height: calc(100vh - 9rem);
-      overflow-y: auto;
-    }
-  }
-
   // Override collapse behaviors
   @include media-breakpoint-up(md) {
     display: block !important;

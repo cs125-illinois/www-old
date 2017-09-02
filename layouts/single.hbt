@@ -1,36 +1,37 @@
 {{> header }}
 
 <div id="content" class="container-fluid">
-  <div class="row">
-    {{#if sidebar }}
-    {{else}}
-    <div class="col-md-2" style="order: 0"></div>
-    {{/if}}
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar" style="order: 0;">
+      {{#if sidebar }}
+        <nav id="sidebar" class="nav flex-column">
+          {{> (lookup . 'sidebar') }}
+        </nav>
+      {{/if}}
+    </div>
 
     {{#if TOC }}
-    <div class="col-md-2 col-xl-3" style="order: 2">
-      <div class="d-none d-xl-block cs125-toc">
-        <nav id="toc" class="nav flex-column">
-          <ul class="section-nav">
-            {{#each TOC }}
-            <li class="toc-entry">
-              <a class="nav-link" href="#{{ id }}">{{ text }}</a>
-              {{#if children}}
-                <ul>
-                  {{#each children}}
-                    <li><a class="nav-link" href="#{{ id }}">{{ text }}</a></li>
-                  {{/each}}
-                </ul>
-              {{/if}}
-            </li>
-            {{/each}}
-          </ul>
-        </nav>
-      </div>
+    <div class="col-xl-3 d-none d-xl-block toc" style="order: 2;">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          {{#each TOC }}
+          <li class="toc-entry">
+            <a class="nav-link" href="#{{ id }}">{{ text }}</a>
+            {{#if children}}
+            <ul>
+              {{#each children}}
+              <li><a class="nav-link" href="#{{ id }}">{{ text }}</a></li>
+              {{/each}}
+            </ul>
+            {{/if}}
+          </li>
+          {{/each}}
+        </ul>
+      </nav>
     </div>
     {{/if}}
 
-    <main class="col-12 col-md-8 col-xl-7 py-md-3">
+    <main class="col-12 col-md-9 col-xl-7 py-md-3" style="order:1;">
 
       <a class="anchor" id="top"></a>
       {{#unless notitle }}
