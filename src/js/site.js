@@ -14,7 +14,6 @@ $(function () {
   $('.datatables').each (function () {
     $(this).DataTable(JSON.parse($(this).attr('data-datatables')));
   });
-  $('body').scrollspy({ target: '#toc' });
 });
 
 // vim: ts=2:sw=2:et
