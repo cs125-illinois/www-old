@@ -6,6 +6,9 @@
     list-style-type: none;
     margin: 0px;
     padding: 0px;
+    ul {
+      font-size: 90%;
+    }
   }
 
   a.nav-link, a.sidebar-link {
@@ -29,6 +32,25 @@
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
+
+  & .entry {
+    display: block;
+
+    a {
+      display: block;
+      padding: .125rem 1.5rem;
+      color: $illinois-orange;
+      text-decoration: none;
+
+      &:hover, &.active {
+        font-weight: bold;
+        text-decoration: none;
+      }
+      &.active {
+        color: $illinois-blue;
+      }
+    }
+  }
 }
 
 .sidebar {
@@ -39,6 +61,10 @@
   }
   ul {
     padding-right: 1rem;
+    ul {
+      padding-left: 1rem;
+      padding-right: 0rem;
+    }
   }
   margin-left: -15px;
 }
@@ -53,39 +79,12 @@
   }
 }
 
-.toc-entry {
-  display: block;
-
-  a {
-    display: block;
-    padding: .125rem 1.5rem;
-    color: $illinois-orange;
-    text-decoration: none;
-
-    &:hover, &.active {
-      font-weight: bold;
-      text-decoration: none;
-    }
-    &.active {
-      color: $illinois-blue;
-    }
-  }
-  ul {
-    list-style: none;
-  }
-}
 
 //
 // Left side navigation
 //
 
 .cs125-sidebar {
-  order: 0;
-  font-family: $headings-font-family;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-size: 1.2rem;
-
   @include media-breakpoint-up(md) {
     @supports (position: sticky) {
       position: sticky;
@@ -101,7 +100,6 @@
 }
 
 .cs125-links {
-  // Override collapse behaviors
   @include media-breakpoint-up(md) {
     display: block !important;
   }
@@ -123,65 +121,6 @@
 .cs125-search-docs-toggle {
   line-height: 1;
   color: $gray-900;
-}
-
-.cs125-sidenav {
-  display: none;
-}
-
-.cs125-toc-link {
-  display: block;
-  padding: .25rem 1.5rem;
-  font-weight: 500;
-  color: rgba(0,0,0,.65);
-
-  &:hover {
-    color: rgba(0,0,0,.85);
-    text-decoration: none;
-  }
-}
-
-.cs125-toc-item {
-  &.active {
-    margin-bottom: 1rem;
-
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
-
-    > .cs125-toc-link {
-      color: rgba(0,0,0,.85);
-
-      &:hover {
-        background-color: transparent;
-      }
-    }
-
-    > .cs125-sidenav {
-      display: block;
-    }
-  }
-}
-
-// All levels of nav
-.cs125-sidebar .nav > li > a {
-  display: block;
-  padding: .25rem 1.5rem;
-  font-size: 90%;
-  color: rgba(0,0,0,.65);
-}
-
-.cs125-sidebar .nav > li > a:hover {
-  color: rgba(0,0,0,.85);
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.cs125-sidebar .nav > .active > a,
-.cs125-sidebar .nav > .active:hover > a {
-  font-weight: 500;
-  color: rgba(0,0,0,.85);
-  background-color: transparent;
 }
 
 // vim: ts=2:sw=2:et:ft=scss
