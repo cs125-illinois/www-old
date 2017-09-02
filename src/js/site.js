@@ -14,6 +14,13 @@ $(function () {
   $('.datatables').each (function () {
     $(this).DataTable(JSON.parse($(this).attr('data-datatables')));
   });
+  $('div.lazyiframe').each(function () {
+    var iframe = $("<iframe/>");
+    $.each(JSON.parse(decodeURI($(this).data('attribs'))), function (name, value) {
+      $(iframe).attr(name, value);
+    });
+    $(this).replaceWith(iframe);
+  });
 });
 
 // vim: ts=2:sw=2:et
