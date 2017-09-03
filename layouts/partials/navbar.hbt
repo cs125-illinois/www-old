@@ -54,13 +54,27 @@
            data-active="^MP">MPs</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-md-auto mr-2 d-none d-lg-flex">
-      <li class="nav-item mr-2">
-        <a href="{{ course.links.youtube }}" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ course.links.github }}" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
-      </li>
+    <ul class="navbar-nav ml-auto mr-2">
+      <div class="d-flex d-md-none">
+        <li class="nav-item mr-2">
+          <button type="button"
+                  data-toggle="collapse"
+                  data-target="#sidebar"
+                  aria-controls="sidebar"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </li>
+      </div>
+      <div class="d-none d-md-flex">
+        <li class="nav-item mr-2">
+          <a href="{{ course.links.youtube }}" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ course.links.github }}" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+        </li>
+      </div>
     </ul>
   </nav>
   <div id="fadeout"></div>

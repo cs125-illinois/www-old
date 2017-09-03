@@ -4,9 +4,11 @@
   <div class="row flex-xl-nowrap">
     <div class="col-12 col-md-3 col-xl-2 sidebar" style="order: 0;">
       {{#if sidebar }}
-        <nav id="sidebar" class="nav flex-column">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
           {{> (lookup . 'sidebar') }}
         </nav>
+      </div>
       {{/if}}
     </div>
 
