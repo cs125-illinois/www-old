@@ -1,5 +1,5 @@
 <div id="navbarTop" class="fixed-top">
-  <nav class="navbar navbar-expand navbar-light bg-white pb-2">
+  <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
     <a class="navbar-brand" href="/">
       <img src="/img/logos/cs125-wide-157x60.png"
            width="157"
@@ -7,11 +7,24 @@
            class="d-none d-lg-inline-block align-top"
            alt="CS 125: Introduction to Computer Science">
       <img src="/img/logos/cs125-60x60.png"
-           width="60"
-           height="60"
+           width="46"
+           height="46"
            class="d-inline-block d-lg-none align-top"
            alt="CS 125: Introduction to Computer Science">
     </a>
+    {{#if sidebar }}
+    <button id="sidebar-button"
+            type="button"
+            data-toggle="collapse"
+            data-target="#sidebar"
+            aria-controls="sidebar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            class="d-block d-md-none"
+            style="position: fixed; top: 20px; right: 20px;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    {{/if}}
     <ul class="navbar-nav">
       <li class="d-none d-lg-inline-block nav-item">
         <a class="nav-link"
@@ -45,19 +58,6 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto mr-2">
-      {{#if sidebar }}
-      <li class="d-flex d-md-none nav-item mr-sm-2">
-        <button id="sidebar-button"
-                type="button"
-                data-toggle="collapse"
-                data-target="#sidebar"
-                aria-controls="sidebar"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </li>
-      {{/if}}
       <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
         <a href="{{ course.links.youtube }}" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
       </li>

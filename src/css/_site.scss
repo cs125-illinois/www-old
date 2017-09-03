@@ -119,6 +119,10 @@ b, strong {
   font-weight: bold;
 }
 
+main {
+  word-wrap: break-word;
+}
+
 .person {
 
   font-weight: bold;
@@ -162,7 +166,7 @@ a.external:after {
 // Navbar
 
 nav.navbar {
-  font-size: 1.1rem;
+  font-size: 1.0rem;
   @include media-breakpoint-up(md) {
     font-size: 1.25rem;
   }
@@ -177,6 +181,14 @@ nav.navbar {
   }
   .navbar-icon {
     color: $illinois-orange;
+  }
+  a.nav-link {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    @include media-breakpoint-up(md) {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
   }
 }
 div#fadeout {

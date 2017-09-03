@@ -1,5 +1,7 @@
 .sidebar, .toc {
   font-family: $headings-font-family;
+  word-wrap: break-word;
+
   ul {
     list-style-type: none;
     margin: 0px;
@@ -36,7 +38,13 @@
   font-size: 1.2rem;
   & .section-nav {
     padding-right: 0;
-    border-right: 1px solid lighten($illinois-orange, 40%);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid lighten($illinois-orange, 40%);
+    @include media-breakpoint-up(md) {
+      border-bottom: none;
+      padding-bottom: 0;
+      border-right: 1px solid lighten($illinois-orange, 40%);
+    }
   }
   ul {
     padding-right: 1rem;
