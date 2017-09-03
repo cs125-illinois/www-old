@@ -21,6 +21,7 @@ const metalsmith = require('metalsmith'),
       external = require(path.join(appRootPath.toString(), 'lib/external.js')),
       footnotes = require(path.join(appRootPath.toString(), 'lib/footnotes.js')),
       people = require(path.join(appRootPath.toString(), 'lib/people.js')),
+      iframes = require(path.join(appRootPath.toString(), 'lib/iframes.js')),
       hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js')),
       msif = require('metalsmith-if'),
       spellcheck = require('metalsmith-spellcheck'),
@@ -87,6 +88,7 @@ function build(config, done) {
     .use(fixPath())
     .use(active())
     .use(external())
+    .use(iframes())
     .use(hacks.postLayout())
     .use(msif((config.check),
       spellcheck({ dicFile: 'dicts/en_US.dic',

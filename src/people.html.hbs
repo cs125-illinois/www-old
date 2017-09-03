@@ -5,84 +5,77 @@ description:
   the way.
 priority: 0.9
 changefreq: monthly
+layout: people/index.hbt
 ---
-{{> header }}
-
-<div id="content" class="container-fluid">
+<a class="anchor" id="top"></a>
+<div class="mt-2 spelling_exception">
+  <h2 id="instructors" class="text-primary">Instructors</h2>
   <div class="row">
-    <div class="col-xl-2"></div>
-    <main class="col-12 col-xl-8 py-md-3 pl-md-5">
-
-    <h1> {{{ title }}}</h1>
-
-    <div class="mt-3 spelling_exception">
-      <h1 id="instructors" class="text-primary">Instructors</h1>
-      <div class="row">
-        {{#each course.staffByRole.Instructor }}
-        <div class="col-12 col-sm-6 col-lg-4 mt-2">
-          <div class="card pt-2 pl-2 pr-2">
-            <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
-            <div class="card-body">
-              <h4 class="card-title text-center">{{{ this.name }}}</h4>
-              <p class="card-text">
-              Teaching lectures{{#if this.sections}}
-              and {{ inflect this.sections.length "section" "sections" }}
-              {{#and_list this.sections }}{{ this }}{{/and_list}}
-              {{else}}.{{/if}}
-              </p>
-            </div>
-          </div>
+    {{#each course.staffByRole.Instructor }}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <div class="card-body">
+          <h4 class="card-title text-center">{{{ this.name }}}</h4>
+          <p class="card-text">
+          Teaching lectures{{#if this.sections}}
+          and {{ inflect this.sections.length "section" "sections" }}
+          {{#and_list this.sections }}{{ this }}{{/and_list}}
+          {{else}}.{{/if}}
+          </p>
         </div>
-        {{/each }}
       </div>
     </div>
+    {{/each }}
+  </div>
+</div>
 
-    <div class="mt-3 spelling_exception">
-      <h1 id="tas" class="text-primary">Teaching Assistants</h1>
-      <div class="row">
-        {{#each course.staffByRole.TA }}
-        <div class="col-12 col-sm-6 col-lg-4 mt-2">
-          <div class="card pt-2 pl-2 pr-2">
-            <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
-            <div class="card-body">
-              <h5 class="card-title text-center">{{{ this.name }}}</h5>
-              {{#if this.sections }}
-              <p class="card-text">
-              Teaching {{ inflect this.sections.length "section" "sections" }}
-              {{#and_list this.sections }}{{ this }}{{/and_list}}
-              </p>
-              {{/if}}
-            </div>
-          </div>
+<div class="mt-3 spelling_exception">
+  <h2 id="tas" class="text-primary">Teaching Assistants</h2>
+  <div class="row">
+    {{#each course.staffByRole.TA }}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{{ this.name }}}</h5>
+          {{#if this.sections }}
+          <p class="card-text">
+          Teaching {{ inflect this.sections.length "section" "sections" }}
+          {{#and_list this.sections }}{{ this }}{{/and_list}}
+          </p>
+          {{/if}}
         </div>
-        {{/each }}
       </div>
     </div>
+    {{/each }}
+  </div>
+</div>
 
-    <div class="mt-3 spelling_exception">
-      <h1 id="doyens" class="text-primary">Illinoisan Doyens</h1>
-      <div class="row">
-        {{#each course.staffByRole.Doyen }}
-        <div class="col-12 col-sm-6 col-lg-4 mt-2">
-          <div class="card pt-2 pl-2 pr-2">
-            <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
-            <div class="card-body">
-              <div class="person card-title text-center">{{{ this.name }}}</div>
-              {{#if this.sections }}
-              <p class="card-text">
-              Assisting with {{ inflect this.sections.length "section" "sections" }}
-              {{#and_list this.sections }}{{ this }}{{/and_list}}
-              </p>
-              {{/if}}
-            </div>
-          </div>
+<div class="mt-3 spelling_exception">
+  <h2 id="doyens" class="text-primary">Illinoisan Doyens</h2>
+  <div class="row">
+    {{#each course.staffByRole.Doyen }}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <div class="card-body">
+          <div class="person card-title text-center">{{{ this.name }}}</div>
+          {{#if this.sections }}
+          <p class="card-text">
+          Assisting with {{ inflect this.sections.length "section" "sections" }}
+          {{#and_list this.sections }}{{ this }}{{/and_list}}
+          </p>
+          {{/if}}
         </div>
-        {{/each }}
       </div>
     </div>
-
-    </main>
+    {{/each }}
   </div>
 </div>
 
 {{> footer }}
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->

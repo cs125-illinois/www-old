@@ -1,85 +1,81 @@
-.cs125-toc {
+.sidebar, .toc {
+  font-family: $headings-font-family;
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    ul {
+      font-size: 90%;
+    }
+  }
+
   @supports (position: sticky) {
     position: sticky;
-    top: 4rem;
-    max-height: calc(100vh - 4rem);
+    top: 100px;
+    max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
-  order: 2;
+
+  & .entry {
+    display: block;
+
+    a {
+      display: block;
+      padding: .125rem 1.5rem;
+      color: $illinois-orange;
+      text-decoration: none;
+
+      &:hover, &.active {
+        color: $illinois-blue;
+      }
+    }
+  }
+}
+
+.sidebar {
+  font-size: 1.2rem;
+  & .section-nav {
+    padding-right: 0;
+    border-right: 1px solid lighten($illinois-orange, 40%);
+  }
+  ul {
+    padding-right: 1rem;
+    ul {
+      padding-left: 1rem;
+      padding-right: 0rem;
+    }
+  }
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-left: -15px;
+  div#sidebar {
+    nav {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+    @include media-breakpoint-up(md) {
+      & {
+        display: block !important;
+      }
+    }
+  }
+}
+.toc {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  font-size: .875rem;
-}
-
-.section-nav {
-  padding-left: 0;
-  border-left: 1px solid #eee;
-
+  font-size: 1rem;
+  & .section-nav {
+    padding-left: 0;
+    border-left: 1px solid lighten($illinois-orange, 40%);
+  }
   ul {
     padding-left: 1rem;
-
-    ul {
-      display: none;
-    }
   }
 }
 
-.toc-entry {
-  display: block;
-
-  a {
-    display: block;
-    padding: .125rem 1.5rem;
-    color: #99979c;
-
-    &:hover {
-      color: $blue;
-      text-decoration: none;
-    }
-  }
-}
-
-//
-// Left side navigation
-//
-
-.cs125-sidebar {
-  order: 0;
-  // background-color: #f5f2f9;
-  border-bottom: 1px solid rgba(0,0,0,.1);
-
-  @include media-breakpoint-up(md) {
-    @supports (position: sticky) {
-      position: sticky;
-      top: 4rem;
-      z-index: 1000;
-      max-height: calc(100vh - 4rem);
-    }
-    border-right: 1px solid rgba(0,0,0,.1);
-  }
-
-  @include media-breakpoint-up(xl) {
-    max-width: 320px;
-  }
-}
-
-.cs125-links {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  margin-right: -15px;
-  margin-left: -15px;
-
-  @include media-breakpoint-up(md) {
-    @supports (position: sticky) {
-      max-height: calc(100vh - 9rem);
-      overflow-y: auto;
-    }
-  }
-
-  // Override collapse behaviors
-  @include media-breakpoint-up(md) {
-    display: block !important;
-  }
+#sidebar-button {
+  background-color: transparent;
+  border: 1px solid $illinois-orange;
 }
 
 .cs125-search {
@@ -98,65 +94,6 @@
 .cs125-search-docs-toggle {
   line-height: 1;
   color: $gray-900;
-}
-
-.cs125-sidenav {
-  display: none;
-}
-
-.cs125-toc-link {
-  display: block;
-  padding: .25rem 1.5rem;
-  font-weight: 500;
-  color: rgba(0,0,0,.65);
-
-  &:hover {
-    color: rgba(0,0,0,.85);
-    text-decoration: none;
-  }
-}
-
-.cs125-toc-item {
-  &.active {
-    margin-bottom: 1rem;
-
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
-
-    > .cs125-toc-link {
-      color: rgba(0,0,0,.85);
-
-      &:hover {
-        background-color: transparent;
-      }
-    }
-
-    > .cs125-sidenav {
-      display: block;
-    }
-  }
-}
-
-// All levels of nav
-.cs125-sidebar .nav > li > a {
-  display: block;
-  padding: .25rem 1.5rem;
-  font-size: 90%;
-  color: rgba(0,0,0,.65);
-}
-
-.cs125-sidebar .nav > li > a:hover {
-  color: rgba(0,0,0,.85);
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.cs125-sidebar .nav > .active > a,
-.cs125-sidebar .nav > .active:hover > a {
-  font-weight: 500;
-  color: rgba(0,0,0,.85);
-  background-color: transparent;
 }
 
 // vim: ts=2:sw=2:et:ft=scss

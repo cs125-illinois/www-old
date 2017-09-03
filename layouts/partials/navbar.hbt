@@ -1,85 +1,74 @@
-<div class="fixed-top">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white pb-2">
+<div id="navbarTop" class="fixed-top">
+  <nav class="navbar navbar-expand navbar-light bg-white pb-2">
     <a class="navbar-brand" href="/">
       <img src="/img/logos/cs125-wide-157x60.png"
            width="157"
            height="60"
-           class="d-inline-block align-top"
+           class="d-none d-lg-inline-block align-top"
+           alt="CS 125: Introduction to Computer Science">
+      <img src="/img/logos/cs125-60x60.png"
+           width="60"
+           height="60"
+           class="d-inline-block d-lg-none align-top"
            alt="CS 125: Introduction to Computer Science">
     </a>
-    <button class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarTop"
-            aria-controls="navbarTop"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse"
-         id="navbarTop">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link"
-             href="/"
-             data-prefix="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-             href="/forum/"
-             target="_blank">Forum</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-             href="/syllabus/"
-             data-prefix="syllabus">Syllabus</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-             href="/people/"
-             data-prefix="people">People</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#"
-             class="nav-link dropdown-toggle"
-             id="menu-lab"
-             title="Attend lab sections to improve your skills and increase your knowledge."
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">
-            Labs
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="nav-link" href="/lab/0/">0: Ready to Start</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#"
-             class="nav-link dropdown-toggle"
-             id="menu-MP"
-             title="Complete programming assignments (MPs) to gain development practice."
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">
-            MPs
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="nav-link" href="/MP/eclipse/">Setup Eclipse</a></li>
-            <li><a class="nav-link" href="/MP/subversion/">Subversion Usage</a></li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-md-auto mr-2">
-        <li class="nav-item mr-2">
-          <a href="{{ course.links.youtube }}" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ course.links.github }}" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
-        </li>
-      </ul>
-    </div>
+    <ul class="navbar-nav">
+      <li class="d-none d-lg-inline-block nav-item">
+        <a class="nav-link"
+           href="/"
+           data-active="^$">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="/forum/"
+           target="_blank">Forum</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="/syllabus/"
+           data-active="^syllabus">Syllabus</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="/people/"
+           data-active="^people">People</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="/lab/0/"
+           data-active="^lab">Labs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="/MP/eclipse/"
+           data-active="^MP">MPs</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto mr-2">
+      {{#if sidebar }}
+      <li class="d-flex d-md-none nav-item mr-sm-2">
+        <button id="sidebar-button"
+                type="button"
+                data-toggle="collapse"
+                data-target="#sidebar"
+                aria-controls="sidebar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </li>
+      {{/if}}
+      <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+        <a href="{{ course.links.youtube }}" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+      </li>
+      <li class="d-none d-md-flex nav-item">
+        <a href="{{ course.links.github }}" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+      </li>
+    </ul>
   </nav>
   <div id="fadeout"></div>
 </div>
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
