@@ -1,7 +1,5 @@
 .sidebar, .toc {
   font-family: $headings-font-family;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
   ul {
     list-style-type: none;
     margin: 0px;
@@ -47,8 +45,14 @@
       padding-right: 0rem;
     }
   }
+  padding-top: 0px;
+  padding-bottom: 0px;
   margin-left: -15px;
   div#sidebar {
+    nav {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
     @include media-breakpoint-up(md) {
       & {
         display: block !important;
@@ -57,6 +61,8 @@
   }
 }
 .toc {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   font-size: 1rem;
   & .section-nav {
     padding-left: 0;
@@ -67,30 +73,9 @@
   }
 }
 
-
-//
-// Left side navigation
-//
-
-.cs125-sidebar {
-  @include media-breakpoint-up(md) {
-    @supports (position: sticky) {
-      position: sticky;
-      top: 100px;
-      z-index: 1000;
-      max-height: calc(100vh - 100px);
-    }
-    border-right: 1px solid lighten($illinois-orange, 40%);
-  }
-  @include media-breakpoint-up(xl) {
-    max-width: 320px;
-  }
-}
-
-.cs125-links {
-  @include media-breakpoint-up(md) {
-    display: block !important;
-  }
+#sidebar-button {
+  background-color: transparent;
+  border: 1px solid $illinois-orange;
 }
 
 .cs125-search {

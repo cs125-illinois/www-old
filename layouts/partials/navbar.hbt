@@ -33,20 +33,10 @@
            href="/people/"
            data-active="^people">People</a>
       </li>
-      <li class="nav-item dropdown">
-        <a href="#"
-           class="nav-link dropdown-toggle"
-           id="menu-lab"
-           title="Attend lab sections to improve your skills and increase your knowledge."
-           data-toggle="dropdown"
-           role="button"
-           aria-haspopup="true"
-           aria-expanded="false">
-          Labs
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="nav-link" href="/lab/0/">0: Ready to Start</a></li>
-        </ul>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="/lab/0/"
+           data-active="^lab">Labs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link"
@@ -55,26 +45,25 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto mr-2">
-      <div class="d-flex d-md-none">
-        <li class="nav-item mr-2">
-          <button type="button"
-                  data-toggle="collapse"
-                  data-target="#sidebar"
-                  aria-controls="sidebar"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </li>
-      </div>
-      <div class="d-none d-md-flex">
-        <li class="nav-item mr-2">
-          <a href="{{ course.links.youtube }}" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ course.links.github }}" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
-        </li>
-      </div>
+      {{#if sidebar }}
+      <li class="d-flex d-md-none nav-item mr-sm-2">
+        <button id="sidebar-button"
+                type="button"
+                data-toggle="collapse"
+                data-target="#sidebar"
+                aria-controls="sidebar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </li>
+      {{/if}}
+      <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+        <a href="{{ course.links.youtube }}" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+      </li>
+      <li class="d-none d-md-flex nav-item">
+        <a href="{{ course.links.github }}" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+      </li>
     </ul>
   </nav>
   <div id="fadeout"></div>
