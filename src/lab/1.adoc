@@ -6,6 +6,8 @@ description:
 priority: 0.5
 changefreq: monthly
 layout: single.hbt
+spelling_exceptions:
+  - futz
 sidebar: lab
 ---
 
@@ -40,3 +42,217 @@ When you are done, move on to the next section.
 
 == Graphical Exploration [.text-muted]#(60 Minutes)#
 
+[.lead]
+//
+Now let's experiment with some Java code!
+
+These examples use the Zen graphics library authored by Illinois CS faculty
+member
+//
+https://cs.illinois.edu/directory/profile/angrave[Lawrence Angrave].
+//
+You can find the
+//
+https://github.com/cs125-illinois/Zen[Zen source code]
+//
+and
+//
+https://cs125-illinois.github.io/Zen/[documentation]
+//
+on https://github.com/[GitHub].
+
+=== Cloning the Lab1 Eclipse Project
+
+We've set up an Eclipse Project that's correctly configured for Lab 1.
+//
+The only problem is&mdash;it's on
+https://github.com/cs125-illinois/Lab1[_GitHub_].
+//
+This is intentional.
+//
+Although we're using Subversion this semester, we wanted to give you a chance to
+practice importing a project in another way.
+//
+But don't worry, we'll walk you through the steps required to get a local copy
+of it below.
+//
+And Eclipse already has great Git integration, so there are no plugins to futz
+around with.
+
+. In Eclipse, open "File &rarr; Import &rarr; Git &rarr; Projects from Git"
+//
+. Choose "Clone URI". This will allow us to retrieve a repository from a remote
+URL, in this case one pointing to GitHub.
+//
+. Go to https://github.com/cs125-illinois/Lab1[this GitHub link]. Click on
+"Clone or Download", make sure that "Clone with HTTPS" is selected, and copy the
+URL to your clipboard.
+//
+It should be this one:
+//
+link:https://github.com/cs125-illinois/Lab1.git[https://github.com/cs125-illinois/Lab1.git, role="noclick link_exception"].
+//
+. Copy that link into the 'URI' field in the open Eclipse dialog. All other
+required fields should be populated for you.
+//
+. Click next and choose to work with the master branch, which should be selected
+by default.
+//
+. Pick a directory where you want to store these files and click next.
+//
+. Leave 'Import existing Eclipse projects' selected and click next.
+//
+. At this point you should be able to click 'Finish' and start working with our
+Lab1 project in Eclipse.
+
+=== Graphical Explorations
+
+At this point you should have a working copy of our Lab 1 Eclipse project.
+//
+So start poking around!
+//
+All of the examples in the `src/main/java` folder are runnable, although you
+should be sure to choose "Run as Java Application" the first time you run them.
+
+Here is our suggested order of how you explore the files, along with some notes
+about possible extensions or modifications to each that you may want to try.
+//
+Don't get too bogged down on any one, and overall have fun!
+
+==== `HelloWorld.java`
+
+This one is pretty simple. See if you can:
+
+. change the greeting message
+
+==== `OnceUponAWhile.java`
+
+This example is a bit more complicated. See if you can:
+
+. change the color of the text that is displayed
+//
+. slow down the fade-out that happens toward the end
+
+==== To Flip or Not to Flip
+
+Together `SpriteMoveFlipBuffer.java` and `SpriteMoveNoFlipBuffer.java` introduce
+you to an important concept in graphical rendering known as
+//
+https://en.wikipedia.org/wiki/Multiple_buffering[_buffer swapping_]
+//
+footnote:[Or buffer _flipping_].
+//
+See if you can:
+
+. convince yourself of why these two very similar examples behave differently
+//
+. explain the reason for buffer swapping to your partner
+
+==== `ColorOvalsIf.java`
+
+This is the first example that uses locations input by the user using the mouse.
+//
+See if you can:
+
+. have it wait for two clicks before drawing
+//
+. change the shape that is drawn
+
+==== `Paint.java`
+
+Here we use some randomness.
+//
+See if you can:
+
+. understand how the random numbers are being generated
+//
+. slow down the rate at which random squares are drawn
+//
+. draw within a circular, rather than square, distance of the current location
+
+==== `BouncingBall.java`
+
+This example has some physics to it!
+//
+See if you can:
+
+. understand how the new positions are being computed
+//
+. increase the resolution of the drawing&mdash;or, put another way, decrease the
+gaps between the drawn positions
+
+==== `ReactionTimer.java`
+
+Here's a game to play!
+//
+See if you can outperform your partner&mdash;but also see if you can;
+
+. determine whether there seems to be a fundamental lower bound on your reaction
+time
+//
+. use that to argue in favor of self-driving cars
+
+==== `ArrowKeys.java`
+
+This example shows how to use the arrow keys as input.
+//
+See if you can:
+
+. use other keys as up down and sideways
+//
+. change the amount that our little friend moves
+
+==== `Valentine.java`
+
+Just a nice message from the course staff.
+//
+See if you can:
+
+. have the image come in and leave from the same direction
+//
+. center the text at the bottom
+//
+. exit after the message repeats a few times
+
+==== `NearlyAllMethods.java`
+
+The kitchen sink!
+//
+Good for exploration.
+//
+Just muck around a bit and have fun.
+
+==== `Advanced2DGraphics.java`
+
+This example gives you some taste of the underlying graphics abstraction that
+the Zen library is simplifying for you.
+//
+Access to the raw canvas is very powerful, but can make your code more complex
+or repetitive.
+
+=== Challenge: Saving Your Work
+
+When using Git you can save your work in the same way that you are already used
+to&mdash;by generated a commit using the Eclipse Team dialog.
+//
+But unlike Subversion, Git commits do not change the remote repository.
+//
+When you initially added the project, Git created a copy of our GitHub
+repository on your local machine.
+//
+When you commit, changes are stored there and not on the remote repository.
+
+To save your changes remotely Git requires an additional step called a _push_.
+//
+However, you will _not_ be able to push to our remote repository.
+//
+Why?
+//
+Because even though it's public and anybody can use it, only course staff can
+write to it.
+
+However, if you want to save your changes to your own GitHub repository that is
+completely possible.
+//
+We'll leave that to you to figure out&mdash;although an audio walkthrough does
+follow.
