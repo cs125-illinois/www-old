@@ -2,7 +2,7 @@
 
 <div id="content" class="container-fluid">
   <div class="row flex-xl-nowrap">
-    <div class="col-12 col-md-3 col-xl-2 sidebar" style="order: 0;">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
       {{#if sidebar }}
       <div id="sidebar" class="collapse">
         <nav class="nav flex-column">
@@ -11,9 +11,12 @@
       </div>
       {{/if}}
     </div>
+    {{#if sidebar }}
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+    {{/if}}
 
     {{#if TOC }}
-    <div class="col-xl-3 d-none d-xl-block toc" style="order: 2;">
+    <div class="col-xl-3 d-none d-xl-block toc">
       <nav id="toc" class="nav flex-column">
         <ul class="section-nav">
           {{#each TOC }}
@@ -33,7 +36,13 @@
     </div>
     {{/if}}
 
-    <main class="col-12 col-md-9 col-xl-7 py-3" style="order:1;">
+
+    {{#if sidebar }}
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+    {{else}}
+    <div class="col-md-1 col-xl-2" style="z-index: -1;"></div>
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+    {{/if}}
 
       <a class="anchor" id="top"></a>
       {{#unless notitle }}

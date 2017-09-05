@@ -11,12 +11,10 @@
     }
   }
 
-  @supports (position: sticky) {
-    position: sticky;
-    top: 100px;
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
-  }
+  position: fixed;
+  top: 100px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
 
   & .entry {
     display: block;
@@ -35,6 +33,7 @@
 }
 
 .sidebar {
+  left: 0px;
   font-size: 1.2rem;
   & .section-nav {
     padding-right: 0;
@@ -69,6 +68,7 @@
   }
 }
 .toc {
+  right: 0px;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   font-size: 1rem;
