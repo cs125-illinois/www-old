@@ -11,10 +11,12 @@
     }
   }
 
-  position: fixed;
-  top: 100px;
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
+  @include media-breakpoint-up(md) {
+    position: fixed;
+    top: 100px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
 
   & .entry {
     display: block;
