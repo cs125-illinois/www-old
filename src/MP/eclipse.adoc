@@ -159,11 +159,25 @@ So they are great at doing things like <<checkstyle, checking our code for forma
 problems>>, <<testng,running tests>>, and <<gradle, building large projects from multiple source code
 files>>.
 
+Note that while these instructions are written for
+//
+https://projects.eclipse.org/releases/oxygen[Eclipse Oxygen],
+//
+they have also been tested on
+//
+https://projects.eclipse.org/releases/neon[Eclipse Neon].
+//
+**While we strongly suggest that you use Oxygen**, Neon is currently installed
+on the Engineering Workstations (https://it.engineering.illinois.edu/ews[EWS]).
+//
+Note that there is a small difference in the Neon instructions once you read the
+<<gradle, Gradle>> section.
+
 ++++
 <div class="row justify-content-center mt-3 mb-3">
   <div class="col-12 col-lg-8">
     <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/emYPD_ImLYY" allowfullscreen></iframe>
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/BCBV_ONqMmA" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -190,7 +204,10 @@ instructions:
 //
 . Install the latest version of the "Subversive - SVN Team Provider" plugin.
 //
-. Restart Eclipse.
+. Restart Eclipse if it doesn't automatically.
+
+[[connectors]]
+=== Subversion Connectors
 
 Now we need to install some additional software to allow Subversion to connect
 to our course repository.
@@ -299,29 +316,40 @@ https://gradle.org/[Gradle] is a build system.
 //
 It is frequently used for Java projects, but can be used to build a variety of
 different kinds of software projects.
-//
-Gradle is actually so important that Eclipse already comes with it
-pre-installed.
+
+The instructions that follow are slightly different for Oxygen and Neon, so make
+sure that you follow the ones appropriate to your version of Eclipse.
+
+==== Oxygen
+
+Gradle is actually so important that Eclipse Oxygen comes with it pre-installed.
 //
 Unfortunately, the bundled version is out of date so we need to update it
 manually.
 
 Here's what to do:
 
-. Open the Eclipse software sources dialog: "Help &rarr; Install New
-Software".
+. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
 //
-. Work with link:http://download.eclipse.org/buildship/updates/e46/releases/2.x/[http://download.eclipse.org/buildship/updates/e46/releases/2.x/,role="noclick"]
+. Search for "buildship". It should say "Installed".
 //
-and click "Add".
+. Click on "Installed", then "Update".
 //
-. Select the single option that appears "Buildship: Eclipse Plug-ins for
-Gradle"
+. Accept the license agreement.
 //
-. Eclipse will think for a moment, claim that it can't do what you want, but
-provide the option to "Update my installation...". Just hit next.
+. Restart Eclipse if it doesn't automatically.
+
+==== Neon
+
+Unlike Oxygen, Eclipse Neon _does not_ come with Gradle installed.
 //
-. Hit next, accept the license agreement, and finish.
+But it's easy to install it.
+//
+Here's what to do:
+
+. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
+//
+. Install the latest version of the "Buildship Gradle Integration 2.0" plugin.
 //
 . Restart Eclipse if it doesn't automatically.
 
