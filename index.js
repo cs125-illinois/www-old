@@ -7,6 +7,7 @@ const metalsmith = require('metalsmith'),
       drafts = require('metalsmith-drafts'),
       filemetadata = require('metalsmith-filemetadata'),
       metadata = require('metalsmith-metadata'),
+      empty = require(path.join(appRootPath.toString(), 'lib/empty.js')),
       asciidoc = require('metalsmith-asciidoc'),
       markdown = require('metalsmith-markdown'),
       sections = require(path.join(appRootPath.toString(), 'lib/sections.js')),
@@ -72,6 +73,7 @@ function build(config, done) {
     .use(inPlace({
       pattern: '**/*.adoc.hbs',
     }))
+    .use(empty())
     .use(asciidoc())
     .use(markdown())
     .use(footnotes())
