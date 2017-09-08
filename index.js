@@ -64,7 +64,8 @@ function build(config, done) {
     .use(buildDate())
     .use(drafts())
     .use(metadata({
-      course: 'course.yaml'
+      course: 'course.yaml',
+      dates: 'schedule/dates.yaml'
     }))
     .use(registerPartials())
     .use(course())
