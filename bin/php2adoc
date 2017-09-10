@@ -11,7 +11,8 @@ const minimist = require('minimist'),
       htmlMinifier = require('html-minifier'),
       wordWrap = require('word-wrap'),
       sentenceTokenizer = require('sentence-tokenizer'),
-      debug = require('debug')('php2adoc');
+      debug = require('debug')('php2adoc'),
+      yamljs = require('yamljs');
 
 var argv = minimist(process.argv.slice(2));
 var inputFile = path.resolve(argv._[0]);
@@ -54,7 +55,7 @@ var replaceHTML = function() {
       return Array(headingLevel + 1).join("#") + " " + innerContents.join('').trim() + "\n\n";
     }
   }
-  const tagName = $(this)[0].tagName;
+  var tagName = $(this)[0].tagName;
   switch (tagName) {
     case 'p':
       return innerContents.join('').trim() + "\n\n";
@@ -71,6 +72,16 @@ var replaceHTML = function() {
       } else if ($(this).parent()[0].tagName === 'ol') {
         return ". " + innerContents.join('').trim() + "\n\/\/\n";
       }
+    case 'a':
+      var target = $(this).attr('href').trim();
+      if (/^(http:\/\/|https:\/\/|\/\/)/.test(target)) {
+        return target + "[" + innerContents.join('').trim() + "]";
+      } else {
+        return "link:" + target + "[" + innerContents.join('').trim() + "]";
+      }
+    case 'img':
+      expect(innerContents.length).to.equal(0);
+      return "\/\/ TODO: " + $(this).attr('src').trim() + "\n";
     default:
       if (!(tagName in skippedTags)) {
         skippedTags[tagName] = 0;
@@ -104,8 +115,24 @@ var cleanContents = _.reduce(cleanContents.split(/\n/), function (outputString, 
   }) + "\n";
 }, '');
 
+var frontArray = yamljs.stringify({
+  title: title,
+  skipped: skippedTags
+}, 4, 2).trim();
+
 cleanContents = cleanContents.replace(/^(\n){2,}/gm, "\n");
 
-console.log(cleanContents);
+console.log(`---
+${ frontArray }
+priority: 0.3
+changefreq: yearly
+layout: single.hbt
+sidebar: schedule
+---
+:sectnums:
+:linkattrs:
+
+${ cleanContents }
+// vim: ts=2:sw=2:et:ft=asciidoc`);
 
 // vim: ts=2:sw=2:et:ft=javascript
