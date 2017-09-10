@@ -10,6 +10,7 @@ const minimist = require('minimist'),
       expect = require('chai').expect,
       htmlMinifier = require('html-minifier'),
       wordWrap = require('word-wrap'),
+      sentenceTokenizer = require('sentence-tokenizer'),
       debug = require('debug')('php2adoc');
 
 var argv = minimist(process.argv.slice(2));
@@ -42,7 +43,9 @@ var replaceHTML = function() {
   var headingMatch = /^h(\d)/.exec(tagName);
   if (headingMatch) {
     var headingLevel = parseInt(headingMatch[1]);
-    if (headingLevel > 1) {
+    if (headingLevel === 1) {
+      return '';
+    } else {
       if (!hasH2) {
         headingLevel--;
       }
@@ -61,24 +64,40 @@ var replaceHTML = function() {
       return innerContents.join('').trim() + "\n\n";
     case 'li':
       if ($(this).parent()[0].tagName === 'ul') {
-        return "* " + innerContents.join('').trim() + "\n";
+        return "* " + innerContents.join('').trim() + "\n\/\/\n";
       } else if ($(this).parent()[0].tagName === 'ol') {
-        return ". " + innerContents.join('').trim() + "\n";
+        return ". " + innerContents.join('').trim() + "\n\/\/\n";
       }
     default:
       return innerContents.join('').trim();
   }
 }
 
-var cleanContents = '';
-_.each($('div.container').map(replaceHTML).toArray().join('').split('\n'), function (line) {
-  cleanContents += wordWrap(line.trim(), {
+var contents = $('div.container').map(replaceHTML).toArray().join('');
+var cleanContents = contents.replace(/[\u2018\u2019]/g, "'")
+  .replace(/[\u201C\u201D]/g, '"')
+  .replace(/^(\n){2,}/gm, "\n")
+  .replace(/^\x20+|\x20+$/gm, "")
+  .replace(/^\/\/\n\n/gm, "\n");
+
+// console.log(cleanContents);
+
+var tokenizer = new sentenceTokenizer();
+var cleanContents = _.reduce(cleanContents.split(/\n/), function (outputString, line) {
+  tokenizer.setEntry(line);
+  var sentences = tokenizer.getSentences();
+  if (sentences[0] === '.') {
+    sentences[1] = '. ' + sentences[1];
+    sentences.shift();
+  }
+  line = sentences.join("\n\/\/\n");
+  return outputString + wordWrap(line.trim(), {
     width: 80,
     indent: ''
   }) + "\n";
-});
-cleanContents = cleanContents.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
-cleanContents = cleanContents.replace(/^(\n){2,}/gm, "\n")
+}, '');
+
+cleanContents = cleanContents.replace(/^(\n){2,}/gm, "\n");
 
 console.log(cleanContents);
 
