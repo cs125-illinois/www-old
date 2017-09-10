@@ -18,21 +18,35 @@ var $ = cheerio.load(fs.readFileSync(inputFile).toString());
 expect($('h1').length).to.equal(1);
 const title = $('h1').text();
 
+// Check for h2
+const hasH2 = ($('h2').length > 0);
+
 var outputString = "";
 
 var replaceHTML = function() {
   if ($(this)[0].nodeType === 3) {
+    console.log($(this).text().trim());
     return $(this).text().trim();
   }
   var innerContents = $(this).contents().map(replaceHTML).toArray().join('');
+  var nextContents = $(this).next().map(replaceHTML).toArray().join('');
+
+  var tagName = $(this)[0].tagName.trim();
+  var headingMatch = /^h(\d)/.exec(tagName);
+  if (headingMatch) {
+    var headingLevel = parseInt(headingMatch[1]);
+    if (!hasH2) {
+      headingLevel++;
+    }
+    innerContents = Array(headingLevel).join("#") + " " + innerContents + "\n\n";
+  }
   switch ($(this)[0].tagName) {
     case 'p':
-      return "\n" + innerContents + "\n";
-    default:
-      return innerContents;
+      innerContents += "\n\n";
   }
+  return innerContents + nextContents;
 }
 
-console.log($('p').first().map(replaceHTML).toArray().join(''));
+console.log($('h1').map(replaceHTML).toArray().join(''));
 
 // vim: ts=2:sw=2:et:ft=javascript
