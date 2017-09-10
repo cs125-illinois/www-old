@@ -8,11 +8,15 @@ const minimist = require('minimist'),
       _ = require('underscore'),
       cheerio = require('cheerio'),
       expect = require('chai').expect,
+      htmlMinifier = require('html-minifier'),
       debug = require('debug')('php2adoc');
 
 var argv = minimist(process.argv.slice(2));
 var inputFile = path.resolve(argv._[0]);
-var $ = cheerio.load(fs.readFileSync(inputFile).toString());
+var $ = cheerio.load(htmlMinifier.minify(fs.readFileSync(inputFile).toString(), {
+  collapseWhitespace: true,
+  conservativeCollapse: true
+}));
 
 // Get the title
 expect($('h1').length).to.equal(1);
@@ -21,32 +25,57 @@ const title = $('h1').text();
 // Check for h2
 const hasH2 = ($('h2').length > 0);
 
-var outputString = "";
+const onlySpaces = /^[ \t\f\v]+$/;
+const startsWithSpace = /^[ \t\f\v]+/;
+const endsWithSpace = /[ \t\f\v]+$/;
 
 var replaceHTML = function() {
   if ($(this)[0].nodeType === 3) {
-    console.log($(this).text().trim());
-    return $(this).text().trim();
+    return $(this).text();
   }
-  var innerContents = $(this).contents().map(replaceHTML).toArray().join('');
-  var nextContents = $(this).next().map(replaceHTML).toArray().join('');
 
+  var innerContents = $(this).contents().map(replaceHTML).toArray();
   var tagName = $(this)[0].tagName.trim();
+
+  var start = '', end = '';
   var headingMatch = /^h(\d)/.exec(tagName);
   if (headingMatch) {
     var headingLevel = parseInt(headingMatch[1]);
-    if (!hasH2) {
-      headingLevel++;
+    if (headingLevel > 1) {
+      if (!hasH2) {
+        headingLevel--;
+      }
+      return Array(headingLevel + 1).join("#") + " " + innerContents.join('').trim() + "\n\n";
     }
-    innerContents = Array(headingLevel).join("#") + " " + innerContents + "\n\n";
   }
   switch ($(this)[0].tagName) {
     case 'p':
-      innerContents += "\n\n";
+      return innerContents.join('').trim() + "\n\n";
+    case 'em':
+      return "_" + innerContents.join('').trim() + "_";
+    case 'strong':
+      return "*" + innerContents.join('').trim() + "*";
+    case 'ul':
+    case 'ol':
+      return innerContents.join('').trim() + "\n\n";
+    case 'li':
+      if ($(this).parent()[0].tagName === 'ul') {
+        return "* " + innerContents.join('').trim() + "\n";
+      } else if ($(this).parent()[0].tagName === 'ol') {
+        return ". " + innerContents.join('').trim() + "\n";
+      }
+    default:
+      return innerContents.join('').trim();
   }
-  return innerContents + nextContents;
 }
 
-console.log($('h1').map(replaceHTML).toArray().join(''));
+var cleanContents = '';
+_.each($('div.container').map(replaceHTML).toArray().join('').split('\n'), function (line) {
+  cleanContents += line.trim() + "\n";
+});
+cleanContents = cleanContents.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+cleanContents = cleanContents.replace(/^(\n){2,}/gm, "\n")
+
+console.log(cleanContents);
 
 // vim: ts=2:sw=2:et:ft=javascript
