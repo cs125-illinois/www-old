@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const minimist = require('minimist'),
+      fs = require('fs'),
+      path = require('path'),
+      _ = require('underscore'),
+      cheerio = require('cheerio'),
+      expect = require('chai').expect,
+      debug = require('debug')('php2adoc');
+
+var argv = minimist(process.argv.slice(2));
+var inputFile = path.resolve(argv._[0]);
+
+var $ = cheerio.load(fs.readFileSync(inputFile).toString());
+console.log($('p').length);
+
+// vim: ts=2:sw=2:et:ft=javascript
