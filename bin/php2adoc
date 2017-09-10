@@ -12,8 +12,27 @@ const minimist = require('minimist'),
 
 var argv = minimist(process.argv.slice(2));
 var inputFile = path.resolve(argv._[0]);
-
 var $ = cheerio.load(fs.readFileSync(inputFile).toString());
-console.log($('p').length);
+
+// Get the title
+expect($('h1').length).to.equal(1);
+const title = $('h1').text();
+
+var outputString = "";
+
+var replaceHTML = function() {
+  if ($(this)[0].nodeType === 3) {
+    return $(this).text().trim();
+  }
+  var innerContents = $(this).contents().map(replaceHTML).toArray().join('');
+  switch ($(this)[0].tagName) {
+    case 'p':
+      return "\n" + innerContents + "\n";
+    default:
+      return innerContents;
+  }
+}
+
+console.log($('p').first().map(replaceHTML).toArray().join(''));
 
 // vim: ts=2:sw=2:et:ft=javascript
