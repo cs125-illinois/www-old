@@ -9,6 +9,7 @@ const minimist = require('minimist'),
       cheerio = require('cheerio'),
       expect = require('chai').expect,
       htmlMinifier = require('html-minifier'),
+      wordWrap = require('word-wrap'),
       debug = require('debug')('php2adoc');
 
 var argv = minimist(process.argv.slice(2));
@@ -71,7 +72,10 @@ var replaceHTML = function() {
 
 var cleanContents = '';
 _.each($('div.container').map(replaceHTML).toArray().join('').split('\n'), function (line) {
-  cleanContents += line.trim() + "\n";
+  cleanContents += wordWrap(line.trim(), {
+    width: 80,
+    indent: ''
+  }) + "\n";
 });
 cleanContents = cleanContents.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
 cleanContents = cleanContents.replace(/^(\n){2,}/gm, "\n")
