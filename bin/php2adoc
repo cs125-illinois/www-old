@@ -31,6 +31,8 @@ const onlySpaces = /^[ \t\f\v]+$/;
 const startsWithSpace = /^[ \t\f\v]+/;
 const endsWithSpace = /[ \t\f\v]+$/;
 
+var skippedTags = {};
+
 var replaceHTML = function() {
   if ($(this)[0].nodeType === 3) {
     return $(this).text();
@@ -52,7 +54,8 @@ var replaceHTML = function() {
       return Array(headingLevel + 1).join("#") + " " + innerContents.join('').trim() + "\n\n";
     }
   }
-  switch ($(this)[0].tagName) {
+  const tagName = $(this)[0].tagName;
+  switch (tagName) {
     case 'p':
       return innerContents.join('').trim() + "\n\n";
     case 'em':
@@ -69,6 +72,10 @@ var replaceHTML = function() {
         return ". " + innerContents.join('').trim() + "\n\/\/\n";
       }
     default:
+      if (!(tagName in skippedTags)) {
+        skippedTags[tagName] = 0;
+      }
+      skippedTags[tagName]++;
       return innerContents.join('').trim();
   }
 }
