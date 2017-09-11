@@ -1,0 +1,312 @@
+---
+title: 'Introduction to Algorithms'
+skipped:
+  br: 2
+  input: 20
+  textarea: 4
+  div: 2
+priority: 0.3
+changefreq: yearly
+layout: single.hbt
+sidebar: schedule
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+Algorithms are the conceptual heart of computer science.
+//
+The only reason that we program computers is to get them to run algorithms.
+//
+And while computers have gotten faster over the years, the algorithms that the
+use to solve problems have also improved, making them more powerful still.
+
+== A Search Problem
+
+Your friend tells you about a great book you should read,
+//
+https://en.wikipedia.org/wiki/Pride_and_Prejudice[Pride and Prejudice]
+//
+by
+//
+https://en.wikipedia.org/wiki/Jane_Austen[Jane Austen].
+//
+He makes it sounds like a great read, so you plan to try to find a copy at a
+garage sale that afternoon.
+//
+Unfortunately, when you arrive you are shocked to find the sale has more than
+1,000 books piled in unorganized stacks along the driveway.
+
+=== Linear Search
+
+Nevertheless, you begin your search for _Pride and Prejudice_.
+//
+How many books will you need to inspect to conclude that they _definitely_ don't
+have it? A few? A hundred? Half of them? Almost all of them? _All of them_?
+
+Unfortunately, you will need to look at every book until you either find _Pride
+and Prejudice_ or conclude that it is not available.
+//
+If you stop searching a few books short, or miss a few, you'll never know if you
+missed a great chance to pick up _Pride and Prejudice_.
+
+Regardless of how you would search for _Pride and Prejudice_, your approach is
+an example of an _algorithm_.
+//
+An algorithm is an approach to solving a problem.
+//
+It usually consists of a series of steps that, when followed, achieve a desired
+outcome or solve a particular problem.
+//
+Not every algorithm solves every problem though&mdash;for example, if you were
+in a hurry you might decide to only search half of the books.
+//
+That would still represent an algorithm, and it would still improve your chances
+of finding _Pride and Prejudice_&mdash;it just wouldn't guarantee it.
+
+Humans often follow algorithms that incorporate guessing or intuition.
+//
+For example, you might decide to start your search with a pile that looks like
+it _might_ contain _Pride and Prejudice_ based on the other books in it
+//
+footnote:[https://en.wikipedia.org/wiki/Sense_and_Sensibility[Sense and
+Sensibility],
+//
+https://en.wikipedia.org/wiki/Mansfield_Park[Mansfield Park],
+//
+https://en.wikipedia.org/wiki/Emma_(novel)[Emma],
+//
+etc.].
+//
+But when we want to communicate our algorithm to a computer, it is important
+that the steps are well-defined and easy to follow.
+//
+Today, you could probably use a machine learning algorithm to help the computer
+identify books that are similar to _Pride and Prejudice_.
+//
+But it might be faster simply to have it search all of the piles.
+
+Here is an example algorithm for searching through a single stack at the garage
+sale:
+
+. Establish a discard stack next to the stack you are examining.
+//
+. Examine the book at the top the stack you are examining. If it is _Pride and
+Prejudice_, stop, remove it, and approach the garage sale proprietor.
+//
+. Otherwise, place it face down on the discard stack.
+//
+. If the stack you are examining is empty, and all books have been moved to the
+discard stack, stop.
+
+For this this algorithm to work, you must apply it to every stack of books at
+the garage sale.
+//
+So we actually have _two_ algorithms: one for looking through a single stack, and
+a second for looking through more than one stack.
+//
+As computer scientists, we are always looking for ways to break down problems
+so that we can apply a common technique multiple times.
+
+It is probably obvious that this is an example of a _search_ algorithm.
+//
+This particular algorithm is known as _linear search_.
+//
+You can imagine if all of the books in the garage sale were lined up in one long
+row.
+//
+Our approach to searching them would be essentially the same: examine one, stop
+if we find _Pride and Prejudice_, move on if we don't.
+//
+Linear search requires that we potentially examine _every_ item in a collection
+before finding what we are looking for.
+//
+After all, what we are searching for could be the last thing that we examine.
+//
+So while linear search is in the same family of algorithms as the ones that
+search engines use when you look for things online, obviously their algorithms
+are far more sophisticated.
+//
+There are http://www.internetlivestats.com/total-number-of-websites/[over _1
+billion_] websites in the world, and examining all of them each time you
+searched would take forever.
+
+=== Improving Our Search Algorithm
+
+After about 20-minutes, the garage sale proprietor observes you searching
+through all the books.
+//
+She says:
+
+[quote]
+//
+____
+//
+If it helps, the books on the north side of the driveway are mysteries, those by
+the garage are biographies, the south side are sci-fi, and the stack at the end
+of the driveway are general fiction.
+//
+____
+
+Does this information make the search for _Pride and Prejudice_ easier?
+//
+If so, how would you respond to this new information?
+//
+And is there any additional type of information the proprietor may reveal that
+would help your search?
+
+Even this small piece of information about the organization of the books is
+_very_ helpful.
+//
+You know that _Pride and Prejudice_ is not a mystery, biography, or sci-fi, so
+you can now limit your search to the general fiction stack.
+//
+Thankfully, you will only need to apply your linear search algorithm to one
+stack&mdash;rather than all of them.
+//
+Unfortunately, you will still need to _completely_ search that stack to
+determine if it contains _Pride and Prejudice_.
+//
+When you do, you find out that _Pride and Prejudice_ is not available
+footnote:[Of course not! Nobody gives a book that good away.].
+
+=== A Search Index
+
+Later that day, you have time to visit the public library in hopes of obtaining
+their copy of _Pride and Prejudice_.
+//
+The library computer system is down, making it impossible to do an online search
+for books.
+//
+Luckily, you remember that libraries organize their books using the
+//
+https://en.wikipedia.org/wiki/Dewey_Decimal_Classification[Dewey Decimal
+System]&mdash;a classification of books into numbered categories:
+
+* 000 Generalities
+//
+* 100 Philosophy & Psychology
+//
+* 200 Religion
+//
+* 300 Social Sciences
+//
+* 400 Language
+//
+* 500 Natural Sciences & Mathematics
+//
+* 600 Technology (Applied Sciences)
+//
+* 700 The Arts
+//
+* 800 Literature & Rhetoric
+//
+* 900 Geography & History
+
+You head off toward the 800's, Literature and Rhetoric, in search of _Pride and
+Prejudice_.
+//
+When you arrive at this section, you find a large number of books&mdash;however,
+they are shelved in alphabetical order by author's last name.
+//
+Just a few books into your search, you find _Pride and Prejudice_ by Jane
+Austen.
+
+Note that it took _45 minutes_ at the garage sale to search approximately 1000
+books, but a shorter amount of time to search many more books at the library.
+//
+There are two important search techniques at work here: an index, and sorting.
+//
+Think about how each played a role in your search at the library.
+
+== Computer Algorithms
+
+Developing new algorithms to solve problems is at the heart of computer science.
+//
+Computers are incredibly fast and powerful, but they have to be told exactly
+what to do&mdash;they require humans to program them, and that process involves
+developing algorithms.
+//
+Humans and computers play complementary roles in this process.
+//
+What makes computation so exciting is that computers can do it.
+//
+But the higher-order problem solving, algorithm design, and programming required
+to tell them _what_ to do is still a creative and engaging human activity.
+
+In the book search algorithms described above, you probably noticed that the
+speed at which we can find a book depends on how they are organized.
+//
+Knowing that certain books are in a certain part of the driveway or library
+speeds up the search considerably&mdash;or makes the search _more efficient_.
+//
+Once we have a general idea of where to look in the library, having the books
+_sorted_ alphabetically simplifies the final part of the search.
+
+We humans are an inherently lazy bunch.
+//
+If we can invent a machine to do work for us, we will.
+//
+This is where computers come in.
+//
+Ideally, we can have a machine find a book for us.
+//
+While the machine is searching for the book, we can be doing some other
+important task, like playing Plants vs.  Zombies.
+//
+If a machine can find our book in a fraction of the time it takes a human, well,
+that's even better.
+//
+This is where we find ourselves along the timeline of human civilization, in a
+period where we are designing, building and optimizing machines to perform
+computing tasks that we are either less efficient at or entirely incapable of.
+//
+In this course, we will begin our study in the development of algorithms and
+programs that will be executed by computers.
+//
+In later courses in computer science, you will learn how to design and build
+these computing machines.
+
+The important point about the examples above is that we cannot think about
+*_what_* work needs to be done without thinking of *_how_* that work needs to be
+done.
+//
+In the first example, in searching for Ender's Game among a collection of 1000
+unsorted books, one needs to examine every single book to ensure that our book
+cannot be found in the collection.
+//
+This is an inherent property of the problem.
+//
+Even if you search the collection with a computer, the computer will still have
+to examine each book title to determine if our book is in the collection.
+//
+If you use a different computer, one that is 100 times faster than your current
+computer, you will still need to look at all 1000 book titles to determine if
+your desired book is among the collection.
+//
+A faster computer can only perform each individual step of an algorithm faster;
+it cannot eliminate any of the steps of the algorithm, since every one of those
+steps still needs to be performed in order for the algorithm to run correctly.
+//
+If your fast computer only looks at the first 999 books, the last book could
+have been Ender's Game and neither you or the program would have any way of
+knowing for certain if it is in the collection—except by continuing onward and
+inspecting that final book.
+
+This course is not just about computer programming.
+//
+We will be doing a fair amount of that, but we will also introduce you to some
+of the basic theoretical ideas in computer science, as well as introducing the
+skill of programming computers.
+//
+You will be gaining a high-level understanding of how computers work as machines
+and you will be learning how to design high-quality and efficient software.
+//
+We will address algorithm design and analysis and build up to program design
+techniques for larger software projects.
+//
+These topics are important concepts and skills in computer science, but they are
+only the tip of the iceberg.
+
+// vim: ts=2:sw=2:et:ft=asciidoc

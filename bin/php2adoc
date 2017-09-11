@@ -52,7 +52,7 @@ var replaceHTML = function() {
       if (!hasH2) {
         headingLevel--;
       }
-      return Array(headingLevel + 1).join("#") + " " + innerContents.join('').trim() + "\n\n";
+      return Array(headingLevel + 1).join("=") + " " + innerContents.join('').trim() + "\n\n";
     }
   }
   var tagName = $(this)[0].tagName;
@@ -120,7 +120,8 @@ var frontArray = yamljs.stringify({
   skipped: skippedTags
 }, 4, 2).trim();
 
-cleanContents = cleanContents.replace(/^(\n){2,}/gm, "\n");
+cleanContents = cleanContents.replace(/^(\n){2,}/gm, "\n")
+  .replace(/[ \t]+$/gm, '');
 
 console.log(`---
 ${ frontArray }
