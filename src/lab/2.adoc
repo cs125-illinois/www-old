@@ -76,7 +76,57 @@ footnote:[For the adventurous, there is also a
 https://github.com/cs125-illinois/mazemaker.js[JavaScript] implementation that
 we used for the Google Sheet maze.]
 
-=== Algorithm Performance
+=== Evaluating Algorithms
+
+As you begin implementing your maze escape algorithm, think about the different
+ways that computer scientists evaluate algorithms.
+//
+Here are some of the components of a good algorithm:
+
+. *It works.*
+//
+It should definitely solve the problem you are trying to solve, or at least have
+a good probability of solving it in most cases.
+//
+. *It should perform well.*
+//
+It should not require a huge amount of resources to solve the
+problem&mdash;whether those resources are time, computational horsepower,
+computer memory, or disk space.
+//
+. *It should be understandable.*
+//
+Good algorithms are easy to understand and reason about.
+//
+The best ones are simple, and sometimes we even call them elegant.
+//
+Complex algorithms are hard to understand, making it difficult to think about
+what they will do in certain cases.
+//
+. *The implementation should be clear and understandable.*
+//
+Many times we encounter algorithms while reading computer code.
+//
+So just as the algorithm must be clear, the implementation in computer code must
+also be clear.
+//
+We will have a lot more to say about code quality throughout the
+semester&mdash;particularly on the MPs.
+
+These are not non-contradictory goals.
+//
+Frequently the desire for simplicity clashes with attempts to improve
+performance, or handle all inputs correctly.
+//
+But particularly when you are starting off as a computer science, err on the
+side of simplicity.
+//
+*Remember: computation is (increasingly) cheap, humans are expensive.*
+//
+If it takes me 10 times longer to understand or modify your algorithm, it is not
+worth a only minor improvement in performance.
+//
+Let your algorithms waste a bit of computer time, but never human time.
 
 === Cloning the Lab1 Eclipse Project
 
@@ -110,10 +160,16 @@ Try some of the following:
 //
 . See if you can visualize your movement through the maze.
 //
-The maze object is printable, and can be passed to `System.out.println` just
-like a string.
+The maze object is printable, and can be passed to
 //
-However, to see what is going on you might want to explore `Thread.sleep`.
+http://javapapers.com/core-java/system-out-println/[`System.out.println`]
+//
+just like a string.
+//
+However, to slow down the display and see what is going on you might want to
+explore
+//
+https://docs.oracle.com/javase/tutorial/essential/concurrency/sleep.html[`Thread.sleep`].
 
 ==== Your algorithm's performance
 
