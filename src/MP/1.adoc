@@ -20,7 +20,8 @@ MP1 challenges you to complete three small programming tasks.
 It will also introduce you to the testing environment we'll use throughout the
 rest of the semester.
 
-*MP1 is due Friday, September 22nd, 2017 @ 5PM. No extensions will be given.*
+*MP1 is due Friday, September 22nd, 2017 @ 5PM. To receive full credit, you must
+submit by this deadline.*
 
 [[objectives]]
 == Learning Objectives
@@ -126,14 +127,15 @@ The structure of each program is similar:
 
 . Each contains a `main` method that solicits input from the user.
 //
-You do not need to modify the `main` methods, but you should understand how they
-work.
+*You do not need to modify the `main` methods*, but you should understand how
+they work.
 //
 . User inputs are passed to a separate helper function that you are assigned to
 write.
 //
-These functions do the heavy lifting for each program: computing the factorial,
-returning sorted scores, and computing the quiz score.
+These functions do the heavy lifting for each program: computing the factorial
+(`factorial`), returning sorted scores (`winner`), and computing the quiz score
+(`computeScore`).
 //
 . Each program includes a test suite: `FactorialTest.java`, `WinnerTest.java`,
 and `QuizMasterTest.java`.
@@ -149,7 +151,7 @@ Doing so will earn you almost full credit on the assignment&mdash;but see the
 section on <<style, style below>>.
 
 [[approach]]
-=== How to Approach MP1
+== How to Approach MP1
 
 Although MP1 may seem daunting at first, do not get discouraged!
 //
@@ -158,6 +160,20 @@ each function.
 //
 There is really not a huge amount of code for you to write&mdash;our solution
 adds only 36 lines, although yours may be slightly larger.
+
+=== Understanding What You Need to Do
+
+A core task when approaching any programming assignment or task is to _identify
+what you need to do_.
+//
+For MP1 there are three&mdash;and only three&mdash;functions that you need to
+change.
+//
+Begin by identifying those functions and understanding their requirements.
+//
+This will go *a long way* to helping you complete the MP.
+
+=== Test-driven Development
 
 We have provided you with testing suites that you can use to perform iterative
 test-driven development.
@@ -195,6 +211,16 @@ When you are starting out, it is easy to introduce bugs into your code.
 //
 Bugs are easiest to catch one-by-one, and so the fewer lines of untested code
 the more likely you are to identify errors in your logic or implementation.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/syllabus/#calendar[office hours], or post on the
+link:/forum/[course forum] when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
 
 [[grading]]
 == Grading
@@ -334,3 +360,43 @@ Commit early and often!
 //
 You only earn credit for the version of your code that is committed to your
 repository, so ensure that we have your best submission before the deadline.
+
+[[cheating]]
+=== Academic Integrity
+
+Learning to program requires practice.
+//
+If you submit code that is not your own work, you are not getting the practice
+that you need to improve.
+
+*All work submitted for MP1 must be your own.*
+//
+Cheating in CS 125 may result in your removal from the CS program, or from the
+University of Illinois.
+//
+We have many bright, honest students that want to learn computer science.
+//
+We don't need to waste time and energy on cheaters that don't want to learn.
+
+Specifically, the following activities constitute cheating and will be dealt
+with according to relevant
+//
+https://cs.illinois.edu/academics/honor-code[departmental]
+//
+and http://studentcode.illinois.edu/[university policies].
+//
+*You may not*:
+
+. *Turn in work that was completed by anyone other than yourself.*
+//
+. *Copy or paste code that you did not write* from any source.
+//
+. *Examine another classmates solution*, reproduce it, and submit it as your own
+work.
+
+
+A general rule of thumb is that exchanging or soliciting _ideas_ about how to
+solve the MP is not cheating, but exchanging code is cheating.
+//
+Feel free to discuss your solutions with other students as long as you do not
+provide them or allow them to view your source code.
