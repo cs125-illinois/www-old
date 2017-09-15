@@ -1,0 +1,132 @@
+---
+title: "MP1: Triple Crown"
+description:
+  MP1 has you complete three small programming tasks to whet your appetite for
+  what comes next.
+priority: 0.5
+changefreq: monthly
+layout: single.hbt
+sidebar: MP
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+Let's start coding!
+//
+MP1 challenges you to complete three small programming tasks.
+//
+It will also introduce you to the testing environment we'll use throughout the
+rest of the semester.
+
+*MP1 is due Friday, September 22nd, 2017 @ 5PM. No extensions will be given.*
+
+== Learning Objectives
+
+The purpose of MP1 is to get you started programming in Java.
+//
+Specifically, it begins to train you to:
+
+. translate program descriptions into working code
+//
+. find and fix bugs in existing code
+//
+. work with test suites as part of your development process
+//
+. format text output using appropriate Java classes
+//
+. initialize and use variables of appropriate types
+//
+. perform simple calculations using integer arithmetic
+//
+. use simple loops and conditional statements
+
+== Assignment Structure
+
+MP1 consists of three short programs:
+
+. `Factorial.java`: computes the https://en.wikipedia.org/wiki/Factorial[factorial]
+of a given number
+//
+. `Winner.java`: returns three scores in sorted order
+//
+. `QuizMaster.java`: gives a short quiz about https://cs.illinois.edu/[CS@Illinois]
+and displays a score
+
+All programs and incomplete and need work.
+//
+The structure of each program is similar:
+
+. Each contains a `main` method that solicits input from the user.
+//
+You do not need to modify the `main` methods, but you should understand how they
+work.
+//
+. User inputs are passed to a separate helper function that you are assigned to
+write.
+//
+These functions do the heavy lifting for each program: computing the factorial,
+returning sorted scores, and computing the quiz score.
+//
+. Each program includes a test suite: `FactorialTest.java`, `WinnerTest.java`,
+and `QuizMasterTest.java`.
+//
+The test suite does not test the main method.
+//
+Instead, it directly tests the method that you are assigned to write.
+
+Your goal is to correctly implement the missing methods so that all of the tests
+pass.
+//
+Doing so will earn you almost full credit on the assignment&mdash;but see the
+section on <<style, style below>>.
+
+== Grading
+
+MP1 is worth 100 points total, broken down as follows:
+
+. *30 points*: `Factorial.java`
+  ** *10 points* for submitting code that compiles
+  ** *10 points* each for two non-trivial test cases
+. *30 points*: `Winner.java`
+  ** *10 points* for submitting code that compiles
+  ** *20 points* for passing the test
+. *30 points*: `QuizMaster.java`
+  ** *10 points* for submitting code that compiles
+  ** *20 points* for passing the test
+. *10 points* for no `checkstyle` violations
+
+=== Style Points
+
+90 points on MP1 are for correctly implementing the required functions.
+//
+The other 10 points are for _style_.
+//
+Writing readable code according to a style guideline is extremely important, and
+we are going to help you get into this habit right from the start.
+//
+Every software development company and most active open-source projects maintain
+style guidelines.
+//
+Adhering to them will help others understand and integrate your contributions.
+
+We have configured the `checkstyle` plugin to enforce a variant of the
+//
+http://checkstyle.sourceforge.net/sun_style.html[Sun Java coding style].
+//
+We have also configured Eclipse to generate code that meets this standard.
+//
+So you should not have to fight with Eclipse too much to avoid `checkstyle`
+violations.
+
+However, the `checkstyle` plugin does require you to add
+//
+https://en.wikipedia.org/wiki/Javadoc[Javadoc]
+//
+comments, and also avoid the use of so-called
+https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad[_magic
+numbers_].
+//
+You may find these requirements a bit annoying at first, but we trust that you
+will get used to them.
