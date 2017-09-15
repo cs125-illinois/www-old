@@ -54,6 +54,13 @@ of a given number
 . `QuizMaster.java`: gives a short quiz about https://cs.illinois.edu/[CS@Illinois]
 and displays a score
 
+=== Obtaining MP1
+
+You will find the `MP1` project located in a new `MP1` directory in your
+Subversion repository.
+
+=== Your Goal
+
 All programs and incomplete and need work.
 //
 The structure of each program is similar:
@@ -96,6 +103,39 @@ MP1 is worth 100 points total, broken down as follows:
   ** *10 points* for submitting code that compiles
   ** *20 points* for passing the test
 . *10 points* for no `checkstyle` violations
+
+=== Test Cases
+
+You should carefully review the test cases in `FactorialTest.java`,
+`WinnerTest.java`, and `QuizMasterTest.java`.
+//
+The MP1 testing suite follows a common pattern where functions are tested
+against pre-computed inputs and outputs.
+//
+So, for example, when testing `Winner.java`, we compute the correct answer for a
+small subset of test cases and use this to determine whether your solution works
+in all cases.
+
+Automated testing is a hugely important part of modern software development.
+//
+Just like computers are good at running programs, they are also good at running
+programs to debug other programs.
+//
+Independently developing a method and the function that tests it allows the two
+to support each other.
+//
+The test may find errors in the method, and, the method may also identify errors
+in the test.
+
+=== Autograding
+
+We have provided you with an autograding script that you can use to estimate
+your current grade as often as you want.
+//
+The Eclipse project contains a launcher that will run the autograder for MP1.
+
+Unless you have modified the test cases or autograder configuration files, the
+autograding output should equal the score that you will earn when you submit.
 
 === Style Points
 
