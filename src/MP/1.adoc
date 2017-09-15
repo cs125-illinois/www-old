@@ -22,6 +22,7 @@ rest of the semester.
 
 *MP1 is due Friday, September 22nd, 2017 @ 5PM. No extensions will be given.*
 
+[[objectives]]
 == Learning Objectives
 
 The purpose of MP1 is to get you started programming in Java.
@@ -42,6 +43,7 @@ Specifically, it begins to train you to:
 //
 . use simple loops and conditional statements
 
+[[structure]]
 == Assignment Structure
 
 MP1 consists of three short programs:
@@ -54,6 +56,7 @@ of a given number
 . `QuizMaster.java`: gives a short quiz about https://cs.illinois.edu/[CS@Illinois]
 and displays a score
 
+[[getting]]
 === Obtaining MP1
 
 ++++
@@ -104,6 +107,7 @@ specified" is selected.
 //
 . You should have a copy of MP1!
 
+[[requirements]]
 === Your Goal
 
 ++++
@@ -144,6 +148,55 @@ pass.
 Doing so will earn you almost full credit on the assignment&mdash;but see the
 section on <<style, style below>>.
 
+[[approach]]
+=== How to Approach MP1
+
+Although MP1 may seem daunting at first, do not get discouraged!
+//
+Focus on identifying what you need to do and understanding the requirements of
+each function.
+//
+There is really not a huge amount of code for you to write&mdash;our solution
+adds only 36 lines, although yours may be slightly larger.
+
+We have provided you with testing suites that you can use to perform iterative
+test-driven development.
+//
+Here's how that works:
+
+. Start with one function that you need to write for MP1&mdash;say `factorial`
+in `Factorial.java`.
+//
+. Open `Factorial.java` and `FactorialTest.java`.
+//
+Run the test suite.
+//
+Without changes to `Factorial.java`, it should fail.
+//
+. Begin modifying the `factorial` function.
+//
+When you think that you have a solution, save you work and re-run the test
+suite.
+//
+. If the test suite succeeds, you're done&mdash;congratulations!
+//
+. If the test suite fails, you may want to run `Factorial.java` as a Java
+application and interact with it to determine what is wrong.
+//
+Perhaps you are calculating the factorial of 2 correctly, but the factorial of 3
+incorrectly?
+//
+Interactive testing can help diagnose these kinds of problems.
+
+In general *the fewer lines of code you write before running a test, the
+better.*
+//
+When you are starting out, it is easy to introduce bugs into your code.
+//
+Bugs are easiest to catch one-by-one, and so the fewer lines of untested code
+the more likely you are to identify errors in your logic or implementation.
+
+[[grading]]
 == Grading
 
 MP1 is worth 100 points total, broken down as follows:
@@ -159,6 +212,7 @@ MP1 is worth 100 points total, broken down as follows:
   ** *20 points* for passing the test
 . *10 points* for no `checkstyle` violations
 
+[[testing]]
 === Test Cases
 
 ++++
@@ -192,6 +246,7 @@ to support each other.
 The test may find errors in the method, and, the method may also identify errors
 in the test.
 
+[[autograding]]
 === Autograding
 
 ++++
@@ -214,7 +269,18 @@ autograding output should equal the score that you will earn when you submit.
 //
 If you modify our test cases or the autograding configuration, all bets are off.
 
+[[style]]
 === Style Points
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Bu5ARjjy05E" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 90 points on MP1 are for correctly implementing the required functions.
 //
@@ -248,6 +314,7 @@ numbers_].
 You may find these requirements a bit annoying at first, but we trust that you
 will get used to them.
 
+[[submitting]]
 == Submitting Your Work
 
 ++++
