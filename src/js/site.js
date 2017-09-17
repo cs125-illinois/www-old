@@ -21,6 +21,22 @@ $(function () {
     });
     $(this).replaceWith(iframe);
   });
+  if (window.location.hash.length > 1) {
+    try {
+      var target = $(window.location.hash);
+      $('html, body').animate({
+        scrollTop: target.offset().top
+      }, 'fast', function() {
+        target.focus();
+        if (target.is(":focus")) {
+          return false;
+        } else {
+          target.attr('tabindex','-1');
+          target.focus();
+        };
+      });
+    } catch (err) { }
+  }
 });
 
 // vim: ts=2:sw=2:et
