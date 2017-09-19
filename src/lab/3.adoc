@@ -6,6 +6,8 @@ description:
 priority: 0.5
 changefreq: monthly
 layout: single.hbt
+spelling_exceptions:
+  - urlScanner
 sidebar: lab
 ---
 
@@ -15,7 +17,7 @@ sidebar: lab
 [.lead]
 //
 In this lab we begin focusing our attention on the art and craft&mdash;the
-_techne_&mdash;of programming.
+https://en.wikipedia.org/wiki/Techne[_techne_]&mdash;of programming.
 //
 We'll do some code reading and talk style; continue developing our algorithmic
 chops; and get practice with variable assignment, loops, and counters.
@@ -72,7 +74,7 @@ So go ahead and review the link:/lab/1/#cloning[Lab 1 instructions] if you need
 to&mdash;the process is exactly the same, except you use
 https://github.com/cs125-illinois/Lab3[_this_ GitHub link].
 
-=== Wait: Where's the Content?
+==== Wait: where's the content?
 
 You may have noticed that, unlike previous lab, there is no starter code in the
 Lab3 project.
@@ -149,10 +151,74 @@ seems to work.
 * *9&ndash;10*: Then we close our urlScanner to avoid a resource leak and return the string
 contents.
 
-=== Saving Your Work
+=== Word Counting
 
-We'll refer you to the link:/lab/1/#pushing[instructions from Lab 1].
+Once you have our `urlToString` function integrated into your code, test it out
+using `System.out.println`.
 //
-But do try to get your fantastic maze solving algorithm up on GitHub!
+Here are some URLs that may be interesting to try.
+//
+Note that they all return raw text, rather than the
+https://en.wikipedia.org/wiki/HTML[HTML] that you are using to seeing online.
+//
+But you should also experiment with some HTML pages, like
+https://cs.illinois.edu/[this one].
+
+[.spelling_exception]
+--
+* http://erdani.com/tdpl/hamlet.txt[http://erdani.com/tdpl/hamlet.txt]
+//
+* https://www.bls.gov/tus/charts/chart9.txt[https://www.bls.gov/tus/charts/chart9.txt]
+//
+* http://tgftp.nws.noaa.gov/data/raw/fz/fzus53.klot.srf.lot.txt[http://tgftp.nws.noaa.gov/data/raw/fz/fzus53.klot.srf.lot.txt]
+--
+
+Now, for each of the pages above, compute a _word count_.
+//
+Your class should compute the total number of words on the page.
+
+*We are intentionally not giving you a lot of help with this part of the lab.*
+//
+But don't get discouraged!
+//
+Look around for help online, ask your neighbor, and be sure to ask your TA and
+doyen for help as well.
+
+==== Counting One Word
+
+Now modify your code above so that it looks for and counts occurrences of a
+specific word, which you can define as a constant in your code.
+//
+For example, how many times does the word "Prince" appear in
+http://erdani.com/tdpl/hamlet.txt[Hamlet]?
+//
+Can you make your new function case-insensitive, so that "Prince" and "prince"
+are counted as the same word?
+
+==== Challenge: Unique Word Counting
+
+If you get your word counting done with time to spare, try changing it so it
+counts the number of _unique_ words in each file.
+//
+For example, the number of words in "this is a string is a string" is 7, but the
+number of _unique_ words is 4.
+
+Completing this part of the lab will probably require you explore advanced Java
+data structures that you will not see for a while in this course.
+//
+But give it a shot if you get here with time to spare.
+
+// === Saving Your Work
+
+[[mp1]]
+
+== Help with MP1 [.text-muted]#(20 Minutes)#
+
+Use any remaining time in your lab section to get help with link:/MP/1/[MP1].
+//
+If you are done or making good progress, please help others&mdash;but help them
+_learn_, don't just give them the answers.
+//
+And if you are behind, please reach out the course staff for help.
 
 // vim: ts=2:sw=2:et
