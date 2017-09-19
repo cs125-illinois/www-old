@@ -1,0 +1,158 @@
+---
+title: Trace Points
+description:
+  Work on simple code reading, algorithm development, variable assignment, and
+  word counting exercises.
+priority: 0.5
+changefreq: monthly
+layout: single.hbt
+sidebar: lab
+---
+
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+In this lab we begin focusing our attention on the art and craft&mdash;the
+_techne_&mdash;of programming.
+//
+We'll do some code reading and talk style; continue developing our algorithmic
+chops; and get practice with variable assignment, loops, and counters.
+//
+We've also set aside some time to talk link:/MP/1/[MP1].
+
+[[exercises]]
+== Written Exercises [.text-muted]#(50 Minutes)#
+
+[.lead]
+//
+We begin with a set of code reading and writing exercises.
+
+Complete this part of the lab in pairs using Google Docs.
+//
+Create a copy of https://goo.gl/qXiTtc[our document template], and then edit it
+to record you and your partner's answers.
+//
+**Note that you must open this document using your @illinois.edu Google Apps
+account.**
+//
+We will not grant access to non-Illinois users footnote:[One of these weeks
+we're going to say this and _not_ get a bunch of requests to share the document
+to Gmail addresses. Maybe this week?].
+
+Have a course staff member check your answers as you go.
+//
+When you are done, move on to the next section.
+
+'''
+
+[[scraping]]
+== Simple Web Scraping [.text-muted]#(30 Minutes)#
+
+[.lead]
+//
+For the second part of this lab we're going to do a quick code writing exercise.
+//
+Our goal is to show how easy it is to fetch and process content from the
+web&mdash;the most impressive library that the world has ever created.
+
+=== Cloning the Lab3 Eclipse Project
+
+Just as in link:/lab/1/[Lab 1] and link:/lab/2/[Lab 2], we've set up an Eclipse
+project for Lab 3.
+//
+And, just like link:/lab/1/[Lab 2] and link:/lab/2/[Lab 2], it's on
+//
+https://github.com/cs125-illinois/Lab2[GitHub].
+//
+The only difference is the link.
+//
+So go ahead and review the link:/lab/1/#cloning[Lab 1 instructions] if you need
+to&mdash;the process is exactly the same, except you use
+https://github.com/cs125-illinois/Lab3[_this_ GitHub link].
+
+=== Wait: Where's the Content?
+
+You may have noticed that, unlike previous lab, there is no starter code in the
+Lab3 project.
+//
+Why not?
+//
+Because we want you to get the hang of starting from scratch.
+//
+Why did we have you clone our largely-empty project then?
+//
+Mainly because Eclipse does a terrible job of setting good defaults for various
+settings, and because we want you to keep using checkstyle.
+
+=== Getting to the `main` Point
+
+Working with our Lab3 project, create a new class in `src/main/java`.
+//
+You can call it anything you like.
+//
+Make sure that it has a main method&mdash;we'll be using it throughout the lab.
+//
+We've gone through this a few times in class, so hopefully you have the hang of
+it by now.
+//
+Ask a neighbor or a staff member for help if you need it.
+
+=== A Bit of Help
+
+Our goal is to give you the chance to process web content as strings.
+//
+You could very easily find out how to do this online, probably discovering the
+//
+https://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code[same advice that our approach is based on].
+
+But, to speed the plow a bit, we're going to provide you with a helper function.
+//
+Cut and paste the following function into the class you created above.
+//
+Don't put it _inside_ the main method&mdash;make it a separate function.
+
+++++
+<script
+src="https://gist.github.com/gchallen/9dbbd5eb426f34b03cf507985d5fc722.js"></script>
+++++
+
+==== Nothing is magic
+
+*You don't need to understand this code&mdash;just be able to use it.*
+//
+But here's an explanation for the curious footnote:[And this is just about as
+easy as anything gets in Java...]:
+
+* *Lines 2&ndash;7*: we allocate a new
+//
+https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html[Scanner]
+//
+object (Line 2) and then initialize it (Line 4).
+//
+* *Line 4*:
+//
+https://docs.oracle.com/javase/7/docs/api/java/net/URL.html#openStream()[URL.openStream]
+//
+can throw several kinds of exceptions.
+//
+Normally we'd let the caller handle them, but in this case we'll suppress them
+and return an empty string on error (Line 6).
+//
+* *Line 8*: now we have to convert the contents to a string.
+//
+https://community.oracle.com/blogs/pat/2004/10/23/stupid-scanner-tricks[This
+post] explains a bit of the "\\A" part, which I don't fully understand but it
+seems to work.
+//
+* *9&ndash;10*: Then we close our urlScanner to avoid a resource leak and return the string
+contents.
+
+=== Saving Your Work
+
+We'll refer you to the link:/lab/1/#pushing[instructions from Lab 1].
+//
+But do try to get your fantastic maze solving algorithm up on GitHub!
+
+// vim: ts=2:sw=2:et

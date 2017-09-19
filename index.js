@@ -24,6 +24,7 @@ const metalsmith = require('metalsmith'),
       people = require(path.join(appRootPath.toString(), 'lib/people.js')),
       iframes = require(path.join(appRootPath.toString(), 'lib/iframes.js')),
       hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js')),
+      highlight = require(path.join(appRootPath.toString(), 'lib/highlight.js')),
       msif = require('metalsmith-if'),
       spellcheck = require('metalsmith-spellcheck'),
       formatcheck = require('metalsmith-formatcheck'),
@@ -93,6 +94,7 @@ function build(config, done) {
     .use(external())
     .use(iframes())
     .use(hacks.postLayout())
+    .use(highlight())
     .use(msif((config.check),
       spellcheck({ dicFile: 'dicts/en_US.dic',
                    affFile: 'dicts/en_US.aff',
