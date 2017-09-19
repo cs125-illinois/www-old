@@ -10,7 +10,6 @@ spelling_exceptions:
   - urlScanner
 sidebar: lab
 ---
-
 :sectnums:
 :linkattrs:
 
@@ -59,7 +58,17 @@ For the second part of this lab we're going to do a quick code writing exercise.
 Our goal is to show how easy it is to fetch and process content from the
 web&mdash;the most impressive library that the world has ever created.
 
-=== Cloning the Lab3 Eclipse Project
+=== Forking the Lab3 Eclipse Project
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/w7_6nBOUnjE" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 Just as in link:/lab/1/[Lab 1] and link:/lab/2/[Lab 2], we've set up an Eclipse
 project for Lab 3.
@@ -67,12 +76,45 @@ project for Lab 3.
 And, just like link:/lab/1/[Lab 2] and link:/lab/2/[Lab 2], it's on
 //
 https://github.com/cs125-illinois/Lab2[GitHub].
+
+However, this time we're going to use a more common GitHub development model
+when you want to make your own changes to a project.
 //
-The only difference is the link.
+First, we'll https://help.github.com/articles/fork-a-repo/[_fork_] the
+repository.
 //
-So go ahead and review the link:/lab/1/#cloning[Lab 1 instructions] if you need
-to&mdash;the process is exactly the same, except you use
-https://github.com/cs125-illinois/Lab3[_this_ GitHub link].
+Then, we'll clone our own copy of it.
+//
+Once we're done, we'll be able to save our changes at the end of the lab, since
+we have our own private copy of the project.
+
+Here's what to do.
+//
+*Note that you will need a valid GitHub username for this part of the lab.*
+//
+If you don't have one, https://github.com/join[go ahead and create
+one]&mdash;the process is quick,free, and painless.
+//
+Once you have your GitHub account set up:
+
+. Go to
+//
+https://github.com/cs125-illinois/Lab3[https://github.com/cs125-illinois/Lab3,role="spelling_exception"].
+//
+In the upper right hand corner of the page, there is a button that says "Fork".
+Click it.
+//
+. It may give you a choice of where to fork the repository.
+//
+Choose your personal GitHub account.
+//
+. Once that's done, you'll have your own copy of our Lab3 project at
+//
+link:https://github.com/yourgithubusername/Lab3[https://github.com/yourgithubusername/Lab3, role="noclick link_exception"]
+
+Now, using the link to _your copy_ of the Lab3 project, follow the
+//
+link:/lab/1/#cloning[cloning the repository instructions from Lab 1].
 
 ==== Wait: where's the content?
 
@@ -114,6 +156,9 @@ But, to speed the plow a bit, we're going to provide you with a helper function.
 Cut and paste the following function into the class you created above.
 //
 Don't put it _inside_ the main method&mdash;make it a separate function.
+//
+*Also note that the `import` statements have to go at the top of your file, not
+at the same level as the new function.*
 
 ++++
 <script
@@ -127,28 +172,30 @@ src="https://gist.github.com/gchallen/9dbbd5eb426f34b03cf507985d5fc722.js"></scr
 But here's an explanation for the curious footnote:[And this is just about as
 easy as anything gets in Java...]:
 
-* *Lines 2&ndash;7*: we allocate a new
+* *Lines 1&ndash;3*: import the parts of the Java standard library that we need.
+//
+* *Lines 12&ndash;17*: we allocate a new
 //
 https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html[Scanner]
 //
-object (Line 2) and then initialize it (Line 4).
+object (Line 12) and then initialize it (Line 14).
 //
-* *Line 4*:
+* *Line 14*:
 //
 https://docs.oracle.com/javase/7/docs/api/java/net/URL.html#openStream()[URL.openStream]
 //
 can throw several kinds of exceptions.
 //
 Normally we'd let the caller handle them, but in this case we'll suppress them
-and return an empty string on error (Line 6).
+and return an empty string on error (Line 16).
 //
-* *Line 8*: now we have to convert the contents to a string.
+* *Line 18*: now we have to convert the contents to a string.
 //
 https://community.oracle.com/blogs/pat/2004/10/23/stupid-scanner-tricks[This
 post] explains a bit of the "\\A" part, which I don't fully understand but it
 seems to work.
 //
-* *9&ndash;10*: Then we close our urlScanner to avoid a resource leak and return the string
+* *19&ndash;20*: Then we close our urlScanner to avoid a resource leak and return the string
 contents.
 
 === Word Counting
@@ -208,10 +255,66 @@ data structures that you will not see for a while in this course.
 //
 But give it a shot if you get here with time to spare.
 
-// === Saving Your Work
+=== Saving Your Work
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/xT-tjHkQtx4" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+For Lab 3 we _really do_ want you to commit and push your changes to the new
+GitHub repository that you created above.
+//
+Once you have some changes to your project, the process is similar *but not
+identical* to the process of link:/MP/subversion/#commit[committing changes with
+Subversion].
+
+. Right click on the project and choose "Team &rarr; Commit".
+//
+. This will bring up a window where you can view what changes you have made to
+the project.
+//
+Unlike Subversion, Git does not force you to commit every change
+you have made at once.
+//
+This is useful in many cases&mdash;for example, when you were working on two new
+features at once and want separate commits containing the changes for each.
+//
+. In our case, simply move all of the appropriate unstaged files into the
+staging area.
+//
+. Then, write a commit message.
+//
+. At this point you have two options: "Commit", and "Commit and Push".
+//
+For the sake of this exercise, choose just "Commit".
+//
+. Now browse to your GitHub copy of Lab 3.
+//
+*You should not see your new changes.*
+//
+This is an important difference between Git and Subversion.
+//
+Git maintains a local copy of the _entire repository_, and commits go to that
+repository first.
+//
+To get them to your remote repository on GitHub requires a separate step known
+as a _push_.
+//
+. Go ahead and do the push now: "Team &rarr; Push to Upstream".
+//
+. Once that completes refresh your GitHub page.
+//
+You should see the last commit message you added as well as your changes.
+//
+That's all there is to it!
 
 [[mp1]]
-
 == Help with MP1 [.text-muted]#(20 Minutes)#
 
 Use any remaining time in your lab section to get help with link:/MP/1/[MP1].
