@@ -27,7 +27,7 @@ staff:
     role: TA
     sections:
       - AYE
-      - AYQ
+      - AYU
   -
     email: bingjie3@illinois.edu
     name: 'Bingjie Jiang'
@@ -69,7 +69,7 @@ staff:
     role: TA
     sections:
       - AYC
-      - AYU
+      - AYQ
   -
     email: rishika2@illinois.edu
     name: 'Rishika Agarwal'
@@ -721,7 +721,7 @@ times:
     days: W
     location: 'Siebel 1105'
     ID: 65061
-    instructor: anqimao2@illinois.edu
+    instructor: mhdave2@illinois.edu
     doyens:
       - bzloh2@illinois.edu
       - mkw2@illinois.edu
@@ -773,7 +773,7 @@ times:
     days: T
     location: 'Siebel 1214'
     ID: 69489
-    instructor: mhdave2@illinois.edu
+    instructor: anqimao2@illinois.edu
     doyens:
       - jz14@illinois.edu
       - ktf2@illinois.edu
@@ -804,13 +804,74 @@ mailman:
   lists:
     -
       name: students
+      clean: true
       members: ['students[*]', staff]
       moderators: [staff]
     -
       name: staff
+      clean: true
       members: ['staff[*role=Instructor]', 'staff[*role=TA]']
     -
       name: doyens
+      clean: true
       members: ['staff[*role=Instructor]', 'staff[*role=Doyen]']
+email:
+  bcc:
+    - challen@illinois.edu
+  server: 192.17.96.8
+  reminders:
+    discourse_none:
+      active: false
+      subject: "CS 125: No Discourse Use Warning"
+      filters:
+        - $.students[?(@.discourse.posts_read_count == 0)]
+    discourse_not_recently:
+      active: false
+      subject: "CS 125: No Recent Discourse Use Warning"
+      filters:
+        - $.students[?(@.discourse.posts_read_count > 0 && @.discourse.last_seen_age_timestamp >= 5760)]
+    MP1_not_started:
+      active: false
+      subject: "CS 125: Please Start MP1"
+      filters:
+        - $.students[?((@.grade_runs == null || @.grade_runs.MP1 == null) && (@.mp_commits == null || @.mp_commits.MP1 == null))]
+    MP1_not_committed:
+      active: false
+      subject: "CS 125: Please Commit MP1"
+      filters:
+        - $.students[?(@.mp_commits == null || @.mp_commits.MP1 == null)]
+    MP2_not_started:
+      active: false
+      subject: "CS 125: Please Start MP2"
+      filters:
+        - $.students[?((@.grade_runs == null || @.grade_runs.MP2 == null) && (@.mp_commits == null || @.mp_commits.MP2 == null))]
+    MP2_not_committed:
+      active: false
+      subject: "CS 125: Please Commit MP2"
+      filters:
+        - $.students[?(@.mp_commits == null || @.mp_commits.MP2 == null)]
+reports:
+  MPs_not_started:
+    filters:
+      - $.students[?(@.mp_commits == null || @.mp_commits.MP1 == null)]
 turings:
   code: UIUC-25842-MUWW-34
+deadlines:
+  MP1: 2017-09-22 17:00:00 -5
+svn:
+  path: /home/challen/svn/
+  log:
+    - start: 3156
+      name: MP1
+      paths:
+        - "/MP1/src/main/java/QuizMaster.java"
+        - "/MP1/src/main/java/Factorial.java"
+        - "/MP1/src/main/java/Winner.java"
+    - start: 4745
+      name: MP2
+      paths:
+        - "/MP2/src/main/java/FindLine.java"
+        - "/MP2/src/main/java/ScriptPrinter.java"
+        - "/MP2/src/main/java/StrictPalindrome.java"
+
+# vim: ts=2:sw=2:et
