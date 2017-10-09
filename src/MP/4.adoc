@@ -396,6 +396,11 @@ You will want to think about this carefully.
 As a hint, instead of starting with the original array and trying to figure out
 where each pixel _goes_ in the transformed array, you may want to start with the
 transformed array and calculate where each pixel should _come from_.
+//
+Also keep in mind that simply casting a double to an integer _does not round the
+value properly_.
+//
+So `(int) doubleValue != Math.round(doubleValue)`.
 
 === Getting Help
 
