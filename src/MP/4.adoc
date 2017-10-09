@@ -8,6 +8,7 @@ changefreq: monthly
 layout: single.hbt
 sidebar: MP
 spelling_exceptions:
+  - RGBA
 ---
 :sectnums:
 :linkattrs:
@@ -128,6 +129,43 @@ https://www.apple.com/safari/[Safari]
 work on both Mac and Windows footnote:[Well, not Safari on Windows, for obvious
 reasons].
 
+==== Fixing port conflict problems
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/uw9wbxyUrv0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+A common problem with using Eclipse to complete MP4 are so-called _port
+collisions_.
+//
+This will happen if you try to start a new web server running your latest
+completed transformations without shutting down the one that is currently
+running.
+
+Here's how to do this properly.
+//
+This problem is also covered by the video above.
+
+. Stop your program using the Eclipse red stop button.
+//
+. Restart your server with your latest changes.
+
+If you encounter the problem described above, here is how to fix it:
+
+. Stop the failed web server using the stop button.
+//
+. Close that console using the Eclipse close cross icon.
+//
+. This should show you the console that is running the old web server that is
+causing the problem. Shut that down using the stop button, and then you can
+restart the web server with your changes.
+
 [[approach]]
 == Approaching MP4
 
@@ -228,7 +266,7 @@ blends with pixels below it in the image.
 A value of 0 makes the pixel fully transparent, while a value of 255 makes it
 fully opaque (completely non transparent).
 
-Several of your trasformation functions will need to manipulate the color data
+Several of your transformation functions will need to manipulate the color data
 in individual image pixels.
 //
 So we suggest that you set up some _helper functions_ to manipulate color and
@@ -370,6 +408,25 @@ link:/forum/[course forum] when you need help.
 //
 You should also feel free to help each other, as long as you do not violate the
 <<cheating, academic integrity requirements>>.
+
+[[overview]]
+=== How All Of MP4 Works
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/v0TSgrVK8kA" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+The video above is optional, but may interest those that are curious about how a
+modern web application works.
+//
+It walks through most of what happens from the moment you click one of the image
+transformation buttons, to when transformed data returns from the server.
 
 [[grading]]
 == Grading
