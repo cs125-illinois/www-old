@@ -1,0 +1,129 @@
+---
+title: Compression
+description:
+  Continuing in our theme of data transformation, today we'll look at data
+  compression. Compression, particularly media file compression, is incredibly
+  important today. We'll discuss how it works, and have you implement a simple
+  example.
+priority: 0.5
+changefreq: monthly
+layout: single.hbt
+spelling_exceptions:
+  - WAV
+sidebar: lab
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+In this lab we'll do another small programming project start to finish.
+//
+Our task today brings together many of the concepts that we've discussed in
+class so far&mdash;data representation, loops, arrays, and algorithms.
+//
+It also introduces an incredibly important topic in today's world of computer
+science: _compression_.
+
+[[exercises]]
+== Written Exercises [.text-muted]#(30 Minutes)#
+
+[.lead]
+//
+We begin with a short warmup designed to familiarize you with the key concepts
+that we'll be using in the coding portion of the lab.
+
+Complete this part of the lab in pairs using Google Docs.
+//
+Create a copy of https://goo.gl/wdQEaG[our document template], and then edit it
+to record you and your partner's answers.
+//
+**Note that you must open this document using your @illinois.edu Google Apps
+account.**
+//
+We will not grant access to non-Illinois users.
+
+Have a course staff member check your answers as you go.
+//
+When you are done, move on to the next section.
+
+'''
+
+[[decoding]]
+== Implement Simple Compression [.text-muted]#(60 Minutes)#
+
+[.lead]
+//
+Hopefully you're convinced that compression is incredibly important.
+//
+So let's implement it!
+
+While sophisticated compression schemes are fairly complex, particularly when
+compressing media data, simple compression can be implemented in today's lab.
+
+=== Forking the Lab6 Eclipse Project
+
+Just as in previous labs we've set up an Eclipse project for Lab 6.
+//
+It's on
+//
+https://github.com/cs125-illinois/Lab6[GitHub].
+
+We're going to use the more common GitHub development model when you want to
+make your own changes to a project.
+//
+First, we'll https://help.github.com/articles/fork-a-repo/[_fork_] the
+repository.
+//
+Then, we'll clone our own copy of it.
+//
+Once we're done, we'll be able to save our changes at the end of the lab, since
+we have our own private copy of the project.
+//
+Follow the link:/lab/3/#forking[instructions from Lab 3].
+
+[[approach]]
+=== Our Approach
+
+[.lead]
+//
+We're going to give you a bit less help than last week, with the goal of helping
+you find and use online resources.
+
+Here's a quick set of suggestions:
+
+. First, read and understand
+//
+https://en.wikipedia.org/wiki/Incremental_encoding[front compression].
+//
+. Next, examine the starter code in the project that we provide.
+//
+We are allowing you to determine the line-by-line format for the compressed
+data, but we'd suggest using something similar to what is shown
+//
+https://en.wikipedia.org/wiki/Incremental_encoding[on Wikipedia].
+//
+Specifically, separate the prefix length and the suffix with a space.
+//
+. Implement the fairly simple helper function which is used to compute the
+length of the prefix between two strings.
+//
+. Now tackle the compression and decompression tasks.
+//
+You can do it!
+//
+There is really nothing new here: just loops, `String` operations, etc.
+//
+The course staff will circulate to help out and provide useful advice.
+
+When you're done, you may want to benchmark your compression algorithm against
+the https://en.wikipedia.org/wiki/Gzip[`gzip`] compression software.
+//
+It achieves a compression rate of around 30%.
+
+[[mp3]]
+== Help with MP3 [.text-muted]#(20 Minutes)#
+
+Use any remaining time in your lab section to get help with link:/MP/4/[MP4].
+
+// vim: ts=2:sw=2:et
