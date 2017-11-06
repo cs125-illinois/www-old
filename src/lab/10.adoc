@@ -1,14 +1,12 @@
 ---
-title: Objects III
+title: Recursion
 description:
-  Objects are an important programming concept in Java as well as other
-  programming languages. Today, we continue a multi-week introduction to objects
-  by discussing inheritance, casting, and function overriding.
+  Recursion is an important and powerful programming tool. Today, we introduce
+  you to recursion, and provide a variety of recursive problems to solve.
 priority: 0.5
 changefreq: monthly
 layout: single.hbt
 spelling_exceptions:
-  - Pokémon
 sidebar: lab
 ---
 :sectnums:
@@ -16,22 +14,25 @@ sidebar: lab
 
 [.lead]
 //
-Today we continue introducing you to _objects_.
+Recursion is an important and powerful programming tool.
 //
-Objects are an important concept in many programming languages, and particularly
-in Java.
+At times, it can be the only way to elegantly solve a particular programming
+problem.
 //
-Today's focus is on several new intermediate object-oriented programming
-concepts: inheritance, typecasting, and function overriding.
+But it is also a hard concept to wrap your head around.
 
-We will also discuss the overall Java class system.
+Today's lab introduces you to recursion.
 //
-The programming component allows you to utilize the power of inheritance to
-expand the functionality of the Pokémon program that you started in
-link:/lab/7/[Lab 7].
+The written portion uses multiple simple examples to illustrate the concept, and
+provides an opportunity to compare recursive and iterative solutions.
+//
+A big part of learning _how_ to use recursion is learning _when not_ to use it.
+//
+The programming component provides an opportunity to complete several simple
+recursive functions on a small and useful graph.
 
 [[exercises]]
-== Written Exercises [.text-muted]#(45 Minutes)#
+== Written Exercises [.text-muted]#(60 Minutes)#
 
 [.lead]
 //
@@ -44,7 +45,7 @@ your section.
 
 Complete this part of the lab in pairs using Google Docs.
 //
-Create a copy of https://goo.gl/frhz2G[our document template], and then edit it
+Create a copy of https://goo.gl/TMVW6d[our document template], and then edit it
 to record you and your partner's answers.
 //
 **Note that you must open this document using your @illinois.edu Google Apps
@@ -59,24 +60,27 @@ When you are done, move on to the programming component.
 '''
 
 [[coding]]
-== More Pokémon Objects [.text-muted]#(60 Minutes)#
+== Practice With Recursion [.text-muted]#(30 Minutes)#
 
 [.lead]
 //
-Like any other programming concept, the way to get familiar with objects is to
-_use_ them.
+Recursion is hard to get started with, but it gets easier with
+practice&mdash;like everything else you do as a programmer.
 //
 In the second half of the lab we'll provide you with some practice at
-utilizing the relationships between objects.
+implementing several recursive functions.
+//
+We'll do this in the context of
+//
+https://en.wikipedia.org/wiki/Tree_(data_structure)[_trees_]
+//
+one of the more useful and interesting computer science data structures.
 
-And we'll try to make it as interesting as possible by having you continue
-working with the Pokémon objects that we introduced in link:/lab/7/[Lab 7].
-
-=== Forking the Lab9 Eclipse Project
+=== Forking the Lab10 Eclipse Project
 
 Just as in previous labs we've set up an Eclipse project for Lab 9 on
 //
-https://github.com/cs125-illinois/Lab9[GitHub].
+https://github.com/cs125-illinois/Lab10[GitHub].
 //
 https://help.github.com/articles/fork-a-repo/[Fork]
 //
@@ -86,31 +90,23 @@ link:/lab/3/#forking[previously].
 
 === Your Goal
 
-We'll continue where we left off last time.
+Your goal today is to complete the `EmployeeDatabase.java` class.
 //
-Except this time you have the chance to implement several new types of Pokémon:
-Electric, Fire, and Water Pokémon.
+There are some simple checkstyle errors to fix, but your main objective is to
+complete two simple functions: one that counts _up_ from a given employee, the
+other that counts _down_.
 
-Start by examining the base Pokémon class in `Pokemon.java`.
+In both cases you are encouraged to complete both an iterative and recursive
+solution to get a feeling for the design trade-offs involved.
 //
-This type of Pokémon will perform a normal attack.
+When you are done, you may want to compare with another group, and discuss the
+iterative-recursive trade-offs with them.
 //
-However, when fighting the specialty Pokémon they will have a chance to do
-their special attack under certain conditions: if they are not already defeated,
-and if the roll of the dice goes their way.
+Do they feel the same way about their implementations as you do?
 
-You'll need to complete the implementation of the specialty attack methods for
-the Electric, Fire, and Water Pokémon.
-//
-You'll also need to rewrite the `buildPokemon` method to build specialty Pokémon
-correctly depending on the user input.
-//
-Once that's done, your specialty Pokémon will be ready to battle in the
-Colosseum!
-
-[[mp5]]
+[[mp6]]
 == Help with MP5 [.text-muted]#(20 Minutes)#
 
-Use any remaining time in your lab section to get help with link:/MP/5/[MP5].
+Use any remaining time in your lab section to get help with link:/MP/6/[MP6].
 
 // vim: ts=2:sw=2:et
