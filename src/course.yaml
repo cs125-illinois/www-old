@@ -9,6 +9,10 @@ staff:
     name: 'Bill Chapman'
     role: Instructor
   -
+    email: angrave@illinois.edu
+    name: 'Lawrence Angrave'
+    role: Instructor
+  -
     email: challen@illinois.edu
     name: 'Geoffrey Challen'
     role: Instructor
@@ -826,7 +830,7 @@ email:
       filters:
         - $.students[?(@.discourse.posts_read_count == 0)]
     discourse_not_recently:
-      active: false
+      active: true
       subject: "CS 125: No Recent Discourse Use Warning"
       filters:
         - $.students[?(@.discourse.posts_read_count > 0 && @.discourse.last_seen_age_timestamp >= 5760)]
@@ -850,6 +854,21 @@ email:
       subject: "CS 125: Please Commit MP2"
       filters:
         - $.students[?(@.mp_commits == null || @.mp_commits.MP2 == null)]
+    MP3_not_committed:
+      active: false
+      subject: "CS 125: Please Commit MP3"
+      filters:
+        - $.students[?(@.mp_commits == null || @.mp_commits.MP3 == null)]
+    MP4_not_started:
+      active: false
+      subject: "CS 125: Please Start MP4"
+      filters:
+        - $.students[?((@.grade_runs == null || @.grade_runs.MP4 == null) && (@.mp_commits == null || @.mp_commits.MP4 == null))]
+    MP4_not_committed:
+      active: true
+      subject: "CS 125: Please Commit MP4"
+      filters:
+        - $.students[?(@.mp_commits == null || @.mp_commits.MP4 == null)]
 reports:
   MPs_not_started:
     filters:
@@ -873,5 +892,18 @@ svn:
         - "/MP2/src/main/java/FindLine.java"
         - "/MP2/src/main/java/ScriptPrinter.java"
         - "/MP2/src/main/java/StrictPalindrome.java"
+    - start: 6833
+      name: MP3
+      paths:
+        - "/MP3/src/main/java/CaesarCipher.java"
+        - "/MP3/src/main/java/CharDistribution.java"
+    - start: 9310
+      name: MP4
+      paths:
+        - "/MP4/src/main/java/Transform.java"
+    - start: 12251
+      name: MP5
+      paths:
+        - "/MP5/src/main/java/ConnectN.java"
 
 # vim: ts=2:sw=2:et
