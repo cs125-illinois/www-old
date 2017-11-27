@@ -10,6 +10,9 @@ priority: 0.5
 changefreq: monthly
 layout: single.hbt
 spelling_exceptions:
+  - Lubuntu
+  - VirtualBox
+  - workspaces
 sidebar: lab
 ---
 :sectnums:
@@ -20,11 +23,8 @@ sidebar: lab
 The command line is an important power tool for every computer programmer and
 technologist.
 //
-At first the command line seems crufty, old-fashioned, and difficult to learn.
-//
-But once you get good at it it allows you to accomplish many more things that
-you can do using graphical interfaces, and accomplish those things faster and
-more accurately.
+Once you master it it allows you to accomplish more than you can using graphical
+interfaces, and accomplish those things faster and more accurately.
 //
 Essentially the command line allows you to interact with your computer
 _programmatically_, writing what are essentially small programs one line at a
@@ -48,7 +48,7 @@ There is no written component, and no programming component either.
 Instead, you'll install some software, and then complete a few tasks using your
 new command line skills.
 //
-We've also left things quite underspecified and open-ended.
+We've also left things underspecified and open-ended.
 //
 This is intentional.
 //
@@ -80,7 +80,17 @@ from the rest of your computer system (safety).
 
 
 [[virtualbox]]
-=== Install VirtualBox [.text-muted]#(15 Minutes)#
+=== Install VirtualBox [.text-muted]#(10 Minutes)#
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/5GgoKbqcAVQ" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 [.lead]
 //
@@ -110,7 +120,17 @@ It is also extremely easy to restore your virtual machine to its starting point,
 making it an ideal environment for experimentation.
 
 [[linux]]
-=== Install Linux [.text-muted]#(15 Minutes)#
+=== Install Linux [.text-muted]#(10 Minutes)#
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/N9yg5uNFiCU" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 With VirtualBox installed, you can now create a virtual machine.
 //
@@ -125,7 +145,10 @@ We'll let you figure out how to do this by searching around online&mdash;there
 are many, many tutorials on this.
 //
 The specific version of Ubuntu is up to you, but we suggest that you install
-Ubuntu 16.0.4, which is a so-called long-term support release.
+//
+http://lubuntu.me/downloads/[Lubuntu 16.04.3]
+//
+which is a lightweight long-term support release.
 //
 These release will continue to be supported for long periods of time, unlike the
 latest and greatest which changes about once per year.
@@ -149,7 +172,7 @@ for getting a command prompt.
 These other options don't all provide the same combination of power and
 safety of our approach.
 //
-But if you can accept the tradeoffs, feel free to give them a try:
+But if you can accept the trade-offs, feel free to give them a try:
 
 . Mac OS has a built-in Linux-like command line environment, which is one of the
 reasons that Apples tend to be popular with hackers.
@@ -157,9 +180,9 @@ reasons that Apples tend to be popular with hackers.
 Run the Terminal app and you'll be presented with a `bash` prompt.
 //
 *Keep in mind, however, that mistakes made at the command line can do serious and
-potentially irrepairable damage to your machine.*
+potentially irreparable damage to your machine.*
 //
-. All verisons of Windows have their own terminal program, but it's extremely
+. All versions of Windows have their own terminal program, but it's extremely
 unpleasant to use.
 //
 We don't recommend taking the time to learn it.
@@ -175,7 +198,7 @@ https://msdn.microsoft.com/en-us/commandline/wsl/about[here].
 _We definitely recommend that Windows users explore this option_.
 //
 *Keep in mind, however, that mistakes made at the command line can do serious and
-potentially irrepairable damage to your machine.*
+potentially irreparable damage to your machine.*
 //
 . Illinois provides a variety of remote access Linux and UNIX servers that you
 can access over SSH.
@@ -193,8 +216,76 @@ But if you're learning and want to do things like install software, configure
 servers, and other fun machine administration tasks, not having administrator
 access can be limiting.
 
+[[navigating]]
+== Getting Started [.text-muted]#(20 Minutes)#
+
+Most of this information is easily available online, but here's just a primer to
+get you started.
+
+=== Anatomy of a Command Line Command
+
+Consider this command line command:
+
+[source,bash]
+----
+$ ls -l Documents
+----
+
+Like many, it consists of several parts:
+
+* `ls`: this is the command itself&mdash;a computer program that runs and
+serves some purpose.
+//
+* `Documents`: this is an _argument_ to the `ls` command.
+//
+Arguments many be required or optional, and their meaning depends on the command
+that we are running.
+//
+In this case, `Documents` tells `ls` to list files in the `Documents` subdirectory of
+the current directory.
+//
+* `-l`: this is a command _option_.
+//
+Options are normally optional, but can sometimes be required.
+//
+They typically alter the commands behavior in some way.
+//
+In this case, the `-l` option to `ls` tells it to use a long listing format,
+which displays more information about each file and directory it encounters.
+
+=== Navigating the File System
+
+Many of the most widely-used command line operations involve navigating your
+computer's file system.
+//
+You may have only semi-realized this, but your computer organizes all of its
+files into a tree with a single root.
+//
+Directories&mdash;which you may know as folders&mdash;can contain files, but
+also may contain other directories.
+//
+Some of this organization is up to you.
+
+Inside your new terminal, try the following commands and determine what the do:
+
+* `pwd`
+//
+* `ls`
+//
+* `cd`
+//
+* `find`
+//
+* `mkdir`
+//
+* `rmdir`
+//
+* `rm`... but be careful with this one!
+//
+There is no undo or recycling bin for `rm`!
+
 [[exercises]]
-== Command Line Exercises [.text-muted]#(50 Minutes)#
+== Command Line Exercises [.text-muted]#(40 Minutes)#
 
 With your brand new command line environment set up, let's get down to some
 exercises.
@@ -221,7 +312,7 @@ Instead, figure out how to clone and build the project from the command line.
 //
 If you get stuck, refer to the screencast above.
 
-=== Practice Using Subversion and Git
+=== Practice Using SVN and Git
 
 . *Checkout and build one of your MPs.*
 //
@@ -291,7 +382,7 @@ return to your work later, and particularly helpful when logging on to remote
 machines.
 
 [[mp7]]
-== MP7 Brainstorming [.text-muted]#(30 Minutes)#
+== MP7 [.text-muted]#(30 Minutes)#
 
 link:/MP/7/[MP7] is out and requires you to work in pairs with someone from your
 lab section.
