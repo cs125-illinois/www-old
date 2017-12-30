@@ -13,7 +13,10 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "node index.js . --check --quiet"
+    "test": "node index.js . --check --quiet",
+    "build": "node index.js",
+    "deploy": "node index.js . --check",
+    "serve": "http-server build -p 8125 -a 127.0.0.1 -c-1"
   },
   "keywords": [
     "programming"

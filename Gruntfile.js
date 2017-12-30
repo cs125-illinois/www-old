@@ -17,19 +17,6 @@ module.exports = function(grunt) {
       }
     },
     'clean': ['<%= destination %>'],
-    'http-server': {
-      'build': {
-        root: path.join(__dirname, '<%= destination %>'),
-        port: 8125,
-        host: "127.0.0.1",
-        cache: 0,
-        showDir: false,
-        autoIndex: true,
-        ext: "html",
-        runInBackground: false,
-        openBrowser: true
-      }
-    },
     'npm-command': {
       options: {
         cmd: 'install',
