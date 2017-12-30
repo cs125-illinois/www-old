@@ -112,7 +112,7 @@ bio: true
 				appName: 'CS 125',
 				appDescription: 'CS 125: Introduction to Computer Science at the University of Illinois',
 				developerName: 'CS 125 Course Staff',
-				developerURL: 'https://cs125.cs.illinois.edu/people/',
+				developerURL: 'https://cs125.cs.illinois.edu/info/people/',
 				background: "#fff",
 				theme_color: "#e84a27",
 				path: "/img/favicon/",
