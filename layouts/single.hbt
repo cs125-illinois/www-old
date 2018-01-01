@@ -37,13 +37,22 @@
     </div>
     {{/if}}
 
-
     {{#if sidebar }}
     <main class="col-12 col-md-9 col-xl-7 py-3">
     {{else}}
     <div class="col-md-1 col-xl-2" style="z-index: -1;"></div>
     <main class="col-12 col-md-9 col-xl-7 py-3">
     {{/if}}
+
+      {{#if outdated }}
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This {{ outdated.name }} is from a previous version of CS 125.
+          <a href="{{{ outdated.current }}}">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+      {{/if}}
 
       <a class="anchor" id="top"></a>
       {{#unless notitle }}
