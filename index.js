@@ -1,46 +1,47 @@
-const appRootPath = require('app-root-path'),
-      path = require('path');
+const appRootPath = require('app-root-path')
+const path = require('path')
 
-const metalsmith = require('metalsmith'),
-      ignore = require('metalsmith-ignore'),
-      buildDate = require('metalsmith-build-date'),
-      drafts = require('metalsmith-drafts'),
-      filemetadata = require('metalsmith-filemetadata'),
-      metadata = require('metalsmith-metadata'),
-      empty = require(path.join(appRootPath.toString(), 'lib/empty.js')),
-      asciidoc = require('metalsmith-asciidoc'),
-      markdown = require('metalsmith-markdown'),
-      sections = require(path.join(appRootPath.toString(), 'lib/sections.js')),
-      course = require(path.join(appRootPath.toString(), 'lib/course.js')),
-      registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js')),
-      webpack = require('ms-webpack'),
-      inPlace = require('metalsmith-in-place'),
-      permalinks = require('metalsmith-permalinks'),
-      layouts = require('metalsmith-layouts'),
-      fixPath = require(path.join(appRootPath.toString(), 'lib/fixPath.js')),
-      active = require(path.join(appRootPath.toString(), 'lib/active.js')),
-      external = require(path.join(appRootPath.toString(), 'lib/external.js')),
-      footnotes = require(path.join(appRootPath.toString(), 'lib/footnotes.js')),
-      people = require(path.join(appRootPath.toString(), 'lib/people.js')),
-      iframes = require(path.join(appRootPath.toString(), 'lib/iframes.js')),
-      hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js')),
-      highlight = require(path.join(appRootPath.toString(), 'lib/highlight.js')),
-      msif = require('metalsmith-if'),
-      spellcheck = require('metalsmith-spellcheck'),
-      formatcheck = require('metalsmith-formatcheck'),
-      linkcheck = require('metalsmith-linkcheck');
+const metalsmith = require('metalsmith')
+const ignore = require('metalsmith-ignore')
+const buildDate = require('metalsmith-build-date')
+const drafts = require('metalsmith-drafts')
+const filemetadata = require('metalsmith-filemetadata')
+const metadata = require('metalsmith-metadata')
+const empty = require(path.join(appRootPath.toString(), 'lib/empty.js'))
+const asciidoc = require('metalsmith-asciidoc')
+const markdown = require('metalsmith-markdown')
+const sections = require(path.join(appRootPath.toString(), 'lib/sections.js'))
+const course = require(path.join(appRootPath.toString(), 'lib/course.js'))
+const registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js'))
+const webpack = require('ms-webpack')
+const inPlace = require('metalsmith-in-place')
+const permalinks = require('metalsmith-permalinks')
+const layouts = require('metalsmith-layouts')
+const fixPath = require(path.join(appRootPath.toString(), 'lib/fixPath.js'))
+const active = require(path.join(appRootPath.toString(), 'lib/active.js'))
+const external = require(path.join(appRootPath.toString(), 'lib/external.js'))
+const footnotes = require(path.join(appRootPath.toString(), 'lib/footnotes.js'))
+const people = require(path.join(appRootPath.toString(), 'lib/people.js'))
+const iframes = require(path.join(appRootPath.toString(), 'lib/iframes.js'))
+const hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js'))
+const highlight = require(path.join(appRootPath.toString(), 'lib/highlight.js'))
+const msif = require('metalsmith-if')
+const internalize = require(path.join(appRootPath.toString(), 'lib/internalize.js'))
+const spellcheck = require('metalsmith-spellcheck')
+const formatcheck = require('metalsmith-formatcheck')
+const linkcheck = require('metalsmith-linkcheck')
 
-const tmp = require('tmp'),
-      fs = require('fs'),
-      removeEmptyDirectories = require('remove-empty-directories'),
-      rsync = require('rsync');
+const tmp = require('tmp')
+const fs = require('fs')
+const removeEmptyDirectories = require('remove-empty-directories')
+const rsync = require('rsync')
 
 const _ = require('underscore');
 
 const defaults = {
-  'verbose': false,
-  'source': 'src',
-  'destination': 'build'
+  verbose: false,
+  source: 'src',
+  destination: 'build'
 };
 
 var syllabusPattern = 'syllabus/**/*.adoc';
@@ -71,6 +72,7 @@ function build(config, done) {
     }))
     .use(registerPartials())
     .use(course())
+    .use(people())
     .use(inPlace({
       pattern: '**/*.adoc.hbs',
     }))
@@ -78,7 +80,6 @@ function build(config, done) {
     .use(asciidoc())
     .use(markdown())
     .use(footnotes())
-    .use(people())
     .use(webpack(webpackConfiguration))
     .use(inPlace({
       pattern: '**/*.html.hbs',
@@ -95,6 +96,7 @@ function build(config, done) {
     .use(iframes())
     .use(hacks.postLayout())
     .use(highlight())
+    .use(internalize())
     .use(msif((config.check),
       spellcheck({ dicFile: 'dicts/en_US.dic',
                    affFile: 'dicts/en_US.aff',
