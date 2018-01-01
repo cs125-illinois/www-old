@@ -61,25 +61,59 @@
     nav {
       padding-top: 1.5rem;
       padding-bottom: 1.5rem;
+      padding-left: 1.5em;
+      padding-right: 0.5em;
+    }
+    ul.section-nav li {
+      padding: .125rem 0;
+      a {
+        display: block;
+        color: $illinois-orange;
+        text-decoration: none;
+        &:hover, &.active {
+          color: $illinois-blue;
+        }
+      }
+      button.dropdown-toggle {
+        padding-right: 0.4em;
+        padding-left: 0.2em;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
     }
     @include media-breakpoint-up(md) {
       & {
         display: block !important;
       }
     }
-  }
-  @include media-breakpoint-down(sm) {
-    .collapse, .collapsing {
-      nav {
-        background-color: white;
-        padding-bottom: 0 !important;
-        text-align: right;
+    @include media-breakpoint-down(sm) {
+      &.collapse, &.collapsing {
+        nav {
+          background-color: white;
+          padding-bottom: 0 !important;
+          text-align: right;
+        }
+        position: fixed;
+        top: 100px;
+        z-index: 1000;
+        width: 100%;
+        width: 100%;
       }
-      position: fixed;
-      top: 100px;
-      z-index: 1000;
-      width: 100%;
-      width: 100%;
+    }
+    ul.nav {
+      &.collapse {
+        display: none !important;
+      }
+      &.collapse.show {
+        display: flex !important;
+      }
+      @include media-breakpoint-down(sm) {
+        li {
+          text-align: right;
+          width: 100%;
+          padding-right: 1em;
+        }
+      }
     }
   }
 }

@@ -1,12 +1,25 @@
 <ul class="section-nav">
-  <li class="entry">
-    <a class="nav-link" data-active="^info/syllabus" href="/info/syllabus/">Syllabus</a>
+  <li>
+    <button id="show-prior-syllabus" type="button" class="btn dropdown-toggle dropdown-toggle-split d-inline-block d-md-none" data-toggle="collapse" data-target="#prior-syllabus" aria-haspopup="true" aria-expanded="false" onclick="this.blur();">
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <a data-active="^info/syllabus" href="/info/syllabus/" style="display:inline-block;">Syllabus</a>
+    <button id="show-prior-syllabus" type="button" class="btn dropdown-toggle dropdown-toggle-split d-none d-md-inline-block" data-toggle="collapse" data-target="#prior-syllabus" aria-haspopup="true" aria-expanded="false" onclick="this.blur();">
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="nav collapse" id="prior-syllabus" role="menu" aria-labelledby="show-prior-syllabus">
+      <li>
+        <a data-active="^info/2017/fall/syllabus" href="/info/2017/fall/syllabus/">
+          Fall 2017
+        </a>
+      </li>
+    </ul>
   </li>
-  <li class="entry">
-    <a class="nav-link" data-active="^info/people" href="/info/people/">People</a>
+  <li>
+    <a data-active="^info/people" href="/info/people/">People</a>
   </li>
-  <li class="entry">
-    <a class="nav-link" data-active="^info/resources" href="/info/resources/">Resources</a>
+  <li>
+    <a data-active="^info/resources" href="/info/resources/">Resources</a>
   </li>
 </ul>
 
