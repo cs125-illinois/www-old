@@ -1,26 +1,28 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  context: './src/',
   output: {
-    publicPath: '/',
-    filename: 'js/[name].[chunkhash].js'
+    filename: 'src/assets/js/[name].[chunkhash].js'
   },
   entry: {
     site: [
-      './js/site.js',
-      './css/_site.scss',
-      './fonts/fonts.css',
-      './fonts/font-awesome.css'
+      './src/js/site.js',
+      './src/css/_site.scss',
+      './src/fonts/fonts.css',
+      './src/fonts/font-awesome.css'
     ],
     index: [
-      './js/site.js',
-      './css/index.scss',
-      './fonts/fonts.css',
-      './fonts/font-awesome.css'
+      './src/js/site.js',
+      './src/css/index.scss',
+      './src/fonts/fonts.css',
+      './src/fonts/font-awesome.css'
     ]
+  },
+  node: {
+    fs: 'empty'
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -29,20 +31,34 @@ module.exports = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
     }),
-    new ExtractTextPlugin('css/[name].[chunkhash].css'),
+    new ExtractTextPlugin('src/assets/css/[name].[chunkhash].css'),
+    new UglifyJSPlugin()
   ],
   module: {
     rules: [
       {
         test: /\.(scss)$/,
         use: ExtractTextPlugin.extract({
-          use: [ 'css-loader', 'sass-loader' ]
+          use: [
+            { loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            },
+            { loader: 'sass-loader' },
+          ]
         })
       },
       {
         test: /\.(css)$/,
         use: ExtractTextPlugin.extract({
-          use: [ 'css-loader' ]
+          use: [
+            { loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            }
+          ]
         })
       },
       {
@@ -51,7 +67,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'fonts/'
+              outputPath: 'src/assets/fonts/'
             }
           }
         ]

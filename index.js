@@ -58,6 +58,7 @@ metalsmith(__dirname)
   .use(ignore([
     'fonts/*',
     'css/*',
+    'js/*',
     '**/*.swp',
     '**/*.swo'
   ]))
