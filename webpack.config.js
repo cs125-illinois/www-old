@@ -6,8 +6,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   output: {
-    publicPath: '/assets/',
-    path: __dirname + '/src/assets',
+    publicPath: '/static-assets/',
+    path: __dirname + '/src/static-assets',
     filename: 'js/[name].[chunkhash].js'
   },
   entry: {
@@ -36,7 +36,7 @@ module.exports = {
     }),
     new ExtractTextPlugin('css/[name].[chunkhash].css'),
     new UglifyJSPlugin(),
-    new CleanWebpackPlugin([ 'src/assets' ])
+    new CleanWebpackPlugin([ 'src/static-assets' ])
   ],
   module: {
     rules: [

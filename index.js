@@ -83,7 +83,7 @@ metalsmith(__dirname)
     let assets = _(files)
       .keys()
       .filter(filename => {
-        return filename.startsWith('assets/css') || filename.startsWith('assets/js')
+        return filename.startsWith('static-assets/css') || filename.startsWith('static-assets/js')
       })
       .map(filename => {
         return filename.split('/').slice(1).join('/')
@@ -92,7 +92,7 @@ metalsmith(__dirname)
     let assetMap = {}
     _.each(assets, filename => {
       let components = filename.split('/').slice(-1)[0].split('.')
-      assetMap[`${ components[0] }.${ components[2] }`] = path.join('/assets', filename)
+      assetMap[`${ components[0] }.${ components[2] }`] = path.join('/static-assets', filename)
     })
     metadata.webpack = {
       assets: assetMap
@@ -114,8 +114,9 @@ metalsmith(__dirname)
   .use(iframes())
   .use(hacks.postLayout())
   .use(highlight())
-  .use(internalize())
-  .use(msif((config.check),
+  .use(msif(config.check,
+    internalize()))
+  .use(msif(config.check,
     spellcheck({ dicFile: 'dicts/en_US.dic',
                  affFile: 'dicts/en_US.aff',
                  exceptionFile: 'dicts/spelling_exceptions.yaml',
