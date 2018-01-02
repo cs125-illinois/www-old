@@ -6,16 +6,16 @@ $(() => {
   // Turn on popovers and toggle on interior clicks.
   $('[data-toggle="popover"]').popover()
   $('body').on('click', e => {
-    $('[data-toggle="popover"]').each(() => {
+    $('[data-toggle="popover"]').each(function() {
       if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
         $(this).popover('hide');
       }
     })
   })
-  $('.datatables').each (() => {
+  $('.datatables').each(function() {
     $(this).DataTable(JSON.parse($(this).attr('data-datatables')))
   })
-  $('div.lazyiframe').each(() => {
+  $('div.lazyiframe').each(function() {
     var iframe = $("<iframe/>")
     $.each(JSON.parse(decodeURI($(this).data('attribs'))), (name, value) => {
       $(iframe).attr(name, value);

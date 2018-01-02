@@ -78,7 +78,27 @@ metalsmith(__dirname)
   .use(asciidoc())
   .use(markdown())
   .use(footnotes())
-  .use(webpack(webpackConfiguration))
+  .use((files, metalsmith, done) => {
+    let metadata = metalsmith.metadata()
+    let assets = _(files)
+      .keys()
+      .filter(filename => {
+        return filename.startsWith('assets/css') || filename.startsWith('assets/js')
+      })
+      .map(filename => {
+        return filename.split('/').slice(1).join('/')
+      })
+      .value()
+    let assetMap = {}
+    _.each(assets, filename => {
+      let components = filename.split('/').slice(-1)[0].split('.')
+      assetMap[`${ components[0] }.${ components[2] }`] = path.join('/assets', filename)
+    })
+    metadata.webpack = {
+      assets: assetMap
+    }
+    return done()
+  })
   .use(inPlace({
     pattern: '**/*.html.hbs',
   }))

@@ -2,10 +2,13 @@ const webpack = require('webpack')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   output: {
-    filename: 'src/assets/js/[name].[chunkhash].js'
+    publicPath: '/assets/',
+    path: __dirname + '/src/assets',
+    filename: 'js/[name].[chunkhash].js'
   },
   entry: {
     site: [
@@ -31,8 +34,9 @@ module.exports = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
     }),
-    new ExtractTextPlugin('src/assets/css/[name].[chunkhash].css'),
-    new UglifyJSPlugin()
+    new ExtractTextPlugin('css/[name].[chunkhash].css'),
+    new UglifyJSPlugin(),
+    new CleanWebpackPlugin([ 'src/assets' ])
   ],
   module: {
     rules: [
@@ -67,7 +71,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'src/assets/fonts/'
+              outputPath: 'fonts/'
             }
           }
         ]
@@ -80,18 +84,6 @@ module.exports = {
         }]
       }
     ]
-  },
-  stats: {
-    hash: false,
-    version: false,
-    timings: false,
-    assets: false,
-    chunks: false,
-    modules: false,
-    reasons: false,
-    children: false,
-    source: false,
-    publicPath: false
   }
 }
 // vim: ts=2:sw=2:et:ft=javascript
