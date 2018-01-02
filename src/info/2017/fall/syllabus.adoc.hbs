@@ -270,16 +270,16 @@ sections, and office hours.
 You will attend three one-hour lecture per week, one two-hour lab section, and
 many office hours.
 
-Lectures are taught by one the link:/info/people/#instructors[instructors]:
+Lectures are taught by one the link:#instructors[instructors]:
 //
 pass:[{{#or_list course.staffByRole.Instructor}}{{ this.name }}{{/or_list}}].
 //
-Labs are led the link:/info/people/#tas[{{ course.staffByRole.TA.length }} TAs],
+Labs are led the link:#tas[{{ course.staffByRole.TA.length }} TAs],
 //
-and office hours are staffed by our link:/info/people/#doyens[_{{ course.staffByRole.Doyen.length }}_
+and office hours are staffed by our link:#doyens[_{{ course.staffByRole.Doyen.length }}_
 Illinoisan Doyens].
 //
-You can find out more about the entire staff on the link:/info/people/[people page].
+You can find out more about the entire staff on the link:#people[people page].
 
 === Lectures
 
@@ -698,73 +698,78 @@ https://compass2g.illinois.edu/webapps/login/[Compass].
 //
 We will post final letter grades there at the end of the term.
 
+[[people]]
 == People
 
+[[instructors]]
+=== Instructors
+
 ++++
-<div class="mt-2 spelling_exception">
-  <h3 id="instructors" class="text-primary">Instructors</h3>
-  <div class="row">
-    {{#each course.staffByRole.Instructor }}
-    <div class="col-12 col-sm-6 col-lg-4 mt-2">
-      <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
-        <div class="card-body">
-          <h4 class="card-title text-center">{{{ this.name }}}</h4>
-          <p class="card-text">
-          Teaching lectures{{#if this.sections}}
-          and {{ inflect this.sections.length "section" "sections" }}
-          {{#and_list this.sections }}{{ this }}{{/and_list}}
-          {{/if}}
-          </p>
-        </div>
+<div class="row spelling_exception">
+  {{#each course.staffByRole.Instructor }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <h4 class="card-title text-center">{{{ this.name }}}</h4>
+        <p class="card-text">
+        Teaching lectures{{#if this.sections}}
+        and {{ inflect this.sections.length "section" "sections" }}
+        {{#and_list this.sections }}{{ this }}{{/and_list}}
+        {{/if}}
+        </p>
       </div>
     </div>
-    {{/each }}
   </div>
+  {{/each }}
 </div>
+++++
 
-<div class="mt-3 spelling_exception">
-  <h3 id="tas" class="text-primary">Teaching Assistants</h3>
-  <div class="row">
-    {{#each course.staffByRole.TA }}
-    <div class="col-12 col-sm-6 col-lg-4 mt-2">
-      <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
-        <div class="card-body">
-          <h5 class="card-title text-center">{{{ this.name }}}</h5>
-          {{#if this.sections }}
-          <p class="card-text">
-          Teaching {{ inflect this.sections.length "section" "sections" }}
-          {{#and_list this.sections }}{{ this }}{{/and_list}}
-          </p>
-          {{/if}}
-        </div>
+[[tas]]
+=== Teaching Assistants
+
+++++
+<div class="row spelling_exception">
+  {{#each course.staffByRole.TA }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{{ this.name }}}</h5>
+        {{#if this.sections }}
+        <p class="card-text">
+        Teaching {{ inflect this.sections.length "section" "sections" }}
+        {{#and_list this.sections }}{{ this }}{{/and_list}}
+        </p>
+        {{/if}}
       </div>
     </div>
-    {{/each }}
   </div>
+  {{/each }}
 </div>
+++++
 
-<div class="mt-3 spelling_exception">
-  <h3 id="doyens" class="text-primary">Illinoisan Doyens</h3>
-  <div class="row">
-    {{#each course.staffByRole.Doyen }}
-    <div class="col-12 col-sm-6 col-lg-4 mt-2">
-      <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
-        <div class="card-body">
-          <div class="person card-title text-center">{{{ this.name }}}</div>
-          {{#if this.sections }}
-          <p class="card-text">
-          Assisting with {{ inflect this.sections.length "section" "sections" }}
-          {{#and_list this.sections }}{{ this }}{{/and_list}}
-          </p>
-          {{/if}}
-        </div>
+[[doyens]]
+=== Illinoisan Doyens
+
+++++
+<div class="row spelling_exception">
+  {{#each course.staffByRole.Doyen }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <div class="person card-title text-center">{{{ this.name }}}</div>
+        {{#if this.sections }}
+        <p class="card-text">
+        Assisting with {{ inflect this.sections.length "section" "sections" }}
+        {{#and_list this.sections }}{{ this }}{{/and_list}}
+        </p>
+        {{/if}}
       </div>
     </div>
-    {{/each }}
   </div>
+  {{/each }}
 </div>
 ++++
 
