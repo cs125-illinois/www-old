@@ -28,6 +28,8 @@ const hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js'))
 const highlight = require(path.join(appRootPath.toString(), 'lib/highlight.js'))
 const msif = require('metalsmith-if')
 const internalize = require(path.join(appRootPath.toString(), 'lib/internalize.js'))
+const beautify = require('metalsmith-beautify')
+const minifier = require('metalsmith-html-minifier')
 const spellcheck = require('metalsmith-spellcheck')
 const formatcheck = require('metalsmith-formatcheck')
 const linkcheck = require('metalsmith-linkcheck')
@@ -122,6 +124,10 @@ metalsmith(__dirname)
                  checkedPart: "#content",
                  failErrors: false,
                  verbose: !quiet})))
+	.use(msif(config.check,
+    minifier()))
+	.use(msif(config.check,
+    beautify({'indent_size': 2, 'css': false, 'js': false})))
   .use(msif(config.check,
     formatcheck({ verbose: !quiet , failWithoutNetwork: false })))
   .use(msif(config.check,
