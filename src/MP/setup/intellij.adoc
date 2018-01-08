@@ -1,5 +1,5 @@
 ---
-title: "Eclipse Setup"
+title: "IntelliJ Setup"
 description:
   Prepare your computer to complete the Java-based machine problems (MPs).
 priority: 0.5
@@ -25,25 +25,39 @@ sidebar: MP
 
 [.lead]
 //
-To complete the CS 125 machine problems (MPs) you'll write
+To complete the CS 125 machine problems (MPs) you'll write your
 //
 https://www.java.com/en/[Java]
 //
 code using the
 //
-http://www.eclipse.org/home/index.php[Eclipse]
+https://www.jetbrains.com/idea/[IDEA IntelliJ]
 //
-Integrated Development Environment (IDE), augmented with several plugins.
+Integrated Development Environment (IDE) augmented with the
+//
+https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[Checkstyle-IDEA
+plugin].
 //
 This guide will help you install and configure this important and powerful
-tool.
+development tool.
 
-[[eclipse]]
-== Eclipse
+[.alert.alert-warning]
+--
+**Note that if have not
+//
+link:/MP/setup/java/[installed Java]
+//
+you should do that first.**
+//
+Return here when you're done.
+--
+
+[[intellij]]
+== IntelliJ
 
 [.lead]
 //
-http://www.eclipse.org/home/index.php[Eclipse]
+https://www.jetbrains.com/idea/[IntelliJ]
 //
 is a powerful and popular open-source integrated development environment
 (IDE).
@@ -52,342 +66,73 @@ Many programmers utilize IDEs to simplify the process of writing, building,
 testing, and debugging both large and small applications.
 
 If you have a laptop or desktop that you plan to use for CS 125, you should
-install Eclipse on it.
+install IntelliJ on it.
 //
 Follow the instructions below that are appropriate for your machine.
 //
-Unfortunately Eclipse is not always the easiest piece of software to install,
-so don't be discouraged if you get stuck.
+But keep in mind that installing new software can be challenging, so don't be
+discouraged if you get stuck.
 //
-We're here to help.
+We're here to help!
+//
+Come to office hours or
+//
+link:/forum/c/mps/intellij[post on the forum in the IntelliJ category].
 
-**Note that you should always download the
-https://www.eclipse.org/downloads/[latest version of Eclipse].**
-//
-As of late August 2017 that is Eclipse Oxygen.
+[[version]]
+=== Version
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/LN-pvim9HKE" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
+For Spring 2018 we are using IntelliJ version 2017.3.2, which is the latest
+available as of January 2018.
+//
+Please install this version of IntelliJ and continue using it throughout the
+semester.
+//
+Minor upgrades are probably safe to install.
+//
+If a major upgrade is released, the course staff will let you if it is safe to
+use.
 
-[[windows]]
-=== Windows
+[[install]]
+=== Installation
 
-The easiest solution for Windows machines is to use the very nice
-https://ninite.com/[Ninite] bundled installed
-footnote:[Ninite is actually the creation of a student I
-know from college&dash;which is how I found out about it.].
+IntelliJ maintains an
 //
-It will allow you to install both the Java Software Development Kit (SDK) and
-the Eclipse Integrated Development Environment (IDE) at the same time.
-
-Here are the steps to follow:
-
-. Go to https://ninite.com/[`ninite.com`].
+https://www.jetbrains.com/help/idea/install-and-set-up-intellij-idea.html[excellent
+set of installation instructions].
 //
-. At minimum you need to check the "Eclipse" and the "JDK x64 8" boxes
-footnote:[Of course, if you want other software this is a good time to get
-it!].
+**Please follow them carefully**, and make sure that you don't miss any
+instructions specific to whether you are running Windows, Mac, or Linux.
 //
-. Download and run the installer.
-
-At this point you should be able to find Eclipse in your installed
-applications, or as a shortcut on your desktop.
-
-If you're nervous about using Ninite&mdash;despite
-their backing by http://www.ycombinator.com/[Y Combinator] and glowing reviews
-by http://www.ycombinator.com/[PC World] and others&mdash;perhaps this will
-assuage your fears.
-//
-I actually went to school with
-https://www.crunchbase.com/person/patrick-swieskowski#/entity[Patrick
-Swieskowski], one of the Ninite co-founders.
-//
-He's both a great guy and a tremendous developer.
-//
-I would trust him to install software on my machine footnote:[I actually found
-out about Ninite because I looked him up once. Normally I have little interest
-in Windows software.].
-
-[[mac]]
-=== Mac
-
-On Mac there are two steps to installing Eclipse.
-//
-First, you must install the Java Software Development Kit (SDK):
-
-. Go to
-http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[this
-website].
-//
-Accept the license agreement and download the Java SE Development Kit for Mac
-OS X.
-//
-. Run the installer to complete the installation.
-
-Next, install the latest version of Eclipse:
-
-. Go to https://eclipse.org/[`eclipse.org`] and click on the download link.
-Continue by clicking on the download link on the next page.
-//
-. Download and run the installer to complete the installation.
-
-By default Eclipse installs itself into an `eclipse` folder in your home
-directory.
-//
-If you want it in your applications, move the installed binary into your
-Applications folder.
-
-[[linux]]
-=== Linux
-
-The first step when running Linux is to install Oracle Java.
-//
-You can follow
-//
-https://www.java.com/en/download/help/linux_x64_install.xml[these instructions]
-//
-on the Java homepage.
-//
-Many distributions also have Sun Java packages as well&mdash;for example, Ubuntu
-and Mint users can follow
-//
-http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html[these
-instructions] to use the Web Upd8 PPA.
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/EiGl2Ag35AI" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-To get Eclipse, start by downloading the
-//
-https://www.eclipse.org/downloads/[Eclipse Oxygen]
-//
-tarball from the Eclipse homepage.
-//
-Unpack it and you should have a executable binary.
-//
-The screencast above walks you through that process.
-
-[[plugins]]
-== Eclipse Plugins
-
-[.lead]
-//
-Once you have <<eclipse, Eclipse installed>>, continue by installing several
-plugins.
-//
-Plugins extend Eclipse by providing new features or capabilities.
-//
-Remembers: computers are powerful and _love_ performing repetitive tasks.
-//
-So they are great at doing things like <<checkstyle, checking our code for formatting
-problems>>, <<testng,running tests>>, and <<gradle, building large projects from multiple source code
-files>>.
-
-Note that while these instructions are written for
-//
-https://projects.eclipse.org/releases/oxygen[Eclipse Oxygen],
-//
-they have also been tested on
-//
-https://projects.eclipse.org/releases/neon[Eclipse Neon].
-//
-**While we strongly suggest that you use Oxygen**, Neon is currently installed
-on the Engineering Workstations (https://it.engineering.illinois.edu/ews[EWS]).
-//
-Note that there is a small difference in the Neon instructions once you read the
-<<gradle, Gradle>> section.
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/BCBV_ONqMmA" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-[[subversive]]
-=== Subversive Subversion Plugin
-
-https://subversion.apache.org/[Subversion] is a software version control
-system (VCS).
-//
-It allows both individual developers and teams to work together more
-effectively.
-//
-You will use Subversion to retrieve your machine problem (MP) assignments, and
-to submit your solutions.
-
-To install the Subversive Subversion Eclipse plugin, follow the following
-instructions:
-
-. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
-//
-. Search for "subversive".
-//
-. Install the latest version of the "Subversive - SVN Team Provider" plugin.
-//
-. Restart Eclipse if it doesn't automatically.
-
-[[connectors]]
-=== Subversion Connectors
-
-Now we need to install some additional software to allow Subversion to connect
-to our course repository.
-//
-Continue by following these instructions to set up so-called Subversive
-connectors:
-
-. Open the Eclipse software sources dialog: "Help &rarr; Install New
-Software".
-//
-. Work with link:http://community.polarion.com/projects/subversive/download/eclipse/6.0/update-site/[http://community.polarion.com/projects/subversive/download/eclipse/6.0/update-site/, role="noclick"]
-//
-and click "Add".
-//
-. Name the repository anything you want&mdash; "Subversive Connectors" is
-fine.
-//
-. Select both the "Subversive SVN Connectors" and "Subversive SVN Connectors
-Sources" checkboxes.
-//
-. Complete the rest of the installation dialog. When it prompts you about
-installing untrusted sources, click install anyway.
-//
-. Eclipse should restart again, at which point you are all done.
+You should not need to modify any of the default settings or plugins.
 
 [[checkstyle]]
-=== checkstyle
+== `checkstyle` Plugin
 
-When you write code, style matters.
+Once you have <<install, installed IntelliJ>>, continue by installing the
 //
-This is particularly important as you start to work with others.
+https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[Checkstyle-IDEA
+IntelliJ plugin].
 //
-Inconsistent style produces code that is hard for others to read and understand.
+We use
+//
+http://checkstyle.sourceforge.net/[`checkstyle`]
+//
+to help you learn how to write beautiful and maintainable code by forcing you to
+adhere to a coding standard.
+//
+**There are points on each MP for `checkstyle`, so you want to get the plugin
+installed so that you can check your style in IntelliJ.**
 
-As a result, almost all large footnote:[and even most small] software projects
-produce _style guidelines_.
-//
-These are rules about how code should be formatted to ensure consistency across
-multiple developers.
-//
-Some languages, like https://golang.org/[Go], have even gone as far to make
-certain stylistic choices part of the code language specification.
+Installing this plugin is straightforward:
 
-To prepare you for the big wide communal world of programming, we're going to
-have you install and use an Eclipse style checking plugin.
+. Download the latest version from
 //
-http://checkstyle.sourceforge.net/[checkstyle] is a Java style checking tool
-that is used and supported by large companies that write Java&mdash;including
-Google footnote:[Most Android app development is done in Java.].
+https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[this page].
 //
-Our style guidelines are based on the
-http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html[Sun
-Code Conventions].
-
-Installing the checkstyle plugin for Eclipse is fairly easy by using the
-software marketplace:
-
-. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
+. Open the IntelliJ preferences dialog and choose the Plugins option.
 //
-. Search for "checkstyle".
+On this page there is an option to install a plugin from disk.
 //
-. Install the latest version of the "CheckStyle" plugin.
-//
-. Restart Eclipse if it doesn't automatically.
-
-[[testng]]
-=== TestNG
-
-Writing good tests are an important part of effective software development.
-//
-Eclipse comes with built-in support for the http://junit.org/[JUnit] testing
-framework, but we may want to experiment with another testing framework called
-http://testng.org/[TestNG].
-//
-It has some nice features that JUnit lacks&mdash;even if it has a much uglier
-website.
-
-The process is quite similar to the one for <<checkstyle, checkstyle>>:
-
-. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
-//
-. Search for "testng".
-//
-. Install the latest version of the "TestNG for Eclipse" plugin.
-//
-. Restart Eclipse if it doesn't automatically.
-
-[[gradle]]
-=== Gradle
-
-Building large software projects consisting of multiple source code files is a
-complex process.
-//
-To address this problem, developers frequently use so-called _build systems_
-to automate this process.
-//
-Build systems can intelligently determine what steps need to be taken to build
-a complete application, automatically do things like check style (using tools
-like <<checkstyle, checkstyle>>) or run tests (using tools like <<testng,
-TestNG>>).
-//
-We're also going to use Gradle to run the tests on your code that will produce
-your grade for each MP.
-
-https://gradle.org/[Gradle] is a build system.
-//
-It is frequently used for Java projects, but can be used to build a variety of
-different kinds of software projects.
-
-The instructions that follow are slightly different for Oxygen and Neon, so make
-sure that you follow the ones appropriate to your version of Eclipse.
-
-==== Oxygen
-
-Gradle is actually so important that Eclipse Oxygen comes with it pre-installed.
-//
-Unfortunately, the bundled version is out of date so we need to update it
-manually.
-
-Here's what to do:
-
-. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
-//
-. Search for "buildship". It should say "Installed".
-//
-. Click on "Installed", then "Update".
-//
-. Accept the license agreement.
-//
-. Restart Eclipse if it doesn't automatically.
-
-==== Neon
-
-Unlike Oxygen, Eclipse Neon _does not_ come with Gradle installed.
-//
-But it's easy to install it.
-//
-Here's what to do:
-
-. Open the Eclipse Software Marketplace: "Help &rarr; Eclipse Marketplace".
-//
-. Install the latest version of the "Buildship Gradle Integration 2.0" plugin.
-//
-. Restart Eclipse if it doesn't automatically.
-
+Choose the file that you downloaded in Step 1, Restart IntelliJ, and you are
+done.

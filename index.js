@@ -65,8 +65,7 @@ metalsmith(__dirname)
   .use(buildDate())
   .use(drafts())
   .use(metadata({
-    course: 'course.yaml',
-    dates: 'schedule/dates.yaml'
+    course: 'course.yaml'
   }))
   .use(registerPartials())
   .use(course())
