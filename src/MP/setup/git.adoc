@@ -1,7 +1,7 @@
 ---
-title: "Introduction to Subversion"
+title: "Introduction to Git and GitHub"
 description:
-  Understand how to use the Subversion version control system.
+  Introduction to the Git version control system and GitHub Git online service.
 priority: 0.5
 changefreq: monthly
 layout: single.hbt
@@ -15,11 +15,28 @@ sidebar: MP
 
 [.lead]
 //
-https://subversion.apache.org/[Subversion] is a source code version control
-system (VCS), also known as _version control_.
+https://git-scm.com/[Git] is a source code version control system (VCS), also
+known as _version control_.
+//
+https://github.com/[GitHub] is as website providing Git repository hosting and
+an attractive and powerful Git web interface.
 //
 Version control systems are at the heart of how programmers manage and share
 source code.
+//
+Both Git and GitHub are extremely commonly used in the world of software
+development, and you will benefit greatly from familiarity with them.
+
+[.alert.alert-warning]
+--
+**Note that if have not
+//
+link:/MP/setup/intellij/[installed IntelliJ]
+//
+you should do that first.**
+//
+Return here when you're done.
+--
 
 [[vcs]]
 == Why Use Source Version Control?
@@ -44,42 +61,39 @@ with several important advantages.
 
 === Versioning Entire Projects
 
-First, version control systems track the version of _all the files in each repository_,
-rather than individual files separately.
+First, version control systems track the version of _all the files in each
+repository_, rather than individual files separately.
 //
-Programming frequently involves making a set of changes to a group of files
-that together accomplish something&mdash;like fixing a bug or adding a new
-feature.
+Programming frequently involves making a set of changes to a group of files that
+together accomplish something&mdash;like fixing a bug or adding a new feature.
 //
-So when you commit your work using Subversion, it remembers the state of all
-the files in your repository at that time.
+So when you commit your work using Git, it remembers the state of all the files
+in your repository at that time.
 //
-This allows you to compare what your project looked like at different times,
-and undo an entire set of changes that might have caused a problem.
+This allows you to compare what your project looked like at different times, and
+undo an entire set of changes that might have caused a problem.
 
-Note that this also means that Subversion **does not** track all the changes
-you save to a file.
+Note that this also means that Git **does not** track all the changes you save
+to a file.
 //
 Unless you commit your changes, they are not saved to your repository.
 //
-This may seem like an annoyance&mdash;after all, systems like Dropbox will
-sync your files every time you save them.
+This may seem like an annoyance&mdash;after all, systems like Dropbox will sync
+your files every time you save them.
 
 But when programming this turns out to be a _huge_ advantage.
 //
-Let's say you save a version of `Foo.java` to test&mdash;but it contains
-errors.
+Let's say you save a version of `Foo.java` to test&mdash;but it contains errors.
 //
 Now if you are using Dropbox, everyone has that broken version of the file.
 //
-But if you are using Subversion, you can test your code, notice the errors,
-and fix them before committing.
+But if you are using Git, you can test your code, notice the errors, and fix
+them before committing.
 
-A Subversion footnote:[or Git] commit is really their equivalent of the save
-operation.
+A Git commit is really their equivalent of the save operation.
 //
-Regardless of whether you save your files in Eclipse or any other way, you
-have to commit them to your repository before it will save and remember them.
+Regardless of whether you save your files in IntelliJ or any other way, you have
+to add commit them to your repository before it will save and remember them.
 
 === Version Comments
 
@@ -121,168 +135,127 @@ combine the changes from Alice with the changes from Bob.
 When you are working in large teams on large software projects, this
 capability is extremely handy.
 
-[[subversion]]
-== Introduction to Subversion
+[[workflow]]
+== CS 125 Git Workflow
 
-Now that you agree that using version control is useful, let's go through
-the basics of how to use Subversion.
+Almost all of your interaction with Git this semester will be through two
+powerful interfaces: the
+//
+link:/MP/setup/intellij[IntelliJ IDE],
+//
+and
+//
+https://github.com/[GitHub].
+//
+Let's walk through a typical MP workflow to get a sense for how you will
+normally be using Git.
 
-Subversion organizes your files into a _repository_.
+=== Cloning the MP Starter Code Using GitHub
+
+To begin each MP footnote:[and during many labs], you will use a special link to
+_clone_ a Git repository on
+//
+https://github.com/[GitHub].
+//
+That repository contains starter code that we provide for each assignment,
+including completed portions of the assignment and testing suites.
+//
+Cloning a Git repository on GitHub makes a copy of it that you now have
+permission to modify.
+
+=== Creating a New Project Using IntelliJ
+
+You will then use IntelliJ to initialize a new project from your remote GitHub
+Repository.
+//
+IntelliJ makes this extremely easy: there is an option to create a new project
+from a remote repository.
+//
+This step will download the code from GitHub to your local machine and allow you
+to begin making and testing your changes.
+
+=== Commiting and Pushing Changes Using IntelliJ
+
+As you work on the assignment, you will want to regularly _commit_ your work.
+//
+Each time you commit, you record the state of your repository locally.
+//
+You can also choose to _push_ your changes to GitHub.
+//
+Once they are saved to GitHub, they will persist even if your hard drive dies,
+or if you accidentally delete your entire local repository.
+//
+IntelliJ has a convenient interface for commiting changes, adding commit messages,
+pushing to GitHub, and generally tracking the state of your repository.
+
+=== Submitting Your Work Using IntelliJ
+
+For CS 125 you submit your work by _pushing_ it to GitHub.
+//
+We will grade each version of your MP that you push and provide you with the
+best score modulo penalties and other score calculations.
+
+[[git]]
+== Introduction to Git
+
+[.lead]
+//
+Now let's go through the basics of how to use Git.
+//
+But please don't consider this guide exhaustive&mdash;there are much more useful
+and up-to-date guides all over the internet.
+
+Git organizes your files into a _repository_.
 //
 A repository can contain any number of files organized any way you like.
 //
-But a single repository usually contains all of the code used by a single
-project.
+A single repository usually contains all of the code used by a single project.
 //
-For CS 125, you will use a single repository that holds all of the Java source
-code files that you will use this semester&mdash;both in labs and during the
-machine problems footnote:[Normally you'd split up each assignment into
-separate repositories, but this setup is easier for our purposes.].
+For CS 125, you will use a single repository for each MP footnote:[and for some
+labs].
 
-For CS 125 your subversion repository is stored on a remote server:
+Git stores a copy of your repository on your local machine.
 //
-pass:[<a class="noexternal link_exception spelling_exception" href="https://subversion.ews.illinois.edu/" onclick="return false">https://subversion.ews.illinois.edu/</a>].
+But to submit and to backup your work, you are going to _push_ your changes to
+the GitHub Git hosting service.
 //
-So the steps required to use Subversion effectively&mdash;your version control
-_workflow_&mdash;consist of adding Eclipse projects to your repository,
-committing changes to your files, and adding new files to your repository.
+So first we have to create a GitHub account and configure IntelliJ to use it.
+
+[[account]]
+=== Creating a GitHub Account
+
+Joining GitHub is simple!
 //
-But first we have to configure Eclipse to use your CS 125 subversion
-repository.
+If you don't already have an account, head to
+//
+https://github.com/join[this page]
+//
+to sign up.
+//
+It's quick, free, and painless.
+
+If you already have an account, just keep using it for your CS 125 assignments.
+//
+Note that there is also no requirement that you identify yourself as a CS 125 or
+even as an Illinois student with GitHub to submit your CS 125 assignments.
+//
+We'll discuss how to identify yourself your submissions later TODO.
 
 [[connecting]]
-=== Connecting to Your Repository
+=== Creating a New IntelliJ Project Using a GitHub Repository
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Lyje5yMGFHE" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-All repositories for this semester are stored as subfolders under
+It is straightforward to start a new IntelliJ project Using an existing GitHub
+repository--either one you created or one that was created for you when you
+accepted our MP invitation link.
 //
-link:https://subversion.ews.illinois.edu/svn/fa17-cs125/[https://subversion.ews.illinois.edu/svn/fa17-cs125/, role="noclick link_exception"].
+Simply choose the "Check out from Version Control" option in the main IntelliJ
+menu and then select "GitHub".
 //
-To get the URL for your repository, simply add your Illinois NetID.
-//
-Here are a few examples:
-
-* I'm NetID `challen`, so my repository is
-//
-link:https://subversion.ews.illinois.edu/svn/fa17-cs125/challen[https://subversion.ews.illinois.edu/svn/fa17-cs125/challen, role="noclick link_exception"].
-//
-* If my dog Chuchu went to school here
-//
-footnote:[We tried that once, but it
-//
-https://www.change.org/p/davis-hall-administrators-let-chuchu-come-back[didn't
-work out perfectly].], his NetID would be `chuchu` and his repository would be
-//
-link:https://subversion.ews.illinois.edu/svn/fa17-cs125/chuchu[https://subversion.ews.illinois.edu/svn/fa17-cs125/chuchu, role="noclick link_exception"].
-//
-I'm not sure what he'd store in there though&mdash;maybe bones?
-//
-* If my dog Xyz went to school here, her NetID would be `meowmeow`, and
-her repository would be
-//
-link:https://subversion.ews.illinois.edu/svn/fa17-cs125/meowmeow[https://subversion.ews.illinois.edu/svn/fa17-cs125/meowmeow, role="noclick link_exception"].
-//
-(Hopefully her NetID is not taken!)
-
-Hopefully by now you get the pattern.
-//
-Now that you have the link to your Subversion repository ready, let's set up
-Eclipse to use it:
-
-. Start by opening the Eclipse SVN Repository Perspective: "Window &rarr;
-Perspective &rarr; Open Perspective &rarr; Other... &rarr; SVN Repository
-Explorer".
-//
-. Now select "New &rarr; Repository Location".
-//
-. Insert the link to your Subversion repository that you computed above.
-//
-. Eclipse will prompt you for your Illinois AD username (NetID) and password.
-Enter them. You may want to choose to save your credentials so that you are
-not repeatedly prompted for your username and password.
-
-At this point you can view your repository.
-//
-To see what it currently contains, right click on it and click "Refresh".
-
-[[adding]]
-=== Adding Projects to Your Repository
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/cI7OtJQWFVY" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-When you start a new project in Eclipse, the files are initially stored
-locally and not synchronized with your remote repository.
-//
-To add a project to your repository and begin tracking changes using
-Subversion, follow the following steps:
-
-. Make sure that you are in the Java perspective: "Window &rarr; Perspective
-&rarr; Open Perspective &rarr; Java).
-//
-. Click on "Team &rarr; Share Project". Select the SVN option and click next.
-//
-. Your CS 125 repository that you have added previously should be listed under "Use
-existing repository location". Select it.
-//
-. Choose a name for the new folder that will be created in your repository.
-//
-. At this point you should be able to browse to your repository using the "SVN
-Repository Perspective" and see that the new project has been added. Cool!
-Welcome to version control.
-
-[[checkout]]
-=== `svn checkout`: Retrieving Projects from Your Repository
-
-Now you've figured out how to add things to your repository.
-//
-But how do you retrieve stuff that is already there?
-
-Subversion refers to this process as a _checkout_.
-//
-To checkout a project in Eclipse, follow the following instructions:
-
-. Start by opening the Eclipse SVN Repository Perspective.
-//
-(Refer to the instructions above if you've forgotten how to do that.)
-//
-. Next we need to find the project that we want to open using the repository
-browser. Once you've located it, right click on it and select "Checkout".
-//
-. Select "Check out as a project in the workspace". Subversion uses `HEAD` to
-refer to the latest version of a project, so you should check out that version
-unless you want an earlier one for some reason.
-//
-. Click "Finish". The project should now appear in your workspace.
+If you have not yet added your GitHub credentials to IntelliJ, it will ask you
+to do that, and then for the URL of the GitHub repository.
 
 [[commit]]
-=== `svn commit`: Committing Changes to Your Repository
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/s62jNZ7LF2w" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
+=== Committing Changes to Your Local Repository
 
 image::https://hikaruzone.files.wordpress.com/2015/10/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png?w=800&h=559[float="right", 150]
 
@@ -292,11 +265,10 @@ tell them to.
 This is called a _commit_, and the process called _committing_.
 //
 Given that committing is essentially saving your changes, this have given rise
-to memes like the one on the right&mdash;although it refers to
-https://git-scm.com/[Git], another popular version control system.
+to memes like the one on the right.
 
-Once you commit a version of a file, Subversion will remember its committed
-contents forever&mdash;even if you change or delete it.
+Once you commit a version of a file, Git will remember its committed
+contents forever&mdash;even if you change or delete it the file.
 //
 So you should get into the habit of committing early and often.
 //
@@ -308,7 +280,7 @@ state!
 * You just finished writing a function&mdash;that way you can always get back
 to that version if you make changes later.
 //
-* You just passed one test case&mdash;make sure that Subversion remembers what
+* You just passed one test case&mdash;make sure that Git remembers what
 worked forever!
 //
 * You are about to take a break or go to bed.
@@ -328,41 +300,29 @@ time you want to add a new file to a project.
 //
 Once you do this once, that file will be tracked in the future&mdash;but there
 is an initial step that you may sometimes miss.
+//
+However, IntelliJ is good about reminding you about this, as long as you don't
+disable those reminders.
 
-Here's how to generate a Subversion commit using Eclipse:
-
-. You should have the Project Navigator view open&mdash;the typical view that
-you use when writing, testing, and debugging your code.
-//
-. Right click on the Eclipse project you want to commit and select "Team
-&rarr; Commit".
-//
-. Add a comment to your commit! Comments are really important to helping
-others&mdash;and you&mdash;understand what changed from this commit to the
-last one. Get in the habit of writing good ones footnote:["New." is not a good
-commit message.].
-//
-. If your commit includes new files, select them or click "Select All" to add
-all new files at once.
-//
-. Click OK to finish your commit.
+[[push]]
+=== Pushing Changes to Your GitHub Repository
 
 [[update]]
-=== `svn update`: Retrieving Changes to Your Repository
+=== Retrieving Changes to Your GitHub Repository
 
 Committing allows you to save your changes to the project in your repository.
 //
-To retrieve updates made by others, you perform an _update_.
+To retrieve updates made by others, you perform an _pull_.
 
-Subversion, like other version control systems, provides you with control over
-when you receive updates.
+Git, like other version control systems, provides you with control over when you
+receive updates.
 //
 This is another big advantage when compared with systems like Dropbox that
 propagate changes immediately.
 //
 If you are working with others, you may not want to see their changes
-immediately&mdash;particularly if they might interfere with what you are
-working on.
+immediately&mdash;particularly if they might interfere with what you are working
+on.
 //
 Having to update manually means that you get to choose a moment when you are
 ready to receive changes.
@@ -370,19 +330,13 @@ ready to receive changes.
 In CS 125 you are working on assignments independently&mdash;so you might ask,
 who else would be updating my repository?
 //
-There are two possible answers to that question!
+Normally, nobody.
 //
-First, we may use your Subversion repository to return grades and testing
-results to you.
+But it's possible that you may choose to work on two different machines&mdash;a
+laptop and a desktop at home.
 //
-We do this by adding new files to your repository that you then retrieve the
-next time you update.
-//
-It's also possible that you may choose to work on two different
-machines&mdash;a laptop and a desktop at home.
-//
-Assuming you have set up Eclipse and Subversion properly on both, you can use
-the update command on one machine to retrieve commits made on the other.
+Assuming you have set up IntelliJ and Git properly on both, you can use the
+update command on one machine to retrieve commits made on the other.
 
 Here's how you perform an update in Eclipse:
 
@@ -395,18 +349,8 @@ with yours.
 //
 If this happens, Eclipse will mark the files in your project for you to fix.
 
-[[checking]]
-=== Checking for Changes
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/OiVH5bu8k2I" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
+[[comparing]]
+=== Comparing Your Local and GitHub Repositories
 
 Version control systems are designed to allow you to compare between your local
 files and the copies that are available in the repository.
@@ -417,25 +361,14 @@ that it's contents are up-to-date.
 Not only is that tedious, but it doesn't work well once your repository has even
 just a few files.
 
-Instead, use Subversion to examine the differences between your local files and
+Instead, use Git to examine the differences between your local files and
 your remote repository.
 //
 Here's how:
-
-. Right click on your project and open the "Compare With" menu.
-//
-. Choose "Latest from Repository"
-//
-. At this point, one of two things will happen. Either the Subversion plugin
-will tell you that there are no changes, or it will open up a view where you can
-examine the differences between the files in your repository.
 
 == How to Learn More
 
 As usual the internet is the best way to find out more about anything related
 to technology.
 //
-There are great Subversion tutorials out there that you can find on Google.
-//
-Or ask a member of the course staff for help footnote:[although some of them
-will try to convince you to start learning Git...].
+There are great Git tutorials out there that you can find on Google.
