@@ -14,22 +14,23 @@ sidebar: lab
 
 [.lead]
 //
-https://www.youtube.com/watch?v=rwdUVjyxWrM[Let's get started!]
+Let's get started!
 //
-In this lab you'll start exploring computer science concepts, including
-parallelism, debugging, and testing.
+The goal of our first lab is to prepare you to begin work on link:/MP/0/[MP0].
 //
-And you'll also prepare the programming environment that you'll use in later
-labs and throughout the rest of the course.
+You'll prepare your development environment by installing
+link:/MP/setup/java/[Java] and link:/MP/setup/intellij[IntelliJ], and walk
+through the process of committing and submitting your work using
+link:/MP/setup/git[Git].
 
 == Introductions [.text-muted]#(15 Minutes)#
 
 [.lead]
 //
-Our first order of business today is to start getting to know each other.
+But first let's spend a few minutes getting to know each other.
 
 Make sure that you introduce yourself to your teaching assistant, and to the
-doyens that are staffing your lab section.
+volunteer course assistants that are staffing your lab section.
 //
 This is also a great opportunity to meet other students!
 //
@@ -70,135 +71,12 @@ Things get easier once everyone gets comfortable with each other.
 
 '''
 
-== Concepts [.text-muted]#(45 Minutes)#
+== Environment Preparation [.text-muted]#(45 Minutes)#
 
 [.lead]
 //
-Work together in groups to solve the following problems.
-//
-Feel free to use a whiteboard to prepare your solution, and be ready to
-present it to the course staff or other groups.
-
-=== Parallelism
-
-[.lead]
-//
-One of the best things about computers is that there are so many of them!
-//
-Google is estimated to have
-http://www.datacenterknowledge.com/archives/2017/03/16/google-data-center-faq/[2.5
-_million_ computers] in its data centers around the world.
-//
-So while today's individual computers are themselves insanely fast, they can
-accomplish even more when you can get them to work together.
-
-Consider the following problem that uses computers in the historical sense of
-the word&mdash;humans performing computation, hence computers.
-//
-You have a room full of people.
-//
-Each knows their own age, but can't or won't perform any addition.
-//
-Your goal is to compute the sum of all of the ages of everyone in the
-room&mdash;and to do so _as fast as possible_.
-
-Assume that it takes one second to ask a question footnote:[How old are
-you?] and get a response footnote:[I'm 37&mdash;no, really!].
-//
-Also make the optimistic assumption that it takes no time to add two numbers
-together.
-//
-Then it would take you 32 seconds to compute the entire sum yourself.
-
-But now let's say that you have help.
-//
-How long would it take:
-
-* a group of two people?
-//
-* a group of four people?
-//
-* a group of eight people?
-
-Keep in mind that a good solution should keep all of your helpers busy, and
-also requires communication between your team that you need to account for.
-
-It's common for computer scientists to solve a smaller version of a problem
-and then generalize it to a larger version.
-//
-(For example, I'll build a
-http://blog.shareaholic.com/wp-content/uploads/2012/05/Facebook-Screenshot-2004.jpg[small
-college-only social networking website] and then expand it later.)
-//
-Let's try that here.
-//
-**Compute how long it would take a group of 8 people to sum 1,024 ages.**
-//
-Do you see a pattern emerging?
-
-=== Debugging
-
-Now return to the case where you are summing the ages of 32 people using a
-team of four, including yourself.
-//
-Just to be safe, after computing the sum once, you rerun the calculation
-again&mdash;but get a different result!
-//
-There must be a bug somewhere footnote:[There's a great piece of computer lore
-about famous computer scientist https://ghc.anitaborg.org/[Grace Hopper] finding a
-http://www.computerworld.com/article/2515435/app-development/moth-in-the-machine--debugging-the-origins-of--bug-.html[real live bug inside a
-computer] she was working on.]!
-
-The first step in locating a bug is to always think carefully about what could
-be causing the problem.
-//
-Come up with at least _five_ different sources of error that may be affecting
-the result of your calculation.
-
-Next, develop a foolproof procedure for identifying the cause of the problem.
-//
-You want to be just as methodical in approaching how you identify the problem
-as you were in developing your original solution.
-//
-Debugging is always frustrating.
-//
-Something is going wrong and you don't know why!
-//
-But if you approach the debugging problem like a computer scientist, you can
-usually come up with a good debugging algorithm.
-//
-And then get back to the problem you were _actually_ trying to solve.
-
-=== Testing
-
-Fresh of the experience of debugging your system, you decide to be more
-proactive in the future.
-//
-Debugging is reactively waiting for problems to emerge and then trying to fix them.
-//
-Testing is _proactively_ testing things to make sure they work properly.
-//
-When you test the things that you build as you go, it is much less likely that
-you will experience complex and difficult to find problems.
-
-Return to the sources of error that you identified above.
-//
-For each, develop a testing procedure that will ensure that you can identify
-the problem before it happens.
-
-Note that while it may be tempting to try to test your system by ensuring that
-it can correctly compute sums for all possible inputs, this is unlikely to be
-feasible.
-//
-Even if all 32 people are children and ten years old or younger, the space of
-possible inputs grows extremely quickly.
-
-== Environment Preparation [.text-muted]#(40 Minutes)#
-
-[.lead]
-//
-Next we're going to work on getting you set up with the tools that you need to
-write computer code for this course.
+Next we're going to get you set up with the tools that you need to write
+computer code for this course.
 
 There are three setup tutorials to complete;
 
@@ -210,30 +88,27 @@ There are three setup tutorials to complete;
 
 Once you complete the tutorials above, continue with the rest of the lab
 as described below.
+//
+**Don't go on until you've installed everything properly and gone through the
+introduction to Git.**
 
-== Bringing it All Together
+== Practice With MP0 [.text-muted]#(50 Minutes)#
 
 [.lead]
 //
-Now that you've got Eclipse set up and are familiar with Subversion, let's get
-a "Hello, World" project created and committed to your Subversion repository.
-
-For this part of the lab we aren't going to provide a detailed write up.
+Now let's walk through the process of obtaining, developing, and submitting
+link:/MP/0[MP0].
 //
-Your goals are simple:
+It's due in less than two weeks, so we want you to get comfortable with this
+process right away.
 
-. Create a new Eclipse project.
+To complete this part of lab, read through and follow the instructions on the
+link:/MP/0/[MP0 writeup].
 //
-. Have it print "Hello, world!"
+**Don't leave your lab section until you have successfully submitted
+MP0&mdash;even if your submission doesn't earn any points yet.**
 //
-. Add the project to your CS 125 Subversion repository and commit your
-changes.
-
-You may find the following _audio_ walk through helpful.
-
-++++
-<div class="embed-responsive mt-3" style="width:100%; height:100px;">
-<iframe src="//www.youtube.com/embed/V7AlZxpsrJY?rel=0&autohide=0" allowfullscreen></iframe>
-</div>
-++++
-
+If you finish early, find someone who hasn't finished and help them out.
+//
+Future labs will have points for collective achievement, so this is a
+good chance to practice working together with your entire section.
