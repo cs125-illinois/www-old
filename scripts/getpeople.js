@@ -23,7 +23,11 @@ mongo.connect(process.env.MONGO).then(async client => {
     if (match[3] === 'AM') {
       return `${ match[1] }:${ match[2] }`
     } else {
-      return `${ parseInt(match[1]) + 12 }:${ match[2] }`
+      let number = parseInt(match[1])
+      if (number !== 12) {
+        number += 12
+      }
+      return `${ number }:${ match[2] }`
     }
   }
   _.each(sectionInfo, (section, name) => {

@@ -10,6 +10,7 @@ datatables:
   labtable:
     pageLength: 5
     lengthMenu: [ 5, 10, 25 ]
+    order: []
 sidebar: info
 spelling_exceptions:
   - CBTF
@@ -323,12 +324,13 @@ deadlines, and other events that are relevant to the entire class.
 All of the CS 125 lectures are usually near capacity, so **please attend the
 lecture that you are registered for.**
 
-[.table.table-striped.table-sm.spelling_exception,options='header',cols='4*^']
+[.table.table-striped.table-sm.spelling_exception,options='header',cols='5*^']
 |===
-| # | Days | Time | Location
+| &nbsp; | &nbsp; | Days | Time | Location
 
 {{#each course.Spring2018.timesByType.lecture }}
 
+| {{ @index }}
 | {{ this.section }}
 | {{ this.days }}
 | {{ this.start}}&ndash;{{ this.end }}
@@ -342,13 +344,14 @@ lecture that you are registered for.**
 === Labs
 
 [[labtable]]
-[.small.table.table-responsive.table-sm.colgroup.datatables.spelling_exception,cols="^1,^2,^2,^2,^4,^4",options="header"]
+[.small.table.table-responsive.table-sm.colgroup.datatables.spelling_exception,cols="^1,^1,^1,^2,^4,^4,^4",options="header"]
 |===
 
-| # | Days | Time | Location | TA | Assistants
+| &nbsp; | &nbsp; | Days | Time | Location | TA | Assistants
 
 {{#each course.Spring2018.timesByType.lab }}
 
+| {{ @index }}
 | {{ this.section }}
 | {{ this.days }}
 | {{ this.start}}&ndash;{{ this.end }}
