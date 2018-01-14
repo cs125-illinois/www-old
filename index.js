@@ -110,6 +110,9 @@ metalsmith(__dirname)
   .use(external())
   .use(iframes())
   .use(hacks.postLayout())
+  .use(inPlace({
+    pattern: 'conf/redirect.conf.hbs',
+  }))
   .use(highlight())
   .use(msif(config.check,
     internalize()))
