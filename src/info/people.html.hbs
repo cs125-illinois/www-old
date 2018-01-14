@@ -8,37 +8,31 @@ changefreq: monthly
 layout: single.hbt
 sidebar: info
 notitle: true
-draft: true
 ---
 <div class="mt-2 spelling_exception">
-  <h2 id="instructors" class="text-primary">Instructors</h2>
+  <h2 id="instructors" class="text-primary">Instructor</h2>
   <div class="row">
-    {{#each course.staffByRole.Instructor }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/f018d0710c707024e5ad34f1b0dec4a6?s=200" alt="Photo of Geoffrey Challen">
         <div class="card-body">
-          <h4 class="card-title text-center">{{{ this.name }}}</h4>
+          <h4 class="card-title text-center">Geoffrey (GWA) Challen</h4>
           <p class="card-text">
-          Teaching lectures{{#if this.sections}}
-          and {{ inflect this.sections.length "section" "sections" }}
-          {{#and_list this.sections }}{{ this }}{{/and_list}}
-          {{/if}}
+          Teaching lectures.
           </p>
         </div>
       </div>
     </div>
-    {{/each }}
   </div>
 </div>
 
 <div class="mt-3 spelling_exception">
-  <h2 id="tas" class="text-primary">Teaching Assistants</h2>
+  <h2 id="tas" class="text-primary">{{ course.Spring2018.staffByRole.TA.length }} Teaching Assistants</h2>
   <div class="row">
-    {{#each course.staffByRole.TA }}
+    {{#each course.Spring2018.staffByRole.TA }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <img class="card-img-top ie-img-fix" src="/{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
         <div class="card-body">
           <h5 class="card-title text-center">{{{ this.name }}}</h5>
           {{#if this.sections }}
@@ -55,19 +49,31 @@ draft: true
 </div>
 
 <div class="mt-3 spelling_exception">
-  <h2 id="doyens" class="text-primary">Illinoisan Doyens</h2>
+  <h2 id="cas" class="text-primary">{{ course.Spring2018.staffByRole.volunteer.length }} Course Assistants</h2>
+  <p class="lead">
+    Our course assistants are so excited about computer science that they are
+    all volunteers! Please treat them accordingly&mdash;with a lot of
+    appreciation!
+  </p>
   <div class="row">
-    {{#each course.staffByRole.Doyen }}
+    {{#each course.Spring2018.staffByRole.volunteer }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <img class="card-img-top ie-img-fix" src="/{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
         <div class="card-body">
           <div class="person card-title text-center">{{{ this.name }}}</div>
-          {{#if this.sections }}
+          {{#if this.section }}
           <p class="card-text">
           Assisting with {{ inflect this.sections.length "section" "sections" }}
           {{#and_list this.sections }}{{ this }}{{/and_list}}
+          {{#if this.officehours }}
+          and holding office hours
+          {{/if}}
           </p>
+          {{else}}
+          {{#if this.officehours }}
+          Holding office hours
+          {{/if}}
           {{/if}}
         </div>
       </div>
@@ -75,6 +81,41 @@ draft: true
     {{/each }}
   </div>
 </div>
+
+<div class="mt-3 spelling_exception">
+  <h2 id="developers" class="text-primary">{{ course.Spring2018.staffByRole.developer.length }} Course Developers</h2>
+  <p class="lead">
+    Our course developers do not hold office hours or help with labs. But they
+    are working hard behind the scenes to make CS 125 better this semester and
+    in the future.
+  </p>
+  <div class="row">
+    {{#each course.Spring2018.staffByRole.developer }}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="/{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <div class="card-body">
+          <div class="person card-title text-center">{{{ this.name }}}</div>
+          {{#if this.section }}
+          <p class="card-text">
+          Assisting with {{ inflect this.sections.length "section" "sections" }}
+          {{#and_list this.sections }}{{ this }}{{/and_list}}
+          {{#if this.officehours }}
+          and holding office hours
+          {{/if}}
+          </p>
+          {{else}}
+          {{#if this.officehours }}
+          Holding office hours
+          {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{/each }}
+  </div>
+</div>
+
 
 <!--
   vim: et:ts=2:sw=2:ft=html
