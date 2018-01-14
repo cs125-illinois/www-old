@@ -6,8 +6,6 @@ const metalsmith = require('metalsmith')
 const ignore = require('metalsmith-ignore')
 const buildDate = require('metalsmith-build-date')
 const drafts = require('metalsmith-drafts')
-const filemetadata = require('metalsmith-filemetadata')
-const metadata = require('metalsmith-metadata')
 const empty = require(path.join(appRootPath.toString(), 'lib/empty.js'))
 const asciidoc = require('metalsmith-asciidoc')
 const markdown = require('metalsmith-markdown')
@@ -66,11 +64,10 @@ metalsmith(__dirname)
   ]))
   .use(buildDate())
   .use(drafts())
-  .use(metadata({
-    course: 'course.yaml'
-  }))
   .use(registerPartials())
-  .use(course())
+  .use(course({
+    Fall2017: 'info/2017/fall/course.yaml'
+  }))
   .use(people())
   .use(inPlace({
     pattern: '**/*.adoc.hbs',

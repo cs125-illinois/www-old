@@ -6,10 +6,6 @@ description: >
 priority: 0.1
 changefreq: yearly
 layout: single.hbt
-datatables:
-  labtable:
-    pageLength: 5
-    lengthMenu: [ 5, 10, 25 ]
 sidebar: info
 spelling_exceptions:
   - CBTF
@@ -259,72 +255,6 @@ CS 125 meets the University of Illinois
 https://courses.illinois.edu/gened/DEFAULT/DEFAULT[General Education Requirements]
 //
 in the Quantitative Reasoning 1 category.
-
-[[times]]
-== Dates, Times, and Locations
-
-[.lead]
-//
-CS 125 consists of lecture taught in an active learning format, weekly lab
-sections, and office hours.
-//
-You will attend three one-hour lecture per week, one two-hour lab section, and
-many office hours.
-
-Lectures are taught by one the link:#instructors[instructors]:
-//
-pass:[{{#or_list course.staffByRole.Instructor}}{{ this.name }}{{/or_list}}].
-//
-Labs are led the link:#tas[{{ course.staffByRole.TA.length }} TAs],
-//
-and office hours are staffed by our link:#doyens[_{{ course.staffByRole.Doyen.length }}_
-Illinoisan Doyens].
-//
-You can find out more about the entire staff on the link:#people[people page].
-
-=== Lectures
-
-All of the CS 125 lectures are usually near capacity, so **please attend the
-lecture that you are registered for.**
-
-[.table.table-striped.table-sm.spelling_exception,options='header',cols='4*^']
-|===
-| # | Days | Time | Location
-
-{{#each course.timesByType.lecture }}
-
-| {{ this.section }}
-| {{ this.days }}
-| {{ this.start}}&ndash;{{ this.end }}
-| {{ this.location }}
-
-{{/each}}
-
-|===
-
-[[labs]]
-=== Labs
-
-[[labtable]]
-[.small.table.table-responsive.table-sm.colgroup.datatables.spelling_exception,cols="^1,^2,^2,^2,^4,^4",options="header"]
-|===
-
-| # | Days | Time | Location | TA | Doyens
-
-{{#each course.timesByType.lab }}
-
-| {{ this.section }}
-| {{ this.days }}
-| {{ this.start}}&ndash;{{ this.end }}
-| {{ this.location }}
-| {{ this.instructor.name }}
-| pass:[{{#and_list this.doyens }}{{ this.name }}{{/and_list}}]
-
-{{/each}}
-
-|===
-
-// == Course Policies
 
 == Communication
 
@@ -705,7 +635,7 @@ We will post final letter grades there at the end of the term.
 
 ++++
 <div class="row spelling_exception">
-  {{#each course.staffByRole.Instructor }}
+  {{#each course.Fall2017.staffByRole.Instructor }}
   <div class="col-12 col-sm-6 col-lg-4 mt-2">
     <div class="card pt-2 pl-2 pr-2">
       <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -729,7 +659,7 @@ We will post final letter grades there at the end of the term.
 
 ++++
 <div class="row spelling_exception">
-  {{#each course.staffByRole.TA }}
+  {{#each course.Fall2017.staffByRole.TA }}
   <div class="col-12 col-sm-6 col-lg-4 mt-2">
     <div class="card pt-2 pl-2 pr-2">
       <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -753,7 +683,7 @@ We will post final letter grades there at the end of the term.
 
 ++++
 <div class="row spelling_exception">
-  {{#each course.staffByRole.Doyen }}
+  {{#each course.Fall2017.staffByRole.Doyen }}
   <div class="col-12 col-sm-6 col-lg-4 mt-2">
     <div class="card pt-2 pl-2 pr-2">
       <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
