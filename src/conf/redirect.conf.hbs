@@ -1,3 +1,5 @@
 {{#each redirects}}
 rewrite ^{{{ from }}}$ {{{ to }}} redirect;
 {{/each}}
+rewrite ^/static-assets/css/site.css$ {{ lookup webpack.assets 'site.css' }} redirect;
+rewrite ^/static-assets/js/site.js$ {{ lookup webpack.assets 'site.js' }} redirect;
