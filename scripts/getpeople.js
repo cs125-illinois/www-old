@@ -17,21 +17,50 @@ mongo.connect(process.env.MONGO).then(async client => {
   let sectionCollection = client.db(argv._[0]).collection('state')
 
   let sectionInfo = (await sectionCollection.findOne({ _id: 'sectionInfo' })).sections
-  _.each(sectionInfo, section => {
+
+  let convertTime = (time) => {
+    let match = new RegExp(/(\d{2}):(\d{2})(\w{2})/).exec(time)
+    if (match[3] === 'AM') {
+      return `${ match[1] }:${ match[2] }`
+    } else {
+      return `${ parseInt(match[1]) + 12 }:${ match[2] }`
+    }
+  }
+  _.each(sectionInfo, (section, name) => {
+    if (!section.active) {
+      delete sectionInfo[name]
+      return
+    }
+    delete(section.active)
     section.assistants = []
+    section.start = convertTime(section.times.start)
+    section.end = convertTime(section.times.end)
+    delete(section.times)
+    section.section = section.name
+    delete(section.name)
+    section.ID = section.CRN
+    delete(section.CRN)
+    if (section.type === 'Lecture') {
+      section.type = 'lecture'
+    } else if (section.type === 'Laboratory-Discussion') {
+      section.type = 'lab'
+    }
+    if (section.section === 'EMP') {
+      section.type = 'special'
+    }
   })
 
-  debug(sectionInfo)
   let people = await peopleCollection.find({
     staff: true, scheduled: true
   }).toArray()
-  debug(people.length)
 
   let peopleByEmail = {}
   for (let person of people) {
+    person.name = person.name.full
     let buffer = new Buffer(person.photo.contents, 'base64')
-    await fs.writeFile(path.join(argv._[1], `${ person.email }.jpg`), buffer)
-    delete (person.photo)
+    let photoPath = path.join(argv._[1], `people/${ person.email }.jpg`)
+    await fs.writeFile(photoPath, buffer)
+    person.photo = photoPath.split('/').slice(1).join('/')
     delete (person._id)
     _.each(person.sections, section => {
       if (person.role === 'TA') {
@@ -45,8 +74,8 @@ mongo.connect(process.env.MONGO).then(async client => {
   }
 
   await fs.writeFile(path.join(argv._[1], 'course.json'), JSON.stringify({
-    sectionInfo: sectionInfo,
-    people: people
+    times: sectionInfo,
+    staff: people
   }, null, 2))
 
   client.close()

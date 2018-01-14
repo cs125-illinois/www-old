@@ -16,7 +16,6 @@ spelling_exceptions:
   - CS 196
   - Grainger
   - omelete
-draft: true
 ---
 :sectnums:
 :linkattrs:
@@ -276,13 +275,12 @@ sections, and office hours.
 You will attend three one-hour lecture per week, one two-hour lab section, and
 many office hours.
 
-Lectures are taught by one the link:/info/people/#instructors[instructors]:
+Lectures are taught by Geoffrey Challen.
 //
-pass:[{{#or_list course.staffByRole.Instructor}}{{ this.name }}{{/or_list}}].
+Labs are led the link:/info/people/#tas[{{ course.Spring2018.staffByRole.TA.length }} TAs],
 //
-Labs are led the link:/info/people/#tas[{{ course.staffByRole.TA.length }} TAs],
-//
-and office hours are staffed by our link:/info/people/#doyens[_{{ course.staffByRole.Doyen.length }}_
+and office hours are staffed by our link:/info/people/#volunteers[_{{
+course.Spring2018.staffByRole.volunteer.length }}_
 Illinoisan Doyens].
 //
 You can find out more about the entire staff on the link:/info/people/[people page].
@@ -315,7 +313,7 @@ lecture that you are registered for.**
 |===
 | # | Days | Time | Location
 
-{{#each course.timesByType.lecture }}
+{{#each course.Spring2018.timesByType.lecture }}
 
 | {{ this.section }}
 | {{ this.days }}
@@ -333,16 +331,16 @@ lecture that you are registered for.**
 [.small.table.table-responsive.table-sm.colgroup.datatables.spelling_exception,cols="^1,^2,^2,^2,^4,^4",options="header"]
 |===
 
-| # | Days | Time | Location | TA | Doyens
+| # | Days | Time | Location | TA | Assistants
 
-{{#each course.timesByType.lab }}
+{{#each course.Spring2018.timesByType.lab }}
 
 | {{ this.section }}
 | {{ this.days }}
 | {{ this.start}}&ndash;{{ this.end }}
 | {{ this.location }}
-| {{ this.instructor.name }}
-| pass:[{{#and_list this.doyens }}{{ this.name }}{{/and_list}}]
+| {{ this.TA.name }}
+| pass:[{{#and_list this.assistants }}{{ this.name }}{{/and_list}}]
 
 {{/each}}
 

@@ -20,7 +20,6 @@ const fixPath = require(path.join(appRootPath.toString(), 'lib/fixPath.js'))
 const active = require(path.join(appRootPath.toString(), 'lib/active.js'))
 const external = require(path.join(appRootPath.toString(), 'lib/external.js'))
 const footnotes = require(path.join(appRootPath.toString(), 'lib/footnotes.js'))
-const people = require(path.join(appRootPath.toString(), 'lib/people.js'))
 const iframes = require(path.join(appRootPath.toString(), 'lib/iframes.js'))
 const hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js'))
 const highlight = require(path.join(appRootPath.toString(), 'lib/highlight.js'))
@@ -66,9 +65,9 @@ metalsmith(__dirname)
   .use(drafts())
   .use(registerPartials())
   .use(course({
-    Fall2017: 'info/2017/fall/course.yaml'
+    Fall2017: 'info/2017/fall/course.yaml',
+    Spring2018: 'info/course.json'
   }))
-  .use(people())
   .use(inPlace({
     pattern: '**/*.adoc.hbs',
   }))
