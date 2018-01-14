@@ -38,6 +38,10 @@ $(() => {
       })
     } catch (err) { }
   }
+  $(window).on('activate.bs.scrollspy', function (e) {
+    var hash = $('#toc .active').attr('href')
+    history.replaceState({}, "", hash)
+  })
 })
 
 // vim: ts=2:sw=2:et
