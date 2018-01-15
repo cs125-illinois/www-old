@@ -1,0 +1,61 @@
+---
+draft: true
+---
+
+[[update]]
+=== Retrieving Changes to Your GitHub Repository
+
+Committing allows you to save your changes to the project in your repository.
+//
+To retrieve updates made by others, you perform an _pull_.
+
+Git, like other version control systems, provides you with control over when you
+receive updates.
+//
+This is another big advantage when compared with systems like Dropbox that
+propagate changes immediately.
+//
+If you are working with others, you may not want to see their changes
+immediately&mdash;particularly if they might interfere with what you are working
+on.
+//
+Having to update manually means that you get to choose a moment when you are
+ready to receive changes.
+
+In CS 125 you are working on assignments independently&mdash;so you might ask,
+who else would be updating my repository?
+//
+Normally, nobody.
+//
+But it's possible that you may choose to work on two different machines&mdash;a
+laptop and a desktop at home.
+//
+Assuming you have set up IntelliJ and Git properly on both, you can use the
+update command on one machine to retrieve commits made on the other.
+
+Here's how you perform an update in IntelliJ:
+
+. Right click on the project that you want to update.
+//
+. Click "Team &rarr; Update HEAD". This will get you the latest changes.
+
+At this point it is possible that the changes made by others have conflicted
+with yours.
+//
+If this happens, Eclipse will mark the files in your project for you to fix.
+
+[[comparing]]
+=== Comparing Your Local and GitHub Repositories
+
+Version control systems are designed to allow you to compare between your local
+files and the copies that are available in the repository.
+//
+So you should never browse the contents of your remote repository on GitHub to
+make sure that it's contents are up-to-date.
+//
+Not only is that tedious, but it doesn't work well once your repository has even
+just a few files.
+
+Instead, use Git to examine the differences between your local files and
+your remote repository.
+

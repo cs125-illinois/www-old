@@ -132,68 +132,8 @@ combine the changes from Alice with the changes from Bob.
 When you are working in large teams on large software projects, this
 capability is extremely handy.
 
-[[workflow]]
-== CS 125 Git Workflow
-
-Almost all of your interaction with Git this semester will be through two
-powerful interfaces: the
-//
-link:/MP/setup/intellij[IntelliJ IDE],
-//
-and
-//
-https://github.com/[GitHub].
-//
-Let's walk through a typical MP workflow to get a sense for how you will
-normally be using Git.
-
-=== Cloning the MP Starter Code Using GitHub
-
-To begin each MP footnote:[and during many labs], you will use a special link to
-_clone_ a Git repository on
-//
-https://github.com/[GitHub].
-//
-That repository contains starter code that we provide for each assignment,
-including completed portions of the assignment and testing suites.
-//
-Cloning a Git repository on GitHub makes a copy of it that you now have
-permission to modify.
-
-=== Creating a New Project Using IntelliJ
-
-You will then use IntelliJ to initialize a new project from your remote GitHub
-Repository.
-//
-IntelliJ makes this extremely easy: there is an option to create a new project
-from a remote repository.
-//
-This step will download the code from GitHub to your local machine and allow you
-to begin making and testing your changes.
-
-=== Committing and Pushing Changes Using IntelliJ
-
-As you work on the assignment, you will want to regularly _commit_ your work.
-//
-Each time you commit, you record the state of your repository locally.
-//
-You can also choose to _push_ your changes to GitHub.
-//
-Once they are saved to GitHub, they will persist even if your hard drive dies,
-or if you accidentally delete your entire local repository.
-//
-IntelliJ has a convenient interface for committing changes, adding commit messages,
-pushing to GitHub, and generally tracking the state of your repository.
-
-=== Submitting Your Work Using IntelliJ
-
-For CS 125 you submit your work by _pushing_ it to GitHub.
-//
-We will grade each version of your MP that you push and provide you with the
-best score modulo penalties and other score calculations.
-
 [[git]]
-== Introduction to Git
+== Introduction to Git and GitHub
 
 [.lead]
 //
@@ -201,6 +141,8 @@ Now let's go through the basics of how to use Git.
 //
 But please don't consider this guide exhaustive&mdash;there are much more useful
 and up-to-date guides all over the internet.
+
+=== Basic Principles
 
 Git organizes your files into a _repository_.
 //
@@ -236,10 +178,47 @@ If you already have an account, just keep using it for your CS 125 assignments.
 Note that there is also no requirement that you identify yourself as a CS 125 or
 even as an Illinois student with GitHub to submit your CS 125 assignments.
 //
-We'll discuss how to identify yourself your submissions later TODO.
+We'll discuss how to identify yourself your submissions
+//
+link:#identify[later].
 
-[[connecting]]
-=== Creating a New IntelliJ Project Using a GitHub Repository
+[[workflow]]
+== CS 125 Git Workflow
+
+Almost all of your interaction with Git this semester will be through two
+powerful interfaces: the
+//
+link:/MP/setup/intellij[IntelliJ IDE],
+//
+and
+//
+https://github.com/[GitHub].
+//
+Let's walk through a typical MP workflow to get a sense for how you will
+normally be using Git.
+
+=== Cloning the MP Starter Code Using GitHub
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/A6DGPMlHnH4" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+To begin each MP footnote:[and many labs] you will use a special link to
+_clone_ a Git repository on
+//
+https://github.com/[GitHub].
+//
+That repository contains starter code that we provide for each assignment,
+including completed portions of the assignment and testing suites.
+//
+Cloning a Git repository on GitHub makes a copy of it that you now have
+permission to modify.
 
 It is straightforward to start a new IntelliJ project Using an existing GitHub
 repository--either one you created or one that was created for you when you
@@ -251,12 +230,104 @@ menu and then select "GitHub".
 If you have not yet added your GitHub credentials to IntelliJ, it will ask you
 to do that, and then for the URL of the GitHub repository.
 
-[[commit]]
-=== Committing Changes to Your Local Repository
+=== Importing Your New Project Into IntelliJ
 
-image::https://hikaruzone.files.wordpress.com/2015/10/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png?w=800&h=559[float="right", 150]
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/nqRmvYRQlVQ" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
-Remember: version control systems only save the change you have made when you
+You will then use IntelliJ to import the new project from your remote GitHub
+Repository.
+//
+IntelliJ makes this extremely easy: there is an option to create a new project
+from a remote repository.
+//
+This step will download the code from GitHub to your local machine and allow you
+to begin making and testing your changes.
+
+[[identifying]]
+=== Identifying Yourself
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/aoGA3TiaIQg" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Before you can run the local autograder or receive credit for a submission, you
+must identify yourself.
+//
+This links your @illinois.edu identify to your repository so that you can
+receive credit for your work.
+
+In the root directory of each project you will submit, there is a file called
+`email.txt`.
+//
+Enter your @illinois.edu email address into that file on a single line.
+
+**Note that it is critical that you do this properly.**
+//
+If you enter an incorrect email address, you will not receive credit for your
+work.
+//
+If you enter the email address of another student, we will investigate your
+submission for plagiarism and potentially file a
+//
+https://history.illinois.edu/resources/faculty-resources/reporting-academic-integrity-infractions[FAIR
+report].
+
+=== Running the Autograder
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/7LlLsX1N5SE" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+As you complete each assignment, you'll want to track your progress and get a
+sense of how you are doing.
+//
+To aid with that process, we've provided an autograder that you can run as
+many times as you like.
+//
+Each time, it _estimates_ the score that you'd earn on the assignment.
+
+**Please note that the autograder only provides an estimate of your score.**
+//
+While we have tried as hard as possible to make the autograder run similarly on
+your machine and in official grading, it is impossible to ensure identical
+behavior.
+//
+So use the autograder to estimate your score as you go&mdash;but be sure to
+submit and view your official score before the assignment deadline.
+
+=== Committing (Saving) Your Work
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/MGQTdoz_JJ0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Version control systems only save the change you have made when you
 tell them to.
 //
 This is called a _commit_, and the process called _committing_.
@@ -301,67 +372,25 @@ is an initial step that you may sometimes miss.
 However, IntelliJ is good about reminding you about this, as long as you don't
 disable those reminders.
 
-[[push]]
-=== Pushing Changes to Your GitHub Repository
+IntelliJ has a convenient interface for committing changes, adding commit messages,
+pushing to GitHub, and generally tracking the state of your repository.
 
-[[update]]
-=== Retrieving Changes to Your GitHub Repository
+=== Pushing and Submitting Your Work
 
-Committing allows you to save your changes to the project in your repository.
-//
-To retrieve updates made by others, you perform an _pull_.
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/S6LM_lR7bOg" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
-Git, like other version control systems, provides you with control over when you
-receive updates.
+For CS 125 you submit your work by _pushing_ it to GitHub.
 //
-This is another big advantage when compared with systems like Dropbox that
-propagate changes immediately.
-//
-If you are working with others, you may not want to see their changes
-immediately&mdash;particularly if they might interfere with what you are working
-on.
-//
-Having to update manually means that you get to choose a moment when you are
-ready to receive changes.
-
-In CS 125 you are working on assignments independently&mdash;so you might ask,
-who else would be updating my repository?
-//
-Normally, nobody.
-//
-But it's possible that you may choose to work on two different machines&mdash;a
-laptop and a desktop at home.
-//
-Assuming you have set up IntelliJ and Git properly on both, you can use the
-update command on one machine to retrieve commits made on the other.
-
-Here's how you perform an update in Eclipse:
-
-. Right click on the project that you want to update.
-//
-. Click "Team &rarr; Update HEAD". This will get you the latest changes.
-
-At this point it is possible that the changes made by others have conflicted
-with yours.
-//
-If this happens, Eclipse will mark the files in your project for you to fix.
-
-[[comparing]]
-=== Comparing Your Local and GitHub Repositories
-
-Version control systems are designed to allow you to compare between your local
-files and the copies that are available in the repository.
-//
-So you should never browse the contents of your remote repository to make sure
-that it's contents are up-to-date.
-//
-Not only is that tedious, but it doesn't work well once your repository has even
-just a few files.
-
-Instead, use Git to examine the differences between your local files and
-your remote repository.
-//
-Here's how:
+We will grade each version of your MP that you push and provide you with the
+best score modulo penalties and other score calculations.
 
 == How to Learn More
 
