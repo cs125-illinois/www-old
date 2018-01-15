@@ -40,7 +40,11 @@ $(() => {
   }
   $(window).on('activate.bs.scrollspy', function (e) {
     var hash = $('#toc .active').attr('href')
-    history.replaceState({}, "", hash)
+    if (hash === '#top') {
+      history.replaceState({}, "", document.location.href.match(/(^[^#]*)/)[0])
+    } else {
+      history.replaceState({}, "", hash)
+    }
   })
 })
 
