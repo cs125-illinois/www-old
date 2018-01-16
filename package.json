@@ -17,7 +17,8 @@
     "serve": "http-server build -p 8125 -a 127.0.0.1 -c-1",
     "deploy": "node index.js . --check",
     "webpack": "webpack && node index.js",
-    "getpeople": "./scripts/getpeople.js Spring2018 src/info/"
+    "getpeople": "./scripts/getpeople.js Spring2018 src/info/",
+    "all": "npm run getpeople && npm run webpack && npm run deploy"
   },
   "keywords": [
     "programming"
