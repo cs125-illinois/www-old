@@ -1,16 +1,17 @@
+const $ = require('jquery')
+const _ = require('lodash')
 
+let CodeMirror = require('codemirror')
+require("codemirror/mode/clike/clike")
+require("codemirror/addon/edit/closebrackets")
+require("codemirror/lib/codemirror.css")
 
 const janini = () => {
-  const $ = require('jquery')
-  let CodeMirror = require('codemirror')
-  require("codemirror/mode/clike/clike")
-  require("codemirror/addon/edit/closebrackets")
-  require("codemirror/lib/codemirror.css")
   $("textarea.janini").each((i, element) => {
     let newCodeMirror = CodeMirror.fromTextArea($(element).get(0))
   })
   return (deck) => {
-    deck.on('activate', function(e) {
+    deck.on('activate', e => {
       console.log(e.slide)
     })
   }
@@ -19,7 +20,7 @@ const janini = () => {
 const bespoke = require('bespoke')
 const classes = require('bespoke-classes')
 const nav = require('bespoke-nav')
-const scale = require('bespoke-scale')
+const scale = require('./slides/bespoke-scale.js')
 const bullets = require('bespoke-bullets')
 const hash = require('bespoke-hash')
 const multimedia = require('bespoke-multimedia')
