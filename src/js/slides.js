@@ -14,7 +14,8 @@ const janini = () => {
         let newCodeMirror = CodeMirror.fromTextArea($(element).get(0), {
           mode: 'text/x-java',
           lineNumbers: true,
-          matchBrackets: true
+          matchBrackets: true,
+          lineWrapping: true
         })
         janinis[i] = newCodeMirror
       })
