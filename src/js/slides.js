@@ -62,6 +62,8 @@ const janini = () => {
       if (toRun.trim() === "") {
         $(output).text($(output).data('blank'))
         return
+      } else {
+        $(output).html(`<span class="text-warning">Running...</span>`)
       }
 
       $.post("https://cs125.cs.illinois.edu/janini/", JSON.stringify({
@@ -103,7 +105,7 @@ bespoke.from({ parent: 'article.deck', slides: 'div.sect1' }, [
   classes(),
   nav(),
   scale(),
-  bullets('.build, .build-items > *:not(.build-items)'),
+  bullets('.s'),
   hash(),
   multimedia(),
   extern(bespoke),
