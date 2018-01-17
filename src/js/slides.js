@@ -11,6 +11,29 @@ const janini = () => {
     let newCodeMirror = CodeMirror.fromTextArea($(element).get(0))
   })
   return (deck) => {
+    let firstSlide = deck.slides[0]
+    let slideHeight = firstSlide.offsetHeight
+    let slideWidth = firstSlide.offsetWidth
+    let noZoomResize = () => {
+      let xScale = deck.parent.offsetWidth / slideWidth;
+      let yScale = deck.parent.offsetHeight / slideHeight;
+      let scale = Math.min(xScale, yScale)
+      _(deck.slides)
+        .filter(element => {
+          return $(element).hasClass('nozoom')
+        })
+        .each(element => {
+          let newWidth = Math.round(slideWidth * scale)
+          let newHeight = Math.round(slideHeight * scale)
+          $(element).width(newWidth)
+          $(element).height(newHeight)
+          $(element).css('margin-left', `-${ Math.round(newWidth / 2) }px`)
+          $(element).css('margin-top', `-${ Math.round(newHeight / 2) }px`)
+        })
+    }
+    window.addEventListener('resize', noZoomResize)
+    noZoomResize()
+
     deck.on('activate', e => {
       console.log(e.slide)
     })
