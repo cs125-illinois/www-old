@@ -50,10 +50,9 @@ const janini = () => {
     })
 
     $(window).keypress(function (event) {
-      console.log(event.which)
-      console.log(event.ctrlKey)
 
-      if (!(event.which === 13 && event.ctrlKey)) {
+      if (!(event.which === 13 && event.ctrlKey) &&
+          !(event.which === 10 && event.ctrlKey)) {
         return true
       } else if (!(janinis[active.index])) {
         return true
