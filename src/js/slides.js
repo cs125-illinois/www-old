@@ -105,7 +105,7 @@ bespoke.from({ parent: 'article.deck', slides: 'div.sect1' }, [
   classes(),
   nav(),
   scale(),
-  bullets('.s'),
+  bullets('.bullet'),
   hash(),
   multimedia(),
   extern(bespoke),
