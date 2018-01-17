@@ -193,8 +193,22 @@ html {
   margin-top: -240px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: flex-start;
+  background-image: url("https://cs125.cs.illinois.edu/img/logos/cs125-60x60.png");
+  background-position: top 6px right 6px;
+  background-repeat: no-repeat;
+  .header {
+    padding: 12px;
+    width: 100%;
+    border-bottom: 2px solid $illinois-orange;
+    font-size: 48px;
+    line-height: 48px;
+  }
+  .sectionbody {
+    padding: 20px;
+    width: 100%;
+  }
 }
 
 .bespoke-active {
@@ -223,21 +237,6 @@ html {
   opacity: 1;
 }
 
-.bespoke-progress-parent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: .3vw;
-}
-
-.bespoke-progress-bar {
-  position: absolute;
-  height: 100%;
-  background: #ccc;
-  transition: width .6s ease;
-}
-
 .emphatic {
   background: #222;
 }
@@ -251,6 +250,7 @@ html {
 }
 
 .bespoke-slide.janini {
+  padding: 0;
   justify-content: left;
   align-items: flex-start;
   font-size: 24px;

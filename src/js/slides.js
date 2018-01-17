@@ -94,7 +94,6 @@ const scale = require('./slides/bespoke-scale.js')
 const bullets = require('bespoke-bullets')
 const hash = require('bespoke-hash')
 const multimedia = require('bespoke-multimedia')
-const progress = require('bespoke-progress')
 const extern = require('bespoke-extern')
 const fullscreen = require('bespoke-fullscreen')
 const overview = require('bespoke-overview')
@@ -107,7 +106,6 @@ bespoke.from({ parent: 'article.deck', slides: 'div.sect1' }, [
   bullets('.build, .build-items > *:not(.build-items)'),
   hash(),
   multimedia(),
-  progress(),
   extern(bespoke),
   fullscreen(),
   overview(),
