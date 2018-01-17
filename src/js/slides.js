@@ -8,6 +8,8 @@ const prism = require('bespoke-prism')
 const multimedia = require('bespoke-multimedia')
 const progress = require('bespoke-progress')
 const extern = require('bespoke-extern')
+const fullscreen = require('bespoke-fullscreen')
+const overview = require('bespoke-overview')
 
 bespoke.from({ parent: 'article.deck', slides: 'div.sect1' }, [
   classes(),
@@ -18,5 +20,7 @@ bespoke.from({ parent: 'article.deck', slides: 'div.sect1' }, [
   prism(),
   multimedia(),
   progress(),
-  extern(bespoke)
+  extern(bespoke),
+  fullscreen(),
+  overview()
 ])
