@@ -60,7 +60,7 @@ const janini = () => {
 
       let toRun = source.getValue()
       if (toRun.trim() === "") {
-        $(output).text(`> Hit Control-S to run your Java code...`)
+        $(output).text($(output).data('blank'))
         return
       }
 
