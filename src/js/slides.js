@@ -11,7 +11,11 @@ const janini = () => {
     let janinis = {}
     _.each(deck.slides, (element, i) => {
       $(element).find("textarea.janini").each((unused, element) => {
-        let newCodeMirror = CodeMirror.fromTextArea($(element).get(0))
+        let newCodeMirror = CodeMirror.fromTextArea($(element).get(0), {
+          mode: 'text/x-java',
+          lineNumbers: true,
+          matchBrackets: true
+        })
         janinis[i] = newCodeMirror
       })
     })
