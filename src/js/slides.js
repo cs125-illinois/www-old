@@ -4,12 +4,12 @@ const nav = require('bespoke-nav')
 const scale = require('bespoke-scale')
 const bullets = require('bespoke-bullets')
 const hash = require('bespoke-hash')
-const prism = require('prism')
+const prism = require('bespoke-prism')
 const multimedia = require('bespoke-multimedia')
 const progress = require('bespoke-progress')
 const extern = require('bespoke-extern')
 
-bespoke.from({ parent: 'article.deck', slides: 'section' }, [
+bespoke.from({ parent: 'article.deck', slides: 'div.sect1' }, [
   classes(),
   nav(),
   scale(),

@@ -1,18 +1,17 @@
 const appRootPath = require('app-root-path')
 const path = require('path')
-const webpackConfiguration = require('./webpack.config.js')
 
 const metalsmith = require('metalsmith')
 const ignore = require('metalsmith-ignore')
 const buildDate = require('metalsmith-build-date')
 const drafts = require('metalsmith-drafts')
 const empty = require(path.join(appRootPath.toString(), 'lib/empty.js'))
-const asciidoc = require('metalsmith-asciidoc')
+const asciidoc = require('metalsmith-asciidoctor')
 const markdown = require('metalsmith-markdown')
 const sections = require(path.join(appRootPath.toString(), 'lib/sections.js'))
-const course = require(path.join(appRootPath.toString(), 'lib/course.js'))
 const registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js'))
-const webpack = require('ms-webpack')
+const course = require(path.join(appRootPath.toString(), 'lib/course.js'))
+const filemetadata = require('metalsmith-filemetadata')
 const inPlace = require('metalsmith-in-place')
 const permalinks = require('metalsmith-permalinks')
 const layouts = require('metalsmith-layouts')
@@ -47,9 +46,13 @@ const defaults = {
 const config = _.extend(_.clone(defaults), require('minimist')(process.argv.slice(2)) || {})
 
 const temporaryDestination = tmp.dirSync({ mode: 0775 }).name
-webpackConfiguration.output.path = temporaryDestination
 
 const quiet = (config.quiet == true)
+
+const slides_pattern = 'slides/**/*.adoc'
+const isSlides = (filename, file, i) => {
+  return file.slides == true;
+}
 
 metalsmith(__dirname)
   .source(config.source)
@@ -68,6 +71,14 @@ metalsmith(__dirname)
     Fall2017: 'info/2017/fall/course.yaml',
     Spring2018: 'info/course.json'
   }))
+  .use(filemetadata([{
+    pattern: slides_pattern,
+    metadata: {
+      slides: true,
+      layout: 'slides/slides.hbt'
+    },
+    preserve: true
+  }]))
   .use(inPlace({
     pattern: '**/*.adoc.hbs',
   }))
