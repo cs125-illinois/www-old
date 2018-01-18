@@ -1,13 +1,14 @@
 ---
-title: "MP2: String Games"
+title: "MP2: Encryption"
 description:
-  MP2 has you complete three small programming tasks that all involve string
-  processing.
+  MP2 consists of two programming tasks that are both related to encrypting (and
+  decrypting) strings.
 priority: 0.5
 changefreq: monthly
 layout: single.hbt
 sidebar: MP
-draft: true
+spelling_exceptions:
+  - Brian Kernighan
 ---
 :sectnums:
 :linkattrs:
@@ -16,56 +17,54 @@ draft: true
 
 [.lead]
 //
-Strings are an important data type in every programming language.
+Computers are frequently used to _transform_ and _analyze_ data.
 //
-While computers understand bits, bytes, and numbers, humans communicate using
-letters, words, and sentences.
+Rendering web pages, playing music, displaying video, compressing files, and
+graphing data are all examples that involve either transformation, analysis, and
+sometimes both.
 
-MP2 comprises three string-based programming tasks that will familiarize you
-with strings and string processing.
+MP2 comprises two string-based tasks that involve straightforward transformation
+and analysis tasks.
 //
-*It is due Friday, September 29th, 2017 @ 5PM. To receive full credit, you must
+*It is due Friday, October 6th, 2017 @ 5PM. To receive full credit, you must
 submit by this deadline.*
+//
+In addition, 10% of your grade on MP2 is for committing code that earns at least
+_20 points_ by *Tuesday, October 3rd, 2017 @ 5PM.*
 
 [[objectives]]
 == Learning Objectives
 
-The purpose of MP2 is to familiarize you with Java strings and string
-processing.
+The purpose of MP2 is to begin to introduce you to data processing, including
+both transformation and analysis.
 //
 You'll begin to learn how to:
 
-. interpret text as a series of lines, lines as a series of words, and words as
-a series of characters
+. programmatically transform strings by implementing both simple encryption and
+decryption
 //
-. use simple looping constructs to iterate over arrays of strings and strings
-themselves
+. complete a simple (but useful) cryptography-related data analysis task
 //
-. implement simple state machines
+. write Javadoc comments
 //
-. write function definitions
-//
-. correct Javadoc comments
+. not start the MP at the last minute
 
-We'll also continue to reinforce the link:/MP/1/#objectives[learning objectives
-from MP1].
+We'll also continue to reinforce the learning objectives from link:/MP/0/[MP0]
+and link:/MP/1/[MP1].
 
 [[structure]]
 == Assignment Structure
 
-MP2 consists of three short programs:
+MP2 consists of two short programs:
 
-. https://cs125-illinois.github.io/MP2/FindLine.html[`FindLine.java`]:
+. https://cs125-illinois.github.io/MP2/CaesarCipher.html[`CaesarCipher.java`]:
 //
-finds lines in provided multi-line text
+encrypts and decrypts text using the so-called
+https://en.wikipedia.org/wiki/Caesar_cipher[Caesar Cipher]
 //
-. https://cs125-illinois.github.io/MP2/ScriptPrinter.html[`ScriptPrinter.java`]:
+. https://cs125-illinois.github.io/MP2/CharDistribution.html[`CharDistribution.java`]:
 //
-parses a script and returns lines for a particular actress (or actor)
-//
-.  https://cs125-illinois.github.io/MP2/StrictPalindrome.html[`StrictPalindrome.java`]:
-//
-tests whether a provided string is a palindrome
+parses text and computes the distribution of each of the alphabetic characters
 
 You may find our official
 //
@@ -75,182 +74,191 @@ helpful in understanding what each function is supposed to do.
 
 [[getting]]
 === Obtaining MP2
+Use
 
-Please follow the instructions from link:/MP/1/#getting[MP1].
 //
-You'll find MP2 in an `MP2` folder in your Subversion home directory.
-
-[[deleted]]
-==== Recovering in case of accidental deletion
-
-If for some reason you delete you original copy, there are
+this GitHub Classroom invitation link
 //
-https://stackoverflow.com/questions/497423/how-to-undelete-a-file-with-subversive[ways
-to get it back using Subversion]
+to fork your copy of MP2.
 //
-footnote:[Since this is one of the main reasons for using version control!].
-
-Unlike MP1, we will not provide a tarball.
+Once your repository has been created, import it into IntelliJ following
 //
-If you delete your MP2 for whatever reason, you will need to recover it using
-Subversion.
+link:/MP/setup/git/#workflow[our assignment Git workflow guide].
 
 [[requirements]]
 === Your Goal
 
-All programs and incomplete and need work.
+At this point you should be familiar with the requirements from
+link:/MP/0#requirements[MP0] and link:/MP/1#requirements[MP1].
 //
-The structure of each program is similar:
-
-. Each contains a `main` method that solicits input from the user.
+MP2 is similar.
 //
-*You do not need to modify the `main` methods*, but you should understand how
-they work.
-//
-. User inputs are passed to a separate helper function that you are assigned to
-write.
-//
-These functions do the heavy lifting for each program: searching text
-(`printMatchingLines`), returning an actress's lines (`printLinesFor`), and
-testing whether a string is a palindrome (`isStrictPalindrome`).
-//
-. Each program includes a test suite: `FindLineTest.java`, `ScriptPrinterTest.java`,
-and `StrictPalindromeTest.java`.
-//
-The test suite does not test the main method.
-//
-Instead, it directly tests the method that you are assigned to write.
-
-Your goal is to correctly implement the missing methods so that all of the tests
-pass.
-//
-Doing so will earn you almost full credit on the assignment&mdash;but see the
-section on <<style, style below>>.
-//
-**In contrast to last week, you may need to add methods and fix checkstyle
-errors right out of the box.**
-//
-Until you fix these problems, your initial grade on MP2 will be a zero.
+The only small difference with MP2 is in the grading, so <<grading, see below>>.
 
 [[approach]]
-== How to Approach MP2
+== Fixing Problems
 
-All of link:/MP/1/#approach[the MP1 guidelines] still apply.
+All of the link:/MP/0#approach[MP0] and link:/MP/1#approach[MP1] about how to
+approach the MPs still apply.
 //
-In addition, let us provide some new advice for MP2.
+But as usual, we'll furnish your continued development as programmers with some
+additional advice&mdash;this time about _fixing problems_.
 
-=== Review `java.lang.String`
+We've all been there.
+//
+My stupid code is not working!
+//
+Why not?
+//
+I'm angry, I'm frustrated, I want to throw my computer through a window or stomp
+it to bits.
+//
+*What should you do?*
 
-An important part of MP2 is understanding the various methods that you can call
-on Java strings.
-//
-The best place to find a complete list is the
-//
-https://docs.oracle.com/javase/7/docs/api/java/lang/String.html[Javadoc
-documentation for the Java String type].
+=== Calm Down
 
-You will definitely want to review the
-https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#method_detail[list
-of String methods] to find things that might be useful.
+Well, the first thing to do is _calm down_.
 //
-Specifically, the String methods `split`, `toLowerCase`, `toUpperCase`,
-`startsWith` may be useful in completing MP2.
+This can be a good time to get a cup of coffee, take a walk, engage in some
+//
+https://www.youtube.com/watch?v=5dsGWM5XGdg[YouTube browsing],
+//
+catch up on email, or whatever
+//
+footnote:[I don't recommend smoking, however, since it's unhealthy and habit
+forming. I found out the hard way.]
+//
+Get your head out of what you are doing for a few minutes and you'll be fresher
+when you get back.
 
-=== Documenting Your Work
+=== Accept Responsibility
 
-[.lead]
+Second, accept that something is _wrong with your code_.
 //
-While comments are not processed by the computer, they are some of the most
-important things that you will write (and read) as a software developer.
+If it's not doing what you want, then that's obvious.
+//
+And for CS 125, the test suites are the arbiters of correctness.
+//
+So if you aren't passing them, then your code is incorrect.
+//
+Period.
 
-The reason that comments are so important is simple&mdash;while the code you
-write is _run_ by a computer, is is _used_ by other human beings.
-//
-Regardless of whether a computer can understand what your code is trying to do,
-if other people cannot you will be in trouble.
-//
-In the open-source community, nobody will be able to use your
-contributions&mdash;even if they want to.
-//
-At a job, poorly documented code will get you fired extremely quickly.
+=== Do A Slow, Close Read
 
-So an important job when writing code is _documenting_ it so that others can use
-it.
+Now that you're calmer and ready to find your mistakes, go through your code
+carefully line by line.
 //
-We will give you practice at doing this on the MPs, and also go over it several
-times during lab sections.
+This can be a good time to do some cleanup&mdash;add comments where needed,
+improve your variable names, get all of your indentation and formatting worked
+out, etc.
 //
-But here are some general guidelines to get you started:
-
-==== Documentation for packages and functions is extremely important
-
-This is one of the reasons that we are forcing you to write Javadoc comments,
-since they can be easily used to generate documentation.
+Sometimes looking at your code in a slightly different way causes a bug to
+become apparent.
 //
-https://cs125-illinois.github.io/mazemaker/[Here is an example from a previous
-lab.]
+And you might as well be doing other useful tasks as you do your close read.
+
+During your first slow read it can be helpful to actually read code out loud, or
+at least in your head so that you don't bother others around you.
 //
-Well-written documentation makes it possible for others to use your code without
-understanding your implementation.
-//
-That is critical to modern software development.
-
-==== Comments within functions should be used sparingly
-
-On the other hand, comments _within_ your code should be used sparingly.
-//
-They are not a substitute for <<readable, writing clear and readable code>>.
-
-A good way to think about comments in your code is as a chance to explain
-something unusual that might confuse another person that is reading your
-code&mdash;or, more likely, you!
-
-Here's a fun example:
+For example, if you're examining the code below:
 
 ++++
 <script
-src="https://gist.github.com/gchallen/96122f0e066c2dc1eebc7e6a08e160ab.js"></script>
+src="https://gist.github.com/gchallen/b6ff23b1c26659f920e8a71026816c42.js"></script>
 ++++
 
-And yes&mdash;bonus points are given for comments that are both informative and
-amusing.
-//
-http://fuzzzyblog.blogspot.com/2014/09/40-most-funny-code-comments.html[Here are
-some good examples.]
+You might say:
 
-[[readable]]
-=== Writing Readable Code
+[.spelling_exception]
+//
+. "For every index value of searchArray" (you want to develop a shorthand for
+loops)
+//
+. "If the index member of anotherArray is equal to what I'm search for"
+//
+. "Then break."
+//
+. "But wait, why am I using an index from searchArray to look in anotherArray?
+That's probably wrong."
 
-Comments and documentation are not a substitute for writing reading code.
+This is a place where it _really_ helps to use variable names that aren't `i`
+and `j`, and to pull the current value of arrays into a local variable
+immediately or use the
 //
-Think of it this way&mdash;documentation is for others that will try to use your
-code, including collaborators and co-workers.
-//
-Comments document unusual situations, but are primarily for you, not for others,
-since you're the one who's most likely to have to read (and probably debug) your
-code.
+https://blogs.oracle.com/corejavatechtips/using-enhanced-for-loops-with-your-classes[new
+enhanced `for` loop syntax].
 
-Readable code is even more important for you and you alone.
-//
-So treat writing code that is clear and easy to understand as personal and
-selfish challenge, since it is most likely to benefit you.
+=== Add Instrumentation
 
-==== Good variable names
+Once you've completed one pass, start over and begin adding some print
+statements.
+//
+This is sometimes called `printf` _debugging_, after the
+//
+https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm[C
+language `printf` statement]&mdash;its
+//
+equivalent to `System.out.println` in Java.
+//
+In Java, of course, you would use `System.out.println` to do this.
 
-One basic aspect of writing good code is good choices of variable names.
+You will find that there are snobs out there that look down on `printf`
+debugging.
 //
-A good variable name should allow me to understand how it is being used
-_without_ reading much of the code.
+Hook up a real debugger, they'll say.
+//
+(Don't worry: we'll get there.)
+//
+Or rewrite your entire project using a functional programming language where
+bugs are impossible&mdash;as if that's a real possibility.
 
-Good variable names depend a lot on context, but one good practice to get in to
-is to *avoid generic names* like `i`, `j`, `index`, `count`, etc.
+And then there are the rest of use that just want to build cool and useful
+things as quickly as possible, and who will _happily_ take the chance to add
+instrumentation as needed.
 //
-Try more specific names like `indexInString`, `countOfLetters`, etc.
+`printf` debugging is not powerful enough to solve every problem, and there are
+times that you will need better tools.
 //
-`count` could be anything&mdash;whereas `countOfLetters` lets me know more about
-what is being counted.
+But use it when you can.
 //
-Keystrokes are cheap, understanding is expensive.
+And remind the snobs what none other than
+//
+https://en.wikipedia.org/wiki/Brian_Kernighan[Brian Kernighan] says:
+
+[quote, 'https://stackoverflow.com/a/238686[Brian Kernighan]']
+____
+The most effective debugging tool is still careful thought, coupled with
+judiciously placed print statements.
+____
+
+Usually the right approach is to start at the top of the block of code that you
+are examining and use `System.out.println` to examine things that you are unsure
+are working properly.
+//
+This is particularly useful when used in conjunction with test suites.
+
+=== Consider A Different Approach
+
+If you are really stuck, it might be time to try a different approach.
+//
+This is particularly true when you can acknowledge that your current approach
+has some, shall we say, limitations.
+//
+Maybe you thought that this particular way of doing things would work out well,
+but then you had to add one hacky bit, and another.
+//
+And now it's rapidly approaching spaghetti code that you're not even sure that
+you understand anymore.
+
+In that case, by all means start over!
+//
+You're learning, and you'll learn more by completing a few alternative
+implementations than you will by clinging to an ugly solution.
+//
+Feel free to talk to another student&mdash;<<cheating, _In
+English_>>&mdash;about how they approached the problem.
+//
+Maybe they found a much cleaner way that you can try.
 
 === Getting Help
 
@@ -267,60 +275,88 @@ You should also feel free to help each other, as long as you do not violate the
 
 MP2 is worth 100 points total, broken down as follows:
 
-. *30 points*: `FindLine.java`
+. *40 points*: `CaesarCipher.java`
   ** *10 points* for submitting code that compiles
-  ** *20 points* for passing the test
-. *30 points*: `ScriptPrinter.java`
+  ** *30 points* for passing the test
+. *40 points*: `CharDistribution.java`
   ** *10 points* for submitting code that compiles
-  ** *20 points* for passing the test
-. *30 points*: `StrictPalindrome.java`
-  ** *10 points* for submitting code that compiles
-  ** *20 points* for passing the test
+  ** *40 points* for passing the test
 . *10 points* for no `checkstyle` violations
+. *10 points* for committing code that earns at least 20 points before *Tuesday,
+October 3rd, 2017 @ 5PM.*
+
+Programming is a skill, and you learn it with regular consistent practice.
+//
+If you wait until the day of the deadline, it's unlikely that you'll get as much
+practice and learn as much as if you start early.
+//
+When you give yourself enough time to complete the MP, you can also slow down,
+enjoy yourself, and do things right.
+//
+Take a few extra minutes to learn more about a library that you're using, or
+clean up your code so that it really shines.
+//
+The earlier you start, the more likely you'll do some of these useful things.
+
+So, we're going to incentive you starting on time.
+//
+10% of MP2 is earned by submitting something that earns 20 points by *Tuesday,
+October 3rd, 2017 @ 5PM.*
+//
+You don't have to do much to get 20 points, but we hope that it will get you
+reading and think about the MP before the end of the week, when office hours are
+packed.
 
 [[testing]]
 === Test Cases
 
-Like link:/MP/1[MP1], we have provided exhaustive test cases for each part of
-MP2.
+Like link:/MP/0/[MP0] and link:/MP/1/[MP1], we have provided exhaustive test cases
+for each part of MP2.
 //
-Please review the link:/MP/1/#testing[MP1 testing instructions].
+Please review the link:/MP/0#testing[MP0 testing instructions].
 
 [[autograding]]
 === Autograding
 
-Like link:/MP/1/[MP1], we have provided you with an autograding script that you
-can use to estimate your current grade as often as you want.
+Like link:/MP/0/[MP0] and link:/MP/1/[MP1], we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
 //
 The Eclipse project contains a launcher that will run MP2 autograder.
+//
+Note, however, that unlike previous assignments, the local autograder can only
+calculate 90 out of your 100 total points.
+//
+This is because it can't tell if you have committed the required code before the
+deadline to earn the 10 "start the assignment on time" points
+//
+footnote:[Well, it probably could find this out, but this would require that
+everyone install the Subversion command line client, and I don't want to go
+there.].
 
 Unless you have modified the test cases or autograder configuration files, the
 autograding output should equal the score that you will earn when you submit.
 //
-If you modify our test cases or the autograding configuration, all bets are off.
-
-[[style]]
-=== Style Points
-
-First, review the link:/MP/1/#style[style notes from MP1].
-
-However, for MP2 you will have to correct some existing style errors.
-//
-Please look at the Javadoc comments on other provided functions for examples of
-how to use the `@param` and `@return` tag.
+*If you modify our test cases or the autograding configuration, all bets are
+off.*
 
 [[submitting]]
 == Submitting Your Work
 
-Overall you should refer to link:/MP/subversion[our instructions for using
-Subversion].
+Follow the instructions from the
 //
-Commit early and often!
+link:/MP/setup/git#submitting[submitting portion]
 //
-You only earn credit for the version of your code that is committed to your
-repository, so ensure that we have your best submission before the deadline.
+of the
+//
+link:/MP/setup/git#workflow[CS 125 workflow]
+//
+instructions.
+
+And remember, you must commit something that earns 20 points before *Tuesday,
+October 3rd, 2017 @ 5PM* to earn 10 points on the assignment.
 
 [[cheating]]
 === Academic Integrity
 
-Please review the link:/MP/1/[MP1 academic integrity guidelines].
+Please review the link:/MP/0#cheating[MP0 academic integrity guidelines].

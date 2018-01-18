@@ -1,0 +1,440 @@
+---
+title: "MP1: Triple Crown"
+description:
+  MP1 has you complete three small programming tasks to whet your appetite for
+  what comes next.
+priority: 0.5
+changefreq: monthly
+layout: single.hbt
+sidebar: MP
+draft: true
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.lead]
+//
+Let's start coding!
+//
+MP1 challenges you to complete three small programming tasks.
+//
+It will also introduce you to the testing environment we'll use throughout the
+rest of the semester.
+
+*MP1 is due Friday, September 22nd, 2017 @ 5PM. To receive full credit, you must
+submit by this deadline.*
+
+[[objectives]]
+== Learning Objectives
+
+The purpose of MP1 is to get you started programming in Java.
+//
+Specifically, it begins to train you to:
+
+. translate program descriptions into working code
+//
+. find and fix bugs in existing code
+//
+. work with test suites as part of your development process
+//
+. format text output using appropriate Java classes
+//
+. initialize and use variables of appropriate types
+//
+. perform simple calculations using integer arithmetic
+//
+. use simple loops and conditional statements
+
+[[structure]]
+== Assignment Structure
+
+MP1 consists of three short programs:
+
+. `Factorial.java`: computes the https://en.wikipedia.org/wiki/Factorial[factorial]
+of a given number
+//
+. `Winner.java`: returns three scores in sorted order
+//
+. `QuizMaster.java`: gives a short quiz about https://cs.illinois.edu/[CS@Illinois]
+and displays a score
+
+[[getting]]
+=== Obtaining MP1
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/bGadrGxP9-U" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+You will find the `MP1` project located in a new `MP1` directory in your
+Subversion repository.
+//
+To import it into your workspace, perform the following steps in Eclipse:
+
+. Open the Eclipse project import dialog: "File &rarr; Import"
+//
+. Choose to import a Subversion project: "SVN &rarr; Project from SVN"
+//
+. If you have set up your Subversion repository previously following
+//
+link:/MP/subversion[our instructions],
+//
+you should have an option to use an existing repository location.
+//
+Select your CS 125 Subversion repository.
+//
+. On the next screen hit "Browse".
+//
+You should see a "MP1" directory inside your Subversion folder.
+//
+Select it and click "OK".
+//
+. Your Subversion URL for MP1 should look something like this:
+//
+link:https://subversion.ews.illinois.edu/svn/fa17-cs125/yourNetID/MP1[https://subversion.ews.illinois.edu/svn/fa17-cs125/yourNetID/MP1, role="noclick link_exception"].
+//
+So for example, my MP1 is located at
+//
+link:https://subversion.ews.illinois.edu/svn/fa17-cs125/challen/MP1[https://subversion.ews.illinois.edu/svn/fa17-cs125/challen/MP1, role="noclick link_exception"].
+//
+. Click "Finish" and then ensure that "Check out as a project with the name
+specified" is selected.
+//
+. Click "Finish" again.
+//
+. You should have a copy of MP1!
+
+[[deleted]]
+==== Recovering in case of accidental deletion
+
+If for some reason you delete you original copy, there are
+//
+https://stackoverflow.com/questions/497423/how-to-undelete-a-file-with-subversive[ways
+to get it back using Subversion]
+//
+footnote:[Since this is one of the main reasons for using version control!].
+//
+However, you can also download an link:/MP/1.tgz[archive and unpack it locally].
+//
+*Make sure you import it as an existing Eclipse project*, otherwise other things
+are unlikely to work correctly.
+
+At that point you'll want to follow our instructions on
+link:/MP/subversion/#adding[adding projects to your Subversion repository].
+//
+*Note that your project _must_ be in a subdirectory named MP1 in your Subversion
+repository!*
+//
+Otherwise we will not find it when you look for it to grade.
+
+[[requirements]]
+=== Your Goal
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/yPR3R8i06e0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+All programs and incomplete and need work.
+//
+The structure of each program is similar:
+
+. Each contains a `main` method that solicits input from the user.
+//
+*You do not need to modify the `main` methods*, but you should understand how
+they work.
+//
+. User inputs are passed to a separate helper function that you are assigned to
+write.
+//
+These functions do the heavy lifting for each program: computing the factorial
+(`factorial`), returning sorted scores (`winner`), and computing the quiz score
+(`computeScore`).
+//
+. Each program includes a test suite: `FactorialTest.java`, `WinnerTest.java`,
+and `QuizMasterTest.java`.
+//
+The test suite does not test the main method.
+//
+Instead, it directly tests the method that you are assigned to write.
+
+Your goal is to correctly implement the missing methods so that all of the tests
+pass.
+//
+Doing so will earn you almost full credit on the assignment&mdash;but see the
+section on <<style, style below>>.
+
+[[approach]]
+== How to Approach MP1
+
+Although MP1 may seem daunting at first, do not get discouraged!
+//
+Focus on identifying what you need to do and understanding the requirements of
+each function.
+//
+There is really not a huge amount of code for you to write&mdash;our solution
+adds only 36 lines, although yours may be slightly larger.
+
+=== Understanding What You Need to Do
+
+A core task when approaching any programming assignment or task is to _identify
+what you need to do_.
+//
+For MP1 there are three&mdash;and only three&mdash;functions that you need to
+change.
+//
+Begin by identifying those functions and understanding their requirements.
+//
+This will go *a long way* to helping you complete the MP.
+
+=== Test-driven Development
+
+We have provided you with testing suites that you can use to perform iterative
+test-driven development.
+//
+Here's how that works:
+
+. Start with one function that you need to write for MP1&mdash;say `factorial`
+in `Factorial.java`.
+//
+. Open `Factorial.java` and `FactorialTest.java`.
+//
+Run the test suite.
+//
+Without changes to `Factorial.java`, it should fail.
+//
+. Begin modifying the `factorial` function.
+//
+When you think that you have a solution, save you work and re-run the test
+suite.
+//
+. If the test suite succeeds, you're done&mdash;congratulations!
+//
+. If the test suite fails, you may want to run `Factorial.java` as a Java
+application and interact with it to determine what is wrong.
+//
+Perhaps you are calculating the factorial of 2 correctly, but the factorial of 3
+incorrectly?
+//
+Interactive testing can help diagnose these kinds of problems.
+
+In general *the fewer lines of code you write before running a test, the
+better.*
+//
+When you are starting out, it is easy to introduce bugs into your code.
+//
+Bugs are easiest to catch one-by-one, and so the fewer lines of untested code
+the more likely you are to identify errors in your logic or implementation.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[grading]]
+== Grading
+
+MP1 is worth 100 points total, broken down as follows:
+
+. *30 points*: `Factorial.java`
+  ** *10 points* for submitting code that compiles
+  ** *10 points* each for two non-trivial test cases
+. *30 points*: `Winner.java`
+  ** *10 points* for submitting code that compiles
+  ** *20 points* for passing the test
+. *30 points*: `QuizMaster.java`
+  ** *10 points* for submitting code that compiles
+  ** *20 points* for passing the test
+. *10 points* for no `checkstyle` violations
+
+[[testing]]
+=== Test Cases
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/qSiK-vTMkHY" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+You should carefully review the test cases in `FactorialTest.java`,
+`WinnerTest.java`, and `QuizMasterTest.java`.
+//
+The MP1 testing suite follows a common pattern where functions are tested
+against pre-computed inputs and outputs.
+//
+So, for example, when testing `Winner.java`, we compute the correct answer for a
+small subset of test cases and use this to determine whether your solution works
+in all cases.
+
+Automated testing is a hugely important part of modern software development.
+//
+Just like computers are good at running programs, they are also good at running
+programs to debug other programs.
+//
+Independently developing a method and the function that tests it allows the two
+to support each other.
+//
+The test may find errors in the method, and, the method may also identify errors
+in the test.
+
+[[autograding]]
+=== Autograding
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/pRNte-Dkpko" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+We have provided you with an autograding script that you can use to estimate
+your current grade as often as you want.
+//
+The Eclipse project contains a launcher that will run the autograder for MP1.
+
+Unless you have modified the test cases or autograder configuration files, the
+autograding output should equal the score that you will earn when you submit.
+//
+If you modify our test cases or the autograding configuration, all bets are off.
+
+[[style]]
+=== Style Points
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Bu5ARjjy05E" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+90 points on MP1 are for correctly implementing the required functions.
+//
+The other 10 points are for _style_.
+//
+Writing readable code according to a style guideline is extremely important, and
+we are going to help you get into this habit right from the start.
+//
+Every software development company and most active open-source projects maintain
+style guidelines.
+//
+Adhering to them will help others understand and integrate your contributions.
+
+We have configured the `checkstyle` plugin to enforce a variant of the
+//
+http://checkstyle.sourceforge.net/sun_style.html[Sun Java coding style].
+//
+We have also configured Eclipse to generate code that meets this standard.
+//
+So you should not have to fight with Eclipse too much to avoid `checkstyle`
+violations.
+
+However, the `checkstyle` plugin does require you to add
+//
+https://en.wikipedia.org/wiki/Javadoc[Javadoc]
+//
+comments, and also avoid the use of so-called
+https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad[_magic
+numbers_].
+//
+You may find these requirements a bit annoying at first, but we trust that you
+will get used to them.
+
+[[submitting]]
+== Submitting Your Work
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/HBAKMO3gNic" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Overall you should refer to link:/MP/subversion[our instructions for using
+Subversion].
+//
+Commit early and often!
+//
+You only earn credit for the version of your code that is committed to your
+repository, so ensure that we have your best submission before the deadline.
+
+[[cheating]]
+=== Academic Integrity
+
+Learning to program requires practice.
+//
+If you submit code that is not your own work, you are not getting the practice
+that you need to improve.
+
+*All work submitted for MP1 must be your own.*
+//
+Cheating in CS 125 may result in your removal from the CS program, or from the
+University of Illinois.
+//
+We have many bright, honest students that want to learn computer science.
+//
+We don't need to waste time and energy on cheaters that don't want to learn.
+
+Specifically, the following activities constitute cheating and will be dealt
+with according to relevant
+//
+https://cs.illinois.edu/academics/honor-code[departmental]
+//
+and http://studentcode.illinois.edu/[university policies].
+//
+*You may not*:
+
+. *Turn in work that was completed by anyone other than yourself.*
+//
+. *Copy or paste code that you did not write* from any source.
+//
+. *Examine another classmates solution*, reproduce it, and submit it as your own
+work.
+
+We reserve the right to run cheating detection software on all submitted student
+work.
+//
+These programs are extremely accurate, and any evidence of cheating that they
+uncover will initiate academic integrity violation proceedings.
+
+==== A simple rule of thumb about collaboration
+
+A general rule of thumb is that exchanging or soliciting _ideas_ about how to
+solve the MP is not cheating, but exchanging code is cheating.
+//
+Feel free to discuss your solutions with other students as long as you do not
+provide them or allow them to view your source code.
+//
+If you are talking in English footnote:[or another spoken human language...],
+that's fine.
+//
+If you are talking or exchanging _computer code_, that's cheating.

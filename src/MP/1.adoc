@@ -1,13 +1,12 @@
 ---
-title: "MP1: Triple Crown"
+title: "MP1: String Games"
 description:
-  MP1 has you complete three small programming tasks to whet your appetite for
-  what comes next.
+  MP1 has you complete three small programming tasks that all involve string
+  processing.
 priority: 0.5
 changefreq: monthly
 layout: single.hbt
 sidebar: MP
-draft: true
 ---
 :sectnums:
 :linkattrs:
@@ -16,136 +15,78 @@ draft: true
 
 [.lead]
 //
-Let's start coding!
+Strings are an important data type in every programming language.
 //
-MP1 challenges you to complete three small programming tasks.
-//
-It will also introduce you to the testing environment we'll use throughout the
-rest of the semester.
+While computers understand bits, bytes, and numbers, humans communicate using
+letters, words, and sentences.
 
-*MP1 is due Friday, September 22nd, 2017 @ 5PM. To receive full credit, you must
+MP1 comprises three string-based programming tasks that will familiarize you
+with strings and string processing.
+//
+*It is due Friday, September 29th, 2017 @ 5PM. To receive full credit, you must
 submit by this deadline.*
 
 [[objectives]]
 == Learning Objectives
 
-The purpose of MP1 is to get you started programming in Java.
+The purpose of MP1 is to familiarize you with Java strings and string
+processing.
 //
-Specifically, it begins to train you to:
+You'll begin to learn how to:
 
-. translate program descriptions into working code
+. interpret text as a series of lines, lines as a series of words, and words as
+a series of characters
 //
-. find and fix bugs in existing code
+. use simple looping constructs to iterate over arrays of strings and strings
+themselves
 //
-. work with test suites as part of your development process
+. implement simple state machines
 //
-. format text output using appropriate Java classes
+. write function definitions
 //
-. initialize and use variables of appropriate types
-//
-. perform simple calculations using integer arithmetic
-//
-. use simple loops and conditional statements
+. correct Javadoc comments
+
+We'll also continue to reinforce the link:/MP/0/#objectives[learning objectives
+from MP0].
 
 [[structure]]
 == Assignment Structure
 
 MP1 consists of three short programs:
 
-. `Factorial.java`: computes the https://en.wikipedia.org/wiki/Factorial[factorial]
-of a given number
+. https://cs125-illinois.github.io/MP1/FindLine.html[`FindLine.java`]:
 //
-. `Winner.java`: returns three scores in sorted order
+finds lines in provided multi-line text
 //
-. `QuizMaster.java`: gives a short quiz about https://cs.illinois.edu/[CS@Illinois]
-and displays a score
+. https://cs125-illinois.github.io/MP1/ScriptPrinter.html[`ScriptPrinter.java`]:
+//
+parses a script and returns lines for a particular actress (or actor)
+//
+.  https://cs125-illinois.github.io/MP1/StrictPalindrome.html[`StrictPalindrome.java`]:
+//
+tests whether a provided string is a palindrome
+
+You may find our official
+//
+https://cs125-illinois.github.io/MP1/[MP1 online documentation]
+//
+helpful in understanding what each function is supposed to do.
 
 [[getting]]
 === Obtaining MP1
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/bGadrGxP9-U" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-You will find the `MP1` project located in a new `MP1` directory in your
-Subversion repository.
+Use
 //
-To import it into your workspace, perform the following steps in Eclipse:
-
-. Open the Eclipse project import dialog: "File &rarr; Import"
+this GitHub Classroom invitation link
 //
-. Choose to import a Subversion project: "SVN &rarr; Project from SVN"
+to fork your copy of MP1.
 //
-. If you have set up your Subversion repository previously following
+Once your repository has been created, import it into IntelliJ following
 //
-link:/MP/subversion[our instructions],
-//
-you should have an option to use an existing repository location.
-//
-Select your CS 125 Subversion repository.
-//
-. On the next screen hit "Browse".
-//
-You should see a "MP1" directory inside your Subversion folder.
-//
-Select it and click "OK".
-//
-. Your Subversion URL for MP1 should look something like this:
-//
-link:https://subversion.ews.illinois.edu/svn/fa17-cs125/yourNetID/MP1[https://subversion.ews.illinois.edu/svn/fa17-cs125/yourNetID/MP1, role="noclick link_exception"].
-//
-So for example, my MP1 is located at
-//
-link:https://subversion.ews.illinois.edu/svn/fa17-cs125/challen/MP1[https://subversion.ews.illinois.edu/svn/fa17-cs125/challen/MP1, role="noclick link_exception"].
-//
-. Click "Finish" and then ensure that "Check out as a project with the name
-specified" is selected.
-//
-. Click "Finish" again.
-//
-. You should have a copy of MP1!
-
-[[deleted]]
-==== Recovering in case of accidental deletion
-
-If for some reason you delete you original copy, there are
-//
-https://stackoverflow.com/questions/497423/how-to-undelete-a-file-with-subversive[ways
-to get it back using Subversion]
-//
-footnote:[Since this is one of the main reasons for using version control!].
-//
-However, you can also download an link:/MP/1.tgz[archive and unpack it locally].
-//
-*Make sure you import it as an existing Eclipse project*, otherwise other things
-are unlikely to work correctly.
-
-At that point you'll want to follow our instructions on
-link:/MP/subversion/#adding[adding projects to your Subversion repository].
-//
-*Note that your project _must_ be in a subdirectory named MP1 in your Subversion
-repository!*
-//
-Otherwise we will not find it when you look for it to grade.
+link:/MP/setup/git/#workflow[our assignment Git workflow guide].
 
 [[requirements]]
 === Your Goal
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/yPR3R8i06e0" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
 
 All programs and incomplete and need work.
 //
@@ -159,12 +100,12 @@ they work.
 . User inputs are passed to a separate helper function that you are assigned to
 write.
 //
-These functions do the heavy lifting for each program: computing the factorial
-(`factorial`), returning sorted scores (`winner`), and computing the quiz score
-(`computeScore`).
+These functions do the heavy lifting for each program: searching text
+(`printMatchingLines`), returning an actress's lines (`printLinesFor`), and
+testing whether a string is a palindrome (`isStrictPalindrome`).
 //
-. Each program includes a test suite: `FactorialTest.java`, `WinnerTest.java`,
-and `QuizMasterTest.java`.
+. Each program includes a test suite: `FindLineTest.java`, `ScriptPrinterTest.java`,
+and `StrictPalindromeTest.java`.
 //
 The test suite does not test the main method.
 //
@@ -175,68 +116,131 @@ pass.
 //
 Doing so will earn you almost full credit on the assignment&mdash;but see the
 section on <<style, style below>>.
+//
+**In contrast to last week, you may need to add methods and fix checkstyle
+errors right out of the box.**
+//
+Until you fix these problems, your initial grade on MP1 will be a zero.
 
 [[approach]]
 == How to Approach MP1
 
-Although MP1 may seem daunting at first, do not get discouraged!
+All of link:/MP/0/#approach[the MP0 guidelines] still apply.
 //
-Focus on identifying what you need to do and understanding the requirements of
-each function.
-//
-There is really not a huge amount of code for you to write&mdash;our solution
-adds only 36 lines, although yours may be slightly larger.
+In addition, let us provide some new advice for MP1.
 
-=== Understanding What You Need to Do
+=== Review `java.lang.String`
 
-A core task when approaching any programming assignment or task is to _identify
-what you need to do_.
+An important part of MP1 is understanding the various methods that you can call
+on Java strings.
 //
-For MP1 there are three&mdash;and only three&mdash;functions that you need to
-change.
+The best place to find a complete list is the
 //
-Begin by identifying those functions and understanding their requirements.
-//
-This will go *a long way* to helping you complete the MP.
+https://docs.oracle.com/javase/7/docs/api/java/lang/String.html[Javadoc
+documentation for the Java String type].
 
-=== Test-driven Development
+You will definitely want to review the
+https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#method_detail[list
+of String methods] to find things that might be useful.
+//
+Specifically, the String methods `split`, `toLowerCase`, `toUpperCase`,
+`startsWith` may be useful in completing MP1.
 
-We have provided you with testing suites that you can use to perform iterative
-test-driven development.
-//
-Here's how that works:
+=== Documenting Your Work
 
-. Start with one function that you need to write for MP1&mdash;say `factorial`
-in `Factorial.java`.
+[.lead]
 //
-. Open `Factorial.java` and `FactorialTest.java`.
-//
-Run the test suite.
-//
-Without changes to `Factorial.java`, it should fail.
-//
-. Begin modifying the `factorial` function.
-//
-When you think that you have a solution, save you work and re-run the test
-suite.
-//
-. If the test suite succeeds, you're done&mdash;congratulations!
-//
-. If the test suite fails, you may want to run `Factorial.java` as a Java
-application and interact with it to determine what is wrong.
-//
-Perhaps you are calculating the factorial of 2 correctly, but the factorial of 3
-incorrectly?
-//
-Interactive testing can help diagnose these kinds of problems.
+While comments are not processed by the computer, they are some of the most
+important things that you will write (and read) as a software developer.
 
-In general *the fewer lines of code you write before running a test, the
-better.*
+The reason that comments are so important is simple&mdash;while the code you
+write is _run_ by a computer, is is _used_ by other human beings.
 //
-When you are starting out, it is easy to introduce bugs into your code.
+Regardless of whether a computer can understand what your code is trying to do,
+if other people cannot you will be in trouble.
 //
-Bugs are easiest to catch one-by-one, and so the fewer lines of untested code
-the more likely you are to identify errors in your logic or implementation.
+In the open-source community, nobody will be able to use your
+contributions&mdash;even if they want to.
+//
+At a job, poorly documented code will get you fired extremely quickly.
+
+So an important job when writing code is _documenting_ it so that others can use
+it.
+//
+We will give you practice at doing this on the MPs, and also go over it several
+times during lab sections.
+//
+But here are some general guidelines to get you started:
+
+==== Documentation for packages and functions is extremely important
+
+This is one of the reasons that we are forcing you to write Javadoc comments,
+since they can be easily used to generate documentation.
+//
+https://cs125-illinois.github.io/mazemaker/[Here is an example from a previous
+lab.]
+//
+Well-written documentation makes it possible for others to use your code without
+understanding your implementation.
+//
+That is critical to modern software development.
+
+==== Comments within functions should be used sparingly
+
+On the other hand, comments _within_ your code should be used sparingly.
+//
+They are not a substitute for <<readable, writing clear and readable code>>.
+
+A good way to think about comments in your code is as a chance to explain
+something unusual that might confuse another person that is reading your
+code&mdash;or, more likely, you!
+
+Here's a fun example:
+
+++++
+<script
+src="https://gist.github.com/gchallen/96122f0e066c2dc1eebc7e6a08e160ab.js"></script>
+++++
+
+And yes&mdash;bonus points are given for comments that are both informative and
+amusing.
+//
+http://fuzzzyblog.blogspot.com/2014/09/40-most-funny-code-comments.html[Here are
+some good examples.]
+
+[[readable]]
+=== Writing Readable Code
+
+Comments and documentation are not a substitute for writing reading code.
+//
+Think of it this way&mdash;documentation is for others that will try to use your
+code, including collaborators and co-workers.
+//
+Comments document unusual situations, but are primarily for you, not for others,
+since you're the one who's most likely to have to read (and probably debug) your
+code.
+
+Readable code is even more important for you and you alone.
+//
+So treat writing code that is clear and easy to understand as personal and
+selfish challenge, since it is most likely to benefit you.
+
+==== Good variable names
+
+One basic aspect of writing good code is good choices of variable names.
+//
+A good variable name should allow me to understand how it is being used
+_without_ reading much of the code.
+
+Good variable names depend a lot on context, but one good practice to get in to
+is to *avoid generic names* like `i`, `j`, `index`, `count`, etc.
+//
+Try more specific names like `indexInString`, `countOfLetters`, etc.
+//
+`count` could be anything&mdash;whereas `countOfLetters` lets me know more about
+what is being counted.
+//
+Keystrokes are cheap, understanding is expensive.
 
 === Getting Help
 
@@ -253,13 +257,13 @@ You should also feel free to help each other, as long as you do not violate the
 
 MP1 is worth 100 points total, broken down as follows:
 
-. *30 points*: `Factorial.java`
-  ** *10 points* for submitting code that compiles
-  ** *10 points* each for two non-trivial test cases
-. *30 points*: `Winner.java`
+. *30 points*: `FindLine.java`
   ** *10 points* for submitting code that compiles
   ** *20 points* for passing the test
-. *30 points*: `QuizMaster.java`
+. *30 points*: `ScriptPrinter.java`
+  ** *10 points* for submitting code that compiles
+  ** *20 points* for passing the test
+. *30 points*: `StrictPalindrome.java`
   ** *10 points* for submitting code that compiles
   ** *20 points* for passing the test
 . *10 points* for no `checkstyle` violations
@@ -267,54 +271,18 @@ MP1 is worth 100 points total, broken down as follows:
 [[testing]]
 === Test Cases
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/qSiK-vTMkHY" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-You should carefully review the test cases in `FactorialTest.java`,
-`WinnerTest.java`, and `QuizMasterTest.java`.
+Like link:/MP/0[MP0], we have provided exhaustive test cases for each part of
+MP1.
 //
-The MP1 testing suite follows a common pattern where functions are tested
-against pre-computed inputs and outputs.
-//
-So, for example, when testing `Winner.java`, we compute the correct answer for a
-small subset of test cases and use this to determine whether your solution works
-in all cases.
-
-Automated testing is a hugely important part of modern software development.
-//
-Just like computers are good at running programs, they are also good at running
-programs to debug other programs.
-//
-Independently developing a method and the function that tests it allows the two
-to support each other.
-//
-The test may find errors in the method, and, the method may also identify errors
-in the test.
+Please review the link:/MP/0/#testing[MP0 testing instructions].
 
 [[autograding]]
 === Autograding
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/pRNte-Dkpko" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-We have provided you with an autograding script that you can use to estimate
-your current grade as often as you want.
+Like link:/MP/0/[MP0], we have provided you with an autograding script that you
+can use to estimate your current grade as often as you want.
 //
-The Eclipse project contains a launcher that will run the autograder for MP1.
+The Eclipse project contains a launcher that will run MP1 autograder.
 
 Unless you have modified the test cases or autograder configuration files, the
 autograding output should equal the score that you will earn when you submit.
@@ -324,117 +292,37 @@ If you modify our test cases or the autograding configuration, all bets are off.
 [[style]]
 === Style Points
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Bu5ARjjy05E" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-90 points on MP1 are for correctly implementing the required functions.
+Review the link:/MP/0/#style[style notes from MP0].
 //
-The other 10 points are for _style_.
+For MP1 you will have to correct some existing style errors.
 //
-Writing readable code according to a style guideline is extremely important, and
-we are going to help you get into this habit right from the start.
-//
-Every software development company and most active open-source projects maintain
-style guidelines.
-//
-Adhering to them will help others understand and integrate your contributions.
-
-We have configured the `checkstyle` plugin to enforce a variant of the
-//
-http://checkstyle.sourceforge.net/sun_style.html[Sun Java coding style].
-//
-We have also configured Eclipse to generate code that meets this standard.
-//
-So you should not have to fight with Eclipse too much to avoid `checkstyle`
-violations.
-
-However, the `checkstyle` plugin does require you to add
-//
-https://en.wikipedia.org/wiki/Javadoc[Javadoc]
-//
-comments, and also avoid the use of so-called
-https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad[_magic
-numbers_].
-//
-You may find these requirements a bit annoying at first, but we trust that you
-will get used to them.
+Please look at the Javadoc comments on other provided functions for examples of
+how to use the `@param` and `@return` tag.
 
 [[submitting]]
 == Submitting Your Work
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/HBAKMO3gNic" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-Overall you should refer to link:/MP/subversion[our instructions for using
-Subversion].
+Follow the instructions from the
 //
-Commit early and often!
+link:/MP/setup/git#submitting[submitting portion]
 //
-You only earn credit for the version of your code that is committed to your
-repository, so ensure that we have your best submission before the deadline.
+of the
+//
+link:/MP/setup/git#workflow[CS 125 workflow]
+//
+instructions.
 
 [[cheating]]
-=== Academic Integrity
+== Cheating
 
-Learning to program requires practice.
+[.lead]
 //
-If you submit code that is not your own work, you are not getting the practice
-that you need to improve.
+Please review the
+//
+link:/info/syllabus#cheating[CS 125 cheating policies].
 
-*All work submitted for MP1 must be your own.*
+All submitted MP source code will be checked by automated plagiarism detection
+software.
 //
-Cheating in CS 125 may result in your removal from the CS program, or from the
-University of Illinois.
-//
-We have many bright, honest students that want to learn computer science.
-//
-We don't need to waste time and energy on cheaters that don't want to learn.
-
-Specifically, the following activities constitute cheating and will be dealt
-with according to relevant
-//
-https://cs.illinois.edu/academics/honor-code[departmental]
-//
-and http://studentcode.illinois.edu/[university policies].
-//
-*You may not*:
-
-. *Turn in work that was completed by anyone other than yourself.*
-//
-. *Copy or paste code that you did not write* from any source.
-//
-. *Examine another classmates solution*, reproduce it, and submit it as your own
-work.
-
-We reserve the right to run cheating detection software on all submitted student
-work.
-//
-These programs are extremely accurate, and any evidence of cheating that they
-uncover will initiate academic integrity violation proceedings.
-
-==== A simple rule of thumb about collaboration
-
-A general rule of thumb is that exchanging or soliciting _ideas_ about how to
-solve the MP is not cheating, but exchanging code is cheating.
-//
-Feel free to discuss your solutions with other students as long as you do not
-provide them or allow them to view your source code.
-//
-If you are talking in English footnote:[or another spoken human language...],
-that's fine.
-//
-If you are talking or exchanging _computer code_, that's cheating.
+Cheaters will receive stiff penalties&mdash;the hard-working students in the
+class that are willing to struggle for their grade demand it.
