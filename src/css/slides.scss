@@ -216,6 +216,14 @@ html {
     background-position: top 12px right 6px;
     background-repeat: no-repeat;
   }
+  code {
+    font-size: 0.8em;
+    color: $illinois-orange;
+    white-space: pre-wrap;
+  }
+  pre.highlight code {
+    color: #090909;
+  }
 }
 
 .bespoke-active {
@@ -267,6 +275,9 @@ html {
     width: 100%;
   }
   div.output {
+    line-height: 30px;
+    white-space: normal;
+    word-break: break-word;
     padding: 1rem;
     flex: 1 0 50%;
     background-color: #202020;
@@ -295,6 +306,15 @@ html {
   .sectionbody {
     padding: 0;
     width: 100%;
+    word-wrap: normal;
+  }
+}
+.bespoke-slide .listingblock {
+  border: 1px dotted grey;
+  padding: 0.5rem;
+  pre {
+    padding: 0;
+    margin-bottom: 0;
   }
 }
 

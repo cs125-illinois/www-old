@@ -62,8 +62,8 @@ metalsmith(__dirname)
     'fonts/*',
     'css/*',
     'js/*',
-    '**/*.swp',
-    '**/*.swo'
+    '**/.*.swp',
+    '**/.*.swo'
   ]))
   .use(buildDate())
   .use(drafts())

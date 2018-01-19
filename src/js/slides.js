@@ -70,9 +70,8 @@ const janini = () => {
       }
 
       $.post("https://cs125.cs.illinois.edu/janini/", JSON.stringify({
-        source: source.getValue()
+        source: source.getValue() + "\n"
       })).done(result => {
-        console.log(JSON.stringify(result, null, 2))
         if (result.completed) {
           $(output).text(result.output)
         } else if (result.timeout) {
@@ -87,6 +86,7 @@ const janini = () => {
         console.error(JSON.stringify(xhr, null, 2))
         console.error(JSON.stringify(status, null, 2))
         console.error(JSON.stringify(error, null, 2))
+        $(output).html(`<span class="text-danger">An error occurred</span>`)
       })
     })
   }
