@@ -1,0 +1,70 @@
+---
+title: Conditional Expressions
+date: 2018-01-22
+description:
+  Primitive types, variables, and expressions.
+---
+:imagesdir: /slides/images
+:!sectids:
+
+== Comparisons
+
+[.lead]
+//
+Java also allows me to compare different variables: either against literal
+values, or against other variables.
+
+This is basis for _simple decision making_.
+
+== Simple Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+....
+
+== A Common Mistake
+
+[.lead]
+//
+* `a = 10` means *set a to 10*
+//
+* `a == 10` means *test if a is equal to 10*
+
+== Comparisons Against Variables
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first > first);
+....
+
+== More Complex Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+....
+
+== Questions About Comparisons?
+
+== Monday Preview
+
+[role='janini']
+....
+// Comparisons enable decisions
+int first = 10;
+if (first > 20) {
+  System.out.println("First is greater than 20");
+} else {
+  System.out.println("First is not greater than 20");
+}
+....
