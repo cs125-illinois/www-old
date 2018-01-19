@@ -2,7 +2,7 @@
 title: Types and Variables
 date: 2018-01-19
 description:
-  Primitive types, variables, and variable manipulation.
+  Primitive types, variables, expressions, and conditional statements.
 ---
 :imagesdir: /slides/images
 :!sectids:
@@ -39,6 +39,16 @@ And your computer is a very eager but unforgiving conversant
 * Then to complete functions and algorithms
 //
 * And eventually to understanding entire files of Java source code
+
+== What Are Computers Good At?
+
+. *Basic math*
+//
+. Simple decision making
+//
+. Doing things over and over again very, very fast
+//
+. *And storing data*
 
 == Variable Declaration
 
@@ -166,6 +176,24 @@ System.out.println(x);
 // Try reinitializing the same variable to see what happens
 ....
 
+== Literals
+
+A _literal_ is a number or other value that appears directly in the source
+code.
+
+[source,java]
+----
+// 1000 is a long literal. Note the L suffix.
+long big = 1000L;
+
+// 'g' is a character literal.
+char one = 'g';
+
+// true and false are boolean literals.
+boolean itsEarly = true;
+boolean iSleptWell = false;
+----
+
 == Variables Can Be Modified
 
 [role='janini']
@@ -178,7 +206,21 @@ changing += 1; // I have some special operators
 changing /= 2; // +, -, / and * all work with =
 ....
 
+== Variables Must Maintain the Same Type
+
+[role='janini']
+....
+// Ruh-roh...
+int changing = 10;
+changing = 10.0;
+....
+
+== !Ruh-Roh
+
+image::http://s2.quickmeme.com/img/83/83206ae67da70662c246b9cca0b92d2da77cae199a14e8d23e102739d5192b2e.jpg[role='mx-auto meme']
+
 == Variables Can Be Modified Using Other Variables
+
 [role='janini']
 ....
 double first = 10.0;
@@ -240,6 +282,7 @@ important to understand.
 --
 
 == Type Limitations
+
 [role='janini']
 ....
 byte smallest = 10;
@@ -247,9 +290,79 @@ smallest += 256;
 System.out.println(smallest);
 ....
 
+== Why Types
+
+[.s.lead]
+//
+* Types force you to specify how much space you need to store your data. That
+can make your program more efficient
+//
+* Types also help catch some common programming errors
 
 [.oneword]
-== Questions?
+== Questions About Variables?
+
+== Comparisons
+
+[.lead]
+//
+Java also allows me to compare different variables: either against literal
+values, or against other variables.
+
+This is basis for _simple decision making_.
+
+== Simple Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+....
+
+== A Common Mistake
+
+[.lead]
+//
+* `a = 10` means *set a to 10*
+//
+* `a == 10` means *test if a is equal to 10*
+
+== Comparisons Against Variables
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first > first);
+....
+
+== More Complex Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+....
+
+== Questions About Comparisons?
+
+== Monday Preview
+
+[role='janini']
+....
+// Comparisons enable decisions
+int first = 10;
+if (first > 20) {
+  System.out.println("First is greater than 20");
+} else {
+  System.out.println("First is not greater than 20");
+}
+....
 
 == EMP
 
@@ -271,10 +384,18 @@ regularly.
 //
 https://cs125.cs.illinois.edu/info/resources/#emp[on the website].
 
+== !MP0 Progress
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/grades"></iframe>
+</div>
+++++
 
 == Announcements
 
-* Monday we will continue with the basics of imperative programming
+* Monday we will continue with the basics of imperative programming, including
+conditionals and loops
 //
 * We are giving a quiz starting today in the CBTF covering course
 policies. Please
