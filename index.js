@@ -5,6 +5,7 @@ const metalsmith = require('metalsmith')
 const ignore = require('metalsmith-ignore')
 const buildDate = require('metalsmith-build-date')
 const drafts = require('metalsmith-drafts')
+const github = require('./lib/github.js')
 const empty = require(path.join(appRootPath.toString(), 'lib/empty.js'))
 const asciidoc = require('metalsmith-asciidoctor')
 const markdown = require('metalsmith-markdown')
@@ -62,6 +63,13 @@ const info_pattern = 'info/**/*'
 const adoc_pattern = '*/**/*.adoc'
 const hbs_pattern = '*/**/*.hbs'
 
+const defaultMetadata = {
+  layout: 'single.hbs',
+  priority: 0.5,
+  changefreq: 'monthly',
+  doGithub: true
+}
+
 metalsmith(__dirname)
   .source(config.source)
   .destination(temporaryDestination)
@@ -95,40 +103,13 @@ metalsmith(__dirname)
       },
       preserve: true
     },
-    {
-      pattern: MP_pattern,
-      metadata: { sidebar: 'MP' },
-      preserve: false
-    },
-    {
-      pattern: lab_pattern,
-      metadata: { sidebar: 'lab' },
-      preserve: false
-    },
-    {
-      pattern: info_pattern,
-      metadata: { sidebar: 'info' },
-      preserve: false
-    },
-    {
-      pattern: adoc_pattern,
-      metadata: {
-        layout: 'single.hbs',
-        priority: 0.5,
-        changefreq: 'monthly'
-      },
-      preserve: true
-    },
-    {
-      pattern: hbs_pattern,
-      metadata: {
-        layout: 'single.hbs',
-        priority: 0.5,
-        changefreq: 'monthly'
-      },
-      preserve: true
-    }
+    { pattern: MP_pattern, metadata: { sidebar: 'MP' }, preserve: false },
+    { pattern: lab_pattern, metadata: { sidebar: 'lab' }, preserve: false },
+    { pattern: info_pattern, metadata: { sidebar: 'info' }, preserve: false },
+    { pattern: adoc_pattern, metadata: defaultMetadata, preserve: true },
+    { pattern: hbs_pattern, metadata: defaultMetadata, preserve: true }
   ]))
+  .use(github())
   .use(inPlace({
     pattern: '**/*.adoc.hbs',
   }))
