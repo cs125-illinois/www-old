@@ -154,6 +154,9 @@ metalsmith(__dirname)
   .use(sections())
   .use(permalinks({ relative: false }))
   .use(hacks.preLayout())
+  .use(inPlace({
+    pattern: '**/*.xml.hbs',
+  }))
   .use(layouts({
     engine: 'handlebars'
   }))
