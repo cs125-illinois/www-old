@@ -99,7 +99,10 @@ metalsmith(__dirname)
       pattern: slides_pattern,
       metadata: {
         slides: true,
-        layout: 'slides/slides.hbs'
+        layout: 'slides/slides.hbs',
+        internalize: {
+          force: true
+        }
       },
       preserve: true
     },
