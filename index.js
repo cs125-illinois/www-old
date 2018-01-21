@@ -59,7 +59,8 @@ const isSlides = (filename, file, i) => {
 const MP_pattern = 'MP/**/*.adoc'
 const lab_pattern = 'lab/**/*.adoc'
 const info_pattern = 'info/**/*'
-const all_pattern = '*/**/*.adoc'
+const adoc_pattern = '*/**/*.adoc'
+const hbs_pattern = '*/**/*.hbs'
 
 metalsmith(__dirname)
   .source(config.source)
@@ -110,7 +111,16 @@ metalsmith(__dirname)
       preserve: false
     },
     {
-      pattern: all_pattern,
+      pattern: adoc_pattern,
+      metadata: {
+        layout: 'single.hbs',
+        priority: 0.5,
+        changefreq: 'monthly'
+      },
+      preserve: true
+    },
+    {
+      pattern: hbs_pattern,
       metadata: {
         layout: 'single.hbs',
         priority: 0.5,
@@ -179,7 +189,7 @@ metalsmith(__dirname)
     minifier()))
 	.use(msif(config.check,
     beautify({'indent_size': 2, 'css': false, 'js': false})))
-  .use(msif(config.check && config.checkFormat !== false,
+  .use(msif(config.check && config.checkFormat !== 'false',
     formatcheck({ verbose: !quiet , failWithoutNetwork: false })))
   .use(msif(config.check,
     linkcheck({ verbose: !quiet , failWithoutNetwork: false })))
