@@ -9,7 +9,8 @@ const empty = require(path.join(appRootPath.toString(), 'lib/empty.js'))
 const asciidoc = require('metalsmith-asciidoctor')
 const markdown = require('metalsmith-markdown')
 const sections = require(path.join(appRootPath.toString(), 'lib/sections.js'))
-const registerPartials = require(path.join(appRootPath.toString(), 'lib/registerPartials.js'))
+const discoverPartials = require('metalsmith-discover-partials')
+const discoverHelpers = require('metalsmith-discover-helpers')
 const course = require(path.join(appRootPath.toString(), 'lib/course.js'))
 const filemetadata = require('metalsmith-filemetadata')
 const inPlace = require('metalsmith-in-place')
@@ -36,6 +37,7 @@ const fs = require('fs')
 const removeEmptyDirectories = require('remove-empty-directories')
 const rsync = require('rsync')
 const _ = require('lodash')
+require('handlebars-helpers')()
 
 const syllabusPattern = 'syllabus/**/*.adoc'
 
@@ -54,6 +56,10 @@ const slides_pattern = 'slides/**/*.adoc'
 const isSlides = (filename, file, i) => {
   return file.slides == true;
 }
+const MP_pattern = 'MP/**/*.adoc'
+const lab_pattern = 'lab/**/*.adoc'
+const info_pattern = 'info/**/*'
+const all_pattern = '*/**/*.adoc'
 
 metalsmith(__dirname)
   .source(config.source)
@@ -67,19 +73,52 @@ metalsmith(__dirname)
   ]))
   .use(buildDate())
   .use(drafts())
-  .use(registerPartials())
+  .use(discoverPartials({
+    directory: 'layouts/partials',
+    pattern: /\.hbs$/
+  }))
+  .use(discoverHelpers({
+    directory: 'layouts/helpers',
+    pattern: /\.js$/
+  }))
   .use(course({
     Fall2017: 'info/2017/fall/course.yaml',
     Spring2018: 'info/course.json'
   }))
-  .use(filemetadata([{
-    pattern: slides_pattern,
-    metadata: {
-      slides: true,
-      layout: 'slides/slides.hbt'
+  .use(filemetadata([
+    {
+      pattern: slides_pattern,
+      metadata: {
+        slides: true,
+        layout: 'slides/slides.hbs'
+      },
+      preserve: true
     },
-    preserve: true
-  }]))
+    {
+      pattern: MP_pattern,
+      metadata: { sidebar: 'MP' },
+      preserve: false
+    },
+    {
+      pattern: lab_pattern,
+      metadata: { sidebar: 'lab' },
+      preserve: false
+    },
+    {
+      pattern: info_pattern,
+      metadata: { sidebar: 'info' },
+      preserve: false
+    },
+    {
+      pattern: all_pattern,
+      metadata: {
+        layout: 'single.hbs',
+        priority: 0.5,
+        changefreq: 'monthly'
+      },
+      preserve: true
+    }
+  ]))
   .use(inPlace({
     pattern: '**/*.adoc.hbs',
   }))
