@@ -123,7 +123,9 @@ metalsmith(__dirname)
     let assets = _(files)
       .keys()
       .filter(filename => {
-        return filename.startsWith('static-assets/css') || filename.startsWith('static-assets/js')
+        return filename.startsWith('static-assets/css') ||
+               filename.startsWith('static-assets/js') ||
+               filename.startsWith('static-assets/slides')
       })
       .map(filename => {
         return filename.split('/').slice(1).join('/')

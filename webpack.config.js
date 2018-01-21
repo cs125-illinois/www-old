@@ -1,14 +1,15 @@
 const webpack = require('webpack')
+const path = require('path')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 
 module.exports = {
   output: {
-    publicPath: '/static-assets/',
-    path: __dirname + '/src/static-assets',
-    filename: 'js/[name].[chunkhash].js'
+    publicPath: '/static-assets/main/',
+    path: __dirname + '/src/static-assets/main/',
+    filename: '[name].[chunkhash].js'
   },
   entry: {
     site: [
@@ -34,9 +35,9 @@ module.exports = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
     }),
-    new ExtractTextPlugin('css/[name].[chunkhash].css'),
+    new ExtractTextPlugin('[name].[chunkhash].css'),
     new UglifyJSPlugin(),
-    new CleanWebpackPlugin([ 'src/static-assets' ])
+    new WebpackCleanupPlugin()
   ],
   module: {
     rules: [

@@ -1,13 +1,14 @@
 const webpack = require('webpack')
+const path = require('path')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 
 module.exports = {
   output: {
-    publicPath: '/static-assets/',
-    path: __dirname + '/src/static-assets',
-    filename: 'js/[name].[chunkhash].js'
+    publicPath: '/static-assets/slides/',
+    path: __dirname + '/src/static-assets/slides/',
+    filename: '[name].[chunkhash].js'
   },
   entry: {
     slides: [
@@ -24,13 +25,11 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
-      'window.jQuery': 'jquery'
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
     }),
-    new ExtractTextPlugin('css/[name].[chunkhash].css'),
-    new CleanWebpackPlugin([
-      'src/static-assets/js/slides*',
-      'src/static-assets/css/slides*'
-    ])
+    new ExtractTextPlugin('[name].[chunkhash].css'),
+    new WebpackCleanupPlugin()
   ],
   module: {
     rules: [
