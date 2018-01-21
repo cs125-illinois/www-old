@@ -27,6 +27,7 @@ const hacks = require(path.join(appRootPath.toString(), 'lib/hacks.js'))
 const highlight = require(path.join(appRootPath.toString(), 'lib/highlight.js'))
 const msif = require('metalsmith-if')
 const internalize = require(path.join(appRootPath.toString(), 'lib/internalize.js'))
+const branch = require('metalsmith-branch')
 const beautify = require('metalsmith-beautify')
 const minifier = require('metalsmith-html-minifier')
 const spellcheck = require('metalsmith-spellcheck')
@@ -62,6 +63,10 @@ const lab_pattern = 'lab/**/*.adoc'
 const info_pattern = 'info/**/*'
 const adoc_pattern = '*/**/*.adoc'
 const hbs_pattern = '*/**/*.hbs'
+
+let doTransform = (filename, file) => {
+  return !(file.transform === false)
+}
 
 const defaultMetadata = {
   layout: 'single.hbs',
@@ -161,23 +166,25 @@ metalsmith(__dirname)
     pattern: 'conf/redirect.conf.hbs',
   }))
   .use(highlight())
-  .use(msif(config.check,
-    internalize()))
-  .use(msif(config.check,
-    spellcheck({ dicFile: 'dicts/en_US.dic',
-                 affFile: 'dicts/en_US.aff',
-                 exceptionFile: 'dicts/spelling_exceptions.yaml',
-                 checkedPart: "#content",
-                 failErrors: false,
-                 verbose: !quiet})))
-	.use(msif(config.check,
-    minifier()))
-	.use(msif(config.check,
-    beautify({'indent_size': 2, 'css': false, 'js': false})))
-  .use(msif(config.check && config.checkFormat !== 'false',
-    formatcheck({ verbose: !quiet , failWithoutNetwork: false })))
-  .use(msif(config.check,
-    linkcheck({ verbose: !quiet , failWithoutNetwork: false })))
+  .use(branch(doTransform)
+    .use(msif(config.check,
+      internalize()))
+    .use(msif(config.check,
+      spellcheck({ dicFile: 'dicts/en_US.dic',
+                   affFile: 'dicts/en_US.aff',
+                   exceptionFile: 'dicts/spelling_exceptions.yaml',
+                   checkedPart: "#content",
+                   failErrors: false,
+                   verbose: !quiet})))
+    .use(msif(config.check,
+      minifier()))
+    .use(msif(config.check,
+      beautify({'indent_size': 2, 'css': false, 'js': false})))
+    .use(msif(config.check && config.checkFormat !== 'false',
+      formatcheck({ verbose: !quiet , failWithoutNetwork: false })))
+    .use(msif(config.check,
+      linkcheck({ verbose: !quiet , failWithoutNetwork: false })))
+  )
   .build(err => {
     if (err) {
       throw(err)
