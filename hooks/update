@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../"
+LOCKFILE=$DIR/deploy.lock
+LOCKFD=99
+
+_lock() {
+  flock -$1 $LOCKFD
+}
+_no_more_locking() {
+  _lock u
+  _lock xn && rm -f $LOCKFILE && popd > /dev/null 2>&1
+}
+_prepare_locking() {
+  eval "exec $LOCKFD>\"$LOCKFILE\""
+  trap _no_more_locking EXIT
+}
+exlock_now() {
+  _lock xn
+}
+
+{
+  _prepare_locking
+  exlock_now || exit 0
+
+  pushd $DIR > /dev/null 2>&1
+  git fetch origin
+  if ! [ -z "$1" ]; then
+    git reset --hard $1
+    if [ -z "$2" ]; then
+      cp $2 .build.json
+      rm -f $2
+    fi
+  else
+    rm -f .build.json
+  fi
+  git clean -df
+  if npm run all; then
+  else
+    FAILED=1
+  fi
+} > $DIR/.build.output 2>&1
+
+if [ ! -z "$FAILED" ]; then
+  echo "Build failed"
+  exit 1
+fi
+
+# vim: ts=2:sw=2:et:tw=0
