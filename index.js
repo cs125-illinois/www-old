@@ -140,7 +140,7 @@ metalsmith(__dirname)
     minifier()))
 	.use(msif(config.check,
     beautify({'indent_size': 2, 'css': false, 'js': false})))
-  .use(msif(config.check,
+  .use(msif(config.check && config.checkFormat !== false,
     formatcheck({ verbose: !quiet , failWithoutNetwork: false })))
   .use(msif(config.check,
     linkcheck({ verbose: !quiet , failWithoutNetwork: false })))
