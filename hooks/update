@@ -36,6 +36,7 @@ exlock_now() {
   fi
   git clean -df
   if npm run all; then
+    sudo service nginx reload
   else
     FAILED=1
   fi
