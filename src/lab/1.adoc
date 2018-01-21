@@ -1,8 +1,8 @@
 ---
-title: "Binary and Graphics"
+title: "Binary and Algorithms"
 description:
-  Get practice with binary and computer data representation. Then explore some
-  examples of graphic programs using a simple graphics library.
+  Get practice with binary and computer data representation, then begin learning
+  about algorithms.
 priority: 0.5
 changefreq: monthly
 layout: single.hbt
@@ -17,19 +17,18 @@ sidebar: lab
 
 [.lead]
 //
-This lab starts by exploring the basics of how computers represent
-information&mdash;including binary notation.
+This lab starts by exploring the basics of _computer representation_&mdash;including binary notation.
 //
-It continues by exploring how to create computer graphics in Java using a
-simple graphics library.
+It continues by introducing you to _computer algorithms_&mdash;how computers
+solve problems.
 
 [[binary]]
-== Binary Games [.text-muted]#(50 Minutes)#
+== Binary Games [.text-muted]#(40 Minutes)#
 
 [.lead]
 //
-Let's learn more about binary and how computers represent numbers and other
-kinds of data.
+Let's learn about binary and how computers represent numbers and other kinds of
+data.
 
 Complete this part of the lab in pairs using Google Docs.
 //
@@ -47,256 +46,137 @@ When you are done, move on to the next section.
 
 '''
 
-[[zen]]
-== Graphical Exploration [.text-muted]#(60 Minutes)#
+== Algorithm Concepts [.text-muted]#(40 Minutes)#
 
 [.lead]
 //
-Now let's experiment with some Java code!
+Work together in groups to solve the following problems.
+//
+Feel free to use a whiteboard to prepare your solution, and be ready to
+present it to the course staff or other groups.
 
-These examples use the Zen graphics library authored by Illinois CS faculty
-member
-//
-https://cs.illinois.edu/directory/profile/angrave[Lawrence Angrave].
-//
-You can find the
-//
-https://github.com/cs125-illinois/zen[Zen source code]
-//
-and
-//
-https://cs125-illinois.github.io/zen/[documentation]
-//
-on https://github.com/[GitHub].
+=== Parallelism
 
-Work with _a different partner_ as you explore the Zen library and its
-capabilities.
+[.lead]
+//
+One of the best things about computers is that there are so many of them!
+//
+Google is estimated to have
+http://www.datacenterknowledge.com/archives/2017/03/16/google-data-center-faq/[2.5
+_million_ computers] in its data centers around the world.
+//
+So while today's individual computers are themselves insanely fast, they can
+accomplish even more when you can get them to work together.
 
-=== Thinking About Representation
+Consider the following problem that uses computers in the historical sense of
+the word&mdash;humans performing computation, hence computers.
+//
+You have a room full of people.
+//
+Each knows their own age, but can't or won't perform any addition.
+//
+Your goal is to compute the sum of all of the ages of everyone in the
+room&mdash;and to do so _as fast as possible_.
 
-The first half of the lab was all about representation: how computers represent
-numbers, letters, colors, and other kind of data using just 1s and 0s.
+Assume that it takes one second to ask a question footnote:[How old are
+you?] and get a response footnote:[I'm 37&mdash;no, really!].
 //
-As you continue the second part of the lab, keep thinking about representation.
+Also make the optimistic assumption that it takes no time to add two numbers
+together.
 //
-What kind of things does the Zen library have to represent?
-//
-And how do you represent those things numerically?
+Then it would take you 32 seconds to compute the entire sum yourself.
 
-[[cloning]]
-=== Cloning the Lab1 Eclipse Project
+But now let's say that you have help.
+//
+How long would it take:
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/DjuoOQWrjVc" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
+* a group of two people?
+//
+* a group of four people?
+//
+* a group of eight people?
 
-We've set up an Eclipse Project that's correctly configured for Lab 1.
-//
-The only problem is&mdash;it's on
-https://github.com/cs125-illinois/Lab1[_GitHub_].
-//
-This is intentional.
-//
-Although we're using Subversion this semester, we wanted to give you a chance to
-practice importing a project in another way.
-//
-But don't worry, we'll walk you through the steps required to get a local copy
-of it below.
-//
-And Eclipse already has great Git integration, so there are no plugins to futz
-around with.
+Keep in mind that a good solution should keep all of your helpers busy, and
+also requires communication between your team that you need to account for.
 
-. In Eclipse, open "File &rarr; Import &rarr; Git &rarr; Projects from Git"
+It's common for computer scientists to solve a smaller version of a problem
+and then generalize it to a larger version.
 //
-. Choose "Clone URI". This will allow us to retrieve a repository from a remote
-URL, in this case one pointing to GitHub.
+(For example, I'll build a
+http://blog.shareaholic.com/wp-content/uploads/2012/05/Facebook-Screenshot-2004.jpg[small
+college-only social networking website] and then expand it later.)
 //
-. Go to https://github.com/cs125-illinois/Lab1[this GitHub link]. Click on
-"Clone or Download", make sure that "Clone with HTTPS" is selected, and copy the
-URL to your clipboard.
+Let's try that here.
 //
-It should be this one:
+**Compute how long it would take a group of 8 people to sum 1,024 ages.**
 //
-link:https://github.com/cs125-illinois/Lab1.git[https://github.com/cs125-illinois/Lab1.git, role="noclick link_exception"].
-//
-. Copy that link into the "URI" field in the open Eclipse dialog. All other
-required fields should be populated for you.
-//
-. Click next and choose to work with the master branch, which should be selected
-by default.
-//
-. Pick a directory where you want to store these files and click next.
-//
-. Leave "Import existing Eclipse projects" selected and click next.
-//
-. At this point you should be able to click "Finish" and start working with our
-Lab1 project in Eclipse.
+Do you see a pattern emerging?
 
-=== Graphical Explorations
+=== Debugging
 
-At this point you should have a working copy of our Lab 1 Eclipse project.
+Now return to the case where you are summing the ages of 32 people using a
+team of four, including yourself.
 //
-So start poking around!
+Just to be safe, after computing the sum once, you rerun the calculation
+again&mdash;but get a different result!
 //
-All of the examples in the `src/main/java` folder can be run, although you
-should be sure to choose "Run as Java Application" the first time you run them.
+There must be a bug somewhere footnote:[There's a great piece of computer lore
+about famous computer scientist https://ghc.anitaborg.org/[Grace Hopper] finding a
+http://www.computerworld.com/article/2515435/app-development/moth-in-the-machine--debugging-the-origins-of--bug-.html[real live bug inside a
+computer] she was working on.]!
 
-Here is our suggested order of how you explore the files, along with some notes
-about possible extensions or modifications to each that you may want to try.
+The first step in locating a bug is to always think carefully about what could
+be causing the problem.
 //
-Don't get too bogged down on any one, and overall have fun!
+Come up with at least _five_ different sources of error that may be affecting
+the result of your calculation.
 
-==== `HelloWorld.java`
-
-This one is pretty simple. See if you can:
-
-. change the greeting message
-
-==== `OnceUponAWhile.java`
-
-This example is a bit more complicated. See if you can:
-
-. change the color of the text that is displayed
+Next, develop a foolproof procedure for identifying the cause of the problem.
 //
-. slow down the fade-out that happens toward the end
-
-==== To Flip or Not to Flip
-
-Together `SpriteMoveFlipBuffer.java` and `SpriteMoveNoFlipBuffer.java` introduce
-you to an important concept in graphical rendering known as
+You want to be just as methodical in approaching how you identify the problem
+as you were in developing your original solution.
 //
-https://en.wikipedia.org/wiki/Multiple_buffering[_buffer swapping_]
+Debugging is always frustrating.
 //
-footnote:[Or buffer _flipping_].
+Something is going wrong and you don't know why!
 //
-See if you can:
+But if you approach the debugging problem like a computer scientist, you can
+usually come up with a good debugging algorithm.
+//
+And then get back to the problem you were _actually_ trying to solve.
 
-. convince yourself of why these two very similar examples behave differently
-//
-. explain the reason for buffer swapping to your partner
+=== Testing
 
-==== `ColorOvalsIf.java`
-
-This is the first example that uses locations input by the user using the mouse.
+Fresh of the experience of debugging your system, you decide to be more
+proactive in the future.
 //
-See if you can:
-
-. have it wait for two clicks before drawing
+Debugging is reactively waiting for problems to emerge and then trying to fix them.
 //
-. change the shape that is drawn
+Testing is _proactively_ testing things to make sure they work properly.
 //
-. determine how Zen represents this kind of shape
+When you test the things that you build as you go, it is much less likely that
+you will experience complex and difficult to find problems.
 
-==== `Paint.java`
-
-Here we use some randomness.
+Return to the sources of error that you identified above.
 //
-See if you can:
+For each, develop a testing procedure that will ensure that you can identify
+the problem before it happens.
 
-. understand how the random numbers are being generated
+Note that while it may be tempting to try to test your system by ensuring that
+it can correctly compute sums for all possible inputs, this is unlikely to be
+feasible.
 //
-. slow down the rate at which random squares are drawn
-//
-. draw within a circular, rather than square, distance of the current location
+Even if all 32 people are children and ten years old or younger, the space of
+possible inputs grows extremely quickly.
 
-==== `BouncingBall.java`
+[[mp1]]
+== Help with MP0 [.text-muted]#(30 Minutes)#
 
-This example has some physics to it!
+Use any remaining time in your lab section to get help with link:/MP/0/[MP0].
 //
-See if you can:
+If you are done or making good progress, please help others&mdash;but help them
+_learn_, don't just give them the answers.
+//
+And if you are behind, please reach out the course staff for help.
 
-. understand how the new positions are being computed
-//
-. increase the resolution of the drawing&mdash;or, put another way, decrease the
-gaps between the drawn positions
-
-==== `ReactionTimer.java`
-
-Here's a game to play!
-//
-See if you can outperform your partner&mdash;but also see if you can;
-
-. determine whether there seems to be a fundamental lower bound on your reaction
-time
-//
-. use that to argue in favor of self-driving cars
-
-==== `ArrowKeys.java`
-
-This example shows how to use the arrow keys as input.
-//
-See if you can:
-
-. use other keys as up down and sideways
-//
-. change the amount that our little friend moves
-
-==== `Valentine.java`
-
-Just a nice message from the course staff.
-//
-See if you can:
-
-. have the image come in and leave from the same direction
-//
-. center the text at the bottom
-//
-. exit after the message repeats a few times
-//
-. understand how Zen represents text
-
-==== `NearlyAllMethods.java`
-
-The kitchen sink!
-//
-Good for exploration.
-//
-Just muck around a bit and have fun.
-
-==== `Advanced2DGraphics.java`
-
-This example gives you some taste of the underlying graphics abstraction that
-the Zen library is simplifying for you.
-//
-Access to the raw canvas is very powerful, but can make your code more complex
-or repetitive.
-
-[[pushing]]
-=== Challenge: Publishing Your Work
-
-When using Git you can save your work in the same way that you are already used
-to&mdash;by generated a commit using the Eclipse Team dialog.
-//
-But unlike Subversion, Git commits do not change the remote repository.
-//
-When you initially added the project, Git created a copy of our GitHub
-repository on your local machine.
-//
-When you commit, changes are stored there and not on the remote repository.
-
-To save your changes remotely Git requires an additional step called a _push_.
-//
-However, you will _not_ be able to push to our remote repository.
-//
-Why?
-//
-Because even though it's public and anybody can use it, only course staff can
-write to it.
-
-However, if you want to save your changes to your own GitHub repository that is
-completely possible.
-//
-We'll leave that to you to figure out&mdash;although an audio walk through
-follows.
-
-++++
-<div class="embed-responsive mt-3" style="width:100%; height:100px;">
-<iframe src="//www.youtube.com/embed/gkcvydMg8uU?rel=0&autohide=0" allowfullscreen></iframe>
-</div>
-++++
+// vim: ts=2:sw=2:et

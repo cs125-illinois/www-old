@@ -2,132 +2,10 @@
 draft:true
 ---
 
-///////////////////////////////////////////////////////////////////////////
-// From Fall 2017 Lab 0
-///////////////////////////////////////////////////////////////////////////
-
-== Concepts [.text-muted]#(45 Minutes)#
-
-[.lead]
-//
-Work together in groups to solve the following problems.
-//
-Feel free to use a whiteboard to prepare your solution, and be ready to
-present it to the course staff or other groups.
-
-=== Parallelism
-
-[.lead]
-//
-One of the best things about computers is that there are so many of them!
-//
-Google is estimated to have
-http://www.datacenterknowledge.com/archives/2017/03/16/google-data-center-faq/[2.5
-_million_ computers] in its data centers around the world.
-//
-So while today's individual computers are themselves insanely fast, they can
-accomplish even more when you can get them to work together.
-
-Consider the following problem that uses computers in the historical sense of
-the word&mdash;humans performing computation, hence computers.
-//
-You have a room full of people.
-//
-Each knows their own age, but can't or won't perform any addition.
-//
-Your goal is to compute the sum of all of the ages of everyone in the
-room&mdash;and to do so _as fast as possible_.
-
-Assume that it takes one second to ask a question footnote:[How old are
-you?] and get a response footnote:[I'm 37&mdash;no, really!].
-//
-Also make the optimistic assumption that it takes no time to add two numbers
-together.
-//
-Then it would take you 32 seconds to compute the entire sum yourself.
-
-But now let's say that you have help.
-//
-How long would it take:
-
-* a group of two people?
-//
-* a group of four people?
-//
-* a group of eight people?
-
-Keep in mind that a good solution should keep all of your helpers busy, and
-also requires communication between your team that you need to account for.
-
-It's common for computer scientists to solve a smaller version of a problem
-and then generalize it to a larger version.
-//
-(For example, I'll build a
-http://blog.shareaholic.com/wp-content/uploads/2012/05/Facebook-Screenshot-2004.jpg[small
-college-only social networking website] and then expand it later.)
-//
-Let's try that here.
-//
-**Compute how long it would take a group of 8 people to sum 1,024 ages.**
-//
-Do you see a pattern emerging?
-
-=== Debugging
-
-Now return to the case where you are summing the ages of 32 people using a
-team of four, including yourself.
-//
-Just to be safe, after computing the sum once, you rerun the calculation
-again&mdash;but get a different result!
-//
-There must be a bug somewhere footnote:[There's a great piece of computer lore
-about famous computer scientist https://ghc.anitaborg.org/[Grace Hopper] finding a
-http://www.computerworld.com/article/2515435/app-development/moth-in-the-machine--debugging-the-origins-of--bug-.html[real live bug inside a
-computer] she was working on.]!
-
-The first step in locating a bug is to always think carefully about what could
-be causing the problem.
-//
-Come up with at least _five_ different sources of error that may be affecting
-the result of your calculation.
-
-Next, develop a foolproof procedure for identifying the cause of the problem.
-//
-You want to be just as methodical in approaching how you identify the problem
-as you were in developing your original solution.
-//
-Debugging is always frustrating.
-//
-Something is going wrong and you don't know why!
-//
-But if you approach the debugging problem like a computer scientist, you can
-usually come up with a good debugging algorithm.
-//
-And then get back to the problem you were _actually_ trying to solve.
-
-=== Testing
-
-Fresh of the experience of debugging your system, you decide to be more
-proactive in the future.
-//
-Debugging is reactively waiting for problems to emerge and then trying to fix them.
-//
-Testing is _proactively_ testing things to make sure they work properly.
-//
-When you test the things that you build as you go, it is much less likely that
-you will experience complex and difficult to find problems.
-
-Return to the sources of error that you identified above.
-//
-For each, develop a testing procedure that will ensure that you can identify
-the problem before it happens.
-
-Note that while it may be tempting to try to test your system by ensuring that
-it can correctly compute sums for all possible inputs, this is unlikely to be
-feasible.
-//
-Even if all 32 people are children and ten years old or younger, the space of
-possible inputs grows extremely quickly.
+////////////////////////////////////////////////////////////////////////////
+// Fall 2017 Lab 0: Removed because we don't use Eclipse anymore and also do MP0 in
+// the first week.
+////////////////////////////////////////////////////////////////////////////
 
 == Bringing it All Together
 
@@ -155,3 +33,260 @@ You may find the following _audio_ walk through helpful.
 </div>
 ++++
 
+////////////////////////////////////////////////////////////////////////////
+// Fall 2017 Lab 1: Removed because it was really confusing.
+////////////////////////////////////////////////////////////////////////////
+
+[[zen]]
+== Graphical Exploration [.text-muted]#(60 Minutes)#
+
+[.lead]
+//
+Now let's experiment with some Java code!
+
+These examples use the Zen graphics library authored by Illinois CS faculty
+member
+//
+https://cs.illinois.edu/directory/profile/angrave[Lawrence Angrave].
+//
+You can find the
+//
+https://github.com/cs125-illinois/zen[Zen source code]
+//
+and
+//
+https://cs125-illinois.github.io/zen/[documentation]
+//
+on https://github.com/[GitHub].
+
+Work with _a different partner_ as you explore the Zen library and its
+capabilities.
+
+=== Thinking About Representation
+
+The first half of the lab was all about representation: how computers represent
+numbers, letters, colors, and other kind of data using just 1s and 0s.
+//
+As you continue the second part of the lab, keep thinking about representation.
+//
+What kind of things does the Zen library have to represent?
+//
+And how do you represent those things numerically?
+
+[[cloning]]
+=== Cloning the Lab1 Eclipse Project
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/DjuoOQWrjVc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+We've set up an Eclipse Project that's correctly configured for Lab 1.
+//
+The only problem is&mdash;it's on
+https://github.com/cs125-illinois/Lab1[_GitHub_].
+//
+This is intentional.
+//
+Although we're using Subversion this semester, we wanted to give you a chance to
+practice importing a project in another way.
+//
+But don't worry, we'll walk you through the steps required to get a local copy
+of it below.
+//
+And Eclipse already has great Git integration, so there are no plugins to futz
+around with.
+
+. In Eclipse, open "File &rarr; Import &rarr; Git &rarr; Projects from Git"
+//
+. Choose "Clone URI". This will allow us to retrieve a repository from a remote
+URL, in this case one pointing to GitHub.
+//
+. Go to https://github.com/cs125-illinois/Lab1[this GitHub link]. Click on
+"Clone or Download", make sure that "Clone with HTTPS" is selected, and copy the
+URL to your clipboard.
+//
+It should be this one:
+//
+link:https://github.com/cs125-illinois/Lab1.git[https://github.com/cs125-illinois/Lab1.git, role="noclick link_exception"].
+//
+. Copy that link into the "URI" field in the open Eclipse dialog. All other
+required fields should be populated for you.
+//
+. Click next and choose to work with the master branch, which should be selected
+by default.
+//
+. Pick a directory where you want to store these files and click next.
+//
+. Leave "Import existing Eclipse projects" selected and click next.
+//
+. At this point you should be able to click "Finish" and start working with our
+Lab1 project in Eclipse.
+
+=== Graphical Explorations
+
+At this point you should have a working copy of our Lab 1 Eclipse project.
+//
+So start poking around!
+//
+All of the examples in the `src/main/java` folder can be run, although you
+should be sure to choose "Run as Java Application" the first time you run them.
+
+Here is our suggested order of how you explore the files, along with some notes
+about possible extensions or modifications to each that you may want to try.
+//
+Don't get too bogged down on any one, and overall have fun!
+
+==== `HelloWorld.java`
+
+This one is pretty simple. See if you can:
+
+. change the greeting message
+
+==== `OnceUponAWhile.java`
+
+This example is a bit more complicated. See if you can:
+
+. change the color of the text that is displayed
+//
+. slow down the fade-out that happens toward the end
+
+==== To Flip or Not to Flip
+
+Together `SpriteMoveFlipBuffer.java` and `SpriteMoveNoFlipBuffer.java` introduce
+you to an important concept in graphical rendering known as
+//
+https://en.wikipedia.org/wiki/Multiple_buffering[_buffer swapping_]
+//
+footnote:[Or buffer _flipping_].
+//
+See if you can:
+
+. convince yourself of why these two very similar examples behave differently
+//
+. explain the reason for buffer swapping to your partner
+
+==== `ColorOvalsIf.java`
+
+This is the first example that uses locations input by the user using the mouse.
+//
+See if you can:
+
+. have it wait for two clicks before drawing
+//
+. change the shape that is drawn
+//
+. determine how Zen represents this kind of shape
+
+==== `Paint.java`
+
+Here we use some randomness.
+//
+See if you can:
+
+. understand how the random numbers are being generated
+//
+. slow down the rate at which random squares are drawn
+//
+. draw within a circular, rather than square, distance of the current location
+
+==== `BouncingBall.java`
+
+This example has some physics to it!
+//
+See if you can:
+
+. understand how the new positions are being computed
+//
+. increase the resolution of the drawing&mdash;or, put another way, decrease the
+gaps between the drawn positions
+
+==== `ReactionTimer.java`
+
+Here's a game to play!
+//
+See if you can outperform your partner&mdash;but also see if you can;
+
+. determine whether there seems to be a fundamental lower bound on your reaction
+time
+//
+. use that to argue in favor of self-driving cars
+
+==== `ArrowKeys.java`
+
+This example shows how to use the arrow keys as input.
+//
+See if you can:
+
+. use other keys as up down and sideways
+//
+. change the amount that our little friend moves
+
+==== `Valentine.java`
+
+Just a nice message from the course staff.
+//
+See if you can:
+
+. have the image come in and leave from the same direction
+//
+. center the text at the bottom
+//
+. exit after the message repeats a few times
+//
+. understand how Zen represents text
+
+==== `NearlyAllMethods.java`
+
+The kitchen sink!
+//
+Good for exploration.
+//
+Just muck around a bit and have fun.
+
+==== `Advanced2DGraphics.java`
+
+This example gives you some taste of the underlying graphics abstraction that
+the Zen library is simplifying for you.
+//
+Access to the raw canvas is very powerful, but can make your code more complex
+or repetitive.
+
+[[pushing]]
+=== Challenge: Publishing Your Work
+
+When using Git you can save your work in the same way that you are already used
+to&mdash;by generated a commit using the Eclipse Team dialog.
+//
+But unlike Subversion, Git commits do not change the remote repository.
+//
+When you initially added the project, Git created a copy of our GitHub
+repository on your local machine.
+//
+When you commit, changes are stored there and not on the remote repository.
+
+To save your changes remotely Git requires an additional step called a _push_.
+//
+However, you will _not_ be able to push to our remote repository.
+//
+Why?
+//
+Because even though it's public and anybody can use it, only course staff can
+write to it.
+
+However, if you want to save your changes to your own GitHub repository that is
+completely possible.
+//
+We'll leave that to you to figure out&mdash;although an audio walk through
+follows.
+
+++++
+<div class="embed-responsive mt-3" style="width:100%; height:100px;">
+<iframe src="//www.youtube.com/embed/gkcvydMg8uU?rel=0&autohide=0" allowfullscreen></iframe>
+</div>
+++++
