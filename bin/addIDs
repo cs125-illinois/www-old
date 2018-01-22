@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const fs = require('fs')
+const randomID = require('random-id')
+let argv = require('minimist')(process.argv.slice(2))
+
+let lines = fs.readFileSync(argv._[0]).toString().split('\n')
+let addLines = {}
+for (let currentIndex in lines) {
+  let currentLine = lines[currentIndex]
+  if (!(currentLine.startsWith('== '))) {
+    continue
+  }
+  for (let back = 1; back <= 4; back++) {
+    let backLine = lines[currentIndex - back]
+    if (backLine.startsWith('[[')) {
+      break
+    }
+    if (backLine.trim() === '') {
+      addLines[currentIndex - back] = `[[${ randomID(32, "aA") }]]`
+      break
+    }
+  }
+}
+
+let outlines = []
+for (let currentIndex in lines) {
+  outlines.push(lines[currentIndex])
+  if (addLines[currentIndex]) {
+    outlines.push(addLines[currentIndex])
+  }
+}
+
+fs.writeFileSync(argv._[0], outlines.join('\n'))
+
+// vim: ts=2:sw=2:et:ft=javascript
