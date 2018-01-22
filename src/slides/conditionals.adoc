@@ -29,6 +29,21 @@ if (todayIsMonday && currentTime < 12) {
 [[VAzyFFoDxschWNuTZMMizdJSZDyolcwn]]
 == CS 196
 
+* https://goo.gl/DF349E[8 AM]
+//
+* https://goo.gl/QLFY7s[10 AM]
+
+[[POtIiKbRQNuZuYwSwdCgAeuyZhpQbmsv]]
+== What Are Computers Good At?
+
+. [.line-through]#Basic math#
+//
+. *Simple decision making*
+//
+. Doing things over and over again very, very fast
+//
+. [.line-through]#And storing data#
+
 [[bAuWhpDPmVGgDaepoowJukwlfVQsJPdR]]
 == Comparisons
 
@@ -195,13 +210,142 @@ if (comparison > 5) {
 }
 ....
 
+== Remember: Only One Statement Runs
+
+[.lead]
+//
+*In any if statement, only one statement is executed.**
+
 
 [[sCTwbrbupLHdZwRvBbUQlfGFoutbJTfB]]
 == Somewhat Useful Example
 
 [role='janini']
 ....
-// Create an int called score, and then add 5 it only if patriotsWonAgain is
-// true
+// Create an int called numSuperBowls, and then add 1 to it
+// if patriotsWinAgain is true
 ....
 
+[[fcnIiRcbbDBZyWPgBSCPEDBMiSUCxLEy]]
+== Nested Conditionals
+
+[.lead]
+`if` statements can be nested inside other `if` statements
+
+[source,java]
+----
+if (testMe) {
+  if (testMeAgain) {
+    // I am well tested
+  } else {
+    // I'm only moderated well-tested
+  }
+} else {
+  // You need to write better tests
+}
+----
+
+[[ySgvSxVBLXrmJCUTffzlhLYXqdWCKBeX]]
+== !Practice With Nested Conditionals
+[role='janini']
+....
+// What should we decide today?
+....
+
+[[PgMLuXcxwdrkzLNqnpFFWLNAsIHpiYTB]]
+== Variable Scope
+
+[.lead]
+//
+`if` statements provide our first example of a _block_ of code.
+
+[source,java]
+----
+if (...) {
+  // I'm a block of code
+}
+----
+
+[.s]
+//
+* Blocks are enclosed by braces and can have multiple statements
+//
+* Variables declared _inside_ a block are not visible _outside_ it...
+//
+* But variables desclared outside (and prior to) a block _are_ visible _inside_ it
+
+[[ECKCAOoavGvvNXrOtQqqIZMxNKnbmBAj]]
+== !Practice With Scope
+[role='janini']
+....
+int outside = 5;
+if (true) {
+  int inside = 10;
+  System.out.println(outside);
+}
+System.out.println(inside);
+....
+
+== Indentation Hints
+
+[.lead]
+//
+Assuming you are indenting your code properly, a general rule of thumb about
+scope:
+
+[.s]
+//
+* You *can* access variables "to the left"
+//
+* You *cannot* access variables "to the right"
+
+(Where directions are defined relative to the start of the line of code you are
+writing.)
+
+== !Practice With Scope
+[role='janini']
+....
+int outside = 5;
+if (true) {
+  int inside = 10;
+  // outside is to my left, so OK
+  System.out.println(outside);
+}
+// inside is to my right, so bad
+System.out.println(inside);
+....
+
+[[DlfIqTyTBFGgkmhAEFlvVSLDzjPmbVxt]]
+[.oneword]
+== Next Time: Algorithms and Loops
+
+[[SJLEFfbtRDIeALFWHknlBYYTuSLYfTOo]]
+== !MP0 Progress
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/grades"></iframe>
+</div>
+++++
+
+[[bAMIDJtTOruAKgjPWiRdBcIJIwClvpMV]]
+== Announcements
+
+* Our first CBTF quiz closes today. Please
+//
+https://cbtf.engr.illinois.edu/[sign up]
+//
+and take it.
+//
+* link:/MP/0/[MP0] is out and due Friday! At this point you should be able to
+finish `Quizzer`.
+//
+https://cs125.cs.illinois.edu/info/resources/#hours[Office hours]
+//
+until 7PM today.
+//
+* Please fill out the
+//
+https://goo.gl/forms/7I6PEhK7C4t6iX1k1[intro survey]!
+//
+1% extra credit for anyone who does by *today at noon*.
