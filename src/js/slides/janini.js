@@ -40,6 +40,8 @@ module.exports = () => {
           $(element).height(newHeight)
           $(element).css('margin-left', `-${ Math.round(newWidth / 2) }px`)
           $(element).css('margin-top', `-${ Math.round(newHeight / 2) }px`)
+          $(element).css('font-size', `${ Math.round(scale * 16)}px`)
+          $(element).css('line-height', `${ Math.round(scale * 16 * 1.4)}px`)
         })
     }
     window.addEventListener('resize', noZoomResize)

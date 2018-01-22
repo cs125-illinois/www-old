@@ -2,10 +2,32 @@
 title: Conditional Expressions
 date: 2018-01-22
 description:
-  Primitive types, variables, and expressions.
+  Comparisons and conditional expressions.
 ---
 :imagesdir: /slides/images
 :!sectids:
+
+[[kHoCSCXzvsIAFbIrBWoBZmaPCNVOOCdM]]
+== !
+
+[role='janini']
+--
+++++
+<div class="message">Comparisons and conditional expressions<br/>Press Control-Return to run the code above</div>
+++++
+....
+boolean todayIsMonday = true;
+int currentTime = 8;
+if (todayIsMonday && currentTime < 12) {
+  System.out.println("Let's discuss conditionals");
+} else {
+  System.out.println("Can we talk about something else");
+}
+....
+--
+
+[[VAzyFFoDxschWNuTZMMizdJSZDyolcwn]]
+== CS 196
 
 [[bAuWhpDPmVGgDaepoowJukwlfVQsJPdR]]
 == Comparisons
@@ -37,6 +59,19 @@ System.out.println(tester == 10);
 //
 * `a == 10` means *test if a is equal to 10*
 
+[[uOanIxfYhyBAYDDSDumbwovkhBiwNNcg]]
+== Don't Get Confused
+
+[role='janini']
+....
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+// This is not
+System.out.println(tester = 5);
+System.out.println(tester);
+....
+
 [[NZRZqEBsBPejsjEIMEUExRtpUZwnPHvN]]
 == Comparisons Against Variables
 
@@ -57,13 +92,43 @@ System.out.println(first > first);
 int first = 10;
 int second = 20;
 System.out.println(first + second == 30);
+System.out.println(first - second <= 10);
 ....
 
 [[GieGtJaHsXZBBBMvZqGAdPacxybqOQxP]]
-== Questions About Comparisons?
+[.oneword]
+== Questions About Simple Comparisons?
+
+[[BueiLwuNKbnJPZVcrKBddwHYcdYQyvjx]]
+== Compound Comparisons
+
+[.lead]
+//
+We can combine multiple comparisons together using logical and (`&&`) and or
+(`||`) operators.
+
+[[vDROZOQyBuCsHvUlGCATsKriCrZxCmeK]]
+== ! Combining Comparisons
+
+[role='janini']
+....
+int first = 10;
+System.out.println(first > 5 && first < 10);
+System.out.println(first < 10 && first > 5);
+System.out.println(first > 10 || first > 5);
+System.out.println(first > 10 || false);
+....
+
+[[FBXXgCFgySnrwZHYfSoUHPKWaxwklwjZ]]
+== Evaluation Order
+
+[.lead]
+//
+Conditionals are always evaluated from left to right, and evaluation stops as
+soon as the result is known.
 
 [[kTKjdTjMotZBlcgraocBlOSIGadWncvF]]
-== Monday Preview
+== Comparisons Enable Decisions
 
 [role='janini']
 ....
@@ -75,3 +140,68 @@ if (first > 20) {
   System.out.println("First is not greater than 20");
 }
 ....
+
+[[ZVszIucHlwfpNThvCPzvAuGXDQoXGDJm]]
+== `if-else`
+
+[.lead]
+//
+`if-else` statements are the building block for programmatic decision making:
+
+[.s]
+//
+* _if_ something is true, do one thing;
+//
+* _otherwise_, if something else is true, do some other thing;
+//
+* _otherwise_, if something else is true, do some other thing;
+//
+* etc.
+
+[[mKZSZKIqiozOhiBMXfrUaxnAYmcEWiNU]]
+== `if-elseif-elseif-else`
+
+[.lead]
+`if` statements can have multiple clauses:
+
+[source,java]
+----
+if (firstThing) {
+  // do one thing
+} else if (secondThing) {
+  // do another thing
+} else if (thirdThing) {
+  // another thing
+} else {
+  // run if firstThing, secondThing, and thirdThing are all false
+}
+----
+
+`else` statements are run if no if statement matches.
+
+[[CDpGeuKlxKgJwOfLsqWUIfCazJSauLSt]]
+== ! Only One Statement Runs
+
+[role='janini']
+....
+// Only the first matching branch of if is executed
+int comparison = 10;
+if (comparison > 5) {
+  System.out.println("I'll be executed");
+} else if (comparison > 3) {
+  System.out.println("I won't be executed");
+} else {
+  System.out.println("I definitely won't be executed");
+}
+....
+
+
+[[sCTwbrbupLHdZwRvBbUQlfGFoutbJTfB]]
+== Somewhat Useful Example
+
+[role='janini']
+....
+// Create an int called score, and then add 5 it only if patriotsWonAgain is
+// true
+....
+
