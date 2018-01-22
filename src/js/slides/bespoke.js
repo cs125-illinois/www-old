@@ -2,7 +2,6 @@ const socketCluster = require('socketcluster-client')
 
 module.exports.from = (opts, plugins) => {
   const sliderID = $('meta[name="slider-id"]').attr('content').trim()
-  console.log(sliderID)
   let parent = (opts.parent || opts).nodeType === 1 ?
     (opts.parent || opts) :
     document.querySelector(opts.parent || opts)
@@ -13,42 +12,8 @@ module.exports.from = (opts, plugins) => {
     })
   let activeSlide = slides[0]
   let listeners = {}
-
+  let slideID
   let socket = false
-  window.onSignIn = (user) => {
-    let token = user.getAuthResponse().id_token
-    if (!socket) {
-      socket = socketCluster.connect({
-        port: 8000
-      })
-      socket.on('error', function (err) { throw(err) })
-    }
-    socket.emit('login', {
-      sliderID: sliderID,
-      token: token
-    }, function (err) {
-      if (err) {
-        $("#cornerSignin").hide()
-        $("#badEmailModal").modal('show')
-        socket.disconnect()
-        socket = false
-        $(".g-signin2 span").each(function() {
-          if (!($(this).attr('id'))) {
-            return
-          }
-          if ($(this).attr('id').startsWith('not_signed_in')) {
-            $(this).css('display', '')
-          }
-          if ($(this).attr('id').startsWith('connected')) {
-            $(this).css('display', 'none')
-          }
-        })
-      } else {
-        $("#badEmailModal").modal('hide')
-        $("#cornerSignin").hide()
-      }
-    })
-  }
 
   let activate = function(index, customData) {
     if (!slides[index]) {
@@ -57,7 +22,15 @@ module.exports.from = (opts, plugins) => {
 
     fire('deactivate', createEventData(activeSlide, customData))
     activeSlide = slides[index]
-    fire('activate', createEventData(activeSlide, customData))
+    let slideData = createEventData(activeSlide, customData)
+    fire('activate', slideData)
+    if (socket && slideData.slideID != slideID) {
+      slideID = slideData.slideID
+      socket.emit('slideChange', {
+        deckID: sliderID,
+        slideID: slideID
+      })
+    }
   }
 
   let slide = function(index, customData) {
@@ -97,10 +70,13 @@ module.exports.from = (opts, plugins) => {
     eventData = eventData || {}
     eventData.index = slides.indexOf(el)
     eventData.slide = el
+    eventData.slideID = $(el).attr('data-slideid')
+    console.log(eventData)
     return eventData
   }
 
   let deck = {
+    id: sliderID,
     on: on,
     off: off,
     fire: fire,
@@ -116,6 +92,74 @@ module.exports.from = (opts, plugins) => {
   })
 
   activate(0)
+
+  let user
+  window.onSignIn = (u) => {
+    user = u
+    login()
+  }
+
+  let retryLogin = () => {
+    $("#cornerSignin").hide()
+    $("#badEmailModal").modal('show')
+    $(".g-signin2 span").each(function() {
+      if (!($(this).attr('id'))) {
+        return
+      }
+      if ($(this).attr('id').startsWith('not_signed_in')) {
+        $(this).css('display', '')
+      }
+      if ($(this).attr('id').startsWith('connected')) {
+        $(this).css('display', 'none')
+      }
+    })
+  }
+
+  let login = () => {
+    if (!user) {
+      return retryLogin()
+    }
+    let token = user.getAuthResponse().id_token
+    if (socket) {
+      return
+    }
+    socket = socketCluster.connect({
+      port: 8000
+    })
+    socket.on('connect', status => {
+      console.log('connected')
+      if (!(status.isAuthenticated)) {
+        socket.emit('login', {
+          sliderID: sliderID,
+          token: token
+        }, function (err) {
+          if (err) {
+            socket.disconnect()
+            socket = false
+            retryLogin()
+          }
+        })
+      }
+    })
+    socket.on('authenticate', () => {
+      console.log('authenticated')
+      fire('login', {
+        socket: socket,
+        email: user.getBasicProfile().getEmail()
+      })
+      $("#badEmailModal").modal('hide')
+      $("#cornerSignin").hide()
+    })
+    socket.on('deauthenticate', () => {
+      fire('logout', {
+        email: user.getBasicProfile().getEmail()
+      })
+      $("#cornerSignin").show()
+    })
+    socket.on('error', (err) => {
+      console.log(err)
+    })
+  }
 
   return deck
 }
