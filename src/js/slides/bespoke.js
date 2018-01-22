@@ -99,28 +99,28 @@ module.exports.from = (opts, plugins) => {
     login()
   }
 
-  let retryLogin = () => {
-    $("#cornerSignin").hide()
-    $("#badEmailModal").modal('show')
-    $(".g-signin2 span").each(function() {
-      if (!($(this).attr('id'))) {
-        return
-      }
-      if ($(this).attr('id').startsWith('not_signed_in')) {
-        $(this).css('display', '')
-      }
-      if ($(this).attr('id').startsWith('connected')) {
-        $(this).css('display', 'none')
-      }
-    })
-  }
-
   let login = () => {
     if (!user) {
-      return retryLogin()
+      $("#badEmailModal").modal('show')
+      return
     }
+    let email = user.getBasicProfile().getEmail()
+    if (!email || !(email.endsWith('@illinois.edu'))) {
+      $("#badEmailModal").modal('show')
+      return
+    }
+
     let token = user.getAuthResponse().id_token
     if (socket) {
+      socket.emit('login', {
+        sliderID: sliderID,
+        token: token
+      }, function (err) {
+        if (err) {
+          $("#badEmailModal").modal('show')
+          return
+        }
+      })
       return
     }
     socket = socketCluster.connect({
@@ -137,9 +137,8 @@ module.exports.from = (opts, plugins) => {
           token: token
         }, function (err) {
           if (err) {
-            socket.disconnect()
-            socket = false
-            retryLogin()
+            $("#badEmailModal").modal('show')
+            return
           }
         })
       }
