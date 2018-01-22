@@ -1,7 +1,8 @@
 const socketCluster = require('socketcluster-client')
-const googleLoginHelper = require('google-authentication-helper')
 
 module.exports.from = (opts, plugins) => {
+  const sliderID = $('meta[name="slider-id"]').attr('content').trim()
+  console.log(sliderID)
   let parent = (opts.parent || opts).nodeType === 1 ?
     (opts.parent || opts) :
     document.querySelector(opts.parent || opts)
@@ -13,30 +14,41 @@ module.exports.from = (opts, plugins) => {
   let activeSlide = slides[0]
   let listeners = {}
 
-  let socket = socketCluster.connect({
-    port: 8000
-  })
-  socket.on('error', function (err) { throw(err) })
-
-  let login = (user) => {
-    socket.emit('login', user, function (err) {
+  let socket = false
+  window.onSignIn = (user) => {
+    let token = user.getAuthResponse().id_token
+    if (!socket) {
+      socket = socketCluster.connect({
+        port: 8000
+      })
+      socket.on('error', function (err) { throw(err) })
+    }
+    socket.emit('login', {
+      sliderID: sliderID,
+      token: token
+    }, function (err) {
       if (err) {
-        $("#signin").show()
+        $("#cornerSignin").hide()
+        $("#badEmailModal").modal('show')
+        socket.disconnect()
+        socket = false
+        $(".g-signin2 span").each(function() {
+          if (!($(this).attr('id'))) {
+            return
+          }
+          if ($(this).attr('id').startsWith('not_signed_in')) {
+            $(this).css('display', '')
+          }
+          if ($(this).attr('id').startsWith('connected')) {
+            $(this).css('display', 'none')
+          }
+        })
+      } else {
+        $("#badEmailModal").modal('hide')
+        $("#cornerSignin").hide()
       }
     })
   }
-  googleLoginHelper.config(opts.clientID).login(user => {
-    login(user)
-  }).manual(error => {
-    $("#signin").show()
-  })
-  socket.on('connect', function (status) {
-    if (!(status.isAuthenticated)) {
-      googleLoginHelper.start()
-    } else {
-      console.log("Already authenticated")
-    }
-  })
 
   let activate = function(index, customData) {
     if (!slides[index]) {

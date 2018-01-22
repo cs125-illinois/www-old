@@ -5,6 +5,7 @@ const metalsmith = require('metalsmith')
 const ignore = require('metalsmith-ignore')
 const buildDate = require('metalsmith-build-date')
 const drafts = require('metalsmith-drafts')
+const assignUUID = require('./lib/assign-uuid.js')
 const github = require('./lib/github.js')
 const empty = require(path.join(appRootPath.toString(), 'lib/empty.js'))
 const asciidoc = require('metalsmith-asciidoctor')
@@ -107,7 +108,8 @@ metalsmith(__dirname)
         layout: 'slides/slides.hbs',
         internalize: {
           force: true
-        }
+        },
+        addUUID: true
       },
       preserve: true
     },
@@ -117,6 +119,7 @@ metalsmith(__dirname)
     { pattern: adoc_pattern, metadata: defaultMetadata, preserve: true },
     { pattern: hbs_pattern, metadata: defaultMetadata, preserve: true }
   ]))
+  .use(assignUUID())
   .use(github())
   .use(inPlace({
     pattern: '**/*.adoc.hbs',

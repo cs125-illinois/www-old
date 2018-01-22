@@ -6,17 +6,32 @@
   <title>{{ title }}</title>
   <meta name="description" lang="en-us" content="{{ description }}">
   <meta name="google-signin-client_id" content="948918026196-p399ooibc7pr0ci7ida63jb5a6n4vsik.apps.googleusercontent.com">
+  <meta name="slider-id" content="{{ uuid }}">
 
   <link rel="stylesheet" href="{{ lookup webpack.assets 'slides.css' }}">
 
   {{> favicon }}
 </head>
 <body>
-  <button id="signin" class="g-signin2" data-onsuccess="onSignIn"></button>
+  <button id="cornerSignin" class="g-signin2" data-onsuccess="onSignIn" data-prompt="select_account"></button>
   <article class="deck">
     {{{ contents }}}
   </article>
-  <script src="https://smartlock.google.com/client" async defer></script>
+	<div class="modal fade" id="badEmailModal" tabindex="-1" role="dialog" aria-labelledby="badBrowserModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="badBrowserModalLabel">Bad Email Address</h5>
+				</div>
+				<div class="modal-body">
+					<p>Please log in with your @illinois.edu email address.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="g-signin2" data-onsuccess="onSignIn" data-prompt="select_account"></button>
+				</div>
+			</div>
+		</div>
+	</div>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="{{ lookup webpack.assets 'slides.js' }}"></script>
 </body>
