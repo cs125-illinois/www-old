@@ -6,7 +6,7 @@ require("codemirror/mode/clike/clike")
 require("codemirror/addon/edit/closebrackets")
 require("codemirror/lib/codemirror.css")
 
-const janini = () => {
+module.exports = () => {
   return (deck) => {
     let janinis = {}
     _.each(deck.slides, (element, i) => {
