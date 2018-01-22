@@ -124,7 +124,10 @@ module.exports.from = (opts, plugins) => {
       return
     }
     socket = socketCluster.connect({
-      port: 8000
+      path: '/slider/',
+      hostname: 'cs125-reporting.cs.illinois.edu',
+      port: 443,
+      secure: true
     })
     socket.on('connect', status => {
       console.log('connected')
