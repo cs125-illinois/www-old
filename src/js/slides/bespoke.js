@@ -1,5 +1,5 @@
-require('socketcluster-client')
-require('google-authentication-helper')
+const socketCluster = require('socketcluster-client')
+const googleLoginHelper = require('google-authentication-helper')
 
 module.exports.from = (opts, plugins) => {
   let parent = (opts.parent || opts).nodeType === 1 ?
@@ -12,6 +12,31 @@ module.exports.from = (opts, plugins) => {
     })
   let activeSlide = slides[0]
   let listeners = {}
+
+  let socket = socketCluster.connect({
+    port: 8000
+  })
+  socket.on('error', function (err) { throw(err) })
+
+  let login = (user) => {
+    socket.emit('login', user, function (err) {
+      if (err) {
+        $("#signin").show()
+      }
+    })
+  }
+  googleLoginHelper.config(opts.clientID).login(user => {
+    login(user)
+  }).manual(error => {
+    $("#signin").show()
+  })
+  socket.on('connect', function (status) {
+    if (!(status.isAuthenticated)) {
+      googleLoginHelper.start()
+    } else {
+      console.log("Already authenticated")
+    }
+  })
 
   let activate = function(index, customData) {
     if (!slides[index]) {

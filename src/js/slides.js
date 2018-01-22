@@ -1,5 +1,4 @@
 const clientID = '948918026196-p399ooibc7pr0ci7ida63jb5a6n4vsik.apps.googleusercontent.com'
-
 require('jquery')
 const bespoke = require('./slides/bespoke.js')
 const classes = require('bespoke-classes')
@@ -40,6 +39,7 @@ $(() => {
     })
     $(this).replaceWith(iframe)
   })
+  /*
   $('[data-toggle="popover"]').popover()
   $('body').on('click', e => {
     $('[data-toggle="popover"]').each(function() {
@@ -48,4 +48,5 @@ $(() => {
       }
     })
   })
+  */
 })

@@ -5,16 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>{{ title }}</title>
   <meta name="description" lang="en-us" content="{{ description }}">
+  <meta name="google-signin-client_id" content="948918026196-p399ooibc7pr0ci7ida63jb5a6n4vsik.apps.googleusercontent.com">
 
   <link rel="stylesheet" href="{{ lookup webpack.assets 'slides.css' }}">
+
+  {{> favicon }}
 </head>
 <body>
+  <button id="signin" class="g-signin2" data-onsuccess="onSignIn"></button>
   <article class="deck">
-
     {{{ contents }}}
-
-    <script src="https://smartlock.google.com/client" async defer></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="{{ lookup webpack.assets 'slides.js' }}"></script>
+  </article>
+  <script src="https://smartlock.google.com/client" async defer></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="{{ lookup webpack.assets 'slides.js' }}"></script>
 </body>
 </html>
