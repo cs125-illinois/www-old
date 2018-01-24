@@ -1,0 +1,129 @@
+---
+title: Arrays
+date: 2018-01-26
+description:
+  Continuation of arrays, loops, and simple algorithms.
+---
+:imagesdir: /slides/images
+:!sectids:
+
+[[IPHnZDcTAbUPeAKGukqRQUbFNcSMTsTk]]
+== 0 Indexing
+
+[.lead]
+//
+You're computer scientist now. You start counting at zero.
+
+[.s]
+//
+* An array's _first_ value is `a[0]`
+//
+* An array's _last_ value is `a[a.length - 1]`
+
+[[gwzZCUcRRQULWoxfcMRaGZTABFwBguwo]]
+== ! Bracket Syntax
+[role='janini']
+....
+int[] twos = { 1, 2, 4 };
+System.out.println(twos[0]);
+twos[0] = 2;
+System.out.println(twos[0]);
+System.out.println(twos[2]);
+....
+
+[[OSijtUjhvcktoiTwoYydEuPJEHfjwgBc]]
+== Made For Each Other
+
+[.lead]
+//
+Loops and arrays are frequently used together.
+
+This is probably _the_ most common for loop. It iterates over all members of the
+array: from 0 to `primes.length - 1`.
+
+[source,java]
+----
+int[] primes = { 2, 3, 5, 7, 11, 13 };
+
+for (int i = 0; i < primes.length; i++) {
+  System.out.println(primes[i]);
+}
+----
+
+[[aVGgRghxygAxuchrRiBgyQDSaTPgpOCB]]
+== Enhanced `for` Loop
+
+[source,java]
+----
+int[] primes = { 2, 3, 5, 7, 11, 13 };
+for (int i = 0; i < primes.length; i++) {
+  System.out.println(primes[i]);
+}
+----
+
+This is so common that Java recently introduced a shortcut for it, the so-called
+"enhanced" for loop syntax:
+
+[source,java]
+----
+int[] primes = { 2, 3, 5, 7, 11, 13 };
+for (int prime : primes) {
+  System.out.println(prime);
+}
+----
+If you don't care about the index, only the value, this is a useful loop.
+
+[[znWIKWOBOGvxYwKMyEXJWdLFDzarxqHU]]
+== ! Practice With Arrays
+
+[role='janini']
+....
+// Print every member of toPrint
+char[] toPrint = { 'a', 'b', 'c', 'd' };
+....
+
+[[hWXhNNJNFoqysBqjrPZSdBIloVLSecQE]]
+== ! Practice With Arrays
+
+[role='janini']
+....
+// Print every member of toPrint backwards
+char[] toPrint = { 'a', 'b', 'c', 'd' };
+....
+
+[[EvnylzsonIhzCXzjafCcjfRAdHXeKRJF]]
+== ! Practice With Arrays
+
+[role='janini']
+....
+// Print only members of toPrint with even indices
+char[] toPrint = { 'a', 'b', 'c', 'd', 'e', 'f' };
+....
+
+[[CzPWhJlvsKvQOZCTZQJqDrzXnEIQUFnF]]
+== Bringing It Together
+
+[.lead]
+//
+Now let's do a small example combining things that we've learned: arrays, loops,
+and conditional expressions.
+
+Given an array of doubles, write code to find the maximum value.
+//
+*First, what is our algorithm?*
+
+[.s]
+//
+. Declare a maximum value&mdash;but what do we initialize it to?
+//
+. Examine each value in the array
+//
+. Compare it with the maximum we've seen so far&mdash;but then do what?
+
+[[vpcybztlgRfiltilLJTYmPFMtfqbwlsX]]
+== ! Maximum Over An Array
+[role='janini']
+....
+int[] toSearch = [1, 10, 6, 7, 3, 15, 4];
+....
+
