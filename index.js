@@ -151,11 +151,12 @@ metalsmith(__dirname)
     }
     return done()
   })
+  .use(permalinks({ relative: false }))
   .use(inPlace({
     pattern: '**/*.html.hbs',
   }))
-  .use(sections())
   .use(permalinks({ relative: false }))
+  .use(sections())
   .use(hacks.preLayout())
   .use(inPlace({
     pattern: '**/*.xml.hbs',
