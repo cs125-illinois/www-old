@@ -55,7 +55,7 @@ const temporaryDestination = tmp.dirSync({ mode: 0775 }).name
 
 const quiet = (config.quiet == true)
 
-const slides_pattern = 'slides/**/*.adoc'
+const slides_pattern = 'learn/**/*.adoc'
 const isSlides = (filename, file, i) => {
   return file.slides == true;
 }
