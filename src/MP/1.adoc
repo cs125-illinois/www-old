@@ -1,8 +1,8 @@
 ---
-title: "MP1: String Games"
+title: "MP1: Transformations"
 description:
-  MP1 has you complete three small programming tasks that all involve string
-  processing.
+  MP1 has you transform strings, both to intelligently print a script and to
+  encrypt (and decrypt) text.
 ---
 :sectnums:
 :linkattrs:
@@ -13,14 +13,28 @@ description:
 //
 Strings are an important data type in every programming language.
 //
+And computers are frequently used to _transform_ and _analyze_
+data&mdash;including string data.
+//
 While computers understand bits, bytes, and numbers, humans communicate using
 letters, words, and sentences.
 
-MP1 comprises three string-based programming tasks that will familiarize you
-with strings and string processing.
+MP1 comprises two string-based tasks that involve straightforward transformation
+and modification tasks.
 //
-*It is due Friday, September 29th, 2017 @ 5PM. To receive full credit, you must
-submit by this deadline.*
+They will introduce you to strings, string representation, and simple state
+machines while also providing more practice with loops and algorithms.
+
+*MP1 is due Friday 2/2/2018 @ 5PM.
+//
+To receive full credit, you must submit by this deadline.*
+//
+In addition, 10% of your grade on MP1 is for committing code that earns at least
+_20 points_ by *Tuesday 1/30/2018 @ 5PM.*
+//
+As usual, late submissions will be subject to the
+//
+link:/info/syllabus/#regrading[MP late submission policy].
 
 [[objectives]]
 == Learning Objectives
@@ -30,15 +44,13 @@ processing.
 //
 You'll begin to learn how to:
 
-. interpret text as a series of lines, lines as a series of words, and words as
-a series of characters
+. interpret text as a series of lines, lines as a series of words, words as
+a series of characters, and characters themselves as numbers
 //
 . use simple looping constructs to iterate over arrays of strings and strings
 themselves
 //
-. implement simple state machines
-//
-. write function definitions
+. implement a simple state machine
 //
 . correct Javadoc comments
 
@@ -48,23 +60,21 @@ from MP0].
 [[structure]]
 == Assignment Structure
 
-MP1 consists of three short programs:
+MP1 consists of two short programs:
 
-. https://cs125-illinois.github.io/MP1/FindLine.html[`FindLine.java`]:
-//
-finds lines in provided multi-line text
-//
-. https://cs125-illinois.github.io/MP1/ScriptPrinter.html[`ScriptPrinter.java`]:
+. https://cs125-illinois.github.io/MP1-Starter/PrintLines.html[`PrintLines.java`]:
 //
 parses a script and returns lines for a particular actress (or actor)
 //
-.  https://cs125-illinois.github.io/MP1/StrictPalindrome.html[`StrictPalindrome.java`]:
+. https://cs125-illinois.github.io/MP1-Starter/Encrypt.html[`Encrypt.java`]:
 //
-tests whether a provided string is a palindrome
+encrypts and decrypts text using the so-called
+//
+https://en.wikipedia.org/wiki/Caesar_cipher[Caesar Cipher]
 
 You may find our official
 //
-https://cs125-illinois.github.io/MP1/[MP1 online documentation]
+https://cs125-illinois.github.io/MP1-Starter/[MP1 online documentation]
 //
 helpful in understanding what each function is supposed to do.
 
@@ -73,7 +83,7 @@ helpful in understanding what each function is supposed to do.
 
 Use
 //
-this GitHub Classroom invitation link
+https://classroom.github.com/a/jDOcp590[this GitHub Classroom invitation link]
 //
 to fork your copy of MP1.
 //
@@ -96,12 +106,12 @@ they work.
 . User inputs are passed to a separate helper function that you are assigned to
 write.
 //
-These functions do the heavy lifting for each program: searching text
-(`printMatchingLines`), returning an actress's lines (`printLinesFor`), and
-testing whether a string is a palindrome (`isStrictPalindrome`).
+These functions do the heavy lifting for each program: returning an actress's
+lines (`printLinesFor`), and encrypting (`encrypt`) and decrypting (`decrypt`)
+text.
 //
-. Each program includes a test suite: `FindLineTest.java`, `ScriptPrinterTest.java`,
-and `StrictPalindromeTest.java`.
+. Each program includes a test suite: `PrintLinesTest.java` and
+`EncryptTest.java`.
 //
 The test suite does not test the main method.
 //
@@ -112,11 +122,6 @@ pass.
 //
 Doing so will earn you almost full credit on the assignment&mdash;but see the
 section on <<style, style below>>.
-//
-**In contrast to last week, you may need to add methods and fix checkstyle
-errors right out of the box.**
-//
-Until you fix these problems, your initial grade on MP1 will be a zero.
 
 [[approach]]
 == How to Approach MP1
@@ -140,7 +145,8 @@ https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#method_detail[li
 of String methods] to find things that might be useful.
 //
 Specifically, the String methods `split`, `toLowerCase`, `toUpperCase`,
-`startsWith` may be useful in completing MP1.
+`startsWith` may be useful in completing MP1&mdash;particularly for
+`printLinesFor`.
 
 === Documenting Your Work
 
@@ -253,16 +259,37 @@ You should also feel free to help each other, as long as you do not violate the
 
 MP1 is worth 100 points total, broken down as follows:
 
-. *30 points*: `FindLine.java`
+. *40 points*: `PrintLines.java`
   ** *10 points* for submitting code that compiles
-  ** *20 points* for passing the test
-. *30 points*: `ScriptPrinter.java`
+  ** *30 points* for passing the test
+. *40 points*: `Encrypt.java`
   ** *10 points* for submitting code that compiles
-  ** *20 points* for passing the test
-. *30 points*: `StrictPalindrome.java`
-  ** *10 points* for submitting code that compiles
-  ** *20 points* for passing the test
+  ** *30 points* for passing the test
 . *10 points* for no `checkstyle` violations
+. *10 points* for committing code that earns at least 20 points before *Tuesday
+1/30/2018 @ 5PM.*
+
+Programming is a skill, and you learn it with regular consistent practice.
+//
+If you wait until the day of the deadline, it's unlikely that you'll get as much
+practice and learn as much as if you start early.
+//
+When you give yourself enough time to complete the MP, you can also slow down,
+enjoy yourself, and do things right.
+//
+Take a few extra minutes to learn more about a library that you're using, or
+clean up your code so that it really shines.
+//
+The earlier you start, the more likely you'll do some of these useful things.
+
+So, we're going to incentive you starting on time.
+//
+10% of MP2 is earned by submitting something that earns 20 points by *Tuesday
+1/30/2018 @ 5PM.*
+//
+You don't have to do much to get 20 points, but we hope that it will get you
+reading and think about the MP before the end of the week, when office hours are
+packed.
 
 [[testing]]
 === Test Cases
@@ -270,25 +297,20 @@ MP1 is worth 100 points total, broken down as follows:
 Like link:/MP/0[MP0], we have provided exhaustive test cases for each part of
 MP1.
 //
-Please review the link:/MP/0/#testing[MP0 testing instructions].
+Please review the link:/MP/0#testing[MP0 testing instructions].
 
 [[autograding]]
 === Autograding
 
-Like link:/MP/0/[MP0], we have provided you with an autograding script that you
+Like link:/MP/0[MP0], we have provided you with an autograding script that you
 can use to estimate your current grade as often as you want.
 //
-The Eclipse project contains a launcher that will run MP1 autograder.
-
-Unless you have modified the test cases or autograder configuration files, the
-autograding output should equal the score that you will earn when you submit.
-//
-If you modify our test cases or the autograding configuration, all bets are off.
+Please review the link:/MP/1#autograding[MP0 autograding instructions].
 
 [[style]]
 === Style Points
 
-Review the link:/MP/0/#style[style notes from MP0].
+Review the link:/MP/0#style[style notes from MP0].
 //
 For MP1 you will have to correct some existing style errors.
 //
@@ -320,5 +342,5 @@ link:/info/syllabus#cheating[CS 125 cheating policies].
 All submitted MP source code will be checked by automated plagiarism detection
 software.
 //
-Cheaters will receive stiff penalties&mdash;the hard-working students in the
-class that are willing to struggle for their grade demand it.
+*Cheaters will receive stiff penalties&mdash;the hard-working students in the
+class that are willing to struggle for their grade demand it.*
