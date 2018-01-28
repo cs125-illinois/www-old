@@ -4,8 +4,8 @@ module.exports = function(options) {
   return function(deck) {
     var parent = deck.parent,
       firstSlide = deck.slides[0],
-      slideHeight = firstSlide.offsetHeight,
-      slideWidth = firstSlide.offsetWidth,
+      slideWidth = $(firstSlide).attr('data-width')
+      slideHeight = $(firstSlide).attr('data-height')
       useZoom = options === 'zoom' || ('zoom' in parent.style && options !== 'transform'),
 
       wrap = function(element) {

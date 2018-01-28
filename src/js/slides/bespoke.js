@@ -71,7 +71,6 @@ module.exports.from = (opts, plugins) => {
     eventData.index = slides.indexOf(el)
     eventData.slide = el
     eventData.slideID = $(el).attr('data-slideid')
-    console.log(eventData)
     return eventData
   }
 
@@ -130,7 +129,6 @@ module.exports.from = (opts, plugins) => {
       secure: true
     })
     socket.on('connect', status => {
-      console.log('connected')
       if (!(status.isAuthenticated)) {
         socket.emit('login', {
           sliderID: sliderID,
@@ -144,7 +142,6 @@ module.exports.from = (opts, plugins) => {
       }
     })
     socket.on('authenticate', () => {
-      console.log('authenticated')
       fire('login', {
         socket: socket,
         email: user.getBasicProfile().getEmail()
@@ -159,7 +156,7 @@ module.exports.from = (opts, plugins) => {
       $("#cornerSignin").show()
     })
     socket.on('error', (err) => {
-      console.log(err)
+      console.error(err)
     })
   }
 

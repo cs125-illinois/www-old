@@ -23,8 +23,8 @@ module.exports = () => {
     let active
 
     let firstSlide = deck.slides[0]
-    let slideHeight = firstSlide.offsetHeight
-    let slideWidth = firstSlide.offsetWidth
+    let slideWidth = $(firstSlide).attr('data-width')
+    let slideHeight = $(firstSlide).attr('data-height')
     let noZoomResize = () => {
       let xScale = deck.parent.offsetWidth / slideWidth;
       let yScale = deck.parent.offsetHeight / slideHeight;
@@ -36,12 +36,17 @@ module.exports = () => {
         .each(element => {
           let newWidth = Math.round(slideWidth * scale)
           let newHeight = Math.round(slideHeight * scale)
+          if (!($(element).attr('data-font-size'))) {
+            $(element).attr('data-font-size', $(element).css('fontSize'))
+          }
+          let originalFontSize = parseInt($(element).attr('data-font-size'))
+          console.log(originalFontSize)
           $(element).width(newWidth)
           $(element).height(newHeight)
           $(element).css('margin-left', `-${ Math.round(newWidth / 2) }px`)
           $(element).css('margin-top', `-${ Math.round(newHeight / 2) }px`)
-          $(element).css('font-size', `${ Math.round(scale * 16)}px`)
-          $(element).css('line-height', `${ Math.round(scale * 16 * 1.4)}px`)
+          $(element).css('font-size', `${ Math.round(scale * originalFontSize)}px`)
+          $(element).css('line-height', `${ Math.round(scale * originalFontSize * 1.4)}px`)
         })
     }
     window.addEventListener('resize', noZoomResize)
