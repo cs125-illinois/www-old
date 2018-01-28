@@ -1,0 +1,193 @@
+---
+title: EMP0
+date: 2018-01-22
+description:
+  Our first even more practice (EMP) session. Primitive types, variables,
+  expressions, statements and conditionals will be reviewed by Liia Butler and
+  the fantastic EMP course assistants.
+---
+:imagesdir: /learn/images
+:!sectids:
+
+[[ewTfigIGEWVETbfAjNEaONHauGFgbVQU]]
+== !
+
+[role='janini']
+--
+++++
+<div class="message">Welcome to CS 199 EMP. Ready for some extra practice?<br/>Press Control-Return to run the code above.</div>
+++++
+....
+System.out.println("Let's practice!");
+....
+--
+
+[[PFIBXsWdnhmNfdzzqyhfpnBGXgLljQUJ]]
+== Experimenting With Initialization
+
+[role='janini']
+....
+// Let's create and initialize some variables of different types
+float x;
+System.out.println(x);
+// Try reinitializing the same variable to see what happens
+....
+
+[[WYIWWGNAcrivRnpsQHnOQaHThXsBaTTg]]
+== Variables Can Be Modified
+
+[role='janini']
+....
+// Let's modify some integers
+int changing = 10;
+changing = 20; // I can set them again
+changing = 20 + 10; // Math is OK on the right side
+changing += 1; // I have some special operators
+changing /= 2; // +, -, / and * all work with =
+....
+
+[[pTyTUDLgHMtamCJpJsrtDcgssVPhZIox]]
+== Variables Must Maintain the Same Type
+
+[role='janini']
+....
+// This doesn't work.
+int changing = 10;
+changing = 10.0;
+....
+
+[[gAbePKUXCdlvxCDBTPvkeRfDqNzmlJWC]]
+== Variables Can Be Modified Using Other Variables
+
+[role='janini']
+....
+double first = 10.0;
+double second = 5.0;
+first = second; // This is assignment, not equality
+second = 20.0;
+first = second + 10.0;
+double third = 2.0;
+first = second + third;
+....
+
+[[psVlkMMMcWHkDvqHIeNHlvwusNDMVOZk]]
+== Simple Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+....
+
+[[cKKMHCIaAfkrhdZoYJdBPWROqTWFIIcB]]
+== Type Limitations
+
+[role='janini']
+....
+byte smallest = 10;
+smallest += 256;
+System.out.println(smallest);
+....
+
+[[YtcFBxDNIpwyTDlwLUElQUPYmuNfFcht]]
+== Equality v. Assignment
+
+[role='janini']
+....
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+// This is not
+System.out.println(tester = 5);
+System.out.println(tester);
+....
+
+[[oBMVmfaTzqOEodsEZVVUOOKUrDtwRTsw]]
+== Comparisons Against Variables
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first > first);
+....
+
+[[YrPDioFuvfJLUkHfYhLPXvPeAqanzGNJ]]
+== More Complex Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+System.out.println(first - second <= 10);
+....
+
+[[DAWmmUwMsrDdJDPufEiceZZbeIuRDnGy]]
+== Combining Comparisons
+
+[role='janini']
+....
+int first = 10;
+System.out.println(first > 5 && first < 10);
+System.out.println(first < 10 && first > 5);
+System.out.println(first > 10 || first > 5);
+System.out.println(first > 10 || false);
+....
+
+[[OkWFGvgMvrNYqmLVooqoWxDDlbKpWUEL]]
+== Comparisons Enable Decisions
+
+[role='janini']
+....
+// Comparisons enable decisions
+int first = 10;
+if (first > 20) {
+  System.out.println("First is greater than 20");
+} else {
+  System.out.println("First is not greater than 20");
+}
+....
+
+[[gIUotPASyWUlHkjrizGcYzoYvCtUusmV]]
+== `if-else` Statements
+
+[role='janini']
+....
+// Only the first matching branch of if is executed
+int comparison = 10;
+if (comparison > 5) {
+  System.out.println("I'll be executed");
+} else if (comparison > 3) {
+  System.out.println("I won't be executed");
+} else {
+  System.out.println("I definitely won't be executed");
+}
+....
+
+[[uqYiqLmsKuSiFUqZBGDMBZvSuSwONHho]]
+== Somewhat Useful Example
+
+[role='janini']
+....
+// Create an int called totalScore, and then add 10 to it
+// if answerWasCorrect is true
+....
+
+[[hoCpUaaJTGMzaDsEARignAmxxdVQKwEu]]
+== !Practice With Scope
+
+[role='janini']
+....
+int outside = 5;
+if (true) {
+  int inside = 10;
+  // outside is to my left, so OK
+  System.out.println(outside);
+}
+// inside is to my right, so bad
+System.out.println(inside);

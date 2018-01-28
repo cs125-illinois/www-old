@@ -1,0 +1,50 @@
+---
+title: "CS 125 Lectures"
+description:
+  Learn basic programming and computer science concepts through fun and
+  highly-interactive lectures.
+sidebar: learn
+doTOC: false
+---
+<p class="lead">
+  Slides are available for all CS 125 lectures. All slide decks contain many
+  examples that you can run and interact with.
+</p>
+<hr />
+
+<div class="mt-2 smaller">
+  {{#each slides }}
+  <div class="row">
+    <div class="col-12">
+      <h2 id="{{ this.slug }}" class="h3">
+        {{ format_date this.date "slides" }}.
+        <span style="font-weight: normal;">
+          {{{ this.title }}}
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+        <a class="external" target="_blank" href="/{{ this.path }}">Slides</a>
+        {{#if this.echo }}
+         //
+          <a class="external" target="_blank" href="{{ this.echo }}">Echo360</a>
+        {{/if}}
+      </div>
+      <p>
+        {{{ this.description }}}
+      </p>
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+<div class="col-xl-3 d-none d-xl-block toc">
+  <nav id="toc" class="nav flex-column">
+    <ul class="section-nav">
+      {{#each slides }}
+        <li class="entry">
+          <a class="nav-link" href="#{{ this.slug }}">{{ this.title }}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </nav>
+</div>

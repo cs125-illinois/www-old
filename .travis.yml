@@ -1,0 +1,17 @@
+branches:
+  only:
+    - master
+language: node_js
+node_js:
+  - "8.9.3"
+dist: trusty
+sudo: false
+notifications:
+  webhooks:
+    urls:
+      - "https://cs125-reporting.cs.illinois.edu/tinylistener"
+    on_start: never
+    on_success: always
+    on_failure: never
+
+# vim: ts=2:sw=2:et:tw=0

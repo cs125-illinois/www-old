@@ -1,0 +1,336 @@
+// Put site customizations here, before we import the rest of Bootstrap's
+// rules.
+
+// Color system
+
+$white:  #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:  #000;
+
+$grays: (
+  100: $gray-100,
+  200: $gray-200,
+  300: $gray-300,
+  400: $gray-400,
+  500: $gray-500,
+  600: $gray-600,
+  700: $gray-700,
+  800: $gray-800,
+  900: $gray-900
+);
+
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #dc3545;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #28a745;
+$teal:    #20c997;
+$cyan:    #17a2b8;
+$illinois-orange: #e84a27;
+$illinois-blue: #13294b;
+
+$colors: (
+  blue: $blue,
+  indigo: $indigo,
+  purple: $purple,
+  pink: $pink,
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+  teal: $teal,
+  cyan: $cyan,
+  white: $white,
+  gray: $gray-600,
+  gray-dark: $gray-800,
+  illinois-orange: $illinois-orange,
+  illinois-blue: $illinois-blue
+);
+
+$theme-colors: (
+  primary: $illinois-blue,
+  secondary: $gray-600,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800,
+  illinois-orange: $illinois-orange,
+  illinois-blue: $illinois-blue
+);
+
+// Links
+
+$link-color:            lighten($illinois-blue, 40%);
+
+// Fonts
+
+$font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-size-base: 1.25rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg:   1.5rem !default;
+$font-size-sm:   1rem !default;
+
+$h1-font-size: 3rem !default;
+$h2-font-size: 2.5rem !default;
+$h3-font-size: 2rem !default;
+$h4-font-size: 1.75rem !default;
+$h5-font-size: 1.5rem !default;
+$h6-font-size: 1.25rem !default;
+
+$lead-font-size:   1.5rem !default;
+$lead-font-weight: 300 !default;
+
+$headings-font-family: "Overpass", $font-family-sans-serif;
+$headings-font-weight: 700;
+
+// Navbar
+
+@import "~bootstrap/scss/bootstrap";
+@import "sidebar";
+@import "~highlight.js/styles/github-gist.css";
+
+// Globals
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+main {
+  word-wrap: break-word;
+}
+
+a.external:after {
+  font-family: "FontAwesome";
+  font-size: 0.7em;
+  margin-left: 0.3em;
+  content: "\f08e";
+}
+
+table.notdatatables {
+  margin: {
+    top: 1rem;
+    bottom: 1rem;
+  }
+  border-bottom: 1px solid $gray-500;
+  thead {
+    border-bottom: 1px solid $gray-500;
+    padding-bottom: 1rem;
+  }
+  .tableblock {
+    padding: {
+      top: 0.25rem;
+      left: 0.25rem;
+      right: 0.25rem;
+    }
+  }
+}
+.dataTables_wrapper {
+  padding: {
+    top: 1rem;
+    bottom: 1rem;
+  }
+}
+
+.underline {
+  border-bottom: 1px solid $gray-500;
+}
+
+// Copied from bespoke-theme-simple
+
+html {
+  text-size-adjust: auto;
+}
+
+.bespoke-parent {
+  text-size-adjust: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.bespoke-scale-parent {
+  text-size-adjust: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  .bespoke-active {
+    pointer-events: auto;
+  }
+}
+
+.bespoke-slide {
+  width: 640px;
+  height: 480px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -320px;
+  margin-top: -240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  .header {
+    padding-top: 18px;
+    padding-left: 20px;
+    padding-right: 72px;
+    padding-bottom: 16px;
+    width: 100%;
+    border-bottom: 2px solid $illinois-orange;
+    h2 {
+      font-size: 36px;
+      line-height: 36px;
+    }
+  }
+  .sectionbody {
+    padding: 20px;
+    width: 100%;
+  }
+  &.logo {
+    background-image: url("https://cs125.cs.illinois.edu/img/logos/cs125-60x60.png");
+    background-position: top 12px right 6px;
+    background-repeat: no-repeat;
+  }
+  code {
+    font-size: 0.8em;
+    color: $illinois-orange;
+    white-space: pre-wrap;
+  }
+  pre.highlight code {
+    color: #090909;
+  }
+}
+
+.bespoke-active {
+  border: 1px dotted $illinois-orange;
+}
+
+.bespoke-inactive {
+  opacity: 0;
+  pointer-events: none;
+}
+.bespoke-bullet-inactive {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bespoke-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0;
+}
+.bespoke-backdrop-active {
+  opacity: 1;
+}
+
+.emphatic {
+  background: #222;
+}
+
+.emphatic-text {
+  color: white;
+}
+
+.embed-responsive {
+  position: static !important;
+}
+
+.bespoke-slide.janini {
+  padding: 0;
+  justify-content: left;
+  align-items: flex-start;
+  font-size: 24px;
+  .CodeMirror {
+    flex: 1 0 50%;
+    padding: 1rem;
+    width: 100%;
+  }
+  div.output {
+    line-height: 30px;
+    white-space: normal;
+    word-break: break-word;
+    padding: 1rem;
+    flex: 1 0 50%;
+    background-color: #202020;
+    width: 100%;
+    font-family: 'Inconsolata', monospace;
+    color: #F5F5F5;
+    overflow-y: scroll;
+    word-wrap: normal;
+    white-space: pre-wrap;
+    padding: 1rem;
+  }
+}
+.bespoke-slide.oneword {
+  justify-content: center;
+  align-items: center;
+  .header {
+    h2 {
+      font-size: 48px;
+      line-height: 48px;
+    }
+  }
+}
+.bespoke-slide.meme {
+  justify-content: center;
+  align-items: center;
+  .sectionbody {
+    padding: 0;
+    width: 100%;
+    word-wrap: normal;
+  }
+}
+.bespoke-slide .listingblock {
+  border: 1px dotted grey;
+  padding: 0.5rem;
+  pre {
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
+
+#cornerSignin {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.line-through {
+  text-decoration: line-through;
+}
+
+blockquote {
+  border-left: 1px solid $illinois-orange;
+  padding-left: 1rem;
+}
+
+// vim: ts=2:sw=2:et:ft=scss
