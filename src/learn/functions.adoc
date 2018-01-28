@@ -2,7 +2,10 @@
 title: Functions and Algorithms
 date: 2018-01-29
 description:
-  Introduction to functions and using algorithms to solve simple problems.
+  Introduction to functions and continued practice using algorithms to solve
+  problems.
+spelling_exceptions:
+  - GCD
 ---
 :imagesdir: /slides/images
 :!sectids:
@@ -30,13 +33,319 @@ System.out.println(maximum(numbers));
 ....
 --
 
+[[ZMsRhBTAKzQDcNqJhGfbQBaNFSLionBV]]
+== What Are Computers Good At?
+
+. [.line-through]#Basic math#
+//
+. [.line-through]#Simple decision making#
+//
+. [.line-through]#Doing things over and over again very, very fast#
+//
+. [.line-through]#And storing data#
+
+[[ebsIAGHktJXCWiXlllplCDkytNHXBEjq]]
+== What's Next?
+
+[.lead]
+//
+These are the three main challenges that will occupy us for the remainder of the
+semester:
+
+[.s]
+//
+* **Algorithms**: How do we use computers to solve problems?
+//
+* **Data structures**: How do we structure information to enable efficient
+algorithms?
+//
+* **Software development**: How do we write, debug, test, and publish _good_
+computer software?
+//
+* And we're going to have _a lot of fun_ continuing to learn everything and
+anything about how computers and computer systems work.
+
+[[vrCcLFuUvwOmdCBjYCObdECLzGvjWCwm]]
+== How Do We Structure Good Computer Programs?
+
+[.s]
+//
+. Break our code into reusable, testable, and understandable pieces
+//
+. Combine state and behavior
+//
+. Document our code appropriately
+//
+. Reuse preexisting solutions as much as possible
+//
+. Share our code with others!
+
+[[hYhFitgISnHLduMUspeEhttwBEKcyCmX]]
+== Functions (Or Subroutines)
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Subroutine[Function]:
+//
+a sequence of program instructions that perform a specific task, packaged as a
+unit. This unit can then be used in programs wherever that particular task
+should be performed.
+____
+
+[.s]
+//
+* In Java, a function takes _zero or more inputs_ and produces _one output_.
+//
+* Functions are built of the imperative programming building blocks we have
+already seen: variables, loops, conditional statements.
+
+[[vrMmLkjEfsujbHoVyjzWIAbdDLQzDdKH]]
+== Functions (Or Subroutines)
+
+A good function:
+//
+[.s]
+//
+* **Does one thing well**
+//
+* **Can be easily tested**
+//
+* **Can be reused in multiple places**
+
+[[tyrmxoGtViFOOACbFiqDBpgEhhmfxOTl]]
+== Function Declaration
+
+[source,java,role='small']
+----
+/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}
+----
+
+[.s.small]
+//
+* In Java every function has a _name_, a list of _arguments_, a _return
+type_,
+//
+https://en.wikipedia.org/wiki/Javadoc[_a Javadoc description_],
+//
+and a _return statement_.
+//
+* The *name* and *description are for you*, the programmer
+//
+* The *arguments* and *return type* are both for you and for Java
+
+[[hOiebdTyavDHVMcZmkojBrMZeABlFXjT]]
+== Calling Functions
+
+[.lead]
+//
+To _call_ a function we provide the arguments it requires and expect a result of
+the type it is declared to return.
+
+[.s]
+//
+* The code that calls the function is referred to as the _caller_.
+//
+* When a function is called, the caller waits until the function
+returns
+//
+* The result can be saved, used like a literal of the
+return type, or ignored
+
+[[YZvTRZGcPWaZtWxjxrlSVmRLzCozyasQ]]
+== `add` Example
+
+[source,java,role='small']
+----
+/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}
+int result = add(3, 4);
+System.out.println(add(4, 5));
+int biggerResult = add(10, 20) + add(20, 30) + 10;
+System.out.println(biggerResult);
+add(6, 7); // This is dumb code but will compile and run
+----
+
+[[uArzOsQICgDsGEJnEiOtfLfyMwtRYWVz]]
+== ! Add Two Numbers
+
+[.janini.small]
+....
+// Ignore the extra static for now in our examples...
+static int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}
+int result = add(3, 4);
+System.out.println(add(4, 5));
+int biggerResult = add(10, 20) + add(20, 30) + 10;
+System.out.println(biggerResult);
+add(6, 7); // This is dumb code but will compile and run
+....
+
+[[HfURoLPdmmuKEbHfnrzRlKJcbTPttYZE]]
+== Good [.line-through]#Variable# Function Names
+
+[.lead]
+//
+Just like link:/learn/variables/#7[variables], choosing good _function_ names
+will make your life a lot easier as a programmer.
+
+Good function names are:
+
+[.s]
+//
+. Descriptive
+//
+. Indicative of the function's function&mdash;what it does
+//
+. As succinct as possible...
+//
+. But see #2 above
+
+[[sPuYAsjxUtxNgZiMnUrKhLahWgUSvwTm]]
+== Function Arguments
+
+[.lead]
+//
+When a function begins executing the code has access to the variables declared
+as arguments, which will contain the values passed by the caller.
+
+You can think of these variables as pre-declared and pre-initialized.
+
+[[WqnehuZUvbySXIyiIAJIecmtJfjBoORf]]
+== `add` Example
+
+[source,java,role='small']
+----
+/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  System.out.println(firstNumber);
+  System.out.println(secondNumber);
+  return firstNumber + secondNumber;
+}
+System.out.println("Start");
+int result = add(3, 4);
+----
+
+[[gflghmydtJybAJRsQIHkkTsoLnzRotAc]]
+== ! Add Two Numbers
+
+[.janini.small]
+....
+// Ignore the extra static for now in our examples...
+static int add(int firstNumber, int secondNumber) {
+  System.out.println(firstNumber);
+  System.out.println(secondNumber);
+  return firstNumber + secondNumber;
+}
+System.out.println("Start");
+int result = add(3, 4);
+....
+
+[[mXPpRQOkwFXdigorsNOAJvEuKGjvoPeq]]
+== `return` and Return Type
+
+[.lead]
+//
+A `return` statement _immediately exits the function_ and returns a result.
+
+[.s]
+//
+* `return` statements can appear anywhere inside a function: inside a loop or
+conditional statement
+//
+* A function can include multiple return statements
+//
+* Regardless of where they appear or how many are used, the function returns *as
+soon as the first `return` statement is reached*
+//
+* A function _must return a value of the type it declared_
+
+[[SARozugeSuiSZToETgfUqoaDOggJhFWF]]
+== Javadoc Documentation
+
+[.lead]
+//
+Good code requires documentation.
+//
+This is for the humans that use it.
+
+In Java, we utilize the
+//
+https://en.wikipedia.org/wiki/Javadoc[Javadoc]
+//
+tool to turn comments into our code into structured online documentation.
+
+That allows this:
+
+[source,java,role='small']
+----
+/**
+ * Example Javadoc.
+ *
+ * @param firstArgument first argument to my function
+ * @return 0
+ */
+----
+
+...to become this...
+
+[[XwuvvgCiGDqvXVmEZMcOFFEkOhfwmVsZ]]
+== ! Example Javadoc Output
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[qyjMaUvtyjciWNidWzkSmNadSwUcJIuy]]
+== ! Function Examples
+
+[.janini]
+....
+/**
+ * Prints "Me!" to standard out.
+ */
+static void printMe() {
+  System.out.println("Me!");
+}
+....
+
 [[WMIXpAhbQaTskdstiILhxUgbcbLLsFyk]]
 == ! Average Of An Array
-[.janini]
+
+[.janini.small]
 ....
 // Compute the average
 float[] toAverage = { 0.1, 6.7, 8.9, 10.4, 11.2, 0.9 };
 ....
+
+[[AjBeDNYHtDWIWkZvzfaEpqDlNbGHGHTK]]
+[.oneword]
+== Functions Frequently Implement Algorithms
 
 [[HiatdhpaUkUnyCVrqTZFbPvmyUaqWSVN]]
 == Consecutive Identical Values
@@ -57,11 +366,42 @@ Given an array of chars, find all cases where consecutive elements are the same.
 
 [[nbSIYahKjyKuYqGenoNlETYtzzvVjQpO]]
 == ! Consecutive Identical Values
-[role='janini']
+
+[.janini.small]
 ....
 // Print consecutive identical values
 char[] toSearch = { 'a', 'b', 'b', 'c', 'e', 'f', 'f' };
 ....
+
+[[BzRRFIMstyqbRXhqEywqvIoQJUgYebbD]]
+== Greatest Common Denominator
+
+[quote]
+//
+____
+//
+In mathematics, the
+//
+https://en.wikipedia.org/wiki/Greatest_common_divisor[greatest common divisor
+(GCD)]
+//
+of two or more integers, which are not all zero, is the largest positive integer
+that divides each of the integers.
+//
+____
+
+[[pjDljAIzRjELOcfeobkDQFRinIBUMrhD]]
+== ! GCD Algorithms
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://en.wikipedia.org/wiki/Greatest_common_divisor#Calculation"></iframe>
+</div>
+++++
+
+[[tDXMsVMWQaICoZpNjRwvYQvYvpkBVCKA]]
+[.oneword]
+== But We Only Have a Few Minutes Left...
 
 [[JssrqejyvIyvwsXyrCkspJKxdKDMQLRk]]
 == Brute Force Solution
@@ -83,6 +423,15 @@ ____
 //
 * If it's too slow, try something a bit more sophisticated
 
+[[qMuYttxuubacRODFMWhjihipuaPhWYqH]]
+== ! GDC Implementation
+
+[.janini.small]
+....
+// Print the GCD
+System.out.println(gcd(24, 18));
+....
+
 [[SAkZunVquojxGluWfhHFkLljmuDEmoNB]]
 [.oneword]
 == You Don't Need the Fastest Algorithm to Change the World
@@ -91,3 +440,17 @@ That's a good thing!
 
 [[OBLbAkJElAJAKOCSqyEIEFgKyaPMwouY]]
 == Announcements
+
+* link:/MP/1/[MP1] is out and due _on Friday_. Please get started! Today is the
+best day to come to office hours.
+
+* link:info/resources/#emp[EMP (Even More Practice)] continues _tonight_ from
+5&ndash;7PM in *Siebel 1404*.
+//
+This is where it will be held for the rest of the semester.
+//
+*If you struggled on MP0, Quiz 1, or TC 1 or TC2, be there.*
+
+* The next set of Turing's Craft exercises (TC3) are due _tomorrow_ at midnight.
+
+// vim: ts=2:sw=2:et
