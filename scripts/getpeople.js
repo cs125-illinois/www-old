@@ -61,10 +61,6 @@ mongo.connect(process.env.MONGO).then(async client => {
   let peopleByEmail = {}
   for (let person of people) {
     person.name = person.name.full
-    let buffer = new Buffer(person.photo.contents, 'base64')
-    let photoPath = path.join(argv._[1], `people/${ person.email }.jpg`)
-    await fs.writeFile(photoPath, buffer)
-    person.photo = photoPath.split('/').slice(1).join('/')
     delete (person._id)
     _.each(person.sections, section => {
       if (person.role === 'TA') {

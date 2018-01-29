@@ -13,6 +13,7 @@ const markdown = require('metalsmith-markdown')
 const sections = require(path.join(appRootPath.toString(), 'lib/sections.js'))
 const discoverPartials = require('metalsmith-discover-partials')
 const discoverHelpers = require('metalsmith-discover-helpers')
+const people = require('./lib/people.js')
 const course = require(path.join(appRootPath.toString(), 'lib/course.js'))
 const filemetadata = require('metalsmith-filemetadata')
 const inPlace = require('metalsmith-in-place')
@@ -55,8 +56,8 @@ const temporaryDestination = tmp.dirSync({ mode: 0775 }).name
 
 const quiet = (config.quiet == true)
 
-const slides_pattern = 'learn/**/*.adoc'
-const isSlides = (filename, file, i) => {
+const slides_pattern = 'learn/**/*.{adoc,info}'
+const isSlides = (filename, file) => {
   return file.slides == true;
 }
 const MP_pattern = 'MP/**/*.adoc'
@@ -84,7 +85,8 @@ metalsmith(__dirname)
     'css/*',
     'js/*',
     '**/.*.swp',
-    '**/.*.swo'
+    '**/.*.swo',
+    '**/.*.uuid'
   ]))
   .use(buildDate())
   .use(drafts())
@@ -100,6 +102,7 @@ metalsmith(__dirname)
     Fall2017: 'info/2017/fall/course.yaml',
     Spring2018: 'info/course.json'
   }))
+  .use(people())
   .use(filemetadata([
     {
       pattern: slides_pattern,
@@ -124,7 +127,7 @@ metalsmith(__dirname)
   .use(inPlace({
     pattern: '**/*.adoc.hbs',
   }))
-  .use(empty())
+  .use(empty({ notempty: true }))
   .use(asciidoc())
   .use(markdown())
   .use(slides())
@@ -173,6 +176,7 @@ metalsmith(__dirname)
     pattern: 'conf/redirect.conf.hbs',
   }))
   .use(highlight())
+  .use(empty())
   .use(branch(doTransform)
     .use(msif(config.check,
       internalize()))
