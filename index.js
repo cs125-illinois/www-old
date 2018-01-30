@@ -85,8 +85,7 @@ metalsmith(__dirname)
     'css/*',
     'js/*',
     '**/.*.swp',
-    '**/.*.swo',
-    '**/.*.uuid'
+    '**/.*.swo'
   ]))
   .use(buildDate())
   .use(drafts())
@@ -123,6 +122,9 @@ metalsmith(__dirname)
     { pattern: hbs_pattern, metadata: defaultMetadata, preserve: true }
   ]))
   .use(assignUUID())
+  .use(ignore([
+    '**/.*.uuid'
+  ]))
   .use(github())
   .use(inPlace({
     pattern: '**/*.adoc.hbs',
