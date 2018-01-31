@@ -8,3 +8,4 @@ rewrite ^/static-assets/main/site.css$ {{ lookup webpack.assets 'site.css' }} re
 rewrite ^/static-assets/main/site.js$ {{ lookup webpack.assets 'site.js' }} redirect;
 rewrite ^/static-assets/css/site.css$ {{ lookup webpack.assets 'site.css' }} redirect;
 rewrite ^/static-assets/js/site.js$ {{ lookup webpack.assets 'site.js' }} redirect;
+rewrite ^/grades$ /grades/MPs/ redirect;
