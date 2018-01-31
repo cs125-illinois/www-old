@@ -13,6 +13,14 @@ const overview = require('bespoke-overview')
 const forms = require('bespoke-forms')
 const janini = require('./slides/janini.js')
 
+highlightJS = require('highlight.js')
+window.hljs = highlightJS
+highlightJSNumbers = require('./lib/highlightjs-line-numbers.js')
+highlightJS.initHighlightingOnLoad()
+highlightJS.initLineNumbersOnLoad({
+  singleLine: true
+})
+
 bespoke.from({
   parent: 'article.deck',
   slides: 'div.sect1'

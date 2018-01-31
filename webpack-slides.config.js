@@ -26,7 +26,7 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default'],
+      Popper: ['popper.js', 'default']
     }),
     new ExtractTextPlugin('[name].[chunkhash].css'),
     new WebpackCleanupPlugin()

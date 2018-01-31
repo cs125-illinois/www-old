@@ -100,7 +100,7 @@ $headings-font-weight: 700;
 
 @import "~bootstrap/scss/bootstrap";
 @import "sidebar";
-@import "~highlight.js/styles/github-gist.css";
+@import "~highlightjs/styles/github-gist.css";
 
 // Globals
 
@@ -220,7 +220,6 @@ html {
   code {
     font-size: 0.8em;
     color: $illinois-orange;
-    white-space: pre-wrap;
   }
   pre.highlight code {
     color: #090909;
@@ -315,7 +314,6 @@ html {
 }
 .bespoke-slide .listingblock {
   border: 1px dotted grey;
-  padding: 0.5rem;
   pre {
     padding: 0;
     margin-bottom: 0;
@@ -334,6 +332,27 @@ html {
 blockquote {
   border-left: 1px solid $illinois-orange;
   padding-left: 1rem;
+}
+
+td.hljs-ln-code {
+  white-space: pre-wrap;
+  padding-left: 0.5em !important;
+}
+
+td.hljs-ln-numbers {
+  padding-left: 0.5em !important;
+  padding-right: 0.5em !important;
+  background: #efefef;
+  color: #888;
+}
+table.hljs-ln tr:first-child td {
+  padding-top: 0.2em;
+}
+table.hljs-ln tr:last-child td {
+  padding-bottom: 0.2em;
+}
+.hljs {
+  padding: 0 !important;
 }
 
 // vim: ts=2:sw=2:et:ft=scss

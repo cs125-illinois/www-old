@@ -40,7 +40,6 @@ module.exports = () => {
             $(element).attr('data-font-size', $(element).css('fontSize'))
           }
           let originalFontSize = parseInt($(element).attr('data-font-size'))
-          console.log(originalFontSize)
           $(element).width(newWidth)
           $(element).height(newHeight)
           $(element).css('margin-left', `-${ Math.round(newWidth / 2) }px`)

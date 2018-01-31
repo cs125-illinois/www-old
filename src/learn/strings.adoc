@@ -1,6 +1,6 @@
 ---
 title: Strings
-date: 2018-01-29
+date: 2018-01-31
 description:
   An introduction to Java strings and object usage, and continued practice with
   functions and basic imperative programming.
@@ -25,12 +25,354 @@ System.out.println(courseName.startsWith("CS"));
 ....
 --
 
+[[WmPUeTohzldEVfYnIWhPerIBaEfQDhvD]]
+== Q1 Review: Scope
+
+[source,java]
+----
+int first = 5;
+if (first > 4) {
+  int second = 4;
+}
+second++;
+----
+
+When the code above is finished executing, what is the value of `second`?
+
+[[ivfkzarYTElfQHveTOjOYGjmZOTlvzVe]]
+== Q1 Review: Forever
+
+[source,java]
+----
+while (true) {
+  // loop contains code that is not shown here
+}
+----
+
+True or false: the loop above will _never_ terminate.
+//
+Note that the code in the loop is not shown.
+
+(*Everyone got full credit for this question.*)
+
+[[LiRyTsRBbPczwVmFGHFPSCeAKwNyjLSu]]
+== Q1 Review: Scope Again
+
+[source,java]
+----
+for (int index = 0; index < 10; index++) {
+  // do something
+}
+int count = index;
+----
+
+What is the value of `count` when the code above finishes executing?
+
+[[rqIClZggzctFomjMCznEqBALZiRuxFMA]]
+== Q1 Review: `continue`
+
+[source,java]
+----
+int counter = 0;
+for (int index = 0; index < 10; index++) {
+  if (index > 4) {
+    continue;
+    counter--;
+  }
+  counter--;
+}
+----
+
+What will the value of `counter` be when the code above finishes executing?
+
+[[CqpmNgcDQILVvcMipqUoJmaKMAtAVgzb]]
+== Q1 Review: `break`
+
+[source,java]
+----
+int counter = 0;
+for (int index = 0; index < 10; index++) {
+  counter++;
+  if (index > 5) {
+    break;
+  }
+}
+----
+
+What will the value of `counter` be when the code above finishes executing?
+
+[[dpOeGmvIOrjFkkAjnGArGKepUnQnyCne]]
+== Q1 Review: `break`
+
+[.janini]
+....
+int counter = 0;
+for (int index = 0; index < 10; index++) {
+  counter++;
+  if (index > 5) {
+    break;
+  }
+}
+System.out.println(counter);
+....
+
+[[YKIvyTKSPnBfEqFecIqlZPIdTOHVIfUb]]
+== Storing Data
+
+[.lead]
+//
+So far we know how to store a few different types of data using Java's
+8 _primitive_ types:
+
+[.s]
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+//
+. *Character*: `char`
+//
+. *True or false*: `boolean`
+
+[[PouzGeQaOVepywQDkEYEPshgXjLvTThm]]
+[.oneword]
+== What's Missing?
+
+[[wOiXEJdgbfGPXuUmdxBdAREJWwtCfmQf]]
+== !
+
+image::http://infinitesummer.org/images/final-page-dfw-autograph1-full.jpg[role='mx-auto meme',width=640]
+
+[[NyForrcGjinbQfWloCVOiFepnZirgYci]]
+== !
+
+image::https://www.howtogeek.com/wp-content/uploads/2016/07/01_no_times_on_messages.png[role='mx-auto meme', height=480]
+
+[[HbgrrKBaDgYOEQYQLAGLMEDJjkjreHpD]]
+== !
+
+image::https://www.cyberdriveillinois.com/images/licenseplates/pap/passengerpersonalized.gif[role='mx-auto meme',width=640]
+
+[[PYhkVAmazGGwxDSEazwgjdtnbaGtvKUf]]
+== !
+
+image::https://stuart-mcintyre.com/wp-content/uploads/2016/10/Ihate-Passwords-2.jpg[role='mx-auto meme',width=640]
+
+
+[[wWUlHcEZkxzdfMkuBiPWxHonySKJGkGN]]
+== Strings
+
+[.lead]
+//
+Much of the interesting data in our _human_ world is in text form.
+
+As a computer scientist, you call text _a string_.
+
+[.s.small]
+--
+(I realize that I cannot remember not knowing that term. I guess I'm old, or
+just have really become a computer scientist.)
+--
+
+[[FcKdeYMaKKBIcEDIQtxjauJDzrWKzAab]]
+== Java Strings
+
+[.lead]
+//
+Unsurprisingly, Java has a `String` type.
+
+We can declare, assign, and pass them to functions like primitive types.
+
+[source,java]
+----
+String maybe;
+maybe = "Challen"; // No, bad
+maybe = "Geoff"; // Better, thanks
+callMe(maybe); // You have my number?
+----
+
+[[CJfOIXpOQnKKkQsNlcCcqdQLehzcuKMt]]
+== Strings Seem Familiar, But Behave Differently
+
+[.janini.small]
+....
+String password = "chuchudog";
+System.out.println(password.length());
+System.out.println(password.equals("xyzcat"));
+....
+
+[[tilOsJdZUxdxwRUxjagFrbnsqFcJosVE]]
+== Our First Object
+
+[.lead]
+//
+In Java a `String` is our first example of an _object_.
+
+Objects combine _state_ (like variables) and _behavior_ (like functions).
+
+[.s]
+//
+* Each `String` has *state*: the array of characters in that string
+//
+* Each `String` also has *behavior*: functions that we can call on it
+that operate on its state
+
+[[OvtJcTTuXcjKTJlXFFSHNAHjCiynSXmV]]
+[.oneword]
+== What does it _store_, and what does it _do_?
+
+[[eOfhoslUTfTbEOhXkqlLDWNAJNDehpYp]]
+== Objects v. Primitives
+
+[.s]
+--
+*Primitives:*
+
+* Store something that can be represented as a _single number_
+//
+* Have type names that start with a lowercase letter: `int`, `char`, etc.
+--
+
+[.s]
+--
+*Objects:*
+
+* Can be made up of multiple other objects or primitive types
+//
+* Have type names that start with an _uppercase_ letter: `String`
+--
+
+[[zOHUuJANCnSTKPaWnIIJzqBkQzeVCtsb]]
+== Objects
+
+[.lead]
+//
+You will get a _lot_ of practice working with and designing your own objects.
+
+For now we're going to use strings as a gentle introduction to _using_ objects.
+
+[[QGsUEhwPCbMRSNMEumCMtxAOOyALebns]]
+== Strings
+
+[.lead]
+//
+Normally to initialize an object in Java you use the `new` keyword.
+
+[source,java]
+----
+String myString = new String("ABC");
+String anotherString = new String("DEF");
+----
+
+[.s]
+--
+However, strings are so common that Java provides a shorthand:
+
+[source,java]
+----
+String myString = "ABC";
+String anotherString = "DEF";
+----
+--
+
+[.s.small]
+--
+(In practice there are minor differences between the two code snippets above,
+but we're not going to worry about them.)
+--
+
+[[UIhmBZCHezDDxGMCrlnFcekMApNqVoqb]]
+== Arrays Are Also Objects
+
+[.lead]
+//
+Do you remember? We've seen `new` before...
+
+[source,java]
+----
+int[] array = new int[8];
+----
+
+Java arrays are also objects&mdash;which is why we create them with `new` and
+can access their length property as `array.length`.
+
+[[fxYUpZnKjOeBhxuPdCUXUaDtToHWshqX]]
+== Combining Strings
+
+[.lead]
+//
+We can combine strings using the concatenation operator: `+`.
+
+[source,java]
+----
+String first = "Geoffrey";
+String last = "Challen";
+String full = first + " " + last;
+----
+
+[[MdFtcLZfcghYDQctqpaAvHQfVHRAztHx]]
+== Creating Strings
+
+[.janini]
+....
+String myString = new String("ABC");
+String anotherString = "DEF";
+String combined = myString + anotherString;
+....
+
+[[qgyZJGVcnPbtmGwsjvZKKNHgQkHSJLfk]]
+== Dot Notation
+
+[.lead]
+//
+We access an object's state and methods using _dot notation_.
+
+[source,java]
+----
+String example = "test";
+System.out.println(example.length());
+System.out.println(example.replace('t', 'b'));
+System.out.println(example.toUpperCase());
+----
+
+[[uGQxGsSonXYAoTfonqAAaqsjVcidGsjz]]
+== ! All About Strings
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[YucAlGbdPpwYwFOIXNsWismCONtiOZiC]]
+== Dot Notation
+
+[.janini.small]
+....
+String example = "test";
+System.out.println(example.length());
+System.out.println(example.replace('t', 'b'));
+System.out.println(example.toUpperCase());
+....
+
+[[HTzskjeLoQJegEVEiJEfzGbpwcnLafeR]]
+== Fun With Strings
+
+[.janini]
+....
+String myString = new String("ABC");
+....
+
+[[WWDpfkPXJQHdXQWuGkdSppQodHJoBZiw]]
+[.oneword]
+== Questions About Strings?
+
 [[HiatdhpaUkUnyCVrqTZFbPvmyUaqWSVN]]
 == Consecutive Identical Values
 
 [.lead]
 //
-Given a string, find all cases where consecutive characters are the same.
+Given a string, write a function to find all cases where consecutive characters
+are the same.
 
 *First, what is our algorithm?*
 
@@ -51,67 +393,52 @@ Given a string, find all cases where consecutive characters are the same.
 String toSearch = "abcdefeffh";
 ....
 
-[[BzRRFIMstyqbRXhqEywqvIoQJUgYebbD]]
-== Greatest Common Denominator
+[[jNMJwETWXSWbAxQzVcqVQuVwMheKUskW]]
+== Split Name
 
-[quote]
+[.lead]
 //
-____
-//
-In mathematics, the
-//
-https://en.wikipedia.org/wiki/Greatest_common_divisor[greatest common divisor
-(GCD)]
-//
-of two or more integers, which are not all zero, is the largest positive integer
-that divides each of the integers.
-//
-____
+Imagine I have a person's full name in a string in either one of the following
+two formats:
 
-[[pjDljAIzRjELOcfeobkDQFRinIBUMrhD]]
-== ! GCD Algorithms
-
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="full embed-responsive-item" src="https://en.wikipedia.org/wiki/Greatest_common_divisor#Calculation"></iframe>
-</div>
-++++
-
-[[tDXMsVMWQaICoZpNjRwvYQvYvpkBVCKA]]
-[.oneword]
-== But We Only Have a Few Minutes Left...
-
-[[JssrqejyvIyvwsXyrCkspJKxdKDMQLRk]]
-== Brute Force Solution
-
-[quote]
-____
-https://en.wikipedia.org/wiki/Brute-force_search[Brute force solution]:
+. "First Last", or
 //
-a very general problem-solving technique that consists of systematically
-enumerating all possible candidates for the solution and checking whether each
-candidate satisfies the problem's statement.
-____
+. "Last, First"
 
-[.s]
-//
-* Computers today are very, _very_ fast
-//
-* So try the simple thing first
-//
-* If it's too slow, try something a bit more sophisticated
+Write a function to split the name into two string values: one storing the first
+name and the second storing the last name.
 
-[[qMuYttxuubacRODFMWhjihipuaPhWYqH]]
-== ! GDC Implementation
+[[IxHApLsXKcBfXRTvZGwXTFwkYaFKdDZs]]
+== ! Split Name
 
 [.janini.small]
 ....
-// Print the GCD
-System.out.println(gcd(24, 18));
+// Split into first and last name
+String fullName = "Chuchu Challen";
 ....
 
-[[SAkZunVquojxGluWfhHFkLljmuDEmoNB]]
-[.oneword]
-== You Don't Need the Fastest Algorithm to Change the World
+[[YemcmnNYbOtEtuBEGbKHhmEPGqaxnAqs]]
+== Search Text
 
-That's a good thing!
+[.lead]
+//
+Given a line of text, write a function that searches for all occurences of a
+given word.
+
+[[rnEWJyzismEfUrHNeZpIfIdwIJEQonpb]]
+== ! Search Text
+
+[.janini.small]
+....
+// Search text for a specific word
+String text = "Where do random thoughts come from?"
+....
+
+[[WPSJSvOmtUmlYdTgiKWnbYfzgIxAdLdz]]
+== Announcements
+
+* link:/MP/1/[MP1] is out and due _on Friday_. Please get started!
+//
+* The next set of Turing's Craft exercises (TC4) are due _tomorrow_ at midnight.
+
+// vim: ts=2:sw=2:et

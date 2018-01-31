@@ -81,9 +81,9 @@ metalsmith(__dirname)
   .source(config.source)
   .destination(temporaryDestination)
   .use(ignore([
-    'fonts/*',
-    'css/*',
-    'js/*',
+    'fonts/**/.*',
+    'css/**/.*',
+    'js/**/.*',
     '**/.*.swp',
     '**/.*.swo'
   ]))
