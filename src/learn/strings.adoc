@@ -1,38 +1,54 @@
 ---
-title: Functions and Algorithms
+title: Strings
 date: 2018-01-29
 description:
-  Continued introduction to functions and practice using algorithms to
-  solve problems.
+  An introduction to Java strings and object usage, and continued practice with
+  functions and basic imperative programming.
 spelling_exceptions:
   - GCD
-draft: true
 ---
+
+[[RymbwXCSvxAKhgLtbrVytdXMwSvxMHvJ]]
+== !
+
+[.janini.small]
+--
+++++
+<div class="message">Strings<br/>Press Control-Return to run the code above</div>
+++++
+....
+String courseName = "CS 125";
+System.out.println(courseName);
+System.out.println(courseName.length());
+System.out.println(courseName + " rocks");
+System.out.println(courseName.startsWith("CS"));
+....
+--
 
 [[HiatdhpaUkUnyCVrqTZFbPvmyUaqWSVN]]
 == Consecutive Identical Values
 
 [.lead]
 //
-Given an array of chars, find all cases where consecutive elements are the same.
+Given a string, find all cases where consecutive characters are the same.
 
 *First, what is our algorithm?*
 
 [.s]
 //
-. Examine each value in the array
+. Examine each character in the array
 //
-. Compare it with the next value&mdash;but how do we get at that?
+. Compare it with the next character&mdash;but how do we get at that?
 //
 . Print it out if they are the same
 
 [[nbSIYahKjyKuYqGenoNlETYtzzvVjQpO]]
-== ! Consecutive Identical Values
+== ! Consecutive Identical Characters
 
 [.janini.small]
 ....
-// Print consecutive identical values
-char[] toSearch = { 'a', 'b', 'b', 'c', 'e', 'f', 'f' };
+// Print consecutive identical characters
+String toSearch = "abcdefeffh";
 ....
 
 [[BzRRFIMstyqbRXhqEywqvIoQJUgYebbD]]
