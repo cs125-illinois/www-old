@@ -5,23 +5,22 @@ description:
   word counting exercises.
 spelling_exceptions:
   - urlScanner
-draft: true
 ---
 :sectnums:
 :linkattrs:
 
 [.lead]
 //
-In this lab we begin focusing our attention on the art and craft&mdash;the
+In this lab we focus our attention on the art and craft&mdash;the
 https://en.wikipedia.org/wiki/Techne[_techne_]&mdash;of programming.
 //
 We'll do some code reading and talk style; continue developing our algorithmic
 chops; and get practice with variable assignment, loops, and counters.
 //
-We've also set aside some time to talk link:/MP/1/[MP1].
+We've also set aside some time to talk link:/MP/2/[MP2].
 
 [[exercises]]
-== Written Exercises [.text-muted]#(50 Minutes)#
+== Written Exercises [.text-muted]#(40 Minutes)#
 
 [.lead]
 //
@@ -29,7 +28,7 @@ We begin with a set of code reading and writing exercises.
 
 Complete this part of the lab in pairs using Google Docs.
 //
-Create a copy of https://goo.gl/qXiTtc[our document template], and then edit it
+Create a copy of https://goo.gl/XJ1Aur[our document template], and then edit it
 to record you and your partner's answers.
 //
 **Note that you must open this document using your @illinois.edu Google Apps
@@ -46,73 +45,25 @@ When you are done, move on to the next section.
 '''
 
 [[scraping]]
-== Simple Web Scraping [.text-muted]#(30 Minutes)#
+== Simple Web Scraping [.text-muted]#(40 Minutes)#
 
 [.lead]
 //
 For the second part of this lab we're going to do a quick code writing exercise.
 //
 Our goal is to show how easy it is to fetch and process content from the
-web&mdash;the most impressive library that the world has ever created.
+web&mdash;the most impressive library of text the world has ever created.
 
-[[forking]]
-=== Forking the Lab3 Eclipse Project
+[[cloning]]
+=== Forking and Cloning the Lab3 IntelliJ Project
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/w7_6nBOUnjE" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-Just as in link:/lab/1/[Lab 1] and link:/lab/2/[Lab 2], we've set up an Eclipse
-project for Lab 3.
+Follow the
 //
-And, just like link:/lab/1/[Lab 2] and link:/lab/2/[Lab 2], it's on
+link:/lab/2#cloning[instructions from Lab 2]
 //
-https://github.com/cs125-illinois/Lab3[GitHub].
-
-However, this time we're going to use a more common GitHub development model
-when you want to make your own changes to a project.
+to fork a copy of our
 //
-First, we'll https://help.github.com/articles/fork-a-repo/[_fork_] the
-repository.
-//
-Then, we'll clone our own copy of it.
-//
-Once we're done, we'll be able to save our changes at the end of the lab, since
-we have our own private copy of the project.
-
-Here's what to do.
-//
-*Note that you will need a valid GitHub username for this part of the lab.*
-//
-If you don't have one, https://github.com/join[go ahead and create
-one]&mdash;the process is quick,free, and painless.
-//
-Once you have your GitHub account set up:
-
-. Go to
-//
-https://github.com/cs125-illinois/Lab3[https://github.com/cs125-illinois/Lab3,role="spelling_exception"].
-//
-In the upper right hand corner of the page, there is a button that says "Fork".
-Click it.
-//
-. It may give you a choice of where to fork the repository.
-//
-Choose your personal GitHub account.
-//
-. Once that's done, you'll have your own copy of our Lab3 project at
-//
-link:https://github.com/yourgithubusername/Lab3[https://github.com/yourgithubusername/Lab3, role="noclick link_exception"]
-
-Now, using the link to _your copy_ of the Lab3 project, follow the
-//
-link:/lab/1/#cloning[cloning the repository instructions from Lab 1].
+https://github.com/cs125-illinois/Lab3[Lab3 GitHub repository].
 
 ==== Wait: where's the content?
 
@@ -125,8 +76,8 @@ Because we want you to get the hang of starting from scratch.
 //
 Why did we have you clone our largely-empty project then?
 //
-Mainly because Eclipse does a terrible job of setting good defaults for various
-settings, and because we want you to keep using checkstyle.
+Just to set up a few defaults for you, and because we want you to keep using
+`checkstyle`.
 
 === Getting to the `main` Point
 
@@ -135,9 +86,9 @@ Working with our Lab3 project, create a new class in `src/main/java`.
 You can call it anything you like.
 //
 Make sure that it has a main method&mdash;we'll be using it throughout the lab.
-//
-We've gone through this a few times in class, so hopefully you have the hang of
-it by now.
+// TODO
+Refer to the screencast above for guidance about how to create a new class in
+IntelliJ.
 //
 Ask a neighbor or a staff member for help if you need it.
 
@@ -256,67 +207,16 @@ But give it a shot if you get here with time to spare.
 [[push]]
 === Saving Your Work
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/xT-tjHkQtx4" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
+For Lab 3 we want you to commit and push your changes to the new GitHub
+repository that you created above.
+//
+You should be familiar with this process from link:/MP/0/[MP0] and
+link:/MP/1/[MP1].
 
-For Lab 3 we _really do_ want you to commit and push your changes to the new
-GitHub repository that you created above.
-//
-Once you have some changes to your project, the process is similar *but not
-identical* to the process of link:/MP/subversion/#commit[committing changes with
-Subversion].
+[[mp2]]
+== Help with MP2 [.text-muted]#(20 Minutes)#
 
-. Right click on the project and choose "Team &rarr; Commit".
-//
-. This will bring up a window where you can view what changes you have made to
-the project.
-//
-Unlike Subversion, Git does not force you to commit every change
-you have made at once.
-//
-This is useful in many cases&mdash;for example, when you were working on two new
-features at once and want separate commits containing the changes for each.
-//
-. In our case, simply move all of the appropriate unstaged files into the
-staging area.
-//
-. Then, write a commit message.
-//
-. At this point you have two options: "Commit", and "Commit and Push".
-//
-For the sake of this exercise, choose just "Commit".
-//
-. Now browse to your GitHub copy of Lab 3.
-//
-*You should not see your new changes.*
-//
-This is an important difference between Git and Subversion.
-//
-Git maintains a local copy of the _entire repository_, and commits go to that
-repository first.
-//
-To get them to your remote repository on GitHub requires a separate step known
-as a _push_.
-//
-. Go ahead and do the push now: "Team &rarr; Push to Upstream".
-//
-. Once that completes refresh your GitHub page.
-//
-You should see the last commit message you added as well as your changes.
-//
-That's all there is to it!
-
-[[mp1]]
-== Help with MP1 [.text-muted]#(20 Minutes)#
-
-Use any remaining time in your lab section to get help with link:/MP/1/[MP1].
+Use any remaining time in your lab section to get help with link:/MP/2/[MP2].
 //
 If you are done or making good progress, please help others&mdash;but help them
 _learn_, don't just give them the answers.
