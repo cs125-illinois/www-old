@@ -33,6 +33,139 @@ printBoard(currentBoard);
 ....
 --
 
+[[LYBXTYBhNNOkfWDQWAHmmmAYePQENetu]]
+== Arrays Can Have Multiple Dimensions
+
+[source,java]
+----
+// This is a single-dimensional array of ints of size 4
+int[] samples = new int[4];
+
+// This is a two-dimensional array of of chars of
+// size 4 in the first dimension and 8 in the second
+char[][] board = new char[4][8];
+
+// This is a three-dimensional array of of doubles of
+// size 6 in the first dimension, 8 in the second,
+// and 10 in the third
+double[][][] temperature = new double[6][8][10];
+----
+
+[[AYeaITTSBxWpPrEbXjyZmEongNkJVqiT]]
+== Understanding Multi-Dimensional Arrays
+
+[source,java]
+----
+// This is a two-dimensional array
+int[][] samples = new int[4][8];
+
+// This is a one-dimensional array
+int[] samplesSlice = samples[0];
+----
+
+[[OZTfWGqrMGPYGTRbiCLDBCeqOykWouWY]]
+== ! Understanding Multi-Dimensional Arrays
+
+[.janini.small]
+....
+// This is a two-dimensional array
+int[][] samples = new int[4][8];
+
+// This is a one-dimensional array
+int[] samplesSlice = samples[0];
+....
+
+[[XbzmRUFINATfpfsYOZndYqBJbDJTDaCK]]
+== Multi-Dimensional Array Initialization
+
+[.lead]
+//
+We can also initialize multi-dimensional arrays:
+
+[source,java]
+----
+int[][] measurements = {
+  { 1, 2 }
+  { 3, 4 }
+}
+// This is equivalent to
+int measurements = new int[2][2];
+measurements[0][0] = 1;
+measurements[0][1] = 2;
+measurements[1][0] = 3;
+measurements[1][1] = 4;
+----
+
+[.smaller]
+--
+(The ordering can be confusing, but you won't see this often.)
+--
+
+[[txMiehCfZKNUIQTrXUnNejdcmhuKoZsM]]
+== ! Multi-Dimensional Array Initialization
+
+[.janini.small]
+....
+int[][] measurements = {
+  { 1, 2 }
+  { 3, 4 }
+}
+System.out.println(measurements[0][0]);
+....
+
+[[phqJItalkKdADBlZJGKGTkleiyYQQmtP]]
+[.oneword]
+== Forget About Rows and Columns
+
+[[BMdFVVRUiVkQoIxKubbNdAGtimRATtKK]]
+== You're In Charge
+
+[.lead]
+//
+The first, second, third, or Nth index of an array mean _whatever you want_.
+
+This is particularly important when representing certain kinds of data using
+multi-dimensional arrays.
+
+[[MHcjRtzrWSmdWjhFoUgqyFYAlXrqeXcp]]
+== Multi-Dimensional Data
+
+[.lead]
+//
+What kind of data would work well in a multi-dimensional array?
+
+[[BepbCwECvQdCXlOVsuccxNgVREFBdMWj]]
+== ! Photos
+
+image::https://picsum.photos/640/480/?random[role='mx-auto meme',width=640]
+
+[[yqULMeaCDCWwJgAsZkkMOWGIAWHMDsNd]]
+== ! 3D Data
+
+image::https://www.originlab.com/doc/en/Tutorial/images/Stacked_3D_Surface_Plots/Stacked_3D_Surface_Plots_01.png[role='mx-auto meme',width=640]
+
+[[FSxgyqZIpPctgwZqENSSmBulUgwXctPM]]
+== ! Stereo Sound
+
+image::https://goo.gl/e5bxj9[role='mx-auto meme',width=640]
+
+[[BzeZDeXBfKvOPIzPuCYaNsSPjgYOUBde]]
+== Multi-Dimensional Data
+
+[.lead]
+//
+What kind of data would work well in a multi-dimensional array?
+
+[.s]
+//
+* *Pictures and images:* each pixel is stored in a 2-dimensional grid
+//
+* *Higher-dimensional data:* our world is 3D&mdash;4D, actually&mdash;so our
+data should be as well.
+//
+* *Sound:* even data that might _seem_ one dimensional often turns out to be
+more complicated than we expected
+
 [[RwYaPzUMIaBzQKFpfjLgSPvjSBjHcGIZ]]
 == Announcements
 
