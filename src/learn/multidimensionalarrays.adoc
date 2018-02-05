@@ -85,9 +85,9 @@ We can also initialize multi-dimensional arrays:
 [source,java]
 ----
 int[][] measurements = {
-  { 1, 2 }
+  { 1, 2 },
   { 3, 4 }
-}
+};
 // This is equivalent to
 int measurements = new int[2][2];
 measurements[0][0] = 1;
@@ -116,6 +116,7 @@ System.out.println(measurements[0][0]);
 [[phqJItalkKdADBlZJGKGTkleiyYQQmtP]]
 [.oneword]
 == Forget About Rows and Columns
+(These aren't spreadsheets&mdash;you're not in business school.)
 
 [[BMdFVVRUiVkQoIxKubbNdAGtimRATtKK]]
 == You're In Charge
@@ -166,6 +167,23 @@ data should be as well.
 * *Sound:* even data that might _seem_ one dimensional often turns out to be
 more complicated than we expected
 
+[[dEZnUTMjzQsXtEmUYUGKcxIYUUsBwxfM]]
+== Multi-Level Loops
+
+[.lead]
+//
+A frequent use of nested `for` loops is to iterate over multi-dimensional
+arrays:
+
+[source,java]
+----
+for (int i = 0; i < array.length; i++) {
+  for (int j = 0; j < array[i].length; j++) {
+    System.out.println(array[i][j]);
+  }
+}
+----
+
 [[OqmwyrjnsTqkhKVnmUFRqLQbIARBdzDS]]
 == ! Checking A Tic-Tac-Toe Board
 
@@ -177,7 +195,7 @@ char[][] currentBoard =
 // Return the winner if the game is over, '.' otherwise
 static char checkBoard(char[][] board) {
 }
-printBoard(currentBoard);
+checkBoard(currentBoard);
 ....
 
 [[uaGZMZVOKkWlVTkTSJTaEISWBaBnfDdy]]
@@ -315,6 +333,8 @@ This is where it will be held for the rest of the semester.
 //
 *If you struggled on MP1, Quiz 2, the last couple TC, be there.*
 
-* The next set of Turing's Craft exercises (TC6) are due _tomorrow_ at midnight.
+* The current set of Turing's Craft exercises (TC5) are due _tonight_ at midnight.
+
+* The _next_ set of Turing's Craft exercises (TC6) are due _tomorrow_ at midnight.
 
 // vim: ts=2:sw=2:et
