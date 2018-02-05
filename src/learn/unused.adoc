@@ -158,3 +158,126 @@ static char checkBoard(char[][] board) {
 }
 printBoard(currentBoard);
 ....
+
+[[uaGZMZVOKkWlVTkTSJTaEISWBaBnfDdy]]
+== The do-while Loop
+
+[.lead]
+//
+Remember the `while` loop?
+
+[source,java]
+----
+while (condition) {
+  // do something
+}
+----
+
+It also has a friend:
+
+[.s]
+--
+[source,java]
+----
+do {
+  // do something
+} while (condition);
+----
+
+What's the difference?
+--
+
+[[OPSrkYUNTxrjfKcdKlMrOeaNTfwJaaCi]]
+== Switch Statements
+
+[.lead]
+//
+Remember the `if` statement?
+[source,java]
+----
+if (conditionA) {
+  // do something
+} else if (conditionB) {
+  // do something else
+} else if (conditionC) {
+  // ...
+}
+----
+
+It too has a friend:
+
+[.s]
+--
+[source,java]
+----
+switch (variable) {
+  case A:
+    // do something
+  case B:
+    // do something else...
+}
+----
+--
+
+[[nGiQLdRcHAuGxCdGVrExNKMGjQtwQPlJ]]
+== Switch Statements
+
+[.lead]
+//
+`switch` is more limited than `if-else`, but also more flexible:
+
+[.s]
+//
+* It only works for testing primitive types and ``String``s
+//
+* But you can match multiple ``case``s in a single `switch` statement
+//
+* Execution _starts_ at a matching `case` statement and continues until a
+`break` statement is reached
+
+[[BNTWPZKfwWhfxfRAtLWKGjIEGdZoPTVZ]]
+== ! Switch Statements
+
+[.janini.small]
+....
+int test = 2;
+switch (test) {
+  case 0: System.out.print("A");
+  case 1: System.out.print("B");
+  case 2: System.out.print("C");
+  case 3: System.out.print("D");
+  default: System.out.println("E");
+}
+System.out.println();
+....
+
+[[gPucDaBMQDrRTTpzHGhYeKkUqKBFQzyR]]
+== Search Text
+
+[.lead]
+//
+Given a line of text, write a function that searches for all occurrences of a
+given word.
+
+[[eyqUvEBDookviajBvuXtPufaOcUyPAhM]]
+[.oneword]
+== What's Our Algorithm?
+
+[[CjUbIEwBODHnKAjrDdalyYWzIqZflMlk]]
+== ! Search Text
+
+[.janini.small]
+....
+// Search text for a specific word
+String text = "Where do random thoughts come from?"
+....
+
+[[kLZPLCwNTswvGzxkLeLVyLvzOzzBzbxG]]
+== ! Read The Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
