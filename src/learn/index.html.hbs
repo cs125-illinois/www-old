@@ -10,11 +10,15 @@ doTOC: false
   Slides are available for all CS 125 lectures. All slide decks contain many
   examples that you can run and interact with.
 </p>
-<hr />
 
+<a class="anchor" id="Spring_2018"></a>
 <h1>Spring 2018</h1>
 
 <a href="https://goo.gl/n2Uzkj">Pre-Lecture Music</a>
+//
+<a href="https://echo360.org/section/8cef8dac-8c35-444a-85a6-d4148eca942f/home">Echo360</a>
+
+<hr />
 
 <div class="mt-2 smaller">
   {{#each slides }}
@@ -48,9 +52,13 @@ doTOC: false
 <div class="col-xl-3 d-none d-xl-block toc">
   <nav id="toc" class="nav flex-column">
     <ul class="section-nav">
+      <li class="entry">
+        <strong><a class="nav-link" href="#Spring_2018">Spring 2018</a>
+        </strong>
+      </li>
       {{#each slides }}
-        <li class="entry">
-          <a class="nav-link" href="#{{ this.slug }}">{{ this.title }}</a>
+        <li class="entry small">
+          <a class="nav-link" href="#{{ this.slug }}">{{ format_date this.date "shortSlides" }}: {{ this.title }}</a>
         </li>
       {{/each}}
     </ul>
