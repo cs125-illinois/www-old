@@ -1,0 +1,418 @@
+---
+title: More Constructs
+date: 2018-02-07
+description:
+  More imperative programming constructs and practice with algorithms.
+spelling_exceptions:
+  - GCD
+---
+:imagesdir: /slides/images
+:!sectids:
+
+[[GfHTlawcMZRgXqXNhwcWsVHYtFCxBOvF]]
+== !
+
+[.janini.smaller]
+--
+++++
+<div class="message">More Constructs<br/>Press Control-Return to run the code above</div>
+++++
+....
+char[][] currentBoard =
+  {{'X', 'O', '.'}, {'O', 'X', 'X'}, {'O', 'O', 'O'}};
+static char checkBoard(char[][] board) {
+  for (int i = 0; i < board.length; i++) {
+    if (board[i][0] != '.' &&
+        board[i][0] == board[i][1] &&
+        board[i][1] == board[i][2]) {
+      return board[i][0];
+    }
+  }
+  return '.';
+}
+System.out.println(checkBoard(currentBoard));
+....
+--
+
+[[FvnOrONtOGvRaMNKSpkqprbJULYznddV]]
+== Q2 Review: Empty Arrays
+
+[source,java]
+----
+boolean g(char[] x, char[] y) {
+  if (x.length != y.length) {
+    return false;
+  }
+  for (int i = 0; i < x.length; i++) {
+    if (x[i] != y[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+----
+
+What happens if the function above is called with two empty arrays?
+
+[[OQextsmyguYvUttCdRdyfPDnmqIyfHEv]]
+== ! Q2 Review: Empty Arrays
+
+[.janini.smaller]
+....
+static boolean g(char[] x, char[] y) {
+  if (x.length != y.length) {
+    return false;
+  }
+  for (int i = 0; i < x.length; i++) {
+    if (x[i] != y[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+System.out.println(g(new char[0], new char[0]));
+....
+
+[[yowTfLIYTfvavaanoBreRJauXiHjoPbW]]
+== Q2 Review: Javadoc
+
+[.lead]
+//
+If you don't write good Javadoc comments, which of the following will not
+happen?
+
+[[QgZlrXBjAYxDfwzBoJvdtwsBeKeoezTQ]]
+== Q2 Review: Problems
+
+[source,java]
+----
+boolean t(String f, String g) {
+  for (int i = 0; i < f.length(); i++) {
+    if (f.charAt(i) != g.charAt(g.length() - i)) {
+      return false;
+    }
+  }
+  return true;
+}
+----
+
+What are problems with the code above?
+
+[[MFVdvwNSHySuUhXPxpkIQGLYKRhxsWrQ]]
+== ! Q2 Review: Problems
+
+[.janini.small]
+....
+// Let's clean up this mess
+boolean t(String f, String g) {
+  for (int i = 0; i < f.length(); i++) {
+    if (f.charAt(i) != g.charAt(g.length() - i)) {
+      return false;
+    }
+  }
+  return true;
+}
+....
+
+[[NKfHfMNXFWmCUHYZENuiqMTIjhQkFfRu]]
+== Q2 Review: Functions
+
+[.lead]
+//
+What is _not_ a reason to break your code into functions?
+
+[[aqdhiuUidCXSagiBqzZHGcOwuDTjEYTf]]
+== Q2 Review: Quickly
+
+[quote]
+____
+https://www.merriam-webster.com/dictionary/iterate[iterate]:
+//
+to say or do again or again and again
+____
+
+(Like in a `for` loop.)
+
+[source,java]
+----
+void printStuff() {
+  System.out.println("Stuff");
+}
+----
+
+[[zqkWJGCYXfgOIAVqIEaVDzqdRRbYKglb]]
+== The do-while Loop
+
+[.lead]
+//
+Remember the `while` loop?
+
+[source,java]
+----
+while (condition) {
+  // do something
+}
+----
+
+It also has a friend:
+
+[.s]
+--
+[source,java]
+----
+do {
+  // do something
+} while (condition);
+----
+
+What's the difference?
+--
+
+
+[[WmfAYAcjhSGdGmaAuCEzbIuCSkaGdSPs]]
+== Split Name
+
+[.lead]
+//
+Imagine I have a person's full name in a string in either one of the following
+two formats:
+
+. "First Last", or
+//
+. "Last, First"
+
+Write a function to split the name into two string values: one storing the first
+name and the second storing the last name.
+
+[[iJAoMgezojhJraOapZjwJeDJayWJGcqe]]
+[.oneword]
+== What's Our Algorithm?
+
+[[cfvgLyEhXtEsVVRaohUePFhFjwpUVfyP]]
+== ! Split Name
+
+[.janini.small]
+....
+// Split into first and last name
+String fullName = "Chuchu Challen";
+....
+
+[[WMVaFqzEisdOpZRIKWojqkDaNgeVylrd]]
+== Most Common Character
+
+[.lead]
+//
+Given a string, determine which character appears most often.
+
+[[rlspApdiVWfASdnfZXwiPNNfyMCjaFBk]]
+[.oneword]
+== What's Our Algorithm?
+
+[[SqZaHgemoygHGMoTZePPHMqgtwbXhtbf]]
+== ! Here's Some Help
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html"></iframe>
+</div>
+++++
+
+[[yGMNjJNHwkODmePZRdhknATgdCWhnysa]]
+== Most Common Character
+
+[.janini.small]
+....
+// Determine the most common character
+static char mostCommon(String input) {
+}
+System.out.println(mostCommon("AAAbcd"));
+....
+
+[[dIKRVQETjJKvalwfjCgnDCnMOIAweEbi]]
+== Switch Statements
+
+[.lead]
+//
+Remember the `if` statement?
+[source,java]
+----
+if (conditionA) {
+  // do something
+} else if (conditionB) {
+  // do something else
+} else if (conditionC) {
+  // ...
+}
+----
+
+It too has a friend:
+
+[.s]
+--
+[source,java]
+----
+switch (variable) {
+  case A:
+    // do something
+  case B:
+    // do something else...
+}
+----
+--
+
+[[GQGpocFgRnJkDbjTNceJuPidWpKTiOVg]]
+== Switch Statements
+
+[.lead]
+//
+`switch` is more limited than `if-else`, but also more flexible:
+
+[.s]
+//
+* It only works for testing primitive types and ``String``s
+//
+* But you can match multiple ``case``s in a single `switch` statement
+//
+* Execution _starts_ at a matching `case` statement and continues until a
+`break` statement is reached
+
+[[ZZDTcReAlJdFsuTnxuGEhkRWLFvSYTly]]
+== ! Switch Statements
+
+[.janini.small]
+....
+int test = 2;
+switch (test) {
+  case 0: System.out.print("A");
+  case 1: System.out.print("B");
+  case 2: System.out.print("C");
+  case 3: System.out.print("D");
+  default: System.out.println("E");
+}
+System.out.println();
+....
+
+
+[[KRBfdYBMrkVsIUiPtWQpaMvjFaxBbBhb]]
+== Greatest Common Denominator
+
+[quote]
+//
+____
+//
+In mathematics, the
+//
+https://en.wikipedia.org/wiki/Greatest_common_divisor[greatest common divisor
+(GCD)]
+//
+of two or more integers, which are not all zero, is the largest positive integer
+that divides each of the integers.
+//
+____
+
+[[pyZaCllMdrULvauqswnAJepHpaHQfwkX]]
+== ! GCD Algorithms
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://en.wikipedia.org/wiki/Greatest_common_divisor#Calculation"></iframe>
+</div>
+++++
+
+[[zMzlolQyQpEqiDhKBXfgmWextjxeQuRh]]
+[.oneword]
+== But If We're In A Hurry...
+
+[[kEbZiqSKurhYfKJqkTaNbeOUCZTfCoVR]]
+== Brute Force Solution
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Brute-force_search[Brute force solution]:
+//
+a very general problem-solving technique that consists of systematically
+enumerating all possible candidates for the solution and checking whether each
+candidate satisfies the problem's statement.
+____
+
+[.s]
+//
+* Computers today are very, _very_ fast
+//
+* So try the simple thing first
+//
+* If it's too slow, try something a bit more sophisticated
+
+[[cdPLCWLXcotFbItDihOdMoGIrnHvRhaq]]
+== ! GDC Implementation
+
+[.janini.small]
+....
+// Print the GCD
+System.out.println(gcd(24, 18));
+....
+
+[[jwDewLbZshncxlWPpVMlVaRlttdRvrJV]]
+== ! Bring the Brute
+
+image::https://cdn.vox-cdn.com/thumbor/wgMcgj6LStdjW-qlLkaHUBsdQzY=/0x0:2048x858/1200x800/filters:focal(834x251:1160x577)/cdn.vox-cdn.com/uploads/chorus_image/image/57442421/hulk_agnarok.0.jpg[role='mx-auto meme',width=640]
+
+[[ZYJPajvcIXKPksIpKldeYifMVWOhKMGf]]
+[.oneword]
+== You Don't Need the Fastest Algorithm to Change the World
+
+That's a good thing!
+
+[[xlUUDKHnUEXZrdCEvTxeWpECzublSyeQ]]
+== But How Long Will It Take?
+
+[.lead]
+//
+How long will our brute force GCD algorithm take?
+
+[.s]
+//
+* To compute the GCD of 4 and 6
+//
+* To compute the GCD of 185 and 2045
+//
+* To compute the GCD of M and N
+
+[[PxmXHeEMYGlbwFavqQbQSkIyNxFsoVRv]]
+== Search Text
+
+[.lead]
+//
+Given a line of text, write a function that searches for all occurrences of a
+given word.
+
+[[pGnvfOiHEwdRAmmCAxaybLRjITcRMtqW]]
+[.oneword]
+== What's Our Algorithm?
+
+[[fxmelAuLCuGntmzxdGEPGlkRfgSOnKlL]]
+== ! Search Text
+
+[.janini.small]
+....
+// Search text for a specific word
+String text = "Where do random thoughts come from?"
+....
+
+[[FSzWKGgFlUIZyoEUBYwnQaSgIFPblgSG]]
+== ! Read The Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[ljWwNiTNUZTcMwVnwMCthxpYtdaHFbqP]]
+== Announcements
+
+* link:/MP/2/[MP2] is out and due _on Friday_. Please get started!
+
+* The _next_ set of Turing's Craft exercises (TC6) are due _tomorrow_ at midnight.
+
+// vim: ts=2:sw=2:et
