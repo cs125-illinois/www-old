@@ -91,8 +91,12 @@ module.exports = () => {
           matchBrackets: true,
           lineWrapping: true
         })
-        $(slide).find("div.output").click(() => {
-          run()
+        $(slide).find("div.output").click((e) => {
+          var sel = getSelection().toString();
+          if (!(getSelection().toString().length > 0 &&
+            e.target.contains(getSelection().anchorNode))) {
+            run()
+          }
         })
         $(slide).find("div.output").each((unused, output) => {
           $(output).attr('id', `janini-output-${ i }`)
