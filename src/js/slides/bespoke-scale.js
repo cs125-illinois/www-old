@@ -2,48 +2,50 @@ const $ = require('jquery')
 
 module.exports = function(options) {
   return function(deck) {
-    var parent = deck.parent,
-      firstSlide = deck.slides[0],
-      slideWidth = $(firstSlide).attr('data-width')
-      slideHeight = $(firstSlide).attr('data-height')
-      useZoom = options === 'zoom' || ('zoom' in parent.style && options !== 'transform'),
+    /*
+     * Wrap all slides.
+     */
+    $.each(deck.slides, (i, slide) => {
+      $(slide).wrap('<div class="bespoke-scale-parent"></div>')
+    })
 
-      wrap = function(element) {
-        var wrapper = document.createElement('div');
-        wrapper.className = 'bespoke-scale-parent';
-        element.parentNode.insertBefore(wrapper, element);
-        wrapper.appendChild(element);
-        return wrapper;
-      },
+    /*
+     * Determine the correct transform property.
+     */
+    let transformProperty = 'transform'
+    $.each(['Moz', 'Webkit', 'O', 'ms'], (i, prefix) => {
+      if (prefix + 'Transform' in document.body.style) {
+        transformProperty = `-${ prefix }-transform`.toLowerCase()
+      }
+    })
 
-      elements = useZoom ? deck.slides : deck.slides.map(wrap),
+    let slideWidth = $(deck.parent).attr('data-width')
+    let slideHeight = $(deck.parent).attr('data-height')
 
-      transformProperty = (function(property) {
-        var prefixes = 'Moz Webkit O ms'.split(' ');
-        return prefixes.reduce(function(currentProperty, prefix) {
-          return prefix + property in parent.style ? prefix + property : currentProperty;
-        }, property.toLowerCase());
-      }('Transform')),
-
-      scale = useZoom ?
-      function(ratio, element) {
-        if (!($(element).hasClass('nozoom'))) {
-          element.style.zoom = ratio;
+    let scaleAll = () => {
+      let ratio = Math.min(deck.parent.offsetWidth / slideWidth,
+        deck.parent.offsetHeight / slideHeight)
+      $.each(deck.slides, (i, slide) => {
+        let wrapper = $(slide).parent('.bespoke-scale-parent')
+        if (!($(slide).hasClass('nozoom'))) {
+          $(wrapper).css(transformProperty, `scale(${ ratio })`)
+        } else {
+          let newWidth = Math.round(slideWidth * ratio)
+          let newHeight = Math.round(slideHeight * ratio)
+          if (!($(slide).attr('data-font-size'))) {
+            $(slide).attr('data-font-size', $(slide).css('fontSize'))
+          }
+          let originalFontSize = parseInt($(slide).attr('data-font-size'))
+          $(slide).width(newWidth)
+          $(slide).height(newHeight)
+          $(slide).css('margin-left', `-${ Math.round(newWidth / 2) }px`)
+          $(slide).css('margin-top', `-${ Math.round(newHeight / 2) }px`)
+          $(slide).css('font-size', `${ Math.round(ratio * originalFontSize)}px`)
+          $(slide).css('line-height', `${ Math.round(ratio * originalFontSize * 1.4)}px`)
         }
-      } :
-      function(ratio, element) {
-        element.style[transformProperty] = 'scale(' + ratio + ')';
-      },
-
-      scaleAll = function() {
-        var xScale = parent.offsetWidth / slideWidth,
-          yScale = parent.offsetHeight / slideHeight;
-
-        elements.forEach(scale.bind(null, Math.min(xScale, yScale)));
-      };
-
+      })
+    }
     window.addEventListener('resize', scaleAll);
     scaleAll();
-  };
-
-};
+  }
+}

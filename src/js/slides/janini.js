@@ -8,62 +8,40 @@ require("codemirror/lib/codemirror.css")
 
 module.exports = () => {
   return (deck) => {
-    let janinis = {}
-    _.each(deck.slides, (element, i) => {
-      $(element).find("textarea.janini").each((unused, element) => {
-        let newCodeMirror = CodeMirror.fromTextArea($(element).get(0), {
-          mode: 'text/x-java',
-          lineNumbers: true,
-          matchBrackets: true,
-          lineWrapping: true
-        })
-        janinis[i] = newCodeMirror
-      })
-    })
+    /*
+     * Track the active editor across slide changes.
+     */
     let active
-
-    let firstSlide = deck.slides[0]
-    let slideWidth = $(firstSlide).attr('data-width')
-    let slideHeight = $(firstSlide).attr('data-height')
-    let noZoomResize = () => {
-      let xScale = deck.parent.offsetWidth / slideWidth;
-      let yScale = deck.parent.offsetHeight / slideHeight;
-      let scale = Math.min(xScale, yScale)
-      _(deck.slides)
-        .filter(element => {
-          return $(element).hasClass('nozoom')
-        })
-        .each(element => {
-          let newWidth = Math.round(slideWidth * scale)
-          let newHeight = Math.round(slideHeight * scale)
-          if (!($(element).attr('data-font-size'))) {
-            $(element).attr('data-font-size', $(element).css('fontSize'))
-          }
-          let originalFontSize = parseInt($(element).attr('data-font-size'))
-          $(element).width(newWidth)
-          $(element).height(newHeight)
-          $(element).css('margin-left', `-${ Math.round(newWidth / 2) }px`)
-          $(element).css('margin-top', `-${ Math.round(newHeight / 2) }px`)
-          $(element).css('font-size', `${ Math.round(scale * originalFontSize)}px`)
-          $(element).css('line-height', `${ Math.round(scale * originalFontSize * 1.4)}px`)
-        })
-    }
-    window.addEventListener('resize', noZoomResize)
-    noZoomResize()
-
     deck.on('activate', e => {
       active = e
     })
 
-    $(window).keypress(function (event) {
+    /*
+     * Refreshing the editor causes it to immediately respond to font changes.
+     */
+    window.addEventListener('resize', () => {
+      _(janinis)
+        .each(editor => {
+          editor.refresh()
+        })
+    })
 
+    /*
+     * Handle run events.
+     */
+    $(window).keypress(function (event) {
       if (!(event.which === 13 && event.ctrlKey) &&
           !(event.which === 10 && event.ctrlKey)) {
         return true
-      } else if (!(janinis[active.index])) {
-        return true
       }
       event.preventDefault()
+      run()
+    })
+
+    let run = () => {
+      if (!(janinis[active.index])) {
+        return true
+      }
       let source = janinis[active.index]
       let output = $(active.slide).find('.output').first()
 
@@ -79,7 +57,11 @@ module.exports = () => {
         source: source.getValue() + "\n"
       })).done(result => {
         if (result.completed) {
-          $(output).text(result.output)
+          if (result.output.trim() !== "") {
+            $(output).text(result.output.trim())
+          } else {
+            $(output).html(`<span class="text-success">(Completed with no or blank output)</span>`)
+          }
         } else if (result.timeout) {
           $(output).html(`<span class="text-danger">Timeout</span>`)
         } else if (!result.compiled) {
@@ -94,6 +76,25 @@ module.exports = () => {
         console.error(JSON.stringify(error, null, 2))
         $(output).html(`<span class="text-danger">An error occurred</span>`)
       })
+    }
+
+    /*
+     * Set up Janini editor windows.
+     */
+    let janinis = {}
+    _.each(deck.slides, (slide, i) => {
+      $(slide).find("textarea.janini").each((unused, editor) => {
+        janinis[i] = CodeMirror.fromTextArea($(editor).get(0), {
+          mode: 'text/x-java',
+          lineNumbers: true,
+          matchBrackets: true,
+          lineWrapping: true
+        })
+        $(slide).find("div.output").click(() => {
+          run()
+        })
+      })
     })
+
   }
 }

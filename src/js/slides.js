@@ -27,7 +27,7 @@ bespoke.from({
 }, [
   classes(),
   nav(),
-  scale(),
+  scale('transform'),
   bullets('.bullet'),
   hash(),
   multimedia(),

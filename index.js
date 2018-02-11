@@ -112,7 +112,9 @@ metalsmith(__dirname)
         internalize: {
           force: true
         },
-        addUUID: true
+        addUUID: true,
+        width: 640,
+        height: 480
       },
       preserve: true
     },
