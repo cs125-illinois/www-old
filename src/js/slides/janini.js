@@ -5,6 +5,7 @@ let CodeMirror = require('codemirror')
 require("codemirror/mode/clike/clike")
 require("codemirror/addon/edit/closebrackets")
 require("codemirror/lib/codemirror.css")
+let Split = require('split.js')
 
 module.exports = () => {
   return (deck) => {
@@ -92,6 +93,26 @@ module.exports = () => {
         })
         $(slide).find("div.output").click(() => {
           run()
+        })
+        $(slide).find("div.output").each((unused, output) => {
+          $(output).attr('id', `janini-output-${ i }`)
+        })
+        $(slide).find(".CodeMirror").each((unused, input) => {
+          $(input).attr('id', `janini-input-${ i }`)
+        })
+        Split([`#janini-input-${ i }`, `#janini-output-${ i }`], {
+          sizes: [ 50, 50 ],
+          direction: 'vertical',
+          elementStyle: function (dimension, size, gutterSize) {
+            return {
+              'flex-basis': 'calc(' + size + '% - ' + gutterSize + 'px)'
+            }
+          },
+          gutterStyle: function (dimension, gutterSize) {
+            return {
+              'flex-basis':  gutterSize + 'px'
+            }
+          }
         })
       })
     })
