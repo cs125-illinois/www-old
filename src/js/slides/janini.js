@@ -48,7 +48,7 @@ module.exports = () => {
 
       let toRun = source.getValue()
       if (toRun.trim() === "") {
-        $(output).text($(output).data('blank'))
+        $(output).html($(output).data('blank'))
         return
       } else {
         $(output).html(`<span class="text-warning">Running...</span>`)
