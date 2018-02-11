@@ -105,7 +105,7 @@ module.exports = () => {
           $(input).attr('id', `janini-input-${ i }`)
         })
         Split([`#janini-input-${ i }`, `#janini-output-${ i }`], {
-          sizes: [ 50, 50 ],
+          sizes: [ 70, 30 ],
           direction: 'vertical',
           elementStyle: function (dimension, size, gutterSize) {
             return {
