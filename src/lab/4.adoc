@@ -1,42 +1,46 @@
 ---
-title: Algorithms and Variables
+title: Objects I
 description:
-  Work on variable role identification, truth tables, simple finite-state
-  machines, quiz preparation, and code cleanup exercises.
-draft: true
+  Objects are an important programming concept in Java as well as other
+  programming languages. Today, we begin a multi-week introduction to objects.
+spelling_exceptions:
+  - Pokémon
 ---
 :sectnums:
 :linkattrs:
 
 [.lead]
 //
-In this lab we'll continue to hone our programming skills.
+Today we begin introducing you to _objects_.
 //
-We'll look at how variables are used within and around loops, provide a method
-for understanding complex conditionals, and do a significant code reclamation
-project.
+Objects are an important concept in many programming languages, and particularly
+in Java.
 //
-We've also set aside some time to discuss link:/MP/2/[MP2].
+They provide an intuitive way of organizing _state_ and _behavior_, the two main
+components of any computer program.
 
 [[exercises]]
 == Written Exercises [.text-muted]#(50 Minutes)#
 
 [.lead]
 //
-We begin with a set of code reading and writing exercises.
+As usual, we begin with a written lab component.
+//
+This one is particularly important, however, so please slow down and complete
+the exercises carefully.
+//
+Your course staff will review and discuss your answers along with the rest of
+your section.
 
 Complete this part of the lab in pairs using Google Docs.
 //
-Create a copy of https://goo.gl/KTxDWg[our document template], and then edit it
+Create a copy of https://goo.gl/suKU6a[our document template], and then edit it
 to record you and your partner's answers.
 //
 **Note that you must open this document using your @illinois.edu Google Apps
 account.**
 //
-We will not grant access to non-Illinois users footnote:[One of these weeks
-we're going to say this and _not_ get a bunch of requests to share the document
-to Gmail addresses. Maybe this week? Actually, Gmail has been putting these in
-my Spam folder, which is both a good and bad thing...].
+We will not grant access to non-Illinois users.
 
 Have a course staff member check your answers as you go.
 //
@@ -44,84 +48,60 @@ When you are done, move on to the next section.
 
 '''
 
-[[cleanup]]
-== Code Cleanup [.text-muted]#(30 Minutes)#
+[[coding]]
+== Pokémon Objects [.text-muted]#(50 Minutes)#
 
 [.lead]
 //
-The next part of the lab focuses on style, both in terms of formatting and
-code clarity.
+Like any other programming concept, the way to get familiar with objects is to
+_use_ them.
 //
-We'll try to show you how _hard_ it is to read poorly-formatted code.
-//
-And then we give you a chance to get our terrible example to really shine.
+In the second half of the lab we'll provide you with some practice at
+manipulating object state and using object methods.
 
-=== Forking the Lab4 Eclipse Project
+And we'll try to make it as interesting as possible by having you work with a
+special type of objects: https://www.pokemon.com/us/[Pokémon] objects!
 
-Just as in link:/lab/1/[Lab 1], link:/lab/2/[Lab 2], and link:/lab/3/[Lab 3],
-we've set up an Eclipse project for Lab 4.
-//
-It's on
-//
-https://github.com/cs125-illinois/Lab4[GitHub].
+[[cloning]]
+=== Forking and Cloning the Lab4 IntelliJ Project
 
-We're going to use the more common GitHub development model when you want to
-make your own changes to a project.
+We've set up an
 //
-First, we'll https://help.github.com/articles/fork-a-repo/[_fork_] the
-repository.
+https://github.com/cs125-illinois/Lab4[Lab 4 GitHub repository]
 //
-Then, we'll clone our own copy of it.
+containing an IntelliJ Project that's correctly configured for Lab 4.
 //
-Once we're done, we'll be able to save our changes at the end of the lab, since
-we have our own private copy of the project.
+Getting access to it is similar to how you
+//
+link:/MP/setup/git/#importing[imported MP0].
+//
+But you have to fork our repository first.
+//
+If it's not obvious how to do that, try following
+//
+https://help.github.com/articles/fork-a-repo/[these instructions].
 
-Follow the link:/lab/3/#forking[instructions from Lab 3].
+[[objects]]
+=== Your Goal
 
-=== Reclamation Project
+[.lead]
+//
+Your job is to complete the provided program so that you can take input from the
+user and configure each battling Pokémon appropriately.
 
-Our Lab4 project has only one Java file&mdash;and it's a huge mess.
+You'll need to use your newly-acquired knowledge about objects and object
+syntax.
 //
-Your job is to clean it up.
+You'll also probably want to look into how to use the
+//
+https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html[Java Scanner
+Class].
+//
+The course staff will circulate to help out and provide useful advice.
 
-Working with your partner, follow the instructions in the source code to get it back to a readable state.
-//
-Once you are done, compare your work with another group.
-//
-Offer a gentle critique of their choices, and let them do the same for you.
+[[mp4]]
+== Help with MP3 [.text-muted]#(10 Minutes)#
 
-=== Saving Your Work
-
-Just like link:/lab/3/[Lab 3], we do want you to save your work this time.
-//
-Follow the link:/lab/3/#push[Lab 3 pushing instructions].
-
-[[mp2]]
-== Help with MP2 [.text-muted]#(20 Minutes)#
-
-Use any remaining time in your lab section to get help with link:/MP/2/[MP2].
-//
-If you are done or making good progress, please help others&mdash;but help them
-_learn_, don't just give them the answers.
-//
-And if you are behind, please reach out the course staff for help.
-
-=== `java.lang.String`
-
-A good starting point is to review the
-//
-https://docs.oracle.com/javase/7/docs/api/java/lang/String.html[Java String
-documentation].
-
-Fortunately footnote:[or unfortunately&mdash;Javadoc formatting is pretty ugly]
-you'll be reading a lot of documentation like this if you keep writing Java
-code.
-//
-So it's worth getting used to how Javadoc documentation is laid out.
-//
-Get some initial practice navigating the String documentation.
-//
-Then, if you're feeling adventurous, try finding and exploring another piece of
-Java documentation.
+Use any remaining time in your lab section to get help with link:/MP/3/[MP3].
 
 // vim: ts=2:sw=2:et
