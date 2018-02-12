@@ -16,15 +16,214 @@ description:
 ++++
 ....
 class Course {
-  String name;
-  int enrollment;
+  public String name;
+  public int enrollment;
 }
 Course CS125 = new Course();
 CS125.name = "CS 125";
 CS125.enrollment = 600;
-System.out.println(CS125.name + " has "
-                   + CS125.enrollment + " students.");
+System.out.println(CS125.name + " has " + CS125.enrollment + " students.");
 ....
 --
+
+[[jJGoolxDMgvAEUjsadDYIQIZvLyYMOFI]]
+== Onward
+
+[.lead]
+//
+These are the three main challenges that will occupy us for the remainder of the
+semester:
+
+[.s]
+//
+* **Algorithms**: How do we use computers to solve problems?
+//
+* **Data structures**: How do we structure information to enable efficient
+algorithms?
+//
+* **Software development**: How do we write, debug, test, and publish _good_
+computer software?
+
+[[IfCMnfvQFZMKzUSSMrKqMWTlqPawFCRu]]
+== How Do We Structure Good Computer Programs?
+
+[.s]
+//
+. **Break our code into reusable, testable, and understandable pieces**
+//
+. **Combine state and behavior**
+//
+. Document our code appropriately
+//
+. Reuse preexisting solutions as much as possible
+//
+. Share our code with others!
+
+[[dCfjRMSIHXwmlzKmMIjqyPIHmgoaRVNo]]
+== Design
+
+[.lead]
+//
+Programming is an intensely creative activity.
+
+image::http://static.wixstatic.com/media/e11370_5402a709373248db8b871ca105e926ae.gif[width=480,role='mx-auto']
+
+[[uGZBdulxROgjhRfpsMmeuOslBrdyOvGn]]
+== Design and Modeling
+
+[.lead]
+//
+Java objects begin to expose you to the design aspects of computer science.
+
+Ahead of us there are no right answers, just
+
+[.s]
+//
+* creativity
+//
+* imagination
+//
+* holistic thinking
+//
+* intuition
+//
+* visualization
+
+[[NiBbvuqsxVzDnuSKKFCJBTfCUGkTKpUA]]
+== Objects
+
+[.lead]
+//
+Objects combine _state_ (like variables) and _behavior_ (like functions).
+
+[.s]
+//
+* **What does it _store_?**
+//
+Objects allow us to structure data in more varied ways
+than we can achieve with primitive types alone.
+//
+* **What does it _do_?**
+//
+Objects allow us to place methods with the data that they naturally belong with.
+
+[[tQzXuQadDuhOSqlvqGEdvOGYkDybMBds]]
+== Object Definition
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Object_(computer_science)[Object]:
+//
+In the class-based object-oriented programming paradigm, "object" refers to a
+particular instance of a class where the object can be a combination of
+variables, functions, and data structures.
+____
+
+[[eeunehhPDVbMrqRabHaarshVFJwGmLpT]]
+== Object Terminology: Class
+
+[source,java]
+----
+class Person {
+  public String name;
+  public int age;
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+----
+
+[.lead]
+//
+A _class_ determines how a particular _type_ of object will behave.
+
+You can think of the class as a _blueprint_ that is used to create objects of a
+particular type.
+
+[[XpZUnDPxPRqhKMvOCuiJVQwvwsKwCQeI]]
+== Object Terminology: Class
+
+[source,java]
+----
+class Person {
+  public String name;
+  public int age;
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+----
+
+Objects of type `Person`:
+
+[.s]
+//
+* Have a variable `name` of type `String`
+//
+* Have a variable `age` of type `int`
+//
+* Have a method `printName` that takes no arguments and returns nothing
+
+[[JPDxwADprFfhbkojkBllrvphhwIwETzV]]
+== Object Terminology: Instance
+
+[source,java]
+----
+class Person {
+  public String name;
+  public int age;
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+Person geoffrey = new Person();
+----
+
+[.lead]
+//
+An _instance_ of a class is an object of that type.
+
+[.s]
+//
+* `Person` is a class&mdash;a type of object
+//
+* `geoffrey` is an _instance_ of type `Person`
+
+[[MQNjuuWdQKvlPOfcjrFlyCQPKBzgvZzY]]
+== Dot Notation
+
+----
+class Person {
+  public String name;
+  public int age;
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+Person geoffrey = new Person();
+geoffrey.age = 38;
+System.out.println(geoffrey.age);
+----
+
+[.lead]
+//
+We access an object's state and methods using _dot notation_.
+
+[[nRBlVUqXADqMLBYXBOvoWuGtlbtehRCs]]
+== ! Dot Notation
+
+[.janini]
+....
+class Person {
+  public String name;
+  public int age;
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+Person geoffrey = new Person();
+geoffrey.age = 38;
+System.out.println(geoffrey.age);
+....
 
 // vim: ts=2:sw=2:et
