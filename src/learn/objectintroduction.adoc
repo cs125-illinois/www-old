@@ -15,11 +15,15 @@ description:
 <div class="message">Introduction to Objects</div>
 ++++
 ....
-String courseName = "CS 125";
-System.out.println(courseName);
-System.out.println(courseName.length());
-System.out.println(courseName + " rocks");
-System.out.println(courseName.startsWith("CS"));
+class Course {
+  String name;
+  int enrollment;
+}
+Course CS125 = new Course();
+CS125.name = "CS 125";
+CS125.enrollment = 600;
+System.out.println(CS125.name + " has "
+                   + CS125.enrollment + " students.");
 ....
 --
 
