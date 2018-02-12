@@ -164,6 +164,30 @@ Objects of type `Person`:
 //
 * Have a method `printName` that takes no arguments and returns nothing
 
+[[pCBPWpoFIqqQjraBlWBFWrSuktNHnAoi]]
+== Object Terminology: Class
+
+[source,java]
+----
+class Person {
+  public String name;
+  public int age;
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+----
+
+[.lead]
+//
+Unlike other languages, Java classes _cannot_ be modified as the program runs.
+
+[.s]
+//
+* This is frustrating when writing small programs
+//
+* This is sometimes essential when developing large programs
+
 [[JPDxwADprFfhbkojkBllrvphhwIwETzV]]
 == Object Terminology: Instance
 
@@ -181,7 +205,8 @@ Person geoffrey = new Person();
 
 [.lead]
 //
-An _instance_ of a class is an object of that type.
+An _instance_ of a class is an object of that type. We create an instance using
+the `new` keyword.
 
 [.s]
 //
@@ -192,6 +217,7 @@ An _instance_ of a class is an object of that type.
 [[MQNjuuWdQKvlPOfcjrFlyCQPKBzgvZzY]]
 == Dot Notation
 
+[source,java]
 ----
 class Person {
   public String name;
@@ -224,6 +250,42 @@ class Person {
 Person geoffrey = new Person();
 geoffrey.age = 38;
 System.out.println(geoffrey.age);
+....
+
+[[YJFtUlNOVwOLzvEaErsBvMozqhrMfjZF]]
+== Instance Variables
+
+[source,java,role='smaller']
+----
+class Dimensions {
+  public int width;
+  public int height;
+}
+class Room {
+  public String name;
+  public Dimensions dimensions;
+}
+Room diningRoom = new Room();
+diningRoom.dimensions = new Dimensions();
+diningRoom.dimensions.width = 10;
+----
+
+[[BtTabNVDrpmrkWydxVoePkOuGAYPdDPr]]
+== ! Instance Variables
+
+[.janini.smaller]
+....
+class Dimensions {
+  public int width;
+  public int height;
+}
+class Room {
+  public String name;
+  public Dimensions dimensions;
+}
+Room diningRoom = new Room();
+diningRoom.dimensions = new Dimensions();
+diningRoom.dimensions.width = 10;
 ....
 
 // vim: ts=2:sw=2:et
