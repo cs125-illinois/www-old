@@ -16,8 +16,8 @@ description:
 ++++
 ....
 class Course {
-  public String name;
-  public int enrollment;
+  String name;
+  int enrollment;
 }
 Course CS125 = new Course();
 CS125.name = "CS 125";
@@ -125,9 +125,9 @@ ____
 [source,java]
 ----
 class Person {
-  public String name;
-  public int age;
-  public void printName() {
+  String name;
+  int age;
+  void printName() {
     System.out.println(this.name);
   }
 }
@@ -146,9 +146,9 @@ particular type.
 [source,java]
 ----
 class Person {
-  public String name;
-  public int age;
-  public void printName() {
+  String name;
+  int age;
+  void printName() {
     System.out.println(this.name);
   }
 }
@@ -170,9 +170,9 @@ Objects of type `Person`:
 [source,java]
 ----
 class Person {
-  public String name;
-  public int age;
-  public void printName() {
+  String name;
+  int age;
+  void printName() {
     System.out.println(this.name);
   }
 }
@@ -194,9 +194,9 @@ Unlike other languages, Java classes _cannot_ be modified as the program runs.
 [source,java]
 ----
 class Person {
-  public String name;
-  public int age;
-  public void printName() {
+  String name;
+  int age;
+  void printName() {
     System.out.println(this.name);
   }
 }
@@ -220,9 +220,9 @@ the `new` keyword.
 [source,java]
 ----
 class Person {
-  public String name;
-  public int age;
-  public void printName() {
+  String name;
+  int age;
+  void printName() {
     System.out.println(this.name);
   }
 }
@@ -241,9 +241,9 @@ We access an object's state and methods using _dot notation_.
 [.janini]
 ....
 class Person {
-  public String name;
-  public int age;
-  public void printName() {
+  String name;
+  int age;
+  void printName() {
     System.out.println(this.name);
   }
 }
@@ -258,17 +258,21 @@ System.out.println(geoffrey.age);
 [source,java,role='smaller']
 ----
 class Dimensions {
-  public int width;
-  public int height;
+  int width; // I'm a primitive type
+  int height;
 }
 class Room {
-  public String name;
-  public Dimensions dimensions;
+  String name; // I'm another object
+  Dimensions dimensions; // I'm defined above
 }
 Room diningRoom = new Room();
 diningRoom.dimensions = new Dimensions();
 diningRoom.dimensions.width = 10;
 ----
+
+[.lead]
+//
+Instance variables can be both _primitive_ types or _other objects_.
 
 [[BtTabNVDrpmrkWydxVoePkOuGAYPdDPr]]
 == ! Instance Variables
@@ -276,16 +280,128 @@ diningRoom.dimensions.width = 10;
 [.janini.smaller]
 ....
 class Dimensions {
-  public int width;
-  public int height;
+  int width;
+  int height;
 }
 class Room {
-  public String name;
-  public Dimensions dimensions;
+  String name;
+  Dimensions dimensions;
 }
 Room diningRoom = new Room();
 diningRoom.dimensions = new Dimensions();
 diningRoom.dimensions.width = 10;
+....
+
+[[QKoelNsUekcMuVBvjHhyiYidAywzNuuZ]]
+[.oneword]
+== Objects as Data Structures
+Sometimes known as
+//
+https://en.wikipedia.org/wiki/Record_(computer_science)[records]&mdash;but
+objects are much more than that...
+
+[[FSUYlrfygwJYgAGbGByoHcgFerXgMevA]]
+== Instance Methods
+
+[source,java]
+----
+class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}
+Dimensions example = new Dimensions();
+example.width = 10;
+example.height = 20;
+System.out.println(example.area());
+----
+
+[.lead]
+//
+Classes can also define _methods_ that can be called on each instance.
+
+[[UxypbwOQeusYmUxzaebjabnlldPPHPpW]]
+== ! Instance Methods
+
+[.janini.smaller]
+....
+class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}
+Dimensions example = new Dimensions();
+example.width = 10;
+example.height = 20;
+System.out.println(example.area());
+....
+
+[[RMaYcanoUrSLGdCNmceJWPufMKLREDfe]]
+== `this`
+
+[source,java]
+----
+class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}
+----
+
+[.lead]
+//
+Instance methods can refer to _their_ instance variables using the `this`
+keyword.
+
+`this` refers to the instance that is executing the method.
+
+[[yTJJsqMvhSnqjEWSwVajTRJXLjxzKApB]]
+== ! `this`
+
+[.janini.smaller]
+....
+class Dimensions {
+  int width;
+  int height;
+  int area() {
+    return this.width * this.height;
+  }
+}
+Dimensions first = new Dimensions();
+first.width = 10;
+first.height = 20;
+System.out.println(first.area());
+
+Dimensions second = new Dimensions();
+second.width = 5;
+second.height = 8;
+System.out.println(second.area());
+....
+
+[[UhRoujqXVElCPEtqYlumSfVTjAukGgHP]]
+== Object Modeling
+
+[.lead]
+//
+We frequently use Java objects to model real objects or entities.
+
+Objects allow us to _design_ software that deals with things in realistic and
+natural ways.
+
+[[QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP]]
+== Let's Model Something
+
+[.janini.smaller]
+....
 ....
 
 // vim: ts=2:sw=2:et
