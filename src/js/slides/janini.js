@@ -44,6 +44,7 @@ module.exports = () => {
         return true
       }
       let source = janinis[active.index]
+
       let output = $(active.slide).find('.output').first()
 
       let toRun = source.getValue()
@@ -53,10 +54,17 @@ module.exports = () => {
       } else {
         $(output).html(`<span class="text-warning">Running...</span>`)
       }
-
-      $.post("https://cs125.cs.illinois.edu/janini/", JSON.stringify({
+      let run = {
         source: source.getValue() + "\n"
-      })).done(result => {
+      }
+      if ($(active.slide).hasClass('compiler')) {
+        run.as = "compiler"
+        run.class = "Example"
+      } else {
+        run.as = "script"
+      }
+
+      $.post("https://cs125.cs.illinois.edu/janini/", JSON.stringify(run)).done(result => {
         if (result.completed) {
           if (result.output.trim() !== "") {
             $(output).text(result.output.trim())
