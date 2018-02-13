@@ -58,7 +58,7 @@ doTOC: false
       </li>
       {{#each slides }}
         <li class="entry small">
-          <a class="nav-link" href="#{{ this.slug }}">{{ format_date this.date "shortSlides" }}: {{ this.title }}</a>
+          <a class="nav-link" href="#{{ this.slug }}"><code>{{ format_date this.date "shortSlides" }}</code>: {{ this.title }}</a>
         </li>
       {{/each}}
     </ul>
