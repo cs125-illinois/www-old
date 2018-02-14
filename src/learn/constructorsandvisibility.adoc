@@ -33,6 +33,91 @@ public class Example {
 ....
 --
 
+[[hILNWXNSfbqfDScSdZSMElhrHxPqZyhA]]
+== Q3 Review: Functions
+
+[.janini.small]
+....
+// What would be a small improvement to the function shown below?
+static boolean a(int[] b) {
+  for (int i = 0; i < b.length; i++) {
+    for (int j = i; j < b.length; j++) {
+      if (b[j] < b[i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+System.out.println(a(new int[] { 5, 4, 3 }));
+System.out.println(a(new int[] { 1, 2, 3 }));
+....
+
+[[TsQKxaztMSiasPjQKmCcTyCpnXyzrHYN]]
+== Q3 Review: Functions
+
+[.janini.small]
+....
+// What is one problem with the function shown below?
+static int s(int[][] a) {
+  int count = 0;
+  for (int i = 0; i < a.length; i++) {
+    for (int j = 0; j < a[0].length; j++) {
+      count += a[i][j];
+    }
+  }
+  return count;
+}
+System.out.println(s(new int[][] { { 0, 1 }, { 4, 5 } }));
+....
+
+[[hlfdiGKWEOhWSIhHoigkHyjWUtqNOqaK]]
+== Q3 Review: Function Terminology
+
+[.lead]
+//
+What do we call the combination of the function name and list of argument types
+that is used by Java to determine which function to call?
+
+(Everyone got credit for this because it wasn't _written_ on a slide, although
+it is now.)
+
+[[cBvAQSUjOeMftzBoERafEeauVrkncSqx]]
+== Review: `this`
+
+[source,java]
+----
+class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}
+----
+
+[.lead]
+//
+Instance methods can refer to _their_ instance variables using the `this`
+keyword.
+
+`this` refers to the instance that is executing the method.
+
+[[GQkSDDzyEwCVgBrPzzUIFXVBlGQVXknp]]
+== New Examples
+
+[.janini.compiler.small]
+....
+// Just a warning that some examples now work differently
+// When run the main method of the Example class below is executed
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("Hello, world!");
+  }
+}
+....
+
 [[ovZdMlIOhNIIOlRVEavjfSwIYcseibaW]]
 == Announcements
 
