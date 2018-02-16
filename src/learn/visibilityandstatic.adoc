@@ -1,0 +1,358 @@
+---
+title: Visibility and Static
+date: 2018-02-16
+description:
+  A continued discussion of Java objects, introducing visibility and static
+  methods and variables.
+---
+
+[[wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi]]
+== !
+
+[.janini.compiler.small]
+--
+++++
+<div class="message">Visibility and Static</div>
+++++
+....
+public class Course {
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course.printName();
+  }
+}
+....
+--
+
+[[KdwtLLieHgPoCJOrTPiclQExiGvYpFwC]]
+== Access Modifiers
+
+[source,java]
+----
+public class Person {
+  public String name;
+  private int age;
+
+  private void printName() {
+    System.out.println(this.name);
+  }
+  public int getAge() {
+    return this.age;
+  }
+}
+----
+
+[.lead]
+//
+Java provides ways to _protect_ instance variables and methods.
+//
+We refer to these as _access modifiers_:
+
+[[IIhjNpbdLiLFvTmpFrKZfyIOoGmAwidd]]
+== Variable Access Modifiers
+
+[source,java,role='small']
+----
+public class Person {
+  // Anybody can modify name
+  public String name;
+  // age can only be changed by this class's methods
+  private int age;
+}
+Person me = new Person();
+me.name = "Geoffrey"; // This works
+System.out.println(me.age); // This does not work
+----
+
+[.s]
+//
+* `public`: the variable can be read or written by anyone
+//
+* `private`: the variable can only read or written by methods defined _on that
+class_
+
+[[pqgwnWlgZGMpRHMwUZsKhfyXhcpegJrj]]
+== ! Variable Access Modifiers
+
+[.janini.compiler.small]
+....
+public class Person {
+  public String name;
+  private int age;
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.name = "Geoffrey"; // This works
+    System.out.println(me.age); // This does not work
+  }
+}
+....
+
+[[JIAxfYHdgMdZbXUIzIxaJCXZyvhRxNuY]]
+== Function Access Modifiers
+
+[source,java,role='small']
+----
+public class Person {
+  public void printIt() {
+    System.out.println("It");
+  }
+  private void printYou() {
+    System.out.println("You");
+  }
+}
+Person me = new Person();
+me.printIt(); // This works
+me.printYou(); // This does not work
+----
+
+[.s]
+//
+* `public`: the method can be called by anyone
+//
+* `private`: the method can only be called by other methods _on that class_
+
+[[GGGGroNVPLAMISvAfEPryUJlJXrOwodH]]
+== ! Function Access Modifiers
+
+[.janini.compiler.small]
+....
+public class Person {
+  public void printIt() {
+    System.out.println("It");
+  }
+  private void printYou() {
+    System.out.println("You");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.printIt(); // This works
+    me.printYou(); // This does not work
+  }
+}
+....
+
+[[eElRbazMJbGpaHfrEAGOxqdhlEUjKpHJ]]
+== Other Access Modifiers
+
+[.lead]
+//
+(Java also provides `protected` and package private modifiers&mdash;but they
+don't make sense until we discuss packages.)
+
+[[uLPZroAsMblwalogMaPDbzszkcQeVlEo]]
+== Getters and Setters
+
+[source,java,role='small']
+----
+public class Person {
+  private int age;
+  public void setAge(int setAge) {
+    this.age = setAge;
+  }
+  public int getAge() {
+    return this.age;
+  }
+}
+----
+
+[.lead]
+//
+In Java it's common to have _private_ instance variables with public methods
+that set or get their values: called _setters_ and _getters_.
+
+[[oDKbLeOnKjNLLDaUpPxiFXRuDeUiVtUC]]
+== Getters and Setters: Why?
+
+[source,java,role='smallest']
+----
+public class Person {
+  private int name;
+  private int firstName;
+  private int lastName;
+  public void setName(int setName) {
+    String[] nameParts = setName.split(" ");
+    this.name = setName;
+    this.firstName = nameParts[0];
+    this.lastName = nameParts[1];
+  }
+  public int getName() {
+    return this.name;
+  }
+  public int getFirstName() {
+    return this.firstName;
+  }
+  public int getLastName() {
+    return this.lastName;
+  }
+}
+----
+
+[.lead]
+//
+Getters and setters allow an object to react to changes to its variables.
+
+[[EPACuRwxtQOGiRMiwgPeUQhPfmNSJMyx]]
+[.oneword]
+== Access Modifiers: Questions?
+
+[[eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ]]
+== The `static` Keyword
+
+[source,java,role='small']
+----
+public class Course {
+  public static int count = 0;
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // We can call printName without creating an instance
+    Course.printName();
+    // We can increment count without creating an instance
+    Course.count++;
+  }
+}
+----
+
+[.lead]
+//
+`static` methods and variables belong to the _class_, not to a specific
+instance.
+
+[[JcfeftoggWYEqmVcqHqWFWLVDrBYSrKv]]
+== `static` Methods
+
+[source,java,role='smaller']
+----
+public class Course {
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works
+    Course.printName();
+    // This also works
+    Course CS125 = new Course();
+    CS125.printName();
+  }
+}
+----
+
+[.s]
+//
+* `static` methods are called directly on the class, rather than on an instance
+//
+* ...but they _can_ be called on the instance as well.
+
+[[GogDSWyLriatEwvWVbqNnpNScdTGsZnm]]
+== `static` Methods and `this`
+
+[source,java]
+----
+public class Course {
+  public String name;
+  public static void printName() {
+    // This doesn't work
+    System.out.println(this.name);
+  }
+}
+----
+
+[.lead]
+//
+`static` methods can be called without an instance, and so can't use `this`
+
+[[AGXzadhOVsBxnfSsSKGKsHhYNePpixZD]]
+== `static` Variables
+
+[source,java,role='small']
+----
+public class Course {
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.count);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course();
+    Course CS225 = new Course();
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}
+----
+
+[.lead]
+//
+`static` variables are shared by all instances of a given `class`
+
+
+[[aJrAPQCvltPcxpPVAvGrGqdLWEhKRlRK]]
+== ! `static` Variables
+
+[.janini.smallest.compiler]
+....
+public class Course {
+  private String name;
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.name + " " + this.count);
+  }
+  Course(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course("125");
+    Course CS225 = new Course("225");
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}
+....
+
+[[wonpBdFJRHThXEZuFNtsAJXwhHalvCdU]]
+== Object Modeling
+
+[.lead]
+//
+We frequently use Java objects to model real objects or entities.
+
+Objects allow us to _design_ software that deals with things in realistic and
+natural ways.
+
+[[QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP]]
+== Let's Model Something
+
+[.janini.smaller]
+....
+....
+
+[[PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt]]
+== Announcements
+
+* TC 8 is out and due *Sunday* by midnight.
+//
+* link:/MP/3/[MP3] is out and due week from today.
+//
+The early deadline is _today_ at 5PM.
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
