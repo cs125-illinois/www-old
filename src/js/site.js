@@ -46,6 +46,7 @@ $(() => {
       history.replaceState({}, "", hash)
     }
   })
+  $('#sidebar.collapse a').on('click', function () { $('#sidebar.collapse').collapse('hide') })
 })
 
 // vim: ts=2:sw=2:et
