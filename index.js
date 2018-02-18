@@ -1,3 +1,4 @@
+require('dotenv').config()
 const appRootPath = require('app-root-path')
 const path = require('path')
 
@@ -88,6 +89,11 @@ metalsmith(__dirname)
     '**/.*.swp',
     '**/.*.swo'
   ]))
+  .use((files, metalsmith, done) => {
+    let metadata = metalsmith.metadata()
+    metadata.env = process.env
+    return done()
+  })
   .use(buildDate())
   .use(drafts())
   .use(discoverPartials({

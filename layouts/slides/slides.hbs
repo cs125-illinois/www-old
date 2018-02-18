@@ -9,6 +9,7 @@
   <meta name="slider-id" content="{{ uuid }}">
 
   <link rel="stylesheet" href="{{ lookup webpack.assets 'slides.css' }}">
+  <link rel="stylesheet" href="{{ env.SLIDER }}/slider.css">
 
   {{> favicon }}
 </head>
@@ -33,6 +34,6 @@
 		</div>
 	</div>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script src="{{ lookup webpack.assets 'slides.js' }}"></script>
+  <script src="{{ env.SLIDER }}/slider.js"></script>
 </body>
 </html>
