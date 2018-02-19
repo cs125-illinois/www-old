@@ -14,8 +14,167 @@ description:
 <div class="message">Object Design</div>
 ++++
 ....
+public class Example {
+  public static final String YOUR_CONSTANT = "Hello, world!";
+
+  public static void main(String[] unused) {
+    System.out.println("Hello, world!");
+  }
+}
 ....
 --
+
+[[nEqwhFuCTtwKRAOKaNirHHlnXWnAIZLr]]
+== Scope and Name Resolution
+
+[source,java,role='smallest']
+----
+public class Example {
+  // Both class and instance variables can be initialized
+  public static int classNum = 8;
+  public int objectNum = 4;
+
+  // objectNum shadows this.objectNum... I'd pick a better name
+  public void incrementObject(int objectNum) {
+    this.objectNum += objectNum;
+    classNum += objectNum;
+  }
+  // classNum shadows Example.classNum... I'd pick a better name
+  public static void incrementClass(int classNum) {
+    Example.classNum += classNum;
+  }
+}
+----
+
+[.lead]
+//
+Let's review our scoping rules.
+
+[.s]
+//
+* Work to the left.
+//
+* Remember that method parameters _can_ shadow (or conflict with) class or
+instance variables.
+
+[[NLIaRhwxmoAkaqrcRQxtghMwNaAyaLaD]]
+== ! Scope and Name Resolution
+
+[.janini.smaller.compiler]
+----
+public class Example {
+  public static int classNum = 8;
+  public int objectNum = 4;
+
+  public void incrementObject(int objectNum) {
+    this.objectNum += objectNum;
+    classNum += objectNum;
+  }
+  public static void incrementClass(int classNum) {
+    Example.classNum += classNum;
+  }
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.classNum);
+    System.out.println(example.objectNum);
+  }
+}
+----
+
+[[mlqtMBxERmbmWOjsDoKPXMdagktpcoHC]]
+== `final` and Constants
+
+[source,java]
+----
+class Example {
+  /** The number of hours of sleep you should get per night. */
+  public static final int HOURS_PER_NIGHT = 8;
+  ...
+}
+----
+
+[.lead]
+//
+In Java a `final` variable _cannot be modified_.
+
+You usually see this done to establish useful constant values&mdash;which can be
+either `public` or `private`
+
+[[aRzsozxWPRNaTyegwrsSvYWsqtLGDtIE]]
+== ! Example of `final`
+
+[.janini.small.compiler]
+....
+public class Example {
+  public static final int HOURS_PER_NIGHT = 8;
+
+  public static void main(String[] unused) {
+    HOURS_PER_NIGHT = 4;
+    System.out.println(HOURS_PER_NIGHT);
+    HOURS_PER_NIGHT = 2;
+    System.out.println(HOURS_PER_NIGHT);
+    // I will never change!
+  }
+}
+....
+
+[[WqRJLyEMGzDnROsHBdlzMUbDckIilcNd]]
+== Let's Talk `main`
+
+[source,java]
+----
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("How did I get here?");
+  }
+}
+----
+
+[.lead]
+//
+You've been using and even writing `main` methods?
+//
+But _what is it_?
+
+[[PMvcyTJMxlQGwACGdChxIxqgfkfNHdhZ]]
+== Everything Has To Start Somewhere
+
+[source,java]
+----
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("And this is it!");
+  }
+}
+----
+
+[.s]
+//
+* When Java runs your program, execution has to start _somewhere_.
+//
+* If a class has a `main` method Java can execute that class and begin the
+process of running a program.
+//
+* So _every_ Java application starts in `main` somewhere.
+
+[[rHYJXgpSsZBecBvjSvwYlEpsQEnYnqEu]]
+== But What About `unused`?
+
+[source,java]
+----
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("And this is it!");
+  }
+}
+----
+
+[.lead]
+//
+But why is `main` passed an array of ``Strings``s (that we usually ignore)?
+
+[[DanbTceiYfVtGkwOPYEGQbXcOfDJTBLE]]
+== (Short Demo)
 
 [[pYZKGvMxxScvhIAxiYzivbknbPBREIai]]
 == Object Modeling
@@ -30,9 +189,17 @@ natural ways.
 [[WxKyPnXRwYtwcYEpgBXNwBlwGoPfKEdq]]
 == ! Let's Model Something
 
-[.janini.smaller.compiler]
+[.janini.smallest.compiler]
 ....
 // Let's model something
+....
+
+[[XbvazhAtrSvzILsKXZArjvthYiwDAuZA]]
+== ! Let's Model Something Else
+
+[.janini.smallest.compiler]
+....
+// Let's model something else!
 ....
 
 [[ZEBVxWPQrcOuaYysYnTxExqnIIgKWTIs]]
@@ -41,5 +208,7 @@ natural ways.
 * link:/MP/3/[MP3] is due Friday.
 //
 * My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+//
+I'll need to leave a bit early today.
 
 // vim: ts=2:sw=2:et
