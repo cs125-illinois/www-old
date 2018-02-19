@@ -9,8 +9,8 @@ const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 module.exports = function (env, argv) {
   let config = {
     output: {
-      publicPath: '/static-assets/main/',
-      path: __dirname + '/src/static-assets/main/',
+      publicPath: '/static-assets/',
+      path: __dirname + '/src/static-assets/',
       filename: '[name].[chunkhash].js'
     },
     entry: {
