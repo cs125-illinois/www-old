@@ -74,7 +74,7 @@ What is one potential problem with the code shown above?
 [[EyfyRpnbRCCUVPWOJUqAHkrMmMFogmzQ]]
 == Q4 Review: Construction and Execution
 
-[source,java]
+[source,java,role='small']
 ----
 class TV {
   public String brand;
@@ -95,8 +95,433 @@ What will happen when `Example.main` above is executed?
 
 (Everyone got credit for this question...)
 
-[[bwNPwRecTTUsioRaolCnfPmgkWQbDySk]]
-== Q4 Review:
+[[kZbZRqBRAJYIOPOaCescsSsfdHSwSljm]]
+== ! A Puzzle
+
+[.janini.small.compiler]
+....
+// Why does this work?
+public class Example {
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.toString());
+  }
+}
+....
+
+[[konQFOEwPtcDQyBaBNGjJqYCQcSGJWhF]]
+== Inheritance
+
+[source,java,role='smaller']
+----
+public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println("I'm a " + this.type + " named " + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+Dog chuchu = new Dog("Chuchu");
+chuchu.printMe();
+----
+
+[.lead]
+//
+Java allows objects to _inherit_ state and behavior from another class.
+
+[[wTNNwUEDjkZqaKToynKrhgypMFbDeDxc]]
+== Inheritance Terminology
+
+[source,java]
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+----
+
+[.lead]
+//
+In Java we establish inheritance using the `extends` keyword.
+
+[.s]
+//
+* `Dog` extends `Pet` and so _inherits_ state and behavior from `Pet`
+//
+* `Cat` also extends `Pet` and so also _inherits_ state and behavior from `Pet`
+//
+* We sometimes call `Pet` ``Dog``'s and ``Cat``'s _parent_ class
+//
+* We sometimes call `Dog` and `Cat` ``Pet``'s _children_
+
+[[ZtxtPnriCGjIZxAAReEntXKwQJOMgPOo]]
+== More Inheritance Terminology
+
+[source,java]
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Mutt extends Dog { }
+----
+
+[.lead]
+//
+In Java we can have have multiple levels of inheritance.
+
+[.s]
+//
+* `Dog` extends `Pet` and so _inherits_ state and behavior from `Pet`
+//
+* `Mutt` extends `Dog` and so _inherits_ state and behavior from `Dog` *and* `Pet`
+//
+* We sometimes call `Pet` and `Dog` ``Mutt``'s _ancestors_
+//
+* We sometimes call `Dog` and `Mutt`  ``Pet``'s _descendants_
+
+[[EWGqFYyFGhaIiRMGqHCZmAAlEYacebZN]]
+== `protected`
+
+[source,java,role='smaller']
+----
+public class Pet {
+  public String name; // Anyone can set me
+  private String secret; // Only I can set this value
+  protected String type; // My descendants can use this value
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+----
+
+[.s]
+//
+* `public`: the variable can be read or written by anyone
+//
+* `private`: the variable can only read or written by methods defined _on that
+class_
+//
+* *`protected`*: the variable can only read or written by methods defined on that
+class _or its descendants_
+
+[[vQUxfPBiPWXztrplkCsSmaMctvPszGzJ]]
+== ! Inheritance
+
+[.janini.smallest.compiler]
+....
+public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println("I'm a " + this.type + " named " + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    chuchu.printMe();
+  }
+}
+....
+
+[[IHiQsyleCpwPeVYOopjNdQKqSCutxtaE]]
+== The Dirty Truth About `protected`
+
+[source,java,role='smaller']
+----
+public class Pet {
+  protected String name;
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    chuchu.name = "Xyz"; // This works...
+  }
+}
+----
+
+[.s]
+//
+* *`protected`*: the variable can read or written by methods defined on that
+class _or its descendants_... in _any package_
+//
+* *`protected`*: the variable can also be read and written by any method in the
+same _package_
+
+[[etbCgxcOIaavnXUYIwlYkvuFMEzVvDiw]]
+== `public`, `private`, and `protected`
+
+*Variables*:
+//
+[.s.small]
+//
+* `public`: the variable can be read or written by anyone
+//
+* `private`: the variable can only read or written by methods defined _on that
+class_
+* `protected`: the variable can be read or written by methods defined on any
+descendant of that class _in any package_ or any class in the same package
+
+*Methods*:
+//
+[.s.small]
+//
+* `public`: the method can be called by anyone
+//
+* `private`: the method can only be called by other methods _on that class_
+//
+* `protected`: the method can be called by other methods defined on any
+descendant of that class _in any package_ or any class in the same package
+
+[[IFpkAhWFfauLaQovWImwFbZRLhEIYBBh]]
+== `super` Constructor
+
+[source,java,role='smaller']
+----
+public class Pet {
+  protected String type;
+  Pet(String setType) {
+    this.type = setType;
+  }
+}
+public class Dog extends Pet {
+  private String breed;
+  Dog(String setBreed) {
+    super("Dog");
+    this.breed = setBreed;
+  }
+}
+----
+
+[.lead]
+//
+Java classes can access their parent's constructor using the `super` keyword.
+
+This must be the _first_ thing done in a child constructor.
+
+[[xHeowjhQRgmLBBPPeyTTvhoyhhdfUQab]]
+== ! `super` Constructor
+
+[.janini.smallest.compiler]
+....
+public class Pet {
+  protected String type;
+  Pet(String setType) {
+    this.type = setType;
+  }
+}
+public class Dog extends Pet {
+  private String breed;
+  Dog(String setBreed) {
+    super("Dog");
+    this.breed = setBreed;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Mutt");
+    System.out.println(chuchu.type);
+  }
+}
+....
+
+[[MRYJcHoUQaUoSyhdISszfGQtzRUOzHHi]]
+== Hierarchical Thinking
+
+[.lead]
+//
+Why organize objects into a hierarchy?
+
+image::https://www.developerdotstar.com/mag/images/Fig4.3.png[role='mx-auto',width=240]
+
+[.s]
+//
+. It can be a *natural expression* of real-world taxonomies
+//
+. It allows us to *organize* and *reuse* code between multiple classes
+
+[[isWBBdOKFItkKgQHUkJGQtKmKfWIxPIV]]
+== ! A Rich Hierarchy
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item"
+  src="http://oracledba.ezpowell.com/japplet/d.html"></iframe>
+</div>
+++++
+
+[[RLvwFWZxPUMlEjaBhKQYkihiRaBXyfVY]]
+== The Tree Of (Java) Life
+
+image::https://staff.fnwi.uva.nl/a.j.p.heck/Courses/JAVAcourse/ch3/lettertree.gif[role='mx-auto',width=240]
+
+[.lead]
+//
+In Java, each class has a single parent, meaning that classes are organized into
+a _tree_.
+
+If we follow each node to its parent, we eventually get to the top, or root...
+
+[[chcUpUfLDMseiHLxSlASXEYJEaTVeNjg]]
+== The Root Object: `Object`
+
+[source,java]
+----
+public class Dog { }
+// is equivalent to
+public class Dog extends Object { }
+----
+
+[.lead]
+//
+If a Java `class` does not explicitly `extend` another class, it implicitly
+extends `Object`.
+
+[[PBFsjLWvxmDzvQAhAIJrHBKYZYcJOdLu]]
+== Inherited from `Object`
+
+[source,java,role='small']
+----
+public class Dog {
+  private String name;
+  Dog(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}
+----
+
+[.lead]
+//
+All Java objects inherit a small number of _important_ methods from `Object`.
+
+As a result, _all_ Java objects implement these methods!
+
+[[bvfhqvDEaqQWMvndBAgPFeBJZqsCfood]]
+== Methods Inherited from `Object`
+
+[.lead]
+//
+For our purposes, the following methods inherited from `Object` are important:
+
+[.s]
+//
+* `String toString()`: return a `String` representing the instance. Frequently used for
+debugging.
+//
+* `boolean equals(Object other)`: return a `boolean` indicating whether this
+object is the same as another object
+//
+* `int hashCode()`: return an `int` uniquely representing an object's contents.
+We'll talk more about hashing later&mdash;it's incredibly important and useful.
+
+[[VcAngWrEfIXxLHOWDgZRMlkZaSDSlBFd]]
+== Method Overriding
+
+[source,java,role='smaller']
+----
+public class Dog {
+  private String name;
+  Dog(String setName) {
+    this.name = setName;
+  }
+  public String toString() {
+    return this.name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}
+----
+
+[.lead]
+//
+The default `Object` methods are rarely useful.
+
+So classes usually _override_ them and provide their own.
+
+[[topXhFJUebTidbPSOtmUEzTooEKObVzO]]
+== Hierarchical Name and Method Resolution
+
+[.lead]
+//
+The Java type hierarchy is used when resolving the names of variables and
+methods:
+
+[.s]
+//
+. Does the class have a variable or method with the given name? If so, use it.
+//
+. If not, search the parent class&mdash;but limited by `public` and `protected`
+//
+. Continue up the tree until the name is found or the search fails
+
+[[WMccSsGAGjRbHUQhmLscmwvkpNvxhjiC]]
+== ! Method Overriding
+
+[.janini.smaller.compiler]
+....
+public class Animal {
+  public String toString() {
+    return "I'm an animal!";
+  }
+}
+public class Pet extends Animal { }
+public class Dog extends Pet { }
+public class OldDog extends Dog { }
+public class SweetOldDog extends OldDog { }
+public class Example {
+  public static void main(String[] unused) {
+    SweetOldDog chuchu = new SweetOldDog();
+    System.out.println(chuchu.toString());
+  }
+}
+....
+
+[[erlNXcEUZNnKhehZfvImpcieSVSsTiSE]]
+== ! Let's Design Related Classes
+
+[.janini.smallest.compiler]
+....
+// Design one parent class and two subclasses
+....
+
+[[obQHDaDlydltZpZCFqzubKvduVZnAbao]]
+== !MP3 Progress
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/grades/MPs"></iframe>
+</div>
+++++
 
 [[cseGeZLJQmYzpuYwJqzkwBaqlonEhBPT]]
 == Announcements
