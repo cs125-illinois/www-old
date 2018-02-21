@@ -31,13 +31,13 @@ doTOC: false
         </span>
       </h2>
       <div class="h6" style="font-weight: normal;">
-        {{#if this.link }}
+        {{#if this.slides }}
           <a class="external" target="_blank" href="{{ this.link }}">Slides</a>
-        {{else}}
-          <a class="external" target="_blank" href="/{{ this.path }}">Slides</a>
+        {{/if}}
+        {{#if this.separator }}
+          //
         {{/if}}
         {{#if this.echo }}
-         //
           <a class="external" target="_blank" href="{{ this.echo }}">Echo360</a>
         {{/if}}
       </div>

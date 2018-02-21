@@ -1,0 +1,108 @@
+---
+title: Inheritance
+date: 2018-02-21
+description:
+  An introduction to relations between Java objects and inheritance.
+---
+
+[[uyeeUYDmoOGDfffuMfbWfJqGZDEpgzxA]]
+== !
+
+[.janini.small.compiler]
+--
+++++
+<div class="message">Inheritance</div>
+++++
+....
+public class Example {
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.toString());
+    System.out.println(example.hashCode());
+    Example anotherExample = new Example();
+    System.out.println(example.equals(anotherExample));
+  }
+}
+....
+--
+
+[[BHyxqFzhTXKgmVKfqIfVsiOcRlKaXwlC]]
+== Q4 Review: Type Casting
+
+[.lead]
+//
+To force Java to convert a `int` to an `double`, you would...
+
+[[WnDttDGwPNmvvbecAnCnLKecXmFEnDXU]]
+== Q4 Review: Constructor Syntax
+
+[source,java]
+----
+class D {
+  double e;
+  double f;
+  D D(double setE) {
+    this.e = setE;
+  }
+}
+----
+
+[.lead]
+//
+What describes a problem with the class `D` as defined above?
+
+[[FcNawJSeGsYnNaaaWJvywvpLBWDygtMt]]
+== Q4 Review: String Equality
+
+[source,java]
+----
+class Car {
+  // Instance variables and constructors not shown
+  String d() {
+    return this.year + " " + this.make + " " + this.model;
+  }
+  boolean e(Car other) {
+    return this.make == other.make;
+  }
+}
+----
+
+[.lead]
+//
+What is one potential problem with the code shown above?
+
+[[EyfyRpnbRCCUVPWOJUqAHkrMmMFogmzQ]]
+== Q4 Review: Construction and Execution
+
+[source,java]
+----
+class TV {
+  public String brand;
+  private int width;
+  private int height;
+}
+class Example {
+  public static void main(String[] unused) {
+    TV huge = new TV();
+    huge.width = 10;
+  }
+}
+----
+
+[.lead]
+//
+What will happen when `Example.main` above is executed?
+
+(Everyone got credit for this question...)
+
+[[bwNPwRecTTUsioRaolCnfPmgkWQbDySk]]
+== Q4 Review:
+
+[[cseGeZLJQmYzpuYwJqzkwBaqlonEhBPT]]
+== Announcements
+
+* link:/MP/3/[MP3] is due Friday.
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
