@@ -16,6 +16,12 @@
       <link rel="stylesheet" href="{{ lookup webpack.assets 'site.css' }}">
     {{/if }}
 
+    {{#if js }}
+      <script src="{{ lookup webpack.assets 'index.js' }}" async></script>
+    {{else}}
+      <script src="{{ lookup webpack.assets 'site.js' }}" async></script>
+    {{/if }}
+
     {{> favicon }}
   </head>
 

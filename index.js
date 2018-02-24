@@ -164,7 +164,6 @@ metalsmith(__dirname)
     metadata.webpack = {
       assets: assetMap
     }
-    console.log(assetMap)
     return done()
   })
   .use(permalinks({ relative: false }))
