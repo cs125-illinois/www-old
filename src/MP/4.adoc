@@ -1,0 +1,431 @@
+---
+title: "MP4: 2D"
+description:
+  In MP4 you have a chance to work with two-dimensional arrays and complete a
+  simple photo editing application.
+spelling_exceptions:
+  - RGBA
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp4[forum,role='noexternal']]
+
+[.lead]
+//
+As we have learned previously, computers are frequently used to transform and
+analyze data.
+//
+And an increasing amount of that data is _multi-dimensional_: including both
+photo and video data.
+//
+People are taking a
+//
+https://www.theatlantic.com/technology/archive/2015/11/how-many-photographs-of-you-are-out-there-in-the-world/413389/[huge
+amount of photos and video],
+//
+and processing that data is almost entirely done on or by computers.
+
+For MP4 you'll be working with two-dimensional photo pixel data as you complete
+the server part of a simple photo editing application.
+//
+*MP4 is due Friday 3/9/2018 @ 5PM.
+//
+To receive full credit, you must submit by this deadline.*
+//
+In addition, 10% of your grade on MP4 is for submitting code that earns at least
+_50 points_ by *Monday 3/5/2018 @ 5PM.*
+
+As usual, late submissions will be subject to the
+//
+link:/info/syllabus/#regrading[MP late submission policy].
+
+[[objectives]]
+== Learning Objectives
+
+The purpose of MP4 is to continue introducing you to data transformation.
+//
+You'll begin to learn how to:
+
+. implement various image transformations by performing transformations on 2D
+arrays
+//
+. avoid writing repetitive code by identifying similarities between various
+transformations
+//
+. work with existing object classes
+
+We'll also continue to reinforce the learning objectives from previous MPs
+(link:/MP/1/[1], link:/MP/2/[2], and link:/MP/3/[3]).
+
+[[structure]]
+== Assignment Structure
+
+Like link:/MP/3/[MP3], MP4 consists of a simple client-server system.
+//
+The HTML, CSS, and JavaScript for the client are provided for you.
+//
+But it relies on your backend to work properly.
+
+Your job is to complete the required transformations in `Transform.java`.
+//
+These make use of a pixel class defined in `RGBAPixel.java`.
+//
+These functions are called by the web server that is set up using `WebServer.java`.
+
+As always, you may find our official
+//
+https://cs125-illinois.github.io/MP4-Starter/[MP4 online documentation]
+//
+helpful in understanding what each function and class is supposed to do.
+
+[[getting]]
+=== Obtaining MP4
+Use
+https://classroom.github.com/a/cjTkpLN6[this GitHub Classroom invitation link]
+//
+to fork your copy of MP4.
+//
+Once your repository has been created, import it into IntelliJ following
+//
+link:/MP/setup/git/#workflow[our assignment Git workflow guide].
+
+[[requirements]]
+=== Your Goal
+
+At this point you should be familiar with the requirements from previous MPs.
+//
+See the <<grading, grading description below>>.
+
+[[running]]
+=== Running MP4
+
+To run MP4, follow the instructions from
+//
+link:/MP/3#running[MP3].
+
+At first, nothing will work because you have not implemented any of the required
+transformations yet.
+//
+But you may want to experiment with your browser using
+//
+https://cs125.cs.illinois.edu/MP/4/solution/[our solution]
+//
+to ensure that your browser is supported.
+//
+Our web interface uses some new-ish browser features, and of course Internet
+Explorer hasn't implemented all of them yet.
+//
+We have confirmed that
+//
+https://www.google.com/chrome/browser/desktop/index.html[Chrome],
+//
+https://www.mozilla.org/en-US/firefox/new/[Firefox],
+//
+and
+//
+https://www.apple.com/safari/[Safari]
+//
+work on both Mac and Windows footnote:[Well, not Safari on Windows, for obvious
+reasons].
+
+[[approach]]
+== Approaching MP4
+
+All of our previous advice about how to approach the CS 125 MPs still applies.
+//
+But MP4 has some unique features that are designed to continue your development
+as computer scientists and software developers.
+
+[[dry]]
+=== Don't Repeat Yourself (DRY)
+
+[.lead]
+//
+Whenever you write software, you should try to adhere to the DRY principle:
+_don't repeat yourself_.
+
+What does this mean?
+//
+It means that you should try to avoid writing duplicative code&mdash;multiple
+functions (or parts of the same function) that perform identical tasks.
+
+Consider the fact that any computer program _could_ be written as one giant
+function and with no subroutines at all
+//
+footnote:[Don't try this at home.].
+//
+But the result would be awful, since any time the program needed to repeat a
+task it would have to repeat the code needed to accomplish that task.
+//
+And any time you fixed a bug in one part of the code, you'd have to find every
+other identical part and fix the bug there as well.
+//
+Code like this quickly becomes impossible to understand, test, debug, and
+improve&mdash;and will also make it hard to keep a job.
+
+At first glance, MP4 may seem daunting.
+//
+You have _22_ functions to write!
+//
+And yes, you can complete MP4 by writing 22 separate independent functions.
+
+But there is a much smarter way to approach MP4.
+//
+As a hint, the solution set consists of only _six_ real functions&mdash;with the
+rest just calling into this much smaller set of _helper functions_.
+//
+The reason is that many of the transformations perform similar operations.
+//
+For example, a shift down is similar to a shift up, as well as a shift left and
+a shift right.
+//
+So rather than writing four separate extremely-similar functions, I can write a
+slightly more complicate generic shift function and have it called by all of the
+others.
+
+There is a balance here that requires practice to get right.
+//
+Trying to reduce the needs of 22 different functions to one single method
+produces overly-complicate and brittle code.
+//
+But writing them all separately misses opportunities to harness common
+subroutines.
+//
+You'll get better at this with practice, and MP4 is a good chance to get some.
+//
+So *do not* implement 22 separate transformation functions, but also *do not*
+attempt to implement one function that does everything.
+//
+There are some natural groupings that you will probably be able to identify.
+
+[[coordinates]]
+=== Understand Your Coordinate System
+
+If you are used to working with the coordinate plane in mathematics, the canvas
+coordinate system can take some getting used to.
+//
+In particular:
+
+. `(0, 0)` is at the _top left_, not the bottom left.
+//
+. Increasing Y values move the image _down_, not up&mdash;keep this in mind when
+implementing `shiftUp` and `shiftDown`.
+//
+. Increasing X values move the image to the right, which matches the
+mathematical coordinate system.
+
+==== Centering
+
+Understanding the coordinate system is also important when centering the image
+around `(0, 0)`, which you need to do to implement the rotate, flip, and resize
+transformations.
+//
+This is probably one of the trickier parts of MP4, so think it through
+carefully.
+
+It is helpful to work some simple examples.
+//
+For example, consider vertically flipping a 2x2 array.
+//
+In our coordinate system, the coordinate values of the pixels in the array would
+be:
+
+[.table-bordered]
+|===
+
+| `(0, 0)` | `(1, 0)`
+
+| `(0, 1)` | `(1, 1)`
+
+|===
+
+*Note that these are the coordinate values, not the pixel contents*.
+//
+In order to flip the array properly, we need to adjust the coordinate values as
+follows:
+
+[.table-bordered]
+|===
+
+| `(-0.5, -0.5)` | `(0.5, -0.5)`
+
+| `(-0.5, 0.5)` | `(0.5, 0.5)`
+
+|===
+
+At this point I can swap either the X or Y values and achieve either a
+horizontal or vertical flip around the origin.
+//
+There is only one problem&mdash;Java can't use `double` types as array indices.
+//
+So we need to do this transformation on a pixel-by-pixel basis.
+//
+Roughly, here is the approach.
+//
+For each pixel in the original image:
+
+. Center the pixel
+//
+. Determine how to transform it to a new location in the transformed image
+//
+. Undo the centering transformation
+//
+. Move data from the original image to the transformed image
+
+Once you have a centering procedure that works, you can use it for the
+rotations, flips, expands, and shrinks.
+//
+But this is one of the tougher parts of the assignment, so you might want to
+start with the parts that don't require centering: position shifts, color
+shifts, green screen and the mystery function.
+
+==== Shrinking and expanding
+
+As a final note about coordinates, please consider carefully how to implement
+the shrink and expand transformations.
+//
+Specifically, if I start with this 2x6 array (with pixel values shown):
+
+[.table-bordered]
+|===
+
+| `0` | `0` | `1` | `1` | `0` | `0`
+
+| `0` | `0` | `1` | `1` | `0` | `0`
+
+|===
+
+and expand it horizontally by a factor of 3, this is the correct result:
+
+[.table-bordered]
+|===
+
+| `1` | `1` | `1` | `1` | `1` | `1`
+
+| `1` | `1` | `1` | `1` | `1` | `1`
+
+|===
+
+But it is easy to get this instead:
+
+[.table-bordered]
+|===
+
+| `1` | *`0`* | `1` | `1` | *`0`* | `1`
+
+| `1` | *`0`* | `1` | `1` | *`0`* | `1`
+
+|===
+
+You will want to think about this carefully.
+//
+As a hint, instead of starting with the original array and trying to figure out
+where each pixel _goes_ in the transformed array, you may want to start with the
+transformed array and calculate where each pixel should _come from_.
+//
+Also keep in mind that simply casting a double to an integer _does not round the
+value properly_.
+//
+So `(int) doubleValue != Math.round(doubleValue)`.
+
+*Finally, note that shrinking is not tested by the test suite.*
+//
+You can feel free to implement it to get your web interface to work like the
+solution, but it will not affect your score.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[overview]]
+=== How All Of MP4 Works
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/v0TSgrVK8kA" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+The video above is optional, but may interest those that are curious about how a
+modern web application works.
+//
+It walks through most of what happens from the moment you click one of the image
+transformation buttons, to when transformed data returns from the server.
+
+[[grading]]
+== Grading
+
+MP4 is worth 100 points total, broken down as follows:
+
+. *80 points*: `Transform.java`
+  ** *20 points* for completing the position shift transformations
+  ** *20 points* for completing the rotation and flip transformations
+  ** *10 points* for completing the color shift transformations
+  ** *15 points* for completing the expand transformations
+  ** *10 points* for completing the green screen transformation
+  ** *5 points* for completing a mystery transformation
+. *10 points* for no `checkstyle` violations
+. *10 points* for submitting code that earns at least 50 points before *Monday
+3/5/2018 @ 5PM.*
+
+[[testing]]
+=== Test Cases
+
+As in previous MPs, we have provided exhaustive test cases
+for each part of MP4.
+//
+Please review the link:/MP/0/#testing[MP0 testing instructions].
+
+[[autograding]]
+=== Autograding
+
+Like previous MPs we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+//
+Please review the link:/MP/0#autograding[MP0 autograding instructions].
+
+[[submitting]]
+== Submitting Your Work
+
+Follow the instructions from the
+//
+link:/MP/setup/git#submitting[submitting portion]
+//
+of the
+//
+link:/MP/setup/git#workflow[CS 125 workflow]
+//
+instructions.
+
+And remember, you must submit something that earns 50 points before *Monday
+2/5/2018 @ 5PM* to earn 10 points on the assignment.
+
+[[cheating]]
+=== Academic Integrity
+
+Please review the link:/MP/0#cheating[MP0 academic integrity guidelines].
+
+Here's an example of the training that the CS 125 course staff undertakes to
+make sure we catch cheaters:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/XfZFuw7a13E" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
