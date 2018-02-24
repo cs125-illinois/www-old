@@ -25,10 +25,10 @@ https://www.theatlantic.com/technology/archive/2015/11/how-many-photographs-of-y
 amount of photos and video],
 //
 and processing that data is almost entirely done on or by computers.
-
+//
 For MP4 you'll be working with two-dimensional photo pixel data as you complete
 the server part of a simple photo editing application.
-//
+
 *MP4 is due Friday 3/9/2018 @ 5PM.
 //
 To receive full credit, you must submit by this deadline.*
@@ -215,6 +215,36 @@ implementing `shiftUp` and `shiftDown`.
 . Increasing X values move the image to the right, which matches the
 mathematical coordinate system.
 
+Another important pitfall is that the that way that two-dimensional arrays in
+Java are initialized _does not_ match up with this coordinate system.
+//
+So, for example, this static array:
+
+[source,java]
+----
+int[][] myArray = {
+  { 1, 2 },
+  { 3, 4 }
+};
+----
+
+corresponds to _this_ image array:
+
+[.table-bordered]
+|===
+
+| `1` | `3`
+
+| `2` | `4`
+
+|===
+
+We suggest that you _do not_ try to interpret the staticly initialized arrays in
+the test suite directly.
+//
+Instead, use the output from `RGBAPixel` helper methods, which is correctly
+formatted.
+
 ==== Centering
 
 Understanding the coordinate system is also important when centering the image
@@ -333,6 +363,14 @@ So `(int) doubleValue != Math.round(doubleValue)`.
 //
 You can feel free to implement it to get your web interface to work like the
 solution, but it will not affect your score.
+
+==== Testing diff helper
+
+You will notice that the `RGBAPixel` class defines a not very helpful `static`
+method to show the difference between two photo arrays.
+//
+You should feel free to improve this method so that it is more useful during
+your debugging.
 
 === Getting Help
 

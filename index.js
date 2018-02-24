@@ -157,15 +157,19 @@ metalsmith(__dirname)
     let assetMap = {}
     _.each(assets, filename => {
       let components = filename.split('/').slice(-1)[0].split('.')
-      assetMap[`${ components[0] }.${ components[2] }`] = path.join('/static-assets', filename)
+      if (components.length === 3) {
+        assetMap[`${ components[0] }.${ components[2] }`] = path.join('/static-assets', filename)
+      }
     })
     metadata.webpack = {
       assets: assetMap
     }
+    console.log(assetMap)
     return done()
   })
   .use(permalinks({ relative: false }))
   .use(hacks.preLayout())
+  .use(highlight())
   .use(inPlace({
     pattern: '**/*.html.hbs',
   }))
@@ -185,7 +189,6 @@ metalsmith(__dirname)
   .use(inPlace({
     pattern: 'conf/redirect.conf.hbs',
   }))
-  .use(highlight())
   .use(empty())
   .use(secret())
   .use(branch(doTransform)

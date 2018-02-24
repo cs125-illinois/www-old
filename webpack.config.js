@@ -26,6 +26,9 @@ module.exports = function (env, argv) {
         './src/fonts/fonts.css',
         './src/fonts/font-awesome.css'
       ],
+      highlight: [
+        './src/js/highlight.js',
+      ],
       slides: [
         './src/css/slides.scss',
         './src/fonts/fonts.css',
