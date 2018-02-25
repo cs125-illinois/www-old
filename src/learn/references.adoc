@@ -1,10 +1,42 @@
 ---
 title: Object References
-date: 2018-02-23
+date: 2018-02-26
 description:
   An introduction to object references, their implications for Java programming,
   and a bit about Java memory management.
 ---
+
+[[XvVPGwaRhahvjdxCblIifRgJogEUVwFu]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Object References</div>
+++++
+....
+public class Person {
+  public String name;
+  Person(String name) {
+    this.name = name;
+  }
+  public boolean equals(Person other) {
+    return this.name == other.name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person geoffrey = new Person("Geoffrey");
+    Person alsoGeoffrey = geoffrey;
+    Person anotherGeoffrey = new Person("Geoffrey");
+    System.out.println(alsoGeoffrey == geoffrey);
+    System.out.println(alsoGeoffrey.equals(geoffrey));
+    System.out.println(anotherGeoffrey == geoffrey);
+    System.out.println(anotherGeoffrey.equals(geoffrey));
+  }
+}
+....
+--
 
 [[aPEJwDTGvzGorZhmTnBdUHwActAsMCQU]]
 == Example PlantUML Diagram
