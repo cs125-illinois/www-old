@@ -1,0 +1,357 @@
+---
+title: "MP3: Encryption"
+description:
+  MP3 consists of two programming tasks that are both related to encrypting (and
+  decrypting) strings.
+spelling_exceptions:
+  - Brian Kernighan
+outdated:
+  name: MP
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.lead]
+//
+Computers are frequently used to _transform_ and _analyze_ data.
+//
+Rendering web pages, playing music, displaying video, compressing files, and
+graphing data are all examples that involve either transformation, analysis, and
+sometimes both.
+
+MP3 comprises two string-based tasks that involve straightforward transformation
+and analysis tasks.
+//
+*It is due Friday, October 6th, 2017 @ 5PM. To receive full credit, you must
+submit by this deadline.*
+//
+In addition, 10% of your grade on MP3 is for committing code that earns at least
+_20 points_ by *Tuesday, October 3rd, 2017 @ 5PM.*
+
+[[objectives]]
+== Learning Objectives
+
+The purpose of MP3 is to begin to introduce you to data processing, including
+both transformation and analysis.
+//
+You'll begin to learn how to:
+
+. programmatically transform strings by implementing both simple encryption and
+decryption
+//
+. complete a simple (but useful) cryptography-related data analysis task
+//
+. write Javadoc comments
+//
+. not start the MP at the last minute
+
+We'll also continue to reinforce the learning objectives from link:/MP/2017/fall/1/[MP1]
+and link:/MP/2017/fall/2/[MP2].
+
+[[structure]]
+== Assignment Structure
+
+MP3 consists of two short programs:
+
+. https://cs125-illinois.github.io/Fall-2017-MP3/CaesarCipher.html[`CaesarCipher.java`]:
+//
+encrypts and decrypts text using the so-called
+https://en.wikipedia.org/wiki/Caesar_cipher[Caesar Cipher]
+//
+. https://cs125-illinois.github.io/Fall-2017-MP3/CharDistribution.html[`CharDistribution.java`]:
+//
+parses text and computes the distribution of each of the alphabetic characters
+
+You may find our official
+//
+https://cs125-illinois.github.io/Fall-2017-MP3/[MP3 online documentation]
+//
+helpful in understanding what each function is supposed to do.
+
+[[getting]]
+=== Obtaining MP3
+
+Please follow the instructions from link:/MP/2017/fall/1/#getting[MP1].
+//
+You'll find MP3 in an `MP3` folder in your Subversion home directory.
+//
+Unless you want to learn a lot more about Subversion, *do not delete your MP3
+folder once you have it.*
+
+[[requirements]]
+=== Your Goal
+
+At this point you should be familiar with the requirements from
+link:/MP/2017/fall/1/#requirements[MP1] and link:/MP/2017/fall/2/#requirements[MP2].
+//
+MP3 is similar.
+//
+The only small difference with MP3 is in the grading, so <<grading, see below>>.
+
+[[approach]]
+== Fixing Problems
+
+All of the link:/MP/2017/fall/1/#approach[MP1] and link:/MP/2017/fall/2/#approach[MP2] about how to
+approach the MPs still apply.
+//
+But as usual, we'll furnish your continued development as programmers with some
+additional advice&mdash;this time about _fixing problems_.
+
+We've all been there.
+//
+My stupid code is not working!
+//
+Why not?
+//
+I'm angry, I'm frustrated, I want to throw my computer through a window or stomp
+it to bits.
+//
+*What should you do?*
+
+=== Calm Down
+
+Well, the first thing to do is _calm down_.
+//
+This can be a good time to get a cup of coffee, take a walk, engage in some
+//
+https://www.youtube.com/watch?v=5dsGWM5XGdg[YouTube browsing],
+//
+catch up on email, or whatever
+//
+footnote:[I don't recommend smoking, however, since it's unhealthy and habit
+forming. I found out the hard way.]
+//
+Get your head out of what you are doing for a few minutes and you'll be fresher
+when you get back.
+
+=== Accept Responsibility
+
+Second, accept that something is _wrong with your code_.
+//
+If it's not doing what you want, then that's obvious.
+//
+And for CS 125, the test suites are the arbiters of correctness.
+//
+So if you aren't passing them, then your code is incorrect.
+//
+Period.
+
+=== Do A Slow, Close Read
+
+Now that you're calmer and ready to find your mistakes, go through your code
+carefully line by line.
+//
+This can be a good time to do some cleanup&mdash;add comments where needed,
+improve your variable names, get all of your indentation and formatting worked
+out, etc.
+//
+Sometimes looking at your code in a slightly different way causes a bug to
+become apparent.
+//
+And you might as well be doing other useful tasks as you do your close read.
+
+During your first slow read it can be helpful to actually read code out loud, or
+at least in your head so that you don't bother others around you.
+//
+For example, if you're examining the code below:
+
+++++
+<script
+src="https://gist.github.com/gchallen/b6ff23b1c26659f920e8a71026816c42.js"></script>
+++++
+
+You might say:
+
+[.spelling_exception]
+//
+. "For every index value of searchArray" (you want to develop a shorthand for
+loops)
+//
+. "If the index member of anotherArray is equal to what I'm search for"
+//
+. "Then break."
+//
+. "But wait, why am I using an index from searchArray to look in anotherArray?
+That's probably wrong."
+
+This is a place where it _really_ helps to use variable names that aren't `i`
+and `j`, and to pull the current value of arrays into a local variable
+immediately or use the
+//
+https://blogs.oracle.com/corejavatechtips/using-enhanced-for-loops-with-your-classes[new
+enhanced `for` loop syntax].
+
+=== Add Instrumentation
+
+Once you've completed one pass, start over and begin adding some print
+statements.
+//
+This is sometimes called `printf` _debugging_, after the
+//
+https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm[C
+language `printf` statement]&mdash;its
+//
+equivalent to `System.out.println` in Java.
+//
+In Java, of course, you would use `System.out.println` to do this.
+
+You will find that there are snobs out there that look down on `printf`
+debugging.
+//
+Hook up a real debugger, they'll say.
+//
+(Don't worry: we'll get there.)
+//
+Or rewrite your entire project using a functional programming language where
+bugs are impossible&mdash;as if that's a real possibility.
+
+And then there are the rest of use that just want to build cool and useful
+things as quickly as possible, and who will _happily_ take the chance to add
+instrumentation as needed.
+//
+`printf` debugging is not powerful enough to solve every problem, and there are
+times that you will need better tools.
+//
+But use it when you can.
+//
+And remind the snobs what none other than
+//
+https://en.wikipedia.org/wiki/Brian_Kernighan[Brian Kernighan] says:
+
+[quote, 'https://stackoverflow.com/a/238686[Brian Kernighan]']
+____
+The most effective debugging tool is still careful thought, coupled with
+judiciously placed print statements.
+____
+
+Usually the right approach is to start at the top of the block of code that you
+are examining and use `System.out.println` to examine things that you are unsure
+are working properly.
+//
+This is particularly useful when used in conjunction with test suites.
+
+=== Consider A Different Approach
+
+If you are really stuck, it might be time to try a different approach.
+//
+This is particularly true when you can acknowledge that your current approach
+has some, shall we say, limitations.
+//
+Maybe you thought that this particular way of doing things would work out well,
+but then you had to add one hacky bit, and another.
+//
+And now it's rapidly approaching spaghetti code that you're not even sure that
+you understand anymore.
+
+In that case, by all means start over!
+//
+You're learning, and you'll learn more by completing a few alternative
+implementations than you will by clinging to an ugly solution.
+//
+Feel free to talk to another student&mdash;<<cheating, _In
+English_>>&mdash;about how they approached the problem.
+//
+Maybe they found a much cleaner way that you can try.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/2017/fall/syllabus/#calendar[office hours], or post (in the
+right place) on the
+//
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[grading]]
+== Grading
+
+MP3 is worth 100 points total, broken down as follows:
+
+. *40 points*: `CaesarCipher.java`
+  ** *10 points* for submitting code that compiles
+  ** *30 points* for passing the test
+. *40 points*: `CharDistribution.java`
+  ** *10 points* for submitting code that compiles
+  ** *40 points* for passing the test
+. *10 points* for no `checkstyle` violations
+. *10 points* for committing code that earns at least 20 points before *Tuesday,
+October 3rd, 2017 @ 5PM.*
+
+Programming is a skill, and you learn it with regular consistent practice.
+//
+If you wait until the day of the deadline, it's unlikely that you'll get as much
+practice and learn as much as if you start early.
+//
+When you give yourself enough time to complete the MP, you can also slow down,
+enjoy yourself, and do things right.
+//
+Take a few extra minutes to learn more about a library that you're using, or
+clean up your code so that it really shines.
+//
+The earlier you start, the more likely you'll do some of these useful things.
+
+So, we're going to incentive you starting on time.
+//
+10% of MP3 is earned by submitting something that earns 20 points by *Tuesday,
+October 3rd, 2017 @ 5PM.*
+//
+You don't have to do much to get 20 points, but we hope that it will get you
+reading and think about the MP before the end of the week, when office hours are
+packed.
+
+[[testing]]
+=== Test Cases
+
+Like link:/MP/2017/fall/1/[MP1] and link:/MP/2017/fall/2/[MP2], we have provided exhaustive test cases
+for each part of MP3.
+//
+Please review the link:/MP/2017/fall/1/#testing[MP1 testing instructions].
+
+[[autograding]]
+=== Autograding
+
+Like link:/MP/2017/fall/1/[MP1] and link:/MP/2017/fall/2/[MP2], we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+//
+The Eclipse project contains a launcher that will run MP3 autograder.
+//
+Note, however, that unlike previous assignments, the local autograder can only
+calculate 90 out of your 100 total points.
+//
+This is because it can't tell if you have committed the required code before the
+deadline to earn the 10 "start the assignment on time" points
+//
+footnote:[Well, it probably could find this out, but this would require that
+everyone install the Subversion command line client, and I don't want to go
+there.].
+
+Unless you have modified the test cases or autograder configuration files, the
+autograding output should equal the score that you will earn when you submit.
+//
+*If you modify our test cases or the autograding configuration, all bets are
+off.*
+
+[[submitting]]
+== Submitting Your Work
+
+Overall you should refer to link:/MP/setup/subversion[our instructions for using
+Subversion].
+//
+Commit early and often!
+//
+You only earn credit for the version of your code that is committed to your
+repository, so ensure that we have your best submission before the deadline.
+
+And remember, you must commit something that earns 20 points before *Tuesday,
+October 3rd, 2017 @ 5PM* to earn 10 points on the assignment.
+
+[[cheating]]
+=== Academic Integrity
+
+Please review the link:/MP/2017/fall/1/[MP1 academic integrity guidelines].
