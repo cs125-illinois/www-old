@@ -38,19 +38,338 @@ public class Example {
 ....
 --
 
-[[aPEJwDTGvzGorZhmTnBdUHwActAsMCQU]]
-== Example PlantUML Diagram
+[[qWcdunxsQUZvWXluIpetvUNFVUAmCjVP]]
+[.oneword]
+== This is _Not_ a Class on Java Internals
+
+[.lead]
+//
+You should learn to think _in Java_, not worry (yet) about what is going on
+below.
+
+[[drSMdGFVAAqrAxUkxYuOVntLZQwbJhIt]]
+== But We'll Do A _Bit_ of Java Internals
+
+Either because it's
+
+[.s]
+//
+* *important*
+//
+* interesting
+//
+* fun
+//
+* or some combination of the above.
+
+[[XxGahOwmXfZrBFQuELVZOxrslVpDJEnC]]
+== References
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Reference_(computer_science)[Reference:]
+//
+a value that enables a program to _indirectly_ access a particular datum, such
+as a variable's value or a record, in the computer's memory or in some other
+storage device.
+//
+The reference is said to refer to the datum, and accessing the datum is called
+dereferencing the reference.
+____
+
+[[jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge]]
+== Java Reference Variables
+
+[source,java,role='smallest']
+----
+class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me points to a new Person object
+you = me; // Now me and you point to the same Person object
+System.out.println(you == me);
+you = new Person(); // Now you points to a new Person object
+System.out.println(you == me);
+----
+
+[.lead]
+//
+We can refer to a Java variable that refers to an object as a _reference
+variable_.
+
+[[ePzrrhanajpSQIFiEmThxkYyCQtBUDrR]]
+== ! Java Reference Variables
+
+[.janini.smaller]
+....
+class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me points to a new Person object
+you = me; // Now me and you point to the same Person object
+System.out.println(you == me);
+you = new Person(); // Now you points to a new Person object
+System.out.println(you == me);
+....
+
+[[dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv]]
+== References Are Not Objects
+
+[.lead]
+//
+References _are not_ the thing the refer to.
+
+What are some real-world examples of references?
+
+[.s]
+//
+* *A phone number*: which refers to a phone
+//
+* *A street address*: which refers to a physical location
+//
+* *A social security number*: which refers to a person
+
+[[itfuafekfLjAzwwbVrkStPQVIGyxObCF]]
+== Copying References
+
+[.lead]
+//
+Copying a reference _does not_ copy the object it refers to.
+
+[.s]
+//
+* *Copying a phone number doesn't copy the phone.*
+//
+Anyone with the number can call the same person.
+//
+* *Copying a street address doesn't copy the location.*
+//
+Anyone with the address can navigate to the same spot.
+//
+* *Copying a social security number doesn't copy the person* footnote:[Is that
+even possible?].
+//
+Anyone with social security number may be able to impersonate that person.
+
+[[mgDxtWzOVhgiyiPrSUQKCwwUKOAeHLuC]]
+== ! Copying References
+
+[.janini]
+....
+class Person {
+  public int age;
+}
+Person me;
+me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);
+....
+
+[[mIzaMkJisKMhTtGuDJdBQQQLzmaeZvUp]]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me;
+----
 
 ++++
 <div class="plantuml">
 @startuml
-Class01 <|-- Class02
-Class03 *-- Class04
-Class05 o-- Class06
-Class07 .. Class08
-Class09 -- Class10
+skinparam defaultFontSize 24
+skinparam defaultFontName "Open Sans"
+
+left to right direction
+
+class "me" as me
+hide me circle
+hide me empty members
+
 @enduml
 </div>
 ++++
+
+[[oTxeeptDAAbhPoFfhrUmlbRqOGBifBCI]]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+----
+
+++++
+<div class="plantuml">
+@startuml
+skinparam defaultFontSize 24
+skinparam defaultFontName "Open Sans"
+
+left to right direction
+
+object "Person" as p1 {
+  age = 0
+}
+
+me --> p1 : refers to
+hide me circle
+hide me empty members
+
+@enduml
+</div>
+++++
+
+[[HRLZQYDutqYyuRJLAfRTUKWsHAAnIsXh]]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+----
+
+++++
+<div class="plantuml">
+@startuml
+skinparam defaultFontSize 24
+skinparam defaultFontName "Open Sans"
+
+left to right direction
+
+object "Person" as p1 {
+  age = 0
+}
+
+me --> p1 : refers to
+hide me circle
+hide me empty members
+
+you --> p1 : refers to
+hide you circle
+hide you empty members
+
+@enduml
+</div>
+++++
+
+[[BNDFZUWJXXyorFCxmkBrigvGUpbPKsEb]]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;
+----
+
+++++
+<div class="plantuml">
+@startuml
+skinparam defaultFontSize 24
+skinparam defaultFontName "Open Sans"
+
+left to right direction
+
+object "Person" as p1 {
+  age = 10
+}
+
+me --> p1 : refers to
+hide me circle
+hide me empty members
+
+you --> p1 : refers to
+hide you circle
+hide you empty members
+
+@enduml
+</div>
+++++
+
+[[EbMSAXuEuSUQYYKcghZAlJXEgDAazCWh]]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);
+----
+
+++++
+<div class="plantuml">
+@startuml
+skinparam defaultFontSize 24
+skinparam defaultFontName "Open Sans"
+
+left to right direction
+
+object "Person" as p1 {
+  age = 10
+}
+
+me --> p1 : refers to
+hide me circle
+hide me empty members
+
+you --> p1 : refers to
+hide you circle
+hide you empty members
+
+@enduml
+</div>
+++++
+
+[[OmTSjTmYpHwjYoPLKPiqfxoTUMMjNKUl]]
+== ! Copying References
+
+[.janini]
+....
+class Person {
+  public int age;
+}
+Person me;
+me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);
+....
 
 // vim: ts=2:sw=2:et

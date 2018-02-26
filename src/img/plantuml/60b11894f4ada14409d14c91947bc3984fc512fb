@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="132px" preserveAspectRatio="none" style="width:330px;height:132px;" version="1.1" viewBox="0 0 330 132" width="330px" zoomAndPan="magnify"><defs><filter height="300%" id="fhw54ijoz55zl" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FEFECE" filter="url(#fhw54ijoz55zl)" height="68.5313" style="stroke: #A80036; stroke-width: 1.5;" width="103" x="216" y="31.5"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="78" x="228.5" y="56.7031">Person</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="217" x2="318" y1="63.7656" y2="63.7656"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="91" x="222" y="90.9688">age = 0</text><!--class me--><rect fill="#FEFECE" filter="url(#fhw54ijoz55zl)" height="38.2656" id="me" style="stroke: #A80036; stroke-width: 1.5;" width="41" x="10" y="10"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="35" x="13" y="38.2031">me</text><!--class you--><rect fill="#FEFECE" filter="url(#fhw54ijoz55zl)" height="38.2656" id="you" style="stroke: #A80036; stroke-width: 1.5;" width="49" x="6" y="83"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="43" x="9" y="111.2031">you</text><!--link me to p1--><path d="M51.1176,32.2188 C86.2856,37.7091 159.0476,49.0686 210.4633,57.0955 " fill="none" id="me-p1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="215.6827,57.9104,207.4075,52.57,210.7425,57.1391,206.1734,60.4742,215.6827,57.9104" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="99" x="86" y="32.2031">refers to</text><!--link you to p1--><path d="M55.0643,105.0968 C85.9891,108.2918 140.5666,111.5875 186,102 C194.2722,100.2544 202.7271,97.6132 210.9097,94.5383 " fill="none" id="you-p1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="215.9652,92.5719,206.1273,92.1065,211.3053,94.3844,209.0274,99.5624,215.9652,92.5719" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="99" x="86" y="96.2031">refers to</text><!--
+@startuml
+skinparam defaultFontSize 24
+skinparam defaultFontName "Open Sans"
+
+left to right direction
+
+object "Person" as p1 {
+  age = 0
+}
+
+me - -> p1 : refers to
+hide me circle
+hide me empty members
+
+you - -> p1 : refers to
+hide you circle
+hide you empty members
+
+@enduml
+
+PlantUML version 1.2018.00(Thu Jan 04 13:42:56 CST 2018)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 9.0.1+11
+Operating System: Mac OS X
+OS Version: 10.13.3
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

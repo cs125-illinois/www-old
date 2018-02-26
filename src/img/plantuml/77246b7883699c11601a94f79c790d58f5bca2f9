@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="132px" preserveAspectRatio="none" style="width:345px;height:132px;" version="1.1" viewBox="0 0 345 132" width="345px" zoomAndPan="magnify"><defs><filter height="300%" id="f1o9lk7abkn1iu" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FEFECE" filter="url(#f1o9lk7abkn1iu)" height="68.5313" style="stroke: #A80036; stroke-width: 1.5;" width="118" x="216" y="31.5"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="78" x="236" y="56.7031">Person</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="217" x2="333" y1="63.7656" y2="63.7656"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="106" x="222" y="90.9688">age = 10</text><!--class me--><rect fill="#FEFECE" filter="url(#f1o9lk7abkn1iu)" height="38.2656" id="me" style="stroke: #A80036; stroke-width: 1.5;" width="41" x="10" y="10"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="35" x="13" y="38.2031">me</text><!--class you--><rect fill="#FEFECE" filter="url(#f1o9lk7abkn1iu)" height="38.2656" id="you" style="stroke: #A80036; stroke-width: 1.5;" width="49" x="6" y="83"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="43" x="9" y="111.2031">you</text><!--link me to p1--><path d="M51.3459,32.1546 C86.2505,37.4367 157.8861,48.2772 210.7218,56.2728 " fill="none" id="me-p1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="215.7744,57.0374,207.4742,51.7358,210.8307,56.2893,206.2772,59.6457,215.7744,57.0374" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="99" x="86" y="32.2031">refers to</text><!--link you to p1--><path d="M55.0172,104.8647 C85.8935,107.8204 140.4209,110.8692 186,102 C194.1292,100.4181 202.4556,98.0942 210.5963,95.3757 " fill="none" id="you-p1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="215.6377,93.6352,205.8251,92.7913,210.9114,95.2669,208.4358,100.3533,215.6377,93.6352" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="Open Sans" font-size="24" lengthAdjust="spacingAndGlyphs" textLength="99" x="86" y="96.2031">refers to</text><!--
+@startuml
+skinparam defaultFontSize 24
+skinparam defaultFontName "Open Sans"
+
+left to right direction
+
+object "Person" as p1 {
+  age = 10
+}
+
+me - -> p1 : refers to
+hide me circle
+hide me empty members
+
+you - -> p1 : refers to
+hide you circle
+hide you empty members
+
+@enduml
+
+PlantUML version 1.2018.00(Thu Jan 04 13:42:56 CST 2018)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 9.0.1+11
+Operating System: Mac OS X
+OS Version: 10.13.3
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
