@@ -97,10 +97,10 @@ Person me;
  */
 Person you = null;
 
-me = new Person(); // Now me points to a new Person object
-you = me; // Now me and you point to the same Person object
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
 System.out.println(you == me);
-you = new Person(); // Now you points to a new Person object
+you = new Person(); // Now you refers to a new Person object
 System.out.println(you == me);
 ----
 
@@ -127,10 +127,10 @@ Person me;
  */
 Person you = null;
 
-me = new Person(); // Now me points to a new Person object
-you = me; // Now me and you point to the same Person object
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
 System.out.println(you == me);
-you = new Person(); // Now you points to a new Person object
+you = new Person(); // Now you refers to a new Person object
 System.out.println(you == me);
 ....
 
@@ -774,11 +774,11 @@ System.out.println(me.equals(other));
 
 [.s]
 //
-* If two _references_ are equal then they point to _the same_ object, and
+* If two _references_ are equal then they refer to _the same_ object, and
 `.equals` is almost always true.
 //
 * If two references are not equal, the class may still define `.equals` to be
-true dependending on the value of the instance variables.
+true depending on the value of the instance variables.
 
 [[lxdGHmogdPLNiOxkBLAJToLVxBSxdnnA]]
 == ! Reference v. Object Equality
