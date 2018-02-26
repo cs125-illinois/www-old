@@ -189,6 +189,7 @@ System.out.println(you.age);
 ....
 
 [[mIzaMkJisKMhTtGuDJdBQQQLzmaeZvUp]]
+[.ss]
 == Copying References
 
 [source,java]
@@ -199,23 +200,16 @@ class Person {
 Person me;
 ----
 
+<<<
+
 ++++
-<div class="plantuml">
-@startuml
-skinparam defaultFontSize 24
-skinparam defaultFontName "Open Sans"
-
-left to right direction
-
-class "me" as me
-hide me circle
-hide me empty members
-
-@enduml
+<div class="digraph default">
+  me
 </div>
 ++++
 
 [[oTxeeptDAAbhPoFfhrUmlbRqOGBifBCI]]
+[.ss]
 == Copying References
 
 [source,java]
@@ -226,27 +220,17 @@ class Person {
 Person me = new Person();
 ----
 
+<<<
+
 ++++
-<div class="plantuml">
-@startuml
-skinparam defaultFontSize 24
-skinparam defaultFontName "Open Sans"
-
-left to right direction
-
-object "Person" as p1 {
-  age = 0
-}
-
-me --> p1 : refers to
-hide me circle
-hide me empty members
-
-@enduml
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
 </div>
 ++++
 
 [[HRLZQYDutqYyuRJLAfRTUKWsHAAnIsXh]]
+[.ss]
 == Copying References
 
 [source,java]
@@ -258,31 +242,18 @@ Person me = new Person();
 Person you = me;
 ----
 
+<<<
+
 ++++
-<div class="plantuml">
-@startuml
-skinparam defaultFontSize 24
-skinparam defaultFontName "Open Sans"
-
-left to right direction
-
-object "Person" as p1 {
-  age = 0
-}
-
-me --> p1 : refers to
-hide me circle
-hide me empty members
-
-you --> p1 : refers to
-hide you circle
-hide you empty members
-
-@enduml
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
+  you -> Person [ label = "refers to" ]
 </div>
 ++++
 
 [[BNDFZUWJXXyorFCxmkBrigvGUpbPKsEb]]
+[.ss]
 == Copying References
 
 [source,java]
@@ -295,31 +266,18 @@ Person you = me;
 me.age = 10;
 ----
 
+<<<
+
 ++++
-<div class="plantuml">
-@startuml
-skinparam defaultFontSize 24
-skinparam defaultFontName "Open Sans"
-
-left to right direction
-
-object "Person" as p1 {
-  age = 10
-}
-
-me --> p1 : refers to
-hide me circle
-hide me empty members
-
-you --> p1 : refers to
-hide you circle
-hide you empty members
-
-@enduml
+<div class="digraph default">
+  Person [ label = "Person|age = 10" ]
+  me -> Person [ label = "set age" ]
+  you -> Person
 </div>
 ++++
 
 [[EbMSAXuEuSUQYYKcghZAlJXEgDAazCWh]]
+[.ss]
 == Copying References
 
 [source,java]
@@ -333,27 +291,13 @@ me.age = 10;
 System.out.println(you.age);
 ----
 
+<<<
+
 ++++
-<div class="plantuml">
-@startuml
-skinparam defaultFontSize 24
-skinparam defaultFontName "Open Sans"
-
-left to right direction
-
-object "Person" as p1 {
-  age = 10
-}
-
-me --> p1 : refers to
-hide me circle
-hide me empty members
-
-you --> p1 : refers to
-hide you circle
-hide you empty members
-
-@enduml
+<div class="digraph default">
+  Person [ label = "Person|age = 10" ]
+  me -> Person
+  you -> Person [ label = "get age" ]
 </div>
 ++++
 
@@ -371,5 +315,170 @@ Person you = me;
 me.age = 10;
 System.out.println(you.age);
 ....
+
+[[eQpiyhXFcqMSmIAgOndHFzSGcIJfkOSR]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P2 [ label = "Person|age = 18" ]
+  P1 [ label = "Person|age = 38" ]
+  me -> P1
+  you -> P2
+</div>
+++++
+
+[[lkfWvkqKjRjIjJZWJvPzqfFkFyphDUFO]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P1
+  you -> P2
+  tmp -> P1
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+++++
+
+[[pWMfaKXkBZCrwPFnsQKKsUWcnCsVJBzf]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  me -> P1 [style=invis]
+  you -> P2
+  you -> P1 [style=invis]
+  tmp -> P1
+  tmp -> P2 [style=invis]
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+++++
+
+[[UywGpTsMtxFOHkCUrvxZmOYaZYzFqZMv]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  me -> P1 [style=invis]
+  you -> P1
+  you -> P2 [style=invis]
+  tmp -> P1
+  tmp -> P2 [style=invis]
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+++++
+
+[[ZlSlVntakQfPDbkrVfimWKcshUXdksDO]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = me;
+// Now we can discard tmp
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  you -> P1
+  me -> P1 [style=invis]
+  you -> P2 [style=invis]
+</div>
+++++
 
 // vim: ts=2:sw=2:et
