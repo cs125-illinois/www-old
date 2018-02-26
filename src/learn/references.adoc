@@ -464,7 +464,7 @@ Person me = new Person(38);
 Person you = new Person(18);
 Person tmp = me;
 me = you;
-you = me;
+you = tmp;
 // Now we can discard tmp
 ----
 
@@ -480,5 +480,139 @@ you = me;
   you -> P2 [style=invis]
 </div>
 ++++
+
+[[uzNQUXEArykYdhVIfncXFOqBYnBNVOol]]
+== ! Swapping References
+
+[.janini.smaller]
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;
+System.out.println("You're now " + you.age);
+----
+
+[[MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB]]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));
+System.out.println(me.age);
+----
+
+[.lead]
+//
+In Java methods receive _a copy_ of a reference to the passed object.
+
+So they *can* modify the object the reference refers to.
+
+[[TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO]]
+[.ss]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 38" ]
+  me -> Person
+</div>
+++++
+
+[[QeoegaQWqRCqwRWjFgcHecPcBnblAsuu]]
+[.ss]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person
+  toSet -> Person [ label = "age++" ]
+</div>
+++++
+
+[[LCApeGyQtFkuQzuHRiWVCZeNpdydfeht]]
+[.ss]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));
+System.out.println(me.age);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person [ label = "get age" ]
+</div>
+++++
+
 
 // vim: ts=2:sw=2:et
