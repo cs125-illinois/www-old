@@ -614,5 +614,417 @@ System.out.println(me.age);
 </div>
 ++++
 
+[[llBQyrlpKOvNiAoKQdVqESgkRxfeasaU]]
+== ! Pass By Reference
+
+[.janini.smaller.compiler]
+....
+public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+public class Example {
+  public static int birthday(Person toSet) {
+    toSet.age++;
+    return toSet.age;
+  }
+  public static void main(String[] unused) {
+    Person me = new Person(38);
+    System.out.println(birthday(me));
+    System.out.println(me.age);
+  }
+}
+....
+
+[[XpvjEiHxEGbjtWPgOzaxnwavoTjYJuUk]]
+== Arrays Store Object References
+
+[source,java,role='smallest']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person[] people = new Person[4];
+for (int i = 0; i < people.length; i++) {
+  people[i] = new Person(18 + i);
+}
+Person[] samePeople = new Person[4];
+for (int i = 0; i < people.length; i++) {
+  samePeople[i] = people[i];
+}
+for (int i = 0; i < people.length; i++) {
+  people[i].age++;
+}
+for (int i = 0; i < samePeople.length; i++) {
+  System.out.println(samePeople[i].age);
+}
+----
+
+[.lead]
+//
+So copying an array as above only copies the object references, not the objects
+themselves.
+
+[[vBVVoNbvCRZapCtVZOalDGPPOGiDqYTV]]
+== ! Arrays Store Object References
+
+[.janini.smallest.compiler]
+----
+public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person[] people = new Person[4];
+    for (int i = 0; i < people.length; i++) {
+      people[i] = new Person(18 + i);
+    }
+    Person[] samePeople = new Person[4];
+    for (int i = 0; i < people.length; i++) {
+      samePeople[i] = people[i];
+    }
+    for (int i = 0; i < people.length; i++) {
+      people[i].age += 10;
+    }
+    for (int i = 0; i < samePeople.length; i++) {
+      System.out.println(samePeople[i].age);
+    }
+  }
+}
+----
+
+[[wLKMXRVWDTOLVmKPzLGUzkHWsYXfjKhd]]
+== How To Copy Objects
+
+[source,java]
+----
+public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  Person(Person other) {
+    this.age = other.age;
+  }
+}
+----
+
+[.lead]
+//
+If we want to copy an object, we have a few options:
+
+[.s]
+//
+* `Object` provides a `clone` method
+//
+* You can implement a _copy_ constructor as shown above
+
+[[yIuWQkMigaAVPvtEIROvoEbkHSwxdNBQ]]
+== Shallow v. Deep Copies
+
+[source,java]
+----
+public class Person {
+  public Pet pet;
+  Person(Person other) {
+    this.pet = other.pet;
+  }
+}
+----
+
+[.lead]
+//
+What is a potential problem with the copy constructor shown above?
+
+[.s]
+//
+* It only copies the _reference_ to the `Pet` object. So both the existing and
+the new object will share the same `Pet` object.
+//
+* This is called a _shallow_ copy. A _deep_ copy copies all of the objects so
+the old and new object share nothing.
+
+[[tTAXvrPmiXsApAXXqjpgJRjMksTFlnuv]]
+== Reference v. Object Equality
+
+[source,java,role='smaller']
+----
+public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  boolean equals(Person other) {
+    return this.age == other.age;
+  }
+}
+Person me = new Person(38);
+Person other = new Person(38);
+System.out.println(me == other);
+System.out.println(me.equals(other));
+----
+
+[.s]
+//
+* If two _references_ are equal then they point to _the same_ object, and
+`.equals` is almost always true.
+//
+* If two references are not equal, the class may still define `.equals` to be
+true dependending on the value of the instance variables.
+
+[[lxdGHmogdPLNiOxkBLAJToLVxBSxdnnA]]
+== ! Reference v. Object Equality
+
+[.janini.small]
+....
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  boolean equals(Person other) {
+    return this.age == other.age;
+  }
+}
+Person me = new Person(38);
+Person other = new Person(38);
+System.out.println(me == other);
+System.out.println(me.equals(other));
+....
+
+[[YkxyDKHKOIwHLcdjIZCcUkSxnwqzgejc]]
+== References Are Powerful
+
+[.lead]
+//
+References are a widely-used idea in computer science.
+
+By controlling the process of dereferencing or _translating_ a reference we can:
+
+[.s]
+//
+* *move* objects from place to place: just like your phone can move around with
+the same number
+//
+* *block* translation in certain cases: just like you can reject email from
+certain senders
+
+[[VjdvpgqzTAgeaTuQOvPNlsUiBIhYcxFE]]
+[.oneword]
+== And Memory Management
+(Or why you never need to `delete` anything in Java...)
+
+[[LMkQlNJtjcgVmFapXzOxalWcbrMgJCdj]]
+== Java Memory Management
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+}
+----
+
+Java utilizes references to automatically clean up unused objects to reclaim
+memory&mdash;a process known as _garbage collection_.
+
+[.s]
+//
+* If a reference to an object exists, it must still be useful, *so keep it*
+//
+* If no reference to an object exists, _it cannot be used_, *so remove it*
+
+[[ExXBunKhuHMRMgeissCMJFagFMaATymr]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 0
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  save -> String
+  s -> String
+</div>
+++++
+
+[[DhaLhZFXsqpNrJSlnhNezfCAhyJMtdkH]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 1
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  save -> String
+  s -> String1
+</div>
+++++
+
+[[ySGaaRXUtptkhVrcBQumHCwMiBCjyqCp]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 2
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  save -> String
+  s -> String2
+  {rank=same; String String1 String2}
+</div>
+++++
+
+[[zEHDaKoSAyMYFCMSoqKCpNYvHppfhklu]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+++++
+
+[[GrSlJoshnMHiqwfLmUJHgieSBvLWhWFV]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1", fillcolor="red", style="filled" ]
+  String2 [ label = "String|2", fillcolor="red", style="filled" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+++++
+
+[[kYPIHYzgsQZYzQsiBRpOBnQwzxswiPLl]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+</div>
+++++
+
+[[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
+== Announcements
+
+* link:/MP/3/[MP3] is due today! Office hours all day in the basement of Siebel.
+//
+* link:/MP/4/[MP4] is out and due in less than two weeks. The early deadline is
+a week from today. *Please get started.* MP4 is not easy.
+//
+* CS 196 is holding a Microsoft Azure Workshop tomorrow (Tuesday 2/27/2018) from
+7&ndash;7:45 in Siebel 0216. *Please consider attending.*
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
 
 // vim: ts=2:sw=2:et
