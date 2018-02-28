@@ -1,0 +1,613 @@
+---
+title: Algorithm Runtime
+date: 2018-02-28
+description:
+  An introduction to the analysis of algorithm runtime and big-O notation.
+spelling_exceptions:
+  - GCD
+  - livin
+---
+
+[[ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Algorithm Runtime</div>
+++++
+....
+public class SimpleMath {
+  static long LCM(long first, long second) {
+    for (long i = 1; i < first * second; i++) {
+       if (i % first == 0 && i % second == 0) {
+         return i;
+       }
+    }
+    return -1;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    long startTime = System.nanoTime();
+    long result = SimpleMath.LCM(10, 2000L);
+    long endTime = System.nanoTime();
+    System.out.println(result);
+    System.out.println((endTime - startTime) / 1000000.);
+  }
+}
+....
+--
+
+[[bpRTfbCBcBBiyYZPSgnUrTZLkRXauCAx]]
+== Q5 Review: `static`
+
+[source,java,role='smaller']
+----
+public class Laptop {
+  public static int count = 0;
+  private String model;
+
+  Laptop(String setModel) {
+    model = setModel;
+    count++;
+  }
+
+  public static void main(String[] unused) {
+    Laptop apple = new Laptop("Apple");
+    Laptop PC = new Laptop("Windows");
+    Laptop broken = new Laptop("Linux");
+    System.out.println(apple.count);
+  }
+}
+----
+
+When the `main` method defined above runs, what will be printed?
+
+[[OCdlNQVLiQrlRbYHrgzVtGArionktjLy]]
+== Q5 Review: Inheritance
+
+[source,java,role='smallest']
+----
+public class Shape {
+  // Position coordinates
+  private double x;
+  private double y;
+
+  Shape(double setX, double setY) {
+    this.x = setX;
+    this.y = setY;
+  }
+}
+public class Rectangle extends Shape {
+  private double length;
+  private double height;
+
+  Rectangle(double setX, double setY, double setLength, double setHeight) {
+    this.x = setX;
+    this.y = setY;
+    this.length = setLength;
+    this.height = setHeight;
+  }
+}
+----
+
+Given the classes defined above, why does it make sense for `Rectangle` to
+`extend` `Shape`?
+
+[[PKnWiQrqFyGmlwhKMFWqWcWgOLelYXhl]]
+== Q5 Review: Method Inheritance
+
+[source,java,role='smallest']
+----
+class Furniture {
+  private String type;
+  Furniture(String setType) {
+    type = setType;
+  }
+  public String toString() {
+    return "I'm furniture";
+  }
+  public String getType() {
+    return this.type;
+  }
+}
+class Couch extends Furniture {
+  private int numCushions;
+  Couch(int setNumCushions) {
+    super("Couch");
+    numCushions = setNumCushions;
+  }
+  private int getNumCushions() {
+    return numCushions;
+  }
+}
+----
+
+Why does `Furniture` not have a `setType` method?
+
+[[vGAdSTtjPlhUNzsPbNqHKjLMFLdFqACH]]
+== Q5 Review: Class Design
+
+[source,java,role='smallest']
+----
+class Computer {
+  protected static int count = 0;
+  protected String brand;
+  Computer(String setBrand) {
+    this.brand = setBrand;
+    this.count++;
+  }
+}
+class Laptop extends Computer {
+  public static String type = "laptop";
+  Laptop(String setBrand) {
+    super(setBrand);
+  }
+}
+class Desktop extends Computer {
+  public static String type = "desktop";
+  Desktop(String setBrand) {
+    super(setBrand);
+  }
+}
+----
+
+What would be the _best_ variable to add to the `Desktop` class?
+
+[[APTBLvDNNflfqQcKsLtfiOgieqBNXYNw]]
+[.oneword]
+//
+== Review: What's An Algorithm?
+
+[[aUxsyjhTqYgprQGAtYgCJCpFInIbEnMP]]
+== Algorithms
+
+[quote]
+//
+____
+https://en.wikipedia.org/wiki/Algorithm[Algorithm]:
+//
+a process or set of rules to be followed in calculations or other
+problem-solving operations, especially by a computer.
+//
+____
+
+As computer scientists, we implement algorithms by having computers:
+
+[.s]
+//
+* Perform simple calculations
+//
+* Store the results
+//
+* Make simple decisions
+//
+* Do things over and over again as fast as possible
+
+[[BzRRFIMstyqbRXhqEywqvIoQJUgYebbD]]
+== Greatest Common Denominator
+
+[quote]
+//
+____
+//
+In mathematics, the
+//
+https://en.wikipedia.org/wiki/Greatest_common_divisor[greatest common divisor
+(GCD)]
+//
+of two or more integers, which are not all zero, is the largest positive integer
+that divides each of the integers.
+//
+____
+
+[[pjDljAIzRjELOcfeobkDQFRinIBUMrhD]]
+== ! GCD Algorithms
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://en.wikipedia.org/wiki/Greatest_common_divisor#Calculation"></iframe>
+</div>
+++++
+
+[[tDXMsVMWQaICoZpNjRwvYQvYvpkBVCKA]]
+[.oneword]
+== But If We're In A Hurry...
+What's a simpler approach?
+
+[[JssrqejyvIyvwsXyrCkspJKxdKDMQLRk]]
+== Brute Force Solution
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Brute-force_search[Brute force solution]:
+//
+a very general problem-solving technique that consists of systematically
+enumerating all possible candidates for the solution and checking whether each
+candidate satisfies the problem's statement.
+//
+____
+
+[.s]
+//
+* Computers today are very, _very_ fast
+//
+* So try the simple thing first
+//
+* If it's too slow, try something a bit more sophisticated
+
+[[qMuYttxuubacRODFMWhjihipuaPhWYqH]]
+== ! GDC Implementation
+
+[.janini.smallest.compiler]
+....
+public class SimpleMath {
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(SimpleMath.GCD(10, 8));
+    System.out.println(SimpleMath.GCD(100, 50));
+    System.out.println(SimpleMath.GCD(94677, 65270));
+  }
+}
+....
+
+[[qdXwzQeEINKOPgbceNliwLWeLNyqnSVo]]
+== ! Bring the Brute
+
+image::https://cdn.vox-cdn.com/thumbor/wgMcgj6LStdjW-qlLkaHUBsdQzY=/0x0:2048x858/1200x800/filters:focal(834x251:1160x577)/cdn.vox-cdn.com/uploads/chorus_image/image/57442421/hulk_agnarok.0.jpg[role='mx-auto meme',width=640]
+
+[[SAkZunVquojxGluWfhHFkLljmuDEmoNB]]
+[.oneword]
+== You Don't Need the Fastest Algorithm to Change the World
+
+That's a good thing!
+
+[[KTGrHQJiStmgrdjVjvLJBvdHTokGvbGK]]
+== But Speed Eventually Matters
+
+[.lead]
+//
+Even if you don't at the beginning, you will eventually start to care about how
+fast your code runs.
+//
+For any number of the following reasons:
+
+[.s]
+//
+* You're embarrassed that your algorithm makes your incredibly fast computer
+seem slow
+//
+* You have to start paying for machines
+//
+* Your customer tells you that your program is too slow
+
+[[XIAanwdDVyALfCEgZLNQljuMKfylgtld]]
+== So How Long Will It Take?
+
+[.lead]
+//
+How long will our brute force GCD algorithm take?
+
+[.s]
+//
+* To compute the GCD of 4 and 6
+//
+* To compute the GCD of 185 and 2045
+//
+* To compute the GCD of M and N
+
+[[UgJrBAbxmpaEtUFaigwcjbLnlTfcIOoF]]
+== Algorithm Analysis
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Analysis_of_algorithms[Algorithm analysis]:
+//
+the determination of the computational complexity of algorithms, that is the
+amount of time, storage and/or other resources necessary to execute them.
+//
+____
+
+[[bzGJKlpimKGIHSRpMdozAZQHDQCfHegP]]
+== At The Limit
+
+[.lead]
+//
+We're usually want to analyze an algorithm in the general case, rather than for
+a specific set of input.
+
+[.s]
+//
+* How does the algorithm perform on arbitrarily difficult or large inputs?
+//
+* What are the best, average, and worst-case running times?
+//
+* *How is the algorithm's performance related to its inputs?*
+
+[[jiZkyGwdkRrZTmemYslAPXErLfyzQlwE]]
+== Analyzing Our Brute Force GCD
+
+[.lead]
+//
+Given M and N, for our brute force GCD algorithm:
+
+[.s]
+//
+* *What's the worst case?* [.s]#Two large prime numbers.#
+//
+* *What's the best case?* [.s]#One input is one, or divides the other.#
+//
+* *What's the average case?* [.s]#Let's guesstimate half of the larger of M and
+N footnote:[I'm sure the mathematicians in the audience can do better...].#
+//
+* *How is it's performance related to its inputs?* [.s]#It grows with the
+smaller of M or N.#
+
+[[GjAFEiezVYnLbWPKzPkJqMOEFDxGKaof]]
+== ! Timing Brute Force GCD
+
+[.janini.smallest.compiler]
+....
+public class SimpleMath {
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(SimpleMath.GCD(10, 8));
+    System.out.println(SimpleMath.GCD(100, 50));
+    System.out.println(SimpleMath.GCD(94677, 65270));
+  }
+}
+....
+
+[[EdKtDOlkYIcSVGuFIhUCwkHidGSceWyZ]]
+== Big-O Notation
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Big_O_notation#Product[Big-O notation]
+//
+is a mathematical notation that describes the limiting behavior of a function
+when the argument tends towards a particular value or infinity.
+//
+____
+
+Put another way: we want to _estimate_ what happens as the problem gets really,
+really hard.
+
+[[JHmqFAXMcsJRNjtCNkElhorRAEAEQnmv]]
+== Big-O Notation
+
+image::https://i.stack.imgur.com/WcBRI.png[role='mx-auto',width=600]
+
+[[rXpkPkTFacafAldtFmJIpNzPPosEtQLc]]
+== O(1)
+
+[source,java]
+----
+int[] myArray = new int[1024];
+int getArrayValue = myArray[10]; // This is constant time
+----
+
+[.lead]
+//
+O(1) is sometimes called constant time.
+
+Life is good and livin' is easy. But we're usually not this lucky.
+
+[[sCemKwttKTEiyREfHcPAjqTKpajZGMYL]]
+== O(n)
+
+[source,java]
+----
+int[] myArray = new int[1024];
+int sum = 0;
+// A single loop through an array is usually O(n)
+for (int arrayValue : myArray) {
+  sum += arrayValue;
+}
+----
+
+[.lead]
+//
+O(n) is still not bad.
+
+Frequently we have to see each value in an array or other data structure at
+least once, so sometimes O(n) is the best we can do.
+
+[[ObMJGGwcLehbeFzZhYlhXvZHtuzyoyMO]]
+== Big-O Notation
+
+image::https://i.stack.imgur.com/WcBRI.png[role='mx-auto',width=600]
+
+[[nPhKPItHGjDGdciPFaknqfEVJyUxEuoD]]
+== O(n)
+
+[source,java]
+----
+int[] myArray = new int[1024];
+for (int arrayValue : myArray) {
+  if (arrayValue == lookingFor) {
+    break;
+  }
+}
+----
+
+[.lead]
+//
+What about the example above?
+
+[.s]
+//
+* *Best case*: [.s]#it's the _first_ element#
+//
+* *Worst case*: [.s]#it's the _last_ element#
+//
+* *Average case*: [.s]#O(n / 2), which we usually simplify to just O(n)#
+
+[[ldIOedceSKWhvVTIljsBYpzSLpAdmudS]]
+== O(n^2)
+
+[source,java,role='smaller']
+----
+boolean isSorted(int[] array) {
+  for (int i = 0; i < array.length; i++) {
+    for (int j = i; j < array.length; j++) {
+      if (array[j] < array[i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+----
+
+[.lead]
+//
+Now things are getting bad.
+
+[.s]
+//
+* *Best case*: [.s]#the unsorted element is at the beginning#
+//
+* *Worst case*: [.s]#the array is _sorted_#
+//
+* *Average case*: [.s]#O(n^2)#
+
+[[eHjnHyMmsGhoJAmyhhdoRlrdpEgjiMTy]]
+== Big-O Notation
+
+image::https://i.stack.imgur.com/WcBRI.png[role='mx-auto',width=600]
+
+[[lCYwPyCInAzeHOdxTClsxBaouXuapOFY]]
+== O(log n) and O(n log n)
+
+[.lead]
+//
+The logarithmic growth rates are usually caused by features of problems that we
+haven't seen yet&mdash;but will soon.
+
+[[GbQKAAKGkEkZzgGrISsUxWQOxtnnACCC]]
+== Dumb Algorithm, Clever Algorithm
+
+[.s.lead]
+//
+A *dumb* algorithm can move a problem _up_ in the runtime categorization: for
+example, from O(n) to O(n^2). (Our sort test is dumb. The problem is O(n).)
+
+[.s.lead]
+//
+A *smart* algorithm can move a problem _down_ in the runtime categorization: for
+example, from O(n^2) to O(n log n). (Euclid's Method GCD is smart. The problem
+is O(log(N)).)
+
+[[IOdKPfZIpmYAaXemITauagRUrSVWDhbM]]
+== Analyzing LCM
+
+[.janini.compiler.smallest]
+....
+public class SimpleMath {
+  static long LCM(long first, long second) {
+    for (long i = 1; i < first * second; i++) {
+       if (i % first == 0 && i % second == 0) {
+         return i;
+       }
+    }
+    return -1;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    long startTime = System.nanoTime();
+    long result = SimpleMath.LCM(10, 2000L);
+    long endTime = System.nanoTime();
+    System.out.println(result);
+    System.out.println((endTime - startTime) / 1000000.);
+  }
+}
+....
+
+[[nlHrvPuQmoPEkFsiAgdkdCFteYwxPivi]]
+== Big-O Notation
+
+image::https://i.stack.imgur.com/WcBRI.png[role='mx-auto',width=600]
+
+[[zFIRpPdqAvlBIjAtzhasrMQuqPEHjZtc]]
+== ! Hardness Matters
+
+image::https://cdn.arstechnica.net/wp-content/uploads/2017/12/mr-robot-season-3-episode-10-shutdown-b-800x450.jpg[role='mx-auto meme,width=640]
+
+[[TnoexhJWuZnIzFTkxANvxrAKnXiPbUNa]]
+== Hardness Matters
+
+[.lead]
+//
+The security of our digital lives rest _entirely_ on the assumption that
+factoring is hard.
+
+[.s]
+//
+. Take two extremely large prime numbers. They represent your _secret_, or
+private key.
+//
+. Multiply them together. You can share this value with the world as your
+_public key_.
+//
+. Given your public key, it is intractably hard to recover your secret. If
+somebody does, they can ruin your life.
+
+[[ynnFUcCTosxZVbVpIxCsgJukMdhbDhyj]]
+== Does P == NP?
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/P_versus_NP_problem[The P versus NP problem]
+//
+is a major unsolved problem in computer science. It asks whether every problem
+whose solution can be quickly verified can also be quickly solved.
+//
+____
+
+[.lead]
+//
+Whether P == NP is one of the
+//
+http://news.mit.edu/2009/explainer-pnp[deepest unsolved mysteries in
+mathematics]
+//
+and computer science.
+
+Simply put, are some problems just harder than others&mdash;or have we just not
+found good ways of solving them yet.
+
+[[fJyBAtNeVRCoKJpQEROIjkuqjOGlBhTl]]
+== Sudoku Turns Out to be Interesting footnote:[Who knew!]
+
+image::http://www.sudoku-puzzles.org/BoardComplete.png[role='mx-auto',width=325]
+
+[[xXKIXSgsZGJSFTSMZNCtQZpYYfpYRvuM]]
+== Announcements
+
+* link:/MP/4/[MP4] is out and due in less than two weeks. The early deadline is
+a week from today. *Please get started.* MP4 is not easy.
+//
+* Continue to communicate with the course staff about the strike as needed.
+We're trying to keep everything up and running.
+//
+* The grading page has some new features allowing you to evaluate your
+performance.
+//
+https://cs125.cs.illinois.edu/grades/[Check it out].
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
