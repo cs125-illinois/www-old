@@ -258,60 +258,10 @@ A *smart* algorithm can move a problem _down_ in the runtime categorization: for
 example, from O(n^2) to O(n log n). (Euclid's Method GCD is smart. The problem
 is O(log(N)).)
 
-[[AvvClWrronRCJNKdSszXGiVHUmaaBDfw]]
-== Analyzing LCM
-
-[.janini.compiler.smallest]
-....
-public class SimpleMath {
-  static long LCM(long first, long second) {
-    for (long i = 1; i < first * second; i++) {
-       if (i % first == 0 && i % second == 0) {
-         return i;
-       }
-    }
-    return -1;
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-    long startTime = System.nanoTime();
-    long result = SimpleMath.LCM(10, 2000L);
-    long endTime = System.nanoTime();
-    System.out.println(result);
-    System.out.println((endTime - startTime) / 1000000.);
-  }
-}
-....
-
 [[mOIGUvXLwHYuLDdmYtNzCMiXDFPisgIv]]
 == Big-O Notation
 
 image::https://i.stack.imgur.com/WcBRI.png[role='mx-auto',width=600]
-
-[[ymbhxRQQKNFuILAfZHoFGNSQBOfhTmhD]]
-== ! Hardness Matters
-
-image::https://cdn.arstechnica.net/wp-content/uploads/2017/12/mr-robot-season-3-episode-10-shutdown-b-800x450.jpg[role='mx-auto meme,width=640]
-
-[[bIUTRZlCdjjIszxymRwTXPOAYHClTVuB]]
-== Hardness Matters
-
-[.lead]
-//
-The security of our digital lives rest _entirely_ on the assumption that
-factoring is hard.
-
-[.s]
-//
-. Take two extremely large prime numbers. They represent your _secret_, or
-private key.
-//
-. Multiply them together. You can share this value with the world as your
-_public key_.
-//
-. Given your public key, it is intractably hard to recover your secret. If
-somebody does, they can ruin your life.
 
 [[tqXUhqKpfoOhqtflQZgJpSaUztWLawNs]]
 == Does P == NP?
