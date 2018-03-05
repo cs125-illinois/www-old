@@ -135,6 +135,297 @@ int[] append(int[] inputArray, int newValue, int position) {
 //
 * *Average case runtime*: [.s]#O(n)#
 
+[[YyibonHxVplBBKQDhstAZFKmtuJKHDYW]]
+== Lists
+
+[.lead]
+//
+Lists are a _tremendously_ useful data structure. Every modern language has them
+footnote:[even Java!].
+
+[.s]
+//
+* The size of a list can change at runtime.
+//
+* Items can be added and removed from the front or back:
+//
+** Add to front (`prepend`, `unshift`) or back (`append`, `push`)
+//
+** Remove from front (`shift`) or back (`pop`)
+//
+* Items can be added or removed from anywhere in the list (`insert` or `remove`)
+//
+* Items can be retrieved and set by index (`get` and `set`)
+
+[[VkTMutAWADQhqNsbPGslndDjULyqqNUD]]
+== ! Java `ArrayList`
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html"></iframe>
+</div>
+++++
+
+[[AqUbuIpzQiCSRhpnOEUmvyxvKlxDrvjJ]]
+[.oneword]
+//
+== Why `ArrayList`?
+
+[[GSDbRtMRolMiBVKgnSmdcGQrgBWTgTzU]]
+== `ArrayList`: `get` and `set`
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+  ArrayList() {
+    this.data = new int[0];
+  }
+  public int get(int index) {
+    return this.data[index];
+  }
+  public void set(int index, int value) {
+    this.data[index] = value;
+  }
+}
+----
+
+[.s]
+//
+* *What is n&mdash;or what feature drives performance?*
+//
+[.s]#The length of the list.#
+//
+* What is the performance of `get`?
+//
+[.s]#O(1): constant time!#
+//
+* What is the performance of `set`?
+//
+[.s]#O(1): constant time!#
+
+[[dWOUXmDXbjaatvVBSjkkqTDqOMiqRDlm]]
+== `ArrayList`: `insert` and `remove`
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+  ArrayList() {
+    this.data = new int[0];
+  }
+  public void insert(int index, int value) {
+    ...
+  }
+  public int remove(int index) {
+    ...
+  }
+}
+----
+
+[.s]
+//
+* What is the performance of `insert`?
+//
+[.s]#O(n): have to copy the entire list.#
+//
+* What is the performance of `remove`?
+//
+[.s]#O(n): have to copy the entire list.#
+
+[[jjuOzugQvkSIeJBnLlfaTmqivAFVUVZa]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+<<<
+
+[[bvukTzGvgbKQdWJiVcbVkzvCLveVTLcR]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item [ label = "Item|0" ]
+  items -> Item
+</div>
+++++
+
+[[LNBNtXZglNoDtVpnSUNLBXxXDxLZRmDE]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  items -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[WAdJPunuCYPRWbuZQvICJKkHNiUoiBsw]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);
+items = new Item(5, items);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  items -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[uvyuFIghbYXbXzMNglHaMMhbqqXqKGYL]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,java,role='smallest']
+----
+public class LinkedList {
+  private Item start;
+  public addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.getValue() + " ";
+      current = current.getNext();
+    }
+    return string.trim();
+  }
+}
+----
+
+<<<
+
+[source,java,role='smallest']
+----
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}
+----
+
+[[xsaqFUCXGdWBcvgSrwKjsLHWsYrNDLlh]]
+== ! `LinkedList` Example
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.getValue() + " ";
+      current = current.getNext();
+    }
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
 [[pxmMRUovvighafzysajDTLzYWtXOPhQH]]
 == Announcements
 
