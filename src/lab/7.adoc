@@ -1,0 +1,169 @@
+---
+title: Morse Coding
+description:
+  Anything repetitive task can be better done by a computer! Let's
+  teach one to decode Morse code.
+spelling_exceptions:
+  - WAV
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+In this lab we'll do a small programming project start to finish.
+//
+Our task today brings together many of the concepts that we've discussed in
+class this semester&mdash;data representation, loops, arrays, and algorithms.
+
+[[exercises]]
+== Written Exercises [.text-muted]#(30 Minutes)#
+
+[.lead]
+//
+We begin with a short warmup designed to familiarize you with the key concepts
+that we'll be using in the coding portion of the lab.
+
+Complete this part of the lab in pairs using Google Docs.
+//
+Create a copy of https://goo.gl/L2op7F[our document template], and then edit it
+to record you and your partner's answers.
+//
+**Note that you must open this document using your @illinois.edu Google Apps
+account.**
+//
+We will not grant access to non-Illinois users.
+
+Have a course staff member check your answers as you go.
+//
+When you are done, move on to the next section.
+
+'''
+
+[[decoding]]
+== Programmatic Decoding [.text-muted]#(60 Minutes)#
+
+[.lead]
+//
+Computer scientists are a resourceful and creative bunch footnote:[Some might
+call us, at times, lazy...].
+//
+And one of the things that we _hate_ doing is doing things that computers do
+better&mdash;which tend to be repetitive and dull anyway.
+
+Why should I sit there with a pen and paper listening to Morse code and trying
+to decode it?
+//
+I can teach a computer to do that, and then it'll do it all day, all night,
+without errors, until the end of time.
+//
+That sounds like a lot more fun than doing it myself&mdash;so let's give it a
+shot.
+//
+It turns out to be not so hard.
+
+=== Forking and Cloning the Lab7 IntelliJ Project
+
+We've set up an
+//
+https://github.com/cs125-illinois/Lab7[Lab 7 GitHub repository]
+//
+containing an IntelliJ Project that's correctly configured for Lab 6.
+//
+Getting access to it is similar to how you
+//
+link:/MP/setup/git/#importing[imported MP0].
+//
+But you have to fork our repository first.
+//
+If it's not obvious how to do that, try following
+//
+https://help.github.com/articles/fork-a-repo/[these instructions].
+
+[[approach]]
+=== Our Approach
+
+[.lead]
+//
+This may seem like a daunting task at first, but let's break it down into its
+component parts.
+
+We know that Morse code consists of _tones_ of different _lengths_ separated by
+_silence_.
+//
+That naturally leads to several questions:
+
+. How do we distinguish between tones and silence?
+//
+. Once we can do that, how do we distinguish between long tones (dashes) and
+short tones (dots). We also need to be able to detect long periods of silence
+which are used to separate characters.
+//
+. Once we can do that, how do we translate things from Morse code to
+alphanumeric characters?
+
+We've provided some starter code to get you going, and in particular to help you
+pull audio samples out of the WAV file.
+//
+Use that as a starting point, and work on each of the subproblems above.
+//
+You'll probably find it helpful to draw pictures and compare code with other
+partner groups&mdash;this is completely legal for this lab.
+//
+At intervals the course staff will pause and go over a solution to each of the
+steps outlined above.
+
+You will want to understand the `WavFile` library that we provide.
+//
+http://www.labbookpages.co.uk/audio/javaWavFiles.html[Here is some documentation
+by the original author],
+//
+and we also have
+//
+https://cs125-illinois.github.io/wavfile/[our own package documentation
+available online].
+
+Most importantly, have fun!
+//
+When you are done you should be able to decode `1.wav` and `2.wav`.
+//
+Then take a stab at `HW0.wav`, which you decoded previously as part of our early
+homework assignment.
+//
+That file is a bit different than the others, and you may find that you need to
+fiddle with your parameters a bit to get it to work.
+
+[[mp4]]
+== Help with MP4 [.text-muted]#(20 Minutes)#
+
+Use any remaining time in your lab section to get help with link:/MP/4/[MP4].
+//
+If you are finished or far along, please help others&mdash;but help them
+_learn_, don't just give them the answers.
+//
+And if you are behind, please reach out the course staff for help.
+
+////
+[[walkthrough]]
+== Video Solution Walkthrough
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/LI-fe55npXk" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+The video walkthrough above describes how to craft the implementation of a
+solution for Lab 7.
+//
+Note that _it does not discuss the conceptual process of arriving at how to
+solve the problem_.
+//
+It only focuses on the implementation itself.
+////
+
+// vim: ts=2:sw=2:et
