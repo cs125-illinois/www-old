@@ -14,6 +14,31 @@ description:
 <div class="message">Lists</div>
 ++++
 ....
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public int get(int index) {
+  }
+}
 public class Example {
   public static void main(String[] unused) {
   }
@@ -26,7 +51,7 @@ public class Example {
 
 [.lead]
 //
-For the next two weeks we'll be discussing foundational computer science
+For the next two weeks we'll be discussing fundamental computer science
 _algorithms_ and _data structures_.
 
 [.s]
@@ -606,12 +631,12 @@ list.get(2);
 
 ++++
 <div class="digraph small TB mx-auto">
-  Item1 [ label = "Item|1" ]
+  Item0 [ label = "Item|1" ]
   Item2 [ label = "Item|2" ]
   Item3 [ label = "Item|3" ]
   start -> Item3
   Item3 -> Item2
-  Item2 -> Item1
+  Item2 -> Item0
 </div>
 ++++
 
