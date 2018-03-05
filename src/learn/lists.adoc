@@ -1,0 +1,154 @@
+---
+title: Lists
+date: 2018-03-05
+description:
+  Discussion of lists implemented both using arrays and linked lists.
+---
+
+[[TQcbLBvzGXemZKfpSvbOuepsOUbmWwqq]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Lists</div>
+++++
+....
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+--
+
+[[kiuuHhvtkeNBrxzvZlBCjAdYovjtAXem]]
+== Algorithms and Data Structures
+
+[.lead]
+//
+For the next two weeks we'll be discussing foundational computer science
+_algorithms_ and _data structures_.
+
+[.s]
+//
+* *Algorithm*: a way of doing something
+//
+* *Data structure*: a way of storing data that enables certain algorithms
+
+[[IRjECqRugdjLLGMBzUFyfYJUfZJxxoVG]]
+== Arrays
+
+[source,java]
+----
+int[] values = new int[10];
+----
+
+[.lead]
+//
+At this point the only data structure we've discussed is the _array_.
+
+[.s]
+//
+* *Good*: looking up an element in an array is O(1) footnote:[or constant time].
+//
+* *Bad*: the size of a Java array cannot be changed once it is created.
+
+[[oFjnHJFHAMiBIIvaytaNNxjnVTrFFItX]]
+[.oneword]
+//
+== So How Do We Add Items?
+
+Hint: it's possible.
+
+[[BLSbLyVhijVQLPaDmJdcviQvVrmehnQu]]
+== ! Array Append Implementation
+
+[.janini.smaller]
+....
+import java.utils.Arrays;
+/*
+ * Append an item to an array.
+ */
+static int[] append(int[] inputArray, int newValue) {
+}
+....
+
+[[rXjhyqeJLXTgQCIwqqZfEQVOiUsCCgGK]]
+== Array Append Performance
+
+[source,java]
+----
+int[] append(int[] inputArray, int newValue) {
+  // Create a new array one larger than the existing array
+  // Copy all values over
+  // Add the new value at the end
+  // Return the new array
+}
+----
+
+[.s]
+//
+* *What is n&mdash;or what feature drives performance?*
+//
+[.s]#The length of `inputArray`.#
+//
+* *Best case runtime*: [.s]#O(n)#
+//
+* *Worst case runtime*: [.s]#O(n)#
+//
+* *Average case runtime*: [.s]#O(n)#
+
+[[LEyzqbhelTdWuMTbEHBBOHNTqHFfVtZh]]
+== ! Array Insert Implementation
+
+[.janini.smaller]
+....
+import java.utils.Arrays;
+/*
+ * Insert an item into the array at the given position.
+ */
+static int[] insert(int[] inputArray, int newValue, int position) {
+}
+....
+
+[[wzaspGePmHbJRDzWxaugNPUBEgRFPjpN]]
+== Array Insert Performance
+
+[source,java]
+----
+int[] append(int[] inputArray, int newValue, int position) {
+  // Create a new array one larger than the existing array
+  // Copy all values over, adding the new value at the right spot
+  // Return the new array
+}
+----
+
+[.s]
+//
+* *What is n&mdash;or what feature drives performance?*
+//
+[.s]#The length of `inputArray`.#
+//
+* *Best case runtime*: [.s]#O(n)#
+//
+* *Worst case runtime*: [.s]#O(n)#
+//
+* *Average case runtime*: [.s]#O(n)#
+
+[[pxmMRUovvighafzysajDTLzYWtXOPhQH]]
+== Announcements
+
+* link:/MP/4/[MP4] is due Friday. The early deadline is *today*.
+//
+* We've added an
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+//
+* Continue to communicate with the course staff about the strike as needed.
+We're trying to keep everything up and running.
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
