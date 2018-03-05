@@ -348,15 +348,6 @@ public class LinkedList {
   public addToFront(int value) {
     start = new Item(value, start);
   }
-  public String toString() {
-    String string = "";
-    Item current = start;
-    while (current != null) {
-      string += current.getValue() + " ";
-      current = current.getNext();
-    }
-    return string.trim();
-  }
 }
 ----
 
@@ -425,6 +416,361 @@ public class Example {
   }
 }
 ....
+
+[[pFfMfaklggDxABUyHIoUOomlxdhJNmAX]]
+== `LinkedList`: `addToFront`
+
+[source,java]
+----
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+}
+----
+
+[.s]
+//
+* *What is n&mdash;or what feature drives performance?*
+//
+[.s]#The length of the list.#
+//
+* What is the performance of `addToFront`?
+//
+[.s]#O(1): constant time!#
+
+[[eRuvOPCigAcMMwCpOUhtUcBMNSiRoBFb]]
+[.oneword]
+//
+== Wow! What's the catch?
+//
+(There's always a catch.)
+
+[[uxETPHKiReXjnLMwmpdVNZwTsvFshNbf]]
+== `LinkedList`: `get`
+
+[source,java]
+----
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public int get(int index) {
+    // This should be easy...
+  }
+}
+----
+
+[[ToJOhcQvwLPGrKzyjTctnXGUlpaNgABO]]
+== ! `LinkedList` Example
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public int get(int index) {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
+[[HIFRUbegMElyTCRryTvdWMzsnTFvAaJp]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  start -> Item1
+</div>
+++++
+
+[[huaxLPNSoVSkxUbFnCUWqRwuDZQqgJMw]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  start -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[MtSJPhEljoKufnnBjwnMhJzpMuTmWMFr]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[OQXWCIblWobBKVCXOmUNWFOkQhCKuFkj]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[uTCRqFIioaWUbZXxmfyHvXYrSAEEPpnH]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3", fillcolor="lightblue", style="filled" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[IEKNGKZOSoQTcaAWJVuwbUBrlUaleLHp]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2", fillcolor="lightblue", style="filled" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[bcglIwAIsYtwxwTorcPMDROVbXnqTSvu]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1", fillcolor="lightblue", style="filled" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[wOcKkEBJTHkkCcDKpEwCCNYvCSUinhUY]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1", fillcolor="green", style="filled" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[HukfpNfUOulnnDElwTJYZyNKTvhGgtDM]]
+== `ArrayList` v. `LinkedList`
+
+[.lead]
+//
+Both provide the _same_ functionality, but with different _performance_
+characteristics.
+
+[width="100%",cols="^,^,^",options='header']
+|===
+
+^| Operation
+^| `ArrayList`
+^| `LinkedList`
+
+| `add` (at front)
+| [.s]#O(n)#
+| [.s]#*O(1)*#
+
+| `get` and `set`
+| [.s]#*O(1)*#
+| [.s]#O(n)#
+
+| `insert` (anywhere)
+| [.s]#O(n)#
+| [.s]#O(n)#
+
+|===
 
 [[pxmMRUovvighafzysajDTLzYWtXOPhQH]]
 == Announcements
