@@ -223,3 +223,385 @@ public class Example {
 }
 ....
 
+[[oxJSFsbGhmTbUMqDhtQJYRfwOTOKvJAp]]
+== `LinkedList`: Push
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  private Item start;
+}
+public class Item {
+  public int value;
+  public Item next;
+}
+----
+
+[.lead]
+//
+Now, we can add an item to the _end_ of our linked list.
+
+[[AjGCgLvviLBoOygYpJkyuYCDXpVeDpSE]]
+== ! `LinkedList` Push
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  // Write this function
+  public void addToEnd(int value) {
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+  }
+}
+....
+
+[[pEPepnOKrIPDRHLzgWbgWtoumQcPZCrp]]
+[.oneword]
+== But How Do We Insert?
+
+[[nerIYzgfjYucqloclntPXXXuoxWPoXyu]]
+== `LinkedList` Insertion Algorithm
+
+[.s]
+//
+. Find the right spot.
+//
+. Set the reference on the preceding item to point to the new item.
+//
+. Set the reference on the new item to point to the former next item.
+
+[[aJqVtwosxLpEzEELSiDrluCkDftdVFsM]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[zOwLRABNObeVBCMMXUXervMeZsDHHIaj]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8", fillcolor="green" style="filled" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[.s]#But wait, now we can't change the _preceding_ reference.#
+
+[[PjJcvbtgFhhtTivglyVutpdqdHgRlGee]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[XWkIZquMkCyhpMAfyVuKtmPLZpMmLTWC]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+  Item1 -> Item7 [style=invis]
+</div>
+++++
+
+[[axthZIrmKjSLSVsfRpziruJdWPWSsGeO]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8 [style=invis]
+  Item8 -> Item1
+</div>
+++++
+
+[[wDhvwOPZturUQaSVCGHRmtTqwKddqKyI]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[JwrUmyTLWlUEqQiFsxuHuxGiEHAvDtGH]]
+== ! `LinkedList` Insert
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  // Write this function
+  public void insert(int index, int value) {
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+  }
+}
+....
+
+[[JBKRvvXqROogVmYfdoYBgwwoiInUqLVw]]
+== Singly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext, setPrevious) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+}
+----
+
+[.lead]
+//
+What we've been discussing is known as a _singly_ linked list.
+
+[[ZzkrRixhzKByfLpVbXSoMvNCfoHruinc]]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+You can also have both forward _and_ backward links. This is known an a
+_doubly_ linked list.
+
+
+[[IrhfppWiBrQzcMyldmluKPgiYlrjJtYj]]
+[.ss]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item0 [ label = "Item|0" ]
+  Item2 [ label = "Item|2" ]
+  Item4 [ label = "Item|4" ]
+  start -> Item0
+  Item0 -> Item2
+  Item2 -> Item0
+  Item2 -> Item4
+  Item4 -> Item2
+  end -> Item4
+</div>
+++++
+
+[[HTGNaXGWKsqdPcILLRuwBiFmpamPVvpQ]]
+== Singly v. Doubly-Linked List
+
+[width="100%",cols="^,^,^",options='header']
+|===
+
+^| Operation
+^| Singly Linked List
+^| Doubly Linked List
+
+| `add` (at front)
+| [.s]#O(1)#
+| [.s]#O(1)#
+
+| `add` (at back)
+| [.s]#O(n)#
+| [.s]#*O(1)*#
+
+| `get` and `set`
+| [.s]#O(n)#
+| [.s]#O(n)#
+
+|===
+
+[[CmKtLrByiQHzIHiRNpaTpHgpKrJvqQVZ]]
+== Time v. Space
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+}
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]`ArrayList` v. `LinkedList` also represents a _time_ v. _space_ tradeoff.
+
+[.s]
+//
+* `LinkedList` is faster for certain operations...
+//
+* but consumes more space to store the same amount of information.
+
+[[UZWfhblmpgARaijHSpMHsIAeuXwyWqor]]
+== Time v. Space
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+}
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+To store n ``int``s:
+
+[.s]
+//
+* `ArrayList`: [.s]#n ``value``s#
+//
+* `LinkedList`: [.s]#3n (1 `value`, 1 `next`, 1 `previous`)#
+
