@@ -238,6 +238,7 @@ After the code above runs for a while, how many valid `String` objects will
 exist in the system?
 
 [[VgYgAHgZIcREUpqGNdxTklOAGrPTRLtU]]
+[.ss]
 == Linked Lists
 
 [source,java,role='smaller']
@@ -366,8 +367,8 @@ public class Item {
 }
 ----
 
-[[AjGCgLvviLBoOygYpJkyuYCDXpVeDpSE]]
-== ! `LinkedList` Example
+[[nlYljBaffrrPZfYjSwRRokqjNFrUqSkm]]
+== ! `LinkedList` `for`
 
 [.janini.smallest.compiler]
 ....
@@ -388,6 +389,52 @@ public class LinkedList {
   }
   public void addToFront(int value) {
     start = new Item(value, start);
+  }
+  public void addToEnd(int value) {
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    // Write a for loop using myList
+  }
+}
+....
+
+[[AjGCgLvviLBoOygYpJkyuYCDXpVeDpSE]]
+== ! `LinkedList` Push
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  // Write this function
+  public void addToEnd(int value) {
   }
   public String toString() {
     String string = "";
