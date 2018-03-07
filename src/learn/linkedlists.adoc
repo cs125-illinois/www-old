@@ -40,6 +40,42 @@ public class Example {
 ....
 --
 
+[[rJOxXOGNaQrhuLzoqiKfoeSvEbCZcvww]]
+== Lecture Participation Reminder
+
+[.lead]
+//
+Lecture participation scores will be up later today.
+//
+*Some of you will be unhappy.*
+
+Our participation tracking algorithm is _very_ generous. But, to earn
+participation credit, you need:
+
+* *To be in the right place.* No points for attending the wrong lecture.
+//
+* *To be following along with the slides.* No points for just being logged in.
+
+Questions?
+
+[[mtewUULnaMvHglEMtJNEctwLkKXbHVqt]]
+== Cheating
+
+[.lead]
+//
+I take academic integrity extremely seriously.
+//
+Cheaters will be caught and punished.
+
+We've begun checking submissions for plagiarism.
+
+[.s]
+//
+* 99% of you are fine. *Thanks for being honest and working hard.*
+//
+* 1% of you are not fine. *You'll be hearing from us.* (The drop deadline is
+Friday.)
+
 [[yIksCGacXTpEUsZJulwkCHBpwsvWMNFp]]
 == Q6 Review: Terminology
 
@@ -343,29 +379,22 @@ items = new Item(5, items);
 ++++
 
 [[TqpqrwnmogqCyDjXoapZgGkybZhBPNVy]]
-[.ss]
-== Linked Lists
+== Linked Lists: Iteration
 
-[source,java,role='smallest']
+[source,java,role='smaller']
 ----
 public class LinkedList {
   private Item start;
 }
-----
-
-<<<
-
-[source,java,role='smallest']
-----
 public class Item {
   public int value;
   public Item next;
-  Item(int setValue, Item setNext) {
-    this.value = setValue;
-    this.next = setNext;
-  }
 }
 ----
+
+[.lead]
+//
+We can iterate through our `LinkedList` using a `for` loop.
 
 [[nlYljBaffrrPZfYjSwRRokqjNFrUqSkm]]
 == ! `LinkedList` `for`
@@ -407,6 +436,24 @@ public class Example {
   }
 }
 ....
+
+[[oxJSFsbGhmTbUMqDhtQJYRfwOTOKvJAp]]
+== `LinkedList`: Push
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  private Item start;
+}
+public class Item {
+  public int value;
+  public Item next;
+}
+----
+
+[.lead]
+//
+Now, we can add an item to the _end_ of our linked list.
 
 [[AjGCgLvviLBoOygYpJkyuYCDXpVeDpSE]]
 == ! `LinkedList` Push
@@ -614,6 +661,163 @@ public class Example {
   }
 }
 ....
+
+[[JBKRvvXqROogVmYfdoYBgwwoiInUqLVw]]
+== Singly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext, setPrevious) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+}
+----
+
+[.lead]
+//
+What we've been discussing is known as a _singly_ linked list.
+
+[[ZzkrRixhzKByfLpVbXSoMvNCfoHruinc]]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+You can also have both forward _and_ backward links. This is known an a
+_doubly_ linked list.
+
+
+[[IrhfppWiBrQzcMyldmluKPgiYlrjJtYj]]
+[.ss]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item0 [ label = "Item|0" ]
+  Item2 [ label = "Item|2" ]
+  Item4 [ label = "Item|4" ]
+  start -> Item0
+  Item0 -> Item2
+  Item2 -> Item0
+  Item2 -> Item4
+  Item4 -> Item2
+  end -> Item4
+</div>
+++++
+
+[[HTGNaXGWKsqdPcILLRuwBiFmpamPVvpQ]]
+== Singly v. Doubly-Linked List
+
+[width="100%",cols="^,^,^",options='header']
+|===
+
+^| Operation
+^| Singly Linked List
+^| Doubly Linked List
+
+| `add` (at front)
+| [.s]#O(1)#
+| [.s]#O(1)#
+
+| `add` (at back)
+| [.s]#O(n)#
+| [.s]#*O(1)*#
+
+| `get` and `set`
+| [.s]#O(n)#
+| [.s]#O(n)#
+
+|===
+
+[[CmKtLrByiQHzIHiRNpaTpHgpKrJvqQVZ]]
+== Time v. Space
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+}
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]`ArrayList` v. `LinkedList` also represents a _time_ v. _space_ tradeoff.
+
+[.s]
+//
+* `LinkedList` is faster for certain operations...
+//
+* but consumes more space to store the same amount of information.
+
+[[UZWfhblmpgARaijHSpMHsIAeuXwyWqor]]
+== Time v. Space
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+}
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+To store n ``int``s:
+
+[.s]
+//
+* `ArrayList`: [.s]#n ``value``s#
+//
+* `LinkedList`: [.s]#3n (1 `value`, 1 `next`, 1 `previous`)#
 
 [[JtyGwCLnUwqkqAhWVlTcYzOsTAUtRBQG]]
 == Announcements
