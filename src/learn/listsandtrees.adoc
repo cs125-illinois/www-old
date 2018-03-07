@@ -1,0 +1,426 @@
+---
+title: Linked Lists
+date: 2018-03-07
+description:
+  Continuation of a discussion of linked lists, including inserting elements and
+  iteration.
+---
+
+[[pgYMuWIZOClhbnKQazmcPUWjaySoCIar]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Linked Lists</div>
+++++
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public int get(int index) {
+    Item current = start;
+    for (int i = 0; i < index; i++) {
+      current = current.next;
+    }
+    return current.value;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+--
+
+[[yIksCGacXTpEUsZJulwkCHBpwsvWMNFp]]
+== Q6 Review: Terminology
+
+[source,java,role='smallest']
+----
+class Parent { }
+class Child extends Parent { }
+----
+
+In Java, any method that will accept an instance of `Parent` will also accept an
+instance of `Child`. This is due to...
+
+[[gYbroZRyPeylyRcTrRpQrGjbrWCeOXEr]]
+== Q6 Review: Object Casting
+
+[source,java,role='smallest']
+----
+public class Top {
+  public static void printOne(Top top) {
+    Bottom bottom = (Bottom) top;
+    bottom.print();
+  }
+  public void print() {
+    System.out.println("Top");
+  }
+}
+public class Bottom extends Top {
+  public void print() {
+    System.out.println("Bottom");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Top top = new Top();
+    Top.printOne(top);
+  }
+}
+----
+
+When the `main` method runs, what will be printed?
+
+[[HSVhcAvjRKzeCPcLEVVjOyYZngrXrGlM]]
+== ! Q6 Review: Object Casting
+
+[.janini.compiler.smallest]
+....
+public class Top {
+  public static void printOne(Top top) {
+    Bottom bottom = (Bottom) top;
+    bottom.print();
+  }
+  public void print() {
+    System.out.println("Top");
+  }
+}
+public class Bottom extends Top {
+  public void print() {
+    System.out.println("Bottom");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Top top = new Top();
+    Top.printOne(top);
+  }
+}
+....
+
+[[drGfkPQUuIWlQbKrBMzouxWqWQEOivkK]]
+== Q6 Review: References
+
+[source,java,role='smallest']
+----
+public class Car {
+  public int odometer;
+  public Car(int initialOdometer) {
+    odometer = initialOdometer;
+  }
+  public int increaseMileage() {
+    return odometer++;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Car[] cars = new Car[10];
+    Car car = new Car(10);
+    for (int i = 0; i < cars.length; i++) {
+      cars[i] = car;
+    }
+    for (int i = 0; i < cars.length; i++) {
+      cars[i].increaseMileage();
+    }
+    System.out.println(cars[0].odometer);
+  }
+}
+----
+
+When the `main` method runs, what will be printed?
+
+[[aVHprWTYNpzLYYXgewmOZeORloIAGRRB]]
+== ! Q6 Review: References
+
+[.janini.compiler.smallest]
+....
+public class Car {
+  public int odometer;
+  public Car(int initialOdometer) {
+    odometer = initialOdometer;
+  }
+  public int increaseMileage() {
+    return odometer++;
+  }
+  public boolean equals(Car other) {
+    return odometer == other.odometer;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Car[] cars = new Car[10];
+    Car car = new Car(10);
+    for (int i = 0; i < cars.length; i++) {
+      cars[i] = car;
+    }
+    for (int i = 0; i < cars.length; i++) {
+      cars[i].increaseMileage();
+    }
+    System.out.println(cars[0].odometer);
+  }
+}
+....
+
+[[LcyEAmVtUdcHjdXtILAeYWjLVFHCYoLE]]
+== Q6 Review: Polymorphism
+
+[source,java,role='smallest']
+----
+public class Shape {
+  public String toString() {
+    return "Shape";
+  }
+}
+public class FourSides extends Shape {
+  public String toString() {
+    return "FourSides";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    FourSides s = new Shape();
+    System.out.println(s);
+  }
+}
+----
+
+When the `main` method above runs, what will be printed?
+
+[[fNGgzyoKhumeyEtMqZgwOMgVXpiCilEK]]
+== Q6 Review: Polymorphism
+
+[.janini.compiler.smallest]
+....
+public class Shape {
+  public String toString() {
+    return "Shape";
+  }
+}
+public class FourSides extends Shape {
+  public String toString() {
+    return "FourSides";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    FourSides s = new Shape();
+    System.out.println(s);
+  }
+}
+....
+
+[[vDfnzUuMOuMRHAAdncCKUaciSuZDBygs]]
+== Q6 Review: Garbage Collection
+
+[source,java]
+----
+public class Example {
+  public static void main(String[] unused) {
+    String[] strings = new String[10];
+    for (int i = 0; ; i++) {
+      strings[i % 10] = new String();
+    }
+  }
+}
+----
+
+After the code above runs for a while, how many valid `String` objects will
+exist in the system?
+
+[[VgYgAHgZIcREUpqGNdxTklOAGrPTRLtU]]
+== Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+<<<
+
+[[bPzPQuXqzJCYzMTEVwglDCplYhvLWJnQ]]
+[.ss]
+== Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item [ label = "Item|0" ]
+  items -> Item
+</div>
+++++
+
+[[QGCsOehngugYkACMiMSLsbHMSjAVOkho]]
+[.ss]
+== Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  items -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[GtlmuxhzhfUyTAHMaqczUJfMltCOYeMn]]
+[.ss]
+== Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);
+items = new Item(5, items);
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  items -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[TqpqrwnmogqCyDjXoapZgGkybZhBPNVy]]
+[.ss]
+== Linked Lists
+
+[source,java,role='smallest']
+----
+public class LinkedList {
+  private Item start;
+}
+----
+
+<<<
+
+[source,java,role='smallest']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+[[AjGCgLvviLBoOygYpJkyuYCDXpVeDpSE]]
+== ! `LinkedList` Example
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+  }
+}
+....
+
+[[JtyGwCLnUwqkqAhWVlTcYzOsTAUtRBQG]]
+== Announcements
+
+* link:/MP/4/[MP4] is due Friday.
+//
+* We've added an
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+//
+* Continue to communicate with the course staff about the strike as needed.
+We're trying to keep everything up and running.
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
