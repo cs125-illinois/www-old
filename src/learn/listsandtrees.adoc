@@ -1,0 +1,918 @@
+---
+title: Lists and Trees
+date: 2018-03-09
+description:
+  Completion of a discussion of linked lists, and introduction to binary trees.
+spelling_exceptions:
+  - 3n
+---
+
+[[hYFGHFYdtTggkUMEoXFVrCortdFpBKxx]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Lists and Trees</div>
+++++
+....
+public class Tree {
+  public int value;
+  public Tree right;
+  public Tree left;
+  public Tree(int setValue) {
+    value = setValue;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Tree root = new Tree(10);
+    root.right = new Tree(12);
+    root.left = new Tree(8);
+  }
+}
+....
+--
+
+[[ricqlOoMacpkanpSstDWCGocDhlgRIuu]]
+== Linked Lists: Iteration
+
+[source,java,role='smaller']
+----
+public class LinkedList {
+  private Item start;
+}
+public class Item {
+  public int value;
+  public Item next;
+}
+----
+
+[.lead]
+//
+We can iterate through our `LinkedList` using a `for` loop.
+
+[.s]
+//
+* Start at `start`
+//
+* Update by `current = current.next`
+//
+* Stop when `current == null`
+
+[[mbLfXMJmxuHPreZNJTWXrkpxLdPCSMnP]]
+== ! `LinkedList` `for`
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = "";
+    // Implement toString a for loop
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+  }
+}
+....
+
+[[pEPepnOKrIPDRHLzgWbgWtoumQcPZCrp]]
+[.oneword]
+== But How Do We Insert?
+
+[[nerIYzgfjYucqloclntPXXXuoxWPoXyu]]
+== `LinkedList` Insertion Algorithm
+
+[.s]
+//
+. Find the right spot.
+//
+. Set the reference on the preceding item to point to the new item.
+//
+. Set the reference on the new item to point to the former next item.
+
+[[aJqVtwosxLpEzEELSiDrluCkDftdVFsM]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[zOwLRABNObeVBCMMXUXervMeZsDHHIaj]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8", fillcolor="green" style="filled" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[.s]#But wait, now we can't change the _preceding_ reference.#
+
+[[PjJcvbtgFhhtTivglyVutpdqdHgRlGee]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[XWkIZquMkCyhpMAfyVuKtmPLZpMmLTWC]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+  Item1 -> Item7 [style=invis]
+</div>
+++++
+
+[[axthZIrmKjSLSVsfRpziruJdWPWSsGeO]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8 [style=invis]
+  Item8 -> Item1
+</div>
+++++
+
+[[wDhvwOPZturUQaSVCGHRmtTqwKddqKyI]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[JBKRvvXqROogVmYfdoYBgwwoiInUqLVw]]
+== Singly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext, setPrevious) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+}
+----
+
+[.lead]
+//
+What we've been discussing is known as a _singly_ linked list.
+
+[[ZzkrRixhzKByfLpVbXSoMvNCfoHruinc]]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+You can also have both forward _and_ backward links. This is known an a
+_doubly_ linked list.
+
+
+[[IrhfppWiBrQzcMyldmluKPgiYlrjJtYj]]
+[.ss]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item0 [ label = "Item|0" ]
+  Item2 [ label = "Item|2" ]
+  Item4 [ label = "Item|4" ]
+  start -> Item0
+  Item0 -> Item2
+  Item2 -> Item0
+  Item2 -> Item4
+  Item4 -> Item2
+  end -> Item4
+</div>
+++++
+
+[[CmKtLrByiQHzIHiRNpaTpHgpKrJvqQVZ]]
+== Time v. Space
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+}
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]`ArrayList` v. `LinkedList` also represents a _time_ v. _space_ tradeoff.
+
+[.s]
+//
+* `LinkedList` is faster for certain operations...
+//
+* but consumes more space to store the same amount of information.
+
+[[UZWfhblmpgARaijHSpMHsIAeuXwyWqor]]
+== Time v. Space
+
+[source,java,role='smaller']
+----
+public class ArrayList {
+  private int[] data;
+}
+public class Item {
+  public int value;
+  public Item next;
+  public Item previous;
+}
+public class DoublyLinkedList {
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+To store n ``int``s:
+
+[.s]
+//
+* `ArrayList`: [.s]#n ``value``s#
+//
+* `LinkedList`: [.s]#3n (1 `value`, 1 `next`, 1 `previous`)#
+
+[[lJcCMyeWhddIzcdhiLSDPvylMQZYwVRV]]
+[.oneword]
+== Questions About Lists?
+
+[[uLYlpoTCIwMkbfEIrAQAaqVsDduxKlsq]]
+== Trees
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Tree_(data_structure)[In computer science, a tree]
+//
+is a widely used data structure that simulates a hierarchical tree structure,
+with a root value and subtrees of children with a parent node, represented as a
+set of linked nodes.
+//
+____
+
+[[FeePORFIhbNjxpvbUmHjYTfXfTIxQasm]]
+[.ss]
+== Trees: Parent and Child
+
+++++
+<div class="digraph smaller tree TB center">
+Parent [ label = "Parent" fillcolor="lightblue" style="filled" ]
+Child1 [ label = "Child"]
+Child2 [ label = "Child"]
+Child3 [ label = "Child"]
+Parent -> Child1
+Parent -> Child2
+Parent -> Child3
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+Each _parent_ has one or more _children_.
+
+[[LgSmGDtdmjHolJkxxycihmdZFRQouUoQ]]
+[.ss]
+== Trees: Parent and Child
+
+++++
+<div class="digraph smaller tree TB center">
+Parent [ label = "Parent" ]
+Child1 [ label = "Child" fillcolor="lightblue" style="filled"]
+Child2 [ label = "Child" fillcolor="lightblue" style="filled"]
+Child3 [ label = "Child" fillcolor="lightblue" style="filled"]
+Parent -> Child1
+Parent -> Child2
+Parent -> Child3
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+Each _parent_ has one or more _children_.
+//
+Each _child_ has _one_ parent.
+
+[[HEeULJmNzwgAsEJOsoFcPjKxfnDijHjH]]
+[.ss]
+== Trees: Root and Leaves
+
+++++
+<div class="digraph smaller tree TB center">
+Root [ label = "Root" fillcolor="lightblue" style="filled" ]
+Node1 [ label = "Node"]
+Node2 [ label = "Node"]
+Node3 [ label = "Node"]
+Node4 [ label = "Node"]
+Root -> Node1
+Node1 -> Node2
+Node1 -> Node3
+Node3 -> Node4
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+We refer to the top of the tree as the _root_.
+
+[[TnpQiSoKhTjhPgsWjShATemWNLYqbkTT]]
+[.ss]
+== Trees: Root and Leaves
+
+++++
+<div class="digraph smaller tree TB center">
+Root [ label = "Root" ]
+Node1 [ label = "Node"]
+Node2 [ label = "Leaf" fillcolor="lightblue" style="filled" ]
+Node3 [ label = "Node"]
+Node4 [ label = "Leaf" fillcolor="lightblue" style="filled" ]
+Root -> Node1
+Node1 -> Node2
+Node1 -> Node3
+Node3 -> Node4
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+We refer to the top of the tree as the _root_.
+//
+We refer to nodes without any children as _leaves_.
+
+[[xlPngGmNYmfLWmPeIAszjmRzrDlusEfa]]
+[.ss]
+== Trees: Level and Depth
+
+++++
+<div class="digraph smaller tree TB center">
+Root [ label = "0" fillcolor="lightblue" style="filled" ]
+Node1 [ label = "1"]
+Node2 [ label = "1"]
+Node3 [ label = "2"]
+Node4 [ label = "3"]
+Root -> Node1
+Root -> Node2
+Node2 -> Node3
+Node3 -> Node4
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+We can enumerate each _level_ in a tree starting with the root as 0.
+
+[[fktozmEWsAdxdJcBEZwqbpgMWUpUiteT]]
+[.ss]
+== Trees: Level and Depth
+
+++++
+<div class="digraph smaller tree TB center">
+Root [ label = "0" ]
+Node1 [ label = "1" fillcolor="lightblue" style="filled" ]
+Node2 [ label = "1" fillcolor="lightblue" style="filled" ]
+Node3 [ label = "2"]
+Node4 [ label = "3"]
+Root -> Node1
+Root -> Node2
+Node2 -> Node3
+Node3 -> Node4
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+We can enumerate each _level_ in a tree starting with the root as 0.
+
+[[BNWlehbKRbwHLXWbvyQTFmBXeitaxqrx]]
+[.ss]
+== Trees: Level and Depth
+
+++++
+<div class="digraph smaller tree TB center">
+Root [ label = "0" ]
+Node1 [ label = "1"]
+Node2 [ label = "1"]
+Node3 [ label = "2" fillcolor="lightblue" style="filled" ]
+Node4 [ label = "3"]
+Root -> Node1
+Root -> Node2
+Node2 -> Node3
+Node3 -> Node4
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+We can enumerate each _level_ in a tree starting with the root as 0.
+
+[[IlYOMuKsjiiLdTotXfRIozllNkMtNlkc]]
+[.ss]
+== Trees: Level and Depth
+
+++++
+<div class="digraph smaller tree TB center">
+Root [ label = "0" ]
+Node1 [ label = "1"]
+Node2 [ label = "1"]
+Node3 [ label = "2"]
+Node4 [ label = "3" fillcolor="lightblue" style="filled"]
+Root -> Node1
+Root -> Node2
+Node2 -> Node3
+Node3 -> Node4
+</div>
+++++
+
+<<<
+
+[.lead]
+//
+We can enumerate each _level_ in a tree starting with the root as 0.
+
+[.lead]
+//
+The _depth_ or _height_ of a tree is the maximum distance from root to leaf.
+
+[[nqZkrBgVjEShQgCTGrIhgxHyMnLCZamt]]
+== What Are Trees For?
+
+[.lead]
+//
+What kinds of data can we represent using trees?
+
+[.s]
+//
+* The Java class hierarchy footnote:[Maybe not the most exciting...]
+//
+* Files on your computer
+//
+* Domain names on the internet
+//
+* Any data that has a hierarchical structure.
+
+[[yYHhHGyoeDJJTONbbjLWhmvIWPAClVWT]]
+[.ss]
+== Java Class Hierarchy
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class OldDog extends Dog { }
+----
+
+<<<
+
+++++
+<div class="digraph smaller tree TB center">
+Object -> Pet
+Pet -> Cat
+Pet -> Dog
+Dog -> OldDog
+</div>
+++++
+
+[[VHieBgovZohsuTmtFxJumezRSllytITU]]
+[.ss]
+== Your Computer's Files
+
+[source,bash,role='smaller']
+----
+$ cd / && ls -l
+System
+Library
+Users
+$ cd Users && ls -l
+challen
+Shared
+$ cd challen && ls -l
+classes
+www
+----
+
+<<<
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.3
+Root [label = "/"]
+Root -> System
+Root -> Library
+Root -> Users
+Users -> challen
+Users -> shared
+challen -> www
+challen -> classes
+</div>
+++++
+
+[[PvvZoYgRoalSASnRxBPyGNaaebVcVirn]]
+== Domain Name Translation
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+Root [label="."]
+Com [label=".com"]
+Edu [label=".edu"]
+Google [label=".google"]
+Amazon [label=".amazon"]
+Illinois [label=".illinois"]
+CS [label=".cs"]
+CS125 [label=".cs125"]
+Forum [label=".cs125-forum"]
+Root -> Com
+Root -> Edu
+Com -> Google
+Com -> Amazon
+Edu -> Illinois
+Illinois -> CS
+CS -> CS125
+CS -> Forum
+</div>
+++++
+
+[[yssVGvfDsqqjbeacCTaBtWlUrDGSBVuL]]
+== Binary Trees
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Binary_tree[A binary tree]
+//
+is a tree data structure in which each node has _at most two children_, which are
+referred to as the left child and the right child.
+____
+
+[source,java]
+----
+public class Tree {
+  Object value;
+  Tree right;
+  Tree left;
+}
+----
+
+[.lead]
+//
+We are rarely interested in trees _only_ for their structure.
+//
+**Usually we use them to structure _data_.**
+
+[[GsuFUSFyNJWrXglnTkjZsMHfBtzLwovh]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.5
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[AUCrVkOBqVbxkbNwbfCzIrDaWFhJhWGc]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+3 [fillcolor="lightblue" style="filled"]
+4 [fillcolor="lightblue" style="filled"]
+6 [fillcolor="lightblue" style="filled"]
+8 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[ctkhaXZCeCwkwtvNsevfAHwzgeMYnDJQ]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+4 [fillcolor="lightblue" style="filled"]
+6 [fillcolor="lightblue" style="filled"]
+8 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[[EeOyYYcmKbYturpKCBDIcolJTkSjEOxD]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+6 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[pCMAIAvCLlFNtbqBxNDsfnzmHkJUIEPr]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+8 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[mCQLdsXbCRGOFHSAIjvuqUOLaRAZVpNP]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+5 [fillcolor="lightblue" style="filled"]
+7 [fillcolor="lightblue" style="filled"]
+9 [fillcolor="lightblue" style="filled"]
+10 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[YMZQIiHPzhMIetKdPxvuSyUaekGGcZya]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+7 [fillcolor="lightblue" style="filled"]
+10 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[pQJMBuclyWgnMhfPnxyyxsNcIzRGzIOG]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+10 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[tfYxsgguRFYMQvuUTtczenWBptitBIVP]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+9 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[IKpQlomrsnCLKTSXiDoVtmCeSbDSxmlt]]
+== Announcements
+
+* link:/MP/4/[MP4] is due _today_ at 5PM.
+//
+* We've added an
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+//
+* Strike is over! (I think.) Three cheers for the fantastic CS 125 course staff.
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
