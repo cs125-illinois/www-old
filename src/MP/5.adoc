@@ -1,0 +1,332 @@
+---
+title: "MP5: Lists and Recursion"
+description:
+  MP5 introduces you to linked lists and recursion and continues to reinforce
+  object-oriented design.
+secret: 5l24J8M1
+spelling_exceptions:
+  - Chuchu
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp5[forum,role='noexternal']]
+
+[.lead]
+//
+Recursion is an important and powerful programming technique.
+//
+Sometimes it is the best way to solve a problem, and sometimes it is almost _the
+only_ way to solve a problem.
+
+Recursion can be tricky to wrap your head around at first, but as usual the best
+way to get comfortable with this technique is to practice.
+//
+For MP5 you'll complete several programming tasks that encourage you to consider
+both recursive and iterative solutions.
+
+*MP5 is due Monday 4/2/2018 @ 5PM.
+//
+To receive full credit, you must submit by this deadline.*
+//
+In addition, 10% of your grade on MP5 is for submitting code that earns at least
+_30 points_ by *Monday 3/26/2018 @ 5PM.*
+//
+Note that this is the day after Spring Break, so we encourage you to get started
+the week that MP5 is released.
+
+As usual, late submissions will be subject to the
+//
+link:/info/syllabus/#regrading[MP late submission policy].
+
+[[objectives]]
+== Learning Objectives
+
+MP5 introduces the concept of recursive programming and to working with linked
+lists and object references.
+//
+You'll learn how to complete simple recursive methods to accomplish common
+programming tasks.
+//
+We also introduce you to binary trees, an important computer science data
+structure and one very amenable to recursive approaches.
+//
+Finally, MP5 provides practice at working with linked lists, another important
+computer science data structure.
+
+We'll also continue to reinforce the learning objectives from previous MPs
+(link:/MP/0/[0], link:/MP/1/[1], link:/MP/2/[2], link:/MP/3/[3], and
+link:/MP/4/[4]).
+
+[[structure]]
+== Assignment Structure
+
+MP5 consists of three programming tasks:
+
+* https://cs125-illinois.github.io/MP5-Starter/SingleLL.html[`SingleLL.java`]:
+//
+here you must extend complete several methods on a linked list class that stores
+``int``s, including inserting, removing, and swapping values.
+//
+Consider this task a warm up.
+//
+* https://cs125-illinois.github.io/MP5-Starter/Tree.html[`Tree.java`]:
+//
+here you must create and complete a binary search tree class,
+including adding constructors and insertion methods, along with methods that
+search and perform computations on your tree.
+//
+This tasks contains the bulk of the points for the MP, so work on it once you've
+finished `SingleLL.java`.
+//
+* https://cs125-illinois.github.io/MP5-Starter/DNA.html[`DNA.java`]:
+//
+for the final task you must complete a class that stores a DNA sequence and a
+static method that computes the longest common subsequence of two DNA instances.
+//
+Longest common subsequence is the hardest algorithmic challenge on this MP, so
+leave this for the end.
+//
+It's only worth 10 points and you can consider it a challenge problem.
+
+Like link:/MP/4/[MP4], MP5 provides a bit less scaffolding than previous MPs.
+//
+The official specification is our
+//
+https://cs125-illinois.github.io/MP5-Starter/[MP5 online documentation].
+//
+It should precisely define what each public method in each class should do.
+//
+Private methods are left for you to design in any way that allows the tests to
+pass.
+//
+If you believe that the documentation is unclear, please post on
+the {forum} and we'll offer clarification as needed.
+
+[[getting]]
+=== Obtaining MP5
+Use
+https://classroom.github.com/a/jAFYuIUN[this GitHub Classroom invitation link]
+//
+to fork your copy of MP5.
+//
+Once your repository has been created, import it into IntelliJ following
+//
+link:/MP/setup/git/#workflow[our assignment Git workflow guide].
+
+[[requirements]]
+=== Your Goal
+
+At this point you should be familiar with the requirements from previous MPs.
+//
+See the <<grading, grading description below>>.
+
+[[approach]]
+== Approaching MP5
+
+Completing MP5 requires writing fewer lines of code than link:/MP/3/[MP3] and
+link:/MP/4/[MP4].
+//
+But some of it is _recursive_ code, so it will take you longer.
+//
+Don't expect to make as much progress writing recursive code when you are
+getting started.
+//
+It's tricky, and takes practice.
+//
+Slow down and focus on applying the recursive design principles that we've
+taught in lecture and in lab.
+
+=== Understand The Requirements
+
+To complete MP5 you _must_ understand the
+//
+https://cs125-illinois.github.io/MP5-Starter/[specification].
+//
+Read that first.
+//
+And then read it again.
+
+=== Designing Recursive Functions
+
+Recall the guidelines for designing recursive functions that we presented in lab
+and lecture:
+
+. *Every recursive function must have a base case.*
+//
+If you don't stop recursing, you will eventually run out of memory and
+your program will crash.
+//
+So there must be some case where you do not call yourself again.
+//
+. *The base case must be reached.*
+//
+As a corollary to the above, every set of recursive calls must eventually
+_reach_ the base case, otherwise (again) your program will recurse infinitely,
+run out of memory and crash.
+//
+. *The problem should get smaller each time.*
+//
+Each recursive step should reduce the size of the problem somehow.
+//
+This can happen in several ways.
+//
+In Fibonacci, for example, we reduce the size of the problem by reduction toward
+known staring values.
+//
+When processing trees, we reduce the size of the problem by splitting the tree
+into several subtrees which are considered separately.
+//
+How this happens depends on the problem, but it does need to happen somehow.
+
+It can also be helpful to consider simple cases.
+//
+How do you reverse a list with only one element?
+//
+Now, extend that to a list with two elements, then three.
+//
+You may begin to see a pattern emerge that helps you understand how to design
+your recursive approach.
+
+[[trees]]
+=== Binary Search Trees
+
+[.lead]
+//
+MP5 also introduces you to
+//
+https://en.wikipedia.org/wiki/Binary_search_tree[_binary search trees_],
+//
+an important computer science data structure.
+//
+Binary search trees are also recursive data structures, in that each tree node
+refers to other tree nodes, including a parent (moving up the tree) and two
+children (down the tree).
+
+Like other data structures, binary search trees are useful because of the
+algorithms that we can run on them.
+//
+As the name implies, searching can be particularly efficient on binary search
+trees due to the way that they structure data.
+
+[[insertion]]
+==== Insertion algorithm
+
+There are many great online resources to help you learn about binary search trees.
+//
+But let's consider one of the more basic tree operations: insertion.
+//
+Storing data in my tree requires that I be able to insert values.
+//
+And being able to efficiently search for values later requires that I perform
+insertions in a particular way.
+
+. Start at the root of the tree.
+//
+. Compare the value that is being inserted with the value of the current node.
+//
+. If it is larger, try to move to the right.
+//
+. If it is smaller, try to move to the left.
+//
+. If the current node has a left or right child (depending on the choice above),
+make that the current node and continue.
+//
+. Otherwise set the left or right child (depending on the choice above) of the
+current node to a new node with the new inserted value.
+//
+. Continue until the node is inserted.
+
+Note that the binary search trees you implement for MP5 can reject duplicate
+values.
+//
+So if you reach a node that has the _same_ value as the one you are trying to
+insert, the insertion can fail.
+//
+However, this is an implementation decision, and you should think about how you
+might store duplicate values if needed.
+
+If you maintain the sorted structure during your insertions as described above,
+the other algorithms that we ask you to complete on trees will be
+straightforward.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[grading]]
+== Grading
+
+MP5 is worth 100 points total, broken down as follows:
+
+. *20 points*: `SingleLL.java`:
+  ** *5 points* for insertion
+  ** *5 points* for removal
+  ** *10 points* for swaps footnote:[As a hint, this may be simpler than you
+  think...]
+. *50 points*: `Tree.java`:
+  ** *10 points* for constructors and insertion
+  ** *10 points* for minimum and maximum
+  ** *10 points* for search
+  ** *10 points* for depth counting
+  ** *10 points* for descendant counting
+. *10 points*: `DNA.java`
+. *10 points* for no `checkstyle` violations
+. *10 points* for committing code that earns at least 30 points before
+*Monday 3/26/2018 @ 5PM.*
+
+[[testing]]
+=== Test Cases
+
+As in previous MPs, we have provided exhaustive test cases
+for each part of MP5.
+//
+Please review the link:/MP/0/#testing[MP0 testing instructions].
+
+[[autograding]]
+=== Autograding
+
+Like previous MPs we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+//
+Please review the link:/MP/0#autograding[MP0 autograding instructions].
+
+[[submitting]]
+== Submitting Your Work
+
+Follow the instructions from the
+//
+link:/MP/setup/git#submitting[submitting portion]
+//
+of the
+//
+link:/MP/setup/git#workflow[CS 125 workflow]
+//
+instructions.
+
+And remember, you must submit something that earns 50 points before *Monday
+2/5/2018 @ 5PM* to earn 10 points on the assignment.
+
+[[cheating]]
+=== Academic Integrity
+
+Please review the link:/MP/0#cheating[MP0 academic integrity guidelines].
+
+Nothing makes Chuchu sadder than cheaters!
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Xw1C5T-fH2Y" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
