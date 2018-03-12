@@ -1,0 +1,1420 @@
+---
+title: Introduction to Recursion
+date: 2018-03-12
+description:
+  Introduction to recursion on binary trees
+---
+
+[[NAttUAUHnbhXVjtmWaEFsWvihwLdXzaR]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Lists and Trees</div>
+++++
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public String toString() {
+    String returnString = "" + value;
+    if (left != null) {
+      returnString += " " + left.toString();
+    }
+    if (right != null) {
+      returnString += " " + right.toString();
+    }
+    return returnString;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(tree);
+  }
+}
+....
+--
+
+[[GTUjKBIcByzXwNCjFhjIVSPCZtRNnxMA]]
+== Binary Trees
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Binary_tree[A binary tree]
+//
+is a tree data structure in which each node has _at most two children_, which are
+referred to as the left child and the right child.
+____
+
+[source,java]
+----
+public class Tree {
+  Object value;
+  Tree right;
+  Tree left;
+}
+----
+
+[.lead]
+//
+We are rarely interested in trees _only_ for their structure.
+//
+**Usually we use them to structure _data_.**
+
+[[xduFGwmqFjHugOllcDUMiGwrQVMnvlpT]]
+[.oneword]
+== Not Every Binary Tree Is A Search Tree
+//
+You'll be working with binary _search_ trees in MP5.
+//
+They have rules about where elements get added.
+
+[[VIGRDurFjDKrtJHWXoOItBZzfjNmhuyW]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.5
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[wAcPTwFgxzPKqUSbvoMgLlMzHdhIvURD]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+3 [fillcolor="lightblue" style="filled"]
+4 [fillcolor="lightblue" style="filled"]
+6 [fillcolor="lightblue" style="filled"]
+8 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[geSkNfwohNjVoDKbFeuCVWYOKyLjSeBf]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+4 [fillcolor="lightblue" style="filled"]
+6 [fillcolor="lightblue" style="filled"]
+8 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[yZlKteePmvdIFKCujzsReLBuKqurwAMF]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+6 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[IKrnrlKfANGKvLtfVmJfyUCYljkWeZIM]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+8 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[XClsBqbZyhgQixIkbdRePZWxGYZAcMSR]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+5 [fillcolor="lightblue" style="filled"]
+7 [fillcolor="lightblue" style="filled"]
+9 [fillcolor="lightblue" style="filled"]
+10 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[QbskpUtiCqiJOPXrGhjqyPvraOEBBTec]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+7 [fillcolor="lightblue" style="filled"]
+10 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[bWmehvUlWmUINYMFUkPLyLsGvlGhliuW]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+10 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[TqusdXRCAUluECOoNJecZeGYsscPPyuN]]
+== Subtrees As Trees
+
+++++
+<div class="digraph smaller tree TB center">
+ranksep=0.15
+arrowsize=0.3
+1 -> 3
+1 -> 5
+3 -> 4
+4 -> 6
+4 -> 8
+5 -> 7
+5 -> 9
+7 -> 10
+9 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+[.lead]
+//
+Every subtree of a tree is, itself, a tree.
+
+[[BvxhRQHsxiezJFxeeABqzcAkFpaevnJW]]
+== Recursion
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Recursion[Recursion]
+//
+occurs when a thing is defined in terms of itself or of its type.
+____
+
+[source,java]
+----
+public class Tree {
+  Object value;
+  Tree right;
+  Tree left;
+}
+----
+
+[[xAmoVUmvVpneZytZMbEjYcxLZuqkJQXA]]
+== Recursion in Computer Science
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Recursion_(computer_science)[Recursion in computer science]
+//
+is a method where the solution to a problem depends on solutions to smaller
+instances of the same problem.
+//
+____
+
+[[FoxnoMFQAppSUACkfdnkWWRSscgqYOas]]
+== Recursion v. Iteration
+
+[.lead]
+//
+So far we've pursued _iterative_ algorithms in this course.
+//
+Recursion provides us with a new way to approach problems.
+
+[.s]
+//
+* *Iteration*: repeat the same set of steps over and over again
+//
+* *Recursion*: break a larger problem into smaller problems until they are
+small enough to solve easily
+
+[[CXbapepAVwklaMDmuoiPqFbSVAJeUebp]]
+== Tree Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+10 -> H [style=invis]
+H [style=invis]
+</div>
+++++
+
+[.lead]
+//
+Let's say that we wanted to _count_ the number of nodes in the tree above.
+
+[[OvCoXnknGtkaDBejTEyLgMZJExLiflgm]]
+[.ss]
+== Iterative Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+</div>
+++++
+
+<<<
+
+We can count _iteratively_:
+
+[.s]
+//
+* Visit every node in the tree
+//
+* Increment a counter by 1 each time
+
+[[nnWxqgHwUEExSGEDmqadbfPbTWcNcBhZ]]
+[.ss]
+== Iterative Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+5 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _iteratively_:
+
+* Visit every node in the tree
+//
+* Increment a counter by 1 each time
+
+[[IhRxUhptCPaGjHniiQxTlGqCapbBjZNh]]
+[.ss]
+== Iterative Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+3 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _iteratively_:
+
+* Visit every node in the tree
+//
+* Increment a counter by 1 each time
+
+[[GQJzNrdbVFFUYEyuzfKPunDgHPVoGtfl]]
+[.ss]
+== Iterative Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+10 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _iteratively_:
+
+* Visit every node in the tree
+//
+* Increment a counter by 1 each time
+
+[[ANryorqJSjIVSApinwCZypMGNHfvfNCb]]
+[.ss]
+== Iterative Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+7 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _iteratively_:
+
+* Visit every node in the tree
+//
+* Increment a counter by 1 each time
+
+[[gNuClmdGVhlHDhGaQKWfIivtSDaRtIZX]]
+[.ss]
+== Iterative Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+9 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _iteratively_:
+
+* Visit every node in the tree
+//
+* Increment a counter by 1 each time
+
+[[QbhSbkoPKXHJVLEyeDnGHUeOhqwwQSje]]
+[.ss]
+== Iterative Node Counting
+
+++++
+<div class="digraph small tree TB center">
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+1 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _iteratively_:
+
+* Visit every node in the tree
+//
+* Increment a counter by 1 each time
+
+[[vdtElvzcPJwpCGXMJtODWOeUgVECbBuF]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+[.s]
+//
+* Break the problem into smaller subproblems
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[CbTvRBPInPdxlJwpxionzxrJNIIyazmo]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+5 [fillcolor="lightblue" style="filled"]
+3 [fillcolor="lightblue" style="filled"]
+10 [fillcolor="lightblue" style="filled"]
+7 [fillcolor="lightblue" style="filled"]
+9 [fillcolor="lightblue" style="filled"]
+1 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[RIUErvzlAkHFLcMMFwJAoTnspgDjTDrg]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+5 [fillcolor="lightblue" style="filled"]
+3 [fillcolor="lightpink" style="filled"]
+10 [fillcolor="lightsalmon" style="filled"]
+7 [fillcolor="lightpink" style="filled"]
+9 [fillcolor="lightsalmon" style="filled"]
+1 [fillcolor="lightsalmon" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[DrHSsZyIiciVxgxLsjNoScXnmrRtssSr]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+3 [fillcolor="lightblue" style="filled"]
+7 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[fFKGFHmCzJUmgoGKKlmrmBFuLhkzLbxi]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+3 [fillcolor="lightblue" style="filled"]
+7 [fillcolor="lightsalmon" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[WatZeziNDFbWPXpQjJrFkUhDKRhdoQDT]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+7 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[EbgWaQISLIIevTZIFjkhOyuCnMXyIGvc]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+10 [fillcolor="lightblue" style="filled"]
+9 [fillcolor="lightblue" style="filled"]
+1 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[rMrKsHgwNNSViSKdMLJiBEISbNhWJEvO]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+10 [fillcolor="lightblue" style="filled"]
+9 [fillcolor="lightpink" style="filled"]
+1 [fillcolor="lightsalmon" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[rUUmwFSgtMJaUUMWAauAbbIOBCDgSuIF]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+9 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[yFLwGCQrdZNlnKnfZLFoKzLEhxKfdxvM]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9
+10 -> 1
+1 [fillcolor="lightblue" style="filled"]
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* *Break the problem into smaller subproblems*
+//
+* Solve the smallest subproblem
+//
+* Combine the results
+
+[[nUKAQdSZtGAdlUMjsjLmQtXqSJxqNAWv]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+7 -> 3 [ label = "1" dir="back" ]
+10 -> 9
+10 -> 1
+7 [fillcolor="lightblue" style="filled"]
+{ rank = same; 10 3 }
+{ rank = same; 7 9 1 }
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* Break the problem into smaller subproblems
+//
+* *Solve the smallest subproblem*
+//
+* Combine the results
+
+[[pGahsFTTuJwQFvjajZItceokGcAJUAGj]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+7 -> 3 [ label = "1" dir="back" ]
+10 -> 9 [ label = "1" dir="back" ]
+10 -> 1
+9 [fillcolor="lightblue" style="filled"]
+{ rank = same; 10 3 }
+{ rank = same; 7 9 1 }
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* Break the problem into smaller subproblems
+//
+* *Solve the smallest subproblem*
+//
+* Combine the results
+
+[[fWmHFyIxkYtifLOMLqUyFbrBhcWhrxpf]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+7 -> 3 [ label = "1" dir="back" ]
+10 -> 9 [ label = "1" dir="back" ]
+10 -> 1 [ label = "1" dir="back" ]
+1 [fillcolor="lightblue" style="filled"]
+{ rank = same; 10 3 }
+{ rank = same; 7 9 1 }
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* Break the problem into smaller subproblems
+//
+* *Solve the smallest subproblem*
+//
+* Combine the results
+
+[[DgXwUOGHMeBGCQpcMwKpZCMlvUrPoRxj]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3 [ label = "2" dir="back"]
+5 -> 10
+7 -> 3 [ label = "1" dir="back" ]
+10 -> 9 [ label = "1" dir="back" ]
+10 -> 1 [ label = "1" dir="back" ]
+3 [fillcolor="lightblue" style="filled"]
+7 [fillcolor="lightsalmon" style="filled"]
+{ rank = same; 10 3 }
+{ rank = same; 7 9 1 }
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* Break the problem into smaller subproblems
+//
+* Solve the smallest subproblem
+//
+* *Combine the results*
+
+[[UDMqLNaCnbtRcGbFzpfnnBQraujrkSVt]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3 [ label = "2" dir="back"]
+5 -> 10 [label = "3" dir="back"]
+7 -> 3 [ label = "1" dir="back" ]
+10 -> 9 [ label = "1" dir="back" ]
+10 -> 1 [ label = "1" dir="back" ]
+10 [fillcolor="lightblue" style="filled"]
+9 [fillcolor="lightpink" style="filled"]
+1 [fillcolor="lightsalmon" style="filled"]
+{ rank = same; 10 3 }
+{ rank = same; 7 9 1 }
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* Break the problem into smaller subproblems
+//
+* Solve the smallest subproblem
+//
+* *Combine the results*
+
+[[nfnNfjwCCoUcNidOkoTGFmWWydKARGtz]]
+[.ss]
+== Recursive Node Counting
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 0 [ label="6"]
+5 -> 3 [ label = "2" dir="back"]
+5 -> 10 [label = "3" dir="back"]
+7 -> 3 [ label = "1" dir="back" ]
+10 -> 9 [ label = "1" dir="back" ]
+10 -> 1 [ label = "1" dir="back" ]
+0 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3 [fillcolor="lightpink" style="filled"]
+10 [fillcolor="lightsalmon" style="filled"]
+7 [fillcolor="lightpink" style="filled"]
+9 [fillcolor="lightsalmon" style="filled"]
+1 [fillcolor="lightsalmon" style="filled"]
+{ rank = same; 10 3 }
+{ rank = same; 7 9 1 }
+</div>
+++++
+
+<<<
+
+We can count _recursively_:
+
+//
+* Break the problem into smaller subproblems
+//
+* Solve the smallest subproblem
+//
+* *Combine the results*
+
+[[EsCqPUejkjQMBKMESdysCrJtPzzGjPAA]]
+== !Recursive Node Counting Example
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public int nodeCount() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(tree.nodeCount());
+  }
+}
+....
+
+[[SkEchyJagFqdaTrXhQdmsxlSpEYqPLFL]]
+== Recursive Implementation
+
+[source,java]
+----
+int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}
+----
+
+[.lead]
+//
+We refer to a function that calls itself as a _recursive function_.
+
+[[IdXQXruptJpAnhOJVkFnLBgrlzoQCoHp]]
+== ! Recursive Factorial
+
+[.janini.smaller]
+....
+static int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+System.out.println(factorial(4));
+....
+
+[[zoEdUfAzYDVrvVxMJUVxXDDBSXIfNPTZ]]
+== Recursive Strategies
+
+[.lead]
+//
+Recursion can be _hard_ to wrap your mind around at first.
+//
+But these three strategies will help.
+
+[.s]
+//
+. *Know when to stop.* When you identify the smallest subproblem, you must
+return. Otherwise your program will not terminate. This is also called the _base
+case_.
+//
+. *Make the problem smaller in each step.* If the problem doesn't get smaller,
+you will never reach the base case. This is also called the _recursive step_.
+//
+. *Combine results from your recursive calls properly.*
+
+[[mGvjixNfIHVZAwNDVEFaFOMDLWcLAYfs]]
+== Recursive Factorial
+
+[source,java]
+----
+int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}
+----
+
+[.s]
+//
+* *Base case:* [.s]#`n == 1`#
+//
+* *Recursive step:* [.s]#decrement n towards 1#
+//
+* *Combine results:* [.s]#multiply current n with the result of the next
+subproblem#
+
+[[oQzICQCZvbKbVVPncvtWmbECnoljnYsn]]
+== Reaching Base Camp
+
+[source,java]
+----
+int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}
+----
+
+[.lead]
+*You must reach the base case.*
+//
+Otherwise your problem will never stop, run out of memory, and crash.
+
+How can the code above fail to reach the base case?
+
+[[wOwqnkFpRKhhMPsjpiOdySSGfHefvzYg]]
+== ! Recursive Factorial
+
+[.janini.smaller]
+....
+static int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+System.out.println(factorial(-4));
+....
+
+[[moNyvsomOKHFqNeMxcUopkGdOyHclORB]]
+== ! Iterative Factorial
+
+[.janini.smaller]
+....
+// Don't get too cute...
+static int factorial(int n) {
+  int result = 1;
+  for (int i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+System.out.println(factorial(4));
+....
+
+[[gRDqpIvNYsoaRJfrfHSXsebpZMSkrUuJ]]
+== Recursive Tree Right Greater Than Left
+
+[.lead]
+//
+Let's find the number of nodes in our tree where the value of the right child is
+greater than or equal to value of the left child.
+
+[[SYKjilNSxLlsdxRsuxYvvTgpGnSqBtXT]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[zSswMAKnLOEUAmowsjltDxsmgyLuCSii]]
+== Recursive Tree Right Greater Than Left
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a tree with one node. It does not have a right
+child or left child, so we can return 0.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Determine whether our right child is greater than our
+left child. If so, add 1 to the sum of results from our left and right child.#
+
+[[LWTPSosRFqExmcZpSPYAxSifaSoFXjZU]]
+== !Recursive Right Greater Than Left Example
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public int rightGreaterThanLeft() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(tree.rightGreaterThanLeft());
+  }
+}
+....
+
+[[WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV]]
+== Recursive Tree Print Leaves
+
+[.lead]
+//
+Let's print _only_ leaf nodes: those that have neither a left nor a right child.
+
+[[wFkePtuoPHtjiQgMUaRMxqrXubVNPQoY]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[nBBvXLuotvVfrtrnfEEjpVKYJqQqZZYK]]
+== Recursive Tree Print Leaves
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a tree with no left or right node. It's also a
+a leaf node, so print our value.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Nothing to do here, just continue down the tree.#
+
+[[ApTsFupsyGxTnQxQNOutQbJTYqctEttB]]
+== !Recursive Tree Print Leaves
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public void printLeaves() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    tree.printLeaves();
+  }
+}
+....
+
+[[MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb]]
+== Recursive Tree Search
+
+[.lead]
+//
+Let's determine whether a tree contains a certain value.
+
+[[ngirvffoqoVGBWAiUDJsvyNkZwEiGOey]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD]]
+== Recursive Tree Search
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a node with no descendants. Return true if
+it's value matches, zero otherwise.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Return true if either we or our right or left subtree
+contain the search value.#
+
+[[LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm]]
+== !Recursive Tree Search
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public static boolean search(Tree tree, int value) {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(Tree.search(tree, 4));
+  }
+}
+....
+
+[[IOOCxXrcOvEnrMjoNsixcoECGwxRdHzd]]
+== Announcements
+
+* link:/MP/4/[MP4] is due _today_ at 5PM.
+//
+* We've added an
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+I'll need to leave at 11:30AM.
+
+// vim: ts=2:sw=2:et
