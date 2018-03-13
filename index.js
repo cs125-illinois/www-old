@@ -154,7 +154,7 @@ metalsmith(__dirname)
   }))
   .use(empty({ notempty: true }))
   .use(asciidoc())
-  // .use(markdown())
+  .use(markdown())
   .use(slides())
   .use(footnotes())
   .use((files, metalsmith, done) => {
