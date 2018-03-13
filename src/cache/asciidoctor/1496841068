@@ -1,0 +1,433 @@
+<div class="sect1">
+<h2 id="kHoCSCXzvsIAFbIrBWoBZmaPCNVOOCdM">!</h2>
+<div class="sectionbody">
+<div class="openblock janini">
+<div class="content">
+<div class="message">Comparisons and conditional expressions</div>
+<div class="literalblock">
+<div class="content">
+<pre>boolean todayIsMonday = true;
+int currentTime = 8;
+if (todayIsMonday &amp;&amp; currentTime &lt; 12) {
+  System.out.println("Let's discuss conditionals");
+} else {
+  System.out.println("Can we talk about something else");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="VAzyFFoDxschWNuTZMMizdJSZDyolcwn">CS 196</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://goo.gl/DF349E">8 AM</a></p>
+</li>
+<li>
+<p><a href="https://goo.gl/QLFY7s">10 AM</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="POtIiKbRQNuZuYwSwdCgAeuyZhpQbmsv">What Are Computers Good At?</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><span class="line-through">Basic math</span></p>
+</li>
+<li>
+<p><strong>Simple decision making</strong></p>
+</li>
+<li>
+<p>Doing things over and over again very, very fast</p>
+</li>
+<li>
+<p><span class="line-through">And storing data</span></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bAuWhpDPmVGgDaepoowJukwlfVQsJPdR">Comparisons</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java also allows me to compare different variables: either against literal
+values, or against other variables.</p>
+</div>
+<div class="paragraph">
+<p>This is basis for <em>simple decision making</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EuddnTejTlEZaIAttmJUDwqxLAWdYNQd">Simple Comparisons</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kfjlldprRQUOtUaTuYveJPZEbFCgHlCU">A Common Mistake</h2>
+<div class="sectionbody">
+<div class="ulist lead">
+<ul>
+<li>
+<p><code>a = 10</code> means <strong>set a to 10</strong></p>
+</li>
+<li>
+<p><code>a == 10</code> means <strong>test if a is equal to 10</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uOanIxfYhyBAYDDSDumbwovkhBiwNNcg">Don&#8217;t Get Confused</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+// This is not
+System.out.println(tester = 5);
+System.out.println(tester);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="NZRZqEBsBPejsjEIMEUExRtpUZwnPHvN">Comparisons Against Variables</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int first = 10;
+int second = 20;
+System.out.println(first &gt; first);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="JXtQIUEitmTgnNBVMLHYYnkyMeHylXzT">More Complex Comparisons</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+System.out.println(first - second &lt;= 10);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="GieGtJaHsXZBBBMvZqGAdPacxybqOQxP">Questions About Simple Comparisons?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="BueiLwuNKbnJPZVcrKBddwHYcdYQyvjx">Compound Comparisons</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can combine multiple comparisons together using logical and (<code>&amp;&amp;</code>) and or
+(<code>||</code>) operators.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vDROZOQyBuCsHvUlGCATsKriCrZxCmeK">! Combining Comparisons</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int first = 10;
+System.out.println(first &gt; 5 &amp;&amp; first &lt; 10);
+System.out.println(first &lt; 10 &amp;&amp; first &gt; 5);
+System.out.println(first &gt; 10 || first &gt; 5);
+System.out.println(first &gt; 10 || false);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FBXXgCFgySnrwZHYfSoUHPKWaxwklwjZ">Evaluation Order</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Conditionals are always evaluated from left to right, and evaluation stops as
+soon as the result is known.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kTKjdTjMotZBlcgraocBlOSIGadWncvF">Comparisons Enable Decisions</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Comparisons enable decisions
+int first = 10;
+if (first &gt; 20) {
+  System.out.println("First is greater than 20");
+} else {
+  System.out.println("First is not greater than 20");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZVszIucHlwfpNThvCPzvAuGXDQoXGDJm"><code>if-else</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if-else</code> statements are the building block for programmatic decision making:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><em>if</em> something is true, do one thing;</p>
+</li>
+<li>
+<p><em>otherwise</em>, if something else is true, do some other thing;</p>
+</li>
+<li>
+<p><em>otherwise</em>, if something else is true, do some other thing;</p>
+</li>
+<li>
+<p>etc.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mKZSZKIqiozOhiBMXfrUaxnAYmcEWiNU"><code>if-elseif-elseif-else</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if</code> statements can have multiple clauses:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">if (firstThing) {
+  // do one thing
+} else if (secondThing) {
+  // do another thing
+} else if (thirdThing) {
+  // another thing
+} else {
+  // run if firstThing, secondThing, and thirdThing are all false
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>else</code> statements are run if no if statement matches.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CDpGeuKlxKgJwOfLsqWUIfCazJSauLSt">! Only One Statement Runs</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Only the first matching branch of if is executed
+int comparison = 10;
+if (comparison &gt; 5) {
+  System.out.println("I'll be executed");
+} else if (comparison &gt; 3) {
+  System.out.println("I won't be executed");
+} else {
+  System.out.println("I definitely won't be executed");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ulsvDseRWSMaJGiZXigRkKHBdYgQEGwm">Remember: Only One Statement Runs</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>In any if statement, only one statement is executed.</strong>*</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sCTwbrbupLHdZwRvBbUQlfGFoutbJTfB">Somewhat Useful Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Create an int called numSuperBowls, and then add 1 to it
+// if patriotsWinAgain is true</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fcnIiRcbbDBZyWPgBSCPEDBMiSUCxLEy">Nested Conditionals</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if</code> statements can be nested inside other <code>if</code> statements</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">if (testMe) {
+  if (testMeAgain) {
+    // I am well tested
+  } else {
+    // I'm only moderated well-tested
+  }
+} else {
+  // You need to write better tests
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ySgvSxVBLXrmJCUTffzlhLYXqdWCKBeX">!Practice With Nested Conditionals</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// What should we decide today?</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PgMLuXcxwdrkzLNqnpFFWLNAsIHpiYTB">Variable Scope</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if</code> statements provide our first example of a <em>block</em> of code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">if (...) {
+  // I'm a block of code
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Blocks are enclosed by braces and can have multiple statements</p>
+</li>
+<li>
+<p>Variables declared <em>inside</em> a block are not visible <em>outside</em> it&#8230;&#8203;</p>
+</li>
+<li>
+<p>But variables declared outside (and prior to) a block <em>are</em> visible <em>inside</em> it</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ECKCAOoavGvvNXrOtQqqIZMxNKnbmBAj">!Practice With Scope</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int outside = 5;
+if (true) {
+  int inside = 10;
+  System.out.println(outside);
+}
+System.out.println(inside);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uyjfRCHsbnKWGDOzAwWeAPodEDLQbWjP">Indentation Hints</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Assuming you are indenting your code properly, a general rule of thumb about
+scope:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>You <strong>can</strong> access variables "to the left"</p>
+</li>
+<li>
+<p>You <strong>cannot</strong> access variables "to the right"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>(Where directions are defined relative to the start of the line of code you are
+writing.)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eUWkVtCUwaoLWfYANZKlTLvlRthqeEIz">!Practice With Scope</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int outside = 5;
+if (true) {
+  int inside = 10;
+  // outside is to my left, so OK
+  System.out.println(outside);
+}
+// inside is to my right, so bad
+System.out.println(inside);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="DlfIqTyTBFGgkmhAEFlvVSLDzjPmbVxt">Next Time: Algorithms and Loops</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="SJLEFfbtRDIeALFWHknlBYYTuSLYfTOo">!MP0 Progress</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/grades/MPs"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bAMIDJtTOruAKgjPWiRdBcIJIwClvpMV">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The first set of Turing&#8217;s Craft exercises are due tomorrow by midnight.</p>
+</li>
+<li>
+<p><a href="/info/resources#emp">CS 199 EMP</a> and <a href="/info/resources#cs196">CS 196</a>
+(the honors section) open for registration today at noon.</p>
+</li>
+<li>
+<p><a href="/MP/0/">MP0</a> is out and due Friday! At this point you should be able to
+finish <code>Quizzer</code>.
+<a href="https://cs125.cs.illinois.edu/info/resources/#hours">Office hours</a>
+until 7PM today.</p>
+</li>
+<li>
+<p>Please fill out the
+<a href="https://goo.gl/forms/7I6PEhK7C4t6iX1k1">intro survey</a>!
+1% extra credit for anyone who does by <strong>today at noon</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>

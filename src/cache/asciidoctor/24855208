@@ -1,0 +1,444 @@
+<div class="sect1">
+<h2 id="MngJfafahKmsXTxAdgJdAoqdOOziwdhn">!</h2>
+<div class="sectionbody">
+<div class="openblock janini small">
+<div class="content">
+<div class="message">Functions</div>
+<div class="literalblock">
+<div class="content">
+<pre>static int maximum(int[] numbers) {
+  int currentMaximum = numbers[0];
+  for (int i = 1; i &lt; numbers.length; i++) {
+    if (numbers[i] &gt; currentMaximum) {
+      currentMaximum = numbers[i];
+    }
+  }
+  return currentMaximum;
+}
+int[] numbers = { 1, 2, 5 };
+System.out.println(maximum(numbers));</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZMsRhBTAKzQDcNqJhGfbQBaNFSLionBV">What Are Computers Good At?</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><span class="line-through">Basic math</span></p>
+</li>
+<li>
+<p><span class="line-through">Simple decision making</span></p>
+</li>
+<li>
+<p><span class="line-through">Doing things over and over again very, very fast</span></p>
+</li>
+<li>
+<p><span class="line-through">And storing data</span></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ebsIAGHktJXCWiXlllplCDkytNHXBEjq">What&#8217;s Next?</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>These are the three main challenges that will occupy us for the remainder of the
+semester:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Algorithms</strong>: How do we use computers to solve problems?</p>
+</li>
+<li>
+<p><strong>Data structures</strong>: How do we structure information to enable efficient
+algorithms?</p>
+</li>
+<li>
+<p><strong>Software development</strong>: How do we write, debug, test, and publish <em>good</em>
+computer software?</p>
+</li>
+<li>
+<p>And we&#8217;re going to have <em>a lot of fun</em> continuing to learn everything and
+anything about how computers and computer systems work.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vrCcLFuUvwOmdCBjYCObdECLzGvjWCwm">How Do We Structure Good Computer Programs?</h2>
+<div class="sectionbody">
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>Break our code into reusable, testable, and understandable pieces</p>
+</li>
+<li>
+<p>Combine state and behavior</p>
+</li>
+<li>
+<p>Document our code appropriately</p>
+</li>
+<li>
+<p>Reuse preexisting solutions as much as possible</p>
+</li>
+<li>
+<p>Share our code with others!</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hYhFitgISnHLduMUspeEhttwBEKcyCmX">Functions (Or Subroutines)</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Subroutine">Function</a>:
+a sequence of program instructions that perform a specific task, packaged as a
+unit. This unit can then be used in programs wherever that particular task
+should be performed.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>In Java, a function takes <em>zero or more inputs</em> and produces <em>no or one output</em>.</p>
+</li>
+<li>
+<p>Functions are built of the imperative programming building blocks we have
+already seen: variables, loops, conditional statements.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vrMmLkjEfsujbHoVyjzWIAbdDLQzDdKH">Functions (Or Subroutines)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A good function:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Does one thing well</strong></p>
+</li>
+<li>
+<p><strong>Can be easily tested</strong></p>
+</li>
+<li>
+<p><strong>Can be reused in multiple places</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tyrmxoGtViFOOACbFiqDBpgEhhmfxOTl">Function Declaration</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}</code></pre>
+</div>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p>In Java every function has a <em>name</em>, a list of <em>arguments</em>, a <em>return
+type</em>,
+<a href="https://en.wikipedia.org/wiki/Javadoc"><em>a Javadoc description</em></a>,
+and a <em>return statement</em>.</p>
+</li>
+<li>
+<p>The <strong>name</strong> and <strong>description are for you</strong>, the programmer</p>
+</li>
+<li>
+<p>The <strong>arguments</strong> and <strong>return type</strong> are both for you and for Java</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hOiebdTyavDHVMcZmkojBrMZeABlFXjT">Calling Functions</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To <em>call</em> a function we provide the arguments it requires and expect a result of
+the type it is declared to return.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>The code that calls the function is referred to as the <em>caller</em>.</p>
+</li>
+<li>
+<p>When a function is called, the caller waits until the function
+returns</p>
+</li>
+<li>
+<p>The result can be saved, used like a literal of the
+return type, or ignored</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YZvTRZGcPWaZtWxjxrlSVmRLzCozyasQ"><code>add</code> Example</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}
+int result = add(3, 4);
+System.out.println(add(4, 5));
+int biggerResult = add(10, 20) + add(20, 30) + 10;
+System.out.println(biggerResult);
+add(6, 7); // This is dumb code but will compile and run</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uArzOsQICgDsGEJnEiOtfLfyMwtRYWVz">! Add Two Numbers</h2>
+<div class="sectionbody">
+<div class="literalblock janini small">
+<div class="content">
+<pre>// Ignore the extra static for now in our examples...
+static int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}
+int result = add(3, 4);
+System.out.println(add(4, 5));
+int biggerResult = add(10, 20) + add(20, 30) + 10;
+System.out.println(biggerResult);
+add(6, 7); // This is dumb code but will compile and run</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="HfURoLPdmmuKEbHfnrzRlKJcbTPttYZE">Good <span class="line-through">Variable</span> Function Names</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like <a href="/learn/variables/#7">variables</a>, choosing good <em>function</em> names
+will make your life a lot easier as a programmer.</p>
+</div>
+<div class="paragraph">
+<p>Good function names are:</p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>Descriptive</p>
+</li>
+<li>
+<p>Indicative of the function&#8217;s function&mdash;what it does</p>
+</li>
+<li>
+<p>As succinct as possible&#8230;&#8203;</p>
+</li>
+<li>
+<p>But see #2 above</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sPuYAsjxUtxNgZiMnUrKhLahWgUSvwTm">Function Arguments</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>When a function begins executing the code has access to the variables declared
+as arguments, which will contain the values passed by the caller.</p>
+</div>
+<div class="paragraph">
+<p>You can think of these variables as pre-declared and pre-initialized.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WqnehuZUvbySXIyiIAJIecmtJfjBoORf"><code>add</code> Example</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  System.out.println(firstNumber);
+  System.out.println(secondNumber);
+  return firstNumber + secondNumber;
+}
+System.out.println("Start");
+int result = add(3, 4);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gflghmydtJybAJRsQIHkkTsoLnzRotAc">! Add Two Numbers</h2>
+<div class="sectionbody">
+<div class="literalblock janini small">
+<div class="content">
+<pre>// Ignore the extra static for now in our examples...
+static int add(int firstNumber, int secondNumber) {
+  System.out.println(firstNumber);
+  System.out.println(secondNumber);
+  return firstNumber + secondNumber;
+}
+System.out.println("Start");
+int result = add(3, 4);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mXPpRQOkwFXdigorsNOAJvEuKGjvoPeq"><code>return</code> and Return Type</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A <code>return</code> statement <em>immediately exits the function</em> and returns a result.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>return</code> statements can appear anywhere inside a function: inside a loop or
+conditional statement</p>
+</li>
+<li>
+<p>A function can include multiple return statements</p>
+</li>
+<li>
+<p>Regardless of where they appear or how many are used, the function returns <strong>as
+soon as the first <code>return</code> statement is reached</strong></p>
+</li>
+<li>
+<p>A function <em>must return a value of the type it declared</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SARozugeSuiSZToETgfUqoaDOggJhFWF">Javadoc Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Good code requires documentation.
+This is for the humans that use it.</p>
+</div>
+<div class="paragraph">
+<p>In Java, we utilize the
+<a href="https://en.wikipedia.org/wiki/Javadoc">Javadoc</a>
+tool to turn comments into our code into structured online documentation.</p>
+</div>
+<div class="paragraph">
+<p>That allows this:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">/**
+ * Example Javadoc.
+ *
+ * @param firstArgument first argument to my function
+ * @return 0
+ */</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;to become this&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="XwuvvgCiGDqvXVmEZMcOFFEkOhfwmVsZ">! Example Javadoc Output</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="qyjMaUvtyjciWNidWzkSmNadSwUcJIuy">! Function Examples</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>/**
+ * Prints "Me!" to standard out.
+ */
+static void printMe() {
+  System.out.println("Me!");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WMIXpAhbQaTskdstiILhxUgbcbLLsFyk">! Average Of An Array</h2>
+<div class="sectionbody">
+<div class="literalblock janini small">
+<div class="content">
+<pre>// Compute the average
+float[] toAverage = { 0.1, 6.7, 8.9, 10.4, 11.2, 0.9 };</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="AjBeDNYHtDWIWkZvzfaEpqDlNbGHGHTK">Functions Frequently Implement Algorithms</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="OBLbAkJElAJAKOCSqyEIEFgKyaPMwouY">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/1/">MP1</a> is out and due <em>on Friday</em>. Please get started! Today is the
+best day to come to office hours.</p>
+</li>
+<li>
+<p><a href="info/resources/#emp">EMP (Even More Practice)</a> continues <em>tonight</em> from
+5&ndash;7PM in <strong>Siebel 1404</strong>.
+This is where it will be held for the rest of the semester.
+<strong>If you struggled on MP0, Quiz 1, or TC 1 or TC2, be there.</strong></p>
+</li>
+<li>
+<p>The next set of Turing&#8217;s Craft exercises (TC3) are due <em>tomorrow</em> at midnight.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>

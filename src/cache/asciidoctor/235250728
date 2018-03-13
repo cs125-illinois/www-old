@@ -1,0 +1,867 @@
+<div class="sect1">
+<h2 id="TQcbLBvzGXemZKfpSvbOuepsOUbmWwqq">!</h2>
+<div class="sectionbody">
+<div class="openblock janini smallest compiler">
+<div class="content">
+<div class="message">Lists</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public int get(int index) {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kiuuHhvtkeNBrxzvZlBCjAdYovjtAXem">Algorithms and Data Structures</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>For the next two weeks we&#8217;ll be discussing fundamental computer science
+<em>algorithms</em> and <em>data structures</em>.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Algorithm</strong>: a way of doing something</p>
+</li>
+<li>
+<p><strong>Data structure</strong>: a way of storing data that enables certain algorithms</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IRjECqRugdjLLGMBzUFyfYJUfZJxxoVG">Arrays</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] values = new int[10];</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>At this point the only data structure we&#8217;ve discussed is the <em>array</em>.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Good</strong>: looking up an element in an array is O(1) <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
+</li>
+<li>
+<p><strong>Bad</strong>: the size of a Java array cannot be changed once it is created.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="oFjnHJFHAMiBIIvaytaNNxjnVTrFFItX">So How Do We Add Items?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hint: it&#8217;s possible.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="BLSbLyVhijVQLPaDmJdcviQvVrmehnQu">! Array Append Implementation</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller">
+<div class="content">
+<pre>import java.util.Arrays;
+/*
+ * Append an item to an array.
+ */
+static int[] append(int[] inputArray, int newValue) {
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rXjhyqeJLXTgQCIwqqZfEQVOiUsCCgGK">Array Append Performance</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] append(int[] inputArray, int newValue) {
+  // Create a new array one larger than the existing array
+  // Copy all values over
+  // Add the new value at the end
+  // Return the new array
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>What is n&mdash;or what feature drives performance?</strong>
+<span class="s">The length of <code>inputArray</code>.</span></p>
+</li>
+<li>
+<p><strong>Best case runtime</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Worst case runtime</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Average case runtime</strong>: <span class="s">O(n)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LEyzqbhelTdWuMTbEHBBOHNTqHFfVtZh">! Array Insert Implementation</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller">
+<div class="content">
+<pre>import java.util.Arrays;
+/*
+ * Insert an item into the array at the given position.
+ */
+static int[] insert(int[] inputArray, int newValue, int position) {
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wzaspGePmHbJRDzWxaugNPUBEgRFPjpN">Array Insert Performance</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] append(int[] inputArray, int newValue, int position) {
+  // Create a new array one larger than the existing array
+  // Copy all values over, adding the new value at the right spot
+  // Return the new array
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>What is n&mdash;or what feature drives performance?</strong>
+<span class="s">The length of <code>inputArray</code>.</span></p>
+</li>
+<li>
+<p><strong>Best case runtime</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Worst case runtime</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Average case runtime</strong>: <span class="s">O(n)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YyibonHxVplBBKQDhstAZFKmtuJKHDYW">Lists</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Lists are a <em>tremendously</em> useful data structure. Every modern language has them
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>The size of a list can change at runtime.</p>
+</li>
+<li>
+<p>Items can be added and removed from the front or back:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add to front (<code>prepend</code>, <code>unshift</code>) or back (<code>append</code>, <code>push</code>)</p>
+</li>
+<li>
+<p>Remove from front (<code>shift</code>) or back (<code>pop</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Items can be added or removed from anywhere in the list (<code>insert</code> or <code>remove</code>)</p>
+</li>
+<li>
+<p>Items can be retrieved and set by index (<code>get</code> and <code>set</code>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="VkTMutAWADQhqNsbPGslndDjULyqqNUD">! Java <code>ArrayList</code></h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="AqUbuIpzQiCSRhpnOEUmvyxvKlxDrvjJ">Why <code>ArrayList</code>?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="GSDbRtMRolMiBVKgnSmdcGQrgBWTgTzU"><code>ArrayList</code>: <code>get</code> and <code>set</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class ArrayList {
+  private int[] data;
+  ArrayList() {
+    this.data = new int[0];
+  }
+  public int get(int index) {
+    return this.data[index];
+  }
+  public void set(int index, int value) {
+    this.data[index] = value;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>What is n&mdash;or what feature drives performance?</strong>
+<span class="s">The length of the list.</span></p>
+</li>
+<li>
+<p>What is the performance of <code>get</code>?
+<span class="s">O(1): constant time!</span></p>
+</li>
+<li>
+<p>What is the performance of <code>set</code>?
+<span class="s">O(1): constant time!</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dWOUXmDXbjaatvVBSjkkqTDqOMiqRDlm"><code>ArrayList</code>: <code>insert</code> and <code>remove</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class ArrayList {
+  private int[] data;
+  ArrayList() {
+    this.data = new int[0];
+  }
+  public void insert(int index, int value) {
+    ...
+  }
+  public int remove(int index) {
+    ...
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>What is the performance of <code>insert</code>?
+<span class="s">O(n): have to copy the entire list.</span></p>
+</li>
+<li>
+<p>What is the performance of <code>remove</code>?
+<span class="s">O(n): have to copy the entire list.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="jjuOzugQvkSIeJBnLlfaTmqivAFVUVZa">Another Option: Linked Lists</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="bvukTzGvgbKQdWJiVcbVkzvCLveVTLcR">Another Option: Linked Lists</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB">
+  Item [ label = "Item|0" ]
+  items -> Item
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="LNBNtXZglNoDtVpnSUNLBXxXDxLZRmDE">Another Option: Linked Lists</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  items -> Item8
+  Item8 -> Item
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="WAdJPunuCYPRWbuZQvICJKkHNiUoiBsw">Another Option: Linked Lists</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);
+items = new Item(5, items);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  items -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="uvyuFIghbYXbXzMNglHaMMhbqqXqKGYL">Another Option: Linked Lists</h2>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  private Item start;
+  public addToFront(int value) {
+    start = new Item(value, start);
+  }
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="xsaqFUCXGdWBcvgSrwKjsLHWsYrNDLlh">! <code>LinkedList</code> Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.getValue() + " ";
+      current = current.getNext();
+    }
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pFfMfaklggDxABUyHIoUOomlxdhJNmAX"><code>LinkedList</code>: <code>addToFront</code></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>What is n&mdash;or what feature drives performance?</strong>
+<span class="s">The length of the list.</span></p>
+</li>
+<li>
+<p>What is the performance of <code>addToFront</code>?
+<span class="s">O(1): constant time!</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="eRuvOPCigAcMMwCpOUhtUcBMNSiRoBFb">Wow! What&#8217;s the catch?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(There&#8217;s always a catch.)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uxETPHKiReXjnLMwmpdVNZwTsvFshNbf"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public int get(int index) {
+    // This should be easy...
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ToJOhcQvwLPGrKzyjTctnXGUlpaNgABO">! <code>LinkedList</code> Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class Item {
+  private int value;
+  private Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+  public void setNext(Item setNext) {
+    this.next = setNext;
+  }
+  public Item getNext() {
+    return this.next;
+  }
+  public int getValue() {
+    return this.value;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public int get(int index) {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HIFRUbegMElyTCRryTvdWMzsnTFvAaJp"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  start -> Item1
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="huaxLPNSoVSkxUbFnCUWqRwuDZQqgJMw"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  start -> Item2
+  Item2 -> Item1
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="MtSJPhEljoKufnnBjwnMhJzpMuTmWMFr"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="OQXWCIblWobBKVCXOmUNWFOkQhCKuFkj"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item0 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item0
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="uTCRqFIioaWUbZXxmfyHvXYrSAEEPpnH"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3", fillcolor="lightblue", style="filled" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="IEKNGKZOSoQTcaAWJVuwbUBrlUaleLHp"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2", fillcolor="lightblue", style="filled" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="bcglIwAIsYtwxwTorcPMDROVbXnqTSvu"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1", fillcolor="lightblue", style="filled" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="wOcKkEBJTHkkCcDKpEwCCNYvCSUinhUY"><code>LinkedList</code>: <code>get</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LinkedList {
+  public int get(int index) {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+LinkedList list = new LinkedList();
+list.addToFront(1);
+list.addToFront(2);
+list.addToFront(3);
+list.get(2);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1", fillcolor="green", style="filled" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="HukfpNfUOulnnDElwTJYZyNKTvhGgtDM"><code>ArrayList</code> v. <code>LinkedList</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Both provide the <em>same</em> functionality, but with different <em>performance</em>
+characteristics.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Operation</th>
+<th class="tableblock halign-center valign-top"><code>ArrayList</code></th>
+<th class="tableblock halign-center valign-top"><code>LinkedList</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>add</code> (at front)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="s">O(n)</span></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="s"><strong>O(1)</strong></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>get</code> and <code>set</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="s"><strong>O(1)</strong></span></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="s">O(n)</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>insert</code> (anywhere)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="s">O(n)</span></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="s">O(n)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pxmMRUovvighafzysajDTLzYWtXOPhQH">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/4/">MP4</a> is due Friday. The early deadline is <strong>today</strong>.</p>
+</li>
+<li>
+<p>We&#8217;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>Continue to communicate with the course staff about the strike as needed.
+We&#8217;re trying to keep everything up and running.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. or constant time
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. even Java!
+</div>
+</div>

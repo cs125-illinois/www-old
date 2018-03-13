@@ -1,0 +1,564 @@
+<div class="paragraph lead">
+<p>As we have learned previously, computers are frequently used to transform and
+analyze data.
+And an increasing amount of that data is <em>multi-dimensional</em>: including both
+photo and video data.
+People are taking a
+<a href="https://www.theatlantic.com/technology/archive/2015/11/how-many-photographs-of-you-are-out-there-in-the-world/413389/">huge
+amount of photos and video</a>,
+and processing that data is almost entirely done on or by computers.
+For MP4 you&#8217;ll be working with two-dimensional photo pixel data as you complete
+the server part of a simple photo editing application.</p>
+</div>
+<div class="paragraph">
+<p><strong>MP4 is due Friday 3/9/2018 @ 5PM.
+To receive full credit, you must submit by this deadline.</strong>
+In addition, 10% of your grade on MP4 is for submitting code that earns at least
+<em>50 points</em> by <strong>Monday 3/5/2018 @ 5PM.</strong></p>
+</div>
+<div class="paragraph">
+<p>As usual, late submissions will be subject to the
+<a href="/info/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<h2 id="objectives">1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of MP4 is to continue introducing you to data transformation.
+You&#8217;ll begin to learn how to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>implement various image transformations by performing transformations on 2D
+arrays</p>
+</li>
+<li>
+<p>avoid writing repetitive code by identifying similarities between various
+transformations</p>
+</li>
+<li>
+<p>work with existing object classes</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll also continue to reinforce the learning objectives from previous MPs
+(<a href="/MP/0/">0</a>, <a href="/MP/1/">1</a>, <a href="/MP/2/">2</a>, and <a href="/MP/3/">3</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="structure">2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like <a href="/MP/3/">MP3</a>, MP4 consists of a simple client-server system.
+The HTML, CSS, and JavaScript for the client are provided for you.
+But it relies on your backend to work properly.</p>
+</div>
+<div class="paragraph">
+<p>Your job is to complete the required transformations in <code>Transform.java</code>.
+These make use of a pixel class defined in <code>RGBAPixel.java</code>.
+These functions are called by the web server that is set up using <code>WebServer.java</code>.</p>
+</div>
+<div class="paragraph">
+<p>As always, you may find our official
+<a href="https://cs125-illinois.github.io/MP4-Starter/">MP4 online documentation</a>
+helpful in understanding what each function and class is supposed to do.</p>
+</div>
+<div class="sect2">
+<h3 id="getting">2.1. Obtaining MP4</h3>
+<div class="paragraph">
+<p>Use
+<a href="https://classroom.github.com/a/cjTkpLN6">this GitHub Classroom invitation link</a>
+to fork your copy of MP4.
+Once your repository has been created, import it into IntelliJ following
+<a href="/MP/setup/git/#workflow">our assignment Git workflow guide</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="requirements">2.2. Your Goal</h3>
+<div class="paragraph">
+<p>At this point you should be familiar with the requirements from previous MPs.
+See the <a href="#grading">grading description below</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="running">2.3. Running MP4</h3>
+<div class="paragraph">
+<p>To run MP4, follow the instructions from
+<a href="/MP/3#running">MP3</a>.</p>
+</div>
+<div class="paragraph">
+<p>At first, nothing will work because you have not implemented any of the required
+transformations yet.
+But you may want to experiment with your browser using
+<a href="https://cs125.cs.illinois.edu/MP/4/solution/">our solution</a>
+to ensure that your browser is supported.
+Our web interface uses some new-ish browser features, and of course Internet
+Explorer hasn&#8217;t implemented all of them yet.
+We have confirmed that
+<a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome</a>,
+<a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>,
+and
+<a href="https://www.apple.com/safari/">Safari</a>
+work on both Mac and Windows <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="approach">3. Approaching MP4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All of our previous advice about how to approach the CS 125 MPs still applies.
+But MP4 has some unique features that are designed to continue your development
+as computer scientists and software developers.</p>
+</div>
+<div class="sect2">
+<h3 id="dry">3.1. Don&#8217;t Repeat Yourself (DRY)</h3>
+<div class="paragraph lead">
+<p>Whenever you write software, you should try to adhere to the DRY principle:
+<em>don&#8217;t repeat yourself</em>.</p>
+</div>
+<div class="paragraph">
+<p>What does this mean?
+It means that you should try to avoid writing duplicative code&mdash;multiple
+functions (or parts of the same function) that perform identical tasks.</p>
+</div>
+<div class="paragraph">
+<p>Consider the fact that any computer program <em>could</em> be written as one giant
+function and with no subroutines at all
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>.
+But the result would be awful, since any time the program needed to repeat a
+task it would have to repeat the code needed to accomplish that task.
+And any time you fixed a bug in one part of the code, you&#8217;d have to find every
+other identical part and fix the bug there as well.
+Code like this quickly becomes impossible to understand, test, debug, and
+improve&mdash;and will also make it hard to keep a job.</p>
+</div>
+<div class="paragraph">
+<p>At first glance, MP4 may seem daunting.
+You have <em>22</em> functions to write!
+And yes, you can complete MP4 by writing 22 separate independent functions.</p>
+</div>
+<div class="paragraph">
+<p>But there is a much smarter way to approach MP4.
+As a hint, the solution set consists of only <em>six</em> real functions&mdash;with the
+rest just calling into this much smaller set of <em>helper functions</em>.
+The reason is that many of the transformations perform similar operations.
+For example, a shift down is similar to a shift up, as well as a shift left and
+a shift right.
+So rather than writing four separate extremely-similar functions, I can write a
+slightly more complicate generic shift function and have it called by all of the
+others.</p>
+</div>
+<div class="paragraph">
+<p>There is a balance here that requires practice to get right.
+Trying to reduce the needs of 22 different functions to one single method
+produces overly-complicate and brittle code.
+But writing them all separately misses opportunities to harness common
+subroutines.
+You&#8217;ll get better at this with practice, and MP4 is a good chance to get some.
+So <strong>do not</strong> implement 22 separate transformation functions, but also <strong>do not</strong>
+attempt to implement one function that does everything.
+There are some natural groupings that you will probably be able to identify.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="coordinates">3.2. Understand Your Coordinate System</h3>
+<div class="paragraph">
+<p>If you are used to working with the coordinate plane in mathematics, the canvas
+coordinate system can take some getting used to.
+In particular:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>(0, 0)</code> is at the <em>top left</em>, not the bottom left.</p>
+</li>
+<li>
+<p>Increasing Y values move the image <em>down</em>, not up&mdash;keep this in mind when
+implementing <code>shiftUp</code> and <code>shiftDown</code>.</p>
+</li>
+<li>
+<p>Increasing X values move the image to the right, which matches the
+mathematical coordinate system.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Another important pitfall is that the that way that two-dimensional arrays in
+Java are initialized <em>does not</em> match up with this coordinate system.
+So, for example, this static array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[][] myArray = {
+  { 1, 2 },
+  { 3, 4 }
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>corresponds to <em>this</em> image array:</p>
+</div>
+<table class="tableblock frame-all grid-all spread table-bordered">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>3</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>4</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>We suggest that you <em>do not</em> try to interpret the statically initialized arrays in
+the test suite directly.
+Instead, use the output from <code>RGBAPixel</code> helper methods, which is correctly
+formatted.</p>
+</div>
+<div class="sect3">
+<h4 id="_centering">3.2.1. Centering</h4>
+<div class="paragraph">
+<p>Understanding the coordinate system is also important when centering the image
+around <code>(0, 0)</code>, which you need to do to implement the rotate, flip, and resize
+transformations.
+This is probably one of the trickier parts of MP4, so think it through
+carefully.</p>
+</div>
+<div class="paragraph">
+<p>It is helpful to work some simple examples.
+For example, consider vertically flipping a 2x2 array.
+In our coordinate system, the coordinate values of the pixels in the array would
+be:</p>
+</div>
+<table class="tableblock frame-all grid-all spread table-bordered">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 0)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 0)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 1)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 1)</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Note that these are the coordinate values, not the pixel contents</strong>.
+In order to flip the array properly, we need to adjust the coordinate values as
+follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread table-bordered">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(-0.5, -0.5)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0.5, -0.5)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(-0.5, 0.5)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0.5, 0.5)</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>At this point I can swap either the X or Y values and achieve either a
+horizontal or vertical flip around the origin.
+There is only one problem&mdash;Java can&#8217;t use <code>double</code> types as array indices.
+So we need to do this transformation on a pixel-by-pixel basis.
+Roughly, here is the approach.
+For each pixel in the original image:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Center the pixel</p>
+</li>
+<li>
+<p>Determine how to transform it to a new location in the transformed image</p>
+</li>
+<li>
+<p>Undo the centering transformation</p>
+</li>
+<li>
+<p>Move data from the original image to the transformed image</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once you have a centering procedure that works, you can use it for the
+rotations, flips, expands, and shrinks.
+But this is one of the tougher parts of the assignment, so you might want to
+start with the parts that don&#8217;t require centering: position shifts, color
+shifts, green screen and the mystery function.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_shrinking_and_expanding">3.2.2. Shrinking and expanding</h4>
+<div class="paragraph">
+<p>As a final note about coordinates, please consider carefully how to implement
+the shrink and expand transformations.
+Specifically, if I start with this 2x6 array (with pixel values shown):</p>
+</div>
+<table class="tableblock frame-all grid-all spread table-bordered">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>and expand it horizontally by a factor of 3, this is the correct result:</p>
+</div>
+<table class="tableblock frame-all grid-all spread table-bordered">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>But it is easy to get this instead:</p>
+</div>
+<table class="tableblock frame-all grid-all spread table-bordered">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You will want to think about this carefully.
+As a hint, instead of starting with the original array and trying to figure out
+where each pixel <em>goes</em> in the transformed array, you may want to start with the
+transformed array and calculate where each pixel should <em>come from</em>.
+Also keep in mind that simply casting a double to an integer <em>does not round the
+value properly</em>.
+So <code>(int) doubleValue != Math.round(doubleValue)</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Finally, note that shrinking is not tested by the test suite.</strong>
+You can feel free to implement it to get your web interface to work like the
+solution, but it will not affect your score.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_testing_diff_helper">3.2.3. Testing diff helper</h4>
+<div class="paragraph">
+<p>You will notice that the <code>RGBAPixel</code> class defines a not very helpful <code>static</code>
+method to show the difference between two photo arrays.
+You should feel free to improve this method so that it is more useful during
+your debugging.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getting_help">3.3. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/syllabus/#calendar">office hours</a>, or post on the
+<a href="https://cs125-forum.cs.illinois.edu/c/mps/mp4" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="overview">3.4. How All Of MP4 Works</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/v0TSgrVK8kA" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>The video above is optional, but may interest those that are curious about how a
+modern web application works.
+It walks through most of what happens from the moment you click one of the image
+transformation buttons, to when transformed data returns from the server.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="grading">4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP4 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>80 points</strong>: <code>Transform.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>20 points</strong> for completing the position shift transformations</p>
+</li>
+<li>
+<p><strong>20 points</strong> for completing the rotation and flip transformations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for completing the color shift transformations</p>
+</li>
+<li>
+<p><strong>15 points</strong> for completing the expand transformations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for completing the green screen transformation</p>
+</li>
+<li>
+<p><strong>5 points</strong> for completing a mystery transformation</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least 50 points before <strong>Monday
+3/5/2018 @ 5PM.</strong></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="testing">4.1. Test Cases</h3>
+<div class="paragraph">
+<p>As in previous MPs, we have provided exhaustive test cases
+for each part of MP4.
+Please review the <a href="/MP/0/#testing">MP0 testing instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="autograding">4.2. Autograding</h3>
+<div class="paragraph">
+<p>Like previous MPs we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+Please review the <a href="/MP/0#autograding">MP0 autograding instructions</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="submitting">5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/setup/git#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+<div class="paragraph">
+<p>And remember, you must submit something that earns 50 points before <strong>Monday
+2/5/2018 @ 5PM</strong> to earn 10 points on the assignment.</p>
+</div>
+<div class="sect2">
+<h3 id="cheating">5.1. Academic Integrity</h3>
+<div class="paragraph">
+<p>Please review the <a href="/MP/0#cheating">MP0 academic integrity guidelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example of the training that the CS 125 course staff undertakes to
+make sure we catch cheaters:</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/XfZFuw7a13E" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. Well, not Safari on Windows, for obvious reasons
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. Don&#8217;t try this at home.
+</div>
+</div>

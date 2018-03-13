@@ -1,0 +1,396 @@
+<div class="paragraph lead">
+<p><a href="https://git-scm.com/">Git</a> is a source code version control system (VCS), also
+known as <em>version control</em>.
+<a href="https://github.com/">GitHub</a> is as website providing Git repository hosting and
+an attractive and powerful Git web interface.
+Version control systems are at the heart of how programmers manage and share
+source code.
+Both Git and GitHub are extremely commonly used in the world of software
+development, and you will benefit greatly from familiarity with them.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p><strong>Note that if have not
+<a href="/MP/setup/intellij/">installed IntelliJ</a>
+you should do that first.</strong>
+Return here when you&#8217;re done.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vcs">1. Why Use Source Version Control?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A source code repository is a bit like the shared folders that are provided by
+services like <a href="https://www.dropbox.com">Dropbox</a>, <a href="https://www.box.com">Box</a>, and
+<a href="https://drive.google.com">Google Drive</a>.
+You can save files and folders and share them with other users in various
+ways.
+Some of these tools even track allow you to undo and redo changes and see how
+files have changed over time.
+These are useful tools, and a great way to collaborate with others in a
+variety of different scenarios.
+So it&#8217;s normal to wonder: what&#8217;s different about source version control?</p>
+</div>
+<div class="paragraph">
+<p>Compared to tools like Dropbox, source version control provides programmers
+with several important advantages.</p>
+</div>
+<div class="sect2">
+<h3 id="_versioning_entire_projects">1.1. Versioning Entire Projects</h3>
+<div class="paragraph">
+<p>First, version control systems track the version of <em>all the files in each
+repository</em>, rather than individual files separately.
+Programming frequently involves making a set of changes to a group of files that
+together accomplish something&mdash;like fixing a bug or adding a new feature.
+So when you commit your work using Git, it remembers the state of all the files
+in your repository at that time.
+This allows you to compare what your project looked like at different times, and
+undo an entire set of changes that might have caused a problem.</p>
+</div>
+<div class="paragraph">
+<p>Note that this also means that Git <strong>does not</strong> track all the changes you save
+to a file.
+Unless you commit your changes, they are not saved to your repository.
+This may seem like an annoyance&mdash;after all, systems like Dropbox will sync
+your files every time you save them.</p>
+</div>
+<div class="paragraph">
+<p>But when programming this turns out to be a <em>huge</em> advantage.
+Let&#8217;s say you save a version of <code>Foo.java</code> to test&mdash;but it contains errors.
+Now if you are using Dropbox, everyone has that broken version of the file.
+But if you are using Git, you can test your code, notice the errors, and fix
+them before committing.</p>
+</div>
+<div class="paragraph">
+<p>A Git commit is really their equivalent of the save operation.
+Regardless of whether you save your files in IntelliJ or any other way, you have
+to add commit them to your repository before it will save and remember them.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_version_comments">1.2. Version Comments</h3>
+<div class="paragraph">
+<p>Version control systems also allow you to add your own notes to each commit.
+This is called a <em>comment</em>.
+Comments should summarize what changes are included in the new version of the
+project.
+Good comments are extremely helpful to other developers that are trying to
+understand how the code is evolving.
+All version control systems have ways to view the list of version with their
+comments.
+This can be useful when you want to see how things have changed, or back up
+and use an older version of a project where some feature was working that
+isn&#8217;t any more.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_merging_changes">1.3. Merging Changes</h3>
+<div class="paragraph">
+<p>Second, version control systems help you merge changes made by different
+developers&mdash;even to the same file.
+Say that <code>Foo.java</code> has 1000 lines.
+Alice makes a change at the top of the file.
+Concurrently, Bob makes a change to the bottom of the file.
+Systems like Dropbox will typically force you to address this conflict by
+choosing either Alice&#8217;s version of the file or Bob&#8217;s.
+But version control systems can frequently <em>automatically</em> merge
+non-overlapping changes to source code files&mdash;allowing you to choose to
+combine the changes from Alice with the changes from Bob.
+When you are working in large teams on large software projects, this
+capability is extremely handy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="git">2. Introduction to Git and GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Now let&#8217;s go through the basics of how to use Git.
+But please don&#8217;t consider this guide exhaustive&mdash;there are much more useful
+and up-to-date guides all over the internet.</p>
+</div>
+<div class="sect2">
+<h3 id="_basic_principles">2.1. Basic Principles</h3>
+<div class="paragraph">
+<p>Git organizes your files into a <em>repository</em>.
+A repository can contain any number of files organized any way you like.
+A single repository usually contains all of the code used by a single project.
+For CS 125, you will use a single repository for each MP <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
+</div>
+<div class="paragraph">
+<p>Git stores a copy of your repository on your local machine.
+But to submit and to backup your work, you are going to <em>push</em> your changes to
+the GitHub Git hosting service.
+So first we have to create a GitHub account and configure IntelliJ to use it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install">2.2. Installing Git</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/ce_xatgDxTM" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Before you can use Git with IntelliJ, you need to install the underlying Git
+tool itself.
+Head to the
+<a href="https://git-scm.com/downloads">Git downloads page</a>
+and follow the appropriate instructions.</p>
+</div>
+<div class="paragraph">
+<p>Note that you do <em>not</em> need to install a GUI for Git&mdash;or the
+<a href="https://desktop.github.com/">GitHub Desktop</a>
+application.
+We&#8217;re going to use IntelliJ&#8217;s excellent built-in Git interface.
+So once you&#8217;ve
+<a href="https://git-scm.com/downloads">installed Git</a>
+you can move on.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="account">2.3. Joining GitHub</h3>
+<div class="paragraph">
+<p>Joining GitHub is simple!
+If you don&#8217;t already have an account, head to
+<a href="https://github.com/join">this page</a>
+to sign up.
+It&#8217;s quick, free, and painless.</p>
+</div>
+<div class="paragraph">
+<p>If you already have an account, just keep using it for your CS 125 assignments.
+Note that there is also no requirement that you identify yourself as a CS 125 or
+even as an Illinois student with GitHub to submit your CS 125 assignments.
+We&#8217;ll discuss how to identify yourself your submissions
+<a href="#identify">later</a>.
+However, if you add your @illinois.edu email to your profile as your primary
+email address, it will improve integration with our official grading system.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="workflow">3. CS 125 Git Workflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Almost all of your interaction with Git this semester will be through two
+powerful interfaces: the
+<a href="/MP/setup/intellij">IntelliJ IDE</a>,
+and
+<a href="https://github.com/">GitHub</a>.
+Let&#8217;s walk through a typical MP workflow to get a sense for how you will
+normally be using Git.</p>
+</div>
+<div class="sect2">
+<h3 id="cloning">3.1. Cloning the MP Starter Code Using GitHub</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/A6DGPMlHnH4" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>To begin each MP <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup> you will use a special link to
+<em>clone</em> a Git repository on
+<a href="https://github.com/">GitHub</a>.
+That repository contains starter code that we provide for each assignment,
+including completed portions of the assignment and testing suites.
+Cloning a Git repository on GitHub makes a copy of it that you now have
+permission to modify.</p>
+</div>
+<div class="paragraph">
+<p>It is straightforward to start a new IntelliJ project Using an existing GitHub
+repository&#8212;&#8203;either one you created or one that was created for you when you
+accepted our MP invitation link.
+Simply choose the "Check out from Version Control" option in the main IntelliJ
+menu and then select "GitHub".
+If you have not yet added your GitHub credentials to IntelliJ, it will ask you
+to do that, and then for the URL of the GitHub repository.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="importing">3.2. Importing Your New Project Into IntelliJ</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/nqRmvYRQlVQ" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>You will then use IntelliJ to import the new project from your remote GitHub
+Repository.
+IntelliJ makes this extremely easy: there is an option to create a new project
+from a remote repository.
+This step will download the code from GitHub to your local machine and allow you
+to begin making and testing your changes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identifying">3.3. Identifying Yourself</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/aoGA3TiaIQg" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Before you can run the local autograder or receive credit for a submission, you
+must identify yourself.
+This links your @illinois.edu identify to your repository so that you can
+receive credit for your work.</p>
+</div>
+<div class="paragraph">
+<p>In the root directory of each project you will submit, there is a file called
+<code>email.txt</code>.
+Enter your @illinois.edu email address into that file on a single line.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note that it is critical that you do this properly.</strong>
+If you enter an incorrect email address, you will not receive credit for your
+work.
+If you enter the email address of another student, we will investigate your
+submission for plagiarism and potentially file a
+<a href="https://history.illinois.edu/resources/faculty-resources/reporting-academic-integrity-infractions">FAIR
+report</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="autograding">3.4. Running the Autograder</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/7LlLsX1N5SE" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>As you complete each assignment, you&#8217;ll want to track your progress and get a
+sense of how you are doing.
+To aid with that process, we&#8217;ve provided an autograder that you can run as
+many times as you like.
+Each time, it <em>estimates</em> the score that you&#8217;d earn on the assignment.</p>
+</div>
+<div class="paragraph">
+<p><strong>Please note that the autograder only provides an estimate of your score.</strong>
+While we have tried as hard as possible to make the autograder run similarly on
+your machine and in official grading, it is impossible to ensure identical
+behavior.
+So use the autograder to estimate your score as you go&mdash;but be sure to
+submit and view your official score before the assignment deadline.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="committing">3.5. Committing (Saving) Your Work</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/MGQTdoz_JJ0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img src="https://hikaruzone.files.wordpress.com/2015/10/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png?w=800&h=559" alt="in case of fire 1 git commit 2 git push 3 leave building2" width="150">
+</div>
+</div>
+<div class="paragraph">
+<p>Version control systems only save the change you have made when you
+tell them to.
+This is called a <em>commit</em>, and the process called <em>committing</em>.
+Given that committing is essentially saving your changes, this have given rise
+to memes like the one on the right.</p>
+</div>
+<div class="paragraph">
+<p>Once you commit a version of a file, Git will remember its committed
+contents forever&mdash;even if you change or delete it the file.
+So you should get into the habit of committing early and often.
+Here are some good times to commit your code:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You just started a project&mdash;make sure to record it in its initial
+state!</p>
+</li>
+<li>
+<p>You just finished writing a function&mdash;that way you can always get back
+to that version if you make changes later.</p>
+</li>
+<li>
+<p>You just passed one test case&mdash;make sure that Git remembers what
+worked forever!</p>
+</li>
+<li>
+<p>You are about to take a break or go to bed.</p>
+</li>
+<li>
+<p>The MP deadline is in thirty minutes&mdash;or in five minutes!</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Get in the habit now of committing your code regularly.</strong>
+Version control systems are very efficient at storing commits, and so the
+overhead of performing them is small.
+Better to have things saved than to want desperately to get back to a previous
+version or remember how you did something and not have it committed.</p>
+</div>
+<div class="paragraph">
+<p>Note that most version control systems will require you to tell them the first
+time you want to add a new file to a project.
+Once you do this once, that file will be tracked in the future&mdash;but there
+is an initial step that you may sometimes miss.
+However, IntelliJ is good about reminding you about this, as long as you don&#8217;t
+disable those reminders.</p>
+</div>
+<div class="paragraph">
+<p>IntelliJ has a convenient interface for committing changes, adding commit messages,
+pushing to GitHub, and generally tracking the state of your repository.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="submitting">3.6. Pushing and Submitting Your Work</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/S6LM_lR7bOg" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>For CS 125 you submit your work by <em>pushing</em> it to GitHub.
+We will grade each version of your MP that you push and provide you with the
+best score modulo penalties and other score calculations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_learn_more">4. How to Learn More</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As usual the internet is the best way to find out more about anything related
+to technology.
+There are great Git tutorials out there that you can find on Google.
+And feel free to ask questions in the
+<a href="https://cs125-forum.cs.illinois.edu/c/mps/git">Using Git forum category</a>.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. and for some labs
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. and many labs
+</div>
+</div>

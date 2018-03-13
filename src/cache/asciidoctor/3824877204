@@ -1,0 +1,1056 @@
+<div class="sect1">
+<h2 id="XvVPGwaRhahvjdxCblIifRgJogEUVwFu">!</h2>
+<div class="sectionbody">
+<div class="openblock janini smallest compiler">
+<div class="content">
+<div class="message">Object References</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class Person {
+  public String name;
+  Person(String name) {
+    this.name = name;
+  }
+  public boolean equals(Person other) {
+    return this.name == other.name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person geoffrey = new Person("Geoffrey");
+    Person alsoGeoffrey = geoffrey;
+    Person anotherGeoffrey = new Person("Geoffrey");
+    System.out.println(alsoGeoffrey == geoffrey);
+    System.out.println(alsoGeoffrey.equals(geoffrey));
+    System.out.println(anotherGeoffrey == geoffrey);
+    System.out.println(anotherGeoffrey.equals(geoffrey));
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="qWcdunxsQUZvWXluIpetvUNFVUAmCjVP">This is <em>Not</em> a Class on Java Internals</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You should learn to think <em>in Java</em>, not worry (yet) about what is going on
+below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="drSMdGFVAAqrAxUkxYuOVntLZQwbJhIt">But We&#8217;ll Do A <em>Bit</em> of Java Internals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Either because it&#8217;s</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>important</strong></p>
+</li>
+<li>
+<p>interesting</p>
+</li>
+<li>
+<p>fun</p>
+</li>
+<li>
+<p>or some combination of the above.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="XxGahOwmXfZrBFQuELVZOxrslVpDJEnC">References</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Reference_(computer_science)">Reference:</a>
+a value that enables a program to <em>indirectly</em> access a particular datum, such
+as a variable&#8217;s value or a record, in the computer&#8217;s memory or in some other
+storage device.
+The reference is said to refer to the datum, and accessing the datum is called
+dereferencing the reference.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge">Java Reference Variables</h2>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me);
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We can refer to a Java variable that refers to an object as a <em>reference
+variable</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ePzrrhanajpSQIFiEmThxkYyCQtBUDrR">! Java Reference Variables</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller">
+<div class="content">
+<pre>class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me);
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv">References Are Not Objects</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>References <em>are not</em> the thing the refer to.</p>
+</div>
+<div class="paragraph">
+<p>What are some real-world examples of references?</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>A phone number</strong>: which refers to a phone</p>
+</li>
+<li>
+<p><strong>A street address</strong>: which refers to a physical location</p>
+</li>
+<li>
+<p><strong>A social security number</strong>: which refers to a person</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="itfuafekfLjAzwwbVrkStPQVIGyxObCF">Copying References</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Copying a reference <em>does not</em> copy the object it refers to.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Copying a phone number doesn&#8217;t copy the phone.</strong>
+Anyone with the number can call the same person.</p>
+</li>
+<li>
+<p><strong>Copying a street address doesn&#8217;t copy the location.</strong>
+Anyone with the address can navigate to the same spot.</p>
+</li>
+<li>
+<p><strong>Copying a social security number doesn&#8217;t copy the person</strong> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.
+Anyone with social security number may be able to impersonate that person.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mgDxtWzOVhgiyiPrSUQKCwwUKOAeHLuC">! Copying References</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>class Person {
+  public int age;
+}
+Person me;
+me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="mIzaMkJisKMhTtGuDJdBQQQLzmaeZvUp">Copying References</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+}
+Person me;</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  me
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="oTxeeptDAAbhPoFfhrUmlbRqOGBifBCI">Copying References</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HRLZQYDutqYyuRJLAfRTUKWsHAAnIsXh">Copying References</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
+  you -> Person [ label = "refers to" ]
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="BNDFZUWJXXyorFCxmkBrigvGUpbPKsEb">Copying References</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  Person [ label = "Person|age = 10" ]
+  me -> Person [ label = "set age" ]
+  you -> Person
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="EbMSAXuEuSUQYYKcghZAlJXEgDAazCWh">Copying References</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  Person [ label = "Person|age = 10" ]
+  me -> Person
+  you -> Person [ label = "get age" ]
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OmTSjTmYpHwjYoPLKPiqfxoTUMMjNKUl">! Copying References</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>class Person {
+  public int age;
+}
+Person me;
+me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="eQpiyhXFcqMSmIAgOndHFzSGcIJfkOSR">Swapping References</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  P2 [ label = "Person|age = 18" ]
+  P1 [ label = "Person|age = 38" ]
+  me -> P1
+  you -> P2
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="lkfWvkqKjRjIjJZWJvPzqfFkFyphDUFO">Swapping References</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P1
+  you -> P2
+  tmp -> P1
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="pWMfaKXkBZCrwPFnsQKKsUWcnCsVJBzf">Swapping References</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  me -> P1 [style=invis]
+  you -> P2
+  you -> P1 [style=invis]
+  tmp -> P1
+  tmp -> P2 [style=invis]
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="UywGpTsMtxFOHkCUrvxZmOYaZYzFqZMv">Swapping References</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  me -> P1 [style=invis]
+  you -> P1
+  you -> P2 [style=invis]
+  tmp -> P1
+  tmp -> P2 [style=invis]
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="ZlSlVntakQfPDbkrVfimWKcshUXdksDO">Swapping References</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;
+// Now we can discard tmp</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  P1 [ label = "Person|age = 38" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  you -> P1
+  me -> P1 [style=invis]
+  you -> P2 [style=invis]
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uzNQUXEArykYdhVIfncXFOqBYnBNVOol">! Swapping References</h2>
+<div class="sectionbody">
+<div class="listingblock janini smaller">
+<div class="content">
+<pre>class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person me = new Person(38);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;
+System.out.println("You're now " + you.age);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB">Pass By Reference</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));
+System.out.println(me.age);</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java methods receive <em>a copy</em> of a reference to the passed object.</p>
+</div>
+<div class="paragraph">
+<p>So they <strong>can</strong> modify the object the reference refers to.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO">Pass By Reference</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  Person [ label = "Person|age = 38" ]
+  me -> Person
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="QeoegaQWqRCqwRWjFgcHecPcBnblAsuu">Pass By Reference</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person
+  toSet -> Person [ label = "age++" ]
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="LCApeGyQtFkuQzuHRiWVCZeNpdydfeht">Pass By Reference</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));
+System.out.println(me.age);</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person [ label = "get age" ]
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="llBQyrlpKOvNiAoKQdVqESgkRxfeasaU">! Pass By Reference</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller compiler">
+<div class="content">
+<pre>public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+public class Example {
+  public static int birthday(Person toSet) {
+    toSet.age++;
+    return toSet.age;
+  }
+  public static void main(String[] unused) {
+    Person me = new Person(38);
+    System.out.println(birthday(me));
+    System.out.println(me.age);
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="XpvjEiHxEGbjtWPgOzaxnwavoTjYJuUk">Arrays Store Object References</h2>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+Person[] people = new Person[4];
+for (int i = 0; i &lt; people.length; i++) {
+  people[i] = new Person(18 + i);
+}
+Person[] samePeople = new Person[4];
+for (int i = 0; i &lt; people.length; i++) {
+  samePeople[i] = people[i];
+}
+for (int i = 0; i &lt; people.length; i++) {
+  people[i].age++;
+}
+for (int i = 0; i &lt; samePeople.length; i++) {
+  System.out.println(samePeople[i].age);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>So copying an array as above only copies the object references, not the objects
+themselves.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vBVVoNbvCRZapCtVZOalDGPPOGiDqYTV">! Arrays Store Object References</h2>
+<div class="sectionbody">
+<div class="listingblock janini smallest compiler">
+<div class="content">
+<pre>public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person[] people = new Person[4];
+    for (int i = 0; i &lt; people.length; i++) {
+      people[i] = new Person(18 + i);
+    }
+    Person[] samePeople = new Person[4];
+    for (int i = 0; i &lt; people.length; i++) {
+      samePeople[i] = people[i];
+    }
+    for (int i = 0; i &lt; people.length; i++) {
+      people[i].age += 10;
+    }
+    for (int i = 0; i &lt; samePeople.length; i++) {
+      System.out.println(samePeople[i].age);
+    }
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wLKMXRVWDTOLVmKPzLGUzkHWsYXfjKhd">How To Copy Objects</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  Person(Person other) {
+    this.age = other.age;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>If we want to copy an object, we have a few options:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>Object</code> provides a <code>clone</code> method</p>
+</li>
+<li>
+<p>You can implement a <em>copy</em> constructor as shown above</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="yIuWQkMigaAVPvtEIROvoEbkHSwxdNBQ">Shallow v. Deep Copies</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  public Pet pet;
+  Person(Person other) {
+    this.pet = other.pet;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What is a potential problem with the copy constructor shown above?</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>It only copies the <em>reference</em> to the <code>Pet</code> object. So both the existing and
+the new object will share the same <code>Pet</code> object.</p>
+</li>
+<li>
+<p>This is called a <em>shallow</em> copy. A <em>deep</em> copy copies all of the objects so
+the old and new object share nothing.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tTAXvrPmiXsApAXXqjpgJRjMksTFlnuv">Reference v. Object Equality</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  boolean equals(Person other) {
+    return this.age == other.age;
+  }
+}
+Person me = new Person(38);
+Person other = new Person(38);
+System.out.println(me == other);
+System.out.println(me.equals(other));</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>If two <em>references</em> are equal then they refer to <em>the same</em> object, and
+<code>.equals</code> is almost always true.</p>
+</li>
+<li>
+<p>If two references are not equal, the class may still define <code>.equals</code> to be
+true depending on the value of the instance variables.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lxdGHmogdPLNiOxkBLAJToLVxBSxdnnA">! Reference v. Object Equality</h2>
+<div class="sectionbody">
+<div class="literalblock janini small">
+<div class="content">
+<pre>class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  boolean equals(Person other) {
+    return this.age == other.age;
+  }
+}
+Person me = new Person(38);
+Person other = new Person(38);
+System.out.println(me == other);
+System.out.println(me.equals(other));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YkxyDKHKOIwHLcdjIZCcUkSxnwqzgejc">References Are Powerful</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>References are a widely-used idea in computer science.</p>
+</div>
+<div class="paragraph">
+<p>By controlling the process of dereferencing or <em>translating</em> a reference we can:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>move</strong> objects from place to place: just like your phone can move around with
+the same number</p>
+</li>
+<li>
+<p><strong>block</strong> translation in certain cases: just like you can reject email from
+certain senders</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="VjdvpgqzTAgeaTuQOvPNlsUiBIhYcxFE">And Memory Management</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(Or why you never need to <code>delete</code> anything in Java&#8230;&#8203;)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LMkQlNJtjcgVmFapXzOxalWcbrMgJCdj">Java Memory Management</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java utilizes references to automatically clean up unused objects to reclaim
+memory&mdash;a process known as <em>garbage collection</em>.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>If a reference to an object exists, it must still be useful, <strong>so keep it</strong></p>
+</li>
+<li>
+<p>If no reference to an object exists, <em>it cannot be used</em>, <strong>so remove it</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="ExXBunKhuHMRMgeissCMJFagFMaATymr">Reference Counting Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 0
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small">
+  String [ label = "String|0" ]
+  save -> String
+  s -> String
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="DhaLhZFXsqpNrJSlnhNezfCAhyJMtdkH">Reference Counting Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 1
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  save -> String
+  s -> String1
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="ySGaaRXUtptkhVrcBQumHCwMiBCjyqCp">Reference Counting Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 2
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  save -> String
+  s -> String2
+  {rank=same; String String1 String2}
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="zEHDaKoSAyMYFCMSoqKCpNYvHppfhklu">Reference Counting Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="GrSlJoshnMHiqwfLmUJHgieSBvLWhWFV">Reference Counting Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1", fillcolor="red", style="filled" ]
+  String2 [ label = "String|2", fillcolor="red", style="filled" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="kYPIHYzgsQZYzQsiBRpOBnQwzxswiPLl">Reference Counting Example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="VLvnbZTmDcKeLxexoklDNuywCsmzgdIB">GEO Strike Planning</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/3/">MP3</a> is due today! Office hours all day in the basement of Siebel.</p>
+</li>
+<li>
+<p><a href="/MP/4/">MP4</a> is out and due in less than two weeks. The early deadline is
+a week from today. <strong>Please get started.</strong> MP4 is not easy.</p>
+</li>
+<li>
+<p>CS 196 is holding a Microsoft Azure Workshop tomorrow (Tuesday 2/27/2018) from
+7&ndash;7:45 in Siebel 0216. <strong>Please consider attending.</strong></p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. Is that even possible?
+</div>
+</div>

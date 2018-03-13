@@ -1,0 +1,163 @@
+<div class="paragraph lead">
+<p>This lab starts by exploring the basics of <em>computer representation</em>&mdash;including binary notation.
+It continues by introducing you to <em>computer algorithms</em>&mdash;how computers
+solve problems.</p>
+</div>
+<div class="sect1">
+<h2 id="binary">1. Binary and Representation <span class="text-muted">(40 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s learn about binary and how computers represent numbers and other kinds of
+data.</p>
+</div>
+<div class="paragraph">
+<p>Complete this part of the lab in pairs using Google Docs.
+Create a copy of <a href="https://goo.gl/pof9Y2">our document template</a>, and then edit it
+to record you and your partner&#8217;s answers.
+<strong>Note that you must open this document using your @illinois.edu Google Apps
+account.</strong>
+We will not grant access to non-Illinois users.
+Have a course staff member check your answers as you go.
+When you are done, move on to the next section.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_algorithm_concepts_span_class_text_muted_40_minutes_span">2. Algorithm Concepts <span class="text-muted">(40 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Work together in groups to solve the following problems.
+Feel free to use a whiteboard to prepare your solution, and be ready to
+present it to the course staff or other groups.</p>
+</div>
+<div class="sect2">
+<h3 id="_parallelism">2.1. Parallelism</h3>
+<div class="paragraph lead">
+<p>One of the best things about computers is that there are so many of them!
+Google is estimated to have
+<a href="http://www.datacenterknowledge.com/archives/2017/03/16/google-data-center-faq/">2.5
+<em>million</em> computers</a> in its data centers around the world.
+So while today&#8217;s individual computers are themselves insanely fast, they can
+accomplish even more when you can get them to work together.</p>
+</div>
+<div class="paragraph">
+<p>Consider the following problem that uses computers in the historical sense of
+the word&mdash;humans performing computation, hence computers.
+You have a room full of people.
+Each knows their own age, but can&#8217;t or won&#8217;t perform any addition.
+Your goal is to compute the sum of all of the ages of everyone in the
+room&mdash;and to do so <em>as fast as possible</em>.</p>
+</div>
+<div class="paragraph">
+<p>Assume that it takes one second to ask a question <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup> and get a response <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>.
+Also make the optimistic assumption that it takes no time to add two numbers
+together.
+Then it would take you 32 seconds to compute the entire sum yourself.</p>
+</div>
+<div class="paragraph">
+<p>But now let&#8217;s say that you have help.
+How long would it take:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a group of two people?</p>
+</li>
+<li>
+<p>a group of four people?</p>
+</li>
+<li>
+<p>a group of eight people?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Keep in mind that a good solution should keep all of your helpers busy, and
+also requires communication between your team that you need to account for.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s common for computer scientists to solve a smaller version of a problem
+and then generalize it to a larger version.
+(For example, I&#8217;ll build a
+<a href="http://blog.shareaholic.com/wp-content/uploads/2012/05/Facebook-Screenshot-2004.jpg">small
+college-only social networking website</a> and then expand it later.)
+Let&#8217;s try that here.
+<strong>Compute how long it would take a group of 8 people to sum 1,024 ages.</strong>
+Do you see a pattern emerging?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_debugging">2.2. Debugging</h3>
+<div class="paragraph">
+<p>Now return to the case where you are summing the ages of 32 people using a
+team of four, including yourself.
+Just to be safe, after computing the sum once, you rerun the calculation
+again&mdash;but get a different result!
+There must be a bug somewhere <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>!</p>
+</div>
+<div class="paragraph">
+<p>The first step in locating a bug is to always think carefully about what could
+be causing the problem.
+Come up with at least <em>five</em> different sources of error that may be affecting
+the result of your calculation.</p>
+</div>
+<div class="paragraph">
+<p>Next, develop a foolproof procedure for identifying the cause of the problem.
+You want to be just as methodical in approaching how you identify the problem
+as you were in developing your original solution.
+Debugging is always frustrating.
+Something is going wrong and you don&#8217;t know why!
+But if you approach the debugging problem like a computer scientist, you can
+usually come up with a good debugging algorithm.
+And then get back to the problem you were <em>actually</em> trying to solve.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing">2.3. Testing</h3>
+<div class="paragraph">
+<p>Fresh of the experience of debugging your system, you decide to be more
+proactive in the future.
+Debugging is reactively waiting for problems to emerge and then trying to fix them.
+Testing is <em>proactively</em> testing things to make sure they work properly.
+When you test the things that you build as you go, it is much less likely that
+you will experience complex and difficult to find problems.</p>
+</div>
+<div class="paragraph">
+<p>Return to the sources of error that you identified above.
+For each, develop a testing procedure that will ensure that you can identify
+the problem before it happens.</p>
+</div>
+<div class="paragraph">
+<p>Note that while it may be tempting to try to test your system by ensuring that
+it can correctly compute sums for all possible inputs, this is unlikely to be
+feasible.
+Even if all 32 people are children and ten years old or younger, the space of
+possible inputs grows extremely quickly.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mp1">3. Help with MP0 <span class="text-muted">(30 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use any remaining time in your lab section to get help with <a href="/MP/0/">MP0</a>.
+If you are done or making good progress, please help others&mdash;but help them
+<em>learn</em>, don&#8217;t just give them the answers.
+And if you are behind, please reach out the course staff for help.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. How old are you?
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. I&#8217;m 37&mdash;no, really!
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. There&#8217;s a great piece of computer lore about famous computer scientist <a href="https://ghc.anitaborg.org/">Grace Hopper</a> finding a <a href="http://www.computerworld.com/article/2515435/app-development/moth-in-the-machine&#8212;&#8203;debugging-the-origins-of&#8212;&#8203;bug-.html">real live bug inside a computer</a> she was working on.
+</div>
+</div>

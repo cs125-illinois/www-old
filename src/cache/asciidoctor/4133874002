@@ -1,0 +1,304 @@
+<div class="paragraph lead">
+<p>In this lab we begin our exploration of <em>algorithms</em>, the conceptual heart of
+computer science.
+You&#8217;ll develop a simple algorithm to escape a maze, and then learn about a
+highly-structured way of representing algorithms called <em>state machines</em>.
+In the second half, you&#8217;ll implement your maze-solving algorithm in Java.</p>
+</div>
+<div class="sect1">
+<h2 id="algorithms">1. Mazes and States <span class="text-muted">(50 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s learn more about algorithms&mdash;systematic ways that we and computers
+use to solve problems.</p>
+</div>
+<div class="paragraph">
+<p>Complete this part of the lab in pairs using Google Docs.
+Create a copy of <a href="https://goo.gl/naEPbH">our document template</a>, and then edit it
+to record you and your partner&#8217;s answers.
+<strong>Note that you must open this document using your @illinois.edu Google Apps
+account.</strong>
+We will not grant access to non-Illinois users.</p>
+</div>
+<div class="paragraph">
+<p>Have a course staff member check your answers as you go.
+When you are done, move on to the next section.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="maze">2. Implementing Your Maze Algorithm <span class="text-muted">(60 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Now let&#8217;s <em>implement</em> the maze solving algorithm that you designed in the first
+half in Java.</p>
+</div>
+<div class="paragraph">
+<p>These examples use the CS 125 mazemaker Java library, which uses a
+<a href="https://rosettacode.org/wiki/Maze_generation">well-known algorithm</a>
+to automatically generate mazes.
+You can find the
+<a href="https://github.com/cs125-illinois/mazemaker">mazemaker source code</a>
+and
+<a href="https://cs125-illinois.github.io/mazemaker/">documentation</a>
+on <a href="https://github.com/">GitHub</a>
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+</div>
+<div class="sect2">
+<h3 id="_evaluating_algorithms">2.1. Evaluating Algorithms</h3>
+<div class="paragraph">
+<p>As you begin implementing your maze escape algorithm, think about the different
+ways that computer scientists evaluate algorithms.
+Here are some of the components of a good algorithm:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>It works.</strong>
+It should definitely solve the problem you are trying to solve, or at least have
+a good probability of solving it in most cases.</p>
+</li>
+<li>
+<p><strong>It should perform well.</strong>
+It should not require a huge amount of resources to solve the
+problem&mdash;whether those resources are time, computational horsepower,
+computer memory, or disk space.</p>
+</li>
+<li>
+<p><strong>It should be understandable.</strong>
+Good algorithms are easy to understand and reason about.
+The best ones are simple, and sometimes we even call them elegant.
+Complex algorithms are hard to understand, making it difficult to think about
+what they will do in certain cases.</p>
+</li>
+<li>
+<p><strong>The implementation should be clear and understandable.</strong>
+Many times we encounter algorithms while reading computer code.
+So just as the algorithm must be clear, the implementation in computer code must
+also be clear.
+We will have a lot more to say about code quality throughout the
+semester&mdash;particularly on the MPs.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>These are not non-contradictory goals.
+Frequently the desire for simplicity clashes with attempts to improve
+performance, or handle all inputs correctly.
+But particularly when you are starting off as a computer science, err on the
+side of simplicity.
+<strong>Remember: computation is (increasingly) cheap, humans are expensive.</strong>
+If it takes me 10 times longer to understand or modify your algorithm, it is not
+worth a only minor improvement in performance.
+Let your algorithms waste a bit of computer time, but never human time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cloning">2.2. Forking and Cloning the Lab2 IntelliJ Project</h3>
+<div class="paragraph">
+<p>We&#8217;ve set up an
+<a href="https://github.com/cs125-illinois/Lab2">Lab 2 GitHub repository</a>
+containing an IntelliJ Project that&#8217;s correctly configured for Lab 2.
+Getting access to it is similar to how you
+<a href="/MP/setup/git/#importing">imported MP0</a>.
+But you have to fork our repository first.
+If it&#8217;s not obvious how to do that, try following
+<a href="https://help.github.com/articles/fork-a-repo/">these instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementing_your_solution">2.3. Implementing Your Solution</h3>
+<div class="paragraph">
+<p>There is only one Java file in this lab project: <code>SolveMaze.java</code>.
+Inspect it and you&#8217;ll find a place to implement your solution.</p>
+</div>
+<div class="sect3">
+<h4 id="_visualization_and_experimentation">2.3.1. Visualization and experimentation</h4>
+<div class="paragraph">
+<p>Once you have your basic algorithm working, tinker around a bit.
+Try some of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Try starting or ending at a different location</p>
+</li>
+<li>
+<p>Try using mazes with different dimensions</p>
+</li>
+<li>
+<p>See if you can visualize your movement through the maze.
+The maze object is printable, and can be passed to
+<a href="http://javapapers.com/core-java/system-out-println/"><code>System.out.println</code></a>
+just like a string.
+However, to slow down the display and see what is going on you might want to
+explore
+<a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/sleep.html"><code>Thread.sleep</code></a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_your_algorithm_s_performance">2.3.2. Your algorithm&#8217;s performance</h4>
+<div class="paragraph">
+<p>Once you have a working algorithm, spend some time understanding its
+performance.
+Answer the following questions <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>How many steps&mdash;each consisting of moving one square&mdash;does it take
+to finish the maze?
+Because the maze generation is random, you might want to run multiple trials and
+average the results.</p>
+</li>
+<li>
+<p>For a maze with dimensions N by M, what is the <em>minimum</em> number of steps
+required to complete the maze, assuming you start at the bottom left and exit at
+the top right?</p>
+</li>
+<li>
+<p>How much worse does your algorithm do? Why?</p>
+</li>
+<li>
+<p>Can you come up with ways to improve your algorithm?</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_your_algorithm_s_limitations">2.3.3. Your algorithm&#8217;s limitations</h4>
+<div class="paragraph">
+<p>Now spend some time thinking about the <em>limitations</em> of your algorithm.
+In particular, the mazes that are generated by our maze creator all have
+something in common: They have no loops!
+This is due to the operation of the maze generation algorithm, which uses a
+simple depth-first search over the two-dimensional space.
+To make things more interesting, we could have inserted some holes at the
+end&mdash;but we didn&#8217;t.</p>
+</div>
+<div class="paragraph">
+<p>But suppose you ran your algorithm on a maze with loops.
+Think up one way it could get stuck.
+So it&#8217;s possible that your algorithm may not work!
+But, assuming that the start and end point are always on the exterior wall of
+the maze, try to convince your partner that your algorithm will still work.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_randomized_algorithm">2.4. A Randomized Algorithm</h3>
+<div class="paragraph">
+<p>The maze-solving algorithm you implemented above is <em>deterministic</em>.
+Provided the same maze, it will always navigate through it in the same way.
+You may want to rerun your algorithm on the same maze a few times to convince
+yourself of this.</p>
+</div>
+<div class="paragraph">
+<p>Deterministic algorithms are great&mdash;easy to understand and reason about.
+But there is a different class of algorithms called
+<a href="https://en.wikipedia.org/wiki/Randomized_algorithm"><em>randomized algorithms</em></a>.
+As their name implies, these algorithms use randomness as part of their logic.
+In some cases, this allows them to dramatically outperform the best known
+deterministic algorithm.</p>
+</div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/IRobot_Roomba_780.jpg" alt="IRobot Roomba 780" width="300">
+</div>
+</div>
+<div class="paragraph">
+<p>One randomized algorithm that you may have seen in action is a space-filling
+algorithm called a <em>random walk</em>.
+If you&#8217;ve ever watched a Roomba <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>, you&#8217;ve seen a random walk in action.
+It turns out that mapping is a hard problem for robots to solve.
+So, rather than trying to map an area, early robotic vacuums
+<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup>
+just implemented a random walk:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go straight until you hit something</p>
+</li>
+<li>
+<p>Turn a random amount but sufficient to not continue into the obstacle</p>
+</li>
+<li>
+<p>Repeat</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To a human observer this looks crazy&mdash;how is it ever going to get every
+spot?
+But it turns out that there is some fairly sophisticated mathematics that shows
+that, given a certain number of passes, your random robot maid will get every
+spot with very high probability.
+Or at least chase a duck:</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Of2HU3LGdbo" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<div class="sect3">
+<h4 id="_implement_a_random_walk">2.4.1. Implement a random walk</h4>
+<div class="paragraph">
+<p>Inspired by your vacuum, try re-implementing your maze-solving algorithm using a
+random walk.
+More or less, here&#8217;s how that works:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go forward until you are facing a wall</p>
+</li>
+<li>
+<p>Randomly turn right or left</p>
+</li>
+<li>
+<p>Repeat</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Note that you may have to give this algorithm many (many) more steps to allow
+it to finish!</strong>
+Once you are done, compare the running time of your randomized algorithm with
+the deterministic algorithm you implemented above.
+Are you surprised?
+With your partner, try to develop an explanation for the difference in
+performance.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_saving_your_work">2.5. Saving Your Work</h3>
+<div class="paragraph">
+<p>Before you leave, please
+<a href="/MP/setup/git#submitting">submit your work to GitHub</a>.
+We are not going to grade it, but you should submit it anyway!</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. For the adventurous, there is also a <a href="https://github.com/cs125-illinois/mazemaker.js">JavaScript</a> implementation that we used for the Google Sheet maze.
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. You may want to start a new Google Doc for this portion
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. Or heard <a href="http://www.theonion.com/article/roomba-violates-all-three-laws-of-roombotics-2184">it&#8217;s horrible brushes at night&#8230;&#8203;</a>
+</div>
+<div class="footnote" id="_footnote_4">
+<a href="#_footnoteref_4">4</a>. I think that some new ones <a href="https://arstechnica.com/gadgets/2016/01/neato-botvac-connected-review-a-lidar-powered-robot-vacuum-is-my-maid-now/">are more sophisticated</a>, although the cheap ones still work this way.
+</div>
+</div>

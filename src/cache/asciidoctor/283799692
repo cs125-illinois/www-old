@@ -1,0 +1,214 @@
+<div class="sect1">
+<h2 id="ewTfigIGEWVETbfAjNEaONHauGFgbVQU">!</h2>
+<div class="sectionbody">
+<div class="openblock janini">
+<div class="content">
+<div class="message">Welcome to CS 199 EMP. Ready for some extra practice?<br/>Press Control-Return to run the code above.</div>
+<div class="literalblock">
+<div class="content">
+<pre>System.out.println("Let's practice!");</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PFIBXsWdnhmNfdzzqyhfpnBGXgLljQUJ">Experimenting With Initialization</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's create and initialize some variables of different types
+float x;
+System.out.println(x);
+// Try reinitializing the same variable to see what happens</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WYIWWGNAcrivRnpsQHnOQaHThXsBaTTg">Variables Can Be Modified</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's modify some integers
+int changing = 10;
+changing = 20; // I can set them again
+changing = 20 + 10; // Math is OK on the right side
+changing += 1; // I have some special operators
+changing /= 2; // +, -, / and * all work with =</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pTyTUDLgHMtamCJpJsrtDcgssVPhZIox">Variables Must Maintain the Same Type</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// This doesn't work.
+int changing = 10;
+changing = 10.0;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gAbePKUXCdlvxCDBTPvkeRfDqNzmlJWC">Variables Can Be Modified Using Other Variables</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>double first = 10.0;
+double second = 5.0;
+first = second; // This is assignment, not equality
+second = 20.0;
+first = second + 10.0;
+double third = 2.0;
+first = second + third;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="psVlkMMMcWHkDvqHIeNHlvwusNDMVOZk">Simple Comparisons</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cKKMHCIaAfkrhdZoYJdBPWROqTWFIIcB">Type Limitations</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>byte smallest = 10;
+smallest += 256;
+System.out.println(smallest);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YtcFBxDNIpwyTDlwLUElQUPYmuNfFcht">Equality v. Assignment</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+// This is not
+System.out.println(tester = 5);
+System.out.println(tester);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="oBMVmfaTzqOEodsEZVVUOOKUrDtwRTsw">Comparisons Against Variables</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int first = 10;
+int second = 20;
+System.out.println(first &gt; first);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YrPDioFuvfJLUkHfYhLPXvPeAqanzGNJ">More Complex Comparisons</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+System.out.println(first - second &lt;= 10);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="DAWmmUwMsrDdJDPufEiceZZbeIuRDnGy">Combining Comparisons</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int first = 10;
+System.out.println(first &gt; 5 &amp;&amp; first &lt; 10);
+System.out.println(first &lt; 10 &amp;&amp; first &gt; 5);
+System.out.println(first &gt; 10 || first &gt; 5);
+System.out.println(first &gt; 10 || false);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OkWFGvgMvrNYqmLVooqoWxDDlbKpWUEL">Comparisons Enable Decisions</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Comparisons enable decisions
+int first = 10;
+if (first &gt; 20) {
+  System.out.println("First is greater than 20");
+} else {
+  System.out.println("First is not greater than 20");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gIUotPASyWUlHkjrizGcYzoYvCtUusmV"><code>if-else</code> Statements</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Only the first matching branch of if is executed
+int comparison = 10;
+if (comparison &gt; 5) {
+  System.out.println("I'll be executed");
+} else if (comparison &gt; 3) {
+  System.out.println("I won't be executed");
+} else {
+  System.out.println("I definitely won't be executed");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uqYiqLmsKuSiFUqZBGDMBZvSuSwONHho">Somewhat Useful Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Create an int called totalScore, and then add 10 to it
+// if answerWasCorrect is true</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hoCpUaaJTGMzaDsEARignAmxxdVQKwEu">!Practice With Scope</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int outside = 5;
+if (true) {
+  int inside = 10;
+  // outside is to my left, so OK
+  System.out.println(outside);
+}
+// inside is to my right, so bad
+System.out.println(inside);</pre>
+</div>
+</div>
+</div>
+</div>

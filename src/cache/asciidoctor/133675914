@@ -1,0 +1,420 @@
+<div class="sect1">
+<h2 id="wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi">!</h2>
+<div class="sectionbody">
+<div class="openblock janini compiler small">
+<div class="content">
+<div class="message">Visibility and Static</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class Course {
+  public static void printName() {
+    System.out.println("CS 125");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course.printName();
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="KdwtLLieHgPoCJOrTPiclQExiGvYpFwC">Access Modifiers</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  public String name;
+  private int age;
+
+  private void printName() {
+    System.out.println(this.name);
+  }
+  public int getAge() {
+    return this.age;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java provides ways to <em>protect</em> instance variables and methods.
+We refer to these as <em>access modifiers</em>:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IIhjNpbdLiLFvTmpFrKZfyIOoGmAwidd">Variable Access Modifiers</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  // Anybody can modify name
+  public String name;
+  // age can only be changed by this class's methods
+  private int age;
+}
+Person me = new Person();
+me.name = "Geoffrey"; // This works
+System.out.println(me.age); // This does not work</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>public</code>: the variable can be read or written by anyone</p>
+</li>
+<li>
+<p><code>private</code>: the variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pqgwnWlgZGMpRHMwUZsKhfyXhcpegJrj">! Variable Access Modifiers</h2>
+<div class="sectionbody">
+<div class="literalblock janini compiler small">
+<div class="content">
+<pre>public class Person {
+  public String name;
+  private int age;
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.name = "Geoffrey"; // This works
+    System.out.println(me.age); // This does not work
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="JIAxfYHdgMdZbXUIzIxaJCXZyvhRxNuY">Function Access Modifiers</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  public void printIt() {
+    System.out.println("It");
+  }
+  private void printYou() {
+    System.out.println("You");
+  }
+}
+Person me = new Person();
+me.printIt(); // This works
+me.printYou(); // This does not work</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>public</code>: the method can be called by anyone</p>
+</li>
+<li>
+<p><code>private</code>: the method can only be called by other methods <em>on that class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="GGGGroNVPLAMISvAfEPryUJlJXrOwodH">! Function Access Modifiers</h2>
+<div class="sectionbody">
+<div class="literalblock janini compiler small">
+<div class="content">
+<pre>public class Person {
+  public void printIt() {
+    System.out.println("It");
+  }
+  private void printYou() {
+    System.out.println("You");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.printIt(); // This works
+    me.printYou(); // This does not work
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eElRbazMJbGpaHfrEAGOxqdhlEUjKpHJ">Other Access Modifiers</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>(Java also provides <code>protected</code> and package private modifiers&mdash;but they
+don&#8217;t make sense until we discuss packages.)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uLPZroAsMblwalogMaPDbzszkcQeVlEo">Getters and Setters</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  private int age;
+  public void setAge(int setAge) {
+    this.age = setAge;
+  }
+  public int getAge() {
+    return this.age;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java it&#8217;s common to have <em>private</em> instance variables with public methods
+that set or get their values: called <em>setters</em> and <em>getters</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="oDKbLeOnKjNLLDaUpPxiFXRuDeUiVtUC">Getters and Setters: Why?</h2>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Person {
+  private int name;
+  private int firstName;
+  private int lastName;
+  public void setName(int setName) {
+    String[] nameParts = setName.split(" ");
+    this.name = setName;
+    this.firstName = nameParts[0];
+    this.lastName = nameParts[1];
+  }
+  public int getName() {
+    return this.name;
+  }
+  public int getFirstName() {
+    return this.firstName;
+  }
+  public int getLastName() {
+    return this.lastName;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Getters and setters allow an object to react to changes to its variables.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="EPACuRwxtQOGiRMiwgPeUQhPfmNSJMyx">Access Modifiers: Questions?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ">The <code>static</code> Keyword</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // We can call printName without creating an instance
+    Course.printName();
+    // We can increment count without creating an instance
+    Course.count++;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods and variables belong to the <em>class</em>, not to a specific
+instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="JcfeftoggWYEqmVcqHqWFWLVDrBYSrKv"><code>static</code> Methods</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Course {
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works
+    Course.printName();
+    // This also works
+    Course CS125 = new Course();
+    CS125.printName();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>static</code> methods are called directly on the class, rather than on an instance</p>
+</li>
+<li>
+<p>&#8230;&#8203;but they <em>can</em> be called on the instance as well.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="GogDSWyLriatEwvWVbqNnpNScdTGsZnm"><code>static</code> Methods and <code>this</code></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Course {
+  public String name;
+  public static void printName() {
+    // This doesn't work
+    System.out.println(this.name);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods can be called without an instance, and so can&#8217;t use <code>this</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="AGXzadhOVsBxnfSsSKGKsHhYNePpixZD"><code>static</code> Variables</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.count);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course();
+    Course CS225 = new Course();
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> variables are shared by all instances of a given <code>class</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aJrAPQCvltPcxpPVAvGrGqdLWEhKRlRK">! <code>static</code> Variables</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class Course {
+  private String name;
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.name + " " + this.count);
+  }
+  Course(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course("125");
+    Course CS225 = new Course("225");
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="XHfGpqVIAFIKzUxynzGVJLgDpLnzNwON"><code>static</code>, <code>public</code>, and <code>private</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>public</code> and <code>private</code> also work on static variables and methods</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>public</code>: the (static) variable can be read or written by anyone</p>
+</li>
+<li>
+<p><code>private</code>: the (static) variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li>
+<p><code>public</code>: the (static) method can be called by anyone</p>
+</li>
+<li>
+<p><code>private</code>: the (static) method can only be called by other methods <em>on that class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wonpBdFJRHThXEZuFNtsAJXwhHalvCdU">Object Modeling</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We frequently use Java objects to model real objects or entities.</p>
+</div>
+<div class="paragraph">
+<p>Objects allow us to <em>design</em> software that deals with things in realistic and
+natural ways.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP">Let&#8217;s Model Something</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller">
+<div class="content">
+<pre></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>TC 8 is out and due <strong>Sunday</strong> by midnight.</p>
+</li>
+<li>
+<p><a href="/MP/3/">MP3</a> is out and due week from today.
+The early deadline is <em>today</em> at 5PM.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>

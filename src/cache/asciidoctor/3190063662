@@ -1,0 +1,375 @@
+<div class="sect1">
+<h2 id="wpWWObpUMUooxjYgQhyYdgLTEBiLhwFM">!</h2>
+<div class="sectionbody">
+<div class="openblock janini smallest compiler">
+<div class="content">
+<div class="message">Algorithm Complexity</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class SimpleMath {
+  static long LCM(long first, long second) {
+    for (long i = 1; i &lt; first * second; i++) {
+       if (i % first == 0 &amp;&amp; i % second == 0) {
+         return i;
+       }
+    }
+    return -1;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    long startTime = System.nanoTime();
+    long result = SimpleMath.LCM(10, 2000L);
+    long endTime = System.nanoTime();
+    System.out.println(result);
+    System.out.println((endTime - startTime) / 1000000.);
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hxIDDKCKQdZWsIufBNuIoRUpNzqbxLaW">At The Limit</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#8217;re usually want to analyze an algorithm in the general case, rather than for
+a specific set of input.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>How does the algorithm perform on arbitrarily difficult or large inputs?</p>
+</li>
+<li>
+<p>What are the best, average, and worst-case running times?</p>
+</li>
+<li>
+<p><strong>How is the algorithm&#8217;s performance related to its inputs?</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ezqYlodGyDvIUWMVbKQoWWJuzeHsWNxL">! GDC Implementation</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class SimpleMath {
+  public static long GCD(long first, long second) {
+    int maxDivisor = 1;
+    for (int i = 0; i &lt; Math.min(first, second); i++) {
+      if (first % i == 0 &amp;&amp; second % i == 0) {
+        maxDivisor = i;
+      }
+    }
+    return maxDivisor;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(SimpleMath.GCD(10, 8));
+    System.out.println(SimpleMath.GCD(100, 50));
+    System.out.println(SimpleMath.GCD(94677, 65270));
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="zXJwQCkLuUnAldLYrhFukHRHWmNlJQiP">Analyzing Our Brute Force GCD</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given M and N, for our brute force GCD algorithm:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>What&#8217;s the worst case?</strong> <span class="s">Two large prime numbers.</span></p>
+</li>
+<li>
+<p><strong>What&#8217;s the best case?</strong> <span class="s">One input is one, or divides the other.</span></p>
+</li>
+<li>
+<p><strong>What&#8217;s the average case?</strong> <span class="s">Let&#8217;s guesstimate half of the larger of M and
+N <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</span></p>
+</li>
+<li>
+<p><strong>How is it&#8217;s performance related to its inputs?</strong> <span class="s">It grows with the
+smaller of M or N.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="HywPhPJKTxyKmefWJcTdvOMAybFNKNlv">! Timing Brute Force GCD</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class SimpleMath {
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(SimpleMath.GCD(10, 8));
+    System.out.println(SimpleMath.GCD(100, 50));
+    System.out.println(SimpleMath.GCD(94677, 65270));
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wZpYuIQdhBkDdYLdffvSWUUvbhDCqzoG">Big-O Notation</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Big_O_notation#Product">Big-O notation</a>
+is a mathematical notation that describes the limiting behavior of a function
+when the argument tends towards a particular value or infinity.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Put another way: we want to <em>estimate</em> what happens as the problem gets really,
+really hard.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EQRiDkxGqVDXvndIjCapEccitPnbvEGQ">Big-O Notation</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PQFsLLmCciovBjnIvpSxKmIPJCXAzYoJ">O(1)</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] myArray = new int[1024];
+int getArrayValue = myArray[10]; // This is constant time</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>O(1) is sometimes called constant time.</p>
+</div>
+<div class="paragraph">
+<p>Life is good and livin' is easy. But we&#8217;re usually not this lucky.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="KUmETESzjfZHSFyAINSsXaxeFQsVuVJm">O(n)</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] myArray = new int[1024];
+int sum = 0;
+// A single loop through an array is usually O(n)
+for (int arrayValue : myArray) {
+  sum += arrayValue;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>O(n) is still not bad.</p>
+</div>
+<div class="paragraph">
+<p>Frequently we have to see each value in an array or other data structure at
+least once, so sometimes O(n) is the best we can do.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sTNJsQdYRrmmhUXSBCGikOvNhUqNSWjU">Big-O Notation</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="XEyHnEfcFZUsHzaakFKETZivAXESwbtK">O(n)</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] myArray = new int[1024];
+for (int arrayValue : myArray) {
+  if (arrayValue == lookingFor) {
+    break;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What about the example above?</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Best case</strong>: <span class="s">it&#8217;s the <em>first</em> element</span></p>
+</li>
+<li>
+<p><strong>Worst case</strong>: <span class="s">it&#8217;s the <em>last</em> element</span></p>
+</li>
+<li>
+<p><strong>Average case</strong>: <span class="s">O(n / 2), which we usually simplify to just O(n)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SJmNLiTaeoZLwmjhQsdreyWPGCIPxVAU">O(n^2)</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">boolean isSorted(int[] array) {
+  for (int i = 0; i &lt; array.length; i++) {
+    for (int j = i; j &lt; array.length; j++) {
+      if (array[j] &lt; array[i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Now things are getting bad.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Best case</strong>: <span class="s">the unsorted element is at the beginning</span></p>
+</li>
+<li>
+<p><strong>Worst case</strong>: <span class="s">the array is <em>sorted</em></span></p>
+</li>
+<li>
+<p><strong>Average case</strong>: <span class="s">O(n^2)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OBzQkylBMglxIaLuVfwNaYCfWmjSouom">Big-O Notation</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ScMbnghrBMHGlbxLWUKSvPDdJjsFepRN">O(log n) and O(n log n)</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The logarithmic growth rates are usually caused by features of problems that we
+haven&#8217;t seen yet&mdash;but will soon.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="efsgaXBTFHpEdxGrToSwqgJExyuqqvqN">Dumb Algorithm, Clever Algorithm</h2>
+<div class="sectionbody">
+<div class="paragraph s lead">
+<p>A <strong>dumb</strong> algorithm can move a problem <em>up</em> in the runtime categorization: for
+example, from O(n) to O(n^2). (Our sort test is dumb. The problem is O(n).)</p>
+</div>
+<div class="paragraph s lead">
+<p>A <strong>smart</strong> algorithm can move a problem <em>down</em> in the runtime categorization: for
+example, from O(n^2) to O(n log n). (Euclid&#8217;s Method GCD is smart. The problem
+is O(log(N)).)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mOIGUvXLwHYuLDdmYtNzCMiXDFPisgIv">Big-O Notation</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tqXUhqKpfoOhqtflQZgJpSaUztWLawNs">Does P == NP?</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/P_versus_NP_problem">The P versus NP problem</a>
+is a major unsolved problem in computer science. It asks whether every problem
+whose solution can be quickly verified can also be quickly solved.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph lead">
+<p>Whether P == NP is one of the
+<a href="http://news.mit.edu/2009/explainer-pnp">deepest unsolved mysteries in
+mathematics</a>
+and computer science.</p>
+</div>
+<div class="paragraph">
+<p>Simply put, are some problems just harder than others&mdash;or have we just not
+found good ways of solving them yet.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="GzxJtQJhnglwgYjypOgpYbxpqdRRztOY">Sudoku Turns Out to be Interesting <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="http://www.sudoku-puzzles.org/BoardComplete.png" alt="BoardComplete" width="325">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rWSzCaXARHNQHcwFInDvsGYxdLzLSPJm">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/4/">MP4</a> is out and due in less than two weeks. The early deadline is
+Monday. <strong>Please get started.</strong> MP4 is not easy.</p>
+</li>
+<li>
+<p>Continue to communicate with the course staff about the strike as needed.
+We&#8217;re trying to keep everything up and running.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. Who knew!
+</div>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. I&#8217;m sure the mathematicians in the audience can do better&#8230;&#8203;
+</div>
+</div>
