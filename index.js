@@ -192,7 +192,6 @@ metalsmith(__dirname)
   .use(inPlace({
     pattern: '**/*.xml.hbs',
   }))
-  .use(timer())
   .use(layouts({
     engine: 'handlebars'
   }))
