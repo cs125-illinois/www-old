@@ -80,6 +80,19 @@ const defaultMetadata = {
   doGithub: true
 }
 
+const moment = require('moment')
+let start = moment()
+let last = start
+
+let timer = () => {
+  return (files, metalsmith, done) => {
+    let current = moment()
+    console.log(current.diff(start) / 1000, current.diff(last) / 1000)
+    last = current
+    return done()
+  }
+}
+
 metalsmith(__dirname)
   .source(config.source)
   .destination(temporaryDestination)
@@ -141,8 +154,7 @@ metalsmith(__dirname)
   }))
   .use(empty({ notempty: true }))
   .use(asciidoc())
-  .use((files, metalsmith, done) => { console.log("Here") return done() })
-  .use(markdown())
+  // .use(markdown())
   .use(slides())
   .use(footnotes())
   .use((files, metalsmith, done) => {
@@ -180,6 +192,7 @@ metalsmith(__dirname)
   .use(inPlace({
     pattern: '**/*.xml.hbs',
   }))
+  .use(timer())
   .use(layouts({
     engine: 'handlebars'
   }))
