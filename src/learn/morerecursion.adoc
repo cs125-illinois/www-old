@@ -3,7 +3,6 @@ title: Practice with Recursion
 date: 2018-03-14
 description:
   Continuation of recursive practice on binary trees.
-draft: true
 ---
 
 [[voXqzPFbehmlKvzPJindiCNjYHooPgth]]
@@ -34,10 +33,10 @@ public class Tree {
   }
 
   public void add(int value) {
-    if (right == null) {
-      right = new Tree(value);
-    } else if (left == null) {
+    if (left == null) {
       left = new Tree(value);
+    } else if (right == null) {
+      right = new Tree(value);
     } else if (random.nextBoolean()) {
       right.add(value);
     } else {
@@ -66,6 +65,405 @@ public class Example {
 ....
 --
 
+[[KCoLSXBvtoVCOGrfTDNpmjrTaOiwMRuU]]
+== Terminology Clarification
+
+[.lead]
+//
+I may have inadvertently used the term _O(n)_ analysis.
+//
+A better term is *big O* analysis, since that doesn't confuse it with _O(n)_
+or linear algorithm runtime.
+
+I'll try to be as clear as possible about this going forward.
+
+[[AofiGEMMEYWJIVeLQevsIWTSyfEtkNJS]]
+== Q7 Review: Runtime
+
+[source,java,role='smaller']
+----
+int b(int[] array, int m) {
+  if (m > array.length) {
+    m = array.length;
+  }
+  int c = 0;
+  for (int i = 0; i < m; i++) {
+    boolean g = true;
+    for (int j = 0; j < m; j++) {
+      if (array[j] > array[i]) {
+        g = false;
+      }
+    }
+    if (g) {
+      return c;
+    }
+  }
+  return c;
+}
+----
+
+What is the _best case_ runtime of the algorithm implemented above?
+
+[[HgPzpElYRGWNjrYSmhfDndJgrKPSenSz]]
+== Q7 Review: List Runtime
+
+[source,java,role='small']
+----
+MysteryList list = new MysteryList();
+for (int i = 0; i < 1024; i++) {
+  list.addToFront(i);
+}
+----
+
+After you put timing measurements into the loop show above, you notice that each
+call to `addToFront` takes around the same amount of time.
+//
+This leads you to believe that this `MysteryList` is probably implemented
+using...
+
+[[KUtYLiUZnZOPhwVDnfWqYeHCbnKoexSF]]
+== Q7 Review: List Runtime
+
+[source,java,role='small']
+----
+MysteryList list = new MysteryList();
+for (int i = 0; i < 1024; i++) {
+  list.add(i);
+}
+// Insert 0 at position 32
+list.insert(0, 32); // Takes 1.2 microseconds
+list.insert(1, 128); // Takes 4.2 microseconds
+list.insert(4, 1024); // Takes 37.4 microseconds
+----
+
+Given the timings shown in the comments above, this `MysteryList` is probably
+implemented using...
+
+[[ibsYbuVKxMGiXIpnkatfUqzLWkPDSWIa]]
+== Q7 Review: List Runtime
+
+[source,java,role='small']
+----
+MysteryList list = new MysteryList();
+for (int i = 0; i < 1024; i++) {
+  list.addToEnd(i);
+}
+----
+
+After you put timing measurements into the loop show above, you notice that each
+call to `addToEnd` takes more and more time as `i` increases.
+//
+This leads you to believe that this `MysteryList` is probably implemented
+using...
+
+[[StphwyYzbZBlYzyBFwMipPwIoNbeFwHF]]
+== Q7 Review: Objects
+
+[source,java,role='small']
+----
+public class Counter {
+  public int count = 2;
+  public Counter() {
+    count++;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Counter counter = null;
+    for (int i = 0; i < 10; i++) {
+      counter = new Counter();
+      counter.count++;
+    }
+    System.out.println(counter.count);
+  }
+}
+----
+
+When the `main` method runs, what will be printed?
+
+[[FsOinhzhYqINRhxrticcWcWRsnCqLdoq]]
+== ! Q7 Review: Objects
+
+[.janini.compiler.smaller]
+....
+public class Counter {
+  public int count = 2;
+  public Counter() {
+    count++;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Counter counter = null;
+    for (int i = 0; i < 10; i++) {
+      counter = new Counter();
+      counter.count++;
+    }
+    System.out.println(counter.count);
+  }
+}
+....
+
+[[vpoHjCEyroQgpqhOwrlcZsKVUMAUhXxb]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3 [style=invis]
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5
+3 [style=invis]
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+[[PwLcRQFuTmPzYZIQnoEPAAJBGqNLlDLF]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3 [style=invis]
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3 [style=invis]
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 5 doesn't have a left child
+
+[[yTWkklJcXXfgRXKuSKAEAepHqdbUpRuJ]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 5 doesn't have a left child
+//
+* Add 3 as 5's left child
+
+[[GyzgNvdaVBpDuYkRxMeAgJSaTYgVNSUJ]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 5 doesn't have a right child
+
+[[vKydIATmSNQXKDDGBvHArqtHIAHeznOR]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 5 doesn't have a right child
+//
+* Add 10 as 5's right child
+
+[[UtsBLLEZLvWPrlLzoMTHBxptgGOLmTEI]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 5 has both a right and left child
+
+[[ViXGWrhunnFrYSUSpyfUiQOaCWulkhbR]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10 [fillcolor="lightsalmon" style="filled"]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 5 has both a right and left child
+//
+* Randomly choose a subtree
+
+[[TAJCugGueGfIbLKwmxxwaqzNCsKjnVIN]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5
+3
+10 [fillcolor="lightblue" style="filled"]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 5 has both a right and left child
+//
+* Randomly choose a subtree
+//
+* And call `add` on that subtree
+
+[[EVXpdhPCbdgLFYtZmiLdHVJqmQDTUKbP]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5
+3
+10 [fillcolor="lightblue" style="filled"]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 10 doesn't have a left child
+
+[[YfSxcnBsFREfddoDXEkVuAscgGIDJUWg]]
+[.ss]
+== Recursive Add Review
+
+++++
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9
+10 -> 1 [style=invis]
+5
+3
+10 [fillcolor="lightblue" style="filled"]
+7 [style=invis]
+9
+1 [style=invis]
+</div>
+++++
+
+<<<
+
+* 10 doesn't have a left child
+//
+* Add 9 as its left child
+
 [[cqVgjZbBhDimdNKBlxRPJOBMHZzAYZob]]
 == Recursive Implementation
 
@@ -84,7 +482,7 @@ int factorial(int n) {
 //
 We refer to a function that calls itself as a _recursive function_.
 
-[[IdXQXruptJpAnhOJVkFnLBgrlzoQCoHp]]
+[[qmiqxdoDeDVoxFQfOKZLTweMXGWKnfZQ]]
 == ! Recursive Factorial
 
 [.janini.smaller]
@@ -99,7 +497,7 @@ static int factorial(int n) {
 System.out.println(factorial(4));
 ....
 
-[[rbbSGYKLgdxZlQMHziyxVIXYJEMfusDQ]]
+[[eELiFqaIevIBNkhtbiwbkNcnYnLyfKkS]]
 == Recursive Strategies
 
 [.lead]
@@ -335,12 +733,14 @@ public class Example {
 }
 ....
 
-[[IOOCxXrcOvEnrMjoNsixcoECGwxRdHzd]]
+[[ghyIBrFmhpZwjiTuqEhBzmwmKceGzUCO]]
 == Announcements
 
-* link:/MP/4/[MP4] is due _today_ at 5PM.
+* *No class Friday.* Enjoy Spring Break! footnote:[I definitely will...]
 //
-* MP5 will be released today at 5PM.
+* link:/MP/5/[MP5] is due after break.
+//
+* The early deadline is right after Spring Break.
 //
 * We've added an
 //

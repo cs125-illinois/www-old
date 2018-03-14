@@ -1,0 +1,686 @@
+<div class="sect1">
+<h2 id="voXqzPFbehmlKvzPJindiCNjYHooPgth">!</h2>
+<div class="sectionbody">
+<div class="openblock janini smallest compiler">
+<div class="content">
+<div class="message">Practice with Recursion</div>
+<div class="literalblock">
+<div class="content">
+<pre>import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (left == null) {
+      left = new Tree(value);
+    } else if (right == null) {
+      right = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public String toString() {
+    String returnString = "" + value;
+    if (left != null) {
+      returnString += " " + left.toString();
+    }
+    if (right != null) {
+      returnString += " " + right.toString();
+    }
+    return returnString;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(tree);
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="vpoHjCEyroQgpqhOwrlcZsKVUMAUhXxb">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3 [style=invis]
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3 [style=invis]
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="PwLcRQFuTmPzYZIQnoEPAAJBGqNLlDLF">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3 [style=invis]
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3 [style=invis]
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 doesn&#8217;t have a left child</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="yTWkklJcXXfgRXKuSKAEAepHqdbUpRuJ">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 doesn&#8217;t have a left child</p>
+</li>
+<li>
+<p>Add 3 as 5&#8217;s left child</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="GyzgNvdaVBpDuYkRxMeAgJSaTYgVNSUJ">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10 [style=invis]
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10 [style=invis]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 doesn&#8217;t have a right child</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="vKydIATmSNQXKDDGBvHArqtHIAHeznOR">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 doesn&#8217;t have a right child</p>
+</li>
+<li>
+<p>Add 10 as 5&#8217;s right child</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="UtsBLLEZLvWPrlLzoMTHBxptgGOLmTEI">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 has both a right and left child</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="ViXGWrhunnFrYSUSpyfUiQOaCWulkhbR">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5 [fillcolor="lightblue" style="filled"]
+3
+10 [fillcolor="lightsalmon" style="filled"]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 has both a right and left child</p>
+</li>
+<li>
+<p>Randomly choose a subtree</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="TAJCugGueGfIbLKwmxxwaqzNCsKjnVIN">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5
+3
+10 [fillcolor="lightblue" style="filled"]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>5 has both a right and left child</p>
+</li>
+<li>
+<p>Randomly choose a subtree</p>
+</li>
+<li>
+<p>And call <code>add</code> on that subtree</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="EVXpdhPCbdgLFYtZmiLdHVJqmQDTUKbP">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7 [style=invis]
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5
+3
+10 [fillcolor="lightblue" style="filled"]
+7 [style=invis]
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>10 doesn&#8217;t have a left child</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="YfSxcnBsFREfddoDXEkVuAscgGIDJUWg">Recursive Add Review</h2>
+<div class="sectionbody">
+<div class="digraph small tree TB center">
+splines="curved"
+5 -> 3
+5 -> 10
+3 -> 7
+10 -> 9 [style=invis]
+10 -> 1 [style=invis]
+5
+3
+10 [fillcolor="lightblue" style="filled"]
+7
+9 [style=invis]
+1 [style=invis]
+</div>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>10 doesn&#8217;t have a left child</p>
+</li>
+<li>
+<p>Add 7 as its left child</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cqVgjZbBhDimdNKBlxRPJOBMHZzAYZob">Recursive Implementation</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We refer to a function that calls itself as a <em>recursive function</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="qmiqxdoDeDVoxFQfOKZLTweMXGWKnfZQ">! Recursive Factorial</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller">
+<div class="content">
+<pre>static int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+System.out.println(factorial(4));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eELiFqaIevIBNkhtbiwbkNcnYnLyfKkS">Recursive Strategies</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Recursion can be <em>hard</em> to wrap your mind around at first.
+But these three strategies will help.</p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p><strong>Know when to stop.</strong> When you identify the smallest subproblem, you must
+return. Otherwise your program will not terminate. This is also called the <em>base
+case</em>.</p>
+</li>
+<li>
+<p><strong>Make the problem smaller in each step.</strong> If the problem doesn&#8217;t get smaller,
+you will never reach the base case. This is also called the <em>recursive step</em>.</p>
+</li>
+<li>
+<p><strong>Combine results from your recursive calls properly.</strong></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gRDqpIvNYsoaRJfrfHSXsebpZMSkrUuJ">Recursive Tree Right Greater Than Left</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s find the number of nodes in our tree where the value of the right child is
+greater than or equal to value of the left child.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="SYKjilNSxLlsdxRsuxYvvTgpGnSqBtXT">What&#8217;s Our (Recursive) Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="zSswMAKnLOEUAmowsjltDxsmgyLuCSii">Recursive Tree Right Greater Than Left</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached a tree with one node. It does not have a right
+child or left child, so we can return 0.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Consider our right tree and left tree separately.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Determine whether our right child is greater than our
+left child. If so, add 1 to the sum of results from our left and right child.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LWTPSosRFqExmcZpSPYAxSifaSoFXjZU">!Recursive Right Greater Than Left Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini compiler smallest">
+<div class="content">
+<pre>import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public int rightGreaterThanLeft() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(tree.rightGreaterThanLeft());
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV">Recursive Tree Print Leaves</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s print <em>only</em> leaf nodes: those that have neither a left nor a right child.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="wFkePtuoPHtjiQgMUaRMxqrXubVNPQoY">What&#8217;s Our (Recursive) Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="nBBvXLuotvVfrtrnfEEjpVKYJqQqZZYK">Recursive Tree Print Leaves</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached a tree with no left or right node. It&#8217;s also a
+a leaf node, so print our value.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Consider our right tree and left tree separately.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Nothing to do here, just continue down the tree.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ApTsFupsyGxTnQxQNOutQbJTYqctEttB">!Recursive Tree Print Leaves</h2>
+<div class="sectionbody">
+<div class="literalblock janini compiler smallest">
+<div class="content">
+<pre>import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public void printLeaves() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    tree.printLeaves();
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb">Recursive Tree Search</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s determine whether a tree contains a certain value.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="ngirvffoqoVGBWAiUDJsvyNkZwEiGOey">What&#8217;s Our (Recursive) Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD">Recursive Tree Search</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached a node with no descendants. Return true if
+it&#8217;s value matches, zero otherwise.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Consider our right tree and left tree separately.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Return true if either we or our right or left subtree
+contain the search value.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm">!Recursive Tree Search</h2>
+<div class="sectionbody">
+<div class="literalblock janini compiler smallest">
+<div class="content">
+<pre>import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public static boolean search(Tree tree, int value) {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(Tree.search(tree, 4));
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ghyIBrFmhpZwjiTuqEhBzmwmKceGzUCO">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>No class Friday.</strong> Enjoy Spring Break! <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+</li>
+<li>
+<p><a href="/MP/5/">MP5</a> is due after break.</p>
+</li>
+<li>
+<p>The early deadline is right after Spring Break.</p>
+</li>
+<li>
+<p>We&#8217;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+I&#8217;ll need to leave at 11:30AM.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. I definitely will&#8230;&#8203;
+</div>
+</div>
