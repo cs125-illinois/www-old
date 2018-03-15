@@ -605,3 +605,146 @@ To store n ``int``s:
 //
 * `LinkedList`: [.s]#3n (1 `value`, 1 `next`, 1 `previous`)#
 
+[[WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV]]
+== Recursive Tree Print Leaves
+
+[.lead]
+//
+Let's print _only_ leaf nodes: those that have neither a left nor a right child.
+
+[[wFkePtuoPHtjiQgMUaRMxqrXubVNPQoY]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[nBBvXLuotvVfrtrnfEEjpVKYJqQqZZYK]]
+== Recursive Tree Print Leaves
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a tree with no left or right node. It's also a
+a leaf node, so print our value.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Nothing to do here, just continue down the tree.#
+
+[[ApTsFupsyGxTnQxQNOutQbJTYqctEttB]]
+== !Recursive Tree Print Leaves
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public void printLeaves() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    tree.printLeaves();
+  }
+}
+....
+
+[[MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb]]
+== Recursive Tree Search
+
+[.lead]
+//
+Let's determine whether a tree contains a certain value.
+
+[[ngirvffoqoVGBWAiUDJsvyNkZwEiGOey]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD]]
+== Recursive Tree Search
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a node with no descendants. Return true if
+it's value matches, zero otherwise.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Return true if either we or our right or left subtree
+contain the search value.#
+
+[[LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm]]
+== !Recursive Tree Search
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public static boolean search(Tree tree, int value) {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(Tree.search(tree, 4));
+  }
+}
+....
+
