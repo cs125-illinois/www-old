@@ -1,0 +1,560 @@
+<div class="sect1">
+<h2 id="jrRQIGHYmPhPUoMLkIWzHUsgoPNdbBOn">!</h2>
+<div class="sectionbody">
+<div class="openblock janini smallest compiler">
+<div class="content">
+<div class="message">More Practice with Recursion</div>
+<div class="literalblock">
+<div class="content">
+<pre></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV">Recursive Tree Print Leaves</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s print <em>only</em> leaf nodes: those that have neither a left nor a right child.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="wFkePtuoPHtjiQgMUaRMxqrXubVNPQoY">What&#8217;s Our (Recursive) Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="nBBvXLuotvVfrtrnfEEjpVKYJqQqZZYK">Recursive Tree Print Leaves</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached a tree with no left or right node. It&#8217;s also a
+a leaf node, so print our value.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Consider our right tree and left tree separately.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Nothing to do here, just continue down the tree.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ApTsFupsyGxTnQxQNOutQbJTYqctEttB">!Recursive Tree Print Leaves</h2>
+<div class="sectionbody">
+<div class="literalblock janini compiler smallest">
+<div class="content">
+<pre>import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public void printLeaves() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    tree.printLeaves();
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb">Recursive Tree Search</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s determine whether a tree contains a certain value.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="ngirvffoqoVGBWAiUDJsvyNkZwEiGOey">What&#8217;s Our (Recursive) Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD">Recursive Tree Search</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached a node with no descendants. Return true if
+it&#8217;s value matches, zero otherwise.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Consider our right tree and left tree separately.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Return true if either we or our right or left subtree
+contain the search value.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm">!Recursive Tree Search</h2>
+<div class="sectionbody">
+<div class="literalblock janini compiler smallest">
+<div class="content">
+<pre>import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public static boolean search(Tree tree, int value) {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(Tree.search(tree, 4));
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="DdYpDyJIvrmHWCutyOgMifXNhGVyLsyp">How Could We Make This Search More Efficient?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="dlFNBwsqXFAyyhoLtlAUEfOdFTVxCjtN">Other Recursive Data Structures</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Every sub(blank) of a (blank) is, itself, a (blank).</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Tree</p>
+</li>
+<li>
+<p>(Contiguous) List</p>
+</li>
+<li>
+<p>(Contiguous) Array</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="kmbZhVumjGSPFcCcMibmLWEDUwnRrJhe">List Recursion</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="fPLwvRZpMLpgAbFmsmVXykozRMYLXgkE">List Recursion</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="salmon" style="filled" ]
+  Item5 [ label = "Item|5" fillcolor="salmon" style="filled" ]
+  Item6 [ label = "Item|6" fillcolor="lightblue" style="filled" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="QJZCNssehzpodbsXIwumIgkJjqbesXxa">List Recursion</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="salmon" style="filled" ]
+  Item5 [ label = "Item|5" fillcolor="lightblue" style="filled" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="SAWIkJIKdArGDGWOEuSIOckVUonqVeVQ">List Recursion</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="lightblue" style="filled" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="htyLoPaJeGNagdUbhSiZBycNHKepYWxQ">List Recursion</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="lightblue" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vbXBPPTomEodDCheSwtbLJKhaEJVlbgk">List Recursion</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like with trees, we need a way to both make the problem smaller <em>and</em>
+identify the smallest subproblem.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>How do we make the problem smaller?</strong> <span class="s">Break the list into the current
+item and the rest of the list.</span></p>
+</li>
+<li>
+<p><strong>What&#8217;s the smallest subproblem</strong> <span class="s">A list with a single element.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZIKNZtjqIfbtoVYDnWFyLhhWTxkTkGTq">Linked List Reversal</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given a linked list, reverse the elements in the list.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="vOXakArTtpQmThyCXthtpDAKZrVUPycO">What&#8217;s Our (Recursive) Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="djHYIxZwzkRMwlyEUZRXOdVoeWoeHZFP">Linked List Reversal</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached a list with one element. No need to do
+anything, since it&#8217;s the same reversed.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Consider the current element and the rest of the list
+separately.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Add the current element as the <em>last</em> element of the
+reversal of the rest of the list.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wFNWVdesWuPpnnrLmauFROPuQgwTRSps">! Recursive Linked List Reversal</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = 0; i &lt; array.length; i++) {
+      this.addToEnd(array[i]);
+    }
+  }
+  public void addToEnd(int value) {
+    Item item = new Item(value, null);
+    if (start == null) {
+      start = item;
+      return;
+    }
+    Item current;
+    for (current = start; current.next != null; current = current.next);
+    current.next = item;
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+  public void reverse() {
+    if (start != null) {
+      start = start.reverse();
+    }
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CoRERgdZhASxkLKgNeYWVorbgZRVaYrV">Recursive List Reversal</h2>
+<div class="sectionbody">
+<div class="digraph smaller">
+  Item6 [ label = "Item|6" ]
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item [ label = "Item|0" ]
+  Item6 -> Item5
+  Item5 -> Item6
+  Item5 -> Item8 [style="invis"]
+  Item8 -> Item5
+  Item8 -> Item [style="invis"]
+  Item -> Item8
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>At this point we&#8217;ve reversed the end of the list.</p>
+</li>
+<li>
+<p>But <code>Item6</code> still has a reference to what was <em>it&#8217;s</em> next element, but is now the
+<em>end</em> of the rest of the list.</p>
+</li>
+<li>
+<p>So we can use that to set it as the last item.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OzjXTgMoWVzPCuhDMmFiABSwulDOvcZT">Exam Announcement</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>We will no longer hold a three-hour seated exam in Foellinger Auditorium on
+5/11/2018.</strong></p>
+</div>
+<div class="paragraph">
+<p>Instead, we will hold a rolling exam in the CBTF from Sunday 5/6/2018&ndash;Wednesday
+5/9/2018.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The TAs <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup> and I have decided together
+that a computerized exam is a better approach. It will be much fairer and both
+faster and easier to grade.</p>
+</li>
+<li>
+<p>The exam will consist of a mixture of (autograded) programming questions,
+(autograded) multiple-choice questions, and TA-graded free answer questions.</p>
+</li>
+<li>
+<p>If you changed your travel plans to stay for the Friday exam, I apologize.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="udWeLekzKVnByaRnHrpSzgDrSKYkmeuT">CBTF Programming Questions</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The CBTF final exam <em>will include</em> programming questions.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>The editing interface will be familiar to you from the lecture examples.</p>
+</li>
+<li>
+<p>The grading interface will be familiar to you from the MPs.</p>
+</li>
+<li>
+<p>We will be rolling this out as soon as possible. At minimum you&#8217;ll have a few
+chances to practice on the last few quizzes leading up to the exam.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ozTEehqBqloFcjlwPAYzKAswtrxjuDlr">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="/MP/5/">MP5</a> deadline is today at 5PM.</p>
+</li>
+<li>
+<p>We&#8217;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. Who have to grade the exam&#8230;&#8203;
+</div>
+</div>

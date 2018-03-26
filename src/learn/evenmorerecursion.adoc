@@ -17,7 +17,456 @@ description:
 ....
 --
 
+[[WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV]]
+== Recursive Tree Print Leaves
+
+[.lead]
+//
+Let's print _only_ leaf nodes: those that have neither a left nor a right child.
+
+[[wFkePtuoPHtjiQgMUaRMxqrXubVNPQoY]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[nBBvXLuotvVfrtrnfEEjpVKYJqQqZZYK]]
+== Recursive Tree Print Leaves
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a tree with no left or right node. It's also a
+a leaf node, so print our value.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Nothing to do here, just continue down the tree.#
+
+[[ApTsFupsyGxTnQxQNOutQbJTYqctEttB]]
+== !Recursive Tree Print Leaves
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public void printLeaves() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    tree.printLeaves();
+  }
+}
+....
+
+[[MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb]]
+== Recursive Tree Search
+
+[.lead]
+//
+Let's determine whether a tree contains a certain value.
+
+[[ngirvffoqoVGBWAiUDJsvyNkZwEiGOey]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD]]
+== Recursive Tree Search
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a node with no descendants. Return true if
+it's value matches, zero otherwise.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Return true if either we or our right or left subtree
+contain the search value.#
+
+[[LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm]]
+== !Recursive Tree Search
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public static boolean search(Tree tree, int value) {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(Tree.search(tree, 4));
+  }
+}
+....
+
+[[DdYpDyJIvrmHWCutyOgMifXNhGVyLsyp]]
+[.oneword]
+== How Could We Make This Search More Efficient?
+
+[[dlFNBwsqXFAyyhoLtlAUEfOdFTVxCjtN]]
+== Other Recursive Data Structures
+
+[.lead]
+//
+Every sub(blank) of a (blank) is, itself, a (blank).
+
+[.s]
+//
+* Tree
+//
+* (Contiguous) List
+//
+* (Contiguous) Array
+
+[[kmbZhVumjGSPFcCcMibmLWEDUwnRrJhe]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[fPLwvRZpMLpgAbFmsmVXykozRMYLXgkE]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="salmon" style="filled" ]
+  Item5 [ label = "Item|5" fillcolor="salmon" style="filled" ]
+  Item6 [ label = "Item|6" fillcolor="lightblue" style="filled" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[QJZCNssehzpodbsXIwumIgkJjqbesXxa]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="salmon" style="filled" ]
+  Item5 [ label = "Item|5" fillcolor="lightblue" style="filled" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[SAWIkJIKdArGDGWOEuSIOckVUonqVeVQ]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="lightblue" style="filled" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[htyLoPaJeGNagdUbhSiZBycNHKepYWxQ]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="lightblue" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[vbXBPPTomEodDCheSwtbLJKhaEJVlbgk]]
+== List Recursion
+
+[.lead]
+//
+Just like with trees, we need a way to both make the problem smaller _and_
+identify the smallest subproblem.
+
+[.s]
+//
+* **How do we make the problem smaller?** [.s]#Break the list into the current
+item and the rest of the list.#
+//
+* **What's the smallest subproblem** [.s]#A list with a single element.#
+
+[[ZIKNZtjqIfbtoVYDnWFyLhhWTxkTkGTq]]
+== Linked List Reversal
+
+[.lead]
+//
+Given a linked list, reverse the elements in the list.
+
+[[vOXakArTtpQmThyCXthtpDAKZrVUPycO]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[djHYIxZwzkRMwlyEUZRXOdVoeWoeHZFP]]
+== Linked List Reversal
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a list with one element. No need to do
+anything, since it's the same reversed.#
+//
+* *Recursive step*: [.s]#Consider the current element and the rest of the list
+separately.#
+//
+* *Combine results*: [.s]#Add the current element as the _last_ element of the
+reversal of the rest of the list.#
+
+[[wFNWVdesWuPpnnrLmauFROPuQgwTRSps]]
+== ! Recursive Linked List Reversal
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = 0; i < array.length; i++) {
+      this.addToEnd(array[i]);
+    }
+  }
+  public void addToEnd(int value) {
+    Item item = new Item(value, null);
+    if (start == null) {
+      start = item;
+      return;
+    }
+    Item current;
+    for (current = start; current.next != null; current = current.next);
+    current.next = item;
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+  public void reverse() {
+    if (start != null) {
+      start = start.reverse();
+    }
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+  }
+}
+....
+
+[[PqfHWTVnimwZsyMvgLsrlBiYQnBSjTwl]]
+[.oneword]
+== This Is Tricky
+
+[[CoRERgdZhASxkLKgNeYWVorbgZRVaYrV]]
+== Recursive List Reversal
+
+[source,java,role='smaller']
+----
+// Set ourselves as the end of the list
+next.next = this;
+
+// Mark that the item after us is null
+this.next = null;
+
+----
+
+++++
+<div class="digraph smaller">
+  Item6 [ label = "Item|6" ]
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item [ label = "Item|0" ]
+  Item6 -> Item5
+  Item5 -> Item6
+  Item5 -> Item8 [style="invis"]
+  Item8 -> Item5
+  Item8 -> Item [style="invis"]
+  Item -> Item8
+</div>
+++++
+
+[.s]
+//
+* At this point we've reversed the end of the list.
+//
+* But `Item6` still has a reference to what was _it's_ next element, but is now the
+_end_ of the rest of the list.
+//
+* So we can use that to set it as the last item.
+
+
 [[OzjXTgMoWVzPCuhDMmFiABSwulDOvcZT]]
+[.small]
 == Exam Announcement
 
 [.lead]
@@ -29,8 +478,7 @@ Instead, we will hold a rolling exam in the CBTF from Sunday 5/6/2018&ndash;Wedn
 5/9/2018.
 
 * The TAs footnote:[Who have to grade the exam...] and I have decided together
-that a computerized exam is a better approach. It will be much fairer and both
-faster and easier to grade.
+that a computerized exam will be fairer and both faster and easier to grade.
 //
 * The exam will consist of a mixture of (autograded) programming questions,
 (autograded) multiple-choice questions, and TA-graded free answer questions.
