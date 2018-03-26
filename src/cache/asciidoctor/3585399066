@@ -1,0 +1,360 @@
+<div class="paragraph lead">
+<p>Recursion is an important and powerful programming technique.
+Sometimes it is the best way to solve a problem, and sometimes it is almost <em>the
+only</em> way to solve a problem.</p>
+</div>
+<div class="paragraph">
+<p>Recursion can be tricky to wrap your head around at first, but as usual the best
+way to get comfortable with this technique is to practice.
+For MP5 you&#8217;ll complete several programming tasks that encourage you to consider
+both recursive and iterative solutions.</p>
+</div>
+<div class="paragraph">
+<p><strong>MP5 is due Monday 4/2/2018 @ 5PM.
+To receive full credit, you must submit by this deadline.</strong>
+In addition, 10% of your grade on MP5 is for submitting code that earns at least
+<em>30 points</em> by <strong>Monday 3/26/2018 @ 5PM.</strong>
+Note that this is the day after Spring Break, so we encourage you to get started
+the week that MP5 is released.</p>
+</div>
+<div class="paragraph">
+<p>As usual, late submissions will be subject to the
+<a href="/info/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<h2 id="objectives">1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP5 introduces the concept of recursive programming and to working with linked
+lists and object references.
+You&#8217;ll learn how to complete simple recursive methods to accomplish common
+programming tasks.
+We also introduce you to binary trees, an important computer science data
+structure and one very amenable to recursive approaches.
+Finally, MP5 provides practice at working with linked lists, another important
+computer science data structure.</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll also continue to reinforce the learning objectives from previous MPs
+(<a href="/MP/0/">0</a>, <a href="/MP/1/">1</a>, <a href="/MP/2/">2</a>, <a href="/MP/3/">3</a>, and
+<a href="/MP/4/">4</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="structure">2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP5 consists of three programming tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://cs125-illinois.github.io/MP5-Starter/SingleLL.html"><code>SingleLL.java</code></a>:
+here you must extend complete several methods on a linked list class that stores
+<code>int</code>s, including inserting, removing, and swapping values.
+Consider this task a warm up.</p>
+</li>
+<li>
+<p><a href="https://cs125-illinois.github.io/MP5-Starter/Tree.html"><code>Tree.java</code></a>:
+here you must create and complete a binary search tree class,
+including adding constructors and insertion methods, along with methods that
+search and perform computations on your tree.
+This tasks contains the bulk of the points for the MP, so work on it once you&#8217;ve
+finished <code>SingleLL.java</code>.</p>
+</li>
+<li>
+<p><a href="https://cs125-illinois.github.io/MP5-Starter/DNA.html"><code>DNA.java</code></a>:
+for the final task you must complete a class that stores a DNA sequence and a
+static method that computes the longest common subsequence of two DNA instances.
+Longest common subsequence is the hardest algorithmic challenge on this MP, so
+leave this for the end.
+It&#8217;s only worth 10 points and you can consider it a challenge problem.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Like <a href="/MP/4/">MP4</a>, MP5 provides a bit less scaffolding than previous MPs.
+The official specification is our
+<a href="https://cs125-illinois.github.io/MP5-Starter/">MP5 online documentation</a>.
+It should precisely define what each public method in each class should do.
+Private methods are left for you to design in any way that allows the tests to
+pass.
+If you believe that the documentation is unclear, please post on
+the <a href="https://cs125-forum.cs.illinois.edu/c/mps/mp5" class="noexternal">forum</a> and we&#8217;ll offer clarification as needed.</p>
+</div>
+<div class="sect2">
+<h3 id="getting">2.1. Obtaining MP5</h3>
+<div class="paragraph">
+<p>Use
+<a href="https://classroom.github.com/a/jAFYuIUN">this GitHub Classroom invitation link</a>
+to fork your copy of MP5.
+Once your repository has been created, import it into IntelliJ following
+<a href="/MP/setup/git/#workflow">our assignment Git workflow guide</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="requirements">2.2. Your Goal</h3>
+<div class="paragraph">
+<p>At this point you should be familiar with the requirements from previous MPs.
+See the <a href="#grading">grading description below</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="approach">3. Approaching MP5</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Completing MP5 requires writing fewer lines of code than <a href="/MP/3/">MP3</a> and
+<a href="/MP/4/">MP4</a>.
+But some of it is <em>recursive</em> code, so it will take you longer.
+Don&#8217;t expect to make as much progress writing recursive code when you are
+getting started.
+It&#8217;s tricky, and takes practice.
+Slow down and focus on applying the recursive design principles that we&#8217;ve
+taught in lecture and in lab.</p>
+</div>
+<div class="sect2">
+<h3 id="_understand_the_requirements">3.1. Understand The Requirements</h3>
+<div class="paragraph">
+<p>To complete MP5 you <em>must</em> understand the
+<a href="https://cs125-illinois.github.io/MP5-Starter/">specification</a>.
+Read that first.
+And then read it again.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_designing_recursive_functions">3.2. Designing Recursive Functions</h3>
+<div class="paragraph">
+<p>Recall the guidelines for designing recursive functions that we presented in lab
+and lecture:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Every recursive function must have a base case.</strong>
+If you don&#8217;t stop recursing, you will eventually run out of memory and
+your program will crash.
+So there must be some case where you do not call yourself again.</p>
+</li>
+<li>
+<p><strong>The base case must be reached.</strong>
+As a corollary to the above, every set of recursive calls must eventually
+<em>reach</em> the base case, otherwise (again) your program will recurse infinitely,
+run out of memory and crash.</p>
+</li>
+<li>
+<p><strong>The problem should get smaller each time.</strong>
+Each recursive step should reduce the size of the problem somehow.
+This can happen in several ways.
+In Fibonacci, for example, we reduce the size of the problem by reduction toward
+known staring values.
+When processing trees, we reduce the size of the problem by splitting the tree
+into several subtrees which are considered separately.
+How this happens depends on the problem, but it does need to happen somehow.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>It can also be helpful to consider simple cases.
+How do you reverse a list with only one element?
+Now, extend that to a list with two elements, then three.
+You may begin to see a pattern emerge that helps you understand how to design
+your recursive approach.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trees">3.3. Binary Search Trees</h3>
+<div class="paragraph lead">
+<p>MP5 also introduces you to
+<a href="https://en.wikipedia.org/wiki/Binary_search_tree"><em>binary search trees</em></a>,
+an important computer science data structure.
+Binary search trees are also recursive data structures, in that each tree node
+refers to other tree nodes, including a parent (moving up the tree) and two
+children (down the tree).</p>
+</div>
+<div class="paragraph">
+<p>Like other data structures, binary search trees are useful because of the
+algorithms that we can run on them.
+As the name implies, searching can be particularly efficient on binary search
+trees due to the way that they structure data.</p>
+</div>
+<div class="sect3">
+<h4 id="insertion">3.3.1. Insertion algorithm</h4>
+<div class="paragraph">
+<p>There are many great online resources to help you learn about binary search trees.
+But let&#8217;s consider one of the more basic tree operations: insertion.
+Storing data in my tree requires that I be able to insert values.
+And being able to efficiently search for values later requires that I perform
+insertions in a particular way.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start at the root of the tree.</p>
+</li>
+<li>
+<p>Compare the value that is being inserted with the value of the current node.</p>
+</li>
+<li>
+<p>If it is larger, try to move to the right.</p>
+</li>
+<li>
+<p>If it is smaller, try to move to the left.</p>
+</li>
+<li>
+<p>If the current node has a left or right child (depending on the choice above),
+make that the current node and continue.</p>
+</li>
+<li>
+<p>Otherwise set the left or right child (depending on the choice above) of the
+current node to a new node with the new inserted value.</p>
+</li>
+<li>
+<p>Continue until the node is inserted.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note that the binary search trees you implement for MP5 can reject duplicate
+values.
+So if you reach a node that has the <em>same</em> value as the one you are trying to
+insert, the insertion can fail.
+However, this is an implementation decision, and you should think about how you
+might store duplicate values if needed.</p>
+</div>
+<div class="paragraph">
+<p>If you maintain the sorted structure during your insertions as described above,
+the other algorithms that we ask you to complete on trees will be
+straightforward.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getting_help">3.4. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/syllabus/#calendar">office hours</a>, or post on the
+<a href="https://cs125-forum.cs.illinois.edu/c/mps/mp5" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="grading">4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP5 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>20 points</strong>: <code>SingleLL.java</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>5 points</strong> for insertion</p>
+</li>
+<li>
+<p><strong>5 points</strong> for removal</p>
+</li>
+<li>
+<p><strong>10 points</strong> for swaps <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>50 points</strong>: <code>Tree.java</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for constructors and insertion</p>
+</li>
+<li>
+<p><strong>10 points</strong> for minimum and maximum</p>
+</li>
+<li>
+<p><strong>10 points</strong> for search</p>
+</li>
+<li>
+<p><strong>10 points</strong> for depth counting</p>
+</li>
+<li>
+<p><strong>10 points</strong> for descendant counting</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>10 points</strong>: <code>DNA.java</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for committing code that earns at least 30 points before
+<strong>Monday 3/26/2018 @ 5PM.</strong></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="testing">4.1. Test Cases</h3>
+<div class="paragraph">
+<p>As in previous MPs, we have provided exhaustive test cases
+for each part of MP5.
+Please review the <a href="/MP/0/#testing">MP0 testing instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="autograding">4.2. Autograding</h3>
+<div class="paragraph">
+<p>Like previous MPs we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+Please review the <a href="/MP/0#autograding">MP0 autograding instructions</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="submitting">5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/setup/git#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+<div class="paragraph">
+<p>And remember, you must submit something that earns 50 points before <strong>Monday
+3/26/2018 @ 5PM</strong> to earn 10 points on the assignment.</p>
+</div>
+<div class="sect2">
+<h3 id="cheating">5.1. Academic Integrity</h3>
+<div class="paragraph">
+<p>Please review the <a href="/MP/0#cheating">MP0 academic integrity guidelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>Nothing makes Chuchu sadder than cheaters!</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Xw1C5T-fH2Y" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. As a hint, this may be simpler than you think&#8230;&#8203;
+</div>
+</div>
