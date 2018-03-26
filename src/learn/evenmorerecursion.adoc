@@ -14,6 +14,52 @@ description:
 <div class="message">More Practice with Recursion</div>
 ++++
 ....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = 0; i < array.length; i++) {
+      this.addToEnd(array[i]);
+    }
+  }
+  public void addToEnd(int value) {
+    Item item = new Item(value, null);
+    if (start == null) {
+      start = item;
+      return;
+    }
+    Item current;
+    for (current = start; current.next != null; current = current.next);
+    current.next = item;
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+  public void reverse() {
+    if (start != null) {
+      start = start.reverse();
+    }
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+  }
+}
 ....
 --
 
@@ -342,7 +388,7 @@ identify the smallest subproblem.
 * **How do we make the problem smaller?** [.s]#Break the list into the current
 item and the rest of the list.#
 //
-* **What's the smallest subproblem** [.s]#A list with a single element.#
+* **What's the smallest subproblem?** [.s]#A list with a single element.#
 
 [[ZIKNZtjqIfbtoVYDnWFyLhhWTxkTkGTq]]
 == Linked List Reversal
@@ -905,11 +951,31 @@ _and_ identify the smallest subproblem.
 * **How do we make the problem smaller?** [.s]#Break the list into two smaller
 subarrays.#
 //
-* **What's the smallest subproblem** [.s]#An array with a single item.#
+* **What's the smallest subproblem?** [.s]#An array with a single item.#
 
 [[NhaKuwHpoPIJkJfXxZkiCyyJGahdYTNs]]
 [.oneword]
 == We'll Return to Array Recursion
+
+[[QHGvNEknjVpYTkVauHfjgqZBzyFjoFse]]
+[.oneword]
+== Rest of the Semester...
+
+[[DQikxyQpNoLPKpDDqbuINxCURmwmVoFT]]
+== Android Programming (MP6, MP7, Final Project)
+
+[.lead]
+//
+Starting with tomorrow's lab we're going to introduce you to _Android
+programming_ in Java with a focus on using external APIs.
+
+[.s]
+//
+* **Why Android?** [.s]#It's the best way to build high-impact things using
+Java.#
+//
+* **Why external APIs?** [.s]#It's the best way to build high-impact things
+quickly using any language.#
 
 [[OzjXTgMoWVzPCuhDMmFiABSwulDOvcZT]]
 [.small]
