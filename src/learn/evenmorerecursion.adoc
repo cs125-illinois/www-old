@@ -464,6 +464,451 @@ _end_ of the rest of the list.
 //
 * So we can use that to set it as the last item.
 
+[[ygNFFhaGzqpqHdDCEbdTtuhXruhPGpUE]]
+[.oneword]
+//
+== But Don't Recurse on Lists
+//
+Just use a loop.
+
+[[pemHoMguzTIZdBZrRZUdaDLTDoiLinXj]]
+== ! Iterative List Reversal
+
+[.janini.smallest.compiler]
+....
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = 0; i < array.length; i++) {
+      this.addToEnd(array[i]);
+    }
+  }
+  public void addToEnd(int value) {
+    Item item = new Item(value, null);
+    if (start == null) {
+      start = item;
+      return;
+    }
+    Item current;
+    for (current = start; current.next != null; current = current.next);
+    current.next = item;
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+  public void reverse() {
+    if (start == null) {
+      return;
+    }
+    Item previous = null;
+    Item current = start;
+    while (current != null) {
+      // Save next since we are about to overwrite it
+      Item next = current.next;
+      current.next = previous;
+      previous = current;
+      current = next;
+    }
+    start = previous;
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList);
+    myList.reverse();
+    System.out.println(myList);
+  }
+}
+....
+
+[[fRYSVhjZFSqSrcQxQJUwIFnOmSiELoOV]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+[[FnYMFpnCMoCyMoXwXBZKkDgesOkgFxIn]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor:lightblue}
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor!}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[tQxxuMUWKQobEQNYHlSIVZoXmGlBvQwx]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor:lightblue}
+| 10
+| 5
+{set:cellbgcolor!}
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[SOdLTSSAsCIlrVMJKuHvVseAmhfqGRgV]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor:lightblue}
+| 10
+{set:cellbgcolor!}
+| 5
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[TWmxrRwPgWRlqQYhoIjxtOeCnYZJGJrE]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+{set:cellbgcolor:lightblue}
+| 5
+{set:cellbgcolor!}
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[GPjlznIJPJQTqOskvXOKQCZZLMaHqMoK]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+{set:cellbgcolor:lightblue}
+| 6
+| 4
+{set:cellbgcolor!}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[ChpYEykifjLwpwVRhzhZPEoCQCZitSBj]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+{set:cellbgcolor:lightblue}
+| 6
+{set:cellbgcolor!}
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[NAkqTkwtbVhUObBRiahACtGdXwDaPEAW]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+{set:cellbgcolor:lightblue}
+| 4
+{set:cellbgcolor!}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[sAAHDoMDcEBqTqoQaLagSyOjKyhhEOsy]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor:lightblue}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[QjcqYYIDQXRtnTYMvnETFaEDDyOlKjFN]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor:lightblue}
+| 11
+| 7
+{set:cellbgcolor!}
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[vFvinbLxcBtZFpxLRzBzzhqQtDmSrdkU]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor:lightblue}
+| 11
+{set:cellbgcolor!}
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[ttJCuudnFWLahjaMHholCnXmZfPUoaJY]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+| 11
+{set:cellbgcolor:lightblue}
+| 7
+{set:cellbgcolor!}
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[ppfwZoJPNzulpyaZRxbvNYzkANVTdRKW]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+{set:cellbgcolor:lightblue}
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[QDbbKzWxMVtGodvPExHEzUMWyGvEbcwh]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+{set:cellbgcolor:lightblue}
+| -1
+{set:cellbgcolor!}
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[cpZwGLAOPJjNHNevULDJtSleWnVlKNRl]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+| -1
+{set:cellbgcolor:lightblue}
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[cyyScLzhUVvSHWPiZBRZBPvdGDCnSsNH]]
+== Array Recursion
+
+[.lead]
+//
+Just like with trees and lists, we need a way to both make the problem smaller
+_and_ identify the smallest subproblem.
+
+[.s]
+//
+* **How do we make the problem smaller?** [.s]#Break the list into two smaller
+subarrays.#
+//
+* **What's the smallest subproblem** [.s]#An array with a single item.#
+
+[.oneword]
+== We'll Return to Array Recursion
 
 [[OzjXTgMoWVzPCuhDMmFiABSwulDOvcZT]]
 [.small]
