@@ -2,7 +2,7 @@
 title: "Android and APIs"
 description:
   Prepare your development environment for work on Android apps, and explore the
-  Microsoft Computer Vision Application Programmer Interface (API).
+  Microsoft Computer Vision Application Programming Interface (API).
 ---
 
 :sectnums:
@@ -24,7 +24,7 @@ build and run a simple Android app using the Android emulator,
 and familiarize yourself with the
 //
 https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/[Microsoft
-Computer Vision Application Programmer Interface (API)].
+Computer Vision Application Programming Interface (API)].
 
 [[android]]
 == Android Environment Preparation [.text-muted]#(45 Minutes)#
@@ -68,6 +68,16 @@ modifications to this simple app:
 
 === Using the Emulated Camera
 
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/B4JVqKHsYzk" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
 As the final challenge for the Android portion of the lab, try to get the
 camera working on your emulated device.
 //
@@ -80,6 +90,185 @@ If possible, set up your emulated camera to use your computer's built-in webcam,
 assuming it has one.
 
 == Introduction to APIs [.text-muted]#(45 Minutes)#
+
+[.lead]
+//
+https://en.wikipedia.org/wiki/Application_programming_interface[API stands for
+_application programming interface_].
+//
+The better you become at understanding and using existing APIs, the faster and
+more easily you will be able to build powerful apps and programs.
+
+=== What is an API?
+
+In the most general terms, an API is
+//
+https://en.wikipedia.org/wiki/Application_programming_interface["a set of clearly defined methods of communication between various software components"].
+//
+For this lab and MP6 and MP7, we are particularly interested in the subset of
+_remote web-based APIs_.
+//
+These APIs are:
+
+* _remote_: they are accessed over the internet, and
+//
+* _web-based_: they are accessed using standard web protocols.
+
+One way of thinking about APIs is that somewhere, in some data center full of
+computers, is a computer that will run certain functions for you if ask it
+nicely.
+//
+To use that functionality you don't have to know where that computer is, or how
+the function works.
+//
+You just have to learn how to get the data to the API in the format that it
+expects, and understand how to interpret the results.
+
+An API like a collection of functions, with each function providing different
+functionality.
+//
+Using an API is very much like calling a function&mdash;except that to use a
+_remote_ API we need to figure out how to get the data to the API and get the
+results back.
+
+=== Microsoft Cognitive Services
+
+For this lab and for MP6 we're going to focus on using a portion of the
+//
+https://azure.microsoft.com/en-us/services/cognitive-services/[Microsoft
+Cognitive Services API].
+//
+It provides a variety of features focused on enabling interaction with users in
+intuitive ways&mdash;processing vision and speech data, and providing
+intelligent search, recommendation, and natural language services.
+
+Why should you use this API?
+//
+Well, imagine that you want to extract information from photos taken by users of
+your new app.
+//
+You have two options:
+
+* Spend several years mastering the sophisticated machine learning and computer
+vision algorithms required to implement your own solution...
+//
+* ...or, use the Microsoft Cognitive Services Computer Vision API.
+
+By using APIs you are truly able to stand on the shoulders of giants.
+//
+Don't waste your time solving problems that you aren't interested in solving!
+//
+Chances are that somebody else is waiting for you to solve the problem that
+_you_ want to solve.
+//
+Get on to that and focus on changing the world, not re-solving problems that
+others have already solved.
+
+=== Using the Cognitive Services Computer Vision API
+
+To get a sense of what the Cognitive Services Computer Vision API can do,
+experiment with some of the examples
+//
+https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/[on
+this page].
+//
+For each feature, upload your own images to get a sense of what kind of
+capabilities this API has.
+
+In particular, MP6 will focus on the image analysis feature: the first one
+listed on
+//
+https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/[this
+page].
+//
+Go through the sample images and see if you can understand the results returned
+by the API:
+
+. Are the results accurate?
+//
+. In cases where they are inaccurate, can you figure out why?
+//
+. What kind of information is reported by the API?
+//
+. What parts of it are you most surprised by and why?
+
+=== Gaining API Access
+
+Like many remote APIs, gaining _programmatic_ access to the Microsoft Cognitive
+Services API in your app requires a _key_.
+//
+Keys allow API provides to control who uses their services, and allows providers
+to begin to charge API users if their usage exceeds various thresholds.
+
+Happily, many remote APIs provide free access for usage that is more than
+sufficient to develop and test your own programs.
+//
+And, as a student, you also have access to many free programs offered by
+companies to introduce you to their APIs and services.
+//
+So you can try out a lot of things without paying a dime.
+//
+Of course, once your app built using the Microsoft Cognitive API takes off and
+is being used by one million people, you'll need to start shelling out some
+money to Microsoft.
+//
+But let's get there first.
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/u0eVbgBddsI" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+So the first step to gaining access to the Cognitive Services API is to get an
+API key.
+//
+You can
+//
+https://azure.microsoft.com/en-us/try/cognitive-services/[follow these instructions]
+//
+or watch the screencast above.
+
+Microsoft API keys are only valid for specific regions, so note that when you
+generate your key.
+//
+You'll need both the key _and_ the region in just a minute.
+
+=== An Example Application
+
+[.lead]
+//
+Finally, we're going to use the API key that you obtained to start examining the
+output of calls to the Microsoft Computer Vision API.
+
+**Note that we are using IntelliJ again, not Android Studio, since this is a
+standalone Java application, not an Android app.**
+//
+We've set up an
+//
+https://github.com/cs125-illinois/Lab9[Lab 9 GitHub repository]
+//
+containing an IntelliJ Project that's correctly configured for Lab 9.
+//
+Getting access to it is similar to how you
+//
+link:/MP/setup/git/#importing[imported MP0].
+//
+But you have to fork our repository first.
+//
+If it's not obvious how to do that, try following
+//
+https://help.github.com/articles/fork-a-repo/[these instructions].
+
+With this as your starting point, try to get to the point where you can make
+valid calls to the Microsoft Computer Vision API.
+//
+Once you have accomplished that, try to adjust the URL to investigate different
+images.
 
 [[done]]
 == Before You Leave
