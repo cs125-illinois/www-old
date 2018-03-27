@@ -1,0 +1,604 @@
+<div class="sect1">
+<h2 id="uyeeUYDmoOGDfffuMfbWfJqGZDEpgzxA">!</h2>
+<div class="sectionbody">
+<div class="openblock janini small compiler">
+<div class="content">
+<div class="message">Inheritance</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class Example {
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.toString());
+    System.out.println(example.hashCode());
+    Example anotherExample = new Example();
+    System.out.println(example.equals(anotherExample));
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="BHyxqFzhTXKgmVKfqIfVsiOcRlKaXwlC">Q4 Review: Type Casting</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To force Java to convert a <code>int</code> to an <code>double</code>, you would&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WnDttDGwPNmvvbecAnCnLKecXmFEnDXU">Q4 Review: Constructor Syntax</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class D {
+  double e;
+  double f;
+  D D(double setE) {
+    this.e = setE;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What describes a problem with the class <code>D</code> as defined above?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FcNawJSeGsYnNaaaWJvywvpLBWDygtMt">Q4 Review: String Equality</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Car {
+  // Instance variables and constructors not shown
+  String d() {
+    return this.year + " " + this.make + " " + this.model;
+  }
+  boolean e(Car other) {
+    return this.make == other.make;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What is one potential problem with the code shown above?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EyfyRpnbRCCUVPWOJUqAHkrMmMFogmzQ">Q4 Review: Construction and Execution</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class TV {
+  public String brand;
+  private int width;
+  private int height;
+}
+class Example {
+  public static void main(String[] unused) {
+    TV huge = new TV();
+    huge.width = 10;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What will happen when <code>Example.main</code> above is executed?</p>
+</div>
+<div class="paragraph">
+<p>(Everyone got credit for this question&#8230;&#8203;)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kZbZRqBRAJYIOPOaCescsSsfdHSwSljm">! A Puzzle</h2>
+<div class="sectionbody">
+<div class="literalblock janini small compiler">
+<div class="content">
+<pre>// Why does this work?
+public class Example {
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.toString());
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="konQFOEwPtcDQyBaBNGjJqYCQcSGJWhF">Inheritance</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println("I'm a " + this.type + " named " + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+Dog chuchu = new Dog("Chuchu");
+chuchu.printMe();</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java allows objects to <em>inherit</em> state and behavior from another class.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wTNNwUEDjkZqaKToynKrhgypMFbDeDxc">Inheritance Terminology</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java we establish inheritance using the <code>extends</code> keyword.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>Dog</code> extends <code>Pet</code> and so <em>inherits</em> state and behavior from <code>Pet</code></p>
+</li>
+<li>
+<p><code>Cat</code> also extends <code>Pet</code> and so also <em>inherits</em> state and behavior from <code>Pet</code></p>
+</li>
+<li>
+<p>We sometimes call <code>Pet</code> <code>Dog</code>'s and <code>Cat</code>'s <em>parent</em> class</p>
+</li>
+<li>
+<p>We sometimes call <code>Dog</code> and <code>Cat</code> <code>Pet</code>'s <em>children</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZtxtPnriCGjIZxAAReEntXKwQJOMgPOo">More Inheritance Terminology</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Pet { }
+public class Dog extends Pet { }
+public class Mutt extends Dog { }</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java we can have have multiple levels of inheritance.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>Dog</code> extends <code>Pet</code> and so <em>inherits</em> state and behavior from <code>Pet</code></p>
+</li>
+<li>
+<p><code>Mutt</code> extends <code>Dog</code> and so <em>inherits</em> state and behavior from <code>Dog</code> <strong>and</strong> <code>Pet</code></p>
+</li>
+<li>
+<p>We sometimes call <code>Pet</code> and <code>Dog</code> <code>Mutt</code>'s <em>ancestors</em></p>
+</li>
+<li>
+<p>We sometimes call <code>Dog</code> and <code>Mutt</code>  <code>Pet</code>'s <em>descendants</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EWGqFYyFGhaIiRMGqHCZmAAlEYacebZN"><code>protected</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Pet {
+  public String name; // Anyone can set me
+  private String secret; // Only I can set this value
+  protected String type; // My descendants can use this value
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>public</code>: the variable can be read or written by anyone</p>
+</li>
+<li>
+<p><code>private</code>: the variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li>
+<p><strong><code>protected</code></strong>: the variable can only read or written by methods defined on that
+class <em>or its descendants</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vQUxfPBiPWXztrplkCsSmaMctvPszGzJ">! Inheritance</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println("I'm a " + this.type + " named " + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    chuchu.printMe();
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IHiQsyleCpwPeVYOopjNdQKqSCutxtaE">The Dirty Truth About <code>protected</code></h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Pet {
+  protected String name;
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    chuchu.name = "Xyz"; // This works...
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong><code>protected</code></strong>: the variable can read or written by methods defined on that
+class <em>or its descendants</em>&#8230;&#8203; in <em>any package</em></p>
+</li>
+<li>
+<p><strong><code>protected</code></strong>: the variable can also be read and written by any method in the
+same <em>package</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="etbCgxcOIaavnXUYIwlYkvuFMEzVvDiw"><code>public</code>, <code>private</code>, and <code>protected</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Variables</strong>:</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p><code>public</code>: the variable can be read or written by anyone</p>
+</li>
+<li>
+<p><code>private</code>: the variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li>
+<p><code>protected</code>: the variable can be read or written by methods defined on any
+descendant of that class <em>in any package</em> or any class in the same package</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Methods</strong>:</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p><code>public</code>: the method can be called by anyone</p>
+</li>
+<li>
+<p><code>private</code>: the method can only be called by other methods <em>on that class</em></p>
+</li>
+<li>
+<p><code>protected</code>: the method can be called by other methods defined on any
+descendant of that class <em>in any package</em> or any class in the same package</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IFpkAhWFfauLaQovWImwFbZRLhEIYBBh"><code>super</code> Constructor</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Pet {
+  protected String type;
+  Pet(String setType) {
+    this.type = setType;
+  }
+}
+public class Dog extends Pet {
+  private String breed;
+  Dog(String setBreed) {
+    super("Dog");
+    this.breed = setBreed;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java classes can access their parent&#8217;s constructor using the <code>super</code> keyword.</p>
+</div>
+<div class="paragraph">
+<p>This must be the <em>first</em> thing done in a child constructor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="xHeowjhQRgmLBBPPeyTTvhoyhhdfUQab">! <code>super</code> Constructor</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest compiler">
+<div class="content">
+<pre>public class Pet {
+  protected String type;
+  Pet(String setType) {
+    this.type = setType;
+  }
+}
+public class Dog extends Pet {
+  private String breed;
+  Dog(String setBreed) {
+    super("Dog");
+    this.breed = setBreed;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Mutt");
+    System.out.println(chuchu.type);
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="MRYJcHoUQaUoSyhdISszfGQtzRUOzHHi">Hierarchical Thinking</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Why organize objects into a hierarchy?</p>
+</div>
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://www.developerdotstar.com/mag/images/Fig4.3.png" alt="Fig4.3" width="240">
+</div>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>It can be a <strong>natural expression</strong> of real-world taxonomies</p>
+</li>
+<li>
+<p>It allows us to <strong>organize</strong> and <strong>reuse</strong> code between multiple classes</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="RLvwFWZxPUMlEjaBhKQYkihiRaBXyfVY">The Tree Of (Java) Life</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://staff.fnwi.uva.nl/a.j.p.heck/Courses/JAVAcourse/ch3/lettertree.gif" alt="lettertree" width="240">
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java, each class has a single parent, meaning that classes are organized into
+a <em>tree</em>.</p>
+</div>
+<div class="paragraph">
+<p>If we follow each node to its parent, we eventually get to the top, or root&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="chcUpUfLDMseiHLxSlASXEYJEaTVeNjg">The Root Object: <code>Object</code></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Dog { }
+// is equivalent to
+public class Dog extends Object { }</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>If a Java <code>class</code> does not explicitly <code>extend</code> another class, it implicitly
+extends <code>Object</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PBFsjLWvxmDzvQAhAIJrHBKYZYcJOdLu">Inherited from <code>Object</code></h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Dog {
+  private String name;
+  Dog(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>All Java objects inherit a small number of <em>important</em> methods from <code>Object</code>.</p>
+</div>
+<div class="paragraph">
+<p>As a result, <em>all</em> Java objects implement these methods!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bvfhqvDEaqQWMvndBAgPFeBJZqsCfood">Methods Inherited from <code>Object</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>For our purposes, the following methods inherited from <code>Object</code> are important:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>String toString()</code>: return a <code>String</code> representing the instance. Frequently used for
+debugging.</p>
+</li>
+<li>
+<p><code>boolean equals(Object other)</code>: return a <code>boolean</code> indicating whether this
+object is the same as another object</p>
+</li>
+<li>
+<p><code>int hashCode()</code>: return an <code>int</code> uniquely representing an object&#8217;s contents.
+We&#8217;ll talk more about hashing later&mdash;it&#8217;s incredibly important and useful.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="VcAngWrEfIXxLHOWDgZRMlkZaSDSlBFd">Method Overriding</h2>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Dog {
+  private String name;
+  Dog(String setName) {
+    this.name = setName;
+  }
+  public String toString() {
+    return this.name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>The default <code>Object</code> methods are rarely useful.</p>
+</div>
+<div class="paragraph">
+<p>So classes usually <em>override</em> them and provide their own.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="topXhFJUebTidbPSOtmUEzTooEKObVzO">Hierarchical Name and Method Resolution</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The Java type hierarchy is used when resolving the names of variables and
+methods:</p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>Does the class have a variable or method with the given name? If so, use it.</p>
+</li>
+<li>
+<p>If not, search the parent class&mdash;but limited by <code>public</code> and <code>protected</code></p>
+</li>
+<li>
+<p>Continue up the tree until the name is found or the search fails</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WMccSsGAGjRbHUQhmLscmwvkpNvxhjiC">! Method Overriding</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller compiler">
+<div class="content">
+<pre>public class Animal {
+  public String toString() {
+    return "I'm an animal!";
+  }
+}
+public class Pet extends Animal { }
+public class Dog extends Pet { }
+public class OldDog extends Dog { }
+public class SweetOldDog extends OldDog { }
+public class Example {
+  public static void main(String[] unused) {
+    SweetOldDog chuchu = new SweetOldDog();
+    System.out.println(chuchu.toString());
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="obQHDaDlydltZpZCFqzubKvduVZnAbao">!MP3 Progress</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/m/grades/MPs"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cseGeZLJQmYzpuYwJqzkwBaqlonEhBPT">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/3/">MP3</a> is due Friday.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>

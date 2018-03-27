@@ -1,0 +1,467 @@
+<div class="sect1">
+<h2 id="xwFAetEkwPYLqsDgwxkMoByfLxrCpBoS">!</h2>
+<div class="sectionbody">
+<div class="openblock janini">
+<div class="content">
+<div class="message">Arrays and Algorithms</div>
+<div class="literalblock">
+<div class="content">
+<pre>int[] numbers = {1, 2, 5};
+for (int number : numbers) {
+  System.out.println(number);
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sZSgKWqBudTJujJbOdxqeQdqvWigxelT">Review: Arrays</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A Java array represents a series of zero or more values of the <em>same type</em>.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Arrays are our first example of a <strong>data structure</strong>.</p>
+</li>
+<li>
+<p>Arrays put values in order, one after another.</p>
+</li>
+<li>
+<p>Values in an array also have an <em>index</em>, their position in the array.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LmwXyHhUNCVzlkFXeZUaUAoxLFWChLjo">Review: Declaring Arrays</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like other variables, arrays have a <em>name</em> and <em>type</em>.</p>
+</div>
+<div class="paragraph">
+<p>But when we declare them we use brackets to declare an array instead of a single
+value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// A single integer named single
+int integer;
+// An array of integers named multiple
+int[] multiple;
+
+// A single character named one
+char one;
+// An array of characters named all
+char[] all;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CabqmfPgmeNhrQvbvZrjxGSbovqlKpFV">Review: Initializing Arrays</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When it is declared an array is empty.
+To use it we have to tell Java how many <em>elements</em> it has.</p>
+</div>
+<div class="paragraph">
+<p><strong>The size cannot be changed once the array is initialized.</strong>
+All arrays have a <code>.length</code> property that we can use to get their size.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// An array of 8 integers named multiple
+int[] multiple = new int[8];
+System.out.println(multiple.length); // Prints 8
+
+// An array of characters named all
+char[] all;
+// Initialize all to hold 4 characters
+all = new char[4];</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aBQHizhlfNBFcQwZgzMEghiXNQbMBRjP">Review: Initializing Arrays With Values</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can also assign values to an array when it is initialized:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// An array of the 4 integers 1, 2, 5, 10
+int[] multiple = { 1, 2, 5, 10 };
+
+// An array of the characters c, s, !
+char[] awesome = { 'c', 's', '!' };</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IPHnZDcTAbUPeAKGukqRQUbFNcSMTsTk">0 Indexing</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You&#8217;re computer scientist now. You start counting at zero.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>An array&#8217;s <em>first</em> value is <code>a[0]</code></p>
+</li>
+<li>
+<p>An array&#8217;s <em>last</em> value is <code>a[a.length - 1]</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gwzZCUcRRQULWoxfcMRaGZTABFwBguwo">! Bracket Syntax</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int[] twos = { 1, 2, 4 };
+System.out.println(twos[0]);
+twos[0] = 2;
+System.out.println(twos[0]);
+System.out.println(twos[2]);
+System.out.println(twos[twos.length - 1])</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bJSoBAsMHJzBxvoiSmZyZnlXhOtEXTvf">Out Of Bounds</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int[] values = { 1, 2, 4, 8 };
+System.out.println(values[4]);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YagQaxbUBvgniQPDXlnsIVNMgucOudgv">Array Limitations</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java arrays are <em>fixed size</em>, meaning that we need to know how large they are
+during initialization.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>This can complicate our programs.</p>
+</li>
+<li>
+<p>(If your NetID is <code>janedoe2</code>, now you know why.)</p>
+</li>
+<li>
+<p>Java has other array-like data structures that are more flexible&mdash;we&#8217;ll
+discuss them later.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OSijtUjhvcktoiTwoYydEuPJEHfjwgBc">Made For Each Other</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Loops and arrays are frequently used together.</p>
+</div>
+<div class="paragraph">
+<p>This is probably <em>the</em> most common for loop. It iterates over all members of the
+array: from 0 to <code>primes.length - 1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] primes = { 2, 3, 5, 7, 11, 13 };
+
+for (int i = 0; i &lt; primes.length; i++) {
+  System.out.println(primes[i]);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aVGgRghxygAxuchrRiBgyQDSaTPgpOCB">Enhanced <code>for</code> Loop</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] primes = { 2, 3, 5, 7, 11, 13 };
+for (int i = 0; i &lt; primes.length; i++) {
+  System.out.println(primes[i]);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is so common that Java recently introduced a shortcut for it, the so-called
+"enhanced" for loop syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] primes = { 2, 3, 5, 7, 11, 13 };
+for (int prime : primes) {
+  System.out.println(prime);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t care about the index, only the value, this is a useful loop.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="znWIKWOBOGvxYwKMyEXJWdLFDzarxqHU">! Practice With Arrays</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Print every member of toPrint
+char[] toPrint = { 'a', 'b', 'c', 'd' };</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="zbHZzdvrISmKiNawIhLBwiFdTZGdaIpC">! Practice With Arrays</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Print every member of toPrint on the same line
+char[] toPrint = { 'a', 'b', 'c', 'd' };</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hWXhNNJNFoqysBqjrPZSdBIloVLSecQE">! Practice With Arrays</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Print every member of toPrint backwards
+char[] toPrint = { 'a', 'b', 'c', 'd' };</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EvnylzsonIhzCXzjafCcjfRAdHXeKRJF">! Practice With Arrays</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Print only members of toPrint with even indices
+char[] toPrint = { 'a', 'b', 'c', 'd', 'e', 'f' };</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gKULlucOdlqQNRPGypVmBjvIFCGJgWdL">! Practice With Arrays</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Sum all members of the array
+int[] toSum = { 10, 20, 30, 40, 50 }</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="byxqJUFxOoEPqQsBWQiEvdcjAIMyZbKG">What Are Computers Good At?</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><span class="line-through">Basic math</span></p>
+</li>
+<li>
+<p><span class="line-through">Simple decision making</span></p>
+</li>
+<li>
+<p><span class="line-through">Doing things over and over again very, very fast</span></p>
+</li>
+<li>
+<p><span class="line-through">And storing data</span></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now we understand how to harness our computers innate abilities.
+But how do we get it to do what we want?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pLsAYxUijeDaSSOvrgXIDlcYkerLyrfy">Algorithms</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Algorithm">Algorithm</a>:
+a process or set of rules to be followed in calculations or other
+problem-solving operations, especially by a computer.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>As computer scientists, we implement algorithms by having computers:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Perform simple calculations</p>
+</li>
+<li>
+<p>Store the results</p>
+</li>
+<li>
+<p>Make simple decisions</p>
+</li>
+<li>
+<p>Do things over and over again as fast as possible</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eDPSwXCanmERzKTKIsXTFfRvDUCpxAYp">Algorithm Word Usage</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Algorithms are not a new idea&mdash;but are heavily associated with a new
+technology.</p>
+</div>
+<iframe name="ngram_chart" src="https://books.google.com/ngrams/interactive_chart?year_start=1800&year_end=2008&corpus=15&smoothing=7&case_insensitive=on&content=algorithm&direct_url=t4%3B%2Calgorithm%3B%2Cc0%3B%2Cs0%3B%3Balgorithm%3B%2Cc0%3B%3BAlgorithm%3B%2Cc0%3B%3BALGORITHM%3B%2Cc0" width=600 height=480 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no></iframe>
+</div>
+</div>
+<div class="sect1">
+<h2 id="swWjFcJOdhdrOhilGvMgJZPKmRPUttqw">All Algorithms All the Time</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>For the next few weeks we will focus on implementing simple algorithms.</p>
+</div>
+<div class="paragraph">
+<p>This will allow us to practice our problem-solving abilities while we learn new
+strategies for structuring our programs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CzPWhJlvsKvQOZCTZQJqDrzXnEIQUFnF">Maximum Over An Array</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given an array of integers, find the maximum value.</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong></p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>Declare a maximum value&mdash;but what do we initialize it to?</p>
+</li>
+<li>
+<p>Examine each value in the array</p>
+</li>
+<li>
+<p>Compare it with the maximum we&#8217;ve seen so far&mdash;but then do what?</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vpcybztlgRfiltilLJTYmPFMtfqbwlsX">! Maximum Over An Array</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Find the maximum value
+int[] toSearch = { 1, 10, 6, 7, 3, 15, 4 };</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="DeBkVXtGAHkAKJinIoqPFkMcDhiJATxo">! Average Of An Array</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Compute the average
+float[] toAverage = { 0.1, 6.7, 8.9, 10.4, 11.2, 0.9 };</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="icoJyaqDTsjCkVXNYOlHmREZfZutimGi">Consecutive Identical Values</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given an array of chars, find all cases where consecutive elements are the same.</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong></p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>Examine each value in the array</p>
+</li>
+<li>
+<p>Compare it with the next value&mdash;but how do we get at that?</p>
+</li>
+<li>
+<p>Print it out if they are the same</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="dkTKDbXZawhJBpCJFbkSOLpFzHmlSCFB">Next Time: Functions</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="vlEtbFmkVACgCiKhytEjVITurymLpzCi">!MP0 Progress</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/m/grades/MPs"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LizCJIzqnCfpILsSbWQUMPNYGXNwUpQv">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Quiz 1 starts today in the CBTF. It covers variables, conditionals, and loops.</p>
+</li>
+<li>
+<p>The third set of Turing&#8217;s Craft exercises (TC 2) are due <strong>Sunday</strong> by midnight.</p>
+</li>
+<li>
+<p><a href="/MP/0/">MP0</a> is due today!
+<a href="https://cs125.cs.illinois.edu/info/resources/#hours">Office hours</a>
+until 5PM today. See announcement for rooms after 1PM.</p>
+</li>
+<li>
+<p>Consider signing up for
+<a href="http://cs196.cs.illinois.edu/">CS 196</a>
+if you want to learn Python and have a lot of fun!
+They have a great and large group of staff this semester.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>

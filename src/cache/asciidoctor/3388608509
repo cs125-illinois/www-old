@@ -1,0 +1,484 @@
+<div class="sect1">
+<h2 id="RymbwXCSvxAKhgLtbrVytdXMwSvxMHvJ">!</h2>
+<div class="sectionbody">
+<div class="openblock janini small">
+<div class="content">
+<div class="message">Strings</div>
+<div class="literalblock">
+<div class="content">
+<pre>String courseName = "CS 125";
+System.out.println(courseName);
+System.out.println(courseName.length());
+System.out.println(courseName + " rocks");
+System.out.println(courseName.startsWith("CS"));</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WmPUeTohzldEVfYnIWhPerIBaEfQDhvD">Q1 Review: Scope</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int first = 5;
+if (first &gt; 4) {
+  int second = 4;
+}
+second++;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the code above is finished executing, what is the value of <code>second</code>?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ivfkzarYTElfQHveTOjOYGjmZOTlvzVe">Q1 Review: Forever</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">while (true) {
+  // loop contains code that is not shown here
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>True or false: the loop above will <em>never</em> terminate.
+Note that the code in the loop is not shown.</p>
+</div>
+<div class="paragraph">
+<p>(<strong>Everyone got full credit for this question.</strong>)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LiRyTsRBbPczwVmFGHFPSCeAKwNyjLSu">Q1 Review: Scope Again</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">for (int index = 0; index &lt; 10; index++) {
+  // do something
+}
+int count = index;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What is the value of <code>count</code> when the code above finishes executing?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rqIClZggzctFomjMCznEqBALZiRuxFMA">Q1 Review: <code>continue</code></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int counter = 0;
+for (int index = 0; index &lt; 10; index++) {
+  if (index &gt; 4) {
+    continue;
+    counter--;
+  }
+  counter--;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What will the value of <code>counter</code> be when the code above finishes executing?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CqpmNgcDQILVvcMipqUoJmaKMAtAVgzb">Q1 Review: <code>break</code></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int counter = 0;
+for (int index = 0; index &lt; 10; index++) {
+  counter++;
+  if (index &gt; 5) {
+    break;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What will the value of <code>counter</code> be when the code above finishes executing?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dpOeGmvIOrjFkkAjnGArGKepUnQnyCne">Q1 Review: <code>break</code></h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int counter = 0;
+for (int index = 0; index &lt; 10; index++) {
+  counter++;
+  if (index &gt; 5) {
+    break;
+  }
+}
+System.out.println(counter);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YKIvyTKSPnBfEqFecIqlZPIdTOHVIfUb">Storing Data</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So far we know how to store a few different types of data using Java&#8217;s
+8 <em>primitive</em> types:</p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p><strong>Integers</strong>: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></p>
+</li>
+<li>
+<p><strong>Floating point numbers</strong>: <code>float</code>, <code>double</code></p>
+</li>
+<li>
+<p><strong>Character</strong>: <code>char</code></p>
+</li>
+<li>
+<p><strong>True or false</strong>: <code>boolean</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="PouzGeQaOVepywQDkEYEPshgXjLvTThm">What&#8217;s Missing?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="wOiXEJdgbfGPXuUmdxBdAREJWwtCfmQf">!</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="http://infinitesummer.org/images/final-page-dfw-autograph1-full.jpg" alt="final page dfw autograph1 full" width="640">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="NyForrcGjinbQfWloCVOiFepnZirgYci">!</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://www.howtogeek.com/wp-content/uploads/2016/07/01_no_times_on_messages.png" alt="01 no times on messages" height="480">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="HbgrrKBaDgYOEQYQLAGLMEDJjkjreHpD">!</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://www.cyberdriveillinois.com/images/licenseplates/pap/passengerpersonalized.gif" alt="passengerpersonalized" width="640">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PYhkVAmazGGwxDSEazwgjdtnbaGtvKUf">!</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://stuart-mcintyre.com/wp-content/uploads/2016/10/Ihate-Passwords-2.jpg" alt="Ihate Passwords 2" width="640">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wWUlHcEZkxzdfMkuBiPWxHonySKJGkGN">Strings</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Much of the interesting data in our <em>human</em> world is in text form.</p>
+</div>
+<div class="paragraph">
+<p>As a computer scientist, you call text <em>a string</em>.</p>
+</div>
+<div class="openblock s small">
+<div class="content">
+<div class="paragraph">
+<p>(I realize that I cannot remember not knowing that term. I guess I&#8217;m old, or
+just have really become a computer scientist.)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FcKdeYMaKKBIcEDIQtxjauJDzrWKzAab">Java Strings</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Unsurprisingly, Java has a <code>String</code> type.</p>
+</div>
+<div class="paragraph">
+<p>We can declare, assign, and pass them to functions like primitive types.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String maybe;
+maybe = "Challen"; // No, bad
+maybe = "Geoff"; // Better, thanks
+callMe(maybe); // You have my number?</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CJfOIXpOQnKKkQsNlcCcqdQLehzcuKMt">Strings Seem Familiar, But Behave Differently</h2>
+<div class="sectionbody">
+<div class="literalblock janini small">
+<div class="content">
+<pre>String password = "chuchudog";
+System.out.println(password.length());
+System.out.println(password.equals("xyzcat"));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tilOsJdZUxdxwRUxjagFrbnsqFcJosVE">Our First Object</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In Java a <code>String</code> is our first example of an <em>object</em>.</p>
+</div>
+<div class="paragraph">
+<p>Objects combine <em>state</em> (like variables) and <em>behavior</em> (like functions).</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Each <code>String</code> has <strong>state</strong>: the array of characters in that string</p>
+</li>
+<li>
+<p>Each <code>String</code> also has <strong>behavior</strong>: functions that we can call on it
+that operate on its state</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="OvtJcTTuXcjKTJlXFFSHNAHjCiynSXmV">What does it <em>store</em>, and what does it <em>do</em>?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="eOfhoslUTfTbEOhXkqlLDWNAJNDehpYp">Objects v. Primitives</h2>
+<div class="sectionbody">
+<div class="openblock s">
+<div class="content">
+<div class="paragraph">
+<p><strong>Primitives:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Store something that can be represented as a <em>single number</em></p>
+</li>
+<li>
+<p>Have type names that start with a lowercase letter: <code>int</code>, <code>char</code>, etc.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock s">
+<div class="content">
+<div class="paragraph">
+<p><strong>Objects:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Can be made up of multiple other objects or primitive types</p>
+</li>
+<li>
+<p>Have type names that start with an <em>uppercase</em> letter: <code>String</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="zOHUuJANCnSTKPaWnIIJzqBkQzeVCtsb">Objects</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You will get a <em>lot</em> of practice working with and designing your own objects.</p>
+</div>
+<div class="paragraph">
+<p>For now we&#8217;re going to use strings as a gentle introduction to <em>using</em> objects.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="QGsUEhwPCbMRSNMEumCMtxAOOyALebns">Strings</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Normally to initialize an object in Java you use the <code>new</code> keyword.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String myString = new String("ABC");
+String anotherString = new String("DEF");</code></pre>
+</div>
+</div>
+<div class="openblock s">
+<div class="content">
+<div class="paragraph">
+<p>However, strings are so common that Java provides a shorthand:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String myString = "ABC";
+String anotherString = "DEF";</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock s small">
+<div class="content">
+<div class="paragraph">
+<p>(In practice there are minor differences between the two code snippets above,
+but we&#8217;re not going to worry about them.)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UIhmBZCHezDDxGMCrlnFcekMApNqVoqb">Arrays Are Also Objects</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Do you remember? We&#8217;ve seen <code>new</code> before&#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] array = new int[8];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java arrays are also objects&mdash;which is why we create them with <code>new</code> and
+can access their length property as <code>array.length</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fxYUpZnKjOeBhxuPdCUXUaDtToHWshqX">Combining Strings</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can combine strings using the concatenation operator: <code>+</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String first = "Geoffrey";
+String last = "Challen";
+String full = first + " " + last;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="MdFtcLZfcghYDQctqpaAvHQfVHRAztHx">Creating Strings</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>String myString = new String("ABC");
+String anotherString = "DEF";
+String combined = myString + anotherString;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="qgyZJGVcnPbtmGwsjvZKKNHgQkHSJLfk">Dot Notation</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We access an object&#8217;s state and methods using <em>dot notation</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String example = "test";
+System.out.println(example.length());
+System.out.println(example.replace('t', 'b'));
+System.out.println(example.toUpperCase());</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uGQxGsSonXYAoTfonqAAaqsjVcidGsjz">! All About Strings</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YucAlGbdPpwYwFOIXNsWismCONtiOZiC">Dot Notation</h2>
+<div class="sectionbody">
+<div class="literalblock janini small">
+<div class="content">
+<pre>String example = "test";
+System.out.println(example.length());
+System.out.println(example.replace('t', 'b'));
+System.out.println(example.toUpperCase());</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="HTzskjeLoQJegEVEiJEfzGbpwcnLafeR">Fun With Strings</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>String myString = new String("ABC");</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="WWDpfkPXJQHdXQWuGkdSppQodHJoBZiw">Questions About Strings?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="jgSODJDMxzOPqOCEnieUFqZXblrkbzeO">!MP1 Progress</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/m/grades/MPs"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="WPSJSvOmtUmlYdTgiKWnbYfzgIxAdLdz">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/1/">MP1</a> is out and due <em>on Friday</em>. Please get started!</p>
+</li>
+<li>
+<p><a href="/m/grades/quizzes">Quiz scores</a> are now available online.</p>
+</li>
+<li>
+<p>The next set of Turing&#8217;s Craft exercises (TC4) are due <em>tomorrow</em> at midnight.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>

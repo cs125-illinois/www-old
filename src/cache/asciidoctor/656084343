@@ -1,0 +1,654 @@
+<div class="sect1">
+<h2 id="caZyHrLatQSNxCwDiamQVCvpwfAAlpKw">!</h2>
+<div class="sectionbody">
+<div class="openblock janini">
+<div class="content">
+<div class="message">Loops and arrays</div>
+<div class="literalblock">
+<div class="content">
+<pre>int[] numbers = {1, 2, 5};
+for (int number : numbers) {
+  System.out.println(number);
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="LiKkycvTzZlbDuaLypCFYUqutfOsHPzO">What Are Computers Good At?</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><span class="line-through">Basic math</span></p>
+</li>
+<li>
+<p><span class="line-through">Simple decision making</span></p>
+</li>
+<li>
+<p><strong>Doing things over and over again very, very fast</strong></p>
+</li>
+<li>
+<p><span class="line-through">And storing data</span></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="JTnQZFRZTMPsBYaFORUhWndrZvuDTLYV">Loops</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We call the process of repeatedly doing the same thing over and over again <em>a
+loop</em>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s the simplest loop, although it&#8217;s not that useful:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">while (true) {
+  // do something
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hpPzyVDHsVcUTHxhRBIBIDpDoYDAQaTL"><code>while</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The <code>while</code> loop has two parts:</p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>A block of code to repeat</p>
+</li>
+<li>
+<p>A condition that must be true each time the loop is entered</p>
+</li>
+</ol>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p>If the condition is false, the block of code is <em>not executed</em> and execution
+continues <strong>after the loop</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IthHUuotYlQXglvEfNEDqBmXvehHdyas">! <code>while</code> Loop Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int index = 0;
+while (index &lt; 4) {
+  System.out.println(index);
+  index++;
+}
+System.out.println("Done");</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="MMDjKstkRvjDzrwbdHDiGYuWdeMOPrYx">Unterminated Loops</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Now that we&#8217;ve acquired the power to make the computer do things repeatedly, we
+need to make sure it <em>stops</em>&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>An unterminated loop will cause your code to <em>hang</em>, or hit a timeout if you are
+running our tests.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dmkapbQepuhgmraIXoKkUpioQjtQVtEa">! Unterminated <code>while</code> Loop</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int index = 0;
+while (index &lt; 4) {
+  System.out.println(index);
+  index--;
+}
+System.out.println("Done");</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uKDbDaQJgzfkNteumxkPlMNZMOhoYtkx">! <code>while(true)</code></h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// There's an easier way to write a forever loop...
+while (true) {
+  System.out.println("Here");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cLTLFYAstNKNKUIOxcRhrwiHioqGOAaV">Common Loop Pattern</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int index = 0;
+while (index &lt; 4) {
+  System.out.println(index);
+  index++;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The pattern above is very common:</p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>Initialize a variable (<code>int index = 0</code>)</p>
+</li>
+<li>
+<p>Loop until a condition is met (<code>index &lt; 4</code>)</p>
+</li>
+<li>
+<p>Update the variable inside the block (<code>index++</code>)</p>
+</li>
+</ol>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>So common that it has its own special syntax.</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="igQzoFImihJpBylhMWbgJobJHooJvjLz"><code>for</code> Loops</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int index = 0;
+while (index &lt; 4) {
+  // do something
+  index++;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>while</code> loop above is equivalent to this <code>for</code> loop:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">for (int index = 0; index &lt; 4; index++) {
+  // do something
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rUfYyxiRjzhQmjdSwFyXFfRvpNkYLwkR">! <code>while</code> to <code>for</code> Loop</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Let's rewrite this using a for loop
+int index = 0;
+while (index &lt; 4) {
+  System.out.println(index);
+  index++;
+}
+System.out.println("Done");</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="xmqrvtbQfhxcGzguCSyjWGnrMzOsGxgd">! One Important Difference&#8230;&#8203;</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// Try rewriting this using a for loop
+int index = 2;
+while (index &lt; 8) {
+  System.out.print("A");
+  index++;
+}
+System.out.println(index);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gtRZuXzQrJLKMJVDuPIUmZayrwEaueHM">Understanding <code>for</code> Loops</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>for</code> loops are a bit more complex than <code>while</code> loops&mdash;but they are also
+<em>more common</em>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s what to keep in mind:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Initialization</strong> only happens once when the loop is first executed</p>
+</li>
+<li>
+<p><strong>The conditional</strong> is evaluated <em>every</em> time the loop block is executed, including
+the first time</p>
+</li>
+<li>
+<p><strong>The update</strong> is performed <em>after</em> each time the block is executed and
+<em>before</em> the condition is checked</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ozgDNPZwXnHqADUwyDbWGVxtwOeNAJha"><code>for</code> Loop Algorithm</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Initialize the loop variable.</p>
+</div>
+<div class="paragraph">
+<p>Then:</p>
+</div>
+<div class="olist arabic s">
+<ol class="arabic">
+<li>
+<p>Check the condition.</p>
+</li>
+<li>
+<p>If the condition is false, continue execution after the <code>for</code> loop</p>
+</li>
+<li>
+<p>If the condition is true, execute the loop block</p>
+</li>
+<li>
+<p>After the block finishes, update the loop variable</p>
+</li>
+<li>
+<p>Repeat</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="yWOMKQPskjIQLNUhWbnpXXnPwgupMRsH">! <code>for</code> Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// How many times does this execute?
+int counter = 0;
+for (int loop = 4; loop &lt;= 8; loop += 2) {
+  counter++;
+}
+System.out.println(counter);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CTQjoXHAZGvMovdBCDVNUZJWMUilASoT">! <code>for</code> Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// How about this one?
+int count = 0;
+for (int i = 10; i &gt;= 0; i -= 3) {
+  count++;
+}
+System.out.println(count);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="qJMeTVqGPDiCngVnJVwfARcFLfIdOvrM">! <code>for</code> Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>// And this one?
+int i = 0;
+for (int j = 2; j &gt;= 4; j++) {
+  i++;
+}
+System.out.println(i);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cLcBBPyCgYmbTUZJEmJoUzaElagvGXnz">Incomplete <code>for</code> Loops</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>All three parts of a for loop are <em>optional</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int i = 0;
+for (; i &lt; 10; i++) {
+  // do something
+}
+for (; i &lt; 10; ) {
+  // do something else
+}
+for (;;) {
+  // do something forever
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Don&#8217;t do this unless you have a good reason.</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="otZreWQRycIZnFeAOXdwyQppSPrZTzRP">If You Get Confused</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If you get confused by a <code>for</code> loop, try rewriting it as a <code>while</code> loop.</p>
+</div>
+<div class="paragraph">
+<p>That may help clear things up.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ybLhqjistDkCNAkTrdsqlOrkmzRlQpOp">Controlling Loop Execution</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>There are two important <em>control statements</em> that we can use with loops:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>break</code>: immediately exit the loop</p>
+</li>
+<li>
+<p><code>continue</code>: return to the top of the loop, perform the update, and continue if
+the condition is still true</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="HKgDlCjYPlNepNOrEnTNoEsbVhhFnUKx">! <code>break</code> Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>int search = 8;
+for (int i = 0; i &lt; 64; i++) {
+  if (i == search) {
+    System.out.println("Found");
+    break;
+  }
+  System.out.println("Not found...");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="VEAvuqSKWDzdowmSNwpZTiuKbMuZXlUh"><code>break</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>break</code> is commonly used when you are looking for something using a loop and
+want to exit when you find it.</p>
+</div>
+<div class="paragraph">
+<p>(We&#8217;ll talk about arrays in a few slides and this will make more sense.)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="yeJMpUzucBnvisKCBFeQuPFAKyJDDhxS">! <code>continue</code> Example</h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>for (int i = 0; i &lt; 4; i++) {
+  System.out.println("Going... " + i);
+  if (i &gt;= 2) {
+    continue;
+  }
+  System.out.println("Here");
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="avEsVhcoWVOBCcUOxOCEmUPdSBkghzNK"><code>continue</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>continue</code> is commonly used when you only want to execute the loop for some
+values.</p>
+</div>
+<div class="paragraph">
+<p>What would be another way to accomplish this?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lYWJpDhDlaBAhRNoglwuiNEqjZnTvPfj">! <code>continue</code> As <code>if</code></h2>
+<div class="sectionbody">
+<div class="literalblock janini">
+<div class="content">
+<pre>for (int i = 0; i &lt; 4; i++) {
+  System.out.println("Going... " + i);
+  if (i &lt; 2) {
+    System.out.println("Here");
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="aNalGdMeFFVkKJOavDZgsGFRnDnEXkin">Questions About Loops?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="fsXRRfTlImmAoFlRkZusGYibsjmZIgXO">Multiple Data Values</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So far we&#8217;ve been talking about <em>single</em> data values.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Java primitive types allow you to represent single numbers (integers or floating
+point), truth values (true or false), and characters.</p>
+</li>
+<li>
+<p>But what about representing <em>multiple</em> values?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="GiWplwWmWjPsYCpNsGEaRgGRfCQkEdsC">Why Multiple Values?</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Can you think of some real things that could be represented as a series of
+Java&#8217;s primitive types?</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Text</strong>, or what we call <em>strings</em> in computer science.</p>
+</li>
+<li>
+<p><strong>DNA</strong>, which we can represent as just a limited kind of string.</p>
+</li>
+<li>
+<p><strong>Time series data</strong>, like a series of temperatures taken at regular intervals.</p>
+</li>
+<li>
+<p><strong>Music</strong>, as a time series of air pressure measurements.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="YYHYZKQPnoHWpRycduGsvvbLQwJgpUja">Arrays</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A Java array represents a series of zero or more values of the <em>same type</em>.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Arrays are our first example of a <strong>data structure</strong>.</p>
+</li>
+<li>
+<p>Arrays put values in order, one after another.</p>
+</li>
+<li>
+<p>Values in an array also have an <em>index</em>, their position in the array.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UMiPoadjbicuTAcYIlVdVNeKMGFYrdfE">Declaring Arrays</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like other variables, arrays have a <em>name</em> and <em>type</em>.</p>
+</div>
+<div class="paragraph">
+<p>But when we declare them we use brackets to declare an array instead of a single
+value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// A single integer named single
+int integer;
+// An array of integers named multiple
+int[] multiple;
+
+// A single character named one
+char one;
+// An array of characters named all
+char[] all;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tJMPuiccQZGCnpzKgMMfznvUwDxbjIXL">Initializing Arrays</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When it is declared an array is empty.
+To use it we have to tell Java how many <em>elements</em> it has.</p>
+</div>
+<div class="paragraph">
+<p><strong>The size cannot be changed once the array is initialized.</strong>
+All arrays have a <code>.length</code> property that we can use to get their size.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// An array of 8 integers named multiple
+int[] multiple = new int[8];
+System.out.println(multiple.length); // Prints 8
+
+// An array of characters named all
+char[] all;
+// Initialize all to hold 4 characters
+all = new char[4];</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ohKZqVQlpkWHLtofAuLeaCmCTyusEPhH">Initializing Arrays With Values</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can also assign values to an array when it is initialized:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// An array of the 4 integers 1, 2, 5, 10
+int[] multiple = { 1, 2, 5, 10 };
+
+// An array of the characters c, s, !
+char[] awesome = { 'c', 's', '!' };</code></pre>
+</div>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p>Here we don&#8217;t have to specify the size. <strong>Why not?</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bwjfoJpVbsFGXesuGmRdUiBZjSLKcEOv">Getting And Setting Array Values</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We use the <em>bracket syntax</em> to both get and set array values by index.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">int[] twos = { 1, 2, 4 };
+System.out.println(twos[0]); // Prints 1
+twos[0] = 2;
+System.out.println(twos[0]); // Prints 2
+System.out.println(twos[2]); // Prints 4</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ajwHyaaPAbOmjqpUVCFJKrALIPzsEAlC">!MP0 Progress</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/m/grades/MPs"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="yTcqcbhuTVUyfvIeFljgLPwifqfgMdtK">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The <em>second</em> set of Turing&#8217;s Craft exercises are due tomorrow (Thursday) by
+midnight.</p>
+</li>
+<li>
+<p><a href="/MP/0/">MP0</a> is out and due Friday! At this point you should be able to
+finish all three problems&mdash;but we&#8217;ll reinforce the concepts on Friday.
+<a href="https://cs125.cs.illinois.edu/info/resources/#hours">Office hours</a>
+until 7PM today.</p>
+</li>
+<li>
+<p>This week&#8217;s quiz will cover material from lecture and Turing&#8217;s Craft.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
