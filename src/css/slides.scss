@@ -136,11 +136,7 @@ table.notdatatables {
     padding-bottom: 1rem;
   }
   .tableblock {
-    padding: {
-      top: 0.25rem;
-      left: 0.25rem;
-      right: 0.25rem;
-    }
+    padding: 0.25rem;
   }
 }
 .dataTables_wrapper {
@@ -152,6 +148,15 @@ table.notdatatables {
 
 .underline {
   border-bottom: 1px solid $gray-500;
+}
+table.noborder {
+  td, th {
+    border-top: none;
+  }
+  border-bottom: none;
+  thead {
+    border-bottom: none;
+  }
 }
 
 // Copied from bespoke-theme-simple
@@ -386,6 +391,14 @@ article {
   pre {
     padding: 0;
     margin-bottom: 0;
+  }
+}
+.bespoke-slide .tableblock {
+  &.smaller {
+    font-size: 0.8em;
+  }
+  &.smallest {
+    font-size: 0.7em;
   }
 }
 
