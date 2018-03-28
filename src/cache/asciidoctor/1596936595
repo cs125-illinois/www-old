@@ -139,7 +139,7 @@ algorithms will also work on lists.</p>
 sorts are also possible.</p>
 </li>
 <li>
-<p>Weccan sort anything that we can compare&mdash;but we&#8217;ll mostly be sorting
+<p>We can sort anything that we can compare&mdash;but we&#8217;ll mostly be sorting
 integers.</p>
 </li>
 </ul>
@@ -1922,12 +1922,844 @@ arrays</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="ruuxbPcEffQohVvBKvDMcSIvbjMzFBnK">! Implement Merge</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller">
+<div class="content">
+<pre>import java.util.Arrays;
+
+static int[] merge(int[] first, int[] second) {
+  return first;
+}
+int[] first = new int[] { 1, 8, 9, 12 };
+int[] second = new int[] { 2, 5, 7, 10 };
+System.out.println(Arrays.toString(merge(first, second)));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZGDTqnPOgciiJsxAnBmXHKBQXPPdKhAn">Merge Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Time complexity</strong>:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Worst case</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Best case</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Average case</strong>: <span class="s">O(n)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="ZAPaxrmDSlsmNuZQLZbukkzIjlZQEUYw">But What About Merge<em>sort</em>?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="gIIbXiYKFmMMVemAacYvrrWeIVQnsDQD">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="ZXVHkviugnbTfDNOlVfsAhhZonxqqylt">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="dPgveXysLcZBYagjfhbXwBasbhmKYmzM">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="madasHPSsSZXsWkaBjdxjnzHkFrAbtfh">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="eZYAMERvSMwNYClZiQkCGoueOrdZNdor">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="JmIOYzxoxYQcLTZPHYLCksCpzufPzrzH">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="fJfOBNrMdOFKhdVjENuiTRLSbFNwGpfB">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HKPLRczEsmxtGwhwJFwAsOOaqqwlnpFn">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="JafawUnkgOkxIwKYDaeCyPlJBpajxFni">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="iEoJCANnlDSEWOIyZGNGGneZtyvdukRH">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="TWumOrCVgGhJCXovjXFbaDscJhUfBlwl">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="WfJBSiApTIMYkqHjBvOEYYoGFGnBHWkg">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="cyBxDTQmwJPLBHBGjihWHVyIzUHMOLFU">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="kwQIRdUpGkaSVJXxxzxJYROIJDHsmuoj">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gwouaoorTaDgGMqKQmIOSaEgEhbKfeDD">Array Recursion</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like with trees and lists, we need a way to both make the problem smaller
+<em>and</em> identify the smallest subproblem.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>How do we make the problem smaller?</strong> <span class="s">Break the list into two smaller
+subarrays.</span></p>
+</li>
+<li>
+<p><strong>What&#8217;s the smallest subproblem?</strong> <span class="s">An array with a single item.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="gmBDbfJgtVPOYzLNVTJOvNjFeCJZmgvn">What&#8217;s Our (Recursive) Sorting Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="WgwiugFnvYdBVnGyqyaAypnJPHMYWJXe">Recursive Mergesort</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached an array with just one value, so return in.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Split the array into two roughly equal parts.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Merge the two smaller subarrays.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 nologo">
+<h2 id="EDqtVeqimxFKTlaDOZNvXCgapfGxYPsp">! Read the Documentation</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="QxcDfFKBmquGeGjExfAkPTlyehotldpd">! Implement Mergesort</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest">
+<div class="content">
+<pre>import java.util.Arrays;
+
+static int[] merge(int[] first, int[] second) {
+  int total = first.length + second.length;
+  int firstIndex = 0, secondIndex = 0;
+  int[] returnArray = new int[total];
+  for (int i = 0; i &lt; total; i++) {
+    if (firstIndex &lt; first.length &amp;&amp; secondIndex &lt; second.length) {
+      if (first[firstIndex] &lt; second[secondIndex]) {
+        returnArray[i] = first[firstIndex];
+        firstIndex++;
+      } else {
+        returnArray[i] = second[secondIndex];
+        secondIndex++;
+      }
+    } else if (firstIndex &lt; first.length) {
+      returnArray[i] = first[firstIndex];
+      firstIndex++;
+    } else if (secondIndex &lt; second.length) {
+      returnArray[i] = second[secondIndex];
+      secondIndex++;
+    }
+  }
+  return returnArray;
+}
+static int[] mergesort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(mergesort(testArray)));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PtZndiYCIVZyOBpKpKjXZLOFWkhQgVLm">Merge Sort Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s consider an array of size 8:</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p><strong>Merge 1:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>8 arrays of size 1 into 4 arrays of size 2</p>
+</li>
+<li>
+<p>so 8 O(n) merges where n = 1</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Merge 2:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>4 arrays of size 2 into 2 arrays of size 4</p>
+</li>
+<li>
+<p>so 4 O(n) merges where n = 2</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Merge 3:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>2 arrays of size 4 into 1 arrays of size 8</p>
+</li>
+<li>
+<p>so 2 O(n) merges where n = 4</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>So given n = 8, we have done 3 O(n) steps, or O(n log n).</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="nBKUIaMAyEqRnKtPzROSdYSkkDNzZqiN">Merge Sort Runtime</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table small s showfirst array">
+<colgroup>
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8832%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><div><div class="paragraph">
+<p><strong>Step</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>0</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>1</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>2</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>3</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="KPaczytaNXPHdWLcfEWvwfbzkWudiouw">Merge Sort Runtime</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table small s showfirst">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Measure</th>
+<th class="tableblock halign-center valign-middle">Best Case</th>
+<th class="tableblock halign-center valign-middle">Worst Case</th>
+<th class="tableblock halign-center valign-middle">Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Time</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Space</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><span class="s">(Our implementation used a lot of extra space, but you can get by with just
+one extra array of size n.)</span></p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="pKPJHkxLoAJhyaRVETiDvUBVADHSFENT">Questions about Insertion or Merge Sort?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
 <h2 id="oJRhVCGGxcwKUTUPuqKsQJQQYbKIkOtm">Announcements</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
 <p><a href="/MP/5/">MP5</a> is due Friday at 5PM.</p>
+</li>
+<li>
+<p>Get your Android environment set up! Come to office hours if you need help.</p>
 </li>
 <li>
 <p>We&#8217;ve added an
