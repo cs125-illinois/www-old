@@ -1,0 +1,3638 @@
+<div class="sect1">
+<h2 id="bzZohpujfVOvrNRhXHxXdNvabGaupZxy">!</h2>
+<div class="sectionbody">
+<div class="openblock janini">
+<div class="content">
+<div class="message">More Sorting Algorithms</div>
+<div class="literalblock">
+<div class="content">
+<pre>import java.util.Arrays;
+
+static int[] sort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(sort(testArray)));</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eDDHyzrDGfZevMjyCYUAGvUCUqlSKbkk">There Are Many Sorting Algorithms</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>And we won&#8217;t discuss them all&#8230;&#8203;</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion sort</a> (Wednesday)</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Selection_sort">Selection sort</a> (lab)</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Merge_sort">Merge sort</a> (today)</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Heapsort">Heapsort</a></p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Quicksort">Quicksort</a> (today)</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Bubble_sort">Bubble sort</a> (lab)</p>
+</li>
+<li>
+<p>And even new ones, like <a href="https://en.wikipedia.org/wiki/Timsort">Timsort</a> (circa
+2002)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="JsXnRYKecCWpLbIVpcSeCsvSZHfXkuml">Insertion Sort Runtime</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread small">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Measure</th>
+<th class="tableblock halign-center valign-middle">Best Case</th>
+<th class="tableblock halign-center valign-middle">Worst Case</th>
+<th class="tableblock halign-center valign-middle">Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Time</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n^2)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n^2)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Space</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(1)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(1)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(1)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="xCtqaumHPyVSPMmJCdhayZbvYGDidKtP">We Can Do Better</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Optimal sorting algorithms should be <strong>O(n log n)</strong> in the <em>worst</em> case and <em>close
+to</em> <strong>O(n)</strong> in the best case.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="YiQkLhQvQzHLkNzOnWYTCLOIhOmACCNI">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist s">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="AiQOnvYQXRlkxUdLkKUhyYavsKsqhElQ">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="MJDnGpoTboZIvPXKwPCipBTmlnMUNHzP">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="bVAZDosTfaxMnNlVvYTNIjsGUXTgsbKJ">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="OdYEUPyrUAxXoyyXFZxfsDVsslZenViq">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="xXCbmiKdMkdGbbSLdtzcyvLsvjBIllQd">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="DSgyVpQycQdebnQXFYbgCupDpZnNGBJL">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="kWHjqEQTVoCSePmtcogIBHKYBiRUjmMm">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="LoHDTvvWdCogSnbccZtyBtcDgfrPlYMN">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="QDvfbVVPthqLlThSYnqeqUnhusCgkQeC">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HZTFsLlWiTVAvjkxYBhfYNzAPWSyglnF">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="zrblURDfFSuiMoFnLTgVSvXGevsSfhgm">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="MaoSmYBGqypNYQIFaYiHrwKmwwCcKIIg">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="JhQfhBPrlCBRGJGyTEHKyQSnWFGsZZbY">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="dEIAHuYYQGEfmxDukQLpyJEUdrtZFrDi">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgrey;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="xuyzraeunVEuQvXEJxtdVxlDOZTMkOcR">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">12</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="cBMCIquzXOseFJkWDoqqdSrRPsOIyRPi">Merge Sort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">9</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">12</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge sort harnesses the fact that it is <em>easy</em> to merge two already-sorted
+arrays</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ruuxbPcEffQohVvBKvDMcSIvbjMzFBnK">! Implement Merge</h2>
+<div class="sectionbody">
+<div class="literalblock janini smaller">
+<div class="content">
+<pre>import java.util.Arrays;
+
+static int[] merge(int[] first, int[] second) {
+  return first;
+}
+int[] first = new int[] { 1, 8, 9, 12 };
+int[] second = new int[] { 2, 5, 7, 10 };
+System.out.println(Arrays.toString(merge(first, second)));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZGDTqnPOgciiJsxAnBmXHKBQXPPdKhAn">Merge Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Time complexity</strong>:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Worst case</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Best case</strong>: <span class="s">O(n)</span></p>
+</li>
+<li>
+<p><strong>Average case</strong>: <span class="s">O(n)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="ZAPaxrmDSlsmNuZQLZbukkzIjlZQEUYw">But What About Merge<em>sort</em>?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="gIIbXiYKFmMMVemAacYvrrWeIVQnsDQD">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="ZXVHkviugnbTfDNOlVfsAhhZonxqqylt">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="dPgveXysLcZBYagjfhbXwBasbhmKYmzM">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="madasHPSsSZXsWkaBjdxjnzHkFrAbtfh">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="eZYAMERvSMwNYClZiQkCGoueOrdZNdor">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="JmIOYzxoxYQcLTZPHYLCksCpzufPzrzH">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="fJfOBNrMdOFKhdVjENuiTRLSbFNwGpfB">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HKPLRczEsmxtGwhwJFwAsOOaqqwlnpFn">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="JafawUnkgOkxIwKYDaeCyPlJBpajxFni">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="iEoJCANnlDSEWOIyZGNGGneZtyvdukRH">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="TWumOrCVgGhJCXovjXFbaDscJhUfBlwl">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="WfJBSiApTIMYkqHjBvOEYYoGFGnBHWkg">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="cyBxDTQmwJPLBHBGjihWHVyIzUHMOLFU">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="kwQIRdUpGkaSVJXxxzxJYROIJDHsmuoj">Array Recursion</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">10</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gwouaoorTaDgGMqKQmIOSaEgEhbKfeDD">Array Recursion</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like with trees and lists, we need a way to both make the problem smaller
+<em>and</em> identify the smallest subproblem.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>How do we make the problem smaller?</strong> <span class="s">Break the list into two smaller
+subarrays.</span></p>
+</li>
+<li>
+<p><strong>What&#8217;s the smallest subproblem?</strong> <span class="s">An array with a single item.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="gmBDbfJgtVPOYzLNVTJOvNjFeCJZmgvn">What&#8217;s Our (Recursive) Sorting Algorithm?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="WgwiugFnvYdBVnGyqyaAypnJPHMYWJXe">Recursive Mergesort</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Base case</strong>: <span class="s">We&#8217;ve reached an array with just one value, so return in.</span></p>
+</li>
+<li>
+<p><strong>Recursive step</strong>: <span class="s">Split the array into two roughly equal parts.</span></p>
+</li>
+<li>
+<p><strong>Combine results</strong>: <span class="s">Merge the two smaller subarrays.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 nologo">
+<h2 id="EDqtVeqimxFKTlaDOZNvXCgapfGxYPsp">! Read the Documentation</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="QxcDfFKBmquGeGjExfAkPTlyehotldpd">! Implement Mergesort</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest">
+<div class="content">
+<pre>import java.util.Arrays;
+
+static int[] merge(int[] first, int[] second) {
+  int total = first.length + second.length;
+  int firstIndex = 0, secondIndex = 0;
+  int[] returnArray = new int[total];
+  for (int i = 0; i &lt; total; i++) {
+    if (firstIndex &lt; first.length &amp;&amp; secondIndex &lt; second.length) {
+      if (first[firstIndex] &lt; second[secondIndex]) {
+        returnArray[i] = first[firstIndex];
+        firstIndex++;
+      } else {
+        returnArray[i] = second[secondIndex];
+        secondIndex++;
+      }
+    } else if (firstIndex &lt; first.length) {
+      returnArray[i] = first[firstIndex];
+      firstIndex++;
+    } else if (secondIndex &lt; second.length) {
+      returnArray[i] = second[secondIndex];
+      secondIndex++;
+    }
+  }
+  return returnArray;
+}
+static int[] mergesort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(mergesort(testArray)));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="miLUZLrSIqeROYPpPzBsVZbvlCDTOEjJ">Merge Sort Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s consider an array of size 8:</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p><strong>Merge 1:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>8 arrays of size 1 into 4 arrays of size 2</p>
+</li>
+<li>
+<p>so 8 O(n) merges where n = 1</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Merge 2:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>4 arrays of size 2 into 2 arrays of size 4</p>
+</li>
+<li>
+<p>so 4 O(n) merges where n = 2</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Merge 3:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>2 arrays of size 4 into 1 arrays of size 8</p>
+</li>
+<li>
+<p>so 2 O(n) merges where n = 4</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>So given n = 8, we have done 3 O(n) steps, or O(n log n).</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="nBKUIaMAyEqRnKtPzROSdYSkkDNzZqiN">Merge Sort Runtime</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table small s showfirst array">
+<colgroup>
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8823%;">
+<col style="width: 5.8832%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><div><div class="paragraph">
+<p><strong>Step</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>0</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>1</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>2</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph">
+<p><strong>3</strong></p>
+</div></div></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="KPaczytaNXPHdWLcfEWvwfbzkWudiouw">Merge Sort Runtime</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table small s showfirst">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Measure</th>
+<th class="tableblock halign-center valign-middle">Best Case</th>
+<th class="tableblock halign-center valign-middle">Worst Case</th>
+<th class="tableblock halign-center valign-middle">Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Time</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Space</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><span class="s">(Our implementation used a lot of extra space, but you can get by with just
+one extra array of size n.)</span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OWAyyCSUfmsjjtTnVQLtjqKhDLRppiTZ">Divide and Conquer</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm">Divide and conquer</a>
+is an algorithm design paradigm based on multi-branched recursion. A divide and
+conquer algorithm works by recursively breaking down a problem into two or more
+sub-problems of the same or related type, until these become simple enough to be
+solved directly. The solutions to the sub-problems are then combined to give a
+solution to the original problem.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="XbJVdJGxUquDqiBVQSUAQGUgepcnNrSC">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist s">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="mhLsVYodLgMwIwHxHMpvrUTBWmJnVbZK">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="fureaQtdhJjORnhGkawnxNZNuAGZsmRu">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="USpSlAMyLrgLjjLSMwOzYtpptXXNlXax">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="KwcNJhOhdqSuWFVeLtNPRkMmZXvutFyM">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="IEaRfPkLLjpqXTchcXqxsgitRNePqwsI">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="NhQLbtLpZpJBFtKusYygBKvASLiPUtII">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="uxBpFJLJKQXirbhGdUHSPfdlzvXHaLoe">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="mekUqwmoAJZhgefFeSLCPdfUKzZvioJt">Quicksort: Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="vMiWOMoKxKwhBytSvlpkCtboWuWQIJTf">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest showfirst noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist s small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="xwrPnXGKBDzqGElzqmJZWCXojpdNvOak">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="SXKbLRBCTVzFXreTsMosqvemLahyhgjz">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="ngpKYSQHCMiAkJgJtywgbKrBKAlnAwux">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="VGezgMJPEbwocVgHLpgJsQzghhBAdvgS">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="uDDbQWBnJdPXUMtfzIYKvNIzVBnJyYjD">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="MJdSQSIfjyxmRePyGVgpcQsZMfszsFno">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="fCtmnBECkMZthdSqRMJwDdHzowHrMpgW">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HUeyWQCGkZccOwuazEuPZNWgVCiyJEDr">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="WMmhboRcRtpanYrtxZywlNhJqEuZeykK">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="JHzbSDEQAKEYYEiocVjAXpXZmfnZkVXt">Quicksort: Partition</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&uarr;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">&nbsp;</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#8217;re done, we&#8217;ll know where to put the pivot</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jMAtwqEmGphfVApJMozzlfefTcwRxsyk">! Implement Quicksort</h2>
+<div class="sectionbody">
+<div class="literalblock janini smallest">
+<div class="content">
+<pre>import java.util.Arrays;
+
+static void partition(int[] inputArray, int start, int end) {
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(partition(testArray)));</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PtZndiYCIVZyOBpKpKjXZLOFWkhQgVLm">Quicksort Runtime: Best Case</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s consider an array of size 8. <strong>In the best case, the pivot divides the
+array evenly at each step.</strong> So the analysis is similar to Mergesort:</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p><strong>Partition 1:</strong> 1 O(n) partition where n = 8 into two arrays of size 4</p>
+</li>
+<li>
+<p><strong>Partition 2:</strong> 2 O(n) partition where n = 4 into four arrays of size 2</p>
+</li>
+<li>
+<p><strong>Partition 3:</strong> 4 O(n) partition where n = 2 into eight arrays of size 1</p>
+</li>
+<li>
+<p><strong>So given n = 8, we have done 3 O(n) steps, or O(n log n).</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="GoZxcSJsCwlvNpJKYvOGLWBjAIvjcfoK">But Trouble Lurks&#8230;&#8203;</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="HfxyEqbGNPdQDiIWjrmozgYrzwNnxXJb">Quicksort Runtime: Worst Case</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s consider an array of size 8. <strong>In the worst case, the pivot is the maximum
+or minimum value in each step.</strong></p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p><strong>Partition 1:</strong> 1 O(n) partition where n = 8 into two arrays of size 7 and size 1</p>
+</li>
+<li>
+<p><strong>Partition 2:</strong> 1 O(n) partition where n = 7 into two arrays of size 6 and size 1</p>
+</li>
+<li>
+<p><strong>Partition 3:</strong> 1 O(n) partition where n = 6 into two arrays of size 5 and size 1</p>
+</li>
+<li>
+<p><strong>Partition 4:</strong> 1 O(n) partition where n = 5 into two arrays of size 4 and size 1</p>
+</li>
+<li>
+<p>&#8230;&#8203;etc&#8230;&#8203;</p>
+</li>
+<li>
+<p><strong>So given n = 8, we have done n O(n) steps, or O(n^2)!</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="KbPOTaSkVuIUjtWSeStFLRScbTXylRpm">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="cFFCPDrhGvKXeqhLVmWSttUCUQvilpFu">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="uzsuAgLLOPmbvkpzRPZLancsRutYrhSx">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="yYzxnDmJKYOhahWRtzOgBNZepzTXpOXx">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="qhgoyqmWUBhoumzvVOZArhAqHVNtfgAF">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="FyYVwUccnlJVzQrYaGhRdKUtdbXqVnod">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HgjWHqnRHcZZOdJsQPGllKhNgQtVJzFF">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="qnwUvjJfkatAKuXGcmxYKxjeVayqTATq">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="PdhqarowSnyyiGcBXmnuetXpTezKWasm">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="DNRcDQPeqMtIODfrPAFUhzfjSVridpUs">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="XUDmikmDfqwGudmpOhasEYtFFyxZgMQT">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss">
+<h2 id="HlVTvFyAkqsEQsGMVojAYIpgwaqoSxYH">Quicksort: Worst Case Overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table smallest noborder array">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock halign-center valign-middle" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="PEDXkdAFFDAAUwmRefWUiCnsOBJDIaYE">Avoiding Bad Pivots</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Good Quicksort implementations try to avoid picking bad <em>pivot</em> values:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>First value</strong>: fails if the array is sorted in reverse order</p>
+</li>
+<li>
+<p><strong>Last value</strong>: fails if the array in already sorted</p>
+</li>
+<li>
+<p><strong>Better idea</strong>: choose a random value, or the median of several values</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bmpzlhMaFOmhfysCLTmfLggjlSSiTeKm">Quicksort Runtime</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread table small s showfirst">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Measure</th>
+<th class="tableblock halign-center valign-middle">Best Case</th>
+<th class="tableblock halign-center valign-middle">Worst Case</th>
+<th class="tableblock halign-center valign-middle">Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Time</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n^2)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(n log n)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Space</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(1)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(1)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">O(1)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><span class="s">One advantage of Quicksort over Mergesort is that it can be done in-place
+without requiring extra space.</span></p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="pKPJHkxLoAJhyaRVETiDvUBVADHSFENT">Questions About Sorting?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="GUQSgaLNZMerWkpAwUqCshaXNjvyWCMm">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/5/">MP5</a> is due next Monday at 5PM.</p>
+</li>
+<li>
+<p>Get your Android environment set up! Come to office hours if you need help.</p>
+</li>
+<li>
+<p>We&#8217;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
