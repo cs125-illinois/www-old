@@ -95,7 +95,43 @@ To complete this part of the assignment you&#8217;ll want to review the
 </div>
 <div class="sect2">
 <h3 id="app">2.2. MP6 App</h3>
-
+<div class="paragraph">
+<p>The MP6 app handles obtaining images&mdash;either ones save previously on the
+device, captured by the camera, or downloaded from the internet.
+It also uploads those images to the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/">Microsoft Cognitive Services API</a> and updates the UI
+appropriately&mdash;or at least parts of it.</p>
+</div>
+<div class="paragraph">
+<p>To complete MP6 most of the lines of code that you write will be completing the
+<a href="#lib">image recognition library</a>.
+However, there are a few small changes that we encourage you to make so that the
+user interface functions properly.
+We&#8217;ve done a few things to get you started.
+Examine <code>finishProcessImage</code> to see how we use the results from <code>getWidth</code>,
+<code>getHeight</code>, and <code>getFormat</code> to update a part of the UI.
+To complete the UI you&#8217;ll need to do the following things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Update the caption</strong> using the result from <code>getCaption</code>.
+You should be able to use our example of updating the description as a starting
+point.</p>
+</li>
+<li>
+<p><strong>Show or hide the cat and dog icons as appropriate.</strong>
+You may want to look at <code>updateCurrentBitmap</code> for examples of how these icons
+are <em>hidden</em> when the current image is cleared.</p>
+</li>
+<li>
+<p><strong>Do something when you find Rick.</strong>
+You do want to celebrate, right?
+Maybe try something
+<a href="https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent">like
+this</a>.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
 <h3 id="getting">2.3. Obtaining MP6</h3>
@@ -122,13 +158,55 @@ You will have to figure out how to test your Rick Astley detection yourself.</p>
 <div class="sect1">
 <h2 id="approach">3. Approaching MP6</h2>
 <div class="sectionbody">
+<div class="paragraph lead">
+<p>As you approach MP6, focus on two core tasks: <a href="#json">working with JSON</a>, and
+starting to find your way around <a href="#android">Android</a>.</p>
+</div>
 <div class="sect2">
 <h3 id="json">3.1. JSON</h3>
 
 </div>
 <div class="sect2">
 <h3 id="android">3.2. Android</h3>
+<div class="paragraph">
+<p>Android is a Java-based framework for building smartphone apps that run on the
+Android platform.
+By learning how to build Android apps, your programs can have enormous impact.
+As of a year ago, Google estimated that there were
+<a href="https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/"><em>2
+billion</em></a>
+active Android devices.
+That&#8217;s over 25% of people on Earth&mdash;and
+<a href="http://fortune.com/2017/03/06/apple-iphone-use-worldwide/">several times more
+than iOS</a>.</p>
+</div>
+<div class="paragraph">
+<p>However, Android is also a huge and complex system.
+It&#8217;s easy to feel lost when you are getting started.
+Our best advice is to just slow down, take a deep breath, and try to understand
+a bit of what is going on at a time.
+We&#8217;ll try to walk you through a few of the salient bits for MP6 below.</p>
+</div>
+<div class="sect3">
+<h4 id="_a_href_https_developer_android_com_reference_android_app_activity_html_activities_a">3.2.1. <a href="https://developer.android.com/reference/android/app/Activity.html">Activities</a></h4>
 
+</div>
+<div class="sect3">
+<h4 id="_ui_events">3.2.2. UI Events</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_ui_modifications">3.2.3. UI Modifications</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_tasks">3.2.4. Tasks</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_a_href_https_azure_microsoft_com_en_us_services_cognitive_services_microsoft_cognitive_services_api_a">3.2.5. <a href="https://azure.microsoft.com/en-us/services/cognitive-services/">Microsoft Cognitive Services API</a></h4>
+
+</div>
 </div>
 <div class="sect2">
 <h3 id="help">3.3. Getting Help</h3>

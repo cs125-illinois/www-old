@@ -6,6 +6,7 @@ description:
 spelling_exceptions:
   - rickrolled
   - Rick Astley
+  - iOS
 ---
 :sectnums:
 :linkattrs:
@@ -118,6 +119,44 @@ To complete this part of the assignment you'll want to review the
 [[app]]
 === MP6 App
 
+The MP6 app handles obtaining images&mdash;either ones save previously on the
+device, captured by the camera, or downloaded from the internet.
+//
+It also uploads those images to the {csapi} and updates the UI
+appropriately&mdash;or at least parts of it.
+
+To complete MP6 most of the lines of code that you write will be completing the
+<<lib, image recognition library>>.
+//
+However, there are a few small changes that we encourage you to make so that the
+user interface functions properly.
+//
+We've done a few things to get you started.
+//
+Examine `finishProcessImage` to see how we use the results from `getWidth`,
+`getHeight`, and `getFormat` to update a part of the UI.
+//
+To complete the UI you'll need to do the following things:
+
+* *Update the caption* using the result from `getCaption`.
+//
+You should be able to use our example of updating the description as a starting
+point.
+//
+* *Show or hide the cat and dog icons as appropriate.*
+//
+You may want to look at `updateCurrentBitmap` for examples of how these icons
+are _hidden_ when the current image is cleared.
+//
+* *Do something when you find Rick.*
+//
+You do want to celebrate, right?
+//
+Maybe try something
+//
+https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent[like
+this].
+
 [[getting]]
 === Obtaining MP6
 
@@ -147,11 +186,52 @@ You will have to figure out how to test your Rick Astley detection yourself.
 [[approach]]
 == Approaching MP6
 
+[.lead]
+//
+As you approach MP6, focus on two core tasks: <<json, working with JSON>>, and
+starting to find your way around <<android, Android>>.
+
 [[json]]
 === JSON
 
 [[android]]
 === Android
+
+Android is a Java-based framework for building smartphone apps that run on the
+Android platform.
+//
+By learning how to build Android apps, your programs can have enormous impact.
+//
+As of a year ago, Google estimated that there were
+//
+https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/[_2
+billion_]
+//
+active Android devices.
+//
+That's over 25% of people on Earth&mdash;and
+//
+http://fortune.com/2017/03/06/apple-iphone-use-worldwide/[several times more
+than iOS].
+
+However, Android is also a huge and complex system.
+//
+It's easy to feel lost when you are getting started.
+//
+Our best advice is to just slow down, take a deep breath, and try to understand
+a bit of what is going on at a time.
+//
+We'll try to walk you through a few of the salient bits for MP6 below.
+
+==== https://developer.android.com/reference/android/app/Activity.html[Activities]
+
+==== UI Events
+
+==== UI Modifications
+
+==== Tasks
+
+==== {csapi}
 
 [[help]]
 === Getting Help
