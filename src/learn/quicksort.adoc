@@ -1,0 +1,1674 @@
+---
+title: Quicksort
+date: 2018-04-04
+description:
+  Discussion Quicksort and, if time, Timsort, and a overview of sorting
+  algorithms and their tradeoffs.
+---
+
+[[cSakTLcvLAxfSmNhHoBzIDmrBfcPYPlC]]
+== !
+
+[.janini]
+--
+++++
+<div class="message">Quicksort</div>
+++++
+....
+import java.util.Arrays;
+
+static int[] sort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(sort(testArray)));
+....
+--
+
+[[bazaZCgsVytVtkBXFZYrRAxzCGKetQwx]]
+== Q8 Review: Recursion v. Iteration
+
+[.lead]
+//
+True or false: iteration can solve problems that recursive solutions cannot.
+
+[[kuHhBsddMkgowDUopptFBSLBBudSzpEP]]
+== Q8 Review: Iteration v. Recursion
+
+[.lead]
+//
+True or false: recursion can solve problems that iterative solutions cannot.
+
+[[rsUCEWexvvmmtwzDKVMdRlyaiawCWzSj]]
+== Q8 Review: Buggy Recursive Code
+
+[source,java,role='small']
+----
+public void z(int value) {
+  Tree current = left;
+  do {
+    current = current.left;
+  } while (current != null);
+  current.left = new Tree(value);
+}
+----
+
+[.lead]
+//
+What is one problem with the function `z` shown above?
+
+[[lJoRHGUmLxdXdsjvQCdxYaPlUumqvJtB]]
+== [.small]#Q8 Review: _More_ Buggy Recursive Code#
+
+[source,java,role='smaller']
+----
+/**
+  * Count nodes that only have a left child but no right child.
+  */
+public static int countLeftOnly(Tree tree) {
+  if (tree.right == null) {
+    if (tree.left == null) {
+      return 0;
+    } else {
+      return 1;
+    }
+  } else {
+    return countLeftOnly(tree.right);
+    if (tree.left != null) {
+      return countLeftOnly(tree.left);
+    }
+  }
+}
+----
+
+[.lead]
+//
+What is _not_ one (of the many) problems with the function `countLeaves` shown
+above?
+
+[[hVwNTKkbDrdBwdUgqUfFiDCHyNMJHwBu]]
+== ! Q8 Review: Counting Leaves
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i < array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public int countLeaves() {
+    return 0;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 });
+    System.out.println(tree.countLeaves());
+  }
+}
+....
+
+[[GOuCNiHkbqVBSfZesLPaZMtwyIJoqcAM]]
+[.oneword]
+//
+== Questions About CBTF Programming?
+
+(We are working on the performance problems.)
+
+[[zwCrMpuOCXQhqTCbqFfCcEalUbPRGxHd]]
+== There Are Many Sorting Algorithms
+
+[.lead]
+//
+And we won't discuss them all...
+
+[.s]
+//
+* https://en.wikipedia.org/wiki/Insertion_sort[Insertion sort] (last Wednesday)
+//
+* https://en.wikipedia.org/wiki/Selection_sort[Selection sort] (lab)
+//
+* https://en.wikipedia.org/wiki/Merge_sort[Merge sort] (last Friday)
+//
+* https://en.wikipedia.org/wiki/Heapsort[Heapsort]
+//
+* https://en.wikipedia.org/wiki/Quicksort[Quicksort] (today!)
+//
+* https://en.wikipedia.org/wiki/Bubble_sort[Bubble sort] (lab)
+//
+* https://en.wikipedia.org/wiki/Timsort[Timsort] (maybe today)
+
+[[xBbkdeOpZhBravYxDkGWnYJnmJXbvAGK]]
+== !There Are Many Sorting Algorithms
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms"></iframe>
+</div>
+++++
+
+[[HLEeCZxXGjJZLwAEkpuHhMdKZtOZmOfS]]
+== Divide and Conquer
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm[Divide and conquer]
+//
+is an algorithm design paradigm based on multi-branched recursion. A divide and
+conquer algorithm works by recursively breaking down a problem into two or more
+sub-problems of the same or related type, until these become simple enough to be
+solved directly. The solutions to the sub-problems are then combined to give a
+solution to the original problem.
+____
+
+[[rPUPMphiZqzseOSzyEnDsVANPDfWXKqm]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 8
+{set:cellbgcolor:lightblue}
+| 5
+| 7
+| 3
+| 4
+| 11
+| 6
+| -1
+
+|===
+
+<<<
+
+[.s]
+//
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[DqMQhWwEVABoQfoKGzQlSOIEJLtvgVjY]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 8
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 7
+| 3
+| 4
+| 11
+| 6
+| -1
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[xgqsDGpZySczQOhmwZPtByiOXkVLpzMX]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:lightblue}
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[QCsHelhfqlNcrdAwgnaxVyhfXbqhdcOa]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:lightblue}
+
+| 5
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:yellow}
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[OEMMgSyhXluPYUqeppKBWjvHMUimzCRa]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:lightblue}
+
+| 3
+{set:cellbgcolor:salmon}
+| 4
+| -1
+| 5
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightblue}
+| 6
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:yellow}
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[rxWsgsJTdUCySjxyZLTkVvjsBYZplTiJ]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:lightblue}
+
+| 3
+{set:cellbgcolor:salmon}
+| 4
+| -1
+| 5
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightblue}
+| 6
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:yellow}
+
+| 3
+{set:cellbgcolor:yellow}
+| 4
+{set:cellbgcolor:lightblue}
+| -1
+| 5
+{set:cellbgcolor:lightgreen}
+| 7
+{set:cellbgcolor:yellow}
+| 6
+{set:cellbgcolor:lightblue}
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[szftBNrMqAOqqCWmLClNgURBILWkAFOX]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:lightblue}
+
+| 3
+{set:cellbgcolor:salmon}
+| 4
+| -1
+| 5
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightblue}
+| 6
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:yellow}
+
+| -1
+{set:cellbgcolor:salmon}
+| 3
+{set:cellbgcolor:yellow}
+| 4
+{set:cellbgcolor:lightblue}
+| 5
+{set:cellbgcolor:lightgreen}
+| 6
+{set:cellbgcolor:salmon}
+| 7
+{set:cellbgcolor:yellow}
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[pdooeVgoGrfpVYDIkTLkKxXGuBxenjvd]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:lightblue}
+
+| 3
+{set:cellbgcolor:salmon}
+| 4
+| -1
+| 5
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightblue}
+| 6
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:yellow}
+
+| -1
+{set:cellbgcolor:salmon}
+| 3
+{set:cellbgcolor:yellow}
+| 4
+{set:cellbgcolor:lightblue}
+| 5
+{set:cellbgcolor:lightgreen}
+| 6
+{set:cellbgcolor:salmon}
+| 7
+{set:cellbgcolor:yellow}
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+
+| -1
+{set:cellbgcolor:yellow}
+| 3
+{set:cellbgcolor:lightgreen}
+| 4
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightgreen}
+| 6
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightgreen}
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[gFvZKbelvtUCVjyVRZMZnYhAxTDUZmnQ]]
+[.ss]
+== Quicksort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 6
+| -1
+| 8
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:lightblue}
+
+| 3
+{set:cellbgcolor:salmon}
+| 4
+| -1
+| 5
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightblue}
+| 6
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:yellow}
+
+| -1
+{set:cellbgcolor:salmon}
+| 3
+{set:cellbgcolor:yellow}
+| 4
+{set:cellbgcolor:lightblue}
+| 5
+{set:cellbgcolor:lightgreen}
+| 6
+{set:cellbgcolor:salmon}
+| 7
+{set:cellbgcolor:yellow}
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+
+| -1
+{set:cellbgcolor:yellow}
+| 3
+{set:cellbgcolor:lightgreen}
+| 4
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightgreen}
+| 6
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightgreen}
+| 8
+{set:cellbgcolor:lightgreen}
+| 11
+
+| -1
+{set:cellbgcolor:lightgreen}
+| 3
+| 4
+| 5
+| 6
+| 7
+| 8
+| 11
+
+|===
+
+<<<
+
+* In each step, Quicksort picks a value called the _pivot_ and divides the array
+into two parts: values larger than the pivot and values smaller
+//
+* This continues until arrays of size 1 are reached, at which point the entire
+array is sorted
+
+[[aEZtFCtipqujLLijeRsfmscWHexxgbTw]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.showfirst.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:lightblue}
+| 5
+| 7
+| 3
+| 4
+| 11
+| 8
+| -1
+
+|===
+
+<<<
+
+[.s.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[TqwHkVzJXxXXJBpWiYppNdHvjelXGDVs]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightgreen}
+| 7
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+| 11
+| 8
+| -1
+
+| &nbsp;
+{set:cellbgcolor!}
+| &uarr;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[CEzGorKSVCnqyENhFyNlpfegAEYDVNcR]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 7
+{set:cellbgcolor:lightgreen}
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 11
+| 8
+| -1
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[IuZYAUZNUXJOjJfuRzvVobiIWWYkYczg]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 7
+| 3
+{set:cellbgcolor:lightgreen}
+| 4
+{set:cellbgcolor:lightblue}
+| 11
+| 8
+| -1
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[llGmZFkKnUbPDEStyyWBQxuJBONLaNyS]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 3
+{set:cellbgcolor:salmon}
+| 7
+| 4
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:lightblue}
+| 8
+| -1
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[XDITtxynkNKwFvBqyZnTYHJnSHVTXzVa]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+{set:cellbgcolor:salmon}
+| 7
+| 11
+{set:cellbgcolor:lightgreen}
+| 8
+{set:cellbgcolor:lightblue}
+| -1
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[zRgaMTOmjNPEKWXKHKxsjeICgFBGLVMj]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+| 7
+| 11
+| 8
+{set:cellbgcolor:lightgreen}
+| -1
+{set:cellbgcolor:lightblue}
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[pOsnANEKoYXbVaSEkLQbaCEzwZHQznSn]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+| 7
+| 11
+| 8
+| -1
+{set:cellbgcolor:lightgreen}
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[WUhroVUjuTzqGqyJdYWjcpNdHlHLBKDl]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+| -1
+{set:cellbgcolor:salmon}
+| 11
+{set:cellbgcolor:lightblue}
+| 8
+| 7
+{set:cellbgcolor:salmon}
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[vTfTsNGmWmFoAVbJAGFrEQFpbVzotnJF]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| -1
+{set:cellbgcolor:salmon}
+| 5
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+| 6
+{set:cellbgcolor:salmon}
+| 11
+{set:cellbgcolor:lightblue}
+| 8
+| 7
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[geXYdaTdjiUQcBfpnctVLbofPGUTwEDw]]
+[.ss]
+== Quicksort: Partition
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| -1
+{set:cellbgcolor:lightblue}
+| 5
+| 3
+| 4
+| 6
+{set:cellbgcolor:lightgreen}
+| 11
+{set:cellbgcolor:lightblue}
+| 8
+| 7
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &uarr;
+| &nbsp;
+| &nbsp;
+
+|===
+
+<<<
+
+[.small]
+//
+* We want to divide the array into smaller and larger parts and put the pivot in
+between them
+//
+* If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part
+//
+* When we're done, we'll know where to put the pivot
+
+[[ZiWwFfSAfdixLUTCMzmcMgYUfxPyXQxJ]]
+== ! Implement Quicksort
+
+[.janini.smallest]
+....
+import java.util.Arrays;
+
+static void partition(int[] inputArray, int start, int end) {
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(partition(testArray)));
+....
+
+[[qEdEMaiFvMBLzNSWmOZUykwUOErMvsiB]]
+== Quicksort Runtime: Best Case
+
+Let's consider an array of size 8. *In the best case, the pivot divides the
+array evenly at each step.* So the analysis is similar to Mergesort:
+
+[.s.small]
+//
+* *Partition 1:* 1 O(n) partition where n = 8 into two arrays of size 4
+//
+* *Partition 2:* 2 O(n) partition where n = 4 into four arrays of size 2
+//
+* *Partition 3:* 4 O(n) partition where n = 2 into eight arrays of size 1
+//
+* *So given n = 8, we have done 3 O(n) steps, or O(n log n).*
+
+[[bqohxByGqhWvlcMcuaLPwuMuCXiTDzaC]]
+[.oneword]
+//
+== But Trouble Lurks...
+
+[[ZbUsFKSXdbMVfAOkBhxSvlccoffGsIhh]]
+== Quicksort Runtime: Worst Case
+
+Let's consider an array of size 8. *In the worst case, the pivot is the maximum
+or minimum value in each step.*
+
+[.s.small]
+//
+* *Partition 1:* 1 O(n) partition where n = 8 into two arrays of size 7 and size 1
+//
+* *Partition 2:* 1 O(n) partition where n = 7 into two arrays of size 6 and size 1
+//
+* *Partition 3:* 1 O(n) partition where n = 6 into two arrays of size 5 and size 1
+//
+* *Partition 4:* 1 O(n) partition where n = 5 into two arrays of size 4 and size 1
+//
+* ...etc...
+//
+* *So given n = 8, we have done n O(n) steps, or O(n^2)!*
+
+[[pKxoPfMhWENyghZNLJRdodipbuNUYtIt]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 8
+{set:cellbgcolor:lightblue}
+| 7
+| 6
+| 5
+| 4
+| 3
+| 2
+| 1
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[hSWNlCxuJxibbGaNoKvQiNNMkFzJVLtI]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 8
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightblue}
+| 6
+| 5
+| 4
+| 3
+| 2
+| 1
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[sRPuKiCSUyJlLIhrlDQYItusnfCoWucK]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 7
+{set:cellbgcolor:lightblue}
+| 6
+| 5
+| 4
+| 3
+| 2
+| 1
+| 8
+{set:cellbgcolor:lightgreen}
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[jXToTRMRkSdwYPgupSjCmYNafsFMjCmt]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 7
+{set:cellbgcolor:yellow}
+| 6
+{set:cellbgcolor:lightblue}
+| 5
+| 4
+| 3
+| 2
+| 1
+| 8
+{set:cellbgcolor:lightgreen}
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[xXoUtRxCDMhVSSsctndUymPMJMMXZYke]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:lightblue}
+| 5
+| 4
+| 3
+| 2
+| 1
+| 7
+{set:cellbgcolor:yellow}
+| 8
+{set:cellbgcolor:lightgreen}
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[UnHRPGKLJArhmcqEknegKoNxSKyZnmWh]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:lightblue}
+| 5
+| 4
+| 3
+| 2
+| 1
+| 7
+{set:cellbgcolor:lightgreen}
+| 8
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[eDdutANtjfMxoByGdJaITsEyaGftcHqV]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 6
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:lightblue}
+| 4
+| 3
+| 2
+| 1
+| 7
+{set:cellbgcolor:lightgreen}
+| 8
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[WFfPnGrycYaKyNvCnGYenBRVFoUBPqOa]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:lightblue}
+| 4
+| 3
+| 2
+| 1
+| 6
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:lightgreen}
+| 8
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[lfilMapcXaBTwGIEZNSIjLWmdqsoCBef]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:lightblue}
+| 4
+| 3
+| 2
+| 1
+| 6
+{set:cellbgcolor:lightgreen}
+| 7
+| 8
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[lBqxyNNNgZuJOHOvDzxlruNbXVGayhFj]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 5
+{set:cellbgcolor:yellow}
+| 4
+{set:cellbgcolor:lightblue}
+| 3
+| 2
+| 1
+| 6
+{set:cellbgcolor:lightgreen}
+| 7
+| 8
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[pZSgAGZUULJUbOMmcuFVkbCyuZYZVOWj]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 4
+{set:cellbgcolor:lightblue}
+| 3
+| 2
+| 1
+| 5
+{set:cellbgcolor:yellow}
+| 6
+{set:cellbgcolor:lightgreen}
+| 7
+| 8
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[HbtTknMqDJuEurziJAxITGUlHMGLXDGU]]
+[.ss]
+== Quicksort: Worst Case Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 4
+{set:cellbgcolor:lightblue}
+| 3
+| 2
+| 1
+| 5
+{set:cellbgcolor:lightgreen}
+| 6
+| 7
+| 8
+
+|===
+
+<<<
+
+* In the worst case the problem only gets 1 unit smaller in each step!
+
+[[buMbdAtBMbOxEmKPPYHRSUIcAqzKWmgc]]
+== Avoiding Bad Pivots
+
+[.lead]
+//
+Good Quicksort implementations try to avoid picking bad _pivot_ values:
+
+[.s]
+//
+* *First value*: fails if the array is sorted in reverse order
+//
+* *Last value*: fails if the array in already sorted
+//
+* *Better idea*: choose a random value, or the median of several values
+
+[[JQFsAkokPfdphXipmzxbNWJohznTmnhb]]
+== Quicksort Runtime
+
+[.table.small.s.showfirst,cols="4*^.^",options='header']
+|===
+
+|Measure
+{set:cellbgcolor!}
+|Best Case
+|Worst Case
+|Average Case
+
+| Time
+| O(n log n)
+| O(n^2)
+| O(n log n)
+
+| Space
+| O(1)
+| O(1)
+| O(1)
+
+|===
+
+[.s]#One advantage of Quicksort over Mergesort is that it can be done in-place
+without requiring extra space.#
+
+[[NwpuFgwNcwmBQfCeSqKEVfIXIgooWzNo]]
+== Sorting Summary: Input Dependence
+
+[.table.small,cols="3*^.^",options='header']
+|===
+
+|Algorithm
+{set:cellbgcolor!}
+|Best Case
+|Worst Case
+
+| *Insertion Sort*
+| [.s]#Already sorted#
+| [.s]#Sorted backwards#
+
+| *Merge Sort*
+| [.s]#Doesn't matter#
+| [.s]#Doesn't matter#
+
+| *Quicksort*
+| [.s]#Random#
+| [.s]#Sorted footnote:[Order depends on pivot choice]#
+
+|===
+
+(Note that most of these are implementation dependent.)
+
+[[gsdiCzFsqSrDrLyWZqiwCIlzGoNUESsD]]
+== Sorting Summary: Runtime
+
+[.table.small,cols="4*^.^",options='header']
+|===
+
+|Algorithm
+{set:cellbgcolor!}
+|Best Case
+|Worst Case
+|Average Case
+
+| *Insertion Sort*
+| [.s]#O(n)#
+| [.s]#O(n^2)#
+| [.s]#O(n^2)#
+
+| *Merge Sort*
+| [.s]#O(n log n)#
+| [.s]#O(n log n)#
+| [.s]#O(n log n)#
+
+| *Quicksort*
+| [.s]#O(n log n)#
+| [.s]#O(n log n)#
+| [.s]#O(n^2)#
+
+|===
+
+[[EBJRJZBqWVbksBPlguFGqFiodPSrYKkD]]
+== Sorting Summary: Space
+
+[.table.small,cols="2*^.^",options='header']
+|===
+
+|Algorithm
+{set:cellbgcolor!}
+|Extra Memory
+
+| *Insertion Sort*
+| [.s]#O(1)#
+
+| *Merge Sort*
+| [.s]#O(n)#
+
+| *Quicksort*
+| [.s]#O(log n), due to the recursive calls#
+
+|===
+
+[[RMMoEHJwGPhzNNlqWfwerFJwIfDOdIcB]]
+== There Be Tradeoffs
+
+[.s]
+//
+* *If you have a very small array?* [.s]#Try _insertion sort_. It avoids the
+recursive calls made by merge sort and quick sort and is fastest on small
+arrays.#
+//
+* *Do you want predictable performance?* [.s]#Try _merge sort_. It's performance
+doesn't vary based on its inputs, although it requires O(n) space.#
+//
+* *Are you short on space?* [.s]#Try _quicksort_. It's best-case
+performance is as good as merge sort but it can be done using much less memory.#
+
+[[ctXSCdeuRnmaipTMpLABIYtntfCrmwyy]]
+== Sorting Stability
+
+[.lead]
+//
+We also refer to sorts as being either _stable_ or _unstable_:
+
+[.s]
+//
+* *Stable sorts*: two items with the same value cannot switch positions
+//
+* *Unstable sorts*: two items with the same value _may_ switch positions
+
+[[dWtjgQRehCWFeoROhzjuOPsImeoxgzWp]]
+== Why Is Stability Important?
+
+[source,java,role='small']
+----
+class Person {
+  int age;
+  String name;
+}
+----
+
+[.lead]
+//
+Let's say I wanted a list of all ``Person``s, sorted first by age and then by
+name. How would I do that?
+
+[.s]
+//
+. Sort first using the `name` field
+//
+. Then sort by the `age` field
+
+[.s]#*If the sort is not stable I cannot do this, since the second sort will
+alter the results of the first.*#
+
+[[BchZSolTgdrvJYMXystkpUMdmPkQxlBY]]
+== What About Timsort?
+
+[.lead]
+//
+Timsort is the adaptive sorting algorithm used by Python and now Java.
+
+[.s]
+//
+* It's far more complex than any of the algorithms we've discussed, but tries to
+take advantage of _runs_ of already-sorted values in the data.
+//
+* Internally it uses both merge sort and insertion sort to sort smaller arrays
+and combine them together.
+//
+* It's an _adaptive_ sort, meaning that it adjusts its behavior to features of
+the data.
+
+[[vbTiNsqHtTurckJbgEQHeWmTHEzRwAli]]
+[.oneword]
+== Questions About Sorting?
+
+[[UyokaowWhYlJPTWNVWgdSxuazCwPTUKD]]
+== A Fun Visualization
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+<iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/kPRA0W1kECg" allowfullscreen></iframe>
+</div>
+++++
+
+[[rlOtWjdeSgzzQeNZjBAvbgjJcQptGIJF]]
+== Announcements
+
+* MP6 will be out today at 5PM.
+//
+* Get your Android environment set up! Come to office hours if you need help.
+//
+* We've added an
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
