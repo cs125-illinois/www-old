@@ -7,6 +7,7 @@ spelling_exceptions:
   - rickrolled
   - Rick Astley
   - iOS
+  - GSON
 ---
 :sectnums:
 :linkattrs:
@@ -194,6 +195,256 @@ starting to find your way around <<android, Android>>.
 [[json]]
 === JSON
 
+[.lead]
+//
+Object-oriented languages make it easy to model data internally by designing
+classes.
+//
+But at times we need to exchange data between two different programs or systems,
+possibly implemented in different languages.
+//
+That requires representing the data in a format that _both_ systems can
+understand.
+//
+JSON (JavaScript Object Notation) is one popular _data exchange_ format in wide
+use on the internet, and frequently used to communicate with web APIs.
+
+JSON is both simple and incredibly powerful.
+//
+It is based on only two different principles, but can represent a wide variety
+of different data.
+//
+Using the {csapi} requires understanding JSON, and completing MP6 requires that
+you implement several simple JSON parsing tasks.
+
+==== What is JSON?
+
+Imagine we have an instance of the following Java class:
+
+[source,java]
+----
+public Person {
+    public String name;
+    public int age;
+
+    Person(String setName, String setAge) {
+        name = setName;
+        age = setAge;
+    }
+}
+Person geoffrey = new Person("Geoffrey", 38);
+----
+
+Now image we want to send this information to another computer program: for
+example, from an Android app written in Java to a web application programmer
+interface (API) that could be written in Java, Python, or any other language.
+//
+How do we represent this information in a way that is correct and complete, yet
+also portable.
+
+JSON (JavaScript Object Notation) has become a popular answer to that question.
+//
+While it is named after
+//
+https://www.javascript.com/[JavaScript],
+//
+the language that introduced JSON, JSON is now supported by pretty much every
+common programming language.
+//
+This allows an app written in Java to communicate with a web API written in
+Python, or a web application written in JavaScript to communicate with a web
+backend written in Rust.
+
+Enough talk.
+//
+Here's how the object above could be represented in JSON:
+
+[source,json]
+----
+{
+  "name": "Geoffrey",
+  "age": 38
+}
+----
+
+JSON has only _two_ ways to structure data: objects and arrays.
+//
+Above you seen an example object.
+//
+Like Java, it has named variable (`name`, `age`) each of which takes on a
+particular value ("Geoffrey", 38).
+//
+Here's another example.
+//
+The following instance of this Java object:
+
+[source,java,role='small']
+----
+public Course {
+    public String name;
+    public int enrollment;
+    public double averageGrade;
+
+    Course(String setName, String setEnrollment, double setAverageGrade) {
+        name = setName;
+        enrollment = setEnrollment;
+        averageGrade = setAverageGrade;
+    }
+}
+Course cs125 = new Course("CS 125", 500, 3.9);
+----
+
+would be represented as this JSON string:
+
+[source,json]
+----
+{
+  "name": "CS 125",
+  "enrollment": 500,
+  "averageGrade": 3.9
+}
+----
+
+JSON can also represent arrays.
+//
+This Java array:
+
+[source,java]
+----
+int[] array = new int[] { 1, 2, 10, 8 };
+----
+
+would be represented using this JSON string:
+
+[source,json]
+----
+[1, 2, 10, 8]
+----
+
+We can also represent nested objects and objects with array instance variables:
+
+[source,java]
+----
+public Person {
+    public String name;
+    public int age;
+
+    Person(String setName, String setAge) {
+        name = setName;
+        age = setAge;
+    }
+}
+public Course {
+    public String name;
+    public int enrollment;
+    public double averageGrade;
+    public Person instructor;
+    public int[] grades;
+
+    Course(String setName, String setEnrollment,
+        double setAverageGrade, Person setInstructor,
+        int[] setGrades) {
+        name = setName;
+        enrollment = setEnrollment;
+        averageGrade = setAverageGrade;
+        instructor = setInstructor;
+        grades = setGrades;
+    }
+}
+Course cs125 = new Course("CS 125", 500, 3.9,
+  new Person("Geoffrey", 38), new int[] { 4, 4, 3 });
+----
+
+[source,json]
+----
+{
+  "name": "CS 125",
+  "enrollment": 500,
+  "averageGrade": 3.9,
+  "instructor": {
+    "name": "Geoffrey",
+    "age": 38
+  },
+  "grades": [
+    4,
+    4,
+    3
+  ]
+}
+----
+
+==== Parsing JSON
+
+Because JSON is supported by many different programming languages, many web APIs
+return data in JSON format.
+//
+The {csapi} is one of them.
+//
+To utilize this data, you must first _parse_ it or _deserialize_ it.
+//
+The process of converting a Java object&mdash;or object in any language&mdash;to
+JSON is called serialization.
+//
+The reverse process is called deserialization.
+
+Happily, good libraries exist to parse JSON in every programming language.
+//
+Java is no exception.
+//
+We have included the Google
+//
+https://github.com/google/gson[GSON]
+//
+JSON parsing library in your project for you to use.
+
+One way to use GSON is to create a class that matches your JSON string.
+//
+So if you were provided with this JSON from a web API:
+
+[source,json]
+----
+{
+  "number": 0,
+  "caption": "I'm a zero"
+}
+----
+
+you would design this Java class to represent it:
+
+[source,java]
+----
+public class Result {
+    public int number;
+    public String caption;
+}
+----
+
+Note how our classes mirrors both the names (`number`, `caption`) and types (`int`,
+`String`) from the JSON result.
+
+However, when you are working with unfamiliar JSON data, as you are in MP6, we
+suggest that you _not_ create new classes and instead
+//
+https://stackoverflow.com/questions/16595493/gson-parsing-without-a-lot-of-classes[use
+the built-in Java classes].
+//
+Here's an example of how to do this given the JSON string shown above:
+
+[source,java]
+----
+JsonParser parser = new JsonParser();
+JsonObject result = parser.parse(jsonString).getAsJsonObject();
+int number = result.get("number").getAsInt();
+String caption = result.get("caption").getAsString();
+----
+
+**Note that for MP6 we will not grade any addition class files you add to your
+`lib` directory.**
+//
+So we suggest you follow our example above footnote:[Or define your
+deserialization classes as inner classes to the `RecognizePhoto` class you are
+working on... if you really know what you are doing.].
+
 [[android]]
 === Android
 
@@ -223,9 +474,116 @@ a bit of what is going on at a time.
 //
 We'll try to walk you through a few of the salient bits for MP6 below.
 
+==== https://developer.android.com/reference/android/util/Log.html[Logging]
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/YTKKvmcmUOY" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Like any other computer program, an important part of developing on Android is
+generating debugging output.
+//
+On Android, our familiar `System.out.println`
+//
+https://stackoverflow.com/questions/2220547/why-doesnt-system-out-println-work-in-android[doesn't quite work the same way we're used to].
+
+However, Android has a simple yet powerful _logging_ system.
+//
+Unlike `System.out.println`, logging systems allow you to specify multiple log
+_levels_ indicating the kind of output that you are generating.
+//
+This allows you to distinguish between, for example, debugging output that might
+only be useful during development and a warning message that might indicate a
+more serious problem or failure.
+//
+The Android logger also allows you to attach a `String` _tag_ to each message to
+help separate them when you are debugging or developing.
+//
+So the final syntax of the call to generate a debugging message, for example, is
+`Log.d(TAG, message)`.
+
+For more information, watch the screencast above or review
+//
+https://developer.android.com/reference/android/util/Log.html[Android's official
+logging documentation].
+
 ==== https://developer.android.com/reference/android/app/Activity.html[Activities]
 
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/gwqz1Tm4jTA" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+The Android
+//
+https://developer.android.com/reference/android/app/Activity.html[`Activity` class]
+//
+corresponds to a single screen that the user can interact with.
+//
+Our simple app contains only one activity, but most apps consist of several:
+maybe an activity corresponding to the app's main screen, another for a
+settings dialog, and still others for other parts of the app.
+
+As you might expect, there are two important moments for an activity: when it
+appears on the screen, and when it leaves the screen.
+//
+Android provides functions that you can override to handle both of these events:
+`onCreate` and `onPause`.
+//
+It is typical for on `onCreate` method to perform tasks required to make the
+activity ready for a user to use, such as configuring buttons and other UI
+elements.
+
+For more information watch the screencast above or review
+//
+https://developer.android.com/reference/android/app/Activity.html[Android's
+official `Activity` information].
+
 ==== UI Events
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/_Upqc-IO5_s" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Why does code in your app run?
+//
+In many cases it's because a user _interacted_ with an activity&mdash;clicked a
+button, entered text into a dialog box, or adjusted an on-screen control.
+//
+Android provides a way for each app to register _handlers_ than run when various
+user interface (UI) events take place.
+
+Our app uses these to:
+//
+* start the open file dialog
+//
+* start the process of capturing an image from the camera
+//
+* open the download file input box
+//
+* rotate the image
+//
+* and upload it to the {csapi} for processing.
+//
+In the screencast above we show how elements of the user interface are linked
+programmatically to each specific action.
 
 ==== UI Modifications
 
