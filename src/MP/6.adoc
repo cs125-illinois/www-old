@@ -8,6 +8,8 @@ spelling_exceptions:
   - Rick Astley
   - iOS
   - GSON
+  - Activitys
+secret: JGkqGlWT8m
 ---
 :sectnums:
 :linkattrs:
@@ -173,6 +175,18 @@ Once your repository has been created, import it into *Android Studio* following
 //
 link:/MP/setup/git/#workflow[our assignment Git workflow guide].
 
+[[help]]
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way
+footnote:[Armed with a helpful cheat sheet..]!
+//
+Please come to link:/info/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
 [[requirements]]
 === Your Goal
 
@@ -184,16 +198,8 @@ However, note that for MP6 *we have not provided a complete test suite*.
 //
 You will have to figure out how to test your Rick Astley detection yourself.
 
-[[approach]]
-== Approaching MP6
-
-[.lead]
-//
-As you approach MP6, focus on two core tasks: <<json, working with JSON>>, and
-starting to find your way around <<android, Android>>.
-
 [[json]]
-=== JSON
+== JSON
 
 [.lead]
 //
@@ -217,7 +223,7 @@ of different data.
 Using the {csapi} requires understanding JSON, and completing MP6 requires that
 you implement several simple JSON parsing tasks.
 
-==== What is JSON?
+=== What is JSON?
 
 Imagine we have an instance of the following Java class:
 
@@ -373,7 +379,7 @@ Course cs125 = new Course("CS 125", 500, 3.9,
 }
 ----
 
-==== Parsing JSON
+=== Parsing JSON
 
 Because JSON is supported by many different programming languages, many web APIs
 return data in JSON format.
@@ -445,8 +451,28 @@ So we suggest you follow our example above footnote:[Or define your
 deserialization classes as inner classes to the `RecognizePhoto` class you are
 working on... if you really know what you are doing.].
 
+[[csapi-json]]
+=== Example JSON
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Dj_LgQsmBxs" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+
+link:/MP/6/example.json[Here is some example JSON,role='external'] produced by
+the {csapi}.
+//
+You may want to consult this as you begin work on your image recognition
+functions.
+
 [[android]]
-=== Android
+== Android
 
 Android is a Java-based framework for building smartphone apps that run on the
 Android platform.
@@ -474,7 +500,7 @@ a bit of what is going on at a time.
 //
 We'll try to walk you through a few of the salient bits for MP6 below.
 
-==== https://developer.android.com/reference/android/util/Log.html[Logging]
+=== https://developer.android.com/reference/android/util/Log.html[Logging]
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -513,7 +539,17 @@ For more information, watch the screencast above or review
 https://developer.android.com/reference/android/util/Log.html[Android's official
 logging documentation].
 
-==== https://developer.android.com/reference/android/app/Activity.html[Activities]
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP6?*
+//
+Probably, since you need to determine what you app is doing or how things are
+going wrong.
+//
+--
+
+=== https://developer.android.com/reference/android/app/Activity.html[``Activity``s]
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -550,7 +586,16 @@ For more information watch the screencast above or review
 https://developer.android.com/reference/android/app/Activity.html[Android's
 official `Activity` information].
 
-==== UI Events
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP6?*
+//
+No. But you may be confused by the overall app structure if you don't review it.
+//
+--
+
+=== UI Events
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -585,22 +630,197 @@ Our app uses these to:
 In the screencast above we show how elements of the user interface are linked
 programmatically to each specific action.
 
-==== UI Modifications
-
-==== Tasks
-
-==== {csapi}
-
-[[help]]
-=== Getting Help
-
-The course staff is ready and willing to help you every step of the way!
+[.alert.alert-primary]
+--
 //
-Please come to link:/info/syllabus/#calendar[office hours], or post on the
-{forum} when you need help.
+*Do you need to know this to complete MP6?*
 //
-You should also feel free to help each other, as long as you do not violate the
-<<cheating, academic integrity requirements>>.
+No.
+//
+But it will be hard to understand how your app works without reviewing it.
+//
+--
+
+=== UI Modifications
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Z5GtXAO1Cvc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+The flip side of user-initiated actions are responses by the app.
+//
+The normal way for a smartphone app to communicate with the user is by modifying
+the UI.
+//
+Pay closer attention to the apps that you use and you'll start noticing a lot of
+this: text boxes and photos that change or display information, progress bars
+that indicate either waiting or a long-running action like playing music, etc.
+
+In the screencast above we'll review how to modify your app's UI in response to
+user actions&mdash;or, in the case of MP6, in response to the results from the
+{csapi}.
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP6?*
+//
+Yes!
+//
+There are some missing pieces in `finishProcessImage` waiting for you to
+complete.
+//
+--
+
+=== https://developer.android.com/reference/android/content/Intent.html[Intents]
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/JJHNG7Qn9zg" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+One of the powerful features of Android is the ability for multiple apps to
+communicate with each other.
+//
+If your app wants to take a photo, for example, it can ask the camera app to
+take the photo, rather than implementing a camera itself.
+//
+If you app wants to open a file, as another example, it can ask the file browser
+to open the file, rather than implementing a file chooser itself.
+//
+This both greatly simplifies app development _and_ provides users with a
+familiar interface for the same actions.
+
+Our MP6 app uses intents to launch the camera and a file browser.
+//
+You do not need to understand this feature, but feel free to watch the
+screencast above to learn more.
+//
+And you find it a fun way to respond to the unexpected appearance of Risk
+Astley.
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP6?*
+//
+No, unless you want to really get `isRick` right.
+//
+--
+
+=== https://developer.android.com/reference/android/os/AsyncTask.html[Asynchronous Tasks]
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/jE2Nevi0_ZI" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+One of the core goals of every application, including smartphone apps, is to
+maintain a responsive user interface.
+//
+If your app freezes for long periods of time, or even short ones, users will
+quickly stop using it.
+
+Android accomplishes this by delegating certain slow operations to so-called
+_background tasks_.
+//
+They then run independently of the user interface.
+//
+So your app can be simultaneously responding to new user input _and_, for
+example, downloading a large file.
+
+This is an advanced topic and not one that we expect you to master on this MP or
+even on future ones.
+//
+But if you want to learn a bit more, watch the screencast above.
+//
+Our MP6 app uses two background tasks: one to download files and save them to
+local storage, the second to make requests to the {csapi}.
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP6?*
+//
+No, but it's interesting!
+//
+--
+
+=== {csapi}
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/mhRX_EL7vrg" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+What is an API (application programmer interface)?
+//
+Put it this way&mdash;there are computer systems out there that can do _really_
+cool things for you.
+//
+APIs provide a way to request their help, and easily integrate powerful features
+into your applications.
+//
+You just have to learn how to use them.
+
+In MP6 we're using the really cool {csapi} to process images.
+//
+The screencast above will show you how to do that.
+//
+It also walks through the steps you need to add _your_ {csapi} key to your
+project so that you can make your own requests.
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP6?*
+//
+You don't need to understand how the API call is made, but you _may_ need to make
+a few small changes to `Tasks.java` and understand the <<csapi-json, JSON
+returned>> by the {csapi}.
+//
+And you do need to add your API key so that your API calls work properly.
+//
+--
+
+=== Putting It All Together
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/SrCfqmXRu9M" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+
+Finally, the screencast above provides a brief overview of how your app _should_
+work once you are done.
+//
+Good luck!
 
 [[grading]]
 == Grading
