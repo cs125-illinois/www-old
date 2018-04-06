@@ -1,0 +1,291 @@
+---
+title: Introduction to Android
+date: 2018-04-06
+description:
+  An introduction to Android, hacking, and MP6.
+---
+
+:linkattrs:
+
+:csapi: pass:normal[https://azure.microsoft.com/en-us/services/cognitive-services/[Microsoft Cognitive Services API]]
+
+[[nOptlHpDiVEoKvgYkAIxbOrAxuKGgAcK]]
+== !
+
+[.janini]
+--
+++++
+<div class="message">Hacking Android</div>
+++++
+....
+static String tooSimple() {
+  return "Most programming is not like this!";
+}
+System.out.println(tooSimple());
+....
+--
+
+[[uxwvJxVFpFmmSAsSbJnLONkqKraEiXtP]]
+== MP6 Review
+
+[.lead]
+//
+We're going to do a few exercises in class today using link:/MP/6/[MP6].
+
+So if you haven't already, please accept our
+//
+https://classroom.github.com/a/qJ5dPKlE[GitHub Classroom link]
+//
+and have the code up either in Android Studio (best) or on GitHub.
+
+[[ErraAvjBDaogJiRLOnOILsiiCexXpLmq]]
+== Warm-Up Exercise
+
+[.lead]
+//
+Implement a sorting algorithm of your choice...
+
+[[XchWguyNyUYpQVpaxbiUgcQSTRIQQAHX]]
+== ! Warm-Up Exercise
+
+[.janini]
+....
+import java.util.Arrays;
+
+static void sort(int[] array) {
+  return;
+}
+int[] testArray = new int[] { 5, 8, 1, 4, 7, 6, 4, 2 };
+sort(testArray);
+System.out.println(Arrays.toString(testArray));
+....
+
+[[LjbQytaoKUvbNlGPnxHZKibfiiWDQavy]]
+== Your Algorithm
+
+[.lead]
+//
+What did you implement?
+
+[.s]
+//
+* What's it's best and worst case runtime?
+//
+* What's it's best and worst case inputs?
+
+[[pcQtsWcDcWkfEbhBAxdzUtIuGaLpPQff]]
+[.oneword]
+== ... But Most Programming Is Not Like This
+(It would be kind of fun if it was, but also a bit sad.)
+
+
+[[NFJaVxKBmueaytbPIBhWLvgELHNmyXcX]]
+== Course v. Real Programming
+
+[.table.small,cols="3*^.^",options='header']
+|===
+
+|&nbsp;
+{set:cellbgcolor!}
+|Course
+|Real
+
+| *You start with...*
+| [.s]#A small amount of great code#
+| [.s]#A large amount of complex and confusing code#
+
+| *Most of your time is spent...*
+| [.s]#Programming#
+| [.s]#Understanding the system#
+
+| *You solve problems...*
+| [.s]#Yourself!#
+| [.s]#By finding existing solutions#
+
+| *You end up building...*
+| [.s]#Something small#
+| [.s]#Something really cool#
+
+| *We call this...*
+| [.s]#Doing the MP#
+| [.s]#*Hacking*#
+
+|===
+
+[[TjhJwgWbrJcriRUSANLhtIbsdlpdZXvr]]
+== Android Hacking
+
+[.lead]
+//
+Starting today you'll be hacking on Android.
+//
+link:/MP/6/[MP6] also introduces you to the {csapi}.
+
+[[mjrDpswDUcYiVOZPIVAtZWxLcyBIFfca]]
+[.oneword]
+== Why Android?
+
+[[KxTkAtdQMgISTgLLFyCgkBxjtXJgfGoY]]
+== How About 2 Billion Reasons...
+
+image::https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg[role='mx-auto', width=400]
+
+[[aFcyZkUYDIFOALnwJusNwwtLcbGkuHtV]]
+== Android Overview
+
+[.lead]
+//
+iOS may be flashier, but Android is _the_ dominant smartphone platform on Earth
+today&mdash;particularly outside the US.
+
+[.s]
+//
+* _2 billion_ active monthly users (v. 700 million for iOS)
+//
+* 24,000 different _devices_, both phones and tablets, as of 2015 (!)
+//
+* 2.8 million available apps (v. 2.2 million for iOS)
+//
+* Programmed in Java, as well as other newer options like
+//
+https://developer.android.com/kotlin/index.html[Kotlin]
+
+[[EIAAjzMIieHdlyOYnGvoxeRqPdRyflPs]]
+[.oneword]
+== Don't Worry: You're Ready!
+
+[.lead]
+//
+We chose Android because it's the most fun and highest impact thing you can hack
+on as a Java programmer.
+
+[[PzgRiPqKcKeKRHFSwdgEMEfyLqOASELs]]
+== How To Hack
+
+[.lead]
+//
+link:/MP/6/[MP6] forces you to confront new and unfamiliar code
+and concepts.
+//
+To do that well:
+
+[.s]
+//
+* *Look around*
+//
+* *Experiment*
+//
+* *Iterate*
+//
+* *Imitate*
+
+[[QPoDjQnftjyLMKtQhUpDIDWDTaJGXWrH]]
+== Look Around
+
+[.lead]
+//
+Develop loose theories about what various parts of the the code that you are
+working with do.
+
+[.s]
+//
+* But don't try to understand everything in detail until you need to
+//
+* Some parts you will need to understand...
+//
+* others parts you never will!
+//
+* When you write code for others, keep this in mind when naming functions and
+providing documentation
+
+[[taDtNXpFHStBloniQbxUHxVnVIzkaIMu]]
+== Experiment
+
+[.lead]
+//
+Try things!
+
+[.s]
+//
+* Hacking requires a _highly experimental_ mindset
+//
+* Consider yourself a scientist performing experiments on an alien piece of
+code: poke it in various ways, and see what happens
+//
+* But do good experiments: formulate hypotheses and only test one thing at a
+time
+//
+* Nothing you do will launch any missiles!
+
+[[DtwXqHZSRRpzfvsArldgPjVvhBEXGQHt]]
+== Iterate
+
+[.lead]
+//
+Making progress experimentally requires being able to iterate&mdash;try things
+again and again quickly
+
+[.s]
+//
+* Change one small thing, run your app, collect some data, try again
+//
+* The faster you can keep this loop, the better
+//
+* Sometimes spending even medium amounts of time on just improving your
+development cycle can really pay off in the long run
+
+[[OayIFnbWjvFlDguTtQtNAxkindjRLgxT]]
+== Imitate (But Don't Copy)
+
+[.lead]
+//
+Find snippets of code either in your project or elsewhere that seem useful and
+understand and use them
+
+[.s]
+//
+* If you can find ones that already exist in your project, that's sometimes best
+since it matches the existing style and idioms
+//
+* If you find ones online, _don't blindly copy them_... you don't learn that way
+//
+* Instead, _reproduce_ them in a way that's appropriate to your goals and
+project
+
+[[JUvuTBNsAWbitXeuEEukztpcyPPOFwzZ]]
+[.oneword]
+== Questions About Android or link:/MP/6/[MP6]?
+
+[[PkalNfXOdwjTsNhEkMMFDspxaxklrYPD]]
+== CBTF Programming
+
+[.lead]
+//
+As a reminder, we've posted
+//
+https://goo.gl/69ZyLz[a PrairieLearn "homework" assignment]
+
+* We'll be moving quiz questions there each week
+//
+* It's not worth any credit...
+//
+* But you _should_ use it to practice for the kinds of programming questions you
+should expect to see on the exam
+
+[[sEPWELUiMDzUHbhoitfODkKKNYbkLMYK]]
+== Announcements
+
+* (Obviously) link:/MP/6/[MP6] is out, due a week from today on Friday. 40 point
+early deadline next Wednesday.
+//
+* Get your Android environment set up! Come to office hours if you need help.
+//
+* We've added an
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
