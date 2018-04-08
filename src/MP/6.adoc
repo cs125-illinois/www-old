@@ -12,6 +12,7 @@ spelling_exceptions:
 ---
 :sectnums:
 :linkattrs:
+:imagesdir: /MP/images/MP6
 
 :forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp6[forum,role='noexternal']]
 :csapi: pass:normal[https://azure.microsoft.com/en-us/services/cognitive-services/[Microsoft Cognitive Services API]]
@@ -499,7 +500,7 @@ a bit of what is going on at a time.
 //
 We'll try to walk you through a few of the salient bits for MP6 below.
 
-=== https://developer.android.com/reference/android/util/Log.html[Logging]
+=== Logging
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -548,7 +549,7 @@ going wrong.
 //
 --
 
-=== https://developer.android.com/reference/android/app/Activity.html[``Activity``s]
+=== ``Activity``s
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -677,7 +678,7 @@ complete.
 //
 --
 
-=== https://developer.android.com/reference/android/content/Intent.html[Intents]
+=== Intents
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -718,7 +719,7 @@ No, unless you want to really get `isRick` right.
 //
 --
 
-=== https://developer.android.com/reference/android/os/AsyncTask.html[Asynchronous Tasks]
+=== Asynchronous Tasks
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -761,7 +762,7 @@ No, but it's interesting!
 //
 --
 
-=== {csapi}
+=== Microsoft Cognitive Services API
 
 ++++
 <div class="row justify-content-center mt-3 mb-3">
@@ -829,6 +830,7 @@ work once you are done.
 //
 Good luck!
 
+
 [[grading]]
 == Grading
 
@@ -890,6 +892,96 @@ instructions.
 
 And remember, you must submit something that earns 40 points before *Wednesday
 4/11/2018 @ 5PM* to earn 10 points on the assignment.
+
+[[errata]]
+== Errata
+
+Below are a few screencasts designed to help you address common problems with
+MP6.
+
+=== Import Not Found Errors
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/hAIyIu_xI8s" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+If you see many `Import Not Found` Errors in `MainActivity.java` and
+`Tasks.java` when initially importing the project, please follow
+//
+https://cs125-forum.cs.illinois.edu/t/4375[these instructions].
+//
+Or watch the screencast above.
+
+[[runconfigurations]]
+=== Restoring Our Run Configurations
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/uiGdnbQtyCU" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+For some reason Android Studio deletes the run configurations that we set up for
+you when you import the project.
+//
+We've
+//
+https://issuetracker.google.com/issues/77754216[filed a bug against Android
+Studio]
+//
+to complain about this behavior.
+
+We've updated the MP to copy these over when you start, but if they are missing
+please follow the screencast above for instructions about how to recreate the
+lost run configurations.
+
+==== Grade configuration
+
+Here's what your grade configuration should look like:
+
+image::GradeConfiguration.png[role='img-fluid']
+
+Note that `MP6-Starter` will look different since it will contain your GitHub
+username.
+
+==== Test configuration
+
+And here's what your test configuration should look like:
+
+image::TestConfiguration.png[role='img-fluid']
+
+Note that `MP6-Starter` will look different since it will contain your GitHub
+username.
+
+=== Testing Problems
+
+When you try to run the test suite, you may encounter an error like this:
+
+image::TestProblem.png[role='img-fluid']
+
+First and foremost, you need to make sure that you've added all of the necessary
+methods to `RecognizePhoto.java`.
+//
+Open `RecognizePhotoTest.java` in Android Studio and make sure that no errors
+are shown.
+
+To run the test suite the solution is to restore and use the test run
+configuration
+//
+<<runconfigurations, as described above>>.
+//
+Executing the test suite directly does not seem to work properly on Android
+Studio.
 
 [[cheating]]
 === Academic Integrity
