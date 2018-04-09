@@ -12,6 +12,8 @@ spelling_exceptions:
   - YNP
   - Gmail
   - MetaWeather
+  - Bob Kahn
+  - Vint Cerf
 ---
 
 [[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
@@ -242,6 +244,26 @@ internet.
 
 image::http://www.danzig.jct.ac.il/tcp-ip-lab/ibm-tutorial/3376f11.gif[role="mx-auto,meme", width=600]
 
+[[QCUlXgkXuVapMAnTaygazZZwdKmjkKIl]]
+[.ss]
+== The Miraculous Internet
+
+image::https://www.internethalloffame.org/sites/default/files/inductees/Cerf_Vint.jpg[role="mx-auto",width=150]
+
+image::https://www.eyerys.com/sites/default/files/bob_kahn4.jpg[role="mx-auto",width=150]
+
+<<<
+
+The core internet protocols were invented by a bunch of graduate students,
+including Vint Cerf and Bob Kahn.
+//
+*They changed the world.*
+
+[.small]
+--
+Vint Cert has said "we kept wondering when the adults were going to show up."
+--
+
 [[oXesWmHwFEILCVrkrflpffHEhcrBIjph]]
 [.oneword]
 == So We Can Talk, But About What?
@@ -320,6 +342,27 @@ GET /lecture-webapis-examples/simple.html HTTP/1.1
 Host: cs125-illinois.github.io
 ----
 
+[[xMoFkJGPpBflVvnxoNQxSyVAJzUNENBT]]
+== `GET` Parameters
+
+[.lead]
+//
+You can send some data to the server in a `GET` request using _query
+parameters_.
+
+[.s.small]
+//
+* These follow the path and an `?` sign in the URL
+//
+* Each takes the form `key=value`
+//
+* Key-value pairs are separated by `&` delimiters
+//
+* Here's an example: `search?safe=off&source=hp?q=cs125`:
+** `safe=off`
+** `source=hp`
+** `q=cs125`
+
 [[qBHMBGGzPiPgkvlLhCFGzgFiFJfxjBNh]]
 == HTTP: `GET` Response
 
@@ -382,6 +425,25 @@ sheets, images, JavaScript code.
 * *Every time you submit a form* it uses a `POST` to send data to the server, at
 which point your Facebook comment is recorded, or your credit card is charged
 and an package starts its way toward your house
+
+[[MKWZqVVGklEKImCOLjMlSstXeLBUXybc]]
+== HTTP: `GET` v `POST`
+
+[.lead]
+//
+The HTTP protocol specifies different semantics for `GET` and `POST`:
+
+[.s]
+//
+* `GET` _should not_ change anything about the world, just return a document
+//
+* `POST` _should_ change something about the world&mdash;create a new account,
+pay your bill, purchase something, send a message, etc.
+//
+* As a result it is _safe_ to repeat a `GET` but potentially _problematic_ to
+repeat a `POST`: hence the "Do not click back" and "Do not submit this form
+twice" kind of warnings.
+
 
 [[ENeAbNYgDNrbwqRpHZJduekhgMOdxOow]]
 == Web Page Contents: HTML

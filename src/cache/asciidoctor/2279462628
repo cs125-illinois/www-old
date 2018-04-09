@@ -309,6 +309,34 @@ internet.</p>
 </div>
 </div>
 </div>
+<div class="sect1 ss">
+<h2 id="QCUlXgkXuVapMAnTaygazZZwdKmjkKIl">The Miraculous Internet</h2>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://www.internethalloffame.org/sites/default/files/inductees/Cerf_Vint.jpg" alt="Cerf Vint" width="150">
+</div>
+</div>
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://www.eyerys.com/sites/default/files/bob_kahn4.jpg" alt="bob kahn4" width="150">
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>The core internet protocols were invented by a bunch of graduate students,
+including Vint Cerf and Bob Kahn.
+<strong>They changed the world.</strong></p>
+</div>
+<div class="openblock small">
+<div class="content">
+<div class="paragraph">
+<p>Vint Cert has said "we kept wondering when the adults were going to show up."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="sect1 oneword">
 <h2 id="oXesWmHwFEILCVrkrflpffHEhcrBIjph">So We Can Talk, But About What?</h2>
 <div class="sectionbody">
@@ -407,6 +435,44 @@ Host: cs125-illinois.github.io</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="xMoFkJGPpBflVvnxoNQxSyVAJzUNENBT"><code>GET</code> Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can send some data to the server in a <code>GET</code> request using <em>query
+parameters</em>.</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p>These follow the path and an <code>?</code> sign in the URL</p>
+</li>
+<li>
+<p>Each takes the form <code>key=value</code></p>
+</li>
+<li>
+<p>Key-value pairs are separated by <code>&amp;</code> delimiters</p>
+</li>
+<li>
+<p>Here&#8217;s an example: <code>search?safe=off&amp;source=hp?q=cs125</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>safe=off</code></p>
+</li>
+<li>
+<p><code>source=hp</code></p>
+</li>
+<li>
+<p><code>q=cs125</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="qBHMBGGzPiPgkvlLhCFGzgFiFJfxjBNh">HTTP: <code>GET</code> Response</h2>
 <div class="sectionbody">
 <div class="paragraph lead">
@@ -471,6 +537,30 @@ sheets, images, JavaScript code.</p>
 <p><strong>Every time you submit a form</strong> it uses a <code>POST</code> to send data to the server, at
 which point your Facebook comment is recorded, or your credit card is charged
 and an package starts its way toward your house</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="MKWZqVVGklEKImCOLjMlSstXeLBUXybc">HTTP: <code>GET</code> v <code>POST</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The HTTP protocol specificies different semantics for <code>GET</code> and <code>POST</code>:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>GET</code> <em>should not</em> change anything about the world, just return a document</p>
+</li>
+<li>
+<p><code>POST</code> <em>should</em> change something about the world&mdash;create a new account,
+pay your bill, purchase something, send a message, etc.</p>
+</li>
+<li>
+<p>As a result it is <em>safe</em> to repeat a <code>GET</code> but potentially <em>problematic</em> to
+repeat a <code>POST</code>: hence the "Do not click back" and "Do not submit this form
+twice" kind of warnings.</p>
 </li>
 </ul>
 </div>
