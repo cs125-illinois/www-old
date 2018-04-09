@@ -1,0 +1,511 @@
+<div class="sect1 oneword">
+<h2 id="HVnGZbaPCPKUZAUCdxLIwtJkHkEeYqwl">Web APIs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some examples for today are available here:
+<a href="https://github.com/cs125-illinois/lecture-webapis-examples"><code>https://github.com/cs125-illinois/lecture-webapis-examples</code></a>
+Feel free to fork!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pTHCdYuCyqqRzhfrZBmPVlxaMMqlQqxq">What is the World Wide Web?</h2>
+<div class="sectionbody">
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>A protocol</strong>: the Hypertext Transfer Protocol
+<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">(HTTP)</a></p>
+</li>
+<li>
+<p><strong>A markup language</strong>: the Hypertext Markup Language
+<a href="https://en.wikipedia.org/wiki/HTML">(HTML)</a></p>
+</li>
+<li>
+<p><strong>A styling language</strong>: Cascading Style Sheets
+<a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets">(CSS)</a></p>
+</li>
+<li>
+<p><strong>A programming language</strong>:
+<a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="feLPwPHMQSsPpUmshWroUcSKcWKeCxbd">HTTP: <code>GET</code> Request</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP defines how web browsers request (<code>GET</code>) content:</p>
+</div>
+<div class="paragraph">
+<p>When you type
+<a href="http://cs125-illinois.github.io/lecture-webapis-examples/simple.html"><code>http://cs125-illinois.github.io/lecture-webapis-examples/simple.html</code></a>
+into your browser, it sends a message to <code>cs125-illinois.github.io</code> that looks
+like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>GET /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jqBzouDGtPyaHKmOwnbpCvRASaKvBFfC"><code>GET</code> Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can send some data to the server in a <code>GET</code> request using <em>query
+parameters</em>.</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p>These follow the path and an <code>?</code> sign in the URL</p>
+</li>
+<li>
+<p>Each takes the form <code>key=value</code></p>
+</li>
+<li>
+<p>Key-value pairs are separated by <code>&amp;</code> delimiters</p>
+</li>
+<li>
+<p>Here&#8217;s an example: <code>search?safe=off&amp;source=hp?q=cs125</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>safe=off</code></p>
+</li>
+<li>
+<p><code>source=hp</code></p>
+</li>
+<li>
+<p><code>q=cs125</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZYZfArcqHGbcpMGDWpUxTEAYpHhSMMOP">HTTP: <code>GET</code> Response</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If the request succeeds, the server responds with something that looks like
+this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>HTTP/1.1 200 OK
+Date: Sun, 08 Apr 2018 08:56:53 GMT
+Last-Modified: Sat, 20 Nov 2014 07:16:26 GMT
+Content-Length: 44
+Content-Type: text/html
+
+&lt;html&gt;
+  &lt;body&gt;
+    ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="BszNyUYxaqPnTlZclvOYZTyRJdgHHnmX">HTTP: <code>POST</code> Request</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP also defines how web browsers submit information (<code>POST</code>):</p>
+</div>
+<div class="paragraph">
+<p>When you submit the form on
+<a href="http://cs125-illinois.github.io/lecture-webapis-examples/form.html"><code>http://cs125-illinois.github.io/lecture-webapis-examples/form.html</code></a>,
+it sends a message to <code>cs125-illinois.github.io</code> that looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>POST /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io
+
+text=word</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that this fails on <code>github.io</code> because it only serves <em>static</em> pages and
+doesn&#8217;t deal with data provided by users.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uEuXCurrnJzwJygQyftDiaVpiXQzPHbU">HTTP: <code>GET</code> and <code>POST</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP defines many other types of requests, but <code>GET</code> and <code>POST</code> are by far the
+most common.</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>Every time you load a web page</strong> it starts with a <code>GET</code>, and usually that&#8217;s
+followed by many other <code>GET</code> requests to fetch others parts of the page: style
+sheets, images, JavaScript code.</p>
+</li>
+<li>
+<p><strong>Every time you submit a form</strong> it uses a <code>POST</code> to send data to the server, at
+which point your Facebook comment is recorded, or your credit card is charged
+and an package starts its way toward your house</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="QKSooQlYPRANKRYoWgElNxbqrvVrScFm">HTTP: <code>GET</code> v <code>POST</code></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The HTTP protocol specifies different semantics for <code>GET</code> and <code>POST</code>:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><code>GET</code> <em>should not</em> change anything about the world, just return a document</p>
+</li>
+<li>
+<p><code>POST</code> <em>should</em> change something about the world&mdash;create a new account,
+pay your bill, purchase something, send a message, etc.</p>
+</li>
+<li>
+<p>As a result it is <em>safe</em> to repeat a <code>GET</code> but potentially <em>problematic</em> to
+repeat a <code>POST</code>: hence the "Do not click back" and "Do not submit this form
+twice" kind of warnings.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ENeAbNYgDNrbwqRpHZJduekhgMOdxOow">Web Page Contents: HTML</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTML defines how each page is <em>structured</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h1&gt;This is a Simple Web Page&lt;/h1&gt;
+
+&lt;p&gt;
+  HTML includes both content and instructions to the browser determining
+  how the content should look. For example, the following items should be
+  in a numbered list:
+&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Third&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+  &lt;strong&gt;Here is some bold text.&lt;/strong&gt; &lt;i&gt;And this in italics.&lt;/i&gt;
+&lt;/p&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo">
+<h2 id="hKVjQbpzQALswjASEhlGXSTyHHgkGWvD">! Web Page Contents: HTML</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/simple.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jusdaKZZdKzMfBIQchXrTXKenbeDgzBl">Web Evolution</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The web has gone through many design changes over the years.</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p><strong>Static Sites</strong>: the web server returns a <em>file</em> from the disk that contains a
+complete web document</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Example: most of <code>cs125.cs.illinois.edu</code> is a static website</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Dynamic Sites</strong>: the web server <em>runs code</em> to produce an HTML document and
+respond to <code>POST</code> requests created by forms</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Example: sites like <code>my.cs.illinois.edu</code> are dynamic sites</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Web Apps</strong>: most of the site is <em>generated by JavaScript</em> that runs in the
+user&#8217;s browser, with the server providing data as needed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Examples: <code>cs125.cs.illinois.edu/m/grades</code>, Discourse, Gmail, Google Docs</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kVGxyCnuUrtKMDbQUEwsrVEZuOyXqgyo">Web Page Contents: CSS</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>CSS defines how each page <em>looks</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-css" data-lang="css">body {
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo">
+<h2 id="QCnklVenUskadiskeZRvQQIlwAPyKXZl">! Web Page Contents: CSS</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/css.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bqpQtLWMeCreTUItFEeLrXrmwetlXSJR">Web Page Contents: JavaScript</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>JavaScript defines what each page <em>does</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">setInterval(function () {
+  var x = document.getElementById("title")
+  if (x.style.visibility === "visible") {
+    x.style.visibility = "hidden"
+  } else {
+    x.style.visibility = "visible"
+  }
+}, 1000)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo">
+<h2 id="hvUpMeTGNRDIIgBOLjgIAGAeTuZUDHdv">! Web Page Contents: JavaScript</h2>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/javascript.html"></iframe>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="BzSmObkOJqwnQrxPqQbeeiOgXXpbiFDy">So What&#8217;s a Web <em>API</em>?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="yyuJpkncwjTgIiTBmtNZIUHdZFQnXSGU">What&#8217;s An API?</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Application_programming_interface">In computer
+programming, an application programming interface (API)</a>
+is a set of subroutine definitions, protocols, and tools for building
+application software.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>In English, an <em>API</em> is a set of functions that perform a set of related and
+useful tasks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="VhKcyDdXgMnfeOXUFUtqYTEIXFRxBmua">Example API</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#8217;s say we wanted to find out the weather at a particular location:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+
+// Get the current weather a particular location and a particular time
+static WeatherInfo getAtLocation(WeatherLocation location, Date date)
+
+// Get a list of possible WeatherInfo objects for a given location string
+static WeatherInfo[] searchLocations(String query)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="JLNFoBPiCoEGSAeKEmLVCEayqKYizNUm">Web APIs</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A <em>web API</em> is just an API that you access over the web. Consider that:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p>We can send data to a web server using <code>POST</code> and also using URL parameters in
+a <code>GET</code> request</p>
+</li>
+<li>
+<p>The web server can run code in response</p>
+</li>
+<li>
+<p>And return a response, <em>which does not have to be a HTML document</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sQoshKdkerQbElGQyoWmkEymnLkzrZKF">Web APIs: Sending Arguments</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To send the <code>location</code> argument to the <code>getAtLocation</code> function over the web we
+have several options:</p>
+</div>
+<div class="ulist s small">
+<ul>
+<li>
+<p>Stick it the URL: <code>/api/getAtLocation/(location)/</code></p>
+</li>
+<li>
+<p>Add it as a query parameter: <code>/api/getAtLocation?location=(location)</code></p>
+</li>
+<li>
+<p>Use a <code>POST</code> request and put it in the body, possibly as JSON:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock small s">
+<div class="content">
+<pre class="highlight"><code>POST /api/getAtLocation/
+
+{
+  "location": (location)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ijoYpJSPQQLblMzMSckYOpVMqASJepju">Web APIs: Returning Results</h2>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In many cases web APIs return results using <em>JSON</em> (JavaScript Object Notation):</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "consolidated_weather": [
+  {
+    "id": 6511056423747584,
+      "weather_state_name": "Thunder",
+      "weather_state_abbr": "t",
+      "wind_direction_compass": "E",
+      "created": "2018-04-09T02:37:19.655990Z",
+      "applicable_date": "2018-04-08",
+      "min_temp": -2.6099999999999999,
+      "max_temp": 2.2149999999999999,
+      "the_temp": 2.4950000000000001,
+      "wind_speed": 2.8707529204565336,
+      ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ovMOptnsNzzKKfODatpgqmCEDEelFDYN">Let&#8217;s Do An Example</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#8217;ll continue our weather example using the
+<a href="https://www.metaweather.com/api/">free MetaWeather API</a>
+and
+<a href="https://www.getpostman.com/">PostMan</a></p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="ZsOQNCeyFRLfYMLCfmRDxwhgFYiBXBXm">What&#8217;s Awesome&#8230;&#8203;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Is that there are
+<a href="https://github.com/toddmotto/public-apis">a gazillion</a>
+public APIs out there.
+So go have fun!</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword">
+<h2 id="JuTQULKcDJyYbpOvzZuoVHSBBAMPJKQI">Questions About Web APIs?</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="qRCuhitwDwpeJXLmjfSVWsdwqJWrmpHt">Announcements</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve posted some
+<a href="/MP/6/#errata">MP6 errata</a>.
+Please follow these screencasts if you are having a hard time getting your
+environment set up.</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
