@@ -4,6 +4,12 @@ date: 2018-04-09
 description:
   Introduction to the internet, the world-wide web (WWW), the HTTP transport
   protocol, and web APIs.
+spelling_exceptions:
+  - DNS
+  - IPv4
+  - IPv6
+  - SMTP
+  - YNP
 ---
 
 [[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
@@ -224,6 +230,182 @@ One of the beautiful things about IP is that it supports many other protocols.
 | [.s]#Your New Protocol, which does something cool and useful!#
 
 |===
+
+[[xehUSxrjbjVcIwmVbtmcKWGtdSveGImN]]
+[.oneword]
+== So The Web _Is Not_ The Internet
+
+The web is just _one of many_ services running over the internet.
+
+[[wNsnAdboNaMfwJQQGoHjzDJgBVvYpfVI]]
+== What is the World Wide Web?
+
+[.s]
+//
+* *A protocol*: the Hypertext Transfer Protocol
+//
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[(HTTP)]
+//
+* *A markup language*: the Hypertext Markup Language
+//
+https://en.wikipedia.org/wiki/HTML[(HTML)]
+//
+* *A styling language*: Cascading Style Sheets
+//
+https://en.wikipedia.org/wiki/Cascading_Style_Sheets[(CSS)]
+//
+* *A programming language*:
+//
+https://en.wikipedia.org/wiki/JavaScript[JavaScript]
+
+[[NxVEgTtxJQBwXSRTGeZkSwpXPfxWueKa]]
+== HTTP: `GET` Request
+
+[.lead]
+//
+HTTP defines how web browsers request (`GET`) content:
+
+When you type
+//
+http://cs125-illinois.github.io/lecture-webapis-examples/simple.html[`http://cs125-illinois.github.io/lecture-webapis-examples/simple.html`]
+//
+into your browser, it sends a message to `cs125-illinois.github.io` that looks
+like this:
+
+[source]
+----
+GET /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io
+----
+
+[[qBHMBGGzPiPgkvlLhCFGzgFiFJfxjBNh]]
+== HTTP: `GET` Response
+
+[.lead]
+//
+If the request succeeds, the server responds with something that looks like
+this:
+
+[source]
+----
+HTTP/1.1 200 OK
+Date: Sun, 08 Apr 2018 08:56:53 GMT
+Last-Modified: Sat, 20 Nov 2014 07:16:26 GMT
+Content-Length: 44
+Content-Type: text/html
+
+<html>
+  <body>
+    ...
+----
+
+[[msLpSFZesNttCvPreqQKvJoRnCFjHEjE]]
+== HTTP: `POST` Request
+
+[.lead]
+//
+HTTP also defines how web browsers submit information (`POST`):
+
+When you submit the form on
+//
+http://cs125-illinois.github.io/lecture-webapis-examples/form.html[`http://cs125-illinois.github.io/lecture-webapis-examples/form.html`],
+//
+it sends a message to `cs125-illinois.github.io` that looks like this:
+
+[source]
+----
+POST /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io
+
+text=word
+----
+
+Note that this fails on `github.io` because it only serves _static_ pages and
+doesn't deal with data provided by users.
+
+[[gzVWnKntRdaWetSwyLuadYFPntJXusHU]]
+== HTTP: `GET` and `POST`
+
+[.lead]
+//
+HTTP defines many other types of requests, but `GET` and `POST` are by far the
+most common.
+
+[.s]
+//
+* *Every time you load a web page* it starts with a `GET`, and usually that's
+followed by many other `GET` requests to fetch others parts of the page: style
+sheets, images, JavaScript code.
+//
+* *Every time you submit a form* it uses a `POST` to send data to the server, at
+which point your Facebook comment is recorded, or your credit card is charged
+and an package starts its way toward your house
+
+[[ENeAbNYgDNrbwqRpHZJduekhgMOdxOow]]
+== Web Page Contents: HTML
+
+[.lead]
+//
+HTML defines how each page is _structured_:
+
+[source,html,role='small']
+----
+<h1>This is a Simple Web Page</h1>
+
+<p>
+  HTML includes both content and instructions to the browser determining
+  how the content should look. For example, the following items should be
+  in a numbered list:
+</p>
+
+<ol>
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ol>
+
+<p>
+  <strong>Here is some bold text.</strong> <i>And this in italics.</i>
+</p>
+----
+
+[[hKVjQbpzQALswjASEhlGXSTyHHgkGWvD]]
+[.nologo]
+== ! Web Page Contents: HTML
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/simple.html"></iframe>
+</div>
+++++
+
+[[kVGxyCnuUrtKMDbQUEwsrVEZuOyXqgyo]]
+== Web Page Contents: CSS
+
+[.lead]
+//
+CSS defines how each page _looks_:
+
+[source,css,role='small']
+----
+body {
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+----
+
+[[QCnklVenUskadiskeZRvQQIlwAPyKXZl]]
+[.nologo]
+== ! Web Page Contents: CSS
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/css.html"></iframe>
+</div>
+++++
 
 [[qRCuhitwDwpeJXLmjfSVWsdwqJWrmpHt]]
 == Announcements
