@@ -29,7 +29,11 @@ given word.</p>
 <div class="literalblock janini small">
 <div class="content">
 <pre>// Search text for a specific word
-String text = "Where do random thoughts come from?";</pre>
+static boolean hasWord(String text, String word) {
+  return false;
+}
+String text = "Where do random thoughts come from?";
+System.out.println(hasWord(text, "random"));</pre>
 </div>
 </div>
 </div>
@@ -589,8 +593,7 @@ h1 {
 </div>
 <div class="listingblock small">
 <div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">var i = 0
-setInterval(function () {
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">setInterval(function () {
   var x = document.getElementById("title")
   if (x.style.visibility === "visible") {
     x.style.visibility = "hidden"
@@ -664,7 +667,8 @@ static WeatherInfo[] searchLocations(String query)</code></pre>
 <div class="ulist s">
 <ul>
 <li>
-<p>We can send data to a web server using <code>POST</code> and also using <code>GET</code></p>
+<p>We can send data to a web server using <code>POST</code> and also using URL parameters in
+a <code>GET</code> request</p>
 </li>
 <li>
 <p>The web server can run code in response</p>
