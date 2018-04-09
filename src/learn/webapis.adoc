@@ -18,6 +18,12 @@ spelling_exceptions:
 [.oneword]
 == Web and Web APIs
 
+Some examples for today are available here:
+//
+https://github.com/cs125-illinois/lecture-webapis-examples[`https://github.com/cs125-illinois/lecture-webapis-examples`]
+//
+Feel free to fork!
+
 [[YOFoQJFHfPmqMQuCPuxoIayFsLopNVWQ]]
 == Search Text
 
@@ -36,7 +42,11 @@ given word.
 [.janini.small]
 ....
 // Search text for a specific word
-String text = "Where do random thoughts come from?"
+static boolean hasWord(String text, String word) {
+  return false;
+}
+String text = "Where do random thoughts come from?";
+System.out.println(hasWord(text, "random"));
 ....
 
 [[XPxXXSvZEyWJUpPAkoMUImfOdDWRYumN]]
@@ -469,7 +479,6 @@ JavaScript defines what each page _does_:
 
 [source,javascript,role='small']
 ----
-var i = 0
 setInterval(function () {
   var x = document.getElementById("title")
   if (x.style.visibility === "visible") {
