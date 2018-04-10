@@ -100,6 +100,7 @@ metalsmith(__dirname)
     'fonts/**/.*',
     'css/**/.*',
     'js/**/.*',
+    'cache/**',
     '**/.*.swp',
     '**/.*.swo'
   ]))
