@@ -980,6 +980,26 @@ configuration
 Executing the test suite directly does not seem to work properly on Android
 Studio.
 
+=== Testing Output
+
+Note that, unfortunately, the output from the test suite in Android Studio can
+be confusing because `Actual` and `Expected` are swapped.
+//
+So, for example, if you fail a test and it says:
+
+[source]
+----
+Expected: null
+Actual: "a brown dog"
+----
+
+what it _means_ is that you returned `null` but it was expecting `a brown dog`.
+//
+Apologies for this&mdash;we'll fix it for next year.
+//
+(Note that this doesn't affect the correctness of the test suite, just the
+Android Studio output.)
+
 [[cheating]]
 == Academic Integrity
 
