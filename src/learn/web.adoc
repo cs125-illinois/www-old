@@ -1,9 +1,8 @@
 ---
 title: Web
-date: 2018-04-09
+date: 2018-04-11
 description:
-  Introduction to the internet, the world-wide web (WWW), and the HTTP transport
-  protocol.
+  Web protocol examples and formats.
 spelling_exceptions:
   - DNS
   - IPv4
@@ -16,7 +15,7 @@ spelling_exceptions:
   - Vint Cerf
 ---
 
-[[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
+[[HVnGZbaPCPKUZAUCdxLIwtJkHkEeYqwl]]
 [.oneword]
 == Web
 
@@ -26,282 +25,51 @@ https://github.com/cs125-illinois/lecture-webapis-examples[`https://github.com/c
 //
 Feel free to fork!
 
-[[YOFoQJFHfPmqMQuCPuxoIayFsLopNVWQ]]
-== Search Text
+[[pDiIYKqVcVXMtYzblXhkxFUrQjyZOTbp]]
+== ! Walk List
 
-[.lead]
-//
-Given a line of text, write a function that searches for all occurrences of a
-given word.
-
-[[ycmqKumEGwfxjNfMrMBAsDtSLkUpVbcm]]
-[.oneword]
-== What's Our Algorithm?
-
-[[nKOHmhFZocZjamqiknosiKWpUtVqIdiX]]
-== ! Search Text
-
-[.janini.small]
+[.janini.smallest.compiler]
 ....
-// Search text for a specific word
-static boolean hasWord(String text, String word) {
-  return false;
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
 }
-String text = "Where do random thoughts come from?";
-System.out.println(hasWord(text, "random"));
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = "";
+    Item current = start;
+    while (current != null) {
+      string += current.value + " ";
+      current = current.next;
+    }
+    return string.trim();
+  }
+  public int getLast() {
+    return 0;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList.getLast());
+  }
+}
 ....
 
-[[XPxXXSvZEyWJUpPAkoMUImfOdDWRYumN]]
-== ! Read The Documentation
-
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
-</div>
-++++
-
-[[fOVWTBFXNSzvlEBiRYhIfJeCWSwoBDvk]]
-== [.line-through]#Web APIs# [.line-through]#Web# Internet
-
-[.s]
-//
-* Before we can talk about web APIs, we first have to talk about the web...
-//
-* ...and before we can talk about the web, we have to talk about the internet.
-//
-* Which is great, because I _love_ the internet!
-
-[[RsFWMIglXzfTcqicpZvmSkkWYggVifYy]]
-== !internet-class.org
-
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="embed-responsive-item" src="https://www.internet-class.org/"></iframe>
-</div>
-++++
-
-[[gmdcWgeadGehqFYtVsPeFbEGsjHHWYik]]
-[.oneword]
-== What is the internet?
-
-[[DDvXuHrweAWYMhTgXZMOxVgECWBGVKuz]]
-== !The Physical Internet
-
-image::https://news.wisc.edu/content/uploads/2017/04/Internet-Atlas-map.jpg[role="mx-auto meme",width=640]
-
-[[QardDPrKdZtGcNPEOnwnRsvgrufbQpLW]]
-== !The Physical Internet
-
-image::https://media.kasperskydaily.com/wp-content/uploads/sites/92/2015/11/06023820/internet-maps-submarine-cables.png[role="mx-auto meme",width=640]
-
-[[NRcGjhlNXgHpQIgYYEegOMIYbesBIxzL]]
-== !Fiber-Optic Cable
-
-image::https://www.dow.com/electrical/-/media/dow/business-units/electrical/markets-and-applications/telecommunications/fiber-optic-cable/fiber_sm.ashx?h=480&w=600&la=en-US&hash=FD2F0061C5A632EBA0A96405132D682744EC7513[role="mx-auto meme",width=640]
-
-[[OqVEhYhUdUtMoqvECMSNTtOazAuQLHLc]]
-== Internet As Wired Infrastructure
-
-[.lead]
-//
-The internet comprises an enormous amount of physical infrastructure.
-
-[.s]
-//
-* *Most of it is _wired_, not wireless.* Wireless is mainly used for the first
-hop.
-//
-* *Most of it is _fiber_ (glass), not copper.* Signals degrade quickly in copper
-but travel faster and with less attenuation in glass footnote:[This is why
-https://www.dow.com/en-us/electrical/markets/telecommunications/fiber-optic-cable[Dow
-Corning] has such a nice visitor center!]. Copper is only used for the last 100
-meters.
-//
-* *The internet wouldn't exist without fiber optic cable.* It's one of the
-wonders of the modern world. It's not just glass, it's _really clear_ glass.
-
-[[irzgNYhDTHtFdqPnRuPUowMuGUVnwAYa]]
-== An Internet Journey
-
-[.lead]
-If you want to learn more, you can join me as we follow a cable from my former
-office to the edge of our campus network.
-
-* https://youtu.be/KHvHCnRCWYc[First hop out of my office]
-//
-* https://youtu.be/uPyWqblKuYs[Next hop to the network closet on my floor].
-//
-Here copper gives way to fiber.
-//
-* https://youtu.be/2DC1fYjURag[My next hop in the basement networking closet]
-//
-* https://youtu.be/5p6DdQCPh7Q[My last hop on campus].
-//
-At this point all of the campus network traffic leaves on only a few slim fiber
-optic cable.
-
-[[kZpUPdirOGgFNmrGHmebeAdikLHgySDY]]
-== !Short-Range Wireless
-
-image::https://images-na.ssl-images-amazon.com/images/I/51iNAXMFhnL._SL1000_.jpg[role="mx-auto meme",width=640]
-
-[[cSVtMGJyTQXnLCcWLdlvWQUTuovDZSBv]]
-== !Long-Range Wireless
-
-image::http://www.celltowerinfo.com/wp-content/uploads/2015/08/Cell-Tower-Location-Map-Illinois.jpg[role="mx-auto meme",width=640]
-
-[[WrmRwkHPuwbbBkBAgPeYFbjVrWQdasZx]]
-== !Long-Range Wireless
-
-image::https://westfaironline.com/wp-content/uploads/2017/10/Celltower.jpg[role="mx-auto meme",width=640]
-
-[[VyJifRGLFEMtdXNDRLPLzxDZOMyDcAYa]]
-== Internet As Wireless Infrastructure
-
-[.lead]
-//
-In recent years we've also built out a huge amount of _wireless_ internet
-infrastructure.
-
-[.s]
-//
-* *Short range wireless* is dominated by
-//
-https://en.wikipedia.org/wiki/Wi-Fi[WiFi]
-//
-and what you use when you're on campus, at home, or at a coffee shop
-//
-* *Medium-range wireless* is used to provide connectivity to mobile devices like
-smartphones over longer distances.
-//
-You usually buy this from a cellular provider like Verizon or Sprint.
-
-[[snRiqQaQKbLMhBYxLbXaLCHemMTXfeKH]]
-== !The Result
-
-image::https://media.kasperskydaily.com/wp-content/uploads/sites/92/2015/11/06023801/internet-map-illegal.gif[role="mx-auto meme",width=640]
-
-[[CkjdIfoTgcqkpmGqJTAKkBeNopyvqhng]]
-== Internet As Connectivity
-
-[.lead]
-//
-The result is that by connecting a computer to the internet, you are now
-connected to _4 billion_ other computers.
-
-[.s]
-//
-* Many times the first connection is _wireless_
-//
-* But after that point there is literally a wire that you can follow from your
-computer to the other computer
-
-[[LmXnCXdQNKjkGrLddkQdwsvErCkGMxcZ]]
-[.oneword]
-//
-== But How Do Internet-Connected Devices _Communicate_?
-
-[[vSSOuKbyIqAWctgXJtLTttcpHdPKrTmO]]
-== Internet As Agreement
-
-[quote]
-____
-https://en.wikipedia.org/wiki/Communication_protocol[A communication protocol]
-//
-is a system of rules that allow two or more entities of a communications system
-to transmit information.
-//
-____
-
-[[uABWjaBQLWAHnUzqcZzSwSopLIVGbKpW]]
-== The Internet Protocol (IP)
-
-[.lead]
-//
-The
-//
-https://en.wikipedia.org/wiki/Internet_Protocol[Internet Protocol (IP)]
-//
-consists of a series of agreements that allow internet-connected devices to
-communicate.
-
-[.s]
-//
-* *What do we call each other?*
-//
-IP specifies the format of internet protocol addresses, also called IP
-addresses.
-** Here's one: `192.17.96.8` (IPv4)
-** Here's a new one: `2607:f8b0:4009:807::2004` (IPv6)
-//
-* *How are our message structured?*
-//
-IP specifies a _format_ for each message (or datagram) exchanged across the
-internet.
-
-[[BUIGCdHmhvQVaZSHYPiPElLYZIdqMjKy]]
-== IP Datagram Format
-
-image::http://www.danzig.jct.ac.il/tcp-ip-lab/ibm-tutorial/3376f11.gif[role="mx-auto,meme", width=600]
-
-[[QCUlXgkXuVapMAnTaygazZZwdKmjkKIl]]
-[.ss]
-== The Miraculous Internet
-
-image::https://www.internethalloffame.org/sites/default/files/inductees/Cerf_Vint.jpg[role="mx-auto",width=150]
-
-image::https://www.eyerys.com/sites/default/files/bob_kahn4.jpg[role="mx-auto",width=150]
-
-<<<
-
-The core internet protocols were invented by a bunch of graduate students,
-including Vint Cerf and Bob Kahn.
-//
-*They changed the world.*
-
-[.small]
---
-Vint Cert has said "we kept wondering when the adults were going to show up."
---
-
-[[oXesWmHwFEILCVrkrflpffHEhcrBIjph]]
-[.oneword]
-== So We Can Talk, But About What?
-
-[[XAIXXwMRSThffUnNzkCdDDuLTjUjxQLT]]
-== Internet Protocol Stack
-
-[.lead]
-//
-One of the beautiful things about IP is that it supports many other protocols.
-
-[.table.small,cols="2*^.^",options='header']
-|===
-
-| Protocol(s)
-| Service
-
-| [.s]#*https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP]*#
-| [.s]#The World Wide Web#
-
-| [.s]#*https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol[SMTP]*#
-| [.s]#Email#
-
-| [.s]#*https://en.wikipedia.org/wiki/Domain_Name_System[DNS]*#
-| [.s]#Translating names (`cs125.cs.illinois.edu`) to IP addresses (`192.17.96.8`)#
-
-| [.s]#*YNP*#
-| [.s]#Your New Protocol, which does something cool and useful!#
-
-|===
-
-[[xehUSxrjbjVcIwmVbtmcKWGtdSveGImN]]
-[.oneword]
-== So The Web _Is Not_ The Internet
-
-The web is just _one of many_ services running over the internet.
-
-[[wNsnAdboNaMfwJQQGoHjzDJgBVvYpfVI]]
+[[pTHCdYuCyqqRzhfrZBmPVlxaMMqlQqxq]]
 == What is the World Wide Web?
 
 [.s]
@@ -322,7 +90,7 @@ https://en.wikipedia.org/wiki/Cascading_Style_Sheets[(CSS)]
 //
 https://en.wikipedia.org/wiki/JavaScript[JavaScript]
 
-[[NxVEgTtxJQBwXSRTGeZkSwpXPfxWueKa]]
+[[feLPwPHMQSsPpUmshWroUcSKcWKeCxbd]]
 == HTTP: `GET` Request
 
 [.lead]
@@ -342,7 +110,7 @@ GET /lecture-webapis-examples/simple.html HTTP/1.1
 Host: cs125-illinois.github.io
 ----
 
-[[xMoFkJGPpBflVvnxoNQxSyVAJzUNENBT]]
+[[jqBzouDGtPyaHKmOwnbpCvRASaKvBFfC]]
 == `GET` Parameters
 
 [.lead]
@@ -358,12 +126,12 @@ parameters_.
 //
 * Key-value pairs are separated by `&` delimiters
 //
-* Here's an example: `search?safe=off&source=hp&q=cs125`:
+* Here's an example: `search?safe=off&source=hp?q=cs125`:
 ** `safe=off`
 ** `source=hp`
 ** `q=cs125`
 
-[[qBHMBGGzPiPgkvlLhCFGzgFiFJfxjBNh]]
+[[ZYZfArcqHGbcpMGDWpUxTEAYpHhSMMOP]]
 == HTTP: `GET` Response
 
 [.lead]
@@ -384,7 +152,7 @@ Content-Type: text/html
     ...
 ----
 
-[[msLpSFZesNttCvPreqQKvJoRnCFjHEjE]]
+[[BszNyUYxaqPnTlZclvOYZTyRJdgHHnmX]]
 == HTTP: `POST` Request
 
 [.lead]
@@ -408,7 +176,7 @@ text=word
 Note that this fails on `github.io` because it only serves _static_ pages and
 doesn't deal with data provided by users.
 
-[[gzVWnKntRdaWetSwyLuadYFPntJXusHU]]
+[[uEuXCurrnJzwJygQyftDiaVpiXQzPHbU]]
 == HTTP: `GET` and `POST`
 
 [.lead]
@@ -426,7 +194,7 @@ sheets, images, JavaScript code.
 which point your Facebook comment is recorded, or your credit card is charged
 and an package starts its way toward your house
 
-[[MKWZqVVGklEKImCOLjMlSstXeLBUXybc]]
+[[QKSooQlYPRANKRYoWgElNxbqrvVrScFm]]
 == HTTP: `GET` v `POST`
 
 [.lead]
@@ -444,7 +212,124 @@ pay your bill, purchase something, send a message, etc.
 repeat a `POST`: hence the "Do not click back" and "Do not submit this form
 twice" kind of warnings.
 
-[[qRCuhitwDwpeJXLmjfSVWsdwqJWrmpHt]]
+
+[[ENeAbNYgDNrbwqRpHZJduekhgMOdxOow]]
+== Web Page Contents: HTML
+
+[.lead]
+//
+HTML defines how each page is _structured_:
+
+[source,html,role='small']
+----
+<h1>This is a Simple Web Page</h1>
+
+<p>
+  HTML includes both content and instructions to the browser determining
+  how the content should look. For example, the following items should be
+  in a numbered list:
+</p>
+
+<ol>
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ol>
+
+<p>
+  <strong>Here is some bold text.</strong> <i>And this in italics.</i>
+</p>
+----
+
+[[hKVjQbpzQALswjASEhlGXSTyHHgkGWvD]]
+[.nologo]
+== ! Web Page Contents: HTML
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/simple.html"></iframe>
+</div>
+++++
+
+[[jusdaKZZdKzMfBIQchXrTXKenbeDgzBl]]
+== Web Evolution
+
+[.lead]
+//
+The web has gone through many design changes over the years.
+
+[.s.small]
+//
+* *Static Sites*: the web server returns a _file_ from the disk that contains a
+complete web document
+** Example: most of `cs125.cs.illinois.edu` is a static website
+//
+* *Dynamic Sites*: the web server _runs code_ to produce an HTML document and
+respond to `POST` requests created by forms
+** Example: sites like `my.cs.illinois.edu` are dynamic sites
+//
+* *Web Apps*: most of the site is _generated by JavaScript_ that runs in the
+user's browser, with the server providing data as needed
+** Examples: `cs125.cs.illinois.edu/m/grades`, Discourse, Gmail, Google Docs
+
+[[kVGxyCnuUrtKMDbQUEwsrVEZuOyXqgyo]]
+== Web Page Contents: CSS
+
+[.lead]
+//
+CSS defines how each page _looks_:
+
+[source,css,role='small']
+----
+body {
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+----
+
+[[QCnklVenUskadiskeZRvQQIlwAPyKXZl]]
+[.nologo]
+== ! Web Page Contents: CSS
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/css.html"></iframe>
+</div>
+++++
+
+[[bqpQtLWMeCreTUItFEeLrXrmwetlXSJR]]
+== Web Page Contents: JavaScript
+
+[.lead]
+//
+JavaScript defines what each page _does_:
+
+[source,javascript,role='small']
+----
+setInterval(function () {
+  var x = document.getElementById("title")
+  if (x.style.visibility === "visible") {
+    x.style.visibility = "hidden"
+  } else {
+    x.style.visibility = "visible"
+  }
+}, 1000)
+----
+
+[[hvUpMeTGNRDIIgBOLjgIAGAeTuZUDHdv]]
+[.nologo]
+== ! Web Page Contents: JavaScript
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/javascript.html"></iframe>
+</div>
+++++
+
+[[ReefhsOZCrSqsNCRBofFMqYMOjJZtIBz]]
 == Announcements
 
 * We've posted some

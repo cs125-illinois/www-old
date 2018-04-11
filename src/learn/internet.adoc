@@ -1,0 +1,466 @@
+---
+title: Internet
+date: 2018-04-09
+description:
+  Introduction to the internet, the world-wide web (WWW), and the HTTP transport
+  protocol.
+spelling_exceptions:
+  - DNS
+  - IPv4
+  - IPv6
+  - SMTP
+  - YNP
+  - Gmail
+  - MetaWeather
+  - Bob Kahn
+  - Vint Cerf
+echo: https://goo.gl/DarXwc
+---
+
+[[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
+[.oneword]
+== Web
+
+Some examples for today are available here:
+//
+https://github.com/cs125-illinois/lecture-webapis-examples[`https://github.com/cs125-illinois/lecture-webapis-examples`]
+//
+Feel free to fork!
+
+[[YOFoQJFHfPmqMQuCPuxoIayFsLopNVWQ]]
+== Search Text
+
+[.lead]
+//
+Given a line of text, write a function that searches for all occurrences of a
+given word.
+
+[[ycmqKumEGwfxjNfMrMBAsDtSLkUpVbcm]]
+[.oneword]
+== What's Our Algorithm?
+
+[[nKOHmhFZocZjamqiknosiKWpUtVqIdiX]]
+== ! Search Text
+
+[.janini.small]
+....
+// Search text for a specific word
+static boolean hasWord(String text, String word) {
+  return false;
+}
+String text = "Where do random thoughts come from?";
+System.out.println(hasWord(text, "random"));
+....
+
+[[XPxXXSvZEyWJUpPAkoMUImfOdDWRYumN]]
+== ! Read The Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[fOVWTBFXNSzvlEBiRYhIfJeCWSwoBDvk]]
+== [.line-through]#Web APIs# [.line-through]#Web# Internet
+
+[.s]
+//
+* Before we can talk about web APIs, we first have to talk about the web...
+//
+* ...and before we can talk about the web, we have to talk about the internet.
+//
+* Which is great, because I _love_ the internet!
+
+[[RsFWMIglXzfTcqicpZvmSkkWYggVifYy]]
+== !internet-class.org
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://www.internet-class.org/"></iframe>
+</div>
+++++
+
+[[gmdcWgeadGehqFYtVsPeFbEGsjHHWYik]]
+[.oneword]
+== What is the internet?
+
+[[DDvXuHrweAWYMhTgXZMOxVgECWBGVKuz]]
+== !The Physical Internet
+
+image::https://news.wisc.edu/content/uploads/2017/04/Internet-Atlas-map.jpg[role="mx-auto meme",width=640]
+
+[[QardDPrKdZtGcNPEOnwnRsvgrufbQpLW]]
+== !The Physical Internet
+
+image::https://media.kasperskydaily.com/wp-content/uploads/sites/92/2015/11/06023820/internet-maps-submarine-cables.png[role="mx-auto meme",width=640]
+
+[[NRcGjhlNXgHpQIgYYEegOMIYbesBIxzL]]
+== !Fiber-Optic Cable
+
+image::https://www.dow.com/electrical/-/media/dow/business-units/electrical/markets-and-applications/telecommunications/fiber-optic-cable/fiber_sm.ashx?h=480&w=600&la=en-US&hash=FD2F0061C5A632EBA0A96405132D682744EC7513[role="mx-auto meme",width=640]
+
+[[OqVEhYhUdUtMoqvECMSNTtOazAuQLHLc]]
+== Internet As Wired Infrastructure
+
+[.lead]
+//
+The internet comprises an enormous amount of physical infrastructure.
+
+[.s]
+//
+* *Most of it is _wired_, not wireless.* Wireless is mainly used for the first
+hop.
+//
+* *Most of it is _fiber_ (glass), not copper.* Signals degrade quickly in copper
+but travel faster and with less attenuation in glass footnote:[This is why
+https://www.dow.com/en-us/electrical/markets/telecommunications/fiber-optic-cable[Dow
+Corning] has such a nice visitor center!]. Copper is only used for the last 100
+meters.
+//
+* *The internet wouldn't exist without fiber optic cable.* It's one of the
+wonders of the modern world. It's not just glass, it's _really clear_ glass.
+
+[[irzgNYhDTHtFdqPnRuPUowMuGUVnwAYa]]
+== An Internet Journey
+
+[.lead]
+If you want to learn more, you can join me as we follow a cable from my former
+office to the edge of our campus network.
+
+* https://youtu.be/KHvHCnRCWYc[First hop out of my office]
+//
+* https://youtu.be/uPyWqblKuYs[Next hop to the network closet on my floor].
+//
+Here copper gives way to fiber.
+//
+* https://youtu.be/2DC1fYjURag[My next hop in the basement networking closet]
+//
+* https://youtu.be/5p6DdQCPh7Q[My last hop on campus].
+//
+At this point all of the campus network traffic leaves on only a few slim fiber
+optic cable.
+
+[[kZpUPdirOGgFNmrGHmebeAdikLHgySDY]]
+== !Short-Range Wireless
+
+image::https://images-na.ssl-images-amazon.com/images/I/51iNAXMFhnL._SL1000_.jpg[role="mx-auto meme",width=640]
+
+[[cSVtMGJyTQXnLCcWLdlvWQUTuovDZSBv]]
+== !Long-Range Wireless
+
+image::http://www.celltowerinfo.com/wp-content/uploads/2015/08/Cell-Tower-Location-Map-Illinois.jpg[role="mx-auto meme",width=640]
+
+[[WrmRwkHPuwbbBkBAgPeYFbjVrWQdasZx]]
+== !Long-Range Wireless
+
+image::https://westfaironline.com/wp-content/uploads/2017/10/Celltower.jpg[role="mx-auto meme",width=640]
+
+[[VyJifRGLFEMtdXNDRLPLzxDZOMyDcAYa]]
+== Internet As Wireless Infrastructure
+
+[.lead]
+//
+In recent years we've also built out a huge amount of _wireless_ internet
+infrastructure.
+
+[.s]
+//
+* *Short range wireless* is dominated by
+//
+https://en.wikipedia.org/wiki/Wi-Fi[WiFi]
+//
+and what you use when you're on campus, at home, or at a coffee shop
+//
+* *Medium-range wireless* is used to provide connectivity to mobile devices like
+smartphones over longer distances.
+//
+You usually buy this from a cellular provider like Verizon or Sprint.
+
+[[snRiqQaQKbLMhBYxLbXaLCHemMTXfeKH]]
+== !The Result
+
+image::https://media.kasperskydaily.com/wp-content/uploads/sites/92/2015/11/06023801/internet-map-illegal.gif[role="mx-auto meme",width=640]
+
+[[CkjdIfoTgcqkpmGqJTAKkBeNopyvqhng]]
+== Internet As Connectivity
+
+[.lead]
+//
+The result is that by connecting a computer to the internet, you are now
+connected to _4 billion_ other computers.
+
+[.s]
+//
+* Many times the first connection is _wireless_
+//
+* But after that point there is literally a wire that you can follow from your
+computer to the other computer
+
+[[LmXnCXdQNKjkGrLddkQdwsvErCkGMxcZ]]
+[.oneword]
+//
+== But How Do Internet-Connected Devices _Communicate_?
+
+[[vSSOuKbyIqAWctgXJtLTttcpHdPKrTmO]]
+== Internet As Agreement
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Communication_protocol[A communication protocol]
+//
+is a system of rules that allow two or more entities of a communications system
+to transmit information.
+//
+____
+
+[[uABWjaBQLWAHnUzqcZzSwSopLIVGbKpW]]
+== The Internet Protocol (IP)
+
+[.lead]
+//
+The
+//
+https://en.wikipedia.org/wiki/Internet_Protocol[Internet Protocol (IP)]
+//
+consists of a series of agreements that allow internet-connected devices to
+communicate.
+
+[.s]
+//
+* *What do we call each other?*
+//
+IP specifies the format of internet protocol addresses, also called IP
+addresses.
+** Here's one: `192.17.96.8` (IPv4)
+** Here's a new one: `2607:f8b0:4009:807::2004` (IPv6)
+//
+* *How are our message structured?*
+//
+IP specifies a _format_ for each message (or datagram) exchanged across the
+internet.
+
+[[BUIGCdHmhvQVaZSHYPiPElLYZIdqMjKy]]
+== IP Datagram Format
+
+image::http://www.danzig.jct.ac.il/tcp-ip-lab/ibm-tutorial/3376f11.gif[role="mx-auto,meme", width=600]
+
+[[QCUlXgkXuVapMAnTaygazZZwdKmjkKIl]]
+[.ss]
+== The Miraculous Internet
+
+image::https://www.internethalloffame.org/sites/default/files/inductees/Cerf_Vint.jpg[role="mx-auto",width=150]
+
+image::https://www.eyerys.com/sites/default/files/bob_kahn4.jpg[role="mx-auto",width=150]
+
+<<<
+
+The core internet protocols were invented by a bunch of graduate students,
+including Vint Cerf and Bob Kahn.
+//
+*They changed the world.*
+
+[.small]
+--
+Vint Cert has said "we kept wondering when the adults were going to show up."
+--
+
+[[oXesWmHwFEILCVrkrflpffHEhcrBIjph]]
+[.oneword]
+== So We Can Talk, But About What?
+
+[[XAIXXwMRSThffUnNzkCdDDuLTjUjxQLT]]
+== Internet Protocol Stack
+
+[.lead]
+//
+One of the beautiful things about IP is that it supports many other protocols.
+
+[.table.small,cols="2*^.^",options='header']
+|===
+
+| Protocol(s)
+| Service
+
+| [.s]#*https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP]*#
+| [.s]#The World Wide Web#
+
+| [.s]#*https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol[SMTP]*#
+| [.s]#Email#
+
+| [.s]#*https://en.wikipedia.org/wiki/Domain_Name_System[DNS]*#
+| [.s]#Translating names (`cs125.cs.illinois.edu`) to IP addresses (`192.17.96.8`)#
+
+| [.s]#*YNP*#
+| [.s]#Your New Protocol, which does something cool and useful!#
+
+|===
+
+[[xehUSxrjbjVcIwmVbtmcKWGtdSveGImN]]
+[.oneword]
+== So The Web _Is Not_ The Internet
+
+The web is just _one of many_ services running over the internet.
+
+[[wNsnAdboNaMfwJQQGoHjzDJgBVvYpfVI]]
+== What is the World Wide Web?
+
+[.s]
+//
+* *A protocol*: the Hypertext Transfer Protocol
+//
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[(HTTP)]
+//
+* *A markup language*: the Hypertext Markup Language
+//
+https://en.wikipedia.org/wiki/HTML[(HTML)]
+//
+* *A styling language*: Cascading Style Sheets
+//
+https://en.wikipedia.org/wiki/Cascading_Style_Sheets[(CSS)]
+//
+* *A programming language*:
+//
+https://en.wikipedia.org/wiki/JavaScript[JavaScript]
+
+[[NxVEgTtxJQBwXSRTGeZkSwpXPfxWueKa]]
+== HTTP: `GET` Request
+
+[.lead]
+//
+HTTP defines how web browsers request (`GET`) content:
+
+When you type
+//
+http://cs125-illinois.github.io/lecture-webapis-examples/simple.html[`http://cs125-illinois.github.io/lecture-webapis-examples/simple.html`]
+//
+into your browser, it sends a message to `cs125-illinois.github.io` that looks
+like this:
+
+[source]
+----
+GET /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io
+----
+
+[[xMoFkJGPpBflVvnxoNQxSyVAJzUNENBT]]
+== `GET` Parameters
+
+[.lead]
+//
+You can send some data to the server in a `GET` request using _query
+parameters_.
+
+[.s.small]
+//
+* These follow the path and an `?` sign in the URL
+//
+* Each takes the form `key=value`
+//
+* Key-value pairs are separated by `&` delimiters
+//
+* Here's an example: `search?safe=off&source=hp&q=cs125`:
+** `safe=off`
+** `source=hp`
+** `q=cs125`
+
+[[qBHMBGGzPiPgkvlLhCFGzgFiFJfxjBNh]]
+== HTTP: `GET` Response
+
+[.lead]
+//
+If the request succeeds, the server responds with something that looks like
+this:
+
+[source]
+----
+HTTP/1.1 200 OK
+Date: Sun, 08 Apr 2018 08:56:53 GMT
+Last-Modified: Sat, 20 Nov 2014 07:16:26 GMT
+Content-Length: 44
+Content-Type: text/html
+
+<html>
+  <body>
+    ...
+----
+
+[[msLpSFZesNttCvPreqQKvJoRnCFjHEjE]]
+== HTTP: `POST` Request
+
+[.lead]
+//
+HTTP also defines how web browsers submit information (`POST`):
+
+When you submit the form on
+//
+http://cs125-illinois.github.io/lecture-webapis-examples/form.html[`http://cs125-illinois.github.io/lecture-webapis-examples/form.html`],
+//
+it sends a message to `cs125-illinois.github.io` that looks like this:
+
+[source]
+----
+POST /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io
+
+text=word
+----
+
+Note that this fails on `github.io` because it only serves _static_ pages and
+doesn't deal with data provided by users.
+
+[[gzVWnKntRdaWetSwyLuadYFPntJXusHU]]
+== HTTP: `GET` and `POST`
+
+[.lead]
+//
+HTTP defines many other types of requests, but `GET` and `POST` are by far the
+most common.
+
+[.s]
+//
+* *Every time you load a web page* it starts with a `GET`, and usually that's
+followed by many other `GET` requests to fetch others parts of the page: style
+sheets, images, JavaScript code.
+//
+* *Every time you submit a form* it uses a `POST` to send data to the server, at
+which point your Facebook comment is recorded, or your credit card is charged
+and an package starts its way toward your house
+
+[[MKWZqVVGklEKImCOLjMlSstXeLBUXybc]]
+== HTTP: `GET` v `POST`
+
+[.lead]
+//
+The HTTP protocol specifies different semantics for `GET` and `POST`:
+
+[.s]
+//
+* `GET` _should not_ change anything about the world, just return a document
+//
+* `POST` _should_ change something about the world&mdash;create a new account,
+pay your bill, purchase something, send a message, etc.
+//
+* As a result it is _safe_ to repeat a `GET` but potentially _problematic_ to
+repeat a `POST`: hence the "Do not click back" and "Do not submit this form
+twice" kind of warnings.
+
+[[qRCuhitwDwpeJXLmjfSVWsdwqJWrmpHt]]
+== Announcements
+
+* We've posted some
+//
+link:/MP/6/#errata[MP6 errata].
+//
+Please follow these screencasts if you are having a hard time getting your
+environment set up.
+//
+* The
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+remains available on the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
