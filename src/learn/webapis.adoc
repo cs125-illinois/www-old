@@ -13,6 +13,9 @@ spelling_exceptions:
   - MetaWeather
   - Bob Kahn
   - Vint Cerf
+  - frisbee
+  - transformative
+  - mockup
 ---
 
 [[akBdVGIbdUuOBCWPJUJACrtqtiiiMWsS]]
@@ -162,6 +165,9 @@ a `GET` request
 * The web server can run code in response
 //
 * And return a response, [.s]#_which does not have to be an HTML document_#
+//
+* And in many cases custom internet protocols are blocked by firewalls, making
+it attractive to run APIs over HTTP
 
 [[sQoshKdkerQbElGQyoWmkEymnLkzrZKF]]
 == Web APIs: Sending Arguments
@@ -321,7 +327,78 @@ With two additional useful HTTP verbs: `PUT` and `DELETE`
 [[JuTQULKcDJyYbpOvzZuoVHSBBAMPJKQI]]
 [.oneword]
 //
-== Questions About Web APIs?
+== Questions About Internet, Web, or Web APIs?
+
+[[HtKEWqTEwzEPzDSjqfIvDwiIWZWSzXqQ]]
+== Internet Design Principles
+
+[.lead]
+//
+The internet established many powerful and important _design principles_.
+//
+One of the most important is the _end-to-end principle_:
+
+
+[quote]
+____
+In networks designed according to the
+//
+https://en.wikipedia.org/wiki/End-to-end_principle[end-to-end principle],
+//
+application-specific features reside in the communicating end nodes of the
+network, rather than in intermediary nodes, such as gateways and routers, that
+exist to establish the network.
+____
+
+[[lTVxOqKIJeqpxtlWpxSuzjPINWGWZOwK]]
+== End-to-End Example: Reliable Delivery
+
+[.lead]
+//
+Reliable delivery is _not guaranteed_ by the core Internet Protocol.
+
+[.s]
+//
+* Not every application needs it!
+//
+* Moved to the _endpoints_: that is, implemented on your device and whatever
+computer you want to communicate with reliably.
+
+[[GiuISzhloTQxbzcjHBBhFhJAzWSOnGUx]]
+== End-to-End Principle: Consequences
+
+[.lead]
+//
+The end-to-end principles has had powerful implications for internet design and
+evolution.
+
+[.s]
+//
+* The core network stays simple
+//
+* The core network _doesn't choose winners and losers_
+
+[[WsnIIRchesWsJjxchaCCShmRJuhiaGML]]
+== Net Neutrality
+
+[.lead]
+//
+Net neutrality is essentially enshrining the end-to-end principle in law.
+
+[.s]
+//
+* Internet service providers should not discriminate against traffic based on
+where it comes from, where it is going, or other features
+//
+* *This keeps the internet available for the kinds of transformative innovation
+it has supported since its creation.*
+
+[[PCmWKojKEZEbGdSLJwQxcCBCHMeHVXBk]]
+[.oneword]
+//
+== This Will Be Your Problem Soon
+
+Please do the right thing.
 
 [[xYPCExtLlLAkdqmJoBKkywmBJdrbZkrF]]
 == Final Project Discussion
@@ -333,15 +410,17 @@ idea:
 
 [.s]
 //
-* You need to build an Android app. _If your development enviroment isn't
+* You need to build an Android app. _If your development environment isn't
 working you'll need to address that_.
 //
 * You need to do something new: that could mean using a new web API, or using a
 new Android feature.
 //
-* You need to commit to an MP7 repository that we set up for you.
+* You need to commit your work to GitHub.
 //
 * You need to work with someone in your lab section.
+//
+* You'll need to finish a UI mockup within a week.
 //
 * *Other than that, what to do is up to you.*
 
