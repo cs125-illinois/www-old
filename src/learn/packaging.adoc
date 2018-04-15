@@ -1,0 +1,536 @@
+---
+title: Imports and Build Systems
+date: 2018-04-16
+description:
+  Introduction how to how Java libraries are packaged, distributed, and
+  imported. Includes a discussion of the Gradle build system and the role it can
+  play in this process.
+---
+
+[[vUysyTyNHTLMsWADDPULMCNEJsEcuFXh]]
+[.oneword]
+== Imports and Build Systems
+
+IntelliJ projects for today's lecture:
+
+* https://github.com/cs125-illinois/lecture-packaging-app
+//
+* https://github.com/cs125-illinois/sortlib
+
+[[SMFdnvJhmxRPmfzSxslToJkCJBmihneF]]
+== ! Find the Most Common Value
+
+[.janini.smaller]
+....
+/**
+ * Find the most common value.
+ *
+ * If two values occur an equal number of times, then the one that appears first
+ * in the array should be returned.
+ */
+static int findMostCommon(int[] inputArray) {
+  return 0;
+}
+System.out.println(findMostCommon(new int[] { 1, 1, 5, 6, 7, 7 }));
+....
+
+[[JthNsUgeTznQuvsFSPMRjFsrzMQZYHuB]]
+== Analyzing Your Solution
+
+* What was your algorithm?
+//
+* What was the big-O runtime of your implementation?
+//
+* What are the worst- and best-case inputs for your implementation?
+
+[[IylddtZJXZOfaFGZxOEEvZkoLDGboSmt]]
+[.oneword]
+== I promised that...
+
+you'd understand _every_ line of a typical Java source file.
+
+[[vBnPLekwLKSwctchhYVDzwDYAcHnLwtF]]
+== Java Packages
+
+[.lead]
+//
+A Java _package_ is a bundle of resources&mdash;mainly classes&mdash;that
+provide related functionality.
+
+[.s.small]
+//
+* The Java SDK provides a set of packages starting with `java` or
+`javax`: like `java.util`.
+//
+* These _standand libraries_ are always available for
+you to use when you write Java code.
+//
+* Other companies and organizations can create and distribute their own software
+packages: like `com.google.common.math` or `org.apache.commons.text`.
+//
+* Unlike the standard libraries, you have to do some extra work to make these
+libraries available for each project you are working on.
+
+[[OxCNCEdjJZZhBNvuwRZYlAXXjEEarnYS]]
+== Package Naming
+
+[.lead]
+//
+Java establishes _naming conventions_ to ensure that multiple developers can
+work on similar projects without collisions.
+
+[.s]
+//
+* Standard libraries start with `java` or `javax`
+//
+* External libraries use a reversed domain name: `com.google...`,
+`edu.illinois.cs.cs125....`, or `com.github.cs125-illinois...`.
+//
+* If you publish to GitHub, `com.github.<username>...` is a good choice.
+
+[[dvUyavhbysBlokxBLJZlQUVNFNfTHNJM]]
+[.oneword]
+== Don't Do It Yourself
+
+You _have_ to learn to use software libraries.
+
+[[LMhibrQYIFqYfnFusRNzCWzgqggvdDfk]]
+== Course v. Real Programming
+
+[.table.small,cols="3*^.^",options='header']
+|===
+
+|&nbsp;
+{set:cellbgcolor!}
+|Course
+|Real
+
+| *You start with...*
+| A small amount of great code
+| A large amount of complex and confusing code
+
+| *Most of your time is spent...*
+| Programming
+| Understanding the system
+
+| *You solve problems...*
+| Yourself!
+| *By finding existing solutions*
+
+| *You end up building...*
+| Something small
+| Something really cool
+
+| *We call this...*
+| Doing the MP
+| Hacking
+
+|===
+
+[[YwpAOrPEaokQVLVClBDbPxGMbzzaxiaX]]
+[.nologo]
+== ! The Java Standard Library
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/8/docs/api/overview-summary.html"></iframe>
+</div>
+++++
+
+[[mSdYyLaxMJsosGasHkNxcWBMMBrZIWZJ]]
+[.nologo]
+== ! Standard Library Example
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html"></iframe>
+</div>
+++++
+
+[[wpYzILHVHcoqixovDBWbQwmQeuQkoADR]]
+== Importing Standard Libraries
+
+[source,java,role='small']
+----
+// If I use the fully-qualified name I don't need an import...
+System.out.println(java.util.Arrays.toString(new int[] { 1, 2, 3 }));
+----
+
+[source,java,role='s mt-3']
+----
+// ...but it's common to use one.
+// This makes Arrays available in this class
+import java.util.Arrays;
+// Now I can use it's methods
+System.out.println(Arrays.toString(new int[] { 1, 2, 3 }));
+----
+
+[source,java,role='s mt-3']
+----
+// I can also import all classes from java.util, although
+// checkstyle will complain
+import java.util.*;
+// Now I can use it's methods
+System.out.println(Arrays.toString(new int[] { 1, 2, 3 }));
+----
+
+[[rzbCoCaoKnyUenfrONuOeInBDrCZJdFW]]
+[.nologo]
+== ! Java External Libraries
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://mvnrepository.com/"></iframe>
+</div>
+++++
+
+[[oSeXSCuViZSEmEXAvyOuDYeuzHCWoGkr]]
+[.nologo]
+== ! External Library Example
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://google.github.io/guava/releases/19.0/api/docs/com/google/common/math/BigIntegerMath.html"></iframe>
+</div>
+++++
+
+[[tWOJqoHXhtlVOfPgGblCjbhAXjdTmfCM]]
+== Importing Non-Standard Libraries
+
+[source,java]
+----
+// Unfortunately, it's not quite this easy...
+import com.google.common.math.BigIntegerMath;
+----
+
+[[illRZGGRjlgKrBSTfbAqhaioSnpwLFqO]]
+[.oneword]
+== Gradle to the Rescue
+
+[.lead]
+//
+There are multiple ways to make external libraries available as part of your
+project. We're going to show you how to do this using
+//
+https://gradle.org/[_Gradle_].
+
+[[cYGaEIKPtCRIvfHaPklwBzMbsVaErrBz]]
+== What is Gradle footnote:[not "the Gradle"]?
+
+[.lead]
+//
+https://gradle.org/[Gradle] is a _build tool_. It helps with things like:
+
+[.s]
+//
+* building your Java program or Android app
+//
+* running test suites and code quality tools like `checkstyle`
+//
+* packaging your Java code into a _package_, if appropriate
+//
+* build Javadoc documentation
+//
+* _fetching any dependencies that your project needs_
+
+[[DHZgxVaSgEKWRvqlfCajAZtBWZNVrVSv]]
+== Example `build.gradle`
+
+[source,groovy]
+----
+// We're building a Java application
+apply plugin: 'java'
+
+// Look for dependencies on jcenter
+repositories {
+    jcenter()
+}
+
+// We don't have any dependencies yet
+dependencies {
+}
+----
+
+[[pDMdxhPDDeLXxJkpQxIETxvFllmYXfWV]]
+== IntelliJ Example Using Google's Guava Library
+
+* Link to Google's Documentation: https://github.com/google/guava
+//
+* Link to starter code: https://github.com/cs125-illinois/lecture-packaging-app
+
+[[nrdlFHtMGnMzOjAxtuHvcDnABgmhFzut]]
+== `build.gradle` With Dependency
+
+[source,groovy]
+----
+// We're building a Java application
+apply plugin: 'java'
+
+// Look for dependencies on jcenter
+repositories {
+    jcenter()
+}
+
+// Use the Google Guava library version 24.1-jre
+dependencies {
+    // When I compile the project I need this library
+    compile 'com.google.guava:guava:24.1-jre'
+}
+----
+
+[[UtfvqbakmGiuQxhhWGwqUmKFTMxwSCjZ]]
+== Gradle Dependency Format
+
+[source,groovy]
+----
+dependencies {
+    compile 'com.google.guava:guava:24.1-jre'
+    // example: compile 'GROUP:ARTIFACT:VERSION'
+}
+----
+
+[.lead]
+//
+Gradle's dependency block breaks each dependency into three parts:
+
+[.s]
+//
+* `GROUP`: usually indicates an organization that provides this dependency,
+like `com.google` or `com.github.cs125-illinois`.
+//
+* `ARTIFACT`: a string identifying the dependency to add to the project.
+//
+* `VERSION`: a version string identifying which version of the library to use.
+
+[[vBbwgXiXNfHOtRkJiNElbzHnMInRkSLQ]]
+== Maven Format
+
+[.lead]
+//
+Sometimes you see the dependency in this format, which is used by another build
+tool called Maven:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.apache.commons</groupId>
+  <artifactId>commons-text</artifactId>
+  <version>1.3</version>
+</dependency>
+----
+
+[.s]
+--
+This is equivalent to `org.apache.commons:commons-text:1.3` in Gradle.
+--
+
+[[uMDkZjyFXZhwZhZfqXoWnfoHVpMvmMaF]]
+== `GROUP` and `ARTIFACT`
+
+[.lead]
+//
+Just be aware that these are _not necessarily_ related to the package name.
+
+[.s]
+//
+* `com.google.guava:guava` provides `com.google.common.math`, etc.
+//
+* `com.github.cs125-illinois:sortlib` provides
+`edu.illinois.cs.cs125.sortlib`
+
+[[TOBMAZXTnIlkYxXmasplpfPNxSLWHZAs]]
+== `VERSION`
+
+[.lead]
+//
+Package versioning is _incredibly important_.
+
+[.s]
+//
+* If you develop your app to work with `1.10.1`, it may not work with `2.0.0`.
+//
+* So you pin your app at a particular version of a library.
+//
+* However, it _is_ important to periodically update your libraries to the latest
+version, but not that that may take some time and energy.
+
+[[JpxSRmgPwDVseQJCohhOBUxuhMlDJRep]]
+== Creating And Publishing Your Own Libraries
+
+[.lead]
+//
+It's a big moment as a programmer to begin sharing your code with others.
+
+[.s]
+//
+* Other people may use your code! That's exciting.
+//
+* They'll complain when it doesn't work. That's frustrating.
+//
+* They'll want you to document it carefully. That's worth doing.
+
+[[FBroTYEaArgHKvHvMYksIfFAKKRqSwaH]]
+== Packaging Your Code
+
+Java's `package` statement allows you to put your class into a package:
+
+[source,java,role='small']
+----
+// Declare that this class is part of this package
+package edu.illinois.cs.cs125.sortlib;
+
+public class Sorting {
+}
+----
+
+[.s]
+--
+You can then import it in another project like this:
+
+[source,java,role='mt-3 small']
+----
+import edu.illinois.cs.cs125.sortlib.Sorting;
+----
+--
+
+[[vXEpgucrRmMSDqprWmsHQiQGwkkEjpjD]]
+== Java Package Repositories
+
+[.lead]
+//
+Java has several existing code repositories where developers publish their work:
+
+* https://bintray.com/bintray/jcenter[jcenter]
+//
+* https://search.maven.org/[maven Central]
+
+[source,groovy]
+----
+repositories {
+    // Look for dependencies on jcenter
+    jcenter()
+    // Look for dependencies on maven Central
+    mavenCentral()
+}
+----
+
+[[ANglPAMGnrZetJSUgXSEwESXYnMELcsX]]
+== `jitpack.io`
+
+[.lead]
+//
+https://jitpack.io/[`jitpack.io`] is another example and possibly easier to use
+if you are maintaining your code on GitHub.
+
+[[xvWNIFUCQFXVNlZOvEBbsWOBJLyZRXKB]]
+== IntelliJ Example Using `jitpack.io`
+
+* Link to starter app: https://github.com/cs125-illinois/lecture-packaging-app
+//
+* Link to starter library: https://github.com/cs125-illinois/sortlib
+
+[[fDPjgqUhTgtUStBDcLJJppjEUZrMDwix]]
+== `build.gradle` with `jitpack.io`
+
+[source,groovy]
+----
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.google.guava:guava:24.1-jre'
+    compile 'com.github.cs125-illinois:sortlib:0.0.1'
+}
+----
+
+[[MkhStbcDLeywHghFQSwWIhcALnzUXbko]]
+[.oneword]
+//
+== Questions?
+
+I know that this is dull and a bit confusing. Post on the forum if you need
+help!
+
+[[xYPCExtLlLAkdqmJoBKkywmBJdrbZkrF]]
+== Final Project Discussion
+
+[.lead]
+//
+We've released the link:/MP/7/[MP7] final project specification. Here's an
+overview:
+
+[.s.small]
+//
+* You need to build an Android app. _If your development environment isn't
+working you'll need to address that_.
+//
+* You need to design a simple UI. We'll provide help with that in lab.
+//
+* You'll need to finish your UI mockup in a week.
+//
+* You need to use a new web API, software library, or Android feature.
+//
+* You need to commit your work to GitHub.
+//
+* You need to work with someone in your lab section.
+//
+* *Other than that, what to do is up to you.*
+
+[[ocRExoJsLsNPkSexYFyfCtQSeQEFaDoQ]]
+== Final Project Evaluation
+
+[.lead]
+//
+You'll demo your final project in lab during the last week of class: either 5/1
+or 5/2.
+
+[.s]
+//
+* You will probably need to record a YouTube video or screencast of your app so
+that we can complete the app presentations in one lab section.
+//
+* Grading will be generous.
+
+[[IkvaVELzwbvWqqEhuyLzeofahUfbbUDL]]
+== Final Project Fair
+
+[.lead]
+//
+On Thursday 5/3 (Reading Day), we'll hold our first Final Project Fair from
+4&ndash;6PM in Siebel.
+
+[.s.small]
+//
+* The course staff will be on hand to review the final projects and select a few
+that we consider to be the most impressive.
+//
+* *If you had never programmed before this semester and build something simple
+and cool, _that's impressive_.*
+//
+* Participation is optional...
+//
+* ...but worth 1% extra credit.
+//
+* We'll be handing out more extra credit to the best projects, and to the lab
+sections that produce the best final projects.
+
+[[mnObEMpNdknIiyvShibXymkmdHBUIblb]]
+== Announcements
+
+* link:/MP/7/[MP7 (the final project)] is out.
+//
+Please get started!
+//
+* The
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+remains available on the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
