@@ -358,6 +358,27 @@ Package versioning is _incredibly important_.
 * However, it _is_ important to periodically update your libraries to the latest
 version, but not that that may take some time and energy.
 
+[[goAVHEprLupuCbtxiqjucUiGaOhLvtxT]]
+== `.jar` Files
+
+[.lead]
+//
+A single Java library usually consists of many different class files and other
+resources. They are packaged into a single _Java archive_, or `.jar` file.
+
+[source,bash,role='smallest']
+----
+$ jar tvf sortlib.jar
+     0 Sun Apr 15 16:00:08 CDT 2018 META-INF/
+    25 Sun Apr 15 16:00:08 CDT 2018 META-INF/MANIFEST.MF
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/cs125/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/cs125/sortlib/
+   595 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/cs125/sortlib/Sorting.class
+----
+
 [[JpxSRmgPwDVseQJCohhOBUxuhMlDJRep]]
 == Creating And Publishing Your Own Libraries
 
