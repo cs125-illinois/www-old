@@ -1,0 +1,94 @@
+---
+title: Hashing and Maps
+date: 2018-04-18
+description:
+  An introduction to hash functions, various uses of hashing, and hash tables
+  and maps.
+---
+
+[[axHCLhKQxzhwFHeqGvpZhWUIqRTRCEyt]]
+== !
+
+[.janini.smaller]
+--
+++++
+<div class="message">Hashing and Maps</div>
+++++
+....
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+
+static void countStrings(String[] inputArray) {
+  Map stringCount = new HashMap();
+  for (String input: inputArray) {
+    stringCount.put(input, (Integer) stringCount.getOrDefault(input, 0) + 1);
+  }
+  System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
+}
+countStrings(new String[] { "a", "b", "aa", "bb", "a" });
+....
+--
+
+[[OwrHsCllNGKexlLxNUxwfDjGYTQfFkzR]]
+== Q10 Review and Warmup
+
+[.janini.smallest]
+....
+/**
+ * Determine if a string is a strict palindrome.
+ *
+ * A palindrome reads the same forward and backward. Sometimes we ignore
+ * whitespace when determining whether a string is a palindrome, but
+ * a strict palindrome has exactly the same series of characters forwards and
+ * backwards.
+ *
+ * Here are some examples:
+ *   "" is a strict palindrome
+ *   "aba" is a strict palindrome
+ *   "abba" is a strict palindrome
+ *   "abA" is not a strict palindrome, since case matters
+ *   "ab a" is not a strict palindrome, since whitespace matters
+ *   "abcd" is not a strict palindrome, since it doesn't read the same backwards
+ */
+public static boolean isStrictPalindrome(final String input) {
+    return false;
+}
+....
+
+[[lsRacEhrBTlIjpNgwyizRgxRajKjficc]]
+[.nologo]
+== ! CBTF Hints: Resources
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://prairielearn.engr.illinois.edu/pl/course_instance/8235/assessment_instance/416409"></iframe>
+</div>
+++++
+
+[[RPcTbiUWAPvGHNfmSTtjxOxTOfOdskHx]]
+[.nologo]
+== ! CBTF Hints: Output
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://prairielearn.engr.illinois.edu/pl/course_instance/8235/instance_question/16360409/"></iframe>
+</div>
+++++
+
+[[NatQECjiehpGWjBTDhWNjopXkXVqFVZq]]
+== Announcements
+
+* link:/MP/7/[MP7 (the final project)] is out.
+//
+Please get started!
+//
+* The
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+remains available on the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
