@@ -1,0 +1,422 @@
+---
+title: More Hashing and Maps
+date: 2018-04-20
+description:
+  Continuation of an introduction to hash functions, various uses of hashing,
+  and hash tables and maps.
+spelling_exceptions:
+  - blockchain
+  - Geez
+  - SHA
+  - Hashcash
+draft: true
+---
+:imagesdir: /learn/images
+
+[[YMwWktQRoxuRMXcHASYquVZYTbVkPkVb]]
+== !
+
+[.janini.smaller]
+--
+++++
+<div class="message">More Hashing and Maps</div>
+++++
+....
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+
+static void countStrings(String[] inputArray) {
+  Map stringCount = new HashMap();
+  for (String input: inputArray) {
+    stringCount.put(input, (Integer) stringCount.getOrDefault(input, 0) + 1);
+  }
+  System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
+}
+countStrings(new String[] { "a", "b", "aa", "bb", "a" });
+....
+--
+
+[[hkmWrBhxcKDwRZLHltXbsKfQGVSAPCFU]]
+== Remember Arrays?
+
+[source,java]
+----
+int[] numbers = new int[] { 5, 6, 7 };
+System.out.println(numbers[0]);
+numbers[1] = 8;
+----
+
+[.s]
+//
+* Arrays map an _index_ (0, 1, 2, `array.length` to a value).
+//
+* The value can be anything, but the indices _had to be be integers_.
+//
+* *No longer!*
+
+[[KMEWkSlvNYjqjVvbmAsKdltNRtMMCxaO]]
+== Java Maps
+
+[.lead]
+//
+A Java `Map` allows us to use _any object_ like an array index.
+
+[source,java]
+----
+import java.util.Map;
+import java.util.HashMap;
+
+Map stringValues = new HashMap();
+stringLengths.put("test", 5);
+System.out.println(stringLengths.get("test")); // Prints 5
+stringLengths.put("test", 7);
+System.out.println(stringLengths.get("test")); // Prints 7
+----
+
+[[cNrVzvwRIdEImFTXuRzaPYBaYhWmumkE]]
+== A Map By Any Other Name
+
+[.lead]
+//
+Maps are one of the two data structures you meet in heaven. (Along with lists.)
+Every language has them:
+
+[.s.small]
+//
+* Python calls them dictionaries: `dict["key"] = "value"`
+//
+* JavaScript calls them anonymous objects `dict["key"] = "value"`
+//
+* C++ calls them maps: `dict.insert(std::make_pair("key", "value"));`
+//
+* Go calls them maps: `dict["key"] = "value"`
+//
+* Even Perl had them: `$dict{'key'} = "value"`!
+//
+* Sometimes we call them _key-value stores_, since each key maps to a single value
+
+[[BjIWSGhbbdmcPskCXrkzLuMjQQIfOcIf]]
+== ! `Map` Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html"></iframe>
+</div>
+++++
+
+[[sgPpLMLvjafumVtoxHZbJCajGXxPFpiw]]
+== ! Fun With Maps
+
+[.janini.smaller]
+....
+import java.util.Map;
+import java.util.HashMap;
+
+Map mapExample = new HashMap();
+....
+
+[[pIIpraLgqYnJqTIffhvreOUyxqceQMjW]]
+== And Why Does This Work in Java?
+
+[.lead]
+//
+Remember the functions defined by `Object` that are shared by _every_ Java
+object?
+
+[.s]
+//
+* `toString`: to display an object in human-readable format
+//
+* `equals`: test whether an object equals another
+//
+* `hashCode`: return a *hash value* for that object, which is used internally by
+all `Map` implementations and other data structures
+
+
+[[YtqFBVnmuvRuJizUWcQMkvzrsdQDdrHI]]
+== Map Usage Example
+
+[.lead]
+//
+Let's say that I want to process a large corpus of text and then be able to
+quickly answer queries about how many times particular words appear.
+
+[[xqnWYaQSXvQfuaOBdwXXaRvCTiVjvCUT]]
+== ! Map Usage Example
+
+[.janini.smaller.compiler]
+....
+import java.util.Map;
+import java.util.HashMap;
+
+public class WordCounter {
+  private Map wordCount;
+  public WordCounter(String[] text) {
+    wordCount = new HashMap();
+  }
+  public int getWordCount(String word) {
+    return 0;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    String[] corpus = new String[] {
+      "here", "here", "there"
+    };
+    WordCounter wordCounter = new WordCounter(corpus);
+    System.out.println(wordCounter.getWordCount("here"));
+    System.out.println(wordCounter.getWordCount("there"));
+    System.out.println(wordCounter.getWordCount("nowhere"));
+  }
+}
+....
+
+[[QAKIFghOvHabcdxPluXfMikknydltCHS]]
+== (An Annoying Aside on Java Primitive Object Wrappers)
+
+[.lead]
+//
+In Java, certain data structures (`Maps`, `ArrayLists`, etc.) only operate on
+_objects_. (We'll see why in a minute.)
+
+But then how do we insert primitive types (`ints`, `longs`, etc.) into them?
+
+[source,java,role='s small']
+----
+Integer imAnObject = new Integer(5);
+imAnObject = (Integer) 5; // You can cast primitives to object wrapper
+int imNotAnObject = (int) imAnObject; // And back
+----
+
+[[AHrbOZYbmzWDmNwRgZKYCzjKUPHHEiUY]]
+== Primitive Object Wrappers
+
+[.table.small.array.s,cols="2*^.^",options='header']
+|===
+
+| Primitive Type
+| Object Wrapper
+
+| `int`
+| `Integer`
+
+| `long`
+| `Long`
+
+| `boolean`
+| `Boolean`
+
+| `char`
+| `Character`
+
+| `double`
+| `Double`
+
+| `byte`
+| `Byte`
+
+| `short`
+| `Short`
+
+| `float`
+| `Float`
+
+|===
+
+[[HjFZsfxSQtueuUZIbecIPIGDhTzuyUrM]]
+[.oneword]
+//
+== (Exciting Stuff...)
+
+[[pdwcMAZBmuwUFEWVSPCqjAbuKImRBdrd]]
+== Brief `Map` Implementation
+
+[.lead]
+//
+So how do we implement a `Map`?
+
+[.s]
+//
+* Use a `hashCode` to retrieve a hash code for each object.
+//
+* Use that value&mdash;or a smaller part of it&mdash;as an index into an array.
+//
+* But what about collisions?
+
+[[NdtRQfCIlNeCIwFdPzhycUCjiduKpRFM]]
+== `Map` As Array + Linked List
+
+image::http://math.hws.edu/javanotes/c10/hash-table.png[role='mx-auto', width=500]
+
+[[DKcMSEbCvHQXPWKflVuXMgBAvudmWZUH]]
+[.oneword]
+//
+== Looking forward to CS 225 yet?
+//
+This is cool stuff!
+
+[[OlLkUqBdqugqchaDKdWOFMJMRXdgmfyW]]
+== And cooler still...
+
+Hash functions already provide:
+
+[.small]
+//
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* [.line-through]#*Efficiency*: it is efficient to compute.#
+
+But what if there were hash functions with the following _new_ properties:
+
+[.s.small]
+//
+* Given the hash, it is _infeasible_ to determine the original input
+//
+* A small change to the input produces a _large_ change in the output
+//
+* The function is _difficult_ to compute, not easy
+
+[[ahHxfzfBcLQvvuWqeAEfuFsGFcjqWsMQ]]
+== Cryptographic Hash Functions
+
+[.lead]
+//
+A hash function that satisfies these properties is known as a _cryptographic
+hash function_, largely because they are ubiquitous in modern cryptography.
+
+[[PdxviDVjqwEyJNsBsEAQRzzhphhYRviR]]
+== A Simple Example
+
+[.lead]
+//
+I need to be able to check your password, but I don't want to save it.
+//
+*Is that possible?*
+
+[.s.small]
+//
+* *Yes!*
+//
+* Save the cryptographic hash of your password, not the password itself.
+//
+* When you submit your password, I hash it and compare it with the saved hash.
+//
+* If someone steals my database, they can't recover the original passwords.
+//
+** Given the hashes, you can't recover the original passwords
+//
+** Hash values reveal nothing about how close you are to the actual password
+//
+** Hashing inputs to test them is expensive
+
+[[TBrLUXoSYNeiXBAytTdbidYEMrLAITEP]]
+== Small Input Change, Big Output Change
+
+[source,bash]
+----
+$ $ cat example.txt
+The quick brown fox jumps over the lazy dog
+$ md5 < example.txt
+37c4b87edffc5d198ff5a185cee7ee09
+$ cat example.txt
+The quick brown fox jumps over the lazy doG
+$ md5 < example.txt
+75559fc9857fe9bebf65f97760e3f67d
+----
+
+[[sqifxqIMMsbqDxLiLedePYbVGYpYDhzx]]
+== A Modern Example
+
+[.lead]
+//
+Heard of blockchain?
+
+Blocks are linked through _cryptographic hashes_.
+//
+And the blockchain is secured through an old idea called
+//
+https://en.wikipedia.org/wiki/Hashcash[Hashcash].
+
+[.s]
+//
+* Given a hash value of a given size, I can estimate how much work you'll have
+to do to guess the input that produced that value
+//
+* So I can force you to do that work and verify that you did it easily by
+hashing the value that you gave me
+
+[[gRZDKTXJypxDiTAoVSSwTfZOMUNyUxCG]]
+== Hashcash Example
+
+[.s]
+//
+* Alice: "Here's a challenge for you Bob, find an input that produces hash
+`39c3aa4015e7964914c311915316a2f78157c946`.
+* Bob: "Geez, that's hard. Give me a few minutes... OK, got it."
+//
+* Alice: "Wow, you're right. I computed the hash and it's
+`39c3aa4015e7964914c311915316a2f78157c946` that must have been hard."
+
+[[qGSmwzyNQfEsKimoddEsPTmTCROlLAfV]]
+[.oneword]
+//
+== Unintended Consequences
+
+Hashcash was intended to help fight spam. Now it's the reason that Bitcoin
+mining
+//
+https://www.nytimes.com/2018/01/21/technology/bitcoin-mining-energy-consumption.html[is
+ruining the planet].
+
+[[aGqRxSJOrbpxveHPtfUbwZvbJQMzOGnp]]
+== And, Beautiful Theory
+
+[quote]
+____
+In computer science, a
+//
+https://en.wikipedia.org/wiki/One-way_function[one-way function]
+//
+is a function that is easy to compute on every input, but hard to invert given
+the function's output for a random input.
+
+*The existence of such one-way functions is still an open conjecture.*
+//
+In fact, their existence would prove that the complexity classes P and NP are
+not equal, thus resolving the foremost unsolved question of theoretical computer
+science.
+//
+____
+
+[[jXRuKfHWdQnxhqBYQQVMOPSJlRrttssh]]
+[.oneword]
+//
+== Questions About Hashing?
+
+[[UrylhnSKFGZYgkhSQkPKHJGYWieJttOA]]
+== Announcements
+
+* New
+//
+https://prairielearn.engr.illinois.edu/pl/course_instance/8235/assessment_instance/416409[exam
+practice problems] are available.
+//
+* link:/MP/7/[MP7 (the final project)] is out.
+//
+Please get started!
+//
+* The
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+remains available on the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
