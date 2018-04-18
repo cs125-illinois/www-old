@@ -5,6 +5,7 @@ description:
   An introduction to hash functions, various uses of hashing, and hash tables
   and maps.
 ---
+:imagesdir: /learn/images
 
 [[axHCLhKQxzhwFHeqGvpZhWUIqRTRCEyt]]
 == !
@@ -75,6 +76,311 @@ public static boolean isStrictPalindrome(final String input) {
   <iframe class="full embed-responsive-item" src="https://prairielearn.engr.illinois.edu/pl/course_instance/8235/instance_question/16360409/"></iframe>
 </div>
 ++++
+
+[[ksZcHuGafKhHDLRGxrFjALYMVpMJgcXc]]
+== Let's Imagine...
+
+[.lead]
+//
+Imagine I told you that there was a function with the following
+properties:
+
+[.s]
+//
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute
+
+[[wzbgdJVtyahrQzZFvohwYXcHCbZXFXUa]]
+== ! Example Hash Function
+
+[.janini.smallest]
+....
+public static long hash(int[] input) {
+  return 0;
+}
+....
+
+[[bQxAYgagIHKxIGvBvBzRhiMkryOaxuBt]]
+== Hash Functions
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Hash_function#Properties[A hash function]
+//
+is any function that can be used to map data of arbitrary size to data of fixed
+size.
+//
+The values returned by a hash function are called hash values, hash codes,
+digests, or simply hashes.
+//
+____
+
+[[KXloElbfqdIMcAPEnHOTqFsFGaPabBOJ]]
+[.oneword]
+//
+== What Could We Do With Such A Function?
+
+It may not seem obvious at first, but hash functions have many, many uses.
+
+[[BobWolVzSbNjBtxTNpyhXPfCEsXmgkmo]]
+== Example: Download Verification
+
+[.lead]
+//
+Imagine the following scenario:
+
+[.s]
+//
+* You need to download a 120GB file to install a particular piece of software.
+//
+* It's possible that, along the way, some data gets corrupted&mdash;either by
+the network or by your disk, who knows.
+//
+* So before you install the software you want to be sure that you downloaded the
+file correctly.
+
+[[FrbDJChruSGDxWmEwdVklfGiANFpQizs]]
+== Without A Hash Function
+
+[.lead]
+//
+_Without_ a hash function, what do we have to do?
+
+[.s]
+//
+* Download the 120GB file.
+//
+* Download it again. (Ugh.)
+//
+* Compare the two to make sure that they are the same.
+
+[[DEDOyPgoyBidbsMBQXDldzTprshoQAoO]]
+== But...
+
+[.lead]
+//
+Remember, I have a function with the following properties:
+
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute
+
+[[bbLykpLPQpmMwPBvKIHdSpKEebcjFUCc]]
+== With A Hash Function
+
+[.lead]
+//
+_With_ a hash function, what do we do?
+
+[.s]
+//
+* You compute the hash of your copy of the file.
+//
+* Download a _hash_ of the file: maybe only a few bytes.
+//
+* Compute the hash of the file locally and make sure that it matches.
+
+[[YoPlxhrMWDBtGHuommrErQnTEpPMttNN]]
+== ! Example Download With `md5sum`
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="http://www.tug.org/mactex/mactex-download.html"></iframe>
+</div>
+++++
+
+[[XihJKtnAxApjydpNBnasaUxLYEFcJFCE]]
+== Example Download With `md5sum`
+
+[.lead]
+//
+`md5` is a popular
+//
+https://en.wikipedia.org/wiki/MD5[hash function]
+//
+that produces a 128-bit value.
+
+We're expecting an `md5` hash value of `a04828f1ffacc0bf9b48879b57794c2b`:
+
+[source,bash]
+//
+----
+$ md5 mactex-20170524.pkg
+MD5 (mactex-20170524.pkg) = a04828f1ffacc0bf9b48879b57794c2b
+$
+----
+
+[[MiiWtddXjlyHUjiJaEAZmuwuyeMKvZtp]]
+== Example: Fingerprinting Content
+
+[.lead]
+//
+Imagine the following scenario.
+
+[.s]
+//
+* You sent me `foo.docx` at some point.
+//
+* (I deleted it because it was a `.docx` file, so in reality scenario over.)
+//
+* But let's pretend that you can't remember if you sent me the latest version.
+
+[[DzLVhrOFXklAwrwtVUTxusCuXrEmvhWl]]
+== Without a Hash Function
+
+[.lead]
+//
+_Without_ a hash function, what do we do?
+
+[.s]
+//
+* You send me the file again.
+//
+* (And I delete it again.)
+
+[[DQhBmXmRtvQgllyTvXfsJaAAlKnwdYNy]]
+== But...
+
+[.lead]
+//
+Remember, I have a function with the following properties:
+
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute
+
+[[UyWmZasprElgrTBiiMlmMIGqmgESlbYS]]
+== With a Hash Function
+
+[.lead]
+//
+_With_ a hash function, what do we to do?
+
+[.s]
+//
+* You compute the hash of your file.
+//
+* I compute the hash of my file.
+//
+* If they are the same, we're done.
+//
+* Otherwise you send me your copy.
+
+[[EnfeobCprFLJevsjLxHYgEosrfsFLxhN]]
+== Example Content Hash with `git`
+
+[.lead]
+//
+`git` uses hashes (the
+//
+https://en.wikipedia.org/wiki/SHA-1[SHA-1 algorithm])
+//
+to fingerprint files and commits:
+
+image::github-example.png[role='mx-auto',width=600]
+
+[[tLANhGeDIHsfTkDVLaULCrzubCOTPUaG]]
+== Example `git push`
+
+[.lead]
+//
+More or less, here's what happens when you push to GitHub.com:
+
+[.s.small]
+//
+* Your computer says: "Hi GitHub.com, I have the following files:
+`a6efc501d57b88df337fe904483d25732bb3e45e`,
+`4e292499a1194d0493bd5350408fe3254d2335d3`,
+`20da0fbbf8e8c279bb1edbbe0ac5ae40349edceb`, ..."
+//
+* Server, "OK, I've got
+`4e292499a1194d0493bd5350408fe3254d2335d3` and
+`a6efc501d57b88df337fe904483d25732bb3e45e` but I need
+`20da0fbbf8e8c279bb1edbbe0ac5ae40349edceb` and ...".
+//
+* Your computer: "OK, sending those now..."
+
+[[TpBEMwHpxtautSSBbbBkYnAlTRpvClcL]]
+== Hash Collisions
+
+[.lead]
+//
+If a hash function produces the _same_ hash for two _different_ inputs this is
+called a _collision_.
+
+[.s]
+//
+* In some cases, particularly if the size of the hash is small, collisions are
+expected and OK.
+//
+* If the size of the hash is large enough and the hash function is uniform,
+collisions should _never happen_ and the world will end if they do. Or at least
+`git` will stop working.
+
+[[cHacVvUBZzcwEmeEgKdgTPnsTLAGisUK]]
+== ! Example Small Hash
+
+[.janini.smallest]
+....
+public static byte hash(int[] input) {
+  return 0 % 16;
+}
+....
+
+[[CGYzkTirBBEMdBbcQGsUlgiZESQckfNw]]
+== The Birthday Paradox
+
+[.lead]
+//
+In a room with 100 students, what is the probability that _two_ will share the
+same birthday footnote:[Obviously birthdays are not uniformly distributed across
+the calendar, for, um, obvious reasons?]? [.s]#*99.9999%*#
+
+[.s]
+//
+* Does anybody know how many you need to get a 50% chance? [.s]#Only _23_!#
+//
+* This is bad for our hash functions... collisions are more likely than we might
+think!
+
+[[rxTFOLQfAkZIKnzVifZmfLrouKAWNZKH]]
+== Birthday Hashing Paradox
+
+[.lead]
+//
+How many documents do I have to hash before I find two with the
+//
+https://en.wikipedia.org/wiki/Birthday_attack[same hash with _50%_ probability?]
+
+[.s.small]
+//
+* It depends on how large the hash is!
+//
+* For 16 bits, 300. (The MP6 starter code had 80 files in it.)
+//
+* For 32 bits, 77,000 (My computer has 2.5 million files on it.)
+//
+* For 64 bits, 5 billion (GitHub.com has 1 billion files.)
+//
+* For 128 bits, 14,000,000,000,000,000,000. (Now we're getting warmer.)
+//
+* (Git actually uses a 160-bit hash function.)
+//
+* For 512 bits, 1.4 * 10^77 (The universe only has ~10^78 atoms, so this is
+probably enough.)
 
 [[NatQECjiehpGWjBTDhWNjopXkXVqFVZq]]
 == Announcements
