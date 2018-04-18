@@ -98,7 +98,7 @@ same value.
 //
 * *Uniformity*: over many inputs, each output value is equally likely.
 //
-* *Efficiency*: it is efficient to compute
+* *Efficiency*: it is efficient to compute.
 
 [[wzbgdJVtyahrQzZFvohwYXcHCbZXFXUa]]
 == ! Example Hash Function
@@ -124,6 +124,15 @@ The values returned by a hash function are called hash values, hash codes,
 digests, or simply hashes.
 //
 ____
+
+[[TeyVyghMhqCClaJLJSUYCvQFyUignEXW]]
+== ! Example Hash Functions
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="http://www.burtleburtle.net/bob/hash/doobs.html"></iframe>
+</div>
+++++
 
 [[KXloElbfqdIMcAPEnHOTqFsFGaPabBOJ]]
 [.oneword]
@@ -160,9 +169,9 @@ _Without_ a hash function, what do we have to do?
 //
 * Download the 120GB file.
 //
-* Download it again. (Ugh.)
+* Download it again. (Slow.)
 //
-* Compare the two to make sure that they are the same.
+* Compare the two to make sure that they are the same. (Also slow.)
 
 [[DEDOyPgoyBidbsMBQXDldzTprshoQAoO]]
 == But...
@@ -177,7 +186,7 @@ same value.
 //
 * *Uniformity*: over many inputs, each output value is equally likely.
 //
-* *Efficiency*: it is efficient to compute
+* *Efficiency*: it is efficient to compute.
 
 [[bbLykpLPQpmMwPBvKIHdSpKEebcjFUCc]]
 == With A Hash Function
@@ -265,7 +274,7 @@ same value.
 //
 * *Uniformity*: over many inputs, each output value is equally likely.
 //
-* *Efficiency*: it is efficient to compute
+* *Efficiency*: it is efficient to compute.
 
 [[UyWmZasprElgrTBiiMlmMIGqmgESlbYS]]
 == With a Hash Function
@@ -329,11 +338,11 @@ called a _collision_.
 [.s]
 //
 * In some cases, particularly if the size of the hash is small, collisions are
-expected and OK.
+expected and we plan to deal with them.
 //
 * If the size of the hash is large enough and the hash function is uniform,
-collisions should _never happen_ and the world will end if they do. Or at least
-`git` will stop working.
+collisions should _never happen_ and the world will end if they do. (Or at least
+`git` will stop working and my world will end.)
 
 [[cHacVvUBZzcwEmeEgKdgTPnsTLAGisUK]]
 == ! Example Small Hash
@@ -523,9 +532,9 @@ public class Example {
       "here", "here", "there"
     };
     WordCounter wordCounter = new WordCounter(corpus);
-    System.out.println(getWordCounter.wordCount("here"));
-    System.out.println(getWordCounter.wordCount("there"));
-    System.out.println(getWordCounter.wordCount("nowhere"));
+    System.out.println(wordCounter.getWordCount("here"));
+    System.out.println(wordCounter.getWordCount("there"));
+    System.out.println(wordCounter.getWordCount("nowhere"));
   }
 }
 ....
@@ -627,7 +636,7 @@ same value.
 //
 * *Uniformity*: over many inputs, each output value is equally likely.
 //
-* *Efficiency*: it is efficient to compute
+* [.line-through]#*Efficiency*: it is efficient to compute.#
 
 But what if there were hash functions with the following _new_ properties:
 
@@ -636,6 +645,8 @@ But what if there were hash functions with the following _new_ properties:
 * Given the hash, it is _infeasible_ to determine the original input
 //
 * A small change to the input produces a _large_ change in the output
+//
+* The function is _difficult_ to compute, not easy
 
 [[ahHxfzfBcLQvvuWqeAEfuFsGFcjqWsMQ]]
 == Cryptographic Hash Functions
@@ -667,6 +678,23 @@ I need to be able to check your password, but I don't want to save it.
 ** Given the hashes, you can't recover the original passwords
 //
 ** Hash values reveal nothing about how close you are to the actual password
+//
+** Hashing inputs to test them is expensive
+
+[[TBrLUXoSYNeiXBAytTdbidYEMrLAITEP]]
+== Small Input Change, Big Output Change
+
+[source,bash]
+----
+$ $ cat example.txt
+The quick brown fox jumps over the lazy dog
+$ md5 < example.txt
+37c4b87edffc5d198ff5a185cee7ee09
+$ cat example.txt
+The quick brown fox jumps over the lazy doG
+$ md5 < example.txt
+75559fc9857fe9bebf65f97760e3f67d
+----
 
 [[sqifxqIMMsbqDxLiLedePYbVGYpYDhzx]]
 == A Modern Example
@@ -674,7 +702,7 @@ I need to be able to check your password, but I don't want to save it.
 [.lead]
 //
 Heard of blockchain?
-//
+
 Blocks are linked through _cryptographic hashes_.
 //
 And the blockchain is secured through an old idea called
@@ -744,6 +772,11 @@ ____
 10AM in Siebel 2405.
 //
 Feel free to attend.
+//
+* New
+//
+https://prairielearn.engr.illinois.edu/pl/course_instance/8235/assessment_instance/416409[exam
+practice problems] are available.
 //
 * link:/MP/7/[MP7 (the final project)] is out.
 //
