@@ -9,7 +9,6 @@ spelling_exceptions:
   - Geez
   - SHA
   - Hashcash
-draft: true
 ---
 :imagesdir: /learn/images
 
@@ -36,6 +35,22 @@ static void countStrings(String[] inputArray) {
 countStrings(new String[] { "a", "b", "aa", "bb", "a" });
 ....
 --
+
+[[tmgPNiKLWnHUzErCRKzzZvBhQKQgmowP]]
+== Let's Imagine...
+
+[.lead]
+//
+Imagine I told you that there was a function with the following
+properties:
+
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute.
 
 [[hkmWrBhxcKDwRZLHltXbsKfQGVSAPCFU]]
 == Remember Arrays?
@@ -131,8 +146,30 @@ object?
 * `equals`: test whether an object equals another
 //
 * `hashCode`: return a *hash value* for that object, which is used internally by
-all `Map` implementations and other data structures
+`Map` implementations and other data structures
 
+[[oNSUQuIcudDNOreWJbMomWIAWVuDPRNI]]
+== Example `hashCode`
+
+[.lead]
+//
+Like `toString` and `equals`, IntelliJ will offer to generate `hashCode` for
+you:
+
+[source,java,role='small']
+----
+public class Player {
+  // Other things omitted
+  private int id;
+
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + id;
+    return result;
+  }
+}
+----
 
 [[YtqFBVnmuvRuJizUWcQMkvzrsdQDdrHI]]
 == Map Usage Example
@@ -179,7 +216,7 @@ public class Example {
 [.lead]
 //
 In Java, certain data structures (`Maps`, `ArrayLists`, etc.) only operate on
-_objects_. (We'll see why in a minute.)
+_objects_. (Because `Object` provides `hashCode`.)
 
 But then how do we insert primitive types (`ints`, `longs`, etc.) into them?
 
@@ -249,6 +286,100 @@ So how do we implement a `Map`?
 == `Map` As Array + Linked List
 
 image::http://math.hws.edu/javanotes/c10/hash-table.png[role='mx-auto', width=500]
+
+[[UsChKXDXPGKVOeKYnxsHACKOOsKlhJYx]]
+== ! HashMap Example
+
+[.janini.compiler.smallest]
+....
+public class Item {
+  public Object key;
+  public Object value;
+  public Item next;
+  Item(Object setKey, Object setValue, Item setNext) {
+    this.key = setKey;
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class HashMap {
+  private Item[] items = new Item[16];
+  public int itemCount = 0;
+  private int hash(Object key) {
+    return key.hashCode() % 16;
+  }
+  public void put(Object key, Object value) {
+    int bucket = hash(key);
+    Item current = items[bucket];
+    for (; current != null; current = current.next) {
+      if (current.key.equals(key)) {
+        current.value = value;
+        return;
+      }
+    }
+    Item newItem = new Item(key, value, items[bucket]);
+    items[bucket] = newItem;
+    itemCount++;
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    HashMap ourHashMap = new HashMap();
+    ourHashMap.put("test", "me");
+    System.out.println(ourHashMap.itemCount);
+    ourHashMap.put("test", "another");
+    System.out.println(ourHashMap.itemCount);
+  }
+}
+....
+
+[[XzzFwecpZcVPGyIzrraJqXHDwFRgolqO]]
+== `HashMap` Performance
+
+[.lead]
+//
+Let's consider the performance of our simple `HashMap` in two cases. First, if
+the array is *very small* relative to the number of items:
+
+[.s]
+//
+* *`put`*: [.s]#O(n) with n being the number of items#
+//
+* *`get`*: [.s]#O(n) with n being the number of items#
+//
+* At this point the `HashMap` is acting [.s]#like a _linked list_.#
+
+[[XbDnmqvDhMnqdLZVipXfTlOWbYnAIHhL]]
+== `HashMap` Performance
+
+[.lead]
+//
+Let's consider the performance of our simple `HashMap` in two cases. Second, if
+the array is *very large* relative to the number of items:
+
+[.s]
+//
+* *`put`*: [.s]#O(1)#
+//
+* *`get`*: [.s]#O(1)#
+//
+* At this point the `HashMap` is acting [.s]#like an _array_.#
+//
+* What's the problem? [.s]#It requires _a lot_ of space.#
+
+[[kteyvggYdbvCdQkBtRmnnvWPfabuQoeJ]]
+== Realistic `HashMap` Performance
+
+[.lead]
+//
+In reality we want our `HashMap` to blend the good features of an array and a
+linked list.
+
+[.s]
+//
+* Usually implementations will _enlarge_ the array part of a `HashMap` once it
+gets filled past a certain point (called the _load factor_).
 
 [[DKcMSEbCvHQXPWKflVuXMgBAvudmWZUH]]
 [.oneword]
