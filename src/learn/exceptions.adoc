@@ -154,6 +154,14 @@ try {
 // Go on if things proceeded normally
 ----
 
+[[qvlOjZWdEtCQbonLgPsQfGssTFvZwvne]]
+== `catch` Matching
+
+[.lead]
+//
+A `catch` block will match any exceptions that inherit from the one provided.
+And they are tried in order.
+
 [[FCwSppBUbsdntJPLYVWUmKhTjmwczUgt]]
 == `try-catch` with Multiple `catch`
 
@@ -522,6 +530,7 @@ static void foo4() {
 foo4();
 ....
 
+[[CTsKSqiFCfFyikLMwtUmDbmSXijFayAL]]
 == Rethrowing Exceptions
 
 [.lead]
@@ -546,6 +555,7 @@ static URI createURI(final String input) {
 }
 ----
 
+[[diIiwLksuhFzuaiuxOuRIZnfIpgBPFnP]]
 == Throwing Your Own Exceptions
 
 [.lead]
@@ -569,11 +579,12 @@ class StringStorage {
 }
 ----
 
+[[tZEORkretvixoGRTiPQxDkXOhkrgdAUE]]
 == ! Throwing Your Own Exceptions
 
 [.janini.smaller.compiler]
 ....
-class StringStorage {
+public class StringStorage {
   /**
    * Create a new object to store strings.
    *
@@ -586,18 +597,194 @@ class StringStorage {
     }
   }
 }
-class Example {
+public class Example {
   public static void main(final String[] unused) {
     StringStorage stringStorage = new StringStorage(-1);
   }
 }
 ....
 
+[[TyzTkvyjvmKDPkZwmxwufvXMjajIlrHV]]
+== `throw`
+
+[.lead]
+//
+To throw an exception in Java we use the `throw` keyword:
+
+[source,java]
+----
+Exception e = new Exception("you did something awful");
+throw(e);
+----
+
+[[qoTmuDmRuBRgiUxPONZaOVhCRmlElcLw]]
+== `throw` Well
+
+[.lead]
+//
+If you need to throw an exception:
+
+[.s]
+//
+* Look for an existing `Exception` class that's a good fit
+//
+* Or, create your own:
+
+[source,java,role='s smaller']
+----
+public class MyException extends Exception {
+}
+throw(new MyException("bad bad"));
+----
+
+[[SRZEFPcrGpKfBdzGREcjDZALhTbKaIsC]]
+== `finally`
+
+[.lead]
+//
+Java's `try-catch` also supports a `finally` block. It is _always_ executed after
+_either_ the `try` or the `catch` completes:
+
+[source,java,role='smaller']
+----
+try {
+  System.out.println("start");
+  couldError();
+  System.out.println("done");
+} catch (Exception e) {
+  System.out.println("catch");
+} finally {
+  System.out.println("finally");
+}
+----
+
+[[mhmYjmPPucLHcPEFfhzCtQfFbnqfuYjZ]]
+== ! `finally` Example
+
+[.janini.smaller]
+....
+import java.util.Random;
+
+static void couldError() {
+  Random random = new Random();
+  if (random.nextBoolean()) {
+    Object it = null;
+    it.hashCode();
+  }
+}
+
+try {
+  System.out.println("start");
+  couldError();
+  System.out.println("done");
+} catch (Exception e) {
+  System.out.println("catch");
+} finally {
+  System.out.println("finally");
+}
+....
+
+[[eZOQBRhCvuQhjkIrABjfwolqygMADAfE]]
+== Intelligent `try` Usage
+
+[.lead]
+//
+You can make intelligent use of `try-catch` blocks to avoid repetitive sanity
+checking:
+
+[source,java,role='smaller']
+----
+JsonParser parser = new JsonParser();
+JsonObject info = parser.parse(json).getAsJsonObject();
+if (!info.has("metadata")) {
+  return 0;
+}
+JsonObject metadata = info.getAsJsonObject("metadata");
+if (!metadata.has("width")) {
+  return 0;
+}
+JsonElement width = metadata.getAsJsonElement("width");
+return width.getAsInt();
+----
+
+[[PTcgGbrBNJAzQGjhIpXKlPnMXeUoxUmP]]
+== Intelligent `try` Usage
+
+[.lead]
+//
+You can make intelligent use of `try-catch` blocks to avoid repetitive sanity
+checking:
+
+(This is particularly nice when you can chain calls together.)
+
+[source,java,role='smaller']
+----
+try {
+  JsonParser parser = new JsonParser();
+  return parser.parse(json)
+    .getAsJsonObject()
+    .getAsJsonObject("metadata")
+    .get("width")
+    .getAsInt();
+} catch (Exception e) {
+  return 0;
+}
+----
+
 [[cOoeHZUWDypFrxsatLfQZXqrMnvSBIWc]]
 == Final Project Reminders
 
+[.lead]
+//
+You have less than two weeks to complete your final project!
+
+[.s]
+//
+* *You need a partner.* You're about to lose 20 points if you don't have one.
+//
+* *You need a UI.* See above.
+//
+* *Have fun!*
+//
+* _Questions_?
+
 [[dzObIAUNjSBldZMkzRYoEOfeXeEoLEwG]]
 == ICES Plan and Incentives
+
+[.lead]
+//
+The way that we do ICES is really dumb...
+
+[.s]
+//
+* We'll be doing our own custom end-of-semester survey, so you'll have a chance
+to fill out an evaluation online like a normal human being.
+//
+* (And we'll get the feedback before the class is offered multiple more times.)
+//
+
+[[EnldllNIUKAzxdDshUdAUALUcbqcXeBr]]
+== ICES Plan and Incentives
+
+[.lead]
+//
+...but I still want you to complete the ICES forms.
+//
+*So to incentivize participation*:
+
+[.s]
+//
+* If you get to 70% I'll release one of the short programming problems from the
+exam
+//
+* If you get to 80% I'll release _another_ programming problem from the
+exam
+//
+* If you get to 90% I'll release *a hard* programming problem from the
+exam
+//
+* Note that the TAs will be supervising the ICES forms so that I can trust the
+count. And the 8AM and 10AM classes are in this together.
 
 [[oViMXZJHRuOiNPZSUiHsapzzDrHNNTpN]]
 == Announcements
