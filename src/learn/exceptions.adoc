@@ -463,12 +463,14 @@ Here are reasonable strategies for handling each kind of exception:
 
 [.s]
 //
-* *Checked exceptions*: try to handle these and have your program
-continue running, or exit gracefully
+* *Errors*: _don't_ try to handle these, just go bye-bye
 //
 * *Unchecked exceptions*: try to _avoid_ these by improving your code
 //
-* *Errors*: _don't_ try to handle these, just go bye-bye
+* *Checked exceptions*: try to handle these and have your program
+continue running, or exit gracefully...
+//
+* but don't go on unless you can.
 
 [[RoxnUIFqZCBrBZnusOrpzbLuksmJMpdG]]
 == Working with Exceptions
@@ -476,7 +478,7 @@ continue running, or exit gracefully
 [.lead]
 //
 Java exceptions are just another kind of Java object&mdash;and they have some
-useful features:
+useful features, particularly when debugging:
 
 [.s]
 //
@@ -518,6 +520,77 @@ static void foo4() {
   }
 }
 foo4();
+....
+
+== Rethrowing Exceptions
+
+[.lead]
+//
+Sometimes you may want to just record what happened but not know what to do with
+an error.
+
+In that case you may want to rethrow it out of the catch block:
+
+[source,role='smaller']
+----
+static URI createURI(final String input) {
+  // Example where we handle URISyntaxExceptions
+  try {
+    return new URI(input);
+  } catch (URISyntaxException e) {
+    // Log that something went wrong
+    Log.e(TAG, input + " is not a valid URI");
+    // Rethrow the exception
+    throw(e);
+  }
+}
+----
+
+== Throwing Your Own Exceptions
+
+[.lead]
+//
+So how do we handle a case like this?
+
+[source,java]
+----
+class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize <= 0) {
+      // what now?
+    }
+  }
+}
+----
+
+== ! Throwing Your Own Exceptions
+
+[.janini.smaller.compiler]
+....
+class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize <= 0) {
+      // what now?
+    }
+  }
+}
+class Example {
+  public static void main(final String[] unused) {
+    StringStorage stringStorage = new StringStorage(-1);
+  }
+}
 ....
 
 [[cOoeHZUWDypFrxsatLfQZXqrMnvSBIWc]]
