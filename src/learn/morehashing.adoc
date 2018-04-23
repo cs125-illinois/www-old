@@ -307,7 +307,11 @@ public class HashMap {
   private Item[] items = new Item[16];
   public int itemCount = 0;
   private int hash(Object key) {
-    return key.hashCode() % 16;
+    int hashValue = key.hashCode() % 16;
+    if (hashValue < 0) {
+      hashValue += 16;
+    }
+    return hashValue;
   }
   public void put(Object key, Object value) {
     int bucket = hash(key);
