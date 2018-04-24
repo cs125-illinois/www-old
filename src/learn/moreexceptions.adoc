@@ -1,6 +1,6 @@
 ---
 title: Exceptions and Errors Continued
-date: 2018-04-23
+date: 2018-04-25
 description:
   Continuation of a discussion of Java errors and error handling.
 spelling_exceptions:
@@ -32,6 +32,46 @@ try {
 }
 ....
 --
+
+[[nbmxbUangABLUEHOCwqeRuKpLzOAqZQd]]
+== ! Q11 Review and Warmup
+
+[.janini.compiler.smallest]
+....
+import java.util.Arrays;
+
+/**
+ * Class for storing the last ten integers added.
+ *
+ * Your class should be named LastTen.
+ *
+ * Your class should implement two public methods as described below:
+ * 1. void add(int newValue):
+ *    add a new integer to the values that we are rememebring
+ * 2. int[] getLastTen():
+ *    return the last ten values that were added using add, in any order.
+ *    If fewer than ten values were added, you should return zeros in their
+ *    place.
+ *
+ * Examples:
+ *   1. add(1), add(2)
+ *      getLastTen: [1, 2, 0, 0, 0, ... ]
+ *   2. add(0), add(1), add(2), ... add(10)
+ *      getLastTen: [1, 2, 3, 4, ... 10]
+ *
+ * Your class should also provide a constructor that takes no arguments.
+ */
+
+public class Example {
+  public static void main(final String[] unused) {
+    LastTen lastTen = new LastTen();
+    for (int i = 0; i < 20; i++) {
+      lastTen.add(i);
+    }
+    System.out.println(Arrays.toString(lastTen.getLastTen()));
+  }
+}
+....
 
 [[NgSMAwsMTdJArBYXQLnHeUxhTHnfkOWO]]
 [.oneword]
