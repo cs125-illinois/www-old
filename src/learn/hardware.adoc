@@ -1,0 +1,330 @@
+---
+title: Beautiful Machines
+date: 2018-04-27
+description:
+  Introduction to computer hardware.
+---
+:imagesdir: /learn/images
+
+[[zFbqQnZekEASzVhRxuWgDBfCnvSvtzEz]]
+[.oneword]
+//
+== Beautiful Machines
+
+[[IHmHImknLzofholxMXsIXdeLNHfNQvgA]]
+== What Are Computers Good At?
+
+[.s]
+//
+. Basic math
+//
+. Simple decision making
+//
+. Doing things over and over again very, very fast
+//
+. And storing data
+
+[[BQrajZdCZObtVIdnhXcBIAtnEfNKOMpF]]
+== What is a Computer?
+
+Almost all computers share several core components:
+
+[.lead]
+//
+* A CPU (central processing unit), or just a _processor_
+//
+* Random Access Memory (RAM), or just _memory_
+//
+* Stable storage, also known as a _disk_
+//
+* Input/Output devices, also known as _perpherals_, which include keyboards,
+mice, graphics cards to drive monitors, networking cards, etc.
+
+[[gbzyBzUJtxLAjYTlJnLgbtuUTQBcCjxZ]]
+== Processors
+
+[.lead]
+//
+Processors do basic math and simple decision making over and over again
+_extremely quickly_.
+
+[.s]
+//
+* The processor is the most _expensive_ and most _complex_ single component of most
+modern computers.
+//
+* Processors are made from _millions_ of transistors, a basic electronic build
+block that is used to create more complex circuits that can add and store data
+
+[[GODeVXdzQNHblVqktcifZhGillwEkXjd]]
+== John Bardeen: Co-Inventor of the Transistor
+
+image::https://upload.wikimedia.org/wikipedia/commons/4/4a/Bardeen.jpg[link='https://upload.wikimedia.org/wikipedia/commons/4/4a/Bardeen.jpg',width=120,float='right']
+
+[.lead]
+//
+https://en.wikipedia.org/wiki/John_Bardeen[John Bardeen]
+//
+is the only person to win _two_ Nobel prizes in physics.
+
+[.s.small]
+//
+* The first was shared with
+//
+https://en.wikipedia.org/wiki/William_Shockley[William Shockley]
+//
+and
+//
+https://en.wikipedia.org/wiki/Walter_Houser_Brattain[Walter Brattain]
+//
+for the invention of the transistor.
+//
+* The transistor is right behind fire as one of the most important inventions in
+human history.
+//
+It made modern electronics and computers possible.
+//
+* John Bardeen also taught here at Illinois for many years.
+
+[[BWfgAppwIeqIrEJXJgNcTruJgkwzWJmn]]
+== What is a Transistor?
+
+[.lead]
+//
+You can think of a transistor as a tiny electronic switch.
+
+[.s]
+//
+* Combine a few together and you can do simple logical operators like `NOT` and
+`AND`.
+//
+* Combine a few of those and you can create an _adder_: a circuit that adds two
+numbers
+//
+* Combine a few of those and you can create an arithmetic logic unit, or ALU,
+one of the core components of modern processors
+
+[[VtojwLjCdztvAiyEhjhcqJTVOOTcxAwc]]
+== Transistor Not Gate
+
+image::https://www.electronics-tutorials.ws/logic/log47.gif[width=400,role='mx-auto']
+
+[[zZVslqCbkECbYfiwLwsWgoIaEbAazoeQ]]
+== 4-Bit Adder
+
+image::http://wiringdiagramcircuit.co/wp-content/uploads/2018/02/best-4-bit-full-adder-circuit-diagram-half-adders-and-full-adders.png[width=480,role='mx-auto']
+
+[[ygQIbIhGgttcMjDHBQIfuhzRilSPyhQZ]]
+== Smaller Means More
+
+image::https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Moore%27s_Law_Transistor_Count_1971-2016.png/1920px-Moore%27s_Law_Transistor_Count_1971-2016.png[width=480,role='mx-auto']
+
+[[ujNLpAESuNFFVqppzoXPRzvDQDvtbRCZ]]
+== Moore's Law
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Moore%27s_law[Moore's law]
+//
+is the _observation_ that the number of transistors in a dense integrated circuit
+doubles about every two years.
+//
+The observation is named after Gordon Moore.
+//
+____
+
+Moore's "Law" is not a law, but rather a feat of engineering.
+//
+Three cheers for ECE!
+
+[[NArfqiMXpQjztWctgVvLgCKvnpQsXFtT]]
+== Smaller Means Faster...
+
+image::https://i.stack.imgur.com/tyjWM.jpg[width=360,role='mx-auto']
+
+[[CMRnqMTzPrItCcIKpDAkmaVRxsmfmunA]]
+== ! ...Until Recently
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://www.technologyreview.com/s/601441/moores-law-is-dead-now-what/"></iframe>
+</div>
+++++
+
+[[BKHdKoGzMZsNydoDAxiFzUdnLjFGKugZ]]
+== The End of Moore's Law
+
+[.lead]
+//
+Until recently:
+
+[.s]
+//
+* *Smaller transistors* made it possible to run chips at _lower voltages_
+//
+* *Lower voltages* made it possible to switch transistors _faster_
+//
+* Thus, *smaller transistors* led to increases in _clock speed_, and allowed
+processors to complete the same calculations faster
+
+[[rMjyxFqIebPLZkaZlUzKTIHRVEMYAjzm]]
+== Until Recently
+
+[.lead]
+//
+Technically Moore's Law is still going. What has broken down in known as
+_Dennard Scaling_:
+
+[quote]
+____
+//
+Since around 2005–2007 Dennard scaling appears to have broken down.
+//
+As of 2016, transistor counts in integrated circuits are still growing, but the
+resulting improvements in performance are more gradual than the speed-ups
+resulting from significant frequency increases.
+//
+____
+
+[[vUjpnTCpBcFlaLpfALRAjqWCvNBRgOBw]]
+== What's the Culprit: _Heat_
+
+[.lead]
+//
+Smaller transistors generate more heat per unit area, and at a certain point
+reach a thermal density that can damage the chip itself.
+
+[.s]
+//
+* Hence, we've gone from faster single processors to more cores per processor.
+//
+* This increases the amount of work that the computer can do through parallelism
+but not the speed at which it can perform a single task.
+
+[[AEBEVMiaOMjedgpbgSNZWgMUJBOEVAna]]
+== Case Study: Pentium 4
+
+image::https://information2share.files.wordpress.com/2011/05/intel-pentium-4-northwood.jpg[width=480,role='mx-auto']
+
+[[YQIzfZrXKendooZxMLFtlXujDtiGAwhN]]
+== A Computer Full of Processors
+
+[.lead]
+//
+The CPU is just one of many processors found in a typical computer.
+
+[.s]
+//
+* It's the most powerful and general purpose
+//
+* But many other specialized processors exist, for doing things like graphics
+processing, decoding MP3s or other media formats, arranging communication
+between the CPU and other parts of the system, decoding or encoding network
+packets, etc.
+
+[[CtTXNLOoGaHBwLdcinhsPMDnUMRcgzTb]]
+== Random Access Memory (RAM)
+
+[.lead]
+//
+RAM provides high-speed volatile storage.
+
+[.s]
+//
+* Like the CPU, RAM is made of millions of transistors
+//
+* RAM is usually faster than reading and writing data to disk...
+//
+* ...but it is much slower than other _caches_ that are closer to the processor
+//
+* RAM is _volatile_, meaning that its contents are lost when the computer is
+powered down
+
+[[GSxxXmvgOlMyOTDRmkgWgECrjGWGuEcp]]
+== Pentium 4 Caches
+
+image::https://information2share.files.wordpress.com/2011/05/intel-pentium-4-northwood.jpg[width=480,role='mx-auto']
+
+[[cPUxdudpNbNynYIyrosxzHZQiPngNEFJ]]
+[.oneword]
+== Case Study: RAM
+
+[[qzbOCgGlwwvsJsFMMJHddfoEwtfeahqA]]
+== Non-Volatile Storage
+
+[.lead]
+//
+Disks provide low-speed non-volatile storage.
+
+[.s]
+//
+* Older drives (HDDs) store data magnetically on spinning platters
+//
+* Newer drives (SSDs) store data electronically using a new kind of transistor
+//
+* Disks are much slower than RAM...
+//
+* ...but the data that they store is retained even if the device is powered off.
+
+[[xJkzMakfPXiOBASDGYjhCxHHXtMkWWQp]]
+== Disk In Action
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9eMWG3fwiEU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+++++
+
+[[krIgbzhJHZqCiwSQiNSWiWJAlGomBuqR]]
+[.oneword]
+== Case Study: HDD
+
+(Newer disks are kind of boring, but luckily we still have one with moving
+parts!)
+
+[[lAloPrZMmxEsMgeHiBDxHYYjqQQAwkoj]]
+[.oneword]
+== Case Study: Other Stuff
+
+[[eVFVKCmtNKSvqZrgxyILYFwHSCKgbXyU]]
+== Laptops and Phones
+
+[.lead]
+//
+Laptops and phones are built from the same set of core components but present
+some difficult design challenges.
+
+[.s]
+//
+* Everything has to be crammed into a much smaller case
+//
+* There's no room for a huge heat sink and fan for the processor
+//
+* If the processor gets very hot it can actually cause human discomfort
+//
+* Battery lifetime becomes a concern
+
+[[jcHdfUIjwqvfYiYBDtjMiScUIcjVuyFK]]
+[.oneword]
+//
+== Questions About Hardware?
+
+Hug a computer engineer today. They have truly given us some beautiful machines.
+
+[[hURymIQKGLIkmaKofcKdSizIXjCWLYOz]]
+== Announcements
+
+* link:/MP/7/[MP7 (the final project)] is out.
+//
+Please get started!
+//
+* The
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+remains available on the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
