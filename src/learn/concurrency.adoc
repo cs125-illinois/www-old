@@ -20,9 +20,6 @@ spelling_exceptions:
 ....
 public class Example implements Runnable {
   public static int count = 0;
-  private String message;
-  public Example() {
-  }
   public void run() {
     int myCount = count;
     myCount += 1;
@@ -166,6 +163,155 @@ public class Example {
 }
 ....
 
+[[EOlaWWbCRSLYGtBPtTkeFCptwBiykAQs]]
+[.oneword]
+//
+== But We Have Multiple Cores!
+
+[[ZDfZzTWFqbwRCAnpIbXPgKbfwpoqScER]]
+== Parallelism In Java
+
+[.lead]
+//
+Java allows us to create a separate _thread_ of execution using the `Thread`
+class.
+
+[.s]
+//
+* Each `Thread` executes separately, and threads may run in parallel on
+different cores if possible.
+//
+* Each `Thread` can access the same program variables as other threads.
+
+[[yTiFNndxWuqnCbbxKXdaVoViKSKyLOAS]]
+[.oneword]
+//
+== But What Is a `Thread` To Do?
+
+[[JsjPMjNefmUmdufHhmhkpcecpxoKKEjN]]
+== Runnables
+
+[source,java,role='smaller']
+----
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) {
+    Thread t = new Thread(new Hello());
+    t.start();
+  }
+}
+----
+
+[.lead]
+//
+When we create a `Thread` we need to give it something to do&mdash;a function as
+an _entrypoint_. (Remember `main`?)
+
+We do this by having our class implement `Runnable` and provide a `public void
+run()` method.
+
+[[RteOFhTDwNperQllWJLNWCbhceemNIbq]]
+== ! Thread Interface
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html"></iframe>
+</div>
+++++
+
+[[gvKoEAkoMowBvkchLItIzFLtbkqepyFz]]
+== ! Threads: Broken
+
+[.janini.smaller.compiler]
+....
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) {
+    // Why doesn't this work?
+    Thread t = new Thread(new Example());
+    t.start();
+  }
+}
+....
+
+[[HdcyGgwHNYuHLaTzicStFAqjEsafteTU]]
+== ! Threads: Less Broken
+
+[.janini.smaller.compiler]
+....
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) {
+    // This is better but inconsistent
+    Thread t = new Thread(new Example());
+    t.start();
+    System.out.println("World");
+  }
+}
+....
+
+[[XeTIdUXxzzkgeMiLAbfsqSxBDwIehcgP]]
+== Controlling Threads
+
+[.lead]
+//
+Java has multiple methods for controlling and communicating with `Thread`
+objects:
+
+[.s]
+//
+* `thread.start()`: begin executing a `Thread`
+//
+* `thread.join()`: wait for a `Thread` to complete
+//
+* `thread.interrupt()`: interrupt a `Thread`, causing an `InterruptedException`
+to be thrown
+
+[[kcTKwyxSWcmiuKikSLoZugZutplnzJwz]]
+== ! Threads: Fixed
+
+[.janini.smaller.compiler]
+....
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    // This is better but inconsistent
+    Thread t = new Thread(new Example());
+    t.start();
+    System.out.println("World");
+    t.join();
+  }
+}
+....
+
+[[BXEdotZhgaTxFCNVWIaMCMGMXTxgRsJb]]
+== ! Single-Threaded Example
+
+[.janini.compiler.smallest]
+....
+public class Example {
+  private static void process() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
 [[NCTlWTlwVOJmcgRszSyclzECxrKoiJRW]]
 == ! Multi-Threaded Example
 
@@ -176,7 +322,7 @@ public class Example implements Runnable {
     for (int i = 0; i < 20000000L; i++);
   }
   public static void main(final String[] unused) throws InterruptedException {
-    Thread[] threads = new Thread[10];
+    Thread[] threads = new Thread[4];
     long startTime = System.nanoTime();
     for (int i = 0; i < 4; i++) {
       Thread t = new Thread(new Example());
@@ -192,12 +338,104 @@ public class Example implements Runnable {
 }
 ....
 
-[[mSctPrFsUXhvrHPFSdSqVaudFPXYlAcn]]
-== Parallelism in Java
+[[txxSufCibPcHnHnEoMdFeyJIqxiHcQmu]]
+== Concurrency v. Parallelism
 
 [.lead]
 //
-Java allows you to
+You hear the terms _parallelism_ and _concurrency_ used together a lot, but each
+has a specific meaning:
+
+[.s]
+//
+* *Parallelism*: multiple things _are_ happening *at the same time*
+//
+* *Concurrency*: multiple parts of your program _can make progress_ *at the same
+time*
+//
+* Watch
+//
+https://blog.golang.org/concurrency-is-not-parallelism[this talk] by Googler Rob
+Pike if you want to clear up this distinction
+
+[[utGepSzOyDoBRltAcayUiVLQdQffUePx]]
+== Why Concurrency Is Important
+
+[.lead]
+//
+Parallelism is important if your program spends a lot of time
+computing&mdash;but most programs _don't_.
+
+They spend a lot of time waiting for other things to happen:
+
+[.s.small]
+//
+* Waiting for the user to enter some input
+//
+* Waiting for a read from the disk to complete
+//
+* Waiting for some data from the network
+//
+* Waiting for your web API call to complete
+
+[.s]
+//
+--
+//
+*If your program is concurrent, something useful can happen even while you're
+waiting for something else.*
+//
+--
+
+[[TsJwmxPhJkSWvoGWaVydNidBWbPyRTiP]]
+== ! Single-Threaded Example: Concurrency
+
+[.janini.compiler.smallest]
+....
+public class Example {
+  private static void process() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[BmPnUnZajLxILhFKBUpWoZWUQXdqYYgF]]
+== ! Multi-Threaded Example: Concurrency
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  public void run() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
 
 [[dKbHXSPMjiqRbjDTCFCoeoEkTGfUMwIq]]
 == Final Project Video
