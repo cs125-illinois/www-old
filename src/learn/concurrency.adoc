@@ -1,0 +1,240 @@
+---
+title: Concurrency and Parallelism
+date: 2018-04-30
+description:
+  Introduction to concurrency, parallelism, race conditions, and
+  synchronization.
+spelling_exceptions:
+  - i7
+---
+:imagesdir: /learn/images
+
+[[NtikiyotWDrabCFnPfWbSxHFEzASENVM]]
+== ! Concurrency
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Concurrency</div>
+++++
+....
+public class Example implements Runnable {
+  public static int count = 0;
+  private String message;
+  public Example() {
+  }
+  public void run() {
+    int myCount = count;
+    myCount += 1;
+    count = myCount;
+    System.out.println("Hello from " + count);
+  }
+  public static void main(String args[]) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i < 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 10; i++) {
+      threads[i].join();
+    }
+  }
+}
+....
+--
+
+[[kyJILreCSHtKEbjmLqwmwaaumOajSOhK]]
+== Originally: Single-Core Processors
+
+image::https://information2share.files.wordpress.com/2011/05/intel-pentium-4-northwood.jpg[width=480,role='mx-auto']
+
+
+[[qSMkdBFINSclzXfQNlzzIjhpLnNtlBGg]]
+[.oneword]
+//
+== But Then How Could You Use Multiple Applications At Once?
+
+[[mzCSiXrPehxXUQWYOpWxQViHCUYYmRIw]]
+== The Illusion
+
+image::concurrency/concurrency.svg[width="100%"]
+
+[[LbURTwnFvkkJbpEAGGdLChklHxYoJpVi]]
+== But Look Closer...
+
+image::concurrency/concurrency-1.svg[width="100%"]
+
+[[GvUAcBZXdXwUoKhiMwLAUWpGSitTcnSE]]
+== And Even Closer...
+
+image::concurrency/concurrency-2.svg[width="100%"]
+
+[[wrtGWgpftaLrDLCWbWZusLguUgCrHRaz]]
+== The Illusion of Parallelism
+
+image::concurrency/concurrency-2.svg[width="100%"]
+
+[.lead]
+//
+All processors create the _illusion_ of parallelism by rapidly switching between
+multiple programs.
+
+[[lzHEBVqXiNpNUtGBwYjDczStgPuwvANr]]
+== Human Perceptual Limitations
+
+[.lead]
+//
+Why does this work? [.s]#Because _you are slow_.#
+
+Assuming a 1 GHz processor:
+
+[.s]
+//
+* 15 ms "rule of thumb": [.s]#*15,000,000* clock cycles!#
+//
+* 40 ms based on 25 frames-per-second for "smooth" video: [.s]#*40,000,000*
+clock cycles!#
+//
+* 100 ms was the rule for old telephone systems, the delay point after
+which human conversation patterns start to break down: [.s]#*100,000,000*
+clock cycles!#
+
+[[xoRwvcVfWWhgVhCGDzvxZdrHjDnvzsOW]]
+== Today: Multicore Everywhere
+
+image::https://i.stack.imgur.com/iG7o9.jpg[width=480,role='mx-auto']
+
+[[eXztgAnSiBfMWUadFLRFtTrkwUDCVzYf]]
+== Today's Reality: Both Real and Illusory Parallelism
+
+[.lead]
+//
+Today even your phone has multiple cores. So we have both:
+
+[.s]
+//
+* *Real* parallelism: your phone is _actually_ doing multiple things at once
+//
+* *Illusory* parallelism: each core is still rapidly switching between programs
+to create the illusion of _more_ parallelism.
+
+[[mfmyuxbtfEbMZLjgcMcjGmtmrrfDcotk]]
+== Single-Threaded
+
+[source,java,role='smallest']
+----
+public class Example {
+    private static int process(final String input) {
+        try {
+            Thread.sleep(10);
+        } catch (Exception e) { }
+        return 0;
+    }
+    public static void main(final String[] unused) {
+        long startTime = System.nanoTime();
+        String[] toProcess = new String[] { "one", "two", "three", "four" };
+        for (String input : toProcess) {
+            System.out.println(process(input));
+        }
+        System.out.println((System.nanoTime() - startTime) / 1000000.);
+    }
+}
+----
+
+[.lead]
+//
+So far all of the code we've written this semester only does _one thing_ at a
+time.
+
+Sometimes we call this _single-threaded_, for reasons that will make sense
+shortly.
+
+[[JVmPyXcazfSIGMavSiStdRNzBPMpDXeV]]
+== ! Single-Threaded Example
+
+[.janini.compiler.smallest]
+....
+public class Example {
+        private static int process(final String input) {
+        try {
+            Thread.sleep(10);
+        } catch (Exception e) { }
+        return 0;
+    }
+    public static void main(final String[] unused) {
+        long startTime = System.nanoTime();
+        String[] toProcess = new String[] { "one", "two", "three", "four" };
+        for (String input : toProcess) {
+            System.out.println(process(input));
+        }
+        long endTime = System.nanoTime();
+        System.out.println((System.nanoTime() - startTime) / 1000000.);
+    }
+}
+....
+
+[[mSctPrFsUXhvrHPFSdSqVaudFPXYlAcn]]
+== Parallelism in Java
+
+[.lead]
+//
+Java allows you to
+
+[[dKbHXSPMjiqRbjDTCFCoeoEkTGfUMwIq]]
+== Final Project Video
+
+[.lead]
+//
+Before you attend this week's lab you need to upload your *final project video*
+to YouTube and submit the link using this form.
+
+* We'll be showing these videos in class...
+//
+* ...and at Thursday's Final Project Fair.
+//
+* Format is up to you, but you should definitely demo and discuss your final
+project.
+//
+Both partners should be involved somehow.
+
+[[cOtlRqIjounwGToBJmYSjlEtUchpiMnv]]
+== Final Project Fair
+
+[.lead]
+//
+A reminder that our inaugural CS 125 Final Project Fair is _this Thursday_
+(5/3/2018) from 4&ndash;6PM in Siebel.
+//
+1% extra credit for participating.
+
+[.s]
+//
+* Each lab section will choose two most impressive projects: one from a group of
+beginners, and a second in an open category.
+//
+* Judging is from 4&ndash;5:15PM, meaning that you should be set up and ready to
+go at 4PM.
+//
+* There will be (good) food.
+//
+* There will be awards at *5:30PM* in _Siebel 1404_.
+
+[[oPmlAhLQXZHOyRTDLtxayLbzuEYIKtQF]]
+== Announcements
+
+* Tonight will be the _last_ Even More Practice (EMP) section.
+
+* link:/MP/7/[MP7 (the final project)] is out.
+//
+Please get started!
+//
+* The
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
+//
+remains available on the course website. Use it to give us feedback!
+//
+* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+
+// vim: ts=2:sw=2:et
