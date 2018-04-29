@@ -6,6 +6,7 @@ description:
   synchronization.
 spelling_exceptions:
   - i7
+  - Googler
 ---
 :imagesdir: /learn/images
 
@@ -55,22 +56,22 @@ image::https://information2share.files.wordpress.com/2011/05/intel-pentium-4-nor
 [[mzCSiXrPehxXUQWYOpWxQViHCUYYmRIw]]
 == The Illusion
 
-image::concurrency/concurrency.svg[width="100%"]
+image::concurrency/concurrency.svg[width="640"]
 
 [[LbURTwnFvkkJbpEAGGdLChklHxYoJpVi]]
 == But Look Closer...
 
-image::concurrency/concurrency-1.svg[width="100%"]
+image::concurrency/concurrency-1.svg[width="640"]
 
 [[GvUAcBZXdXwUoKhiMwLAUWpGSitTcnSE]]
 == And Even Closer...
 
-image::concurrency/concurrency-2.svg[width="100%"]
+image::concurrency/concurrency-2.svg[width="640"]
 
 [[wrtGWgpftaLrDLCWbWZusLguUgCrHRaz]]
 == The Illusion of Parallelism
 
-image::concurrency/concurrency-2.svg[width="100%"]
+image::concurrency/concurrency-2.svg[width="640"]
 
 [.lead]
 //
@@ -189,7 +190,7 @@ different cores if possible.
 == But What Is a `Thread` To Do?
 
 [[JsjPMjNefmUmdufHhmhkpcecpxoKKEjN]]
-== Runnables
+== ``Runnable``s
 
 [source,java,role='smaller']
 ----
@@ -207,7 +208,7 @@ public class Example implements Runnable {
 [.lead]
 //
 When we create a `Thread` we need to give it something to do&mdash;a function as
-an _entrypoint_. (Remember `main`?)
+an _entry point_. (Remember `main`?)
 
 We do this by having our class implement `Runnable` and provide a `public void
 run()` method.
