@@ -29,7 +29,7 @@ public class Example implements Runnable {
     count = myCount;
     System.out.println("Hello from " + count);
   }
-  public static void main(String args[]) throws InterruptedException {
+  public static void main(final String[] unused) throws InterruptedException {
     Thread[] threads = new Thread[10];
     for (int i = 0; i < 10; i++) {
       Thread t = new Thread(new Example());
@@ -125,20 +125,16 @@ to create the illusion of _more_ parallelism.
 [source,java,role='smallest']
 ----
 public class Example {
-    private static int process(final String input) {
-        try {
-            Thread.sleep(10);
-        } catch (Exception e) { }
-        return 0;
+  private static void process() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
     }
-    public static void main(final String[] unused) {
-        long startTime = System.nanoTime();
-        String[] toProcess = new String[] { "one", "two", "three", "four" };
-        for (String input : toProcess) {
-            System.out.println(process(input));
-        }
-        System.out.println((System.nanoTime() - startTime) / 1000000.);
-    }
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
 }
 ----
 
@@ -156,21 +152,43 @@ shortly.
 [.janini.compiler.smallest]
 ....
 public class Example {
-        private static int process(final String input) {
-        try {
-            Thread.sleep(10);
-        } catch (Exception e) { }
-        return 0;
+  private static void process() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
     }
-    public static void main(final String[] unused) {
-        long startTime = System.nanoTime();
-        String[] toProcess = new String[] { "one", "two", "three", "four" };
-        for (String input : toProcess) {
-            System.out.println(process(input));
-        }
-        long endTime = System.nanoTime();
-        System.out.println((System.nanoTime() - startTime) / 1000000.);
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[NCTlWTlwVOJmcgRszSyclzECxrKoiJRW]]
+== ! Multi-Threaded Example
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  public void run() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
     }
+    for (int i = 0; i < 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
 }
 ....
 
