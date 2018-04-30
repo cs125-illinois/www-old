@@ -489,6 +489,36 @@ events.
 It becomes a bug when events do not happen in the order the programmer intended.
 ____
 
+[[iVFSIkjLeqndstXEqlvzHVEOCfHuxSRD]]
+== [.small]#Account Example: No Locking#
+
+[.table.smallest.noborder.array,cols="2*^.^",options='header']
+
+|===
+
+|Thread 1
+|Thread 2
+
+| [.s]#`currentAccountBalance = 1000`#
+| &nbsp;
+
+| &nbsp;
+| [.s]#`currentAccountBalance = 1000`#
+
+| &nbsp;
+| [.s]#`currentAccountBalance -= 10`#
+
+| &nbsp;
+| [.s]#`accountBalance = 990`#
+
+| [.s]#`currentAccountBalance -= 10`#
+| &nbsp;
+
+| [.s]#`accountBalance = 990`#
+| &nbsp;
+
+|===
+
 [[UdtiOqmDuIfsbsdPIFqqGntGWMxKiFmi]]
 == Locks
 
@@ -503,6 +533,45 @@ One programming technique to avoid race conditions is to use a _lock_:
 * We then do our operation on the shared variable or resource.
 //
 * And then drop the lock so that other threads can acquire it.
+
+[[yOKxVKQqNkcAUiwmnYEtgHhfLIKQZiwj]]
+== [.small]#Account Example: Locking#
+
+[.table.smallest.noborder.array,cols="2*^.^"]
+
+|===
+
+| [.s]#`// grab lock`#
+| &nbsp;
+
+| &nbsp;
+| [.s]#`// grab lock`#
+
+| [.s]#`currentAccountBalance = 1000`#
+| &nbsp;
+
+| [.s]#`currentAccountBalance -= 10`#
+| &nbsp;
+
+| [.s]#`accountBalance = 990`#
+| &nbsp;
+
+| [.s]#`// release lock`#
+| &nbsp;
+
+| &nbsp;
+| [.s]#`currentAccountBalance = 990`#
+
+| &nbsp;
+| [.s]#`currentAccountBalance -= 10`#
+
+| &nbsp;
+| [.s]#`accountBalance = 990`#
+
+| &nbsp;
+| [.s]#`// release lock`#
+
+|===
 
 [[AFJpOaePBpApxVMAHJaOwVqLgrdtlNgt]]
 == Java `synchronized` Keyword
