@@ -388,6 +388,24 @@ waiting for something else.*
 //
 --
 
+[[eRTXNFcMorGOpEYygbyQPbvlJHOGMjAD]]
+== Android Aside
+
+[.lead]
+//
+On Android there is a single user interface (UI) thread responsible for handling
+input like clicks.
+
+[.s]
+//
+* If that thread get stuck waiting, the entire UI becomes unresponsive.
+//
+* Which is why you need to do slow things using a background task&mdash;or, in
+the case of Volley, using it's queue.
+//
+* This way the UI thread stays responsive even while slow operations like
+network requests are being completed.
+
 [[TsJwmxPhJkSWvoGWaVydNidBWbPyRTiP]]
 == ! Single-Threaded Example: Concurrency
 
@@ -566,7 +584,7 @@ One programming technique to avoid race conditions is to use a _lock_:
 | [.s]#`currentAccountBalance -= 10`#
 
 | &nbsp;
-| [.s]#`accountBalance = 990`#
+| [.s]#`accountBalance = 980`#
 
 | &nbsp;
 | [.s]#`// release lock`#
@@ -578,7 +596,7 @@ One programming technique to avoid race conditions is to use a _lock_:
 
 [source,java,role='smaller']
 ----
-// Only one `Thread` can run this method at once on a single object
+// Only one `Thread` can run this method at once on each object
 public synchronized void withdraw() {
     int currentAccountBalance = accountBalance;
     System.out.println(currentAccountBalance);
@@ -768,11 +786,9 @@ feedback.
 [[oPmlAhLQXZHOyRTDLtxayLbzuEYIKtQF]]
 == Announcements
 
-* Tonight will be the _last_ Even More Practice (EMP) section.
-
 * link:/MP/7/[MP7 (the final project)] is out.
 //
-Please get started!
+Start wrapping up&mdash;demos are this week and the fair is Thursday.
 //
 * The
 //
