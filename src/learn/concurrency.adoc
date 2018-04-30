@@ -438,6 +438,179 @@ public class Example implements Runnable {
 }
 ....
 
+[[kKVXScxCnFnrmwdtZebBwrgIqOBqdhzX]]
+[.oneword]
+//
+== But Concurrency Can Create Problems...
+
+[[wQkgIwrPGLObAoJMOmospeGhcGuzKdpi]]
+== ! Concurrency Creates Problems
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  private static int accountBalance = 10000;
+  public void run() {
+    int currentAccountBalance = accountBalance;
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i < 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 10; i++) {
+      threads[i].join();
+    }
+    System.out.println(accountBalance);
+  }
+}
+....
+
+[[teCYbnUIEHPmjXEVAAADFHazUgAgSDtR]]
+== Race Condition
+
+[quote]
+____
+A
+//
+https://en.wikipedia.org/wiki/Race_condition[race condition]
+//
+or race hazard is the behavior of an electronics, software, or other system
+where the output is *dependent on the sequence or timing* of other uncontrollable
+events.
+//
+It becomes a bug when events do not happen in the order the programmer intended.
+____
+
+[[UdtiOqmDuIfsbsdPIFqqGntGWMxKiFmi]]
+== Locks
+
+[.lead]
+//
+One programming technique to avoid race conditions is to use a _lock_:
+
+[.s]
+//
+* Once one `Thread` grabs a lock no other threads can use the lock.
+//
+* We then do our operation on the shared variable or resource.
+//
+* And then drop the lock so that other threads can acquire it.
+
+[[AFJpOaePBpApxVMAHJaOwVqLgrdtlNgt]]
+== Java `synchronized` Keyword
+
+[source,java,role='smaller']
+----
+// Only one `Thread` can run this method at once on a single object
+public synchronized void withdraw() {
+    int currentAccountBalance = accountBalance;
+    System.out.println(currentAccountBalance);
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+----
+
+[.lead]
+//
+Java has a special keyword called `synchronized` that allows us to easily add a
+lock to any existing method.
+
+[[HVCzgmsbdDtAVdKdqMJGHyXCOXalfEXo]]
+== Java `synchronized` Keyword
+
+[source,java,role='smaller']
+----
+// Only one `Thread` can run this method at once on the entire class
+public static synchronized void withdraw() {
+    int currentAccountBalance = accountBalance;
+    System.out.println(currentAccountBalance);
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+----
+
+[[quUytyricBobItBFNCdVMPPndZssDdxV]]
+== ! Fixing Concurrency Problems
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  private static int accountBalance = 10000;
+  public void run() {
+    int currentAccountBalance = accountBalance;
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i < 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 10; i++) {
+      threads[i].join();
+    }
+    System.out.println(accountBalance);
+  }
+}
+....
+
+[[pawNOmlreGwAxlXIvFpgGjvhuOFwlMPK]]
+[.oneword]
+== However, Locking Degrades Concurrency
+//
+Concurrency encourages a `Thread` free for all, while locking makes them get in
+line.
+
+[[vJlXrBPXuYjIBEdNynUAdrCFsZKfCnlx]]
+== ! Multi-Threaded Example: Concurrency
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  public static synchronized void slowDown() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public void run() {
+    slowDown();
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
 [[dKbHXSPMjiqRbjDTCFCoeoEkTGfUMwIq]]
 == Final Project Video
 
