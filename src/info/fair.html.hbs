@@ -1,0 +1,76 @@
+---
+title: "CS 125 Project Fair"
+description:
+  Your chance to show off your cool final projects.
+internalize:
+  force: true
+---
+
+<p class="lead">
+  The First Biannual CS 125 Project Fair will take place Thursday 5/3/2018
+  <span class="badge badge-illinois-orange"
+    data-toggle="popover" data-placement="top" data-html="true"
+    data-content="We are aware that this is Reading Day&mdash;participation in the fair is optional">1</span>
+  from 4&ndash;6PM in Siebel.
+</p>
+
+<p>
+  Our students will be demoing lots of cool Android projects, so please come by
+  to check them out!
+  Check out the list below for examples.
+  Will there be food: you'll have to come and find out...
+</p>
+
+<ul>
+  <li><strong>What:</strong> CS 125 Final Project Fair</li>
+  <li><strong>When:</strong> Thursday 5/3/2018 from 4&ndash;6PM, with awards at
+    5:30PM in Siebel 1404</li>
+  <li><strong>Where:</strong> Siebel Center ground floor and basement</li>
+</ul>
+
+<div class="mt-3 spelling_exception">
+  <h2 id="featured" class="text-primary">Featured Projects ({{ fair.impressive.length }})</h2>
+  <p class="lead">
+    We think that these are particularly cool.
+    Half are by students that were beginners when they started CS 125!
+  </p>
+  <div class="row">
+    {{#each fair.impressive }}
+    <div class="col-12 col-sm-6 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <div class="embed-responsive embed-responsive-19b9">
+          <div class="youtube-container" data-id="{{ this.youTubeID }}"></div>
+        </div>
+        <div class="card-body">
+          <h5 class="text-center">{{{ this.title }}}</h5>
+        </div>
+      </div>
+    </div>
+    {{/each }}
+  </div>
+</div>
+
+<div class="mt-3 spelling_exception">
+  <h2 id="other" class="text-primary">All Projects ({{ fair.other.length }})</h2>
+  <p>
+    We <em>also</em> think that these are cool.
+  </p>
+  <div class="row">
+    {{#each fair.other }}
+    <div class="col-12 col-sm-6 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <div class="embed-responsive embed-responsive-19b9">
+          <div class="youtube-container" data-id="{{ this.youTubeID }}"></div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title text-center">{{{ this.title }}}</h5>
+        </div>
+      </div>
+    </div>
+    {{/each }}
+  </div>
+</div>
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->

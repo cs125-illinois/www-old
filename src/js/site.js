@@ -3,6 +3,7 @@ import 'bootstrap'
 import 'datatables.net'
 
 $(() => {
+
   // Turn on popovers and toggle on interior clicks.
   $('[data-toggle="popover"]').popover()
   $('body').on('click', e => {
@@ -47,6 +48,26 @@ $(() => {
     }
   })
   $('#sidebar.collapse a').on('click', function () { $('#sidebar.collapse').collapse('hide') })
+
+  // Lazy YouTube video loading. The iFrame API has better ways but this is
+  // fine for now.
+  $("div.youtube-container").click(function() {
+    let iframeURL = `<iframe src="//www.youtube.com/embed/${ $(this).data('id') }?border=0&autoplay=1" class="embed-responsive-item" width="560" height="315" allowfullscreen></iframe>`
+    let iframe = $(iframeURL)
+    $(iframe).on('load', function () { $(iframe).click() })
+    $(this).append(iframe)
+    $(this).children(".play-button").remove()
+    $(this).unbind('click mouseenter mouseleave')
+  });
+  $("div.youtube-container").hover(function() {
+    var element = $(this).children(".play-button").first();
+    $(element).addClass("hover");
+    $(element).animate({ opacity: 1.0 }, 50);
+  }, function () {
+    var element = $(this).children(".play-button").first();
+    $(element).removeClass("hover");
+    $(element).css("opacity", 0.6);
+  });
 })
 
 // vim: ts=2:sw=2:et
