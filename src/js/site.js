@@ -68,6 +68,7 @@ $(() => {
     $(element).removeClass("hover");
     $(element).css("opacity", 0.6);
   });
+  $('[data-toggle="tooltip"]').tooltip();
 })
 
 // vim: ts=2:sw=2:et

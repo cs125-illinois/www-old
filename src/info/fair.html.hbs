@@ -45,7 +45,7 @@ internalize:
           <div class="youtube-container" data-id="{{ this.youTubeID }}"></div>
         </div>
         <div class="card-body text-center">
-          <h5>{{{ this.title }}}</h5>
+          <h5>{{{ this.title }}}{{#if beginner }}&nbsp;<span class="fa fa-star" data-toggle="tooltip" title="Beginner project!"></span>{{/if}}</h5>
           <span class="small muted">Project #{{ this.index}}, Room {{ this.room }}</span>
         </div>
       </div>
@@ -67,7 +67,7 @@ internalize:
           <div class="youtube-container" data-id="{{ this.youTubeID }}"></div>
         </div>
         <div class="card-body text-center">
-          <h5>{{{ this.title }}}</h5>
+          <h5>{{{ this.title }}}{{#if beginner }}&nbsp;<span class="fa fa-star" data-toggle="tooltip" title="Beginner project!"></span>{{/if}}</h5>
           <span class="small muted">Project #{{ this.index}}, Room {{ this.room }}</span>
         </div>
       </div>

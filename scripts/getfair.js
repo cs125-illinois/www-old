@@ -17,7 +17,7 @@ mongo.connect(process.env.MONGO).then(async client => {
   let projectGrades = await projectGradesCollection.find({
     fair: true
   }).project({
-    impressive: 1, youTubeID: 1, title: 1, room: 1, index: 1
+    impressive: 1, youTubeID: 1, title: 1, room: 1, index: 1, beginner: 1
   }).toArray()
   let output = {
     impressive: _(projectGrades).filter(g => { return g.impressive }).sortBy('youTubeID').value(),
