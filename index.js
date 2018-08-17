@@ -40,7 +40,7 @@ const formatcheck = require('metalsmith-formatcheck')
 const linkcheck = require('metalsmith-linkcheck')
 
 const tmp = require('tmp')
-const fs = require('fs')
+const fs = require('fs-extra')
 const removeEmptyDirectories = require('remove-empty-directories')
 const rsync = require('rsync')
 const _ = require('lodash')
@@ -228,6 +228,9 @@ metalsmith(__dirname)
   )
   .build(err => {
     if (err) {
+      try {
+        fs.removeSync(temporaryDestination)
+      } catch (e) {}
       throw(err)
     } else {
       removeEmptyDirectories(temporaryDestination)
@@ -237,6 +240,9 @@ metalsmith(__dirname)
         .source(temporaryDestination + "/")
         .destination(config.destination)
       copyToRealDestination.execute(err => {
+        try {
+          fs.removeSync(temporaryDestination)
+        } catch (e) {}
         if (err) {
           throw(err)
         }
