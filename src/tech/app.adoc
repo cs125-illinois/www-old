@@ -1,0 +1,184 @@
+---
+title: CS 125 App
+description: >
+  This page describes the CS 125 App which tracks staff and student proximity to
+  known course locations.
+priority: 0.7
+spelling_exceptions:
+  - AppStore
+  - Estimote
+  - Redux
+---
+:linkattrs:
+
+[.lead]
+//
+The CS 125 App is a new feature of the course for Fall 2018.
+//
+It tracks the proximity of course staff and students to known course locations:
+including office hours and Geoff's office.
+//
+Our app allows us to both understand how students use office hours and ensure
+that have staff available in office hours when needed.
+
+**Note that the CS 125 App does not continuously track your location.**
+//
+We only know when you arrive and leave office hours, or Geoff's office.
+//
+We do not know footnote:[or care about] your location at other times.
+
+Read on to find out more about the CS 125 App.
+
+[[stores]]
+== Where to Get It
+
+The CS 125 App will be released on both the Google Play Store and Apple
+AppStore.
+//
+Links will be added once the app is finalized and published.
+
+[[demo]]
+== App Demo
+
+In the following video Geoff Challen provides an overview of the features of the
+CS 125 App.
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/S_qAzpL2l2s" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+[[how]]
+=== How It Works
+
+Once you install the CS 125 App, satisfy the app requirements footnote:[provide
+location permissions and enable Bluetooth and networking], and log in, the CS
+125 App begins listening for signals sent by Bluetooth proximity beacons.
+//
+We have a set of beacons purchased from https://estimote.com/[Estimote].
+//
+They look like this:
+
+image::https://estimote.com/assets/gfx/press/product/Proximity-Beacons-Group-Mint-Background.59b48af5.png[role='img-fluid']
+
+When the app hears a signal from one of these beacons, it reports to our server
+that you arrived at that location.
+//
+When it stops hearing that signal, it reports that you left.
+//
+**When it doesn't hear a signal from a beacon, we don't know where you are.**
+
+Estimote Bluetooth proximity beacons have
+//
+https://community.estimote.com/hc/en-us/articles/201636913-What-are-Broadcasting-Power-RSSI-and-other-characteristics-of-a-beacon-s-signal-[a
+range of up to 70 meters at full power]
+//
+but we have configured our beacons to transmit more softly and our app to only
+detect signals within a radius of 10 meters.
+//
+You should notice that the app will detect our beacons in Siebel 0403 (office
+hours) right as you walk in and lose the signal once you exit and turn the
+corner into the basement hallway.
+
+[[locations]]
+=== Beacon Locations
+
+Currently our app is configured to detect beacons in the following locations:
+
+* *Siebel 0403*: there are two proximity beacons in the room we use to hold
+office hours.
+//
+Both are mounted on a pillar in the middle of the room, one facing each
+direction.
+//
+They are clearly visible&mdash;and hard to miss, given that they are purple.
+//
+* *Siebel 2227 (Geoff's Office)*: there is one proximity beacon in Geoff's
+office.
+//
+And our CS 125 App allows you to determine when he's there if you want to stop
+by.
+//
+Please do!
+//
+That's pretty much the point of this feature of the app.
+//
+However, note that this beacon _can be disabled_ by Geoff so he can "hide" in
+his office if he's particularly busy footnote:[except that there are big
+windows, making it pretty much impossible to effectively hide.].
+
+You may see http://localhost:8125/info/people/#developers[CS 125 Course
+Developers] working with other beacons as they develop new features for the app,
+but your app will not be configured to detect these beacons.
+
+[[why]]
+== Why Are We Doing This?
+
+The CS 125 App allows us to monitor course staff and students as they arrive and
+leave office hours.
+//
+We're doing this for two main reasons.
+
+**First, it will help us better manage the course.**
+//
+We try to assign course staff to times that we think office hours will be busy,
+but we don't really know when those times are.
+//
+So collecting this data and monitoring office hours in real time will help us
+ensure that there are course staff available to help you when you need it.
+//
+**We never want you to come to office hours and not be able to get help!**
+//
+If we detect a particularly busy time or a particularly bad staff-to-student
+ratio, we may put out an alert for extra course staff.
+//
+Geoff may even come down from his office to help.
+
+**Second, it will help us understand the course and the effectiveness of office
+hours.**
+//
+Getting space on campus for office hours is not always easy.
+//
+If we can show that they are effective, it will help us lobby for additional
+space in the future.
+//
+We _suspect_ that students that come to office ours regularly&mdash;particularly
+beginners&mdash;do better in CS 125.
+//
+Collecting this data will allow us to know for sure.
+
+[[privacy]]
+== Privacy Policy
+
+The CS 125 App is for the exclusive use of CS 125 staff and students.
+//
+Although anyone with an `@illinois.edu` email address can log in, we only record
+entry and exit events for current CS 125 staff and students.
+
+All data collected by the CS 125 App is for exclusive use by the CS 125 Course
+Staff and researchers at the University of Illinois.
+//
+It will not be shared with or in any other way provided to third parties.
+//
+Before using the data generated by the CS 125 App in any research publication,
+even in aggregated form, we will obtain consent from app users.
+
+All data collected by the CS 125 App is stored in secured servers located on
+campus at the University of Illinois.
+//
+All data transfer back and forth between the app is done over encrypted
+connections.
+//
+The app does not cache your location history locally, and only ever known your
+current location.
+//
+The app also does not track your location when you are not logged in, so you are
+welcome to only log on when you attend office ours and log off when you leave.
+
+
+// vim: ts=2:sw=2:et:ft=asciidoc

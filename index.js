@@ -66,6 +66,7 @@ const isSlides = (filename, file) => {
 const MP_pattern = 'MP/**/*.adoc'
 const lab_pattern = 'lab/**/*.adoc'
 const info_pattern = 'info/**/*'
+const tech_pattern = 'tech/**/*'
 const adoc_pattern = '*/**/*.adoc'
 const hbs_pattern = '*/**/*.hbs'
 
@@ -143,6 +144,7 @@ metalsmith(__dirname)
     { pattern: MP_pattern, metadata: { sidebar: 'MP' }, preserve: false },
     { pattern: lab_pattern, metadata: { sidebar: 'lab' }, preserve: false },
     { pattern: info_pattern, metadata: { sidebar: 'info' }, preserve: false },
+    { pattern: tech_pattern, metadata: { sidebar: 'tech' }, preserve: false },
     { pattern: adoc_pattern, metadata: defaultMetadata, preserve: true },
     { pattern: hbs_pattern, metadata: defaultMetadata, preserve: true }
   ]))
