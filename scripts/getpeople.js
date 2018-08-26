@@ -12,7 +12,9 @@ const expect = require('chai').expect
 const mongo = require('mongodb').MongoClient
 
 const argv = require('minimist')(process.argv.slice(2))
+let topClient
 mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client => {
+  topClient = client
   let peopleCollection = client.db('cs125').collection('people')
   let sectionCollection = client.db('cs125').collection('state')
 
@@ -55,7 +57,12 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
   })
 
   let people = await peopleCollection.find({
-    semester: argv._[0], staff: true, scheduled: true
+    semester: argv._[0],
+    $or: [
+      { role: 'TA' },
+      { role: 'developer' },
+      { role: 'assistant', active: true }
+    ]
   }).toArray()
 
   let peopleByEmail = {}
@@ -82,7 +89,8 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
 
   client.close()
 }).catch(err => {
-  debug(err)
+  topClient.close()
+  console.debug(err)
 })
 
 process.on('unhandledRejection', (reason, promise) => {
