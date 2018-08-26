@@ -108,7 +108,9 @@ metalsmith(__dirname)
   .use((files, metalsmith, done) => {
     let metadata = metalsmith.metadata()
     metadata.env = process.env
-    metadata.fair = JSON.parse(files['info/fair.json'].contents.toString())
+    metadata.fair = {
+      Spring2018: JSON.parse(files['info/2018/spring/fair.json'].contents.toString())
+    }
     return done()
   })
   .use(buildDate())
