@@ -12,11 +12,11 @@ const expect = require('chai').expect
 const mongo = require('mongodb').MongoClient
 
 const argv = require('minimist')(process.argv.slice(2))
-mongo.connect(process.env.MONGO).then(async client => {
-  let peopleCollection = client.db(argv._[0]).collection('people')
-  let sectionCollection = client.db(argv._[0]).collection('state')
+mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client => {
+  let peopleCollection = client.db('cs125').collection('people')
+  let sectionCollection = client.db('cs125').collection('state')
 
-  let sectionInfo = (await sectionCollection.findOne({ _id: 'sectionInfo' })).sections
+  let sectionInfo = (await sectionCollection.findOne({ _id: argv._[0] })).sections
 
   let convertTime = (time) => {
     let match = new RegExp(/(\d{2}):(\d{2})(\w{2})/).exec(time)
@@ -55,21 +55,23 @@ mongo.connect(process.env.MONGO).then(async client => {
   })
 
   let people = await peopleCollection.find({
-    staff: true, scheduled: true
+    semester: argv._[0], staff: true, scheduled: true
   }).toArray()
 
   let peopleByEmail = {}
   for (let person of people) {
     person.name = person.name.full
     delete (person._id)
-    _.each(person.sections, section => {
+    _.each(person.labs, lab => {
+      expect(sectionInfo[lab]).to.be.ok
       if (person.role === 'TA') {
-        expect(sectionInfo[section]).to.not.have.property('TA')
-        sectionInfo[section].TA = person.email
+        expect(sectionInfo[lab]).to.not.have.property('TA')
+        sectionInfo[lab].TA = person.email
       } else {
-        sectionInfo[section].assistants.push(person.email)
+        sectionInfo[lab].assistants.push(person.email)
       }
     })
+    expect(peopleByEmail).to.not.have.property(person.email)
     peopleByEmail[person.email] = person
   }
 
@@ -81,4 +83,8 @@ mongo.connect(process.env.MONGO).then(async client => {
   client.close()
 }).catch(err => {
   debug(err)
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log(reason.stack || reason)
 })

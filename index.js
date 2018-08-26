@@ -123,7 +123,7 @@ metalsmith(__dirname)
   }))
   .use(course({
     Fall2017: 'info/2017/fall/course.yaml',
-    Spring2018: 'info/course.json'
+    Spring2018: 'info/2018/spring/course.json'
   }))
   .use(people())
   .use(filemetadata([
