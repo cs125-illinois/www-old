@@ -68,7 +68,7 @@ internalize:
         <div class="card-body">
           <div class="person card-title text-center">{{{ this.name }}}</div>
           {{#if this.labs }}
-          <p class="card-text">
+          <p class="small card-text">
           Assisting with {{ inflect this.labs.length "section" "sections" }}
           {{#and_list this.labs }}{{ this }}{{/and_list}}
           {{#if this.officeHours }}
@@ -102,7 +102,7 @@ internalize:
         <div class="card-body">
           <div class="person card-title text-center">{{{ this.name }}}</div>
           {{#if this.section }}
-          <p class="card-text">
+          <p class="small card-text">
           Assisting with {{ inflect this.sections.length "section" "sections" }}
           {{#and_list this.sections }}{{ this }}{{/and_list}}
           {{#if this.officehours }}
