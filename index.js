@@ -1,6 +1,7 @@
 require('dotenv').config()
 const appRootPath = require('app-root-path')
 const path = require('path')
+const jsYAML = require('js-yaml')
 
 const metalsmith = require('metalsmith')
 const ignore = require('metalsmith-ignore')
@@ -53,7 +54,11 @@ const defaults = {
   source: 'src',
   destination: 'build'
 }
-const config = _.extend(_.clone(defaults), require('minimist')(process.argv.slice(2)) || {})
+const config = _.extend(
+  _.clone(defaults),
+  jsYAML.safeLoad(fs.readFileSync('config.yaml', 'utf8')),
+  require('minimist')(process.argv.slice(2)) || {}
+)
 
 const temporaryDestination = tmp.dirSync({ mode: 0775 }).name
 
@@ -111,6 +116,7 @@ metalsmith(__dirname)
     metadata.fair = {
       Spring2018: JSON.parse(files['info/2018/spring/fair.json'].contents.toString())
     }
+    metadata.config = config
     return done()
   })
   .use(buildDate())

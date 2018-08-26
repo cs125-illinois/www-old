@@ -21,7 +21,7 @@ doTOC: false
 <hr />
 
 <div class="mt-2 smaller">
-  {{#each slides }}
+  {{#each slides.Spring2018 }}
   <div class="row">
     <div class="col-12">
       <h2 id="{{ this.slug }}" class="h3">
@@ -56,7 +56,7 @@ doTOC: false
         <strong><a class="nav-link" href="#Spring_2018">Spring 2018</a>
         </strong>
       </li>
-      {{#each slides }}
+      {{#each slides.Spring2018 }}
         <li class="entry small">
           <a class="nav-link" href="#{{ this.slug }}"><code>{{ format_date this.date "shortSlides" }}</code>: {{ this.title }}</a>
         </li>
