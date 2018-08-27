@@ -68,8 +68,10 @@ const slides_pattern = 'learn/**/*.{adoc,info}'
 const isSlides = (filename, file) => {
   return file.slides == true;
 }
-const Spring2018_MP_pattern = 'MP/2018/spring/*.adoc'
+const Fall2017_MP_pattern = 'MP/2017/fall/**/*.adoc'
+const Spring2018_MP_pattern = 'MP/2018/spring/**/*.adoc'
 const MP_pattern = 'MP/**/*.adoc'
+const Spring2018_lab_pattern = 'lab/2018/spring/*.adoc'
 const lab_pattern = 'lab/**/*.adoc'
 const info_pattern = 'info/**/*'
 const tech_pattern = 'tech/**/*'
@@ -152,8 +154,10 @@ metalsmith(__dirname)
       preserve: true
     },
     { pattern: Spring2018_MP_pattern, metadata: { sidebar: 'Spring-2018-MP' }, preserve: true },
+    { pattern: Fall2017_MP_pattern, metadata: { sidebar: 'Fall-2017-MP' }, preserve: true },
     { pattern: MP_pattern, metadata: { sidebar: 'MP' }, preserve: true },
     { pattern: lab_pattern, metadata: { sidebar: 'lab' }, preserve: true },
+    { pattern: Spring2018_lab_pattern, metadata: { sidebar: 'Spring-2018-lab' }, preserve: true },
     { pattern: info_pattern, metadata: { sidebar: 'info' }, preserve: false },
     { pattern: tech_pattern, metadata: { sidebar: 'tech' }, preserve: false },
     { pattern: adoc_pattern, metadata: defaultMetadata, preserve: true },
