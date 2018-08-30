@@ -38,6 +38,7 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
       return
     }
     delete(section.active)
+    section.TAs = []
     section.assistants = []
     section.start = convertTime(section.times.start)
     section.end = convertTime(section.times.end)
@@ -72,8 +73,7 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
     _.each(person.labs, lab => {
       expect(sectionInfo[lab]).to.be.ok
       if (person.role === 'TA') {
-        expect(sectionInfo[lab]).to.not.have.property('TA')
-        sectionInfo[lab].TA = person.email
+        sectionInfo[lab].TAs.push(person.email)
       } else {
         sectionInfo[lab].assistants.push(person.email)
       }
@@ -81,6 +81,11 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
     expect(peopleByEmail).to.not.have.property(person.email)
     peopleByEmail[person.email] = person
   }
+
+  _.each(sectionInfo, labInfo => {
+    labInfo.TAs.sort()
+    labInfo.assistants.sort()
+  })
 
   await fs.writeFile(path.join(argv._[1], 'course.json'), JSON.stringify({
     times: sectionInfo,
@@ -90,7 +95,7 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
   client.close()
 }).catch(err => {
   topClient.close()
-  console.debug(err)
+  console.log(err)
 })
 
 process.on('unhandledRejection', (reason, promise) => {

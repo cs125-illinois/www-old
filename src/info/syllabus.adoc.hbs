@@ -365,7 +365,7 @@ lab].
 [.small.table.table-sm.colgroup.datatables.spelling_exception,cols="^1,^1,^1,^2,^4,^4,^4",options="header"]
 |===
 
-| &nbsp; | &nbsp; | Days | Time | Location | TA | Assistants
+| &nbsp; | &nbsp; | Days | Time | Location | TAs | Assistants
 
 {{#each course.Fall2018.timesByType.lab }}
 
@@ -374,7 +374,7 @@ lab].
 | {{ this.days }}
 | {{ this.start}}&ndash;{{ this.end }}
 | {{ this.location }}
-| {{ this.TA.name }}
+| pass:[{{#and_list this.TAs }}{{ this.name }}{{/and_list}}]
 | pass:[{{#and_list this.assistants }}{{ this.name }}{{/and_list}}]
 
 {{/each}}
