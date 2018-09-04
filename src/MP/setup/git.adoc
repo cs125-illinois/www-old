@@ -442,6 +442,53 @@ For CS 125 you submit your work by _pushing_ it to GitHub.
 We will grade each version of your MP that you push and provide you with the
 best score modulo penalties and other score calculations.
 
+[[troubleshooting]]
+=== Troubleshooting the Submission Process
+
+MP grading usually completes quite quickly.
+//
+In most cases you'll see your latest submission show up
+//
+link:/m/grades/MPs[on the MP grades page]
+//
+within a minute or less.
+//
+Note that there is no need to reload the page: it will update automatically.
+
+If you don't find your commit there here are some common problems:
+
+. **Your commit is there, it just didn't get the score you thought it would.**
+//
+We put your best commit at the top of the list.
+//
+If you newer commit doesn't score as well, it will end up below your best
+commit, meaning that you might miss it.
+//
+And when two best commits earn the same score we place the _oldest_ on top, not
+the newest.
+//
+. **You didn't enter your email correctly into the `email.txt` file.**
+//
+This is probably the most common problem.
+//
+If you don't enter your email address correctly we have no way to know that it's
+you!
+//
+So double- and triple-check that your email is correct.
+//
+. **`checkstyle` couldn't parse one of your files.**
+//
+If `checkstyle` can't _parse_ one of your files then the entire build fails
+before we have a chance to record your email address.
+//
+Note that this is different than a `checkstyle` error&mdash;it means that the
+file was not valid Java syntax, and usually wouldn't have compiled anyway.
+//
+Currently any syntax errors that cause `checkstyle` to fail in _any_ of your
+sources files will fail the entire build and cause you to not receive a grade.
+//
+We hope to fix this limitation in a future release of our grading plugin.
+
 == How to Learn More
 
 As usual the internet is the best way to find out more about anything related
