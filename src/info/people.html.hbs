@@ -33,6 +33,9 @@ internalize:
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
         <div class="card-body">
           <h5 class="card-title text-center">{{{ this.name }}}</h5>
+          <p class="email text-center">
+            <a href="mailto:{{{ this.email }}}"><code>{{{ this.email }}}</code></a>
+          </p>
           {{#if this.labs }}
           <p class="small card-text">
           Leading {{ inflect this.labs.length "section" "sections" }}
