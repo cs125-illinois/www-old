@@ -66,7 +66,6 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
     person.name = person.name.full
     delete (person._id)
     _.each(person.labs, lab => {
-      console.log(lab, sectionInfo[lab])
       expect(sectionInfo[lab]).to.be.ok
       if (person.role === 'TA') {
         sectionInfo[lab].TAs.push(person.email)
