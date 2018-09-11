@@ -1,0 +1,358 @@
+---
+title: Strings
+date: 2018-09-12
+description:
+  An introduction to Java strings and object usage, and continued practice with
+  functions and basic imperative programming.
+spelling_exceptions:
+  - GCD
+---
+
+[[RymbwXCSvxAKhgLtbrVytdXMwSvxMHvJ]]
+== !
+
+[.janini.small]
+--
+++++
+<div class="message">Strings</div>
+++++
+....
+String courseName = "CS 125";
+System.out.println(courseName);
+System.out.println(courseName.length());
+System.out.println(courseName + " rocks");
+System.out.println(courseName.startsWith("CS"));
+....
+--
+
+[[YKIvyTKSPnBfEqFecIqlZPIdTOHVIfUb]]
+== Storing Data
+
+[.lead]
+//
+So far we know how to store a few different types of data using Java's
+8 _primitive_ types:
+
+[.s]
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+//
+. *Character*: `char`
+//
+. *True or false*: `boolean`
+
+[[PouzGeQaOVepywQDkEYEPshgXjLvTThm]]
+[.oneword]
+== What's Missing?
+
+[[wOiXEJdgbfGPXuUmdxBdAREJWwtCfmQf]]
+== !
+
+image::http://infinitesummer.org/images/final-page-dfw-autograph1-full.jpg[role='mx-auto meme',width=640]
+
+[[NyForrcGjinbQfWloCVOiFepnZirgYci]]
+== !
+
+image::https://www.howtogeek.com/wp-content/uploads/2016/07/01_no_times_on_messages.png[role='mx-auto meme', height=480]
+
+[[HbgrrKBaDgYOEQYQLAGLMEDJjkjreHpD]]
+== !
+
+image::https://www.cyberdriveillinois.com/images/licenseplates/pap/passengerpersonalized.gif[role='mx-auto meme',width=640]
+
+[[PYhkVAmazGGwxDSEazwgjdtnbaGtvKUf]]
+== !
+
+image::https://stuart-mcintyre.com/wp-content/uploads/2016/10/Ihate-Passwords-2.jpg[role='mx-auto meme',width=640]
+
+
+[[wWUlHcEZkxzdfMkuBiPWxHonySKJGkGN]]
+== Strings
+
+[.lead]
+//
+Much of the interesting data in our _human_ world is in text form.
+
+As a computer scientist, you call text _a string_.
+
+[.s.small]
+--
+(I realize that I cannot remember not knowing that term. I guess I'm old, or
+just have really become a computer scientist.)
+--
+
+[[FcKdeYMaKKBIcEDIQtxjauJDzrWKzAab]]
+== Java Strings
+
+[.lead]
+//
+Unsurprisingly, Java has a `String` type.
+
+We can declare, assign, and pass them to functions like primitive types.
+
+[source,java]
+----
+String maybe;
+maybe = "Challen"; // No, bad
+maybe = "Geoff"; // Better, thanks
+callMe(maybe); // You have my number?
+----
+
+[[CJfOIXpOQnKKkQsNlcCcqdQLehzcuKMt]]
+== Strings Seem Familiar, But Behave Differently
+
+[.janini.small]
+....
+String password = "chuchudog";
+System.out.println(password.length());
+System.out.println(password.equals("xyzcat"));
+....
+
+[[tilOsJdZUxdxwRUxjagFrbnsqFcJosVE]]
+== Our First Object
+
+[.lead]
+//
+In Java a `String` is our first example of an _object_.
+
+Objects combine _state_ (like variables) and _behavior_ (like functions).
+
+[.s]
+//
+* Each `String` has *state*: the array of characters in that string
+//
+* Each `String` also has *behavior*: functions that we can call on it
+that operate on its state
+
+[[OvtJcTTuXcjKTJlXFFSHNAHjCiynSXmV]]
+[.oneword]
+== What does it _store_, and what does it _do_?
+
+[[eOfhoslUTfTbEOhXkqlLDWNAJNDehpYp]]
+== Objects v. Primitives
+
+[.s]
+--
+*Primitives:*
+
+* Store something that can be represented as a _single number_
+//
+* Have type names that start with a lowercase letter: `int`, `char`, etc.
+--
+
+[.s]
+--
+*Objects:*
+
+* Can be made up of multiple other objects or primitive types
+//
+* Have type names that start with an _uppercase_ letter: `String`
+--
+
+[[zOHUuJANCnSTKPaWnIIJzqBkQzeVCtsb]]
+== Objects
+
+[.lead]
+//
+You will get a _lot_ of practice working with and designing your own objects.
+
+For now we're going to use strings as a gentle introduction to _using_ objects.
+
+[[QGsUEhwPCbMRSNMEumCMtxAOOyALebns]]
+== Strings
+
+[.lead]
+//
+Normally to initialize an object in Java you use the `new` keyword.
+
+[source,java]
+----
+String myString = new String("ABC");
+String anotherString = new String("DEF");
+----
+
+[.s]
+--
+However, strings are so common that Java provides a shorthand:
+
+[source,java]
+----
+String myString = "ABC";
+String anotherString = "DEF";
+----
+--
+
+[.s.small]
+--
+(In practice there are minor differences between the two code snippets above,
+but we're not going to worry about them.)
+--
+
+[[UIhmBZCHezDDxGMCrlnFcekMApNqVoqb]]
+== Arrays Are Also Objects
+
+[.lead]
+//
+Do you remember? We've seen `new` before...
+
+[source,java]
+----
+int[] array = new int[8];
+----
+
+Java arrays are also objects&mdash;which is why we create them with `new` and
+can access their length property as `array.length`.
+
+[[fxYUpZnKjOeBhxuPdCUXUaDtToHWshqX]]
+== Combining Strings
+
+[.lead]
+//
+We can combine strings using the concatenation operator: `+`.
+
+[source,java]
+----
+String first = "Geoffrey";
+String last = "Challen";
+String full = first + " " + last;
+----
+
+[[MdFtcLZfcghYDQctqpaAvHQfVHRAztHx]]
+== Creating Strings
+
+[.janini]
+....
+String myString = new String("ABC");
+String anotherString = "DEF";
+String combined = myString + anotherString;
+....
+
+[[qgyZJGVcnPbtmGwsjvZKKNHgQkHSJLfk]]
+== Dot Notation
+
+[.lead]
+//
+We access an object's state and methods using _dot notation_.
+
+[source,java]
+----
+String example = "test";
+System.out.println(example.length());
+System.out.println(example.replace('t', 'b'));
+System.out.println(example.toUpperCase());
+----
+
+[[uGQxGsSonXYAoTfonqAAaqsjVcidGsjz]]
+== ! All About Strings
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[YucAlGbdPpwYwFOIXNsWismCONtiOZiC]]
+== Dot Notation
+
+[.janini.small]
+....
+String example = "test";
+System.out.println(example.length());
+System.out.println(example.replace('t', 'b'));
+System.out.println(example.toUpperCase());
+....
+
+[[HTzskjeLoQJegEVEiJEfzGbpwcnLafeR]]
+== Fun With Strings
+
+[.janini]
+....
+String myString = new String("ABC");
+....
+
+[[WWDpfkPXJQHdXQWuGkdSppQodHJoBZiw]]
+[.oneword]
+== Questions About Strings?
+
+[[JMPKZOQAATNOOYFKKITPXUWSBGHNCEFC]]
+== Consecutive Identical Values
+
+[.lead]
+//
+Given [.strikethrough]#an array of chars# _a String_, find all cases where
+consecutive characters are the same.
+
+*First, what is our algorithm?*
+
+[.s]
+//
+. Examine each character in the string
+//
+. Compare it with the next value&mdash;but how do we get at that?
+//
+. Print it out if they are the same
+
+[[LUICRMZIENAXDUQDJYVAGKDNTVYTAEZA]]
+== ! All About Strings
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[TVSNKHWSKTYCIKSALIZGDIBDCSNSRHWO]]
+== ! Consecutive Identical Characters
+
+[.janini.small]
+....
+// Print when consecutive characters are identical
+String input = "Mississippi"
+....
+
+[[DFTKACJHGLUSRDMQNNODQYHNGJBTZFXH]]
+== String Manipulation
+
+[.lead]
+//
+Given a phone number formatted like "111.222.3333", convert it to "(111)
+222-3333".
+
+*First, what is our algorithm?*
+
+[.s]
+//
+. Divide the input at each "."
+//
+. Combine the values appropriately to create the new string
+
+[[JZAKMJWHFYNZLIZJZAMZNHOUAQKWAMZI]]
+== ! All About Strings
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[KRPGLFXAQJBCXIFITOASHKSQDRBNTQEW]]
+== ! String Manipulation
+
+[.janini.small]
+....
+// Print when consecutive characters are identical
+String number = "111.222.3333";
+....
+
+[[WPSJSvOmtUmlYdTgiKWnbYfzgIxAdLdz]]
+== Announcements
+
+* link:/MP/1/[MP1] is out and due _next Monday_. Please get started!
+//
+* Residential Office Hours start today at 1PM in Ike and then later at 7PM in
+PAR.
+//
+Check the
+//
+link:/info/syllabus/#calendar[calendar].
+
+// vim: ts=2:sw=2:et
