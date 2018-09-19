@@ -188,7 +188,7 @@ Java code.
 //
 *But what is actually happening?*
 
-[.s]
+[.s.small]
 //
 * As a computer scientist, part of your job is to be curious about how things
 work!
@@ -338,6 +338,51 @@ it anywhere...
 Software Development Kit (SDK). The SDK includes `javac`, the JRE does
 not.)
 
+[[QESZVMCOMCEYDDWNYSYKIKWXKBPVKBVJ]]
+== As Computers Get Faster...
+
+[.lead]
+//
+_compilers_ also get faster, leading to important and useful changes in language
+design.
+
+[source,java,role='s']
+//
+----
+// Wait, what black magic is this?
+var integerValue = 5;
+----
+
+[.s]
+//
+* Java 10 introduced
+//
+https://developer.oracle.com/java/jdk-10-local-variable-type-inference[local
+variable type inference]
+//
+* Which means that you do not need to specify the type for local variables _if_
+the compiler can determine what it should be
+
+[[HOFUPTYNEVDDAXPNANVLZCQHDOUGCSWV]]
+== Java 10 Type Inference
+
+[.lead]
+//
+You can use this feature now using IntelliJ and on our PrairieLearn homework
+problems&mdash;just not in the slide playground footnote:[It's stuck at Java 8
+for the time being.].
+
+[source,java]
+//
+----
+var sum = 0;
+for (var i = 0; i < array.length; i++) {
+  for (var j = 0; j < array[i].length; j++) {
+    sum += array[i][j];
+  }
+}
+----
+
 [[WqRJLyEMGzDnROsHBdlzMUbDckIilcNd]]
 == Let's Talk `main`
 
@@ -393,10 +438,20 @@ public class Example {
 //
 But why is `main` passed an array of ``Strings``s (that we sometimes ignore)?
 
-[[QXWZUNGVSFAQPTETUCTYJOUYRGZZRFBT]]
-== ! String Equality Attempt 1
-
 [[ZLEGLKEIWPJYLVFCYIQISYLBUJLUDHKV]]
 == Announcements
+
+* Many lecture videos have been posted to YouTube&mdash;and we're working on the rest
+//
+* Friday we will begin discussing _objects_, next Monday will be midterm review
+//
+* Office hours for MP2 continue&mdash;please get it done, since it will help you
+prepare for the midterm exam next week
+//
+* Next week we will hold our first *midterm exam*: a one-hour quiz worth 5% of
+your grade that cannot be dropped
+//
+* A new MP will _not_ be released Monday to give you a week to finish the
+midterm
 
 // vim: ts=2:sw=2:et
