@@ -28,6 +28,126 @@ public class Example {
 ....
 --
 
+[[KcQRXpFXdmuAnxnLEHQTdJNVVXdUdWnY]]
+== Midterm Review: String Processing
+
+A common task when working with is extracting data from structured text.
+//
+For example, consider that you are provided employee records in the following
+format:
+
+```text
+Name:Position:Salary
+```
+
+Here are some examples:
+
+```text
+Chuchu Challen:Senior Challen Family Dog:10000
+Xyz Challen:Junior Challen Family Cat: 8000
+Little Helper:Challen Family Roomba
+```
+
+[[sensjjnpmjGanDOqouJAcJgQyYSeRclX]]
+== Midterm Review: String Processing
+
+**Note that not every record has all possible fields.**
+//
+(Little Helper works in exchange for free electricity.)
+//
+In addition, some records may have whitespace around the values, as in the data
+for "Xyz Challen" above.
+
+[[LGoieNVuJpiZFIdQNNyKZczeRRAliCCq]]
+== Midterm Review: String Processing
+
+Your job is to write a function called `getSalary` that, given a record in the
+format above passed as a `String`, returns that person's salary as an `int`.
+//
+If the record does not contain a salary or if the record is `null` you should
+return `-1`.
+
+As a reminder we provided a copy of the Java `String` documentation on the quiz
+cover page.
+//
+You may want to refer to that, and in particular to the `split` and `trim`
+functions.
+//
+Note that you can pass a `String` to `split` rather than a regular expression,
+and it will split the string at each occurrence of the passed `String`.
+
+[[nuKMZnDsVysyNvedTiPlndMSnxfatCoA]]
+== Midterm Review: String Processing
+
+We have also provided a copy of the Java `Integer` documentation on the quiz
+cover page.
+//
+You should examine the `Integer.parseInt` function to convert a
+`String` into an `int`:
+
+```java
+int i = Integer.parseInt("10");
+```
+
+However, note that this function _will not work_ if there is whitespace
+surrounding the integer.
+//
+So you'll need to remove it.
+//
+See the `String` hints above.
+
+[[cgeZFZddFMuCmnKobNegrigntnmFyunf]]
+== ! Midterm Review: String Processing
+
+[.janini.small]
+....
+System.out.println(getSalary("Chuchu:Senior Challen Family Dog:10000"));
+....
+
+[[YOWktApdylegwNvLtEfZmnDhvrNfilST]]
+== Midterm Review: GCD
+
+Define and implement a function below called `gcd` that returns the greatest
+common denominator (GCD) as an `int` of an array of passed positive `int` values.
+//
+The greatest common divisor (GCD) of two or more integers, which are not all
+zero, is the largest positive integer that divides each of the integers.
+//
+The passed array may be `null`, empty, or contain only 0s&mdash;in these cases return `-1`.
+
+[[qlBiCcBerzeaQluXldiNDWLzEQZPLjQb]]
+== Midterm Review: GCD
+
+**You do not need to implement a sophisticated GCD algorithm.**
+//
+A simple iterative solution will work fine.
+//
+Once you have dealt with the bad inputs (`null`, empty) you may want to try to
+implement the following algorithm:
+
+[.small.s]
+//
+. First, find the maximum value over the passed array.
+//
+This is also the place to see if you have been given all zeroes.
+//
+. Now, start at that value and work downward.
+//
+. For each potential GCD, find the remainder when you divide every element in
+the input array by the potential GCD.
+//
+If they are all zero, you have found the GCD.
+//
+If any is non-zero, move on to the next potential value.
+
+[[aCDuMymnEfOuZxePefWeeSXdTrmsDZSV]]
+== ! Midterm Review: GCD
+
+[.janini.small]
+....
+System.out.println(gcd(20, 10, 5));
+....
+
 [[eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ]]
 == The `static` Keyword
 
