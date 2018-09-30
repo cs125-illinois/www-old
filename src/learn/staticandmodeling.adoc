@@ -1,0 +1,255 @@
+---
+title: Static and Modeling
+date: 2018-10-01
+description:
+  Midterm review followed by more about Java objects, including static methods
+  and variables and object modeling.
+---
+
+[[wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi]]
+== !
+
+[.janini.compiler.small]
+--
+++++
+<div class="message">Static and Modeling</div>
+++++
+....
+public class Course {
+  public static void printName() {
+    System.out.println("CS 125");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course.printName();
+  }
+}
+....
+--
+
+[[eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ]]
+== The `static` Keyword
+
+[source,java,role='small']
+----
+public class Course {
+  public static int count = 0;
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // We can call printName without creating an instance
+    Course.printName();
+    // We can increment count without creating an instance
+    Course.count++;
+  }
+}
+----
+
+[.lead]
+//
+`static` methods and variables belong to the _class_, not to a specific
+instance.
+
+[[JcfeftoggWYEqmVcqHqWFWLVDrBYSrKv]]
+== `static` Methods
+
+[source,java,role='smaller']
+----
+public class Course {
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works
+    Course.printName();
+    // This also works
+    Course CS125 = new Course();
+    CS125.printName();
+  }
+}
+----
+
+[.s]
+//
+* `static` methods are called directly on the class, rather than on an instance
+//
+* ...but they _can_ be called on the instance as well.
+
+[[GogDSWyLriatEwvWVbqNnpNScdTGsZnm]]
+== `static` Methods and `this`
+
+[source,java]
+----
+public class Course {
+  public String name;
+  public static void printName() {
+    // This doesn't work
+    System.out.println(this.name);
+  }
+}
+----
+
+[.lead]
+//
+`static` methods can be called without an instance, and so can't use `this`
+
+[[AGXzadhOVsBxnfSsSKGKsHhYNePpixZD]]
+== `static` Variables
+
+[source,java,role='small']
+----
+public class Course {
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.count);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course();
+    Course CS225 = new Course();
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}
+----
+
+[.lead]
+//
+`static` variables are shared by all instances of a given `class`
+
+
+[[aJrAPQCvltPcxpPVAvGrGqdLWEhKRlRK]]
+== ! `static` Variables
+
+[.janini.smallest.compiler]
+....
+public class Course {
+  private String name;
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.name + " " + this.count);
+  }
+  Course(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course("125");
+    Course CS225 = new Course("225");
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}
+....
+
+[[XHfGpqVIAFIKzUxynzGVJLgDpLnzNwON]]
+== `static`, `public`, and `private`
+
+[.lead]
+//
+`public` and `private` also work on static variables and methods
+
+[.s]
+//
+* `public`: the (static) variable can be read or written by anyone
+//
+* `private`: the (static) variable can only read or written by methods defined _on that
+class_
+//
+* `public`: the (static) method can be called by anyone
+//
+* `private`: the (static) method can only be called by other methods _on that class_
+
+[[edyTnfheyncuqOGTqDCiVblPbDhDspnE]]
+== `static` Object Creation Method
+
+[.lead]
+//
+We can also use a class method to be able to return `null` when creating a new
+object if invalid parameters are supplied.
+
+[[vYdcSSHUfxavYQtnRnYMNLTmZdeandOy]]
+== ! `static` for Object Creation
+
+[.janini.smallest.compiler]
+....
+public class Storage {
+  private int[] storage;
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
+[[mlqtMBxERmbmWOjsDoKPXMdagktpcoHC]]
+== `final` and Constants
+
+[source,java]
+----
+class Example {
+  /** The number of hours of sleep you should get per night. */
+  public static final int HOURS_PER_NIGHT = 8;
+  ...
+}
+----
+
+[.lead]
+//
+In Java a `final` variable _cannot be modified_.
+
+You usually see this done to establish useful constant values&mdash;which can be
+either `public` or `private`
+
+[[aRzsozxWPRNaTyegwrsSvYWsqtLGDtIE]]
+== ! Example of `final`
+
+[.janini.small.compiler]
+....
+public class Example {
+  public static final int HOURS_PER_NIGHT = 8;
+
+  public static void main(String[] unused) {
+    HOURS_PER_NIGHT = 4;
+    System.out.println(HOURS_PER_NIGHT);
+    HOURS_PER_NIGHT = 2;
+    System.out.println(HOURS_PER_NIGHT);
+    // I will never change!
+  }
+}
+....
+
+
+[[wonpBdFJRHThXEZuFNtsAJXwhHalvCdU]]
+== Object Modeling
+
+[.lead]
+//
+We frequently use Java objects to model real objects or entities.
+
+Objects allow us to _design_ software that deals with things in realistic and
+natural ways.
+
+[[QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP]]
+== Let's Model Something
+
+[.janini.smaller]
+....
+....
+
+[[PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt]]
+== Announcements
+
+* link:/MP/3/[MP3] is out and due _two weeks_ from _today_.
+
+// vim: ts=2:sw=2:et
