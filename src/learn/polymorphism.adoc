@@ -199,44 +199,6 @@ The default `Object` methods are rarely useful.
 
 So classes usually _override_ them and provide their own.
 
-[[topXhFJUebTidbPSOtmUEzTooEKObVzO]]
-== Hierarchical Name and Method Resolution
-
-[.lead]
-//
-The Java type hierarchy is used when resolving the names of variables and
-methods:
-
-[.s]
-//
-. Does the class have a variable or method with the given name? If so, use it.
-//
-. If not, search the parent class&mdash;but limited by `public` and `protected`
-//
-. Continue up the tree until the name is found or the search fails
-
-[[WMccSsGAGjRbHUQhmLscmwvkpNvxhjiC]]
-== ! Method Overriding
-
-[.janini.smaller.compiler]
-....
-public class Animal {
-  public String toString() {
-    return "I'm an animal!";
-  }
-}
-public class Pet extends Animal { }
-public class Dog extends Pet { }
-public class OldDog extends Dog { }
-public class SweetOldDog extends OldDog { }
-public class Example {
-  public static void main(String[] unused) {
-    SweetOldDog chuchu = new SweetOldDog();
-    System.out.println(chuchu.toString());
-  }
-}
-....
-
 [[utODlYJfUqsTWlZolzOmbJQfoeybEMtO]]
 == Hierarchical Name and Method Resolution
 
@@ -504,6 +466,7 @@ https://www.youtube.com/watch?v=dtZ-o96bH9A[this one].
   <iframe class="embed-responsive-item" src="https://en.wikipedia.org/wiki/Turing_Award"></iframe>
 </div>
 ++++
+
 
 [[nUWyBwYOCDtTXFYmxzjQBKdtSVcLLhjZ]]
 == Substitutability in Practice
