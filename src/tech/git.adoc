@@ -1,0 +1,154 @@
+---
+title: How CS 125 Uses Git
+description: >
+  This page describes the CS 125 uses Git and GitHub Classroom to enable
+  continuous grading.
+priority: 0.7
+---
+:linkattrs:
+
+[.lead]
+//
+CS 125 students use Git to save and submit their work on the course
+//
+link:/MP/[MPs].
+//
+We use GitHub Classroom to distribute assignments and push hooks to trigger
+autograding, enabling what we call _continuous grading_.
+
+What follows is a detailed and opionated overview of how CS 125 uses Git.
+
+[[goals]]
+== Goals and Non-Goals
+
+To begin, it is important to understand what we are trying to do with Git in CS
+125 _and_ what we are _not_ trying to do with Git in CS 125.
+//
+*Our goals in introducing students to Git include:*
+
+. Introduce students to common
+.. version control systems (https://git-scm.com/[Git]),
+.. Git interfaces (https://github.com/[GitHub]),
+.. project layouts (one project per repository),
+.. single-developer workflows (`edit-test-commit-push`), and
+.. continuous integration in the form of continuous grading, where each push
+immediately triggers testing and displays the results.
+. Enable continuous grading to immediately determine official grades as students
+push new commits
+. Reduce or eliminate dependence on locally-hosted resources (local GitLab or GitHub
+instances)
+. Reduce or eliminate course staff assignment management tasks
+. Avoid Git antipatterns and abusing it to do things that it shouldn’t be used to
+do (like return grades)
+
+*In contrast, we are not trying to introduce students to Git workflows that are
+common when working on larger software projects.*
+//
+All but one CS 125 MP is done individually, and most students use a single
+development machine.
+//
+As a result there is no need to introduce Git concepts like branches, remotes, or
+teach students how to resolve merge conflicts.
+//
+We trust that students will be able to learn these concepts in later courses or
+in their work outside the university.
+
+[[overview]]
+== Overview
+
+Here is an overview of the process of beginning and submitting an assignment
+from the perspective of a CS 125 student.
+//
+This is also documented for students
+//
+https://cs125.cs.illinois.edu/MP/setup/git/#workflow[here].
+
+. **Each CS 125 MP contains a GitHub Classroom invitation link.**
+//
+For example, for Fall 2018 MP0 the Classroom invitation link is
+//
+https://classroom.github.com/a/LpSCTOMF.
+//
+. **Once they accept the assignment, Classroom forks a copy of the MP starter
+code into the CS 125 Students GitHub organization.**
+//
+Students can access the repository using their GitHub username, which does not
+need to have any GitHub linkage with their university identity.
+//
+GitHub Classroom disables the admin screen so that students cannot make the
+repository public or move it out of the organization&mdash;although they can
+always do this by adding another remote.
+//
+. **At that point students can clone the repository and begin working on the
+MP.**
+//
+We use link:/MP/setup/intellij[IntelliJ] as our Java IDE which has excellent
+support for Git.
+//
+. **Students identify themselves by adding their email address to an `email.txt`
+file in their repository.**
+//
+A student’s GitHub account need not have any relationship with their Illinois
+identity.
+//
+So we identify students through convention: an `email.txt` file located in the
+root of each project repository.
+//
+GitHub policies
+//
+https://help.github.com/articles/github-security/#employee-access[do not allow
+employees to inspect code in private repositories with the owner's consent],
+//
+so this does not represent a GitHub link to their university identity.
+//
+. **We provide a local autograder for students that usually uses the same set of
+test cases as the official grader.**
+//
+Students use this during local development.
+//
+As a result, most iteration can be done without an official submission, which
+significantly reduces load on our grading server.
+//
+. **Students submit their work by pushing commits to their GitHub remote
+repository.**
+//
+As usual with Git, they must commit first, and each push can contain multiple
+commits.
+//
+Our local autograder includes features designed to encourage good commit
+behavior.
+//
+Specifically, students are required to commit each time they past new test cases
+and their score increases.
+//
+. **As soon as we receive each push we begin grading.**
+//
+We record the push timestamp and other information, pull the new commits for
+that student’s repository, and begin grading in a trusted environment.
+//
+We grade all commits but begin with the newest, since that is usually the one
+with the highest score and that students want to see graded first.
+//
+We record a large amount of information during grading which is all saved to our
+//
+https://www.mongodb.com/[MongoDB]
+//
+instance.
+//
+. **Once grading finishes students view the results using a new online grade
+return system.**
+//
+Grading usual takes 10–15 s and rarely longer than a minute.
+//
+Once grading is complete students can immediately view their grade, grading
+components, and grading output using a secure reactive web interface built using
+//
+https://www.meteor.com/[Meteor].
+//
+Students can submit as many times as they want before the deadline without
+penalty.
+//
+This helps students iron out any grading problems that result from differences
+between their local environment and our secure environment.
+
+// vim: ts=2:sw=2:et:ft=asciidoc

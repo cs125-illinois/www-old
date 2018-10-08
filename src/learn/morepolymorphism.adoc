@@ -1,12 +1,11 @@
 ---
-title: Polymorphism
-date: 2018-10-05
+title: More Polymorphism and Class Design
+date: 2018-10-08
 description:
-  A introduction to Java polymorphism, a discussion of Java object casting, and more
-  practice with inheritance.
+  A continued discussion of polymorphism and practice with inheritance and class
+  design.
 spelling_exceptions:
   - Barbara Liskov
-youtube: https://youtu.be/WoTJnK9mfBc
 ---
 
 [[yvPGyAzjIWxppDwhCkgPugvxiKuRyxUi]]
@@ -15,7 +14,7 @@ youtube: https://youtu.be/WoTJnK9mfBc
 [.janini.smallest.compiler]
 --
 ++++
-<div class="message">Polymorphism</div>
+<div class="message">More Polymorphism and Class Design</div>
 ++++
 ....
 public class Pet {
@@ -39,71 +38,113 @@ public class Example {
 ....
 --
 
-[[xzNbrqZduLJUfZgjkrqIfUdtgLSzHUke]]
-== Review: `static` and Encapsulation
+[[OZPeWVFeoYofPnXuSfYQjtpgydXhtnoi]]
+== Q4 Review: Constructor Overloading
 
-[.lead]
+[source,java]
+----
+class Dog {
+  String breed;
+  double weight;
+  Dog() {
+    // First constructor
+  }
+  Dog(String setBreed) {
+    // Second constructor
+    this.breed = setBreed;
+  }
+  Dog(double setWeight) {
+    // Third constructor
+    this.weight = setWeight;
+  }
+}
+----
+
+Based on the `Dog` class defined above, which call will run the _third_
+constructor?
+
+[[reuiWAeonCozYJGZqnVurxgsrjeUJnvR]]
+== Q4 Review: Setting Attributes
+
+[source,java]
+----
+class Dog {
+  String breed;
+  double weight;
+  Dog() {
+    // First constructor
+  }
+  Dog(String setBreed) {
+    // Second constructor
+    this.breed = setBreed;
+  }
+  Dog(double setWeight) {
+    // Third constructor
+    this.weight = setWeight;
+  }
+}
+----
+
+Based on the `Dog` class defined above, what is one way to set _both_ an
+instance ``chuchu``'s `breed` and `weight`?
+
+[[sXPRZvRwwcLDicNzKiqubkdRSegpuKzy]]
+== Q4: Object Modeling
+
+Define a public `class` named `Points`.
 //
-_Please make sure you understand `static`._
-
-* Don't just add it or remove it from methods or variables until the test cases
-work
-
-[[orYebYemmWfwiIkouECEpHwzgUmvHngq]]
-== Review: HW25
-
-Complete the implementation of a class called `LastTen`.
+It should have a public instance method named `score` and a second named
+`penalty`, both taking a single `int` argument.
 //
-Your class should implement two public methods as described below:
-
-. `void add(int newValue)`: add a new integer to the values that we are
-remembering
+`score` adds the passed number of points to the score, while `penalty` removes
+the passed number of points from the score.
 //
-. `int[] getLastTen()`: return the last ten values that were added using add, in
-any order.
+Both functions should return the new score _after_ the change is completed.
 //
-If fewer than ten values were added, you should return zeros in their place.
+Your class should also provide a constructor taking a single `int` argument that
+sets the initial score.
 
-Your class should also provide a constructor that takes no arguments.
-//
-It should not expose any of its state publicly.
+[[pfREiThnfqGAmQeXnpuYHycoEeJoiAJE]]
+== Q4: Object Modeling
 
-[[dcReeZyAhrEGzYhPdCuhVEEnPexJzhqE]]
-== ! Review: `static` and Encapsulation
+Note that your `Points` class should _not_ allow modifications to the score
+except using the `score` and `penalty` methods.
 
-[.janini.small.compiler]
+So when you are finished your class should work as follows:
+
+[source,java]
+----
+Points points = new Points(0);
+System.out.println(points.score(10)); // Prints 10
+System.out.println(points.score(20)); // Prints 30
+System.out.println(points.penalty(30)); // Prints 0
+System.out.println(points.penalty(5)); // Prints -5
+
+Points anotherPoints = new Points(10);
+System.out.println(anotherPoints.score(10)); // Prints 20
+System.out.println(anotherPoints.score(20)); // Prints 40
+System.out.println(anotherPoints.penalty(5)); // Prints 35
+System.out.println(anotherPoints.penalty(25)); // Prints 10
+----
+
+[[FDnyviSCdZqripnhoBaGMnfkOscnMYXD]]
+== ! Q4: Object Modeling
+
+[.janini.smallest.compiler]
 ....
-import java.util.Arrays;
-
 public class Example {
   public static void main(String[] unused) {
-    LastTen lastTen = new LastTen();
-    for (int i = 0; i < 32; i++) {
-      lastTen.add(i);
-    }
-    System.out.println(Arrays.toString(lastTen.getLastTen()));
+    Points points = new Points(0);
+    System.out.println(points.score(10)); // Prints 10
+    System.out.println(points.score(20)); // Prints 30
+    System.out.println(points.penalty(30)); // Prints 0
+    System.out.println(points.penalty(5)); // Prints -5
   }
 }
 ....
 
-
-[[MRYJcHoUQaUoSyhdISszfGQtzRUOzHHi]]
-== Hierarchical Thinking
-
-[.lead]
-//
-Why organize objects into a hierarchy?
-
-image::https://www.developerdotstar.com/mag/images/Fig4.3.png[role='mx-auto',width=240]
-
-[.s]
-//
-. It can be a *natural expression* of real-world taxonomies
-//
-. It allows us to *organize* and *reuse* code between multiple classes
-
 [[RLvwFWZxPUMlEjaBhKQYkihiRaBXyfVY]]
-== The Tree Of (Java) Life
+== Review: The Tree Of (Java) Life
 
 image::https://staff.fnwi.uva.nl/a.j.p.heck/Courses/JAVAcourse/ch3/lettertree.gif[role='mx-auto',width=240]
 
@@ -155,7 +196,7 @@ All Java objects inherit a small number of _important_ methods from `Object`.
 As a result, _all_ Java objects implement these methods!
 
 [[bvfhqvDEaqQWMvndBAgPFeBJZqsCfood]]
-== Methods Inherited from `Object`
+== Review: Methods Inherited from `Object`
 
 [.lead]
 //
@@ -440,41 +481,32 @@ of a subtype S) without altering any of the desirable properties of T
 (correctness, task performed, etc.).
 ____
 
-[[YdzjjHYfOSgtZMjLkvIhKLkJaqIrXxop]]
-== Barbara Liskov, Turing Award Winner
+[[tvirHLHXNkNnicxBiBCNdQxjdbnqjSts]]
+== Liskov Substitution Principle
 
-image::http://www.pmg.csail.mit.edu/~liskov/images/LISKOV_crop2.jpg[link='https://en.wikipedia.org/wiki/Barbara_Liskov',width=240,float='right']
+An example for Java:
 
-https://en.wikipedia.org/wiki/Barbara_Liskov[Barbara Liskov]
+[quote,role='spelling_exception']
+____
+https://en.wikipedia.org/wiki/Liskov_substitution_principle[Substitutability]
 //
-was one of the first women in the US to earn a doctorate in computer science.
-//
-She won the
-//
-https://en.wikipedia.org/wiki/Barbara_Liskov[Turing Award],
-//
-the highest honor in computer science, in 2008.
-
-She's given a bunch of great talks that you can find on YouTube, like
-//
-https://www.youtube.com/watch?v=dtZ-o96bH9A[this one].
-
-[[OATBRaKvmmWGbIHmitVKUksUJMIBWatq]]
-== ! Turing Award
-
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="embed-responsive-item" src="https://en.wikipedia.org/wiki/Turing_Award"></iframe>
-</div>
-++++
-
+is a principle in object-oriented programming stating that, in a computer
+program, if `Dog` is a subtype of `Pet`, then objects of type `Pet` may be replaced with
+objects of type `Dog` (i.e. an object of type `Pet` may be substituted with any object
+of a subtype `Dog`) without altering any of the desirable properties of `Pet`
+(correctness, task performed, etc.).
+____
 
 [[nUWyBwYOCDtTXFYmxzjQBKdtSVcLLhjZ]]
 == Substitutability in Practice
 
 [source,java,role='smaller']
 ----
-public class Pet { }
+public class Pet {
+  public boolean useful() {
+    return true;
+  }
+}
 public class Dog extends Pet {
   public String toString() {
     return "Dog";
@@ -484,17 +516,11 @@ public class Example {
   public static void main(String[] unused) {
     Dog chuchu = new Dog();
     Pet xyz = new Pet();
-    Example.printAnything(chuchu);
-    Example.printAnything(xyz);
-  }
-  public static void printAnything(Object toPrint) {
-    System.out.println(toPrint.toString());
+    System.out.println(chuchu.useful());
+    System.out.println(xyz.useful());
   }
 }
 ----
-
-Since everything is an `Object`, any Java object inherits all of the desirable
-properties of `Object`: like `toString`.
 
 [[VhyrHDhYiwsScmHUunmuvwgwbiWRJPqJ]]
 [.oneword]
@@ -547,16 +573,160 @@ class
 //
 * Generic types (discussed later)
 
+[[ufJmZnSeceinndtXZprPsVdWxQYnEceY]]
+== Why Polymorphism?
+
+[.lead]
+//
+This really gets to the purpose behind Java's entire type system.
+
+[.s]
+//
+* Descendant classes can implement or override ancestor behavior while retaining
+desirable ancestor properties
+//
+* Polymorphism makes it possible to write methods that work for any descendant
+class&mdash;even ones that you may not have created
+
+[[llSwhDiJhDVPeyiCsBwpfdfEdrSUupdC]]
+[.oneword]
+//
+== Questions About Polymorphism?
+
+[[ldcfNgEurcrfamfycWeGTznjSnnlRDxg]]
+== More Class Design: `final`
+
+Marking a class as `final` means that it _cannot be extended_:
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public final class Dog extends Pet { }
+public class BigDog extends Dog { } // This won't work
+----
+
+[[HnJdeVEnORRMnVBOCLYWyfkMPZKSzEZu]]
+== ! More Class Design: `final`
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public final class Dog extends Pet { }
+public class BigDog extends Dog { } // This won't work
+public class Example {
+  public static void main(String[] unused) {
+    BigDog dog = new BigDog();
+  }
+}
+....
+
+[[oxneXnudEfLeetbindVexPiHFUqeQhVJ]]
+== More Class Design: `abstract`
+
+Marking a class as `abstract` means that it _can only be extended_ and _cannot
+be instantiated_:
+
+[source,java,role='smaller']
+----
+public abstract class Pet { }
+public class Dog extends Pet { }
+Pet pet = new Pet(); // This will not work
+Dog dog = new Dog(); // This will work
+----
+
+[[mPgOhpzijdaaWFEBrnjAnQeqUrOKMNvb]]
+== ! More Class Design: `abstract`
+
+[.janini.smaller.compiler]
+....
+public abstract class Pet { }
+public class Dog extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet pet = new Pet(); // This will not work
+    Dog dog = new Dog(); // This will work
+  }
+}
+....
+
+[[gVGzonJjIkKuDwLXeTvSUBCOgdUByLLr]]
+== `private` Classes?
+
+In Java classes _cannot_ be marked as `private`: that would make little sense,
+since nobody could use them.
+
+[.s]
+//
+* To use it you have to create one
+//
+* To create one you have to call one of it's methods (the constructor)
+//
+* But you can't call it's methods because the entire class is `private`
+
+[[krwmMCuJfoHbfwoARnmoCXnaTxgqSuxh]]
+== Inner Classes
+
+But we can achieve something similar using so-called _inner classes_:
+
+[source,java,role='smaller']
+----
+public class Dog {
+  class DogFood {
+    public String toString() {
+      return "kibble";
+    }
+  }
+  private DogFood myFood;
+  Dog() {
+    myFood = new DogFood();
+  }
+}
+----
+
+[[efZeGATxjdlcLLprxQpOsdnoLrZxoxiD]]
+== ! Inner Classes
+
+[.janini.smallest.compiler]
+....
+public class Dog {
+  class DogFood {
+    public String toString() {
+      return "kibble";
+    }
+  }
+  private DogFood myFood;
+  Dog() {
+    myFood = new DogFood();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog dog = new Dog();
+  }
+}
+....
+
+[[waoVhdWeWygOlwZjcvqigeIxBDbOfosV]]
+== ! Let's Model Something
+
+[.janini.smallest.compiler]
+....
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
 [[HiLlpvxKziOlYYkRfdKZIjluYKLMNtQj]]
 == Announcements
 
-* The link:/MP/3/[MP3] early deadline is _Monday_.
-//
-Please get started if you haven't already.
+* The link:/MP/3/[MP3] early deadline is _today_.
 //
 * I have office hours today at 10AM in my office (Siebel 2227).
 //
-* We will _not_ have a lecture next Wednesday&mdash;I may record a video lecture
-instead.
+* We will _not_ have a lecture this Wednesday&mdash;I _may_ record a video lecture
+instead
+//
+footnote:[But will probably not].
 
 // vim: ts=2:sw=2:et
