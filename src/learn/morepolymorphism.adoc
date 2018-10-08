@@ -41,7 +41,7 @@ public class Example {
 [[OZPeWVFeoYofPnXuSfYQjtpgydXhtnoi]]
 == Q4 Review: Constructor Overloading
 
-[source,java]
+[source,java,role='small']
 ----
 class Dog {
   String breed;
@@ -66,7 +66,7 @@ constructor?
 [[reuiWAeonCozYJGZqnVurxgsrjeUJnvR]]
 == Q4 Review: Setting Attributes
 
-[source,java]
+[source,java,role='small']
 ----
 class Dog {
   String breed;
@@ -171,7 +171,7 @@ If a Java `class` does not explicitly `extend` another class, it implicitly
 extends `Object`.
 
 [[PBFsjLWvxmDzvQAhAIJrHBKYZYcJOdLu]]
-== Inherited from `Object`
+== Review: Inherited from `Object`
 
 [source,java,role='small']
 ----
@@ -214,7 +214,7 @@ object is the same as another object
 We'll talk more about hashing later&mdash;it's incredibly important and useful.
 
 [[VcAngWrEfIXxLHOWDgZRMlkZaSDSlBFd]]
-== Method Overriding
+== Review: Method Overriding
 
 [source,java,role='smaller']
 ----
@@ -588,6 +588,46 @@ desirable ancestor properties
 * Polymorphism makes it possible to write methods that work for any descendant
 class&mdash;even ones that you may not have created
 
+[[UrXbXVjItLWsQbiVhoeLQbuFuiAMhWgj]]
+== Generality v. Capability
+
+[.lead]
+//
+Polymorphism presents one of many _tradeoffs_ in computer program and system
+design:
+
+[.s]
+//
+* *Higher* on the object hierarchy: more general, but can use fewer capabilities
+//
+* *Lower* on the object hierarchy: less general, but can use more capabilities
+
+[[WntsfyfctNExAnIlgDdzfqdylondybee]]
+== ! Generality v. Capability
+
+[.janini.smallest.compiler]
+....
+public class Animal {
+  public String animalInfo() {
+    return "I'm an animal!";
+  }
+}
+public class Pet extends Animal {
+  public String petInfo() {
+    return "I'm an animal!";
+  }
+}
+public class Dog extends Pet { }
+public class OldDog extends Dog { }
+public class SweetOldDog extends OldDog { }
+public class Example {
+  public static void main(String[] unused) {
+    SweetOldDog chuchu = new SweetOldDog();
+    System.out.println(chuchu.toString());
+  }
+}
+....
+
 [[llSwhDiJhDVPeyiCsBwpfdfEdrSUupdC]]
 [.oneword]
 //
@@ -705,6 +745,16 @@ public class Example {
   }
 }
 ....
+
+[[YFerMqwIMsknFeAhfefvezoyDtKOLtfE]]
+== Object Modeling
+
+[.lead]
+//
+We frequently use Java objects to model real objects or entities.
+
+Objects allow us to _design_ software that deals with things in realistic and
+natural ways.
 
 [[waoVhdWeWygOlwZjcvqigeIxBDbOfosV]]
 == ! Let's Model Something
