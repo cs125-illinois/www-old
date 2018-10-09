@@ -468,6 +468,47 @@ public class Example {
 }
 ....
 
+[[CpZeQftzcOFsQCDCxiBqCcyBJtoOHNvI]]
+== Type Testing: `instanceof`
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}
+----
+
+The Java `instanceof` operator allows you to test whether an object is an
+instance of _or_ a descendant of a particular class.
+
+[[OefedXVUqXZifDYrxutlCilKEnwfvnij]]
+== ! Type Testing: `instanceof`
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}
+....
+
 [[AtydbVpehoLTEsgqUCgcTyIHlnazMXPZ]]
 == Liskov Substitution Principle
 
