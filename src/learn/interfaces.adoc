@@ -35,6 +35,31 @@ public class Example {
 ....
 --
 
+[[xnnfdnGPaaVGKWRYWNXrnpJdoWotfYeg]]
+== Quick Q5 Review
+
+[source,java,role='smaller']
+----
+public class Laptop {
+  public static int count = 0;
+  private String model;
+
+  Laptop(String setModel) {
+    model = setModel;
+    count++;
+  }
+
+  public static void main(String[] unused) {
+    Laptop apple = new Laptop("Apple");
+    Laptop PC = new Laptop("Windows");
+    Laptop broken = new Laptop("Linux");
+    System.out.println(apple.count);
+  }
+}
+----
+
+When the `main` method defined above runs, what will be printed?
+
 [[drSMdGFVAAqrAxUkxYuOVntLZQwbJhIt]]
 == We Do A _Bit_ of Java Internals
 
@@ -955,9 +980,10 @@ provides.**
 [[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
 == Announcements
 
-* link:/MP/3/[MP3] is due _Monday_! Office hours all day today.
+* link:/MP/3/[MP3] is due _today_! Office hours all day today. As a reminder,
+MP3 cannot be dropped.
 //
-* I will _not_ hold my weekly office hours today&mdash;I'm out of town this
-weekend.
+* MP4 will be out _today_ and due in 2 weeks. It's our first Android MP and
+we'll do Android setup in lab this week.
 
 // vim: ts=2:sw=2:et
