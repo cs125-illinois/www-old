@@ -1,0 +1,218 @@
+---
+draft: true
+---
+
+[[YkxyDKHKOIwHLcdjIZCcUkSxnwqzgejc]]
+== References Are Powerful
+
+[.lead]
+//
+References are a widely-used idea in computer science.
+
+By controlling the process of dereferencing or _translating_ a reference we can:
+
+[.s]
+//
+* *move* objects from place to place: just like your phone can move around with
+the same number
+//
+* *block* translation in certain cases: just like you can reject email from
+certain senders
+
+[[VjdvpgqzTAgeaTuQOvPNlsUiBIhYcxFE]]
+[.oneword]
+== And Memory Management
+(Or why you never need to `delete` anything in Java...)
+
+[[LMkQlNJtjcgVmFapXzOxalWcbrMgJCdj]]
+== Java Memory Management
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+}
+----
+
+Java utilizes references to automatically clean up unused objects to reclaim
+memory&mdash;a process known as _garbage collection_.
+
+[.s]
+//
+* If a reference to an object exists, it must still be useful, *so keep it*
+//
+* If no reference to an object exists, _it cannot be used_, *so remove it*
+
+[[ExXBunKhuHMRMgeissCMJFagFMaATymr]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 0
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  save -> String
+  s -> String
+</div>
+++++
+
+[[DhaLhZFXsqpNrJSlnhNezfCAhyJMtdkH]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 1
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  save -> String
+  s -> String1
+</div>
+++++
+
+[[ySGaaRXUtptkhVrcBQumHCwMiBCjyqCp]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 2
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  save -> String
+  s -> String2
+  {rank=same; String String1 String2}
+</div>
+++++
+
+[[zEHDaKoSAyMYFCMSoqKCpNYvHppfhklu]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+++++
+
+[[GrSlJoshnMHiqwfLmUJHgieSBvLWhWFV]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1", fillcolor="red", style="filled" ]
+  String2 [ label = "String|2", fillcolor="red", style="filled" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+++++
+
+[[kYPIHYzgsQZYzQsiBRpOBnQwzxswiPLl]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+</div>
+++++
+

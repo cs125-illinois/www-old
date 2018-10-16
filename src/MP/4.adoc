@@ -102,6 +102,16 @@ helpful in understanding what each function and class is supposed to do.
 [[getting]]
 === Obtaining MP4
 
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/g3ygS4K8EAc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
 *Note that we are using Android Studio for MP4.*
 //
 If you haven't set it up yet,
@@ -117,6 +127,9 @@ to fork your copy of MP4.
 Once your repository has been created, import it into *Android Studio* following
 //
 link:/MP/setup/git/#workflow[our assignment Git workflow guide].
+//
+The screencast above provides an overview of this process _after_ you have
+Android Studio correctly installed.
 
 [[requirements]]
 === Your Goal
@@ -133,6 +146,7 @@ All of our previous advice about how to approach the CS 125 MPs still applies.
 But MP4 has some unique features that are designed to continue your development
 as computer scientists and software developers.
 
+[[packages]]
 === Package Declarations
 
 Because MP4 is an Android app it requires a new code organization concept that
@@ -254,6 +268,7 @@ the test suite directly.
 Instead, use the output from `RGBAPixel` helper methods, which is correctly
 formatted.
 
+[[centering]]
 ==== Centering
 
 Understanding the coordinate system is also important when centering the image
@@ -431,7 +446,18 @@ so put in some time to familiarizing yourself with it now.
 It's simply the best way to build exciting things in Android&mdash;programs that
 you can share with your friends and family.
 
+[[logging]]
 === Logging
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/gE41VTk76_g" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 Like any other computer program, an important part of developing on Android is
 generating debugging output.
@@ -470,7 +496,18 @@ going wrong.
 //
 --
 
+[[activitys]]
 === ``Activity``s
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/0SfiLWdlwqs" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 The Android
 //
@@ -492,9 +529,7 @@ It is typical for on `onCreate` method to perform tasks required to make the
 activity ready for a user to use, such as configuring buttons and other UI
 elements.
 
-For more information
-//
-//watch the screencast above or
+For more information watch the screencast above or
 //
 review
 //
@@ -510,6 +545,7 @@ No. But you may be confused by the overall app structure if you don't review it.
 //
 --
 
+[[uievents]]
 === UI Events
 
 Why does code in your app run?
@@ -530,10 +566,12 @@ Our app uses these to:
 //
 * initiate various image transformations
 
-////
-In the screencast above we show how elements of the user interface are linked
-programmatically to each specific action.
-////
+In the
+//
+<<activitys, screencast on Android ``Activity``s>>
+//
+above we show how elements of the user interface are linked programmatically to
+each specific action.
 
 [.alert.alert-primary]
 --
@@ -546,21 +584,41 @@ But it will be hard to understand how your app works without reviewing it.
 //
 --
 
-=== UI Modifications
+[[tasks]]
+=== Asynchronous Tasks
 
-The flip side of user-initiated actions are responses by the app.
-//
-The normal way for a smartphone app to communicate with the user is by modifying
-the UI.
-//
-Pay closer attention to the apps that you use and you'll start noticing a lot of
-this: text boxes and photos that change or display information, progress bars
-that indicate either waiting or a long-running action like playing music, etc.
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/aIpPOaBh9Zk" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
-////
-In the screencast above we'll review how to modify your app's UI in response to
-user actions.
-////
+One of the core goals of every application, including smartphone apps, is to
+maintain a responsive user interface.
+//
+If your app freezes for long periods of time, or even short ones, users will
+quickly stop using it.
+
+Android accomplishes this by delegating certain slow operations to so-called
+_background tasks_.
+//
+They then run independently of the user interface.
+//
+So your app can be simultaneously responding to new user input _and_, for
+example, downloading a large file.
+
+This is an advanced topic and not one that we expect you to master on this MP or
+even on future ones.
+//
+But you will need to make _small_ changes to `Tasks.java` to complete MP4, so
+learn more by watching the screencast above.
+//
+Our MP4 app uses two background tasks: one to download files and save them to
+local storage, the second to run your image transformation functions.
 
 [.alert.alert-primary]
 --
@@ -573,14 +631,25 @@ There are some missing pieces in waiting for you to complete.
 //
 --
 
-////
+[[demo]]
 === Putting It All Together
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/a5ku635f1TQ" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 Finally, the screencast above provides a brief overview of how your app _should_
 work once you are done.
 //
-Good luck!
-////
+You can do it!
+//
+Good luck.
 
 [[grading]]
 == Grading
@@ -627,7 +696,7 @@ link:/MP/setup/git#workflow[CS 125 workflow]
 instructions.
 
 And remember, you must submit something that earns 50 points before *Monday
-2/5/2018 @ 5PM* to earn 10 points on the assignment.
+10/22/2018 @ 5PM* to earn 10 points on the assignment.
 
 [[cheating]]
 === Academic Integrity
