@@ -1,13 +1,11 @@
 ---
-title: "MP4: 2D"
+title: "MP4: 2D and Android"
 description:
   In MP4 you have a chance to work with two-dimensional arrays and complete a
-  simple photo editing application.
+  simple photo editing Android app.
 spelling_exceptions:
   - RGBA
-outdated:
-  name: MP
-  current: /mp/
+  - Activitys
 ---
 :sectnums:
 :linkattrs:
@@ -28,16 +26,22 @@ https://www.theatlantic.com/technology/archive/2015/11/how-many-photographs-of-y
 amount of photos and video],
 //
 and processing that data is almost entirely done on or by computers.
-//
-For MP4 you'll be working with two-dimensional photo pixel data as you complete
-the server part of a simple photo editing application.
 
-*MP4 is due Friday 3/9/2018 @ 5PM.
+For MP4 you'll be working with two-dimensional photo pixel data as you complete
+the image transformations for a simple Android photo editing app.
+//
+MP4 is the first of two Android assignments to prepare you for your final
+project.
+//
+But our focus is still on data transformation and strengthening your existing
+programming abilities.
+
+*MP4 is due Monday 10/29/2018 @ 5PM.
 //
 To receive full credit, you must submit by this deadline.*
 //
 In addition, 10% of your grade on MP4 is for submitting code that earns at least
-_50 points_ by *Monday 3/5/2018 @ 5PM.*
+_50 points_ by *Monday 10/22/2018 @ 5PM.*
 
 As usual, late submissions will be subject to the
 //
@@ -46,7 +50,8 @@ link:/info/syllabus/#regrading[MP late submission policy].
 [[objectives]]
 == Learning Objectives
 
-The purpose of MP4 is to continue introducing you to data transformation.
+The purpose of MP4 is to introduce you to data transformation and
+Android development.
 //
 You'll begin to learn how to:
 
@@ -58,23 +63,35 @@ transformations
 //
 . work with existing object classes
 
+We'll also introduce you to the structure of a simple Android app, and you'll
+get practice modifying its UI to reflect the results of your image
+transformations.
+
 We'll also continue to reinforce the learning objectives from previous MPs
-(link:/MP/2018/spring/0/[0], link:/MP/2018/spring/1/[1], link:/MP/2018/spring/2/[2], and link:/MP/2018/spring/3/[3]).
+(link:/MP/0/[0], link:/MP/1/[1], link:/MP/2/[2], and link:/MP/3/[3]).
 
 [[structure]]
 == Assignment Structure
 
-Like link:/MP/2018/spring/3/[MP3], MP4 consists of a simple client-server system.
-//
-The HTML, CSS, and JavaScript for the client are provided for you.
-//
-But it relies on your backend to work properly.
+Unlike previous MPs, MP4 is split into two pieces:
 
-Your job is to complete the required transformations in `Transform.java`.
+* `/lib/`: a library that performs various image transformations.
+//
+*This library is the only part of the MP tested by the test suite.*
+//
+* `/app/`: an Android app for you to use for your own interactive testing.
+//
+The Android app is _almost_ complete, but needs a few modifications from you.
+//
+And, to work correctly, you need to finish the library in `lib`.
+
+Your primary job is to complete the required transformations in `Transform.java`.
 //
 These make use of a pixel class defined in `RGBAPixel.java`.
 //
-These functions are called by the web server that is set up using `WebServer.java`.
+These functions are called by the app and, once you complete them, your app will
+be almost completely functional&mdash;and we'll be happy to help you with the
+rest.
 
 As always, you may find our official
 //
@@ -84,12 +101,20 @@ helpful in understanding what each function and class is supposed to do.
 
 [[getting]]
 === Obtaining MP4
-Use
-https://classroom.github.com/a/cjTkpLN6[this GitHub Classroom invitation link]
+
+*Note that we are using Android Studio for MP4.*
+//
+If you haven't set it up yet,
+//
+link:/MP/setup/android-studio[start here] and return when you're done.
+
+Once you have Android Studio installed, use
+//
+https://classroom.github.com/a/CewU5LCF[this GitHub Classroom invitation link]
 //
 to fork your copy of MP4.
 //
-Once your repository has been created, import it into IntelliJ following
+Once your repository has been created, import it into *Android Studio* following
 //
 link:/MP/setup/git/#workflow[our assignment Git workflow guide].
 
@@ -100,32 +125,6 @@ At this point you should be familiar with the requirements from previous MPs.
 //
 See the <<grading, grading description below>>.
 
-[[running]]
-=== Running MP4
-
-To run MP4, follow the instructions from
-//
-link:/MP/2018/spring/3#running[MP3].
-
-At first, nothing will work because you have not implemented any of the required
-transformations yet.
-//
-Our web interface also uses some new-ish browser features, and of course Internet
-Explorer hasn't implemented all of them yet.
-//
-We have confirmed that
-//
-https://www.google.com/chrome/browser/desktop/index.html[Chrome],
-//
-https://www.mozilla.org/en-US/firefox/new/[Firefox],
-//
-and
-//
-https://www.apple.com/safari/[Safari]
-//
-work on both Mac and Windows footnote:[Well, not Safari on Windows, for obvious
-reasons].
-
 [[approach]]
 == Approaching MP4
 
@@ -133,6 +132,19 @@ All of our previous advice about how to approach the CS 125 MPs still applies.
 //
 But MP4 has some unique features that are designed to continue your development
 as computer scientists and software developers.
+
+=== Package Declarations
+
+Because MP4 is an Android app it requires a new code organization concept that
+we haven't discussed in lecture yet: Java packages.
+//
+Happily, this is not at all complicated.
+//
+Simply duplicate the `package edu.illinois.cs.cs125.mp4.lib` line from
+`RGBAPixel.java` in `Transform.java` once you create that file and everything
+will work properly.
+//
+We'll discuss this more soon.
 
 [[dry]]
 === Don't Repeat Yourself (DRY)
@@ -163,13 +175,13 @@ improve&mdash;and will also make it hard to keep a job.
 
 At first glance, MP4 may seem daunting.
 //
-You have _22_ functions to write!
+You have _12_ functions to write!
 //
-And yes, you can complete MP4 by writing 22 separate independent functions.
+And yes, you can complete MP4 by writing 12 separate independent functions.
 
 But there is a much smarter way to approach MP4.
 //
-As a hint, the solution set consists of only _six_ real functions&mdash;with the
+As a hint, the solution set consists of only _4_ real functions&mdash;with the
 rest just calling into this much smaller set of _helper functions_.
 //
 The reason is that many of the transformations perform similar operations.
@@ -183,7 +195,7 @@ others.
 
 There is a balance here that requires practice to get right.
 //
-Trying to reduce the needs of 22 different functions to one single method
+Trying to reduce the needs of 12 different functions to one single method
 produces overly-complicate and brittle code.
 //
 But writing them all separately misses opportunities to harness common
@@ -191,7 +203,7 @@ subroutines.
 //
 You'll get better at this with practice, and MP4 is a good chance to get some.
 //
-So *do not* implement 22 separate transformation functions, but also *do not*
+So *do not* implement 12 separate transformation functions, but also *do not*
 attempt to implement one function that does everything.
 //
 There are some natural groupings that you will probably be able to identify.
@@ -379,24 +391,185 @@ Please come to link:/info/syllabus/#calendar[office hours], or post on the
 You should also feel free to help each other, as long as you do not violate the
 <<cheating, academic integrity requirements>>.
 
-[[overview]]
-=== How All Of MP4 Works
+[[android]]
+== Android
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/v0TSgrVK8kA" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-The video above is optional, but may interest those that are curious about how a
-modern web application works.
+Android is a Java-based framework for building smartphone apps that run on the
+Android platform.
 //
-It walks through most of what happens from the moment you click one of the image
-transformation buttons, to when transformed data returns from the server.
+By learning how to build Android apps, your programs can have enormous impact.
+//
+As of a year ago, Google estimated that there were
+//
+https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/[_2
+billion_]
+//
+active Android devices.
+//
+That's over 25% of people on Earth&mdash;and
+//
+http://fortune.com/2017/03/06/apple-iphone-use-worldwide/[several times more
+than iOS].
+
+However, Android is also a huge and complex system.
+//
+It's easy to feel lost when you are getting started.
+//
+Our best advice is to just slow down, take a deep breath, and try to understand
+a bit of what is going on at a time.
+//
+We'll try to walk you through a few of the salient bits for MP4 below.
+
+=== Logging
+
+Like any other computer program, an important part of developing on Android is
+generating debugging output.
+//
+On Android, our familiar `System.out.println`
+//
+https://stackoverflow.com/questions/2220547/why-doesnt-system-out-println-work-in-android[doesn't quite work the same way we're used to].
+
+However, Android has a simple yet powerful _logging_ system.
+//
+Unlike `System.out.println`, logging systems allow you to specify multiple log
+_levels_ indicating the kind of output that you are generating.
+//
+This allows you to distinguish between, for example, debugging output that might
+only be useful during development and a warning message that might indicate a
+more serious problem or failure.
+//
+The Android logger also allows you to attach a `String` _tag_ to each message to
+help separate them when you are debugging or developing.
+//
+So the final syntax of the call to generate a debugging message, for example, is
+`Log.d(TAG, message)`.
+
+For more information, watch the screencast above or review
+//
+https://developer.android.com/reference/android/util/Log.html[Android's official
+logging documentation].
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+Probably, since you need to determine what you app is doing or how things are
+going wrong.
+//
+--
+
+=== ``Activity``s
+
+The Android
+//
+https://developer.android.com/reference/android/app/Activity.html[`Activity` class]
+//
+corresponds to a single screen that the user can interact with.
+//
+Our simple app contains only one activity, but most apps consist of several:
+maybe an activity corresponding to the app's main screen, another for a
+settings dialog, and still others for other parts of the app.
+
+As you might expect, there are two important moments for an activity: when it
+appears on the screen, and when it leaves the screen.
+//
+Android provides functions that you can override to handle both of these events:
+`onCreate` and `onPause`.
+//
+It is typical for on `onCreate` method to perform tasks required to make the
+activity ready for a user to use, such as configuring buttons and other UI
+elements.
+
+For more information
+//
+//watch the screencast above or
+//
+review
+//
+https://developer.android.com/reference/android/app/Activity.html[Android's
+official `Activity` information].
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+No. But you may be confused by the overall app structure if you don't review it.
+//
+--
+
+=== UI Events
+
+Why does code in your app run?
+//
+In many cases it's because a user _interacted_ with an activity&mdash;clicked a
+button, entered text into a dialog box, or adjusted an on-screen control.
+//
+Android provides a way for each app to register _handlers_ than run when various
+user interface (UI) events take place.
+
+Our app uses these to:
+
+* start the open file dialog
+//
+* start the process of capturing an image from the camera
+//
+* open the download file input box
+//
+* initiate various image transformations
+
+////
+In the screencast above we show how elements of the user interface are linked
+programmatically to each specific action.
+////
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+No.
+//
+But it will be hard to understand how your app works without reviewing it.
+//
+--
+
+=== UI Modifications
+
+The flip side of user-initiated actions are responses by the app.
+//
+The normal way for a smartphone app to communicate with the user is by modifying
+the UI.
+//
+Pay closer attention to the apps that you use and you'll start noticing a lot of
+this: text boxes and photos that change or display information, progress bars
+that indicate either waiting or a long-running action like playing music, etc.
+
+////
+In the screencast above we'll review how to modify your app's UI in response to
+user actions.
+////
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+Yes!
+//
+There are some missing pieces in waiting for you to complete.
+//
+--
+
+////
+=== Putting It All Together
+
+Finally, the screencast above provides a brief overview of how your app _should_
+work once you are done.
+//
+Good luck!
+////
 
 [[grading]]
 == Grading
@@ -406,13 +579,11 @@ MP4 is worth 100 points total, broken down as follows:
 . *80 points*: `Transform.java`
   ** *20 points* for completing the position shift transformations
   ** *20 points* for completing the rotation and flip transformations
-  ** *10 points* for completing the color shift transformations
-  ** *15 points* for completing the expand transformations
-  ** *10 points* for completing the green screen transformation
-  ** *5 points* for completing a mystery transformation
+  ** *20 points* for completing the expand transformations
+  ** *20 points* for completing the green screen transformation
 . *10 points* for no `checkstyle` violations
 . *10 points* for submitting code that earns at least 50 points before *Monday
-3/5/2018 @ 5PM.*
+10/22/2018 @ 5PM.*
 
 [[testing]]
 === Test Cases
@@ -420,7 +591,7 @@ MP4 is worth 100 points total, broken down as follows:
 As in previous MPs, we have provided exhaustive test cases
 for each part of MP4.
 //
-Please review the link:/MP/2018/spring/0/#testing[MP0 testing instructions].
+Please review the link:/MP/0/#testing[MP0 testing instructions].
 
 [[autograding]]
 === Autograding
@@ -429,7 +600,7 @@ Like previous MPs we have provided you with an
 autograding script that you can use to estimate your current grade as often as
 you want.
 //
-Please review the link:/MP/2018/spring/0#autograding[MP0 autograding instructions].
+Please review the link:/MP/0#autograding[MP0 autograding instructions].
 
 [[submitting]]
 == Submitting Your Work
@@ -450,7 +621,7 @@ And remember, you must submit something that earns 50 points before *Monday
 [[cheating]]
 === Academic Integrity
 
-Please review the link:/MP/2018/spring/0#cheating[MP0 academic integrity guidelines].
+Please review the link:/MP/0#cheating[MP0 academic integrity guidelines].
 
 Here's an example of the training that the CS 125 course staff undertakes to
 make sure we catch cheaters:
