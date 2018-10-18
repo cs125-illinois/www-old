@@ -1,9 +1,8 @@
 ---
-title: More Interfaces
-date: 2018-10-17
+title: More About Interfaces
+date: 2018-10-19
 description:
-  A brief bit on Java memory management with reminders about references, and a
-  continuation of discussion of interfaces.
+  A continuation of discussion of interfaces.
 ---
 :imagesdir: /learn/images
 
@@ -32,448 +31,6 @@ public class Example {
 }
 ....
 --
-
-[[RkliOLTPuAhdvGWYPAFzrKmGWaPUfXgH]]
-[.oneword]
-//
-== You're Halfway There
-
-Congratulations!
-
-[[UadeeCkeSgAdNxowguiLSoYhJRdguKFW]]
-== Before/After: Content
-
-[.s]
-//
-* *Before*: imperative and object-oriented programming
-//
-* *After*: algorithms, data structures, recursive and functional programming
-
-[[LgdffzhfPunAMesAbWZBqllohPQOYWff]]
-== Before/After: Assessments
-
-[.s]
-//
-* *Before*: 3 short MPs, one long MP, one midterm
-//
-* *After*: 2 long Android MPs, one Android final project, two midterms
-
-[[cenLRPaenukyZMdPCFcWGfinjtuOQxqN]]
-== Current Status
-
-[.lead]
-//
-Overall the class is doing quite well:
-
-[.s]
-//
-* *Without drops*: median 82, average 79
-//
-* *With drops*: median 94, average 89
-
-[[nltGUOTpOBUxKVDdfZrgjnrlZqsPsfAt]]
-== Midterm Grades
-
-[.lead]
-//
-We will post course grade statistics on our grading page today or tomorrow.
-
-[.s]
-//
-* This information is intended to help you decide whether to continue in
-the course or not
-//
-* Have feedback you want to share?
-//
-Use the
-//
-https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form].
-
-[[pldddmEseeLzsgZhznFeEAojBuonZzoV]]
-== ! Anonymous Feedback Form
-
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/info/feedback/"></iframe>
-</div>
-++++
-
-[[KforFFinAoafSeZwPUmMnQduNOEIEwrV]]
-[.oneword]
-//
-== Questions?
-
-Anything is fair game.
-
-[[nVhGDIPHKdueqliUaiRGIurGcDZWYxOc]]
-== Homework Review: `Creator`
-
-Implement a public class called `Creator`.
-
-`Creator` should provide one public class method called `newOrOld` taking a
-single `boolean` argument.
-//
-If the argument is `true`, `newOrOld` should return a reference to a _new_
-`Creator` instance.
-//
-If the argument is `false`, `newOrOld` should return a reference to the last
-`Creator` created by `newOrOld`.
-//
-If `newOrOld` has never been called before, you should return `null`.
-
-`Creator` should not expose any public state or allow itself to be extended.
-
-[[CnPOgXHnlenordetuHtoMtFgwpduZMTC]]
-== ! Homework Review: `Creator`
-
-[.janini.compiler.smaller]
-....
-public class Example {
-  public static void main(String[] unused) {
-    System.out.println(Creator.newOrOld(false));
-    System.out.println(Creator.newOrOld(true));
-    System.out.println(Creator.newOrOld(false));
-    System.out.println(Creator.newOrOld(true));
-  }
-}
-....
-
-[[MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB]]
-== Review: Pass By (Copied) Reference
-
-[source,java,role='smaller']
-----
-class Person {
-  public int age;
-  Person(int setAge) {
-    this.age = setAge;
-  }
-}
-int birthday(Person toSet) {
-  toSet.age++;
-  return toSet.age;
-}
-Person me = new Person(38);
-System.out.println(birthday(me));
-System.out.println(me.age);
-----
-
-[.lead]
-//
-In Java methods receive _a copy_ of a reference to the passed object.
-
-So they *can* modify the object the reference refers to.
-
-[[TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO]]
-[.ss]
-== Review: Pass By (Copied) Reference
-
-[source,java,role='smaller']
-----
-class Person {
-  public int age;
-  Person(int setAge) {
-    this.age = setAge;
-  }
-}
-int birthday(Person toSet) {
-  toSet.age++;
-  return toSet.age;
-}
-Person me = new Person(38);
-----
-
-<<<
-
-++++
-<div class="digraph default">
-  Person [ label = "Person|age = 38" ]
-  me -> Person
-</div>
-++++
-
-[[QeoegaQWqRCqwRWjFgcHecPcBnblAsuu]]
-[.ss]
-== Review: Pass By (Copied) Reference
-
-[source,java,role='smaller']
-----
-class Person {
-  public int age;
-  Person(int setAge) {
-    this.age = setAge;
-  }
-}
-int birthday(Person toSet) {
-  toSet.age++;
-  return toSet.age;
-}
-Person me = new Person(38);
-System.out.println(birthday(me));
-----
-
-<<<
-
-++++
-<div class="digraph default">
-  Person [ label = "Person|age = 39" ]
-  me -> Person
-  toSet -> Person [ label = "age++" ]
-</div>
-++++
-
-[[LCApeGyQtFkuQzuHRiWVCZeNpdydfeht]]
-[.ss]
-== Review: Pass By (Copied) Reference
-
-[source,java,role='smaller']
-----
-class Person {
-  public int age;
-  Person(int setAge) {
-    this.age = setAge;
-  }
-}
-int birthday(Person toSet) {
-  toSet.age++;
-  return toSet.age;
-}
-Person me = new Person(38);
-System.out.println(birthday(me));
-System.out.println(me.age);
-----
-
-<<<
-
-++++
-<div class="digraph default">
-  Person [ label = "Person|age = 39" ]
-  me -> Person [ label = "get age" ]
-</div>
-++++
-
-[[YkxyDKHKOIwHLcdjIZCcUkSxnwqzgejc]]
-== References Are Powerful
-
-[.lead]
-//
-References are a widely-used idea in computer science.
-
-By controlling the process of dereferencing or _translating_ a reference we can:
-
-[.s]
-//
-* *move* objects from place to place: just like your phone can move around with
-the same number
-//
-* *block* translation in certain cases: just like you can reject email from
-certain senders
-
-[[VjdvpgqzTAgeaTuQOvPNlsUiBIhYcxFE]]
-[.oneword]
-== And Memory Management
-(Or why you never need to `delete` anything in Java...)
-
-[[LMkQlNJtjcgVmFapXzOxalWcbrMgJCdj]]
-== Java Memory Management
-
-[source,java]
-----
-String save;
-for (long i = 0; ; i++) {
-  String s = new String(i);
-  if (i == 0) {
-    save = s;
-  }
-}
-----
-
-Java utilizes references to automatically clean up unused objects to reclaim
-memory&mdash;a process known as _garbage collection_.
-
-[.s]
-//
-* If a reference to an object exists, it must still be useful, *so keep it*
-//
-* If no reference to an object exists, _it cannot be used_, *so remove it*
-
-[[ExXBunKhuHMRMgeissCMJFagFMaATymr]]
-[.ss]
-== Reference Counting Example
-
-[source,java]
-----
-String save;
-for (long i = 0; ; i++) {
-  String s = new String(i);
-  if (i == 0) {
-    save = s;
-  }
-  // i == 0
-}
-----
-
-<<<
-
-++++
-<div class="digraph small">
-  String [ label = "String|0" ]
-  save -> String
-  s -> String
-</div>
-++++
-
-[[DhaLhZFXsqpNrJSlnhNezfCAhyJMtdkH]]
-[.ss]
-== Reference Counting Example
-
-[source,java]
-----
-String save;
-for (long i = 0; ; i++) {
-  String s = new String(i);
-  if (i == 0) {
-    save = s;
-  }
-  // i == 1
-}
-----
-
-<<<
-
-++++
-<div class="digraph small">
-  String [ label = "String|0" ]
-  String1 [ label = "String|1" ]
-  save -> String
-  s -> String1
-</div>
-++++
-
-[[ySGaaRXUtptkhVrcBQumHCwMiBCjyqCp]]
-[.ss]
-== Reference Counting Example
-
-[source,java]
-----
-String save;
-for (long i = 0; ; i++) {
-  String s = new String(i);
-  if (i == 0) {
-    save = s;
-  }
-  // i == 2
-}
-----
-
-<<<
-
-++++
-<div class="digraph small">
-  String [ label = "String|0" ]
-  String1 [ label = "String|1" ]
-  String2 [ label = "String|2" ]
-  save -> String
-  s -> String2
-  {rank=same; String String1 String2}
-</div>
-++++
-
-[[zEHDaKoSAyMYFCMSoqKCpNYvHppfhklu]]
-[.ss]
-== Reference Counting Example
-
-[source,java]
-----
-String save;
-for (long i = 0; ; i++) {
-  String s = new String(i);
-  if (i == 0) {
-    save = s;
-  }
-  // i == 3
-}
-----
-
-<<<
-
-++++
-<div class="digraph small">
-  String [ label = "String|0" ]
-  String1 [ label = "String|1" ]
-  String2 [ label = "String|2" ]
-  String3 [ label = "String|3" ]
-  save -> String
-  s -> String3
-  {rank=same; String String1 String2 String3}
-</div>
-++++
-
-[[GrSlJoshnMHiqwfLmUJHgieSBvLWhWFV]]
-[.ss]
-== Reference Counting Example
-
-[source,java]
-----
-String save;
-for (long i = 0; ; i++) {
-  String s = new String(i);
-  if (i == 0) {
-    save = s;
-  }
-  // i == 3
-}
-----
-
-<<<
-
-++++
-<div class="digraph small">
-  String [ label = "String|0" ]
-  String1 [ label = "String|1", fillcolor="red", style="filled" ]
-  String2 [ label = "String|2", fillcolor="red", style="filled" ]
-  String3 [ label = "String|3" ]
-  save -> String
-  s -> String3
-  {rank=same; String String1 String2 String3}
-</div>
-++++
-
-[[kYPIHYzgsQZYzQsiBRpOBnQwzxswiPLl]]
-[.ss]
-== Reference Counting Example
-
-[source,java]
-----
-String save;
-for (long i = 0; ; i++) {
-  String s = new String(i);
-  if (i == 0) {
-    save = s;
-  }
-  // i == 3
-}
-----
-
-<<<
-
-++++
-<div class="digraph small">
-  String [ label = "String|0" ]
-  String3 [ label = "String|3" ]
-  save -> String
-  s -> String3
-</div>
-++++
-
-
-[[bsXbUlKaQeGfqKCdyACmnTqmWQHfuiqE]]
-[.oneword]
-//
-== Questions About Object References?
-
-This concept is critical once we start talking about data structures and
-algorithms next week.
 
 [[nRANkNJSPjdGATReHMsdJtMowgfdvacN]]
 == Review: What Is An Interface?
@@ -804,18 +361,94 @@ public class Example {
 }
 ....
 
+[[cTUTyDXeDeRvdljMzaeuOWUqqteTSsjt]]
+== Iterator Example
+
+[.lead]
+//
+Another capability that Java objects can provide by implementing an interface is
+the ability to be _iterated over_: or generate a series of elements, one at a
+time.
+
+What do I need to do to support iteration?
+
+[.s]
+//
+* `Object next()`: produce the next item
+//
+* `boolean hasNext()`: indicate whether there _is_ another item or not so that
+we know whether to stop
+
+[[ziZsBrEnLcfiFQXWSwTwWUNeZnBTivCn]]
+== ! Iterator Example
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/Iterator.html"></iframe>
+</div>
+++++
+
+[[idpUzjfsShTfAPKDyXEPoVEGaUSHULHZ]]
+== ! Iterator Example
+
+[.janini.smallest.compiler]
+....
+import java.util.Iterator;
+
+public class IntIterator implements Iterator {
+}
+public class Example {
+  public static void main(String[] unused) {
+    Iterator iterator = new IntIterator(10);
+    for (Object current = iterator.next(); iterator.hasNext(); current = iterator.next()) {
+      System.out.println(current);
+    }
+  }
+}
+....
+
+[[VfwpGfeeCReAnAHdYqjqrebyeduUHpNG]]
+== Even Cooler: Iterable
+
+[.lead]
+//
+What would make this even cooler? How about if we could use it the Java enhanced
+`for` loop?
+
+
+[[RHVuagYhxAODByvdbCdHpWIfwccAIiLi]]
+== ! Iterable Example
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/lang/Iterable.html"></iframe>
+</div>
+++++
+
+[[nflNiadBdtjHxVWdlidZpezRKOduVqNo]]
+== ! Iterable Example
+
+[.janini.smallest.compiler]
+....
+import java.util.Iterator;
+
+public class IntIterator implements Iterator {
+}
+public class IntIterable implements Iterable {
+}
+public class Example {
+  public static void main(String[] unused) {
+    for (String current : new IntIterable(10)) {
+      System.out.println(current);
+    }
+  }
+}
+....
+
 [[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
 == Announcements
 
-* MP4 is out and due in _less than 2 weeks_.
+* MP4 is out and due in a week and a half.
 //
-It's our first Android MP and we'll do Android setup in lab this week.
 * I have office hours today from 10AM&ndash;12PM.
-//
-**If you need to do an instructor interview please come by at 11AM if
-possible.**
-//
-I'm tired of talking about myself and am not going to grant any more of these.
 //
 * Please provide feedback on the course using our
 //
