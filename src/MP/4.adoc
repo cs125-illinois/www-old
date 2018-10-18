@@ -406,6 +406,41 @@ Please come to link:/info/syllabus/#calendar[office hours], or post on the
 You should also feel free to help each other, as long as you do not violate the
 <<cheating, academic integrity requirements>>.
 
+=== Identifying Test Errors
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/af2uPatjB_I" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Because of how we have set up MP4, errors present themselves a bit differently.
+//
+The screencast above shows you how to identify errors caused by problems with
+your code when the test suite runs.
+
+In addition, our original Fall 2018 MP4 distribution configured `checkstyle` to
+fail the entire build if `checkstyle` fails.
+//
+This is not how the grader works and may not be what you want.
+//
+To change that, correct the `checkstyle` block in `lib/build.gradle` so that it
+looks like this:
+
+[source,groovy]
+----
+checkstyle {
+    ignoreFailures = true
+    toolVersion "8.12"
+    checkstyleTest.enabled = false
+    configFile = new File(rootDir, "config/checkstyle.xml")
+}
+----
+
 [[android]]
 == Android
 
