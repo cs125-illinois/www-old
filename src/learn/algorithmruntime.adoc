@@ -17,6 +17,17 @@ spelling_exceptions:
 <div class="message">Algorithm Runtime</div>
 ++++
 ....
+public final class Math {
+  public static int gcd(int first, int second) {
+    int min = Math.min(first, second);
+    return min;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Math.gcd(10, 20));
+  }
+}
 ....
 --
 
@@ -117,6 +128,30 @@ public class Example {
 }
 ....
 
+[[tyQwTSdRMgfbyiaungJhUtqzJdkdhISM]]
+== Review: Interface as Contract
+
+[source,java,role='smallest']
+----
+/**
+ * Compares this object with the specified object for order.
+ *
+ * Returns a negative integer, zero, or a positive integer as this object is
+ * less than, equal to, or greater than the specified object.
+ */
+public interface Comparable {
+  int compareTo(Object other);
+}
+----
+
+[.lead]
+//
+Interfaces represent a _contract_ between the interface _provider_ and the
+interface _user_.
+
+The interface represents all that the two components on either side need to
+agree on for things to work correctly.
+
 [[hAIYbXvZIbCeHuFcdefAdTFdKMeLZzcV]]
 == ! Another Comparable Example
 
@@ -132,6 +167,22 @@ public class Example {
   }
 }
 ....
+
+[[OCSfWmHAFFffpjpyenAaeFwujtpLCAHw]]
+[.oneword]
+//
+== Questions?
+
+About references, interfaces, or other object-oriented concepts?
+
+[[WuPdwRslQMMvcKkRVzmobPMOSUWdrfeD]]
+== Reminder: Midterm 1 is Next Week
+
+[.s]
+//
+* This week: a quiz, primarily on interfaces and inheritance
+//
+* Next week: Midterm 1 covering object-oriented programming
 
 [[aUxsyjhTqYgprQGAtYgCJCpFInIbEnMP]]
 == Algorithms
@@ -537,5 +588,10 @@ Please stop by!
 * Remember to provide feedback on the course using the
 //
 https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form].
+//
+* I've started to respond to existing feedback
+//
+https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+
 
 // vim: ts=2:sw=2:et
