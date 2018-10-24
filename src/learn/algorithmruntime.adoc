@@ -331,6 +331,26 @@ A *smart* algorithm can move a problem _down_ in the runtime categorization: for
 example, from O(n^2) to O(n log n). (Euclid's Method GCD is smart. The problem
 is O(log(N)).)
 
+[[ZNOikwniBxwwdnfIrXpGZeDunUmkcdRQ]]
+== Data Structure Tradeoffs
+
+[.lead]
+//
+Depending on how we structure data different implementations of the _same_
+interface can have different performance characteristics.
+
+[.s]
+//
+* We'll start by looking at this with _lists_
+//
+* Lists that store items using arrays have *fast* (O(1)) lookups but _slow_
+(O(n)) modifications
+//
+* Lists that store items using linked lists have _slow_ lookups (O(n)) but some
+insertions are *fast* (O(1))
+//
+* Both also present different memory usage tradeoffs
+
 [[mOIGUvXLwHYuLDdmYtNzCMiXDFPisgIv]]
 == Big-O Notation
 
