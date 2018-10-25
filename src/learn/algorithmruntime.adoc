@@ -6,6 +6,7 @@ description:
 spelling_exceptions:
   - GCD
   - livin
+youtube: https://youtu.be/-uZQkP-VzA8
 ---
 
 [[ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci]]
@@ -387,150 +388,6 @@ found good ways of solving them yet.
 
 image::http://www.sudoku-puzzles.org/BoardComplete.png[role='mx-auto',width=325]
 
-[[IRjECqRugdjLLGMBzUFyfYJUfZJxxoVG]]
-== Array Operation Runtime
-
-[source,java]
-----
-int[] values = new int[10];
-----
-
-[.lead]
-//
-At this point the only data structure we've discussed is the _array_.
-
-[.s]
-//
-* *Good*: looking up an element in an array is O(1) footnote:[or constant time].
-//
-* *Bad*: the size of a Java array cannot be changed once it is created.
-
-[[oFjnHJFHAMiBIIvaytaNNxjnVTrFFItX]]
-[.oneword]
-//
-== So How Do We Add Items?
-
-Hint: it's possible.
-
-[[BLSbLyVhijVQLPaDmJdcviQvVrmehnQu]]
-== ! Array Append Implementation
-
-[.janini.smaller]
-....
-import java.util.Arrays;
-/*
- * Append an item to an array.
- */
-static int[] append(int[] inputArray, int newValue) {
-}
-int values[] = new int[] { 1, 2 };
-System.out.println(Arrays.toString(append(values, 5)));
-....
-
-[[rXjhyqeJLXTgQCIwqqZfEQVOiUsCCgGK]]
-== Array Append Performance
-
-[source,java]
-----
-int[] append(int[] inputArray, int newValue) {
-  // Create a new array one larger than the existing array
-  // Copy all values over
-  // Add the new value at the end
-  // Return the new array
-}
-----
-
-[.s]
-//
-* *What is n&mdash;or what feature drives performance?*
-//
-[.s]#The length of `inputArray`.#
-//
-* *Best case runtime*: [.s]#O(n)#
-//
-* *Worst case runtime*: [.s]#O(n)#
-//
-* *Average case runtime*: [.s]#O(n)#
-
-[[LEyzqbhelTdWuMTbEHBBOHNTqHFfVtZh]]
-== ! Array Insert Implementation
-
-[.janini.smaller]
-....
-import java.util.Arrays;
-/*
- * Insert an item into the array at the given position.
- */
-static int[] insert(int[] inputArray, int newValue, int position) {
-}
-int values[] = new int[] { 1, 5 };
-System.out.println(Arrays.toString(insert(values, 5, 1)));
-....
-
-[[wzaspGePmHbJRDzWxaugNPUBEgRFPjpN]]
-== Array Insert Performance
-
-[source,java]
-----
-int[] append(int[] inputArray, int newValue, int position) {
-  // Create a new array one larger than the existing array
-  // Copy all values over, adding the new value at the right spot
-  // Return the new array
-}
-----
-
-[.s]
-//
-* *What is n&mdash;or what feature drives performance?*
-//
-[.s]#The length of `inputArray`.#
-//
-* *Best case runtime*: [.s]#O(n)#
-//
-* *Worst case runtime*: [.s]#O(n)#
-//
-* *Average case runtime*: [.s]#O(n)#
-
-[[FLrMUeaPPdghfXdVtAoFhyJeHBGeBJfV]]
-== Lists
-
-[.lead]
-//
-What we are starting to build is a more general data structure called a _list_.
-
-Lists are an ordered data structure that allow us to:
-
-[.s]
-//
-* Get and set values at any index (like an array)
-//
-* Add or remove values at any index (this is new)
-
-[[DPNiZdCroOfieMLMAdqnxFLqxcwBNdOU]]
-== ! Java List Interface
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/List.html"></iframe>
-</div>
-++++
-
-[[GgjDBubcXoMJtfILfeFlevdxnkSdDZFc]]
-== Our List Interface
-
-[source,java]
-----
-interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
-}
-----
-
-(The official Java one contains a bunch of convenience methods that we don't
-want.)
-
 [[yntgZvyLJItjnduBOSzsNxMGfIjdxgZC]]
 == (An Annoying Aside on Java Primitive Object Wrappers)
 
@@ -587,29 +444,6 @@ int imNotAnObject = (int) imAnObject; // And back
 [.oneword]
 //
 == (Exciting Stuff...)
-
-[[xgwNeDXDUnbIHYdVeBQSnMWUgdQZRKeO]]
-== ! SimpleArrayList
-
-[.janini.smallest.compiler]
-....
-public interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public int size();
-}
-public class SimpleArrayList implements SimpleList {
-}
-public class Example {
-  public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleArrayList(new Integer[] { 2, 2, 5 });
-    simpleList.set(0, (Integer) 1);
-    System.out.println(simpleList.get(0));
-    System.out.println(simpleList.get(1));
-    System.out.println(simpleList.get(2));
-  }
-}
-....
 
 [[nGsigkJsZbIIiuBueedkjOHenoatcePu]]
 == Announcements
