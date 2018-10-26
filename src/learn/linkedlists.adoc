@@ -1,13 +1,11 @@
 ---
-title: Lists
-date: 2018-10-26
+title: Linked Lists
+date: 2018-10-29
 description:
-  Practice with big-O notation and analysis of two different list
-  implementations.
+  Completion of a discussion of linked lists and midterm exam review.
 spelling_exceptions:
   - 3n
   - lookups
-youtube: https://youtu.be/eu_5Lk8BaYE
 ---
 
 [[ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci]]
@@ -16,7 +14,7 @@ youtube: https://youtu.be/eu_5Lk8BaYE
 [.janini.smallest.compiler]
 --
 ++++
-<div class="message">Lists</div>
+<div class="message">Linked Lists</div>
 ++++
 ....
 public interface SimpleList {
@@ -25,70 +23,6 @@ public interface SimpleList {
   public void add(int index, Object element);
   public Object remove(int index);
   public int size();
-}
-public class SimpleArrayList implements SimpleList {
-  private Object[] array;
-
-  SimpleArrayList(Object[] originalArray) {
-    if (originalArray != null) {
-      array = new Object[originalArray.length];
-      for (int i = 0; i < originalArray.length; i++) {
-        array[i] = originalArray[i];
-      }
-    }
-  }
-  public Object get(int index) {
-    if (index < 0 || index >= array.length) {
-      return null;
-    }
-    return array[index];
-  }
-  public void set(int index, Object element) {
-    if (index < 0 || index >= array.length) {
-      return;
-    }
-    array[index] = element;
-  }
-  public int size() {
-    return array.length;
-  }
-  public Object remove(int removeIndex) {
-    if (removeIndex < 0 || removeIndex >= array.length) {
-      return null;
-    }
-
-    Object toReturn = array[removeIndex];
-
-    Object[] newArray = new Object[array.length - 1];
-    int originalIndex = 0;
-    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
-      if (newIndex == removeIndex) {
-        originalIndex++;
-      }
-      newArray[newIndex] = array[originalIndex];
-      originalIndex++;
-    }
-    array = newArray;
-    return toReturn;
-  }
-  public void add(int addIndex, Object toAdd) {
-    if (addIndex < 0 || addIndex > array.length + 1) {
-      return;
-    }
-
-    Object[] newArray = new Object[array.length + 1];
-    int originalIndex = 0;
-    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
-      if (newIndex == addIndex) {
-        newArray[newIndex] = toAdd;
-      } else {
-        newArray[newIndex] = array[originalIndex];
-        originalIndex++;
-      }
-    }
-    array = newArray;
-    return;
-  }
 }
 public class Example {
   public static void main(String[] unused) {
@@ -102,60 +36,8 @@ public class Example {
 ....
 --
 
-[[UgJrBAbxmpaEtUFaigwcjbLnlTfcIOoF]]
-== Review: Algorithm Analysis
-
-[quote]
-//
-____
-//
-https://en.wikipedia.org/wiki/Analysis_of_algorithms[Algorithm analysis]:
-//
-the determination of the computational complexity of algorithms, that is the
-amount of time, storage and/or other resources necessary to execute them.
-//
-____
-
-[[bzGJKlpimKGIHSRpMdozAZQHDQCfHegP]]
-== Review: At The Limit
-
-[.lead]
-//
-We're usually want to analyze an algorithm in the general case, rather than for
-a specific set of input.
-
-[.s]
-//
-* How does the algorithm perform on arbitrarily difficult or large inputs?
-//
-* What are the best, average, and worst-case running times?
-//
-* *How is the algorithm's performance related to its inputs?*
-
-[[wZpYuIQdhBkDdYLdffvSWUUvbhDCqzoG]]
-== Review: Big-O Notation
-
-[quote]
-//
-____
-//
-https://en.wikipedia.org/wiki/Big_O_notation#Product[Big-O notation]
-//
-is a mathematical notation that describes the limiting behavior of a function
-when the argument tends towards a particular value or infinity.
-//
-____
-
-Put another way: we want to _estimate_ what happens as the problem gets really,
-really hard.
-
-[[EQRiDkxGqVDXvndIjCapEccitPnbvEGQ]]
-== Review: Big-O Notation
-
-image::https://i.stack.imgur.com/WcBRI.png[role='mx-auto',width=600]
-
 [[FLrMUeaPPdghfXdVtAoFhyJeHBGeBJfV]]
-== Lists
+== Review: Lists
 
 [.lead]
 //
@@ -174,7 +56,7 @@ Lists are an _ordered_ footnote:[We'll talk about unordered soon...] data struct
 other and we'll get to them in a few weeks
 
 [[ZNOikwniBxwwdnfIrXpGZeDunUmkcdRQ]]
-== Data Structure Tradeoffs
+== Review: Data Structure Tradeoffs
 
 [.lead]
 //
@@ -192,14 +74,6 @@ interface can have different performance characteristics.
 insertions are *fast* (O(1))
 //
 * Both also present different memory usage tradeoffs
-
-[[DPNiZdCroOfieMLMAdqnxFLqxcwBNdOU]]
-== ! Java List Interface
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/List.html"></iframe>
-</div>
-++++
 
 [[GgjDBubcXoMJtfILfeFlevdxnkSdDZFc]]
 == Our List Interface
@@ -222,136 +96,6 @@ interface SimpleList {
 
 (The official Java one contains a bunch of convenience methods that we don't
 want.)
-
-[[xgwNeDXDUnbIHYdVeBQSnMWUgdQZRKeO]]
-== ! SimpleArrayList
-
-[.janini.smallest.compiler]
-....
-public interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
-}
-public class SimpleArrayList implements SimpleList {
-  private Object[] array;
-
-  SimpleArrayList(Object[] originalArray) {
-    if (originalArray != null) {
-      array = new Object[originalArray.length];
-      for (int i = 0; i < originalArray.length; i++) {
-        array[i] = originalArray[i];
-      }
-    }
-  }
-  public Object get(int index) {
-    if (index < 0 || index >= array.length) {
-      return null;
-    }
-    return array[index];
-  }
-  public void set(int index, Object element) {
-    if (index < 0 || index >= array.length) {
-      return;
-    }
-    array[index] = element;
-  }
-  public int size() {
-    return array.length;
-  }
-  public Object remove(int removeIndex) {
-    if (removeIndex < 0 || removeIndex >= array.length) {
-      return null;
-    }
-
-    Object toReturn = array[removeIndex];
-
-    Object[] newArray = new Object[array.length - 1];
-    int originalIndex = 0;
-    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
-      if (newIndex == removeIndex) {
-        originalIndex++;
-      }
-      newArray[newIndex] = array[originalIndex];
-      originalIndex++;
-    }
-    array = newArray;
-    return toReturn;
-  }
-  public void add(int addIndex, Object toAdd) {
-    if (addIndex < 0 || addIndex > array.length + 1) {
-      return;
-    }
-
-    Object[] newArray = new Object[array.length + 1];
-    int originalIndex = 0;
-    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
-      if (newIndex == addIndex) {
-        newArray[newIndex] = toAdd;
-      } else {
-        newArray[newIndex] = array[originalIndex];
-        originalIndex++;
-      }
-    }
-    array = newArray;
-    return;
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleArrayList(new Integer[] { 1, 2 });
-    simpleList.add(2, (Integer) 5);
-    for (int i = 0; i < simpleList.size(); i++) {
-      System.out.println(simpleList.get(i));
-    }
-  }
-}
-....
-
-[[RKeTiKpLgZNqFXyffdEDXFaatidoieeo]]
-== `ArrayList` Operation Performance
-
-[%autowidth.spread,cols="^,^",options='header']
-|===
-
-^| Operation
-^| `ArrayList`
-
-| `get` and `set`
-| [.s]#O(1)#
-
-| `add` and `remove`
-| [.s]#O(n)#
-
-|===
-
-[[iYDfkVqmHieSaJNonMeGPIeNnWnusNGC]]
-== `ArrayList` Time v. Space Tradeoffs
-
-[.lead]
-//
-We can make our insertions and removals a _bit_ faster but not copying the
-entire array each time. How?
-
-[.s.small]
-//
-* Maintain an array that is _larger_ than we need
-//
-* When we need more space, get a lot more at once
-//
-* To add or remove just shift items around within the existing array
-//
-* Note that add and removals are still O(n/2), so O(n)&mdash;but not having to
-allocate memory every time will help
-//
-* The tradeoff: we will usually have _wasted space_ within our array
-
-[[zDbuPddEzgvnUyJrSSXnFDtoaezednIJ]]
-[.oneword]
-//
-== Questions About Array Lists?
 
 [[jjuOzugQvkSIeJBnLlfaTmqivAFVUVZa]]
 [.ss]
@@ -828,9 +572,454 @@ list.get(2);
 </div>
 ++++
 
+[[pxuXZdXDaFvnXeerjuOzfTjYXWOCvOan]]
+== Linked Lists: Iteration
+
+[source,java,role='smaller']
+----
+public class SimpleLinkedList {
+  private Item start;
+}
+public class Item {
+  public int value;
+  public Item next;
+}
+----
+
+[.lead]
+//
+We can iterate through our `LinkedList` using a `for` loop.
+
+[[nlYljBaffrrPZfYjSwRRokqjNFrUqSkm]]
+== ! `LinkedList` `for`
+
+[.janini.smallest.compiler]
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+
+  public void addToFront(Object value) {
+    start = new Item(value, start);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList myList = new SimpleLinkedList(new Integer[] { 1, 2, 3 });
+    // Write a for loop using myList
+  }
+}
+....
+
+[[pEPepnOKrIPDRHLzgWbgWtoumQcPZCrp]]
+[.oneword]
+== But How Do We Insert?
+
+[[nerIYzgfjYucqloclntPXXXuoxWPoXyu]]
+== `LinkedList` Insertion Algorithm
+
+[.s]
+//
+. Find the right spot.
+//
+. Set the reference on the preceding item to point to the new item.
+//
+. Set the reference on the new item to point to the former next item.
+
+[[aJqVtwosxLpEzEELSiDrluCkDftdVFsM]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[zOwLRABNObeVBCMMXUXervMeZsDHHIaj]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8", fillcolor="green" style="filled" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[.s]#But wait, now we can't change the _preceding_ reference.#
+
+[[PjJcvbtgFhhtTivglyVutpdqdHgRlGee]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[XWkIZquMkCyhpMAfyVuKtmPLZpMmLTWC]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+  Item1 -> Item7 [style=invis]
+</div>
+++++
+
+[[axthZIrmKjSLSVsfRpziruJdWPWSsGeO]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8 [style=invis]
+  Item8 -> Item1
+</div>
+++++
+
+[[wDhvwOPZturUQaSVCGHRmtTqwKddqKyI]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[iFaPBBFvdLNsbuezSZifKdnGOnAJgbZh]]
+== ! LinkedList `insert`
+
+[.janini.smallest.compiler]
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+
+  public void addToFront(Object value) {
+    start = new Item(value, start);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList myList = new SimpleLinkedList(new Integer[] { 1, 2, 3 });
+    // Write a for loop using myList
+  }
+}
+....
+
+[[JBKRvvXqROogVmYfdoYBgwwoiInUqLVw]]
+== Singly Linked Lists
+
+[source,java,role='smaller']
+----
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+}
+----
+
+[.lead]
+//
+What we've been discussing is known as a _singly_ linked list.
+
+[[ZzkrRixhzKByfLpVbXSoMvNCfoHruinc]]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+You can also have both forward _and_ backward links. This is known an a
+_doubly_ linked list.
+
+
+[[IrhfppWiBrQzcMyldmluKPgiYlrjJtYj]]
+[.ss]
+== Doubly Linked Lists
+
+[source,java,role='smallest']
+----
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item0 [ label = "Item|0" ]
+  Item2 [ label = "Item|2" ]
+  Item4 [ label = "Item|4" ]
+  start -> Item0
+  Item0 -> Item2
+  Item2 -> Item0
+  Item2 -> Item4
+  Item4 -> Item2
+  end -> Item4
+</div>
+++++
+
+[[CmKtLrByiQHzIHiRNpaTpHgpKrJvqQVZ]]
+== Time v. Space
+
+[source,java,role='smallest']
+----
+public class SimpleArrayList {
+  private Object[] array;
+}
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]`ArrayList` v. `LinkedList` also represents a _time_ v. _space_ tradeoff.
+
+[.s.small]
+//
+* `LinkedList` is faster for certain operations...
+//
+* but consumes more space to store the same amount of information.
+
+[[UZWfhblmpgARaijHSpMHsIAeuXwyWqor]]
+== Time v. Space
+
+[source,java,role='smallest']
+----
+public class SimpleArrayList {
+  private Object[] array;
+}
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+To store n ``int``s:
+
+[.s]
+//
+* `ArrayList`: [.s]#n ``value``s#
+//
+* `LinkedList`: [.s]#3n (1 `value`, 1 `next`, 1 `previous`)#
+
+[[HukfpNfUOulnnDElwTJYZyNKTvhGgtDM]]
+== `ArrayList` v. `LinkedList`
+
+[.lead]
+//
+Both provide the _same_ functionality, but with different _performance_
+characteristics.
+
+[%autowidth.spread,cols="^,^,^",options='header']
+|===
+
+^| Operation
+^| `ArrayList`
+^| `LinkedList`
+
+| `add` (at front)
+| [.s]#O(n)#
+| [.s]#*O(1)*#
+
+| `get` and `set`
+| [.s]#*O(1)*#
+| [.s]#O(n)#
+
+| `insert` (anywhere)
+| [.s]#O(n)#
+| [.s]#O(n)#
+
+|===
+
+
+[[XRenWLYUsfpGLdlyrLDHyMkeRTSGMukE]]
+== ! SimpleArrayList
+
+[.janini.smallest.compiler]
+....
+public interface SimpleList {
+  public Object get(int index);
+  public void set(int index, Object element);
+  public void add(int index, Object element);
+  public Object remove(int index);
+  public int size();
+}
+public class SimpleLinkedList implements SimpleList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+
+  public int size() {
+    int currentSize = 0;
+    for (Item current = start; current != null; current = current.next) {
+      currentSize++;
+    }
+    return currentSize;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleList simpleList = new SimpleLinkedList();
+    System.out.println(simpleList.size());
+  }
+}
+....
+
 [[lJcCMyeWhddIzcdhiLSDPvylMQZYwVRV]]
 [.oneword]
 == Questions About Lists?
+
+[[vQhgISVnpMnpYRuBdNGKGbVuwCTbdeeR]]
+== Midterm Overview and Review
+
+Midterm format:
+
+* *40 points*: 10 4-point multiple-choice questions drawn from previous quizzes
+//
+* *60 points*: 3 20-point programming questions, several including partial
+credit
+
+[[LfURaMrvaiZqQnWfdznVZWMjBnOSveWE]]
+== Midterm Topic Coverage
+
+[.lead]
+//
+Everything up through _last week's quiz_.
+
+* Lectures starting
+//
+https://cs125.cs.illinois.edu/learn/2018_09_21_introduction_to_objects[9/21/2018]
+//
+through
+//
+https://cs125.cs.illinois.edu/learn/2018_10_19_more_about_interfaces[10/19/2018].
+//
+* No coverage of algorithms, algorithm runtime, or lists.
+
+[[MCMAQBboSAumferwaBRUuTdFlxHDnbnj]]
+[.oneword]
+//
+== Midterm Questions?
 
 [[nGsigkJsZbIIiuBueedkjOHenoatcePu]]
 == Announcements
