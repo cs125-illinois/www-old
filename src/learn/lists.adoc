@@ -4,6 +4,9 @@ date: 2018-10-26
 description:
   Practice with big-O notation and analysis of two different list
   implementations.
+spelling_exceptions:
+  - 3n
+  - lookups
 ---
 
 [[ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci]]
@@ -15,6 +18,86 @@ description:
 <div class="message">Lists</div>
 ++++
 ....
+public interface SimpleList {
+  public Object get(int index);
+  public void set(int index, Object element);
+  public void add(int index, Object element);
+  public Object remove(int index);
+  public int size();
+}
+public class SimpleArrayList implements SimpleList {
+  private Object[] array;
+
+  SimpleArrayList(Object[] originalArray) {
+    if (originalArray != null) {
+      array = new Object[originalArray.length];
+      for (int i = 0; i < originalArray.length; i++) {
+        array[i] = originalArray[i];
+      }
+    }
+  }
+  public Object get(int index) {
+    if (index < 0 || index >= array.length) {
+      return null;
+    }
+    return array[index];
+  }
+  public void set(int index, Object element) {
+    if (index < 0 || index >= array.length) {
+      return;
+    }
+    array[index] = element;
+  }
+  public int size() {
+    return array.length;
+  }
+  public Object remove(int removeIndex) {
+    if (removeIndex < 0 || removeIndex >= array.length) {
+      return null;
+    }
+
+    Object toReturn = array[removeIndex];
+
+    Object[] newArray = new Object[array.length - 1];
+    int originalIndex = 0;
+    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
+      if (newIndex == removeIndex) {
+        originalIndex++;
+      }
+      newArray[newIndex] = array[originalIndex];
+      originalIndex++;
+    }
+    array = newArray;
+    return toReturn;
+  }
+  public void add(int addIndex, Object toAdd) {
+    if (addIndex < 0 || addIndex > array.length + 1) {
+      return;
+    }
+
+    Object[] newArray = new Object[array.length + 1];
+    int originalIndex = 0;
+    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
+      if (newIndex == addIndex) {
+        newArray[newIndex] = toAdd;
+      } else {
+        newArray[newIndex] = array[originalIndex];
+        originalIndex++;
+      }
+    }
+    array = newArray;
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleList simpleList = new SimpleArrayList(new Integer[] { 1, 2 });
+    simpleList.add(2, (Integer) 5);
+    for (int i = 0; i < simpleList.size(); i++) {
+      System.out.println(simpleList.get(i));
+    }
+  }
+}
 ....
 --
 
@@ -90,24 +173,6 @@ insertions are *fast* (O(1))
 //
 * Both also present different memory usage tradeoffs
 
-[[IRjECqRugdjLLGMBzUFyfYJUfZJxxoVG]]
-== Array Operation Runtime
-
-[source,java]
-----
-int[] values = new int[10];
-----
-
-[.lead]
-//
-At this point the only data structure we've discussed is the _array_.
-
-[.s]
-//
-* *Good*: looking up an element in an array is O(1) footnote:[or constant time].
-//
-* *Bad*: the size of a Java array cannot be changed once it is created.
-
 [[FLrMUeaPPdghfXdVtAoFhyJeHBGeBJfV]]
 == Lists
 
@@ -159,7 +224,7 @@ want.)
 
 [.janini.smallest.compiler]
 ....
-interface SimpleList {
+public interface SimpleList {
   public Object get(int index);
   public void set(int index, Object element);
   public void add(int index, Object element);
@@ -167,62 +232,100 @@ interface SimpleList {
   public int size();
 }
 public class SimpleArrayList implements SimpleList {
-    private Object[] array;
+  private Object[] array;
 
-    SimpleArrayList(Object[] originalArray) {
-        if (originalArray != null) {
-            array = new Object[originalArray.length];
-            for (int i = 0; i < originalArray.length; i++) {
-                array[i] = originalArray[i];
-            }
-        }
+  SimpleArrayList(Object[] originalArray) {
+    if (originalArray != null) {
+      array = new Object[originalArray.length];
+      for (int i = 0; i < originalArray.length; i++) {
+        array[i] = originalArray[i];
+      }
+    }
+  }
+  public Object get(int index) {
+    if (index < 0 || index >= array.length) {
+      return null;
+    }
+    return array[index];
+  }
+  public void set(int index, Object element) {
+    if (index < 0 || index >= array.length) {
+      return;
+    }
+    array[index] = element;
+  }
+  public int size() {
+    return array.length;
+  }
+  public Object remove(int removeIndex) {
+    if (removeIndex < 0 || removeIndex >= array.length) {
+      return null;
     }
 
-    public Object get(int index) {
-        if (index < 0 || index >= array.length) {
-            return null;
-        }
-        return array[index];
+    Object toReturn = array[removeIndex];
+
+    Object[] newArray = new Object[array.length - 1];
+    int originalIndex = 0;
+    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
+      if (newIndex == removeIndex) {
+        originalIndex++;
+      }
+      newArray[newIndex] = array[originalIndex];
+      originalIndex++;
     }
-    public void set(int index, Object element) {
-        if (index < 0 || index >= array.length) {
-            return;
-        }
-        array[index] = element;
+    array = newArray;
+    return toReturn;
+  }
+  public void add(int addIndex, Object toAdd) {
+    if (addIndex < 0 || addIndex > array.length + 1) {
+      return;
     }
 
-    public int size() {
-        return array.length;
+    Object[] newArray = new Object[array.length + 1];
+    int originalIndex = 0;
+    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
+      if (newIndex == addIndex) {
+        newArray[newIndex] = toAdd;
+      } else {
+        newArray[newIndex] = array[originalIndex];
+        originalIndex++;
+      }
     }
-
-    public Object remove(int removeIndex) {
-        if (removeIndex < 0 || removeIndex >= array.length) {
-            return null;
-        }
-
-        Object toReturn = array[removeIndex];
-
-        Object[] newArray = new Object[array.length - 1];
-        int originalIndex = 0;
-        for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
-            // Skip the spot that we are removing
-            if (newIndex == removeIndex) {
-                originalIndex++;
-            }
-            newArray[newIndex] = array[originalIndex];
-            originalIndex++;
-        }
-        array = newArray;
-        return toReturn;
-    }
+    array = newArray;
+    return;
+  }
 }
 public class Example {
   public static void main(String[] unused) {
     SimpleList simpleList = new SimpleArrayList(new Integer[] { 1, 2 });
-    System.out.println(simpleList.get(0));
+    simpleList.add(2, (Integer) 5);
+    for (int i = 0; i < simpleList.size(); i++) {
+      System.out.println(simpleList.get(i));
+    }
   }
 }
 ....
+
+[[RKeTiKpLgZNqFXyffdEDXFaatidoieeo]]
+== `ArrayList` Operation Performance
+
+[%autowidth.spread,cols="^,^",options='header']
+|===
+
+^| Operation
+^| `ArrayList`
+
+| `add`
+| [.s]#O(n)#
+
+| `get` and `set`
+| [.s]#O(1)#
+
+| `remove`
+| [.s]#O(n)#
+
+|===
+
 [[jjuOzugQvkSIeJBnLlfaTmqivAFVUVZa]]
 [.ss]
 == Another Option: Linked Lists
@@ -353,19 +456,45 @@ public class SimpleLinkedList implements SimpleList {
 }
 ----
 
+[[ZSZxhdvunjhnZOfkQHuywHedjLhfiZqi]]
+== Java Inner Classes
+
+[source,java,role='smallest']
+----
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+}
+----
+
+[.lead]
+//
+In Java we can define a class _inside_ another class.
+
+[.s.small]
+//
+* The example above is known as a _nested_ inner class.
+//
+* Unlike outer classes, inner classes _can_ be private.
+//
+* Inner class methods have access to methods and variables in their enclosing
+class _even_ if they are marked private.
+//
+* Here we're using an inner class because the `Item` class should not be visible
+outside of the `SimpleLinkedList` class.
+
 [[xsaqFUCXGdWBcvgSrwKjsLHWsYrNDLlh]]
 == ! `LinkedList` Example
 
 [.janini.smallest.compiler]
 ....
-interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
-}
-public class SimpleLinkedList implements SimpleList {
+public class SimpleLinkedList {
   class Item {
     Object value;
     Item next;
@@ -387,7 +516,7 @@ public class Example {
 
 [source,java]
 ----
-public class LinkedList {
+public class SimpleLinkedList {
   private Item start;
   public void addToFront(Object value) {
     start = new Item(value, start);
@@ -417,52 +546,16 @@ public class LinkedList {
 
 [source,java]
 ----
-public class LinkedList {
+public class SimpleLinkedList {
   private Item start;
   public void addToFront(Object value) {
     start = new Item(value, start);
   }
-  public int get(int index) {
+  public Object get(int index) {
     // This should be easy...
   }
 }
 ----
-
-[[ToJOhcQvwLPGrKzyjTctnXGUlpaNgABO]]
-== ! `LinkedList` Example
-
-[.janini.smallest.compiler]
-....
-public class Item {
-  private Object value;
-  private Item next;
-  Item(Object setValue, Item setNext) {
-    value = setValue;
-    next = setNext;
-  }
-  public void setNext(Item setNext) {
-    next = setNext;
-  }
-  public Item getNext() {
-    return next;
-  }
-  public Object getValue() {
-    return value;
-  }
-}
-public class LinkedList {
-  private Item start;
-  public void addToFront(Object value) {
-    start = new Item(value, start);
-  }
-  public int get(int index) {
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-  }
-}
-....
 
 [[HIFRUbegMElyTCRryTvdWMzsnTFvAaJp]]
 [.ss]
@@ -470,14 +563,14 @@ public class Example {
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
 ----
 
 <<<
@@ -495,15 +588,15 @@ list.addToFront(1);
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
-list.addToFront(2);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
+list.addToFront((Integer) 2);
 ----
 
 <<<
@@ -523,16 +616,16 @@ list.addToFront(2);
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
-list.addToFront(2);
-list.addToFront(3);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
+list.addToFront((Integer) 2);
+list.addToFront((Integer) 3);
 ----
 
 <<<
@@ -554,16 +647,16 @@ list.addToFront(3);
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
-list.addToFront(2);
-list.addToFront(3);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
+list.addToFront((Integer) 2);
+list.addToFront((Integer) 3);
 list.get(2);
 ----
 
@@ -586,16 +679,16 @@ list.get(2);
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
-list.addToFront(2);
-list.addToFront(3);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
+list.addToFront((Integer) 2);
+list.addToFront((Integer) 3);
 list.get(2);
 ----
 
@@ -618,16 +711,16 @@ list.get(2);
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
-list.addToFront(2);
-list.addToFront(3);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
+list.addToFront((Integer) 2);
+list.addToFront((Integer) 3);
 list.get(2);
 ----
 
@@ -650,16 +743,16 @@ list.get(2);
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
-list.addToFront(2);
-list.addToFront(3);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
+list.addToFront((Integer) 2);
+list.addToFront((Integer) 3);
 list.get(2);
 ----
 
@@ -682,16 +775,16 @@ list.get(2);
 
 [source,java,role='smaller']
 ----
-public class LinkedList {
-  public int get(int index) {
+public class SimpleLinkedList {
+  public Object get(int index) {
     // until I get to the index
     // follow each Item to the next
   }
 }
-LinkedList list = new LinkedList();
-list.addToFront(1);
-list.addToFront(2);
-list.addToFront(3);
+SimpleLinkedList list = new SimpleLinkedList();
+list.addToFront((Integer) 1);
+list.addToFront((Integer) 2);
+list.addToFront((Integer) 3);
 list.get(2);
 ----
 
@@ -708,6 +801,370 @@ list.get(2);
 </div>
 ++++
 
+[[pxuXZdXDaFvnXeerjuOzfTjYXWOCvOan]]
+== Linked Lists: Iteration
+
+[source,java,role='smaller']
+----
+public class SimpleLinkedList {
+  private Item start;
+}
+public class Item {
+  public int value;
+  public Item next;
+}
+----
+
+[.lead]
+//
+We can iterate through our `LinkedList` using a `for` loop.
+
+[[nlYljBaffrrPZfYjSwRRokqjNFrUqSkm]]
+== ! `LinkedList` `for`
+
+[.janini.smallest.compiler]
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+
+  public void addToFront(Object value) {
+    start = new Item(value, start);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList myList = new SimpleLinkedList(new Integer[] { 1, 2, 3 });
+    // Write a for loop using myList
+  }
+}
+....
+
+[[pEPepnOKrIPDRHLzgWbgWtoumQcPZCrp]]
+[.oneword]
+== But How Do We Insert?
+
+[[nerIYzgfjYucqloclntPXXXuoxWPoXyu]]
+== `LinkedList` Insertion Algorithm
+
+[.s]
+//
+. Find the right spot.
+//
+. Set the reference on the preceding item to point to the new item.
+//
+. Set the reference on the new item to point to the former next item.
+
+[[aJqVtwosxLpEzEELSiDrluCkDftdVFsM]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[zOwLRABNObeVBCMMXUXervMeZsDHHIaj]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8", fillcolor="green" style="filled" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[.s]#But wait, now we can't change the _preceding_ reference.#
+
+[[PjJcvbtgFhhtTivglyVutpdqdHgRlGee]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[XWkIZquMkCyhpMAfyVuKtmPLZpMmLTWC]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+  Item1 -> Item7 [style=invis]
+</div>
+++++
+
+[[axthZIrmKjSLSVsfRpziruJdWPWSsGeO]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8 [style=invis]
+  Item8 -> Item1
+</div>
+++++
+
+[[wDhvwOPZturUQaSVCGHRmtTqwKddqKyI]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[JBKRvvXqROogVmYfdoYBgwwoiInUqLVw]]
+== Singly Linked Lists
+
+[source,java,role='smaller']
+----
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+}
+----
+
+[.lead]
+//
+What we've been discussing is known as a _singly_ linked list.
+
+[[ZzkrRixhzKByfLpVbXSoMvNCfoHruinc]]
+== Doubly Linked Lists
+
+[source,java,role='smaller']
+----
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+You can also have both forward _and_ backward links. This is known an a
+_doubly_ linked list.
+
+
+[[IrhfppWiBrQzcMyldmluKPgiYlrjJtYj]]
+[.ss]
+== Doubly Linked Lists
+
+[source,java,role='smallest']
+----
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item0 [ label = "Item|0" ]
+  Item2 [ label = "Item|2" ]
+  Item4 [ label = "Item|4" ]
+  start -> Item0
+  Item0 -> Item2
+  Item2 -> Item0
+  Item2 -> Item4
+  Item4 -> Item2
+  end -> Item4
+</div>
+++++
+
+[[CmKtLrByiQHzIHiRNpaTpHgpKrJvqQVZ]]
+== Time v. Space
+
+[source,java,role='smallest']
+----
+public class SimpleArrayList {
+  private Object[] array;
+}
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+  }
+  private Item start;
+}
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]`ArrayList` v. `LinkedList` also represents a _time_ v. _space_ tradeoff.
+
+[.s.small]
+//
+* `LinkedList` is faster for certain operations...
+//
+* but consumes more space to store the same amount of information.
+
+[[UZWfhblmpgARaijHSpMHsIAeuXwyWqor]]
+== Time v. Space
+
+[source,java,role='smallest']
+----
+public class SimpleArrayList {
+  private Object[] array;
+}
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+  }
+  private Item start;
+}
+public class SimpleDoublyLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item previous;
+  }
+  private Item start;
+  private Item end;
+}
+----
+
+[.lead]
+//
+To store n ``int``s:
+
+[.s]
+//
+* `ArrayList`: [.s]#n ``value``s#
+//
+* `LinkedList`: [.s]#3n (1 `value`, 1 `next`, 1 `previous`)#
+
+[[XRenWLYUsfpGLdlyrLDHyMkeRTSGMukE]]
+== ! SimpleArrayList
+
+[.janini.smallest.compiler]
+....
+public interface SimpleList {
+  public Object get(int index);
+  public void set(int index, Object element);
+  public void add(int index, Object element);
+  public Object remove(int index);
+  public int size();
+}
+public class SimpleLinkedList implements SimpleList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+
+  public int size() {
+    int currentSize = 0;
+    for (Item current = start; current != null; current = current.next) {
+      currentSize++;
+    }
+    return currentSize;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleList simpleList = new SimpleLinkedList();
+    System.out.println(simpleList.size());
+  }
+}
+....
+
 [[HukfpNfUOulnnDElwTJYZyNKTvhGgtDM]]
 == `ArrayList` v. `LinkedList`
 
@@ -716,7 +1173,7 @@ list.get(2);
 Both provide the _same_ functionality, but with different _performance_
 characteristics.
 
-[width="100%",cols="^,^,^",options='header']
+[%autowidth.spread,cols="^,^,^",options='header']
 |===
 
 ^| Operation
@@ -736,6 +1193,10 @@ characteristics.
 | [.s]#O(n)#
 
 |===
+
+[[lJcCMyeWhddIzcdhiLSDPvylMQZYwVRV]]
+[.oneword]
+== Questions About Lists?
 
 [[nGsigkJsZbIIiuBueedkjOHenoatcePu]]
 == Announcements
