@@ -36,6 +36,65 @@ public class Example {
 ....
 --
 
+[[ZkRDXJANLyCkIiGoEfeEwfBnPMpAWvnW]]
+== Q7 Review: Interfaces
+
+[.lead]
+//
+True or false: to use an interface you must understand how it is implemented.
+
+[.s]
+//
+* *False*: that's the _whole point_
+
+[[XBCEGCweuCNkaWZNdHiNuNwtzXLBoiuV]]
+== Q7 Review: `static`
+
+[source,java,role='smaller']
+----
+public class Counter {
+  public static int count = 10;
+  public Counter() {
+    count++;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Counter.count = 5;
+    for (int i = 0; i < 10; i++) {
+      Counter counter = new Counter();
+      counter.count++;
+    }
+    System.out.println(Counter.count);
+  }
+}
+----
+
+When the `main` method runs, what will be printed?
+
+[[NLIZezvwDjCLnLWUgeHmweNFXbYBCenQ]]
+== ! Q7 Review: `static`
+
+[.janini.smallest.compiler]
+....
+public class Counter {
+  public static int count = 10;
+  public Counter() {
+    count++;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Counter.count = 5;
+    for (int i = 0; i < 10; i++) {
+      Counter counter = new Counter();
+      counter.count++;
+    }
+    System.out.println(Counter.count);
+  }
+}
+....
+
 [[FLrMUeaPPdghfXdVtAoFhyJeHBGeBJfV]]
 == Review: Lists
 
@@ -227,63 +286,8 @@ public class SimpleLinkedList implements SimpleList {
 }
 ----
 
-[[ZSZxhdvunjhnZOfkQHuywHedjLhfiZqi]]
-== Java Inner Classes
-
-[source,java,role='smallest']
-----
-public class SimpleLinkedList {
-  class Item {
-    Object value;
-    Item next;
-    Item(Object setValue, Item setNext) {
-      value = setValue;
-      next = setNext;
-    }
-  }
-}
-----
-
-[.lead]
-//
-In Java we can define a class _inside_ another class.
-
-[.s.small]
-//
-* The example above is known as a _nested_ inner class.
-//
-* Unlike outer classes, inner classes _can_ be private.
-//
-* Inner class methods have access to methods and variables in their enclosing
-class _even_ if they are marked private.
-//
-* Here we're using an inner class because the `Item` class should not be visible
-outside of the `SimpleLinkedList` class.
-
-[[xsaqFUCXGdWBcvgSrwKjsLHWsYrNDLlh]]
-== ! `LinkedList` Example
-
-[.janini.smallest.compiler]
-....
-public class SimpleLinkedList {
-  class Item {
-    Object value;
-    Item next;
-    Item(Object setValue, Item setNext) {
-      value = setValue;
-      next = setNext;
-    }
-  }
-  private Item start;
-}
-public class Example {
-  public static void main(String[] unused) {
-  }
-}
-....
-
 [[pFfMfaklggDxABUyHIoUOomlxdhJNmAX]]
-== `LinkedList`: `addToFront`
+== Review: `LinkedList` `addToFront`
 
 [source,java]
 ----
@@ -969,6 +973,18 @@ public class SimpleLinkedList implements SimpleList {
   }
   private Item start;
 
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+    }
+  }
+
   public int size() {
     int currentSize = 0;
     for (Item current = start; current != null; current = current.next) {
@@ -979,7 +995,7 @@ public class SimpleLinkedList implements SimpleList {
 }
 public class Example {
   public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleLinkedList();
+    SimpleList simpleList = new SimpleLinkedList(new Integer[] { 1, 2, 5 });
     System.out.println(simpleList.size());
   }
 }
@@ -996,7 +1012,7 @@ Midterm format:
 
 * *40 points*: 10 4-point multiple-choice questions drawn from previous quizzes
 //
-* *60 points*: 3 20-point programming questions, several including partial
+* *60 points*: 3 20-point programming questions, all including partial
 credit
 
 [[LfURaMrvaiZqQnWfdznVZWMjBnOSveWE]]
