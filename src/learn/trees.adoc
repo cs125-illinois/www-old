@@ -16,19 +16,63 @@ spelling_exceptions:
 <div class="message">Trees and Recursion</div>
 ++++
 ....
+import java.util.Random;
+
 public class Tree {
-  public int value;
-  public Tree right;
-  public Tree left;
-  public Tree(int setValue) {
-    value = setValue;
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  private int currentSize = 0;
+  Tree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+      currentSize++;
+    } else if (current.right == null) {
+      current.right = new Node(value);
+      currentSize++;
+    } else if (current.left == null) {
+      current.left = new Node(value);
+      currentSize++;
+    } else if (random.nextBoolean()) {
+      add(current.right, value);
+    } else {
+      add(current.left, value);
+    }
+  }
+  public int size() {
+    return currentSize;
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return "";
+    }
+    return "[" + current.value.toString() + "]" +
+      toString(current.right) + toString(current.left);
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    Tree root = new Tree(10);
-    root.right = new Tree(12);
-    root.left = new Tree(8);
+    Tree tree = new Tree(new Integer[] { 1, 2, 5, 8, 9 });
+    System.out.println(tree.size());
+    System.out.println(tree);
   }
 }
 ....
@@ -1291,41 +1335,56 @@ We can count _recursively_:
 import java.util.Random;
 
 public class Tree {
-  Random random = new Random();
-  public int value;
-  public Tree right;
-  public Tree left;
-
-  Tree(int setValue) {
-    value = setValue;
-  }
-  Tree(int[] array) {
-    value = array[0];
-    for (int i = 1; i < array.length; i++) {
-      add(array[i]);
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
     }
   }
-
-  public void add(int value) {
-    if (right == null) {
-      right = new Tree(value);
-    } else if (left == null) {
-      left = new Tree(value);
+  private Node root;
+  Tree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+    } else if (current.right == null) {
+      current.right = new Node(value);
+    } else if (current.left == null) {
+      current.left = new Node(value);
     } else if (random.nextBoolean()) {
-      right.add(value);
+      add(current.right, value);
     } else {
-      left.add(value);
+      add(current.left, value);
     }
   }
-
-  public int nodeCount() {
+  public int size() {
+    return 0;
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return "";
+    }
+    return "[" + current.value.toString() + "]" +
+      toString(current.right) + toString(current.left);
   }
 }
-
 public class Example {
   public static void main(String[] unused) {
-    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
-    System.out.println(tree.nodeCount());
+    Tree tree = new Tree(new Integer[] { 1, 2, 5, 8, 9 });
+    System.out.println(tree.size());
+    System.out.println(tree);
   }
 }
 ....
@@ -1481,16 +1540,17 @@ System.out.println(factorial(4));
 [[IKpQlomrsnCLKTSXiDoVtmCeSbDSxmlt]]
 == Announcements
 
-* link:/MP/2018/spring/4/[MP4] is due _today_ at 5PM.
+* I have office hours today from 10AM&ndash;12PM. Please come by!
+//
+* Note that we _will_ have class on the Friday before Thanskgiving but _not_ on
+the Wednesday before Thanksgiving.
+//
+As usual, the link:/info/#calendar[calendar is up-to-date].
 //
 * We've added an
 //
 https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form]
 //
 to the course website. Use it to give us feedback!
-//
-* Strike is over! (I think.) Three cheers for the fantastic CS 125 course staff.
-//
-* My office hours continue today at 11AM in the lounge outside of Siebel 0226.
 
 // vim: ts=2:sw=2:et
