@@ -3,31 +3,66 @@ title: "MP5: Molecules"
 description:
   In MP5 you will use recursion to analyze and name simple organic molecules.
 spelling_exceptions:
+  - al
+  - /aldehydes?/i
+  - alkyl
+  - ane
+  - anoic
+  - anol
+  - anone
   - bioinformatics
-  - substituent
-  - heteroatoms
-  - hydrogens
-  - IUPAC
-  - cyclopropane
-  - cyclopentane
   - bromo
-  - chloro
-  - fluoro
-  - methylpropane
-  - ethylpropane
-  - methylbutane
+  - bromobutan
+  - bromobutane
   - bromocyclopentane
   - bromopropane
+  - butan
+  - carbonyls
+  - carboxylic
+  - chloro
+  - chloropropane
+  - cyclo
+  - cyclobutan
+  - cyclooctan
+  - cyclopentane
+  - cyclopropane
+  - di
+  - dibromo
+  - dichloropropane
+  - difluoropropane
+  - dimethylhexan
+  - diol
+  - eth
+  - ethan
+  - ethanal
+  - ethylpropane
+  - fluoro
+  - fluorocyclopropane
+  - heteroatoms
+  - hexane
+  - hydrogens
+  - IUPAC
+  - /ketones?/i
+  - methylbutane
+  - methylcyclobutan
+  - methylpentane
+  - methylpropane
+  - numberings
+  - ol
+  - pentan
+  - prepend
+  - propan
+  - propanoic
   - propyl
   - propylcyclopropane
-  - alkyl
-  - aldehydes
-  - ketone
-  - carboxylic
-  - dichloropropane
-  - diol
+  - propylpropane
+  - /substituents?/i
+  - tetr
   - tetrol
-  - carbonyls
+  - tri
+  - trifluoropropane
+  - triol
+  - yl
 secret: uH4Ggfe4
 ---
 :sectnums:
@@ -39,23 +74,28 @@ secret: uH4Ggfe4
 [.lead]
 
 Recursion is an important and powerful programming technique.
+//
 Sometimes it is the best way to solve a problem, and sometimes it is almost _the
 only_ way to solve a problem.
 
 Recursion can be tricky to wrap your head around at first, but as usual the best
 way to get comfortable with this technique is to practice.
+//
 For MP5 you'll analyze chemicals represented as recursive data structures.
-You will use recursive and iterative functions,
-and apply recursive problem solving technique by breaking down a large task into
-several smaller ones.
+//
+You will use recursive and iterative functions, and apply recursive problem
+solving technique by breaking down a large task into several smaller ones.
+//
 MP5 is the second of two Android assignments to prepare you for your final
 project.
 
 *MP5 is due Friday 11/16/2018 @ 5PM.
+//
 To receive full credit, you must submit by this deadline.*
+//
 In addition, 10% of your grade on MP5 is for submitting code that earns at least
 _40 points_ by *Monday 11/12/2018 @ 5PM.*
-
+//
 As usual, late submissions will be subject to the
 link:/info/syllabus/#regrading[MP late submission policy].
 
@@ -63,19 +103,27 @@ link:/info/syllabus/#regrading[MP late submission policy].
 == Learning Objectives
 
 MP5 gives you plenty of practice with recursive programming.
+//
 You'll work with existing data structures like you did in link:/MP/4/[MP4],
-write member functions like you did in link:/MP/3/[MP3],
-use collections like the arrays you used in link:/MP/2/[MP2],
-work with strings like in link:/MP/1/[MP1],
-and of course continue to use the imperative programming constructs introduced in link:/MP/0[MP0].
+write member functions like you did in link:/MP/3/[MP3], use collections like
+the arrays you used in link:/MP/2/[MP2], work with strings like in
+link:/MP/1/[MP1], and of course continue to use the imperative programming
+constructs introduced in link:/MP/0[MP0].
+//
+It really does bring together almost everything we've done this semester.
 
 The main task in MP5 is naming simple organic molecules.
+//
 Writing one function to handle all molecules would be **extremely hard**.
-Fortunately, the task can be broken down into several smaller tasks that are _easy_ to implement!
-"Factoring out" smaller, repeated pieces of functionality into helper functions
-is a critical skill when writing larger, more complex programs.
-Our test cases are designed to guide you as you build up your solution
-to handle more and more kinds of molecules.
+//
+Fortunately, the task can be broken down into several smaller tasks that are
+_easy_ to implement!
+//
+Factoring out smaller, repeated pieces of functionality into helper functions is
+a critical skill when writing larger, more complex programs.
+//
+Our test cases are designed to guide you as you build up your solution to handle
+more and more kinds of molecules.
 
 [[structure]]
 == Assignment Structure
@@ -83,19 +131,27 @@ to handle more and more kinds of molecules.
 Like MP4, MP5 is split into two modules:
 
 * `/lib/`: a library that performs various analyses of the given molecule.
+//
 *This library is the only part of the MP tested by the test suite.*
+//
 * `/app/`: an Android app for you to use for your own interactive testing.
-The Android app is technically functional, but could use a few modifications from you.
+//
+The Android app is technically functional, but could use a few modifications
+from you.
+//
 And, for it to work correctly, you need to finish the library in `lib`.
 
 Your primary job is to complete the required analyses in `MoleculeAnalyzer.java`.
 
-The molecule to analyze is provided for you in the form of a `BondedAtom` object.
-This data structure is recursively defined,
-so even though one `BondedAtom` instance only represents a single atom,
-you can use its instance methods to get references to other atoms and
-thereby explore the entire molecule.
-Every atom also has a `ChemicalElement` object with some information on its element.
+The molecule to analyze is provided for you in the form of a `BondedAtom`
+object.
+//
+This data structure is recursively defined, so even though one `BondedAtom`
+instance only represents a single atom, you can use its instance methods to get
+references to other atoms and thereby explore the entire molecule.
+//
+Every atom also has a `ChemicalElement` object with some information on its
+element.
 
 [.alert.alert-primary]
 //
@@ -105,8 +161,8 @@ Every atom also has a `ChemicalElement` object with some information on its elem
 //
 That's OK!
 //
-This page has thorough explanations of everything you need to know to complete
-the MP.
+This page has <<chemistry, thorough explanations of all the chemistry you need
+to know>> to complete the MP.
 //
 Ask on the {forum} if you'd like any clarifications.
 //
@@ -143,12 +199,16 @@ For the points breakdown, see the <<grading, grading description below>>.
 == Approaching MP5
 
 Getting 100 points on MP5 doesn't take a ton of code.
+//
 But some of it is _recursive_ code, so it will take you longer.
+//
 Don't expect to make as much progress writing recursive code when you are
 getting started.
+//
 It's tricky, and takes practice.
-Slow down and focus on applying the recursive design principles that we've
-taught in lecture and in lab.
+//
+Slow down and focus on applying the recursive design principles you've learned
+in lecture, lab, and on the homework problems.
 
 === Understand The Requirements
 
@@ -215,36 +275,79 @@ your recursive approach.
 [[datastructures]]
 === Helpful Data Structures
 
-As you learned in lecture,
-link:https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html[``ArrayList``]s
-are like arrays whose length can be easily changed.
+Your work on MP5 will be aided by the two data structures that you meet in
+heaven: lists and maps.
+//
+It will be difficult to impossible to complete the MP without using lists.
+//
+And it will be hard to complete the extra credit portion of the MP without using
+maps.
+
+[[lists]]
+==== Lists
+
+We have covered simple lists in lecture.
+//
+Java
+//
+https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html[``ArrayList``]s
+//
+are one implementation of the complete
+//
+https://docs.oracle.com/javase/10/docs/api/java/util/List.html[Java `List`
+interface].
+//
+As a review, like an array a list is an ordered collection of values.
+//
+Unlike an array, a list allows you to add and remove items (thereby changing
+its size) after it has been created.
+//
 You'll make extensive use of these list methods:
 
-* `add` adds a new item at the end, extending the list's length by 1
-* `get` gets the element at the given index, much like indexing into an array
-* `set` replaces the element at the given index with a new item, much like assigning
+* `add`: adds a new item at the end, extending the list's length by 1
+//
+* `get`: gets the element at the given index, much like indexing into an array
+//
+* `set`: replaces the element at the given index with a new item, much like assigning
 to a position in an array
-* `size` gets the current length of the list, just like the `length` field of an array
+//
+* `size`: gets the current length of the list, just like the `length` field of an array
+//
+* `contains`: returns `true` if the list contains the passed value, and false
+otherwise
 
 It's also possible to `remove` elements from a list, decreasing the size by 1
 and shifting the indexes of any subsequent items down by 1.
-One overload of `remove` takes an `int` and removes the item at that index;
-the other overload takes an object and removes its first occurrence from the list,
-wherever it may be.
+//
+One overload of `remove` takes an `int` and removes the item at that index.
+//
+the other overload takes an object and removes its first occurrence from the
+list, wherever it may be.
 
-Often it is useful to associate one kind of object with another
-so that you can easily look up the corresponding value for a given identifier.
+[[maps]]
+==== Maps
+
+Often it is useful to associate one kind of object with another so that you can
+easily look up the corresponding value for a given identifier.
+//
 In the real world, dictionaries let you look up the definition of a given word.
+//
 The university's systems look up information about you given your NetID or UIN.
-In computer science, we often talk about such mappings as being from "keys" to "values."
-So in the dictionary example, words would be the keys and definitions would be the values:
-you look up the definition from the word.
+//
+In computer science, we often talk about such mappings as being from _keys_ to
+_values_.
+//
+So in the dictionary example, words would be the keys and definitions would be
+the values: you look up the definition from the word.
 
 A commonly used implementation of mappings in Java is
 link:https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html[`HashMap`].
+//
 Like arrays and lists, hash maps can deal with any Java data type.
-Since the keys and values can be of different types, you need to specify both of them.
-A `HashMap<String, Pet>` maps _from_ strings _to_ ``Pet``s, for example.
+//
+Since the keys and values can be of different types, you need to specify both of
+them.  A `HashMap<String, Pet>` maps _from_ strings _to_ ``Pet``s, for example.
+//
 We might use one to look up pets by their name, like this:
 
 [source,java]
@@ -259,14 +362,22 @@ Pet xyz = pets.get("Xyz"); // Get the pet corresponding to the name "Xyz"
 
 Common map operations include:
 
-* `get` finds the value associated with a given key (or null of the key isn't in the map)
-* `put` adds a key-value pair (or replaces the value of an existing pair if the key already exists)
-* `remove` removes the mapping of the given key
-* `keySet` gets a collection of all the keys in the mapping, which can be iterated over
-using the enhanced for-each loop syntax (useful for doing something with every entry)
+* `get`: returns the value associated with a given key or `null` if the key isn't
+in the map
+//
+* `put`: adds a key-value pair or replaces the value of an existing key if the
+key already exists
+//
+`remove`: removes the mapping of the given key
+//
+* `keySet`: gets a collection of all the keys in the mapping, which can be
+iterated over using the enhanced for-each loop syntax.
+//
+This is useful for doing something with every entry.
 
-**Hint:** Just like how arrays can contain arrays (e.g. `RGBAPixel[][]`),
+**Hint:** Just like how arrays can contain arrays (such as `RGBAPixel[][]`),
 both these data structures can contain other data structures.
+//
 You can have a `HashMap<String, ArrayList<Integer>>`, for example, which
 is a mapping from strings to lists of integers.
 
@@ -275,42 +386,77 @@ Refer to the respective Javadoc pages to see more features of these useful class
 [[functions]]
 === Helpful Helper Functions
 
-The helper functions you (hopefully) wrote in MP4 were more general than the graded functions.
-Oftentimes, though, helper functions only "factor out" small pieces of work from
-other functions.
-MP5 will be dramatically easier if you design and use good helper functions.
-The reference solution (including extra credit) uses _16_ private functions,
-of which all are involved in naming and many are implemented in terms of others.
+The helper functions you (hopefully) wrote in MP4 were more general than the
+graded functions.
+//
+Oftentimes, though, helper functions only factor out small common operations
+used by multiple other functions.
+
+**MP5 will be dramatically easier if you design and use good helper functions.**
+//
+The reference solution uses _16_ private functions
+//
+footnote:[including the extra credit portions],
+//
+all of which all are involved in naming and many are implemented in terms of
+others.
+//
 These are the tasks they factor out:
 
-* Recursively explore the molecule and produce a list of the atoms in it
-* Search for a ring and, if present, return a list of the carbons in the cycle
-* Rotate and/or flip the ring so that the carbons are in the correct order for substituent numbering
-* Find a list of all possible carbon backbones (assumes a linear molecule)
-* Select the correct linear carbon backbone for substituent numbering
-* Compare two proposed backbones (assumed to be the same length)
-  and return the better one according to priority rules
-* Compare many proposed backbones and select the best one according to priority rules
-* Name all the non-end-group substituents on a given carbon atom
-* Name the non-end-group substituent starting at the given atom
-* Name the end-group substituent, if any, on the given tip carbon (assumes a linear molecule)
-* Count the total number of low-priority substituents on a proposed backbone
-* Determine whether a given backbone carbon has any substituents
-* Count the low-priority substituents on a given carbon
-* Count the high-priority substituents on a given carbon
-* Determine whether an atom is a substituent to a given backbone
-* Combine a list of substituent positions into a comma-delimited string
+. Recursively explore the molecule and produce a list of the atoms in it
+//
+. Search for a ring and, if present, return a list of the carbons in the cycle
+//
+. Rotate and/or flip the ring so that the carbons are in the correct order for
+substituent numbering
+//
+. Find a list of all possible carbon backbones (assumes a linear molecule)
+//
+. Select the correct linear carbon backbone for substituent numbering
+//
+. Compare two proposed backbones (assumed to be the same length) and return the
+better one according to priority rules
+//
+. Compare many proposed backbones and select the best one according to priority
+rules
+//
+. Name all the non-end-group substituents on a given carbon atom
+//
+. Name the non-end-group substituent starting at the given atom
+//
+. Name the end-group substituent, if any, on the given tip carbon (assumes a
+linear molecule)
+//
+. Count the total number of low-priority substituents on a proposed backbone
+//
+. Determine whether a given backbone carbon has any substituents
+//
+. Count the low-priority substituents on a given carbon
+//
+. Count the high-priority substituents on a given carbon
+//
+. Determine whether an atom is a substituent to a given backbone
+//
+. Combine a list of substituent positions into a comma-delimited string
 
-As you can see, though the naming task (especially with extra credit) is complex,
-it can be broken down into many smaller, easier tasks, many of which can be further broken down.
-If you get stuck on a big task, try writing a helper function that solves a smaller part!
+As you can see, though the naming task is complex
+//
+footnote:[particularly when completing the extra credit portions!]
+//
+it can be broken down into many smaller, easier tasks, many of which can be
+further broken down.
+//
+If you get stuck on a big task, try writing a helper function that solves a
+smaller part!
 
 [[help]]
 === Getting Help
 
 The course staff is ready and willing to help you every step of the way!
+//
 Please come to link:/info/syllabus/#calendar[office hours], or post on the
 {forum} when you need help.
+//
 You should also feel free to help each other, as long as you do not violate the
 <<cheating, academic integrity requirements>>.
 
@@ -442,7 +588,7 @@ H-C-C-C-H
 Elements other than carbon and hydrogen are known as _heteroatoms_ and are shown
 on drawings by their symbol.
 //
-Hydrogens bonded directly to heteroatoms are explictly shown on the diagram,
+Hydrogens bonded directly to heteroatoms are explicitly shown on the diagram,
 like this:
 
 image::HeteroatomExample.png[role='img-fluid']
@@ -821,79 +967,115 @@ But if you are up for the challenge read on to learn more.
 
 [.alert.alert-primary]
 --
-**Challenge problem!** You can earn _5 points_ of extra credit for handling this case.
+**Challenge problem!**
+//
+You can earn _5 points_ of extra credit for handling this case.
+//
 --
 
 A lot of useful molecules have multiple substituents, not just one.
-To fully describe these, we need to include information about each substituent in the name.
-To do that, we name each substituent by itself, then put all the name fragments together.
+//
+To fully describe these, we need to include information about each substituent
+in the name.
+//
+To do that, we name each substituent by itself, then put all the name fragments
+together.
+//
 Consider this three-carbon molecule:
 
 image::DihalogenatedPropane.png[role='img-fluid']
 
-To minimize the position number of the first substituent encountered,
-we number from left to right.
-We then have a bromine at position 1 ("1-bromo") and a chlorine at position 2 ("2-chloro").
-The carbon backbone's name is "propane," so we put it all together,
-separate substituent fragments with an extra dash, and get 1-bromo-2-chloropropane.
-Note the lack of dash between the last substituent fragment and the backbone name.
+To minimize the position number of the first substituent encountered, we number
+from left to right.
+//
+We then have a bromine at position 1 ("1-bromo") and a chlorine at position 2
+("2-chloro").
+//
+The carbon backbone's name is "propane," so we put it all together, separate
+substituent fragments with an extra dash, and get 1-bromo-2-chloropropane.
+//
+Note the lack of dash between the last substituent fragment and the backbone
+name.
 
 Now let's swap the halogens:
 
 image::SwappedDihalogenatedPropane.png[role='img-fluid']
 
-The molecule is still numbered from left to right, so one might name it 1-chloro-2-bromopropane.
-But the correct name is 2-bromo-1-chloropropane&mdash;IUPAC rules
-**order substituents alphabetically by name, not numerically by position**.
+The molecule is still numbered from left to right, so one might name it
+1-chloro-2-bromopropane.
+//
+But the correct name is 2-bromo-1-chloropropane&mdash;IUPAC rules **order
+substituents alphabetically by name, not numerically by position**.
 
 Now let's make both the halogens chlorine:
 
 image::DichloroPropane.png[role='img-fluid']
 
-When there are multiple substituents with the same name (but not necessarily position),
-we combine them into one name fragment by putting all the positions into one sorted comma-separated
-list and adding a multiplicity prefix indicating the number of copies of the substituent.
-Since this molecule has chlorine at positions 1 and 2, the position list is "1,2";
-since there are two instances of the chlorine substituent, we prefix the "chloro" with "di."
-(Three is "tri" and so on; the starter code contains an array with all the multiplicity names.)
+When there are multiple substituents with the same name (but not necessarily
+position), we combine them into one name fragment by putting all the positions
+into one sorted comma-separated list and adding a multiplicity prefix indicating
+the number of copies of the substituent.
+//
+Since this molecule has chlorine at positions 1 and 2, the position list is
+"1,2".
+//
+Since there are two instances of the chlorine substituent, we prefix the
+"chloro" with "di."
+//
+(Three is "tri" and so on; the starter code contains an array with all the
+multiplicity names.)
+//
 The full name for this molecule is 1,2-dichloropropane.
 
 It's possible to have multiple substituents at the same position:
 
 image::FluoroMethylPropane.png[role='img-fluid']
 
-That's 2-fluoro-2-methylpropane because the (top) fluorine substituent
-and the (bottom) methyl substituent are both on position 2 of the (horizontal) backbone.
+That's 2-fluoro-2-methylpropane because the (top) fluorine substituent and the
+(bottom) methyl substituent are both on position 2 of the (horizontal) backbone.
+//
 Notice that the "fluoro" part is first because F sorts before M.
 
-If the same substituent occurs multiple times on the same carbon,
-the position number appears multiple times in the list.
+If the same substituent occurs multiple times on the same carbon, the position
+number appears multiple times in the list.
+//
 So this is 1,1-difluoropropane:
 
 image::DifluoroPropane.png[role='img-fluid']
 
 The multiplicity prefixes **do not affect the sorting of the substituent names**.
+//
 Consider this molecule:
 
 image::ChloroDibromoPropane.png[role='img-fluid']
 
-It has bromine ("bromo") substituents at position 1 and 2, plus a chlorine ("chloro")
-substituent at position 1.
-So the bromine part of the name is "1,2-dibromo" and the chlorine part is "1-chloro."
-The prefix "di" in "dibromo" doesn't count for substituent sorting,
-so B sorts before C and the full name is 1,2-dibromo-1-chloropropane.
+It has bromine ("bromo") substituents at position 1 and 2, plus a chlorine
+("chloro") substituent at position 1.
+//
+So the bromine part of the name is "1,2-dibromo" and the chlorine part is
+"1-chloro."
+//
+The prefix "di" in "dibromo" doesn't count for substituent sorting, so B sorts
+before C and the full name is 1,2-dibromo-1-chloropropane.
 
 There can also be multiple high-priority substituents.
-Just like with low-priority ones, all the positions at which the substituent occurs
-go into the comma-separated list and the multiplicity prefix is added to the substituent name.
+//
+Just like with low-priority ones, all the positions at which the substituent
+occurs go into the comma-separated list and the multiplicity prefix is added to
+the substituent name.
+//
 Consider this four-carbon chain with two alcohols:
 
 image::ButaneDiol.png[role='img-fluid']
 
-Alcohol substituents occur at positions 2 and 3, and there are two of them,
-so the name will end in "-2,3-diol." Since the fragment after the last dash begins with
-a consonant, however, the "e" in "ane" is retained (to make the name easier to pronounce).
-So the name is butan**e**-2,3-diol, not butan-2,3-diol.
+Alcohol substituents occur at positions 2 and 3, and there are two of them, so
+the name will end in "-2,3-diol."
+//
+Since the fragment after the last dash begins with a consonant, however, the "e"
+in "ane" is retained (to make the name easier to pronounce).
+//
+So the name is
+butan**e**-2,3-diol, not butan-2,3-diol.
 
 The prefixes for high multiplicities, like "tetra" for four, tend to end with "a."
 When the last fragment starts with "o," the multiplicity's "a" is cut off to make the name easier
@@ -1051,29 +1233,50 @@ high-priority substituents, since that requires new rules.
 As always, 100 points is full credit on the MP.
 But in MP5, there are **110** points available, broken down as follows:
 
-. *10 points* for computing molecular weight
+. *10 points* for computing molecular weight (`getMolecularWeight`)
+//
 . *10 points* for determining whether the molecule has any charged atoms
-. *70 points* for naming:
-  ** *10 points* for linear (straight-chain) molecules with no branching or substituents
-  ** *10 points* for cyclic (ring) molecules with no substituents
-  ** *15 points* for cyclic molecules with exactly one substituent that does not affect
-  the suffix of the name
-  ** *15 points* for linear molecules with exactly one substituent that does not affect
-  the suffix of the name (but that may be a branch)
-  ** *10 points* for molecules with exactly one substituent that _does_ affect the suffix
-  ** *5 points* for molecules with multiple substituents, some of which may be different,
-  but where no priority tiebreaks are required&mdash;**this is extra credit**
-  ** *5 points* for molecules with multiple substituents where priority tiebreaks _are_
-  required&mdash;**this is very hard extra credit**
-  footnote:[The reference solution is ~650 lines, most of which are for dealing with this.]
+(`hasChargedAtoms`)
+//
+. *70 points* for naming: (`getIupacName`)
+//
+** Note that while all the test cases below test this single function, they test
+increasingly complex cases
+//
+** *10 points* for linear (straight-chain) molecules with no branching or
+substituents
+//
+** *10 points* for cyclic (ring) molecules with no substituents
+//
+** *15 points* for cyclic molecules with exactly one substituent that does not
+affect the suffix of the name
+//
+** *15 points* for linear molecules with exactly one substituent that does not
+affect the suffix of the name (but that may be a branch)
+//
+** *10 points* for molecules with exactly one substituent that _does_ affect the
+suffix
+//
+** *5 points* for molecules with multiple substituents, some of which may be
+different, but where no priority tiebreaks are required&mdash;**this is extra
+credit**
+//
+** *5 points* for molecules with multiple substituents where priority tiebreaks
+_are_ required&mdash;**this is very hard extra credit**
+//
+footnote:[The reference solution is ~650 lines, most of which are for dealing
+with this.]
+//
 . *10 points* for no `checkstyle` violations
-. *10 points* for pushing code that earns at least 40 points before *Monday 11/12/2018 @ 5PM*
+//
+. *10 points* for pushing code that earns at least 40 points before *Monday
+11/12/2018 @ 5PM*
 
 [[testing]]
 === Test Cases
 
-As in previous MPs, we have provided exhaustive test cases
-for each part of MP5.
+As in previous MPs, we have provided exhaustive test cases for each part of MP5.
+//
 Please review the link:/MP/2018/spring/0/#testing[MP0 testing instructions].
 
 [[android]]
@@ -1084,21 +1287,33 @@ Please review the link:/MP/2018/spring/0/#testing[MP0 testing instructions].
 [[formulas]]
 === Chemical Formulas
 
-The `getFormula` function is not tested by the test suite, but can be used by the app.
-Since it is not graded, you may implement this function using any formula format that you like.
+The `getFormula` function is not tested by the test suite, but can be used by
+the app.
+//
+Since it is not graded, you may implement this function using any formula format
+that you like.
+//
 The reference solution uses the
-link:https://en.wikipedia.org/wiki/Chemical_formula#Hill_system[Hill system],
-in which e.g. methane's formula is `CH4` and ethanol's is `CH6O`.
+//
+https://en.wikipedia.org/wiki/Chemical_formula#Hill_system[Hill system], in
+which (for example) methane's formula is `CH4` and ethanol's is `CH6O`.
+//
 If you're feeling adventurous, you might try generating
-link:https://en.wikipedia.org/wiki/Chemical_formula#Condensed_formula[condensed structural]
+//
+https://en.wikipedia.org/wiki/Chemical_formula#Condensed_formula[condensed
+structural]
+//
 formulas.
 
 [[submitting]]
 == Submitting Your Work
 
 Follow the instructions from the
+//
 link:/MP/setup/git#submitting[submitting portion]
+//
 of the
+//
 link:/MP/setup/git#workflow[CS 125 workflow].
 
 And remember, you must submit something that earns 40 points before *Monday
