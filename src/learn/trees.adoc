@@ -19,7 +19,7 @@ youtube: https://youtu.be/9gUM2ZC0SFQ
 ....
 import java.util.Random;
 
-public class Tree {
+public class BinaryTree {
   private static Random random = new Random();
   private class Node {
     private Object value;
@@ -31,7 +31,7 @@ public class Tree {
   }
   private Node root;
   private int currentSize = 0;
-  Tree(Object[] values) {
+  BinaryTree(Object[] values) {
     for (Object value : values) {
       add(root, value);
     }
@@ -71,7 +71,7 @@ public class Tree {
 }
 public class Example {
   public static void main(String[] unused) {
-    Tree tree = new Tree(new Integer[] { 1, 2, 5, 8, 9 });
+    BinaryTree tree = new BinaryTree(new Integer[] { 1, 2, 5, 8, 9 });
     System.out.println(tree.size());
     System.out.println(tree);
   }
@@ -1342,7 +1342,7 @@ We can count _recursively_:
 ....
 import java.util.Random;
 
-public class Tree {
+public class BinaryTree {
   private static Random random = new Random();
   private class Node {
     private Object value;
@@ -1353,7 +1353,7 @@ public class Tree {
     }
   }
   private Node root;
-  Tree(Object[] values) {
+  BinaryTree(Object[] values) {
     for (Object value : values) {
       add(root, value);
     }
@@ -1390,7 +1390,7 @@ public class Tree {
 }
 public class Example {
   public static void main(String[] unused) {
-    Tree tree = new Tree(new Integer[] { 1, 2, 5, 8, 9 });
+    BinaryTree tree = new BinaryTree(new Integer[] { 1, 2, 5, 8, 9 });
     System.out.println(tree.size());
     System.out.println(tree);
   }
