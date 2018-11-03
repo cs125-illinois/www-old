@@ -177,7 +177,7 @@ with the rest.
 
 As always, you will find our official
 //
-https://cs125-illinois.github.io/MP5-Starter/[MP5 online documentation]
+https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/package-summary.html[MP5 online documentation]
 //
 helpful in understanding what each function and class does.
 
@@ -187,9 +187,13 @@ helpful in understanding what each function and class does.
 We are again using link:/MP/setup/android-studio[Android Studio] for MP5.
 
 In *Android Studio*, use
-link:https://classroom.github.com/a/TODO[this GitHub classroom invitation link]
+//
+https://classroom.github.com/a/xCpvJ2Ab[this GitHub Classroom invitation link]
+//
 to fork your copy of MP5.
+//
 Once your repository has been created, import it into Android Studio following
+//
 link:/MP/setup/git/#workflow[our assignment Git workflow guide].
 
 [[requirements]]
@@ -448,21 +452,34 @@ footnote:[_not_ including extra credit, that requires more work]
 //
 and their analogous graph operations:
 
-. `findAllAtoms`: https://en.wikipedia.org/wiki/Graph_traversal[graph traversal]
+. https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#findAllAtoms(edu.illinois.cs.cs125.mp5.lib.BondedAtom,java.util.ArrayList)[`findAllAtoms`]:
 //
-. `getRing`: https://en.wikipedia.org/wiki/Cycle_(graph_theory)[cycle detection]
+https://en.wikipedia.org/wiki/Graph_traversal[graph traversal]
 //
-. `getTips`: locating https://en.wikipedia.org/wiki/Vertex_(graph_theory)[leaf
+. https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getRing()[`getRing`]: https://en.wikipedia.org/wiki/Cycle_(graph_theory)[cycle detection]
+//
+. https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getTips()[`getTips`]: locating https://en.wikipedia.org/wiki/Vertex_(graph_theory)[leaf
 vertices]
 //
-. `findPath`: https://en.wikipedia.org/wiki/Pathfinding[pathfinding]
+. https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#findPath(edu.illinois.cs.cs125.mp5.lib.BondedAtom,edu.illinois.cs.cs125.mp5.lib.BondedAtom)[`findPath`]: https://en.wikipedia.org/wiki/Pathfinding[pathfinding]
 
 In addition, many of the other helper functions you need to compete use the
 results of these operations.
 //
-In particular, `getMolecularWeight`, `hasChargedAtoms`, and `getTips` are fairly
-simple once you have established a list of all of the atoms in the molecule
-using `findAllAtoms`.
+In particular,
+//
+https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getMolecularWeight()[`getMolecularWeight`],
+//
+https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#hasChargedAtoms()[`hasChargedAtoms`],
+//
+and
+//
+https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getTips()[`getTips`]
+//
+are fairly simple once you have established a list of all of the atoms in the
+molecule using
+//
+https://cs125-illinois.github.io/MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#findAllAtoms(edu.illinois.cs.cs125.mp5.lib.BondedAtom,java.util.ArrayList)[`findAllAtoms`].
 
 [[findallatoms]]
 === Recursion on Graphs
