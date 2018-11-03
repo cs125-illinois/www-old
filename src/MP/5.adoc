@@ -49,6 +49,7 @@ spelling_exceptions:
   - methylpropane
   - numberings
   - ol
+  - pathfinding
   - pentan
   - prepend
   - propan
@@ -77,11 +78,12 @@ Recursion is an important and powerful programming technique.
 //
 Sometimes it is the best way to solve a problem, and sometimes it is almost _the
 only_ way to solve a problem.
-
+//
 Recursion can be tricky to wrap your head around at first, but as usual the best
 way to get comfortable with this technique is to practice.
-//
-For MP5 you'll analyze chemicals represented as recursive data structures.
+
+For MP5 you'll analyze molecules represented as graphs, another recursive data
+structure.
 //
 You will use recursive and iterative functions, and apply recursive problem
 solving technique by breaking down a large task into several smaller ones.
@@ -141,8 +143,9 @@ from you.
 //
 And, for it to work correctly, you need to finish the library in `lib`.
 
-Your primary job is to complete the required analyses in `MoleculeAnalyzer.java`.
-
+Your primary job is to complete the required analyses in
+`MoleculeAnalyzer.java`.
+//
 The molecule to analyze is provided for you in the form of a `BondedAtom`
 object.
 //
@@ -151,7 +154,7 @@ instance only represents a single atom, you can use its instance methods to get
 references to other atoms and thereby explore the entire molecule.
 //
 Every atom also has a `ChemicalElement` object with some information on its
-element.
+element, along with a variety of helper functions that we encourage you to use.
 
 [.alert.alert-primary]
 //
@@ -198,7 +201,10 @@ For the points breakdown, see the <<grading, grading description below>>.
 [[approach]]
 == Approaching MP5
 
-Getting 100 points on MP5 doesn't take a ton of code.
+Getting 100 points on MP5 doesn't take a ton of code
+//
+footnote:[But getting _110_ points on MP5 _may_ require a ton of code. The extra
+credit _is not easy_.].
 //
 But some of it is _recursive_ code, so it will take you longer.
 //
@@ -221,9 +227,15 @@ to your success.
 //
 Understand the
 //
-https://cs125-illinois.github.io/MP5-Starter/[specification]
+https://cs125-illinois.github.io/MP5-Starter/[specification],
 //
-and the remainder of this section.
+<<lists, how to use lists in Java>>,
+//
+the <<graphs, connections to graphs>>,
+//
+and&mdash;particularly if you are attempting the extra credit&mdash;the
+//
+<<chemistry, chemistry tutorial>>.
 //
 Read those first.
 //
@@ -272,183 +284,6 @@ Now, extend that to a list with two elements, then three.
 You may begin to see a pattern emerge that helps you understand how to design
 your recursive approach.
 
-[[datastructures]]
-=== Helpful Data Structures
-
-Your work on MP5 will be aided by the two data structures that you meet in
-heaven: lists and maps.
-//
-It will be difficult to impossible to complete the MP without using lists.
-//
-And it will be hard to complete the extra credit portion of the MP without using
-maps.
-
-[[lists]]
-==== Lists
-
-We have covered simple lists in lecture.
-//
-Java
-//
-https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html[``ArrayList``]s
-//
-are one implementation of the complete
-//
-https://docs.oracle.com/javase/10/docs/api/java/util/List.html[Java `List`
-interface].
-//
-As a review, like an array a list is an ordered collection of values.
-//
-Unlike an array, a list allows you to add and remove items (thereby changing
-its size) after it has been created.
-//
-You'll make extensive use of these list methods:
-
-* `add`: adds a new item at the end, extending the list's length by 1
-//
-* `get`: gets the element at the given index, much like indexing into an array
-//
-* `set`: replaces the element at the given index with a new item, much like assigning
-to a position in an array
-//
-* `size`: gets the current length of the list, just like the `length` field of an array
-//
-* `contains`: returns `true` if the list contains the passed value, and false
-otherwise
-
-It's also possible to `remove` elements from a list, decreasing the size by 1
-and shifting the indexes of any subsequent items down by 1.
-//
-One overload of `remove` takes an `int` and removes the item at that index.
-//
-the other overload takes an object and removes its first occurrence from the
-list, wherever it may be.
-
-[[maps]]
-==== Maps
-
-Often it is useful to associate one kind of object with another so that you can
-easily look up the corresponding value for a given identifier.
-//
-In the real world, dictionaries let you look up the definition of a given word.
-//
-The university's systems look up information about you given your NetID or UIN.
-//
-In computer science, we often talk about such mappings as being from _keys_ to
-_values_.
-//
-So in the dictionary example, words would be the keys and definitions would be
-the values: you look up the definition from the word.
-
-A commonly used implementation of mappings in Java is
-link:https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html[`HashMap`].
-//
-Like arrays and lists, hash maps can deal with any Java data type.
-//
-Since the keys and values can be of different types, you need to specify both of
-them.  A `HashMap<String, Pet>` maps _from_ strings _to_ ``Pet``s, for example.
-//
-We might use one to look up pets by their name, like this:
-
-[source,java]
-----
-HashMap<String, Pet> pets = new HashMap<>(); // Create an empty HashMap
-pets.put("Chuchu", new Dog()); // Associate "Chuchu" with a new dog object
-pets.put("Xyz", new Cat()); // Likewise add Xyz to the map
-
-// Suppose we later want to look up a pet by its name
-Pet xyz = pets.get("Xyz"); // Get the pet corresponding to the name "Xyz"
-----
-
-Common map operations include:
-
-* `get`: returns the value associated with a given key or `null` if the key isn't
-in the map
-//
-* `put`: adds a key-value pair or replaces the value of an existing key if the
-key already exists
-//
-`remove`: removes the mapping of the given key
-//
-* `keySet`: gets a collection of all the keys in the mapping, which can be
-iterated over using the enhanced for-each loop syntax.
-//
-This is useful for doing something with every entry.
-
-**Hint:** Just like how arrays can contain arrays (such as `RGBAPixel[][]`),
-both these data structures can contain other data structures.
-//
-You can have a `HashMap<String, ArrayList<Integer>>`, for example, which
-is a mapping from strings to lists of integers.
-
-Refer to the respective Javadoc pages to see more features of these useful classes.
-
-[[functions]]
-=== Helpful Helper Functions
-
-The helper functions you (hopefully) wrote in MP4 were more general than the
-graded functions.
-//
-Oftentimes, though, helper functions only factor out small common operations
-used by multiple other functions.
-
-**MP5 will be dramatically easier if you design and use good helper functions.**
-//
-The reference solution uses _16_ private functions
-//
-footnote:[including the extra credit portions],
-//
-all of which all are involved in naming and many are implemented in terms of
-others.
-//
-These are the tasks they factor out:
-
-. Recursively explore the molecule and produce a list of the atoms in it
-//
-. Search for a ring and, if present, return a list of the carbons in the cycle
-//
-. Rotate and/or flip the ring so that the carbons are in the correct order for
-substituent numbering
-//
-. Find a list of all possible carbon backbones (assumes a linear molecule)
-//
-. Select the correct linear carbon backbone for substituent numbering
-//
-. Compare two proposed backbones (assumed to be the same length) and return the
-better one according to priority rules
-//
-. Compare many proposed backbones and select the best one according to priority
-rules
-//
-. Name all the non-end-group substituents on a given carbon atom
-//
-. Name the non-end-group substituent starting at the given atom
-//
-. Name the end-group substituent, if any, on the given tip carbon (assumes a
-linear molecule)
-//
-. Count the total number of low-priority substituents on a proposed backbone
-//
-. Determine whether a given backbone carbon has any substituents
-//
-. Count the low-priority substituents on a given carbon
-//
-. Count the high-priority substituents on a given carbon
-//
-. Determine whether an atom is a substituent to a given backbone
-//
-. Combine a list of substituent positions into a comma-delimited string
-
-As you can see, though the naming task is complex
-//
-footnote:[particularly when completing the extra credit portions!]
-//
-it can be broken down into many smaller, easier tasks, many of which can be
-further broken down.
-//
-If you get stuck on a big task, try writing a helper function that solves a
-smaller part!
-
 [[help]]
 === Getting Help
 
@@ -460,15 +295,345 @@ Please come to link:/info/syllabus/#calendar[office hours], or post on the
 You should also feel free to help each other, as long as you do not violate the
 <<cheating, academic integrity requirements>>.
 
+[[lists]]
+=== Java ``ArrayList``s
+
+[.lead]
+//
+Your work on MP5 will be aided by the one of the two data structures that you
+meet in heaven: lists.
+
+We've built a simple list together in lecture.
+//
+But for MP5 you'll want to use
+//
+Java's built-in
+//
+https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html[``ArrayList``]
+class,
+//
+one implementation of the complete
+//
+https://docs.oracle.com/javase/10/docs/api/java/util/List.html[Java `List`
+interface]
+//
+footnote:[You could also use other implementations, like ``LinkedList``s, but
+the performance differences aren't important for this MP.].
+
+As a review, like an array a list is an ordered collection of values.
+//
+Unlike an array, a list allows you to add and remove items after it has been
+created.
+//
+You'll make extensive use of these list methods as you complete MP5:
+
+* `add`: adds a new item at the end, extending the list's length by 1
+//
+* `contains`: returns `true` if the list contains the passed value, and false
+otherwise
+//
+* `size`: gets the current length of the list, just like the `length` field of
+an array
+
+Other list methods may also come in handy.
+//
+Review the official
+//
+https://docs.oracle.com/javase/10/docs/api/java/util/List.html[`List` interface
+documentation]
+//
+for the complete list and documentation.
+
+[[graphs]]
+== Graphs
+
+[.lead]
+//
+At first glance this MP may _seem_ to be about <<chemistry, chemistry>>.
+//
+But it's not.
+//
+It's really about *graphs* and various recursive operations on graphs.
+
+A
+//
+https://en.wikipedia.org/wiki/Graph_(abstract_data_type)[graph]
+//
+is a very general and extremely powerful data structure.
+//
+It consists of a series of nodes connected by edges.
+//
+Graphs can be either
+//
+https://en.wikipedia.org/wiki/Directed_graph[_directed_]
+//
+footnote:[edges have a direction, meaning that a connection from node A to node
+B does not imply a connection from node B to node A]
+//
+or
+//
+https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)[_undirected_]
+//
+footnote:[edges do not have a direction, meaning that a connection from node A
+to node B implies a connection from node B to node A].
+//
+We can also associate properties with either the nodes or the edges of the
+graph.
+
+=== Examples of Graphs
+
+In this MP you'll be working with undirected graphs where the nodes are atoms
+and have properties (like which element they are) and the edges are bonds
+between the atoms.
+//
+But graphs are so ubiquitous and so powerful in computer science because of the
+sheer number of different things in the real world that can be represented as
+graphs:
+
+* **Social networks are graphs**, with the nodes being people and the edges
+friendship relationships between them.
+//
+Depending on the type of social network the graph could be either undirected
+(accepting my friend request means that you are my friend and I am also yours)
+or directed (following me on Twitter does not mean that I follow you).
+//
+Given the increasing importance of social networks in spreading information
+//
+footnote:[and, yes, disinformation],
+//
+the dynamics and properties of these networks has been a topic of intense
+research for years.
+//
+* **Many kinds of transportation problems can be modeled as graphs**, with the
+nodes being locations (intersections, airports) and the edges paths between them
+(streets,
+//
+https://www.kaspersky.com/blog/how-aircraft-routing-works/8732/[air tracks]).
+//
+Here the edges probably have properties like distance or the amount of fuel
+required, and we become interested in properties of the graph like the
+//
+https://en.wikipedia.org/wiki/Shortest_path_problem[shortest path] between two
+points, where shortest could have multiple meanings (shortest in space, fastest,
+cheapest).
+//
+* **The internet is a graph**, with the nodes being computers connected to the
+internet and the edges paths between them, both wired and wireless.
+//
+Just like on transportation graphs, routing on the internet involves trying to
+determine the best path between two communicating machines.
+
+=== Graph Operations for MP5
+
+To simplify MP5, we've provided you with helper functions that perform the
+chemistry-specific naming tasks.
+//
+But to get them to work, you need to complete a series of recursive functions
+that operate on graphs.
+
+**MP5 is set up specifically so that there is a strong mapping between the
+functions you need to complete and common operations on graphs.**
+//
+So, for example, while your `getRing` function locates a ring in the molecule
+(if one exists) because it affects the molecule's name,
+//
+this is a common graph operation:
+//
+https://en.wikipedia.org/wiki/Cycle_(graph_theory)[_cycle detection_].
+
+Here are some of the `MoleculeAnalyzer` helper functions you need to complete to
+get full credit on MP5
+//
+footnote:[_not_ including extra credit, that requires more work]
+//
+and their analogous graph operations:
+
+. `findAllAtoms`: https://en.wikipedia.org/wiki/Graph_traversal[graph traversal]
+//
+. `getRing`: https://en.wikipedia.org/wiki/Cycle_(graph_theory)[cycle detection]
+//
+. `getTips`: locating https://en.wikipedia.org/wiki/Vertex_(graph_theory)[leaf
+vertices]
+//
+. `findPath`: https://en.wikipedia.org/wiki/Pathfinding[pathfinding]
+
+In addition, many of the other helper functions you need to compete use the
+results of these operations.
+//
+In particular, `getMolecularWeight`, `hasChargedAtoms`, and `getTips` are fairly
+simple once you have established a list of all of the atoms in the molecule
+using `findAllAtoms`.
+
+[[findallatoms]]
+=== Recursion on Graphs
+
+Recursion on graphs isn't fundamentally different from recursion on trees.
+//
+But there are some additional considerations to keep in mind.
+
+Let's consider `findAllAtoms`.
+//
+As usual, we want to (1) identify the base case, (2) the recursive step, (3) and
+how we are going to combine results.
+//
+Imagine we're finding all nodes on this simple graph:
+
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/333px-6n-graf.svg.png[role='img-fluid']
+
+==== `findAllAtoms`: base case
+
+On a tree we would start at the root and work our way down, but a graph doesn't
+have that same notion of top and bottom.
+//
+Your `findAllAtoms` function needs to be able to begin at _any_ atom in the
+graph and locate all others
+//
+footnote:[Note that you can assume that all atoms in the graph are reachable
+from any starting point.
+//
+This is referred to as a
+//
+https://en.wikipedia.org/wiki/Connectivity_(graph_theory)[_connected graph_].].
+//
+So instead of our base case being a leaf node, we'll define the base case as
+reaching a node that we have _already visited_.
+//
+At that point we know that some other call to our recursive function is already
+exploring the graph from that point and we can stop.
+
+==== `findAllAtoms`: recursive step
+
+On a tree we make the problem smaller by restarting our algorithm on each
+subtree.
+//
+A graph is similar, except that we restart our algorithm on each _neighbor_.
+//
+Like a tree, each part of the graph that begins at each of any node's neighbors
+is, itself, a graph.
+
+Note that in general this will mean that after arriving at Node 2 from Node 1 in
+the example above we will recursively return to Node 1.
+//
+But this is fine since our base case above should realize that Node 1 has
+already been visited and stop at that point.
+//
+This is how we ensure that the problem gets smaller at each step.
+
+We could explicitly avoid backtracking during our recursive step by not
+returning to the node that we visited previously.
+//
+But having the base case do this check also allows us to avoid _cycles_, which
+might cause us to return to a node that we have already visited but is _not_ the
+node we came from.
+//
+This is one critical difference between trees and graphs.
+//
+In a tree if you start at the root and only work downward by recursing into
+subtrees, your recursion will _always terminate_.
+//
+On a graph if you start at any node and continue blindly following all
+neighbors, your recursion will continue infinitely if the node contains a
+_cycle_ or loop.
+//
+The example above contains two cycles: 4 &harr; 5 &harr; 2 &harr; 3 &harr; 4 and
+5 &harr; 2 &harr; 1 &harr; 5.
+
+==== `findAllAtoms`: combining results
+
+Our final task is to figure out how to combine results together.
+//
+Conceptually, starting with Node 1 in the example above, recursing to Node 2
+will find some group of nodes while recursing to Node 5 will find another group
+of nodes.
+//
+Then I combine them, add myself, and I'm done.
+//
+But how do we get this to work _in practice_?
+
+Here's the first place where our lists are going to come in handy.
+//
+`findAllAtoms` is already supposed to return a list of the atoms in the
+molecule.
+//
+So to combine my results I just let all of my recursive calls modify the same
+list, and when they complete it will contain all of the atoms in the molecule.
+//
+I can also use this list during each recursive step to check to make sure that I
+don't backtrack and avoid cycles.
+//
+Note that this means that I need to pass a reference to the list to each step of
+my recursive algorithm.
+
+==== `findAllAtoms`: putting it all together
+
+To help you get started with `findAllAtoms`, here is a solution sketch based on
+the solution set.
+
+[source,python]
+----
+def findAllAtoms(current, atoms):
+    """ if current is in atoms, we've already been here, so stop """
+    """ add current to atoms """
+    """ restart findAllAtoms on all current's neighbors """
+----
+
+Like many recursive functions, `findAllAtoms` is fairly beautiful and terse once
+you have completed it correctly.
+//
+If it begins to get long and ugly, you are probably doing something wrong.
+//
+Ask for help!
+
+[[findpath]]
+==== Generalizing `findAllAtoms`
+
+`findAllAtoms` is a good starting point but simpler than the other recursive
+functions that you'll need to complete to finish the MP.
+//
+One way in which it's simpler is that it only maintains _one_ list.
+//
+In contrast, when looking for cycles or a path between two nodes you'll need to
+create a new list each time you restart your recursive function, since each
+neighbor establishes a new path.
+//
+You'll also need to adjust the return value of your recursive function based on
+what each neighbor finds.
+
+For example, here is a solution sketch for `findPath` again based on the
+solution set:
+
+[source,python]
+----
+def findPath(current, end, path):
+    """ add ourselves to the path """
+    """ if current equals end we're found a path, so return it """
+    for neighbor in neighbors:
+        """ avoid backtracking and cycles """
+        """ make a copy of the path """
+        """ restart findPath from the neighbor using the copied path """
+        """ if a path exists from the neighbor, return it, otherwise continue """
+
+    """ if the loop terminates then there was no path from any of my neighbors """
+    """ if no path exists from any of my neighbors then no path exists from me """
+----
+
+Note that this algorithm only works on a graph _without_ cycles, since once you
+have cycles there are multiple paths between any two nodes in the graph.
+//
+Once you have `findPath` working you can use it is the basis for your cycle
+detection algorithm, which is quite similar.
+
 [[chemistry]]
 == Chemistry Tutorial
 
+[.lead]
+//
 Programming is a powerful skill for many reasons, one of which is that it can be
 applied to virtually any science.
 //
 Bioinformatics&mdash;the processing of biological data, especially genetic
 sequences&mdash;was critical to the Human Genome Project, for example.
-//
+
 In this MP, you'll be applying your programming skills to chemistry.
 //
 Nevertheless, we don't require or expect you to have a deep background in
@@ -547,6 +712,18 @@ H-C-H
   H
 ----
 
+[.alert.alert-success]
+//
+--
+//
+To pass `testMolecularWeight` and `testHasCharged` you need to first complete
+<<findallatoms, `findAllAtoms`>>.
+//
+Once you have a list of atoms you either sum their weight or return whether any
+atom is charged.
+//
+--
+
 === Drawing
 
 The app code we've given you handles the drawing of molecules, but the rest of
@@ -592,6 +769,16 @@ Hydrogens bonded directly to heteroatoms are explicitly shown on the diagram,
 like this:
 
 image::HeteroatomExample.png[role='img-fluid']
+
+----
+      H
+      |
+  H H O H
+  | | | |
+F-C-C-C-C-H
+  | | | |
+  H H H H
+----
 
 === Intro to Naming
 
@@ -649,8 +836,13 @@ image::Hexane.png[role='img-fluid']
 //
 --
 //
-To pass `testNamingSimpleStraight`, you only need to determine how many carbon
-atoms are in the molecule and select the corresponding chain base name.
+To pass `testNamingSimpleStraight` you only need to identify the longest chain
+of carbons in the molecule.
+//
+Use `getTips` to find all tip carbons and then `getPath` on each pair of tips,
+then select the longest.
+//
+Each `BondedAtom` has an `isCarbon` method that you may find useful.
 //
 --
 
@@ -671,11 +863,11 @@ This is cyclopentane, which has five carbons arranged in a ring:
 image::Cyclopentane.png[role='img-fluid']
 
 [.alert.alert-success]
+//
 --
 //
-To pass `testNamingSimpleCyclic`, you need to determine whether the molecule is
-cyclic and prepend "cyclo," if appropriate, to the name derived from the carbon
-count.
+To pass `testNamingSimpleCyclic`, you need to complete `getRing` to determine
+whether the molecule is cyclic.
 //
 --
 
@@ -797,12 +989,14 @@ image::PropylCyclopropane.png[role='img-fluid']
 //
 --
 //
-To pass `testNamingOneSubstituentCyclic`, you need to find any ring present,
-find and name the substituent if present, and assign it position 1 on the ring.
+To pass `testNamingOneSubstituentCyclic`, you need to find any ring present
+(using `getRing`) and then rotate it properly so that the substituent is located
+at position 1 on the ring (using `rotateRing`).
 
-To pass `testNamingOneSubstituentLinear`, you need to find the longest carbon
-chain, name the substituent if present, and number the backbone in the direction
-that gives the substituent the lowest possible position number.
+To pass `testNamingOneSubstituentLinear`, you need to select the longest
+backbone that places the substituent in the lowest numbered position.
+//
+Note that you should consider backbones running in _either_ direction.
 //
 --
 
@@ -961,7 +1155,7 @@ interesting cases!
 //
 **Note that these points _do not come easy_.**
 //
-But if you are up for the challenge read on to learn more.
+But if you are up for the challenge, read on to learn more.
 
 === Multiple Substituents
 
@@ -1084,12 +1278,14 @@ to pronounce. So this is propane-1,1,3,3-tetrol, not propane-1,1,3,3-tetr**a**ol
 image::PropaneTetrol.png[role='img-fluid']
 
 To pass `testNamingMultipleSubstituents`, you need to find the best backbone
-(whether linear or cyclic), number it in a way that minimizes the position of the
-first substituent encountered, record the name and position__s__ of all substituents present,
-and combine the name fragments together.
+(whether linear or cyclic), number it in a way that minimizes the position of
+the first substituent encountered, record the name and position__s__ of all
+substituents present, and combine the name fragments together.
+//
 This test case does not involve end groups.
-The molecules you're asked to name here have _either_ low-priority or high-priority substituents,
-not a mix of both.
+//
+The molecules you're asked to name here have _either_ low-priority or
+high-priority substituents, not a mix of both.
 
 **You now know enough naming rules to get 5 extra credit points on MP5!**
 You can earn 5 more by handling even more tricky cases.
@@ -1102,135 +1298,184 @@ You can earn 5 more by handling even more tricky cases.
 for handling this case.
 --
 
-Up to this point, it's been fairly easy to choose the correct numbering direction
-once the backbone is established&mdash;either the molecule was symmetric or
-one direction encounters a substituent before the other.
+Up to this point, it's been fairly easy to choose the correct numbering
+direction once the backbone is established&mdash;either the molecule was
+symmetric or one direction encounters a substituent before the other.
+//
 All substituents in each tested molecule had the same priority.
+//
 Now it's time for the idea of priority to actually make a difference.
+//
 How do we number this molecule?
 
 image::MixedPriorityButane.png[role='img-fluid']
 
-If we go from left to right, the bromine gets position 1 and the ketone gets position 3.
+If we go from left to right, the bromine gets position 1 and the ketone gets
+position 3.
+//
 That sounds good.
-But the ketone is a high-priority substituent, so its position is more important to minimize.
-The correct numbering direction is from right to left, so the name is 4-bromobutan-2-one
-("but" from the four-carbon backbone, "2-one" from the ketone at position 2, and "4-bromo"
-from the bromine at position 4).
+//
+But the ketone is a high-priority substituent, so its position is more important
+to minimize.
+//
+The correct numbering direction is from right to left, so the name is
+4-bromobutan-2-one ("but" from the four-carbon backbone, "2-one" from the ketone
+at position 2, and "4-bromo" from the bromine at position 4).
 
-Likewise, if there are any high-priority substituents on a ring,
-one should occupy position 1:
+Likewise, if there are any high-priority substituents on a ring, one should
+occupy position 1:
 
 image::MethylCyclobutanone.png[role='img-fluid']
 
-That molecule is named 3-methylcyclobutan-1-one because numbering starts at the rightmost carbon.
+That molecule is named 3-methylcyclobutan-1-one because numbering starts at the
+rightmost carbon.
 
-High-priority substituents also affect the selection of the backbone in non-cyclic molecules.
+High-priority substituents also affect the selection of the backbone in
+non-cyclic molecules.
+//
 Previously this molecule would be expected to have a five-carbon backbone:
 
 image::ForkedDiol.png[role='img-fluid']
 
-But (our simplified version of) IUPAC rules say that
-**all high-priority substituents must be attached to the backbone**.
-So that molecule's backbone is the three carbons between the alcohol substituents,
-and the three-carbon chain going off to the left is a "propyl" substituent.
+But (our simplified version of) IUPAC rules say that **all high-priority
+substituents must be attached to the backbone**.
+//
+So that molecule's backbone is the three carbons between the alcohol
+substituents, and the three-carbon chain going off to the left is a "propyl"
+substituent.
+//
 This molecule's name is 2-propylpropane-1,3-diol.
 
 To break ties between possible backbones of the same length after ensuring that
-all high-priority substituents are included, compare the total number of substituents:
+all high-priority substituents are included, compare the total number of
+substituents:
 
 image::SubCountTiebreak.png[role='img-fluid']
 
 The four-way branch carbon and the three carbons to its left are definitely
 included in the backbone because the alcohol is attached over there.
-If the backbone continued to the right, the methyl and the fork below would each be substituents.
-But if the backbone continued down, the methyl above, ethyl to the right, and methyl
-off the three-way branch are each a substituent.
+//
+If the backbone continued to the right, the methyl and the fork below would each
+be substituents.
+//
+But if the backbone continued down, the methyl above, ethyl to the right, and
+methyl off the three-way branch are each a substituent.
+//
 That way produces more substituents and is the correct backbone.
-It is numbered from left to right because that direction encounters an alcohol at position 2,
-while the other way only encounters a methyl at position 2.
+//
+It is numbered from left to right because that direction encounters an alcohol
+at position 2, while the other way only encounters a methyl at position 2.
 
 image::NumberedSubCountTiebreak.png[role='img-fluid']
 
-Above is the correctly numbered backbone. The full name is 4-ethyl-4,5-dimethylhexan-2-ol.
+Above is the correctly numbered backbone. The full name is
+4-ethyl-4,5-dimethylhexan-2-ol.
 
-Notice how the previous example used position 2 as the direction tiebreak because both
-directions had no substituents on backbone carbon 1.
+Notice how the previous example used position 2 as the direction tiebreak
+because both directions had no substituents on backbone carbon 1.
+//
 Comparisons continue until the tie is broken.
+//
 Consider this nearly symmetric molecule:
 
 image::BromoButaneTriol.png[role='img-fluid']
 
 Either direction has a high-priority substituent at position 1.
-Right-to-left has a high-priority substituent at position 2, but left-to-right has
-only a low-priority substituent there. So right-to-left wins,
-and the correct name is 3-bromobutane-1,2,4-triol.
+//
+Right-to-left has a high-priority substituent at position 2, but left-to-right
+has only a low-priority substituent there. So right-to-left wins, and the
+correct name is 3-bromobutane-1,2,4-triol.
 
-The presence of multiple substituents on the same carbon can also serve as a tiebreak:
+The presence of multiple substituents on the same carbon can also serve as a
+tiebreak:
 
 image::TrifluoroPropane.png[role='img-fluid']
 
-Numbering left to right produces one fluorine at position 1, while going
-right to left produces two at position 1. So right-to-left wins, and the correct name is
-1,1,3-trifluoropropane.
-One high-priority substituent beats any number of low-priority ones,
-so if the leftmost fluorine was replaced with an alcohol, the numbering would go left to right.
+Numbering left to right produces one fluorine at position 1, while going right
+to left produces two at position 1.
+//
+So right-to-left wins, and the correct name is 1,1,3-trifluoropropane.
+//
+One high-priority substituent beats any number of low-priority ones, so if the
+leftmost fluorine was replaced with an alcohol, the numbering would go left to
+right.
 
-If the count of substituents of both priorities is the same at every backbone carbon,
-the final tiebreak is the name of the substituent&mdash;alphabetically first wins:
+If the count of substituents of both priorities is the same at every backbone
+carbon, the final tiebreak is the name of the substituent&mdash;alphabetically
+first wins:
 
 image::AlphabetTiebreak.png[role='img-fluid']
 
-Both directions have a high-priority substituent at positions 1 and 5
-and low-priority substituents at positions 2, 3, and 4.
-The substituents are exactly the same at position 1, so tiebreak proceeds to position 2.
+Both directions have a high-priority substituent at positions 1 and 5 and
+low-priority substituents at positions 2, 3, and 4.
+//
+The substituents are exactly the same at position 1, so tiebreak proceeds to
+position 2.
+//
 Left-to-right has "chloro" where right-to-left has "fluoro."
+//
 "Chloro" is first alphabetically, so left-to-right wins: the name is
 1,5-dibromo-2-chloro-4-fluoro-3-methylpentane-1,5-diol.
 
 All these rules are the same for cyclic molecules.
-This molecule should be numbered starting at the rightmost carbon and going clockwise:
+//
+This molecule should be numbered starting at the rightmost carbon and going
+clockwise:
 
 image::BromoCyclobutaneDiol.png[role='img-fluid']
 
-That way, it has high-priority substituents at positions 1 and 2,
-plus a low-priority one at position 3.
-Starting at the bromine would put a low-priority substituent at position 1 instead.
+That way, it has high-priority substituents at positions 1 and 2, plus a
+low-priority one at position 3.
+//
+Starting at the bromine would put a low-priority substituent at position 1
+instead.
+//
 Starting anywhere else would visit the top (substituent-less) carbon before
 getting to all the substituted ones.
 
-On rings, the alphabetic tiebreak affects the starting point in addition to the numbering:
+On rings, the alphabetic tiebreak affects the starting point in addition to the
+numbering:
 
 image::TrihalogenatedCyclopropane.png[role='img-fluid']
 
-All six possible numberings have one low-priority substituent at each of the three positions;
-the best one puts the alphabetically first substituent in position 1
-and the alphabetically next one in position 2.
-The correct numbering starts at the bromine and goes counterclockwise,
-naming the molecule 1-bromo-2-chloro-3-fluorocyclopropane.
+All six possible numberings have one low-priority substituent at each of the
+three positions.
+//
+The best one puts the alphabetically first substituent in position 1 and the
+alphabetically next one in position 2.
+//
+The correct numbering starts at the bromine and goes counterclockwise, naming
+the molecule 1-bromo-2-chloro-3-fluorocyclopropane.
 
 In summary, our rules break backbone and direction ties in this order:
 
 . Has all high-priority substituents directly attached
+//
 . Longest carbon chain
+//
 . Highest number of total substituents
-. Highest number of high-priority substituents at each position (from 1 until tiebreak)
+//
+. Highest number of high-priority substituents at each position (from 1 until
+tiebreak)
+//
 . Highest number of any substituents at each position (from 1 until tiebreak)
-. Alphabetically by substituent name
-  (from 1 until tiebreak, remember that each position can have multiple substituents!)
+//
+. Alphabetically by substituent name (from 1 until tiebreak, remember that each
+position can have multiple substituents!)
 
 A good strategy is to generate a list of candidate backbones/numberings
 and filter that down by comparing two at a time.
 
 **You now know all the naming rules you need to get 110 points on MP5!**
+//
 None of the molecules we ask you to name have multiple different types of
 high-priority substituents, since that requires new rules.
-
 
 [[grading]]
 == Grading
 
 As always, 100 points is full credit on the MP.
+//
 But in MP5, there are **110** points available, broken down as follows:
 
 . *10 points* for computing molecular weight (`getMolecularWeight`)
@@ -1279,10 +1524,11 @@ As in previous MPs, we have provided exhaustive test cases for each part of MP5.
 //
 Please review the link:/MP/2018/spring/0/#testing[MP0 testing instructions].
 
+////
 [[android]]
 == Android
 
-// TODO: This is a placeholder for Bailey.
+////
 
 [[formulas]]
 === Chemical Formulas
