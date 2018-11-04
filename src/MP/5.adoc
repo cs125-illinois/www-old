@@ -1156,12 +1156,10 @@ to one oxygen and single-bonded to another.
 //
 --
 //
-To pass `testNamingOneSuffixSubstituent`, you need to find the backbone (whether
-linear or cyclic), identify the substituent if present, determine the correct
-numbering direction of the backbone if necessary, select the correct base name
-and suffix, and include the substituent position if necessary.
+Note that we have provided code to handle suffix-altering substituents as
+described above, so there is nothing extra for you to do here.
 //
-Note that this is an extension of the naming tasks you have already completed.
+Move on to the extra credit if you want an additional challenge!
 //
 --
 
@@ -1304,7 +1302,29 @@ This test case does not involve end groups.
 The molecules you're asked to name here have _either_ low-priority or
 high-priority substituents, not a mix of both.
 
+[.alert.alert-success]
+//
+--
+//
+To pass `testNamingMultipleSubstituents`, you need to find the best backbone
+(whether linear or cyclic), number it in a way that minimizes the position of
+the first substituent encountered, record the name and position__s__ of all
+substituents present, and combine the name fragments together using the
+appropriate convenience method.
+//
+If you haven't implemented `rotateRing` yet, you should do that now.
+//
+You may also need to refine your `getLinearBackbone` helper function.
+
+This test case does not involve end groups.
+//
+The molecules you're asked to name here have _either_ low-priority or
+high-priority substituents, not a mix of both.
+//
+--
+
 **You now know enough naming rules to get 5 extra credit points on MP5!**
+//
 You can earn 5 more by handling even more tricky cases.
 
 === Priority Tiebreaks
@@ -1483,6 +1503,20 @@ position can have multiple substituents!)
 A good strategy is to generate a list of candidate backbones/numberings
 and filter that down by comparing two at a time.
 
+[.alert.alert-success]
+//
+--
+//
+To pass `testNamingPriority`, you will need to further refine `getLinearBackbone` and `getRing`.
+//
+In particular, `getRing` will need the ability to flip the ring, causing it to
+be numbered in the opposite direction.
+//
+Take full advantage of the convenience methods on `BondedAtom`&mdash;they're all
+there for a reason.
+//
+--
+
 **You now know all the naming rules you need to get 110 points on MP5!**
 //
 None of the molecules we ask you to name have multiple different types of
@@ -1495,29 +1529,29 @@ As always, 100 points is full credit on the MP.
 //
 But in MP5, there are **110** points available, broken down as follows:
 
-. *10 points* for computing molecular weight (`getMolecularWeight`)
+. *10 points* for computing molecular weight (`getMolecularWeight`), which
+requires implementing `findAllAtams`
 //
 . *10 points* for determining whether the molecule has any charged atoms
-(`hasChargedAtoms`)
+(`hasChargedAtoms`), which also requires implementing `findAllAtoms`
 //
 . *70 points* for naming: (`getIupacName`)
 //
 ** Note that while all the test cases below test this single function, they test
 increasingly complex cases
 //
-** *10 points* for linear (straight-chain) molecules with no branching or
-substituents
+** *20 points* for cyclic (ring) molecules with no substituents, which requires
+`findRing`
 //
-** *10 points* for cyclic (ring) molecules with no substituents
+** *20 points* for linear (straight-chain) molecules with no branching or
+substituents, which requires implementing `findPath` and `getLinearBackbone`
 //
-** *15 points* for cyclic molecules with exactly one substituent that does not
-affect the suffix of the name
+** *10 points* for cyclic molecules with exactly one substituent that does not
+affect the suffix of the name, which requires implementing `rotateRing`
 //
-** *15 points* for linear molecules with exactly one substituent that does not
-affect the suffix of the name (but that may be a branch)
-//
-** *10 points* for molecules with exactly one substituent that _does_ affect the
-suffix
+** *10 points* for linear molecules with exactly one substituent that does not
+affect the suffix of the name (but that may be a branch), which requires
+refining `getLinearBackbone`
 //
 ** *5 points* for molecules with multiple substituents, some of which may be
 different, but where no priority tiebreaks are required&mdash;**this is extra
@@ -1539,7 +1573,7 @@ with this.]
 
 As in previous MPs, we have provided exhaustive test cases for each part of MP5.
 //
-Please review the link:/MP/2018/spring/0/#testing[MP0 testing instructions].
+Please review the link:/MP/0/#testing[MP0 testing instructions].
 
 ////
 [[android]]
