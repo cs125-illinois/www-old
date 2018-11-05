@@ -555,6 +555,19 @@ _cycle_ or loop.
 The example above contains two cycles: 4 &harr; 5 &harr; 2 &harr; 3 &harr; 4 and
 5 &harr; 2 &harr; 1 &harr; 5.
 
+Given that visiting all neighbors is a common operation on graphs, we've helped
+you out by making the `BondedAtom` class iterable.
+//
+So, given a `BondedAtom` `current`, you can visit all of its neighbors as
+follows:
+
+[source,java]
+----
+for (BondedAtom neighbor : current) {
+  // Do something with neighbor
+}
+----
+
 ==== `findAllAtoms`: combining results
 
 Our final task is to figure out how to combine results together.
@@ -1292,25 +1305,13 @@ to pronounce. So this is propane-1,1,3,3-tetrol, not propane-1,1,3,3-tetr**a**ol
 
 image::PropaneTetrol.png[role='img-fluid']
 
-To pass `testNamingMultipleSubstituents`, you need to find the best backbone
-(whether linear or cyclic), number it in a way that minimizes the position of
-the first substituent encountered, record the name and position__s__ of all
-substituents present, and combine the name fragments together.
-//
-This test case does not involve end groups.
-//
-The molecules you're asked to name here have _either_ low-priority or
-high-priority substituents, not a mix of both.
-
 [.alert.alert-success]
 //
 --
 //
 To pass `testNamingMultipleSubstituents`, you need to find the best backbone
-(whether linear or cyclic), number it in a way that minimizes the position of
-the first substituent encountered, record the name and position__s__ of all
-substituents present, and combine the name fragments together using the
-appropriate convenience method.
+(whether linear or cyclic), numbered in a way that minimizes the position of the
+first substituent encountered.
 //
 If you haven't implemented `rotateRing` yet, you should do that now.
 //
@@ -1530,7 +1531,7 @@ As always, 100 points is full credit on the MP.
 But in MP5, there are **110** points available, broken down as follows:
 
 . *10 points* for computing molecular weight (`getMolecularWeight`), which
-requires implementing `findAllAtams`
+requires implementing `findAllAtoms`
 //
 . *10 points* for determining whether the molecule has any charged atoms
 (`hasChargedAtoms`), which also requires implementing `findAllAtoms`
@@ -1593,7 +1594,7 @@ that you like.
 The reference solution uses the
 //
 https://en.wikipedia.org/wiki/Chemical_formula#Hill_system[Hill system], in
-which (for example) methane's formula is `CH4` and ethanol's is `CH6O`.
+which (for example) methane's formula is `CH4` and ethanol's is `C2H6O`.
 //
 If you're feeling adventurous, you might try generating
 //
