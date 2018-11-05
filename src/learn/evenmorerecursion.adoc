@@ -669,7 +669,7 @@ current.next = null;
   Item8 [ label = "Item|8" ]
   Item [ label = "Item|0" ]
   Item6 -> Item5
-  Item5 -> Item6
+  Item5 -> Item6 [style="invis"]
   Item5 -> Item8 [style="invis"]
   Item8 -> Item5
   Item8 -> Item [style="invis"]
@@ -679,6 +679,76 @@ current.next = null;
 
 [.s]
 //
+* At this point we've reversed the end of the list.
+//
+* But `Item6` still has a reference to what was _its_ next element, but is now the
+_end_ of the rest of the list.
+//
+* So we can use that to set it as the last item.
+
+[[OVgIoOkRPNDpXUYGlvlujMuYgqPwkedC]]
+== Recursive List Reversal
+
+[source,java,role='smaller']
+----
+// Set ourselves as the end of the list
+current.next.next = this;
+
+// Mark that the item after us is null
+current.next = null;
+
+----
+
+++++
+<div class="digraph smaller">
+  Item6 [ label = "Item|6" ]
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item [ label = "Item|0" ]
+  Item6 -> Item5
+  Item5 -> Item6
+  Item5 -> Item8 [style="invis"]
+  Item8 -> Item5
+  Item8 -> Item [style="invis"]
+  Item -> Item8
+</div>
+++++
+
+* At this point we've reversed the end of the list.
+//
+* But `Item6` still has a reference to what was _its_ next element, but is now the
+_end_ of the rest of the list.
+//
+* So we can use that to set it as the last item.
+
+[[VigVulbdwEscNHHeuusSJyscbfwVdeGf]]
+== Recursive List Reversal
+
+[source,java,role='smaller']
+----
+// Set ourselves as the end of the list
+current.next.next = this;
+
+// Mark that the item after us is null
+current.next = null;
+
+----
+
+++++
+<div class="digraph smaller">
+  Item6 [ label = "Item|6" ]
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item [ label = "Item|0" ]
+  Item6 -> Item5 [style="invis"]
+  Item5 -> Item6
+  Item5 -> Item8 [style="invis"]
+  Item8 -> Item5
+  Item8 -> Item [style="invis"]
+  Item -> Item8
+</div>
+++++
+
 * At this point we've reversed the end of the list.
 //
 * But `Item6` still has a reference to what was _its_ next element, but is now the
