@@ -148,7 +148,7 @@ public class BinaryTree {
 
 public class Example {
   public static void main(String[] unused) {
-    BinaryTree binaryTree = new BinaryTree(new int[] { 1, 2, 3, 4 });
+    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
     System.out.println(binaryTree.rightGreaterThanLeft());
   }
 }
@@ -183,6 +183,8 @@ a leaf node, so print our value.#
 
 [.janini.compiler.smallest]
 ....
+import java.util.Random;
+
 public class BinaryTree {
   private static Random random = new Random();
   private class Node {
@@ -230,7 +232,7 @@ public class BinaryTree {
 }
 public class Example {
   public static void main(String[] unused) {
-    BinaryTree binaryTree = new BinaryTree(new int[] { 1, 2, 3, 4 });
+    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
     binaryTree.printLeaves();
   }
 }
@@ -266,6 +268,8 @@ contain the search value.#
 
 [.janini.compiler.smallest]
 ....
+import java.util.Random;
+
 public class BinaryTree {
   private static Random random = new Random();
   private class Node {
@@ -313,7 +317,7 @@ public class BinaryTree {
 }
 public class Example {
   public static void main(String[] unused) {
-    BinaryTree binaryTree = new BinaryTree(new int[] { 1, 2, 3, 4 });
+    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
 		System.out.println(binaryTree.search(4));
   }
 }
@@ -380,7 +384,7 @@ public class BinarySearchTree {
 }
 public class Example {
   public static void main(String[] unused) {
-    BinarySearchTree binarySearchTree = new BinarySearchTree(new int[] { 1, 2, 3, 4 });
+    BinarySearchTree binarySearchTree = new BinarySearchTree(new Integer[] { 1, 2, 3, 4 });
     System.out.println(binarySearchTree.search(3));
   }
 }
@@ -607,7 +611,7 @@ public class Item {
 }
 public class LinkedList {
   private Item start;
-  public LinkedList(int[] array) {
+  public LinkedList(Integer[] array) {
     for (int i = 0; i < array.length; i++) {
       this.addToEnd(array[i]);
     }
@@ -639,7 +643,7 @@ public class LinkedList {
 }
 public class Example {
   public static void main(String[] unused) {
-    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    LinkedList myList = new LinkedList(new Integer[] { 1, 2, 3 });
     System.out.println(myList);
   }
 }
@@ -655,7 +659,7 @@ public class Example {
 [source,java,role='smaller']
 ----
 // Set ourselves as the end of the list
-current.next.next = this;
+current.next.next = current;
 
 // Mark that the item after us is null
 current.next = null;
