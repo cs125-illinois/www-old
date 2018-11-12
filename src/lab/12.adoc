@@ -1,0 +1,307 @@
+---
+title: Web and Web APIs
+description:
+  Today you'll have a chance to experiment with public web APIs and create your
+  own personal website on GitHub.
+spelling_exceptions:
+  - LinkedIn
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+The internet is one of the most&mdash;if not _the_ most&mdash;impressive
+pieces of technology ever created.
+//
+A reliable system connecting 4 billion machines, it has also served as a
+platform enabling enormous amounts of innovation.
+
+Today we'll look at the web as a provider of services that you will utilize as
+your begin work on your final project.
+//
+Continue work today with the partner that you have chosen for your final
+project.
+//
+Note that there is no written part of this lab.
+//
+Instead, we'll expect you to find any required information using the internet
+itself.
+
+[[apsi]]
+== Exploring Web APIs [.text-muted]#(60 Minutes)#
+
+[.lead]
+//
+Web interfaces make it possible for us to easily incorporate powerful services
+and enormous amounts of information into our Android apps.
+//
+Many of these interfaces are publicly-available, and in other cases free API
+keys are provided for experimentation and limited use.
+
+=== Forking and Cloning the Lab12 Android Studio Project
+
+We've set up an
+//
+https://github.com/cs125-illinois/Lab12-Android[GitHub repository for the
+Android component of Lab12].
+//
+It contains an Android Studio project that's correctly configured for this part
+of Lab 11.
+//
+Getting access to it is similar to how you
+//
+link:/MP/setup/git/#importing[imported MP0].
+//
+But you have to fork our repository first.
+//
+If it's not obvious how to do that, try following
+//
+https://help.github.com/articles/fork-a-repo/[these instructions].
+
+*Note that you should import this using Android Studio, not IntelliJ.*
+//
+You'll use IntelliJ for the _next_ part of the lab.
+
+=== Understanding Volley
+
+Our starter code uses
+//
+https://developer.android.com/training/volley/index.html[Google's Volley
+library]
+//
+to make API requests.
+//
+You may want to review
+//
+https://developer.android.com/training/volley/index.html[its documentation]
+//
+as you examine our starter code.
+
+Similar to link:/MP/4/[MP4], the Lab 11 code base uses a button to start another
+action: in this case making a web API call.
+//
+You should finish the web UI so that it displays the results in the text box
+provided and uses the progress bar appropriately.
+
+Here's the key bit of code that is making the web API request:
+
+[source,java,role='small']
+----
+JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        Request.Method.GET,
+        "",
+        null,
+        new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(final JSONObject response) {
+                Log.d(TAG, response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                Log.w(TAG, error.toString());
+            }
+        });
+----
+
+Answer the following questions about the code above:
+
+. What kind of HTTP request is being made?
+//
+. What is the URL being used?
+//
+. What code runs if the request succeeds?
+//
+. What code runs if the request fails?
+//
+. If the request fails, how would you find out more information about why?
+
+=== Adding URL Parameters to a Request
+
+Some APIs, like
+//
+https://iextrading.com/developer/[this one],
+//
+require that you add parameters to your URL.
+//
+So if I wanted to get a quote for Apple Computer, Inc., which has symbol `APPL`,
+just issuing a `GET` request with this URL:
+
+[source]
+----
+https://api.iextrading.com/1.0/stock/AAPL/batch
+----
+
+Returns an empty JSON array.
+//
+Because, as
+//
+https://iextrading.com/developer/docs/#batch-requests[their documentation]
+//
+explains, there is a required `types` request parameter.
+//
+So, to request a quote my `GET` request URL would look like
+
+[source]
+----
+https://api.iextrading.com/1.0/stock/AAPL/batch?types=quote
+----
+
+and to get both a quote and stock news
+
+[source]
+----
+https://api.iextrading.com/1.0/stock/AAPL/batch?types=quote,news
+----
+
+=== Adding Data to a `POST` Request
+
+When you use `POST` you'll usually want to add some JSON data to the body of the
+request.
+//
+Volley makes this quite easy.
+//
+Here's an example:
+
+[source,java,role='small']
+----
+// Initialize a new JSONObject from a string. Not the escaping required.
+final JSONObject jsonBody = new JSONObject("{\"type\":\"example\"}");
+JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        Request.Method.POST,
+        url,
+        jsonBody,
+        ...
+----
+
+Note that you can create a `JSONObject` from a `String` as shown, as long as it
+is valid JSON.
+//
+You also have to escape (`\"`) the double quotes inside the string literal.
+
+=== Adding Headers to a Request
+
+To authenticate with some APIs you must add your API key to the header of the
+HTTP message.
+//
+For example, the documentation for the
+//
+https://goo.gl/HWpPy5[Microsoft Cognitive Services Computer Vision API]
+//
+specifies that you must add an API key to the headers with name
+`Ocp-Apim-Subscription-Key`.
+
+Here's an example of how to do that using Volley that also logs the parameters
+to the debugging output:
+
+[source,java,role='small']
+----
+JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        Request.Method.GET,
+        "",
+        null,
+        new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(final JSONObject response) {
+                Log.d(TAG, response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                Log.w(TAG, error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Ocp-Apim-Subscription-Key", "YOUR_API_KEY");
+                Log.d(TAG, params.toString());
+                return params;
+            }
+        };
+----
+
+=== Making Your Own API Calls
+
+One of the things that makes learning how to use web APIs so powerful is that
+there are _so many of them_.
+//
+So for this part of the lab we'll ask you to use _four_ different external web
+APIs to access different kinds of data.
+//
+We suggest that you peruse
+//
+https://github.com/toddmotto/public-apis[this list of free public APIs that
+return JSON]
+//
+for inspiration, but you can also Google around for possible APIs to use.
+
+You'll also want to complete you starter application so that it both displays
+the JSON that is returned in the available text box and uses a
+//
+https://developer.android.com/guide/topics/ui/notifiers/toasts.html[Toast]
+//
+notification to indicate errors when something goes wrong.
+//
+You should also continue to log errors and warnings using Android's
+//
+https://developer.android.com/reference/android/util/Log.html[Logging system]
+//
+to aid your own development.
+
+Choose four different web APIs to make the following kinds of requests.
+//
+Note that
+//
+https://github.com/toddmotto/public-apis[this list above]
+//
+distinguishes between APIs that require authentication and those that do not
+
+. A `GET` that does not require authentication
+//
+. A `GET` that _does_ require authentication
+//
+. A `POST` that does not require authentication
+//
+. A `POST` that does require authentication
+
+Review the instructions above as needed to determine how to add information to
+your `GET` and `POST` requests.
+//
+But don't get stuck on one particular API for too long.
+//
+If it doesn't seem to be working, try another one.
+//
+You may also want to review
+//
+https://blog.restcase.com/restful-api-authentication-basics/[this tutorial on
+the basics of API authentication].
+
+'''
+
+[[website]]
+== Your Personal Website [.text-muted]#(30 Minutes)#
+
+[.lead]
+//
+In the second part of the lab we'll show you how to quickly set up your own free
+personal website using
+//
+https://pages.github.com/[GitHub pages].
+
+Your personal website is your calling card on the internet.
+//
+It should look nice and contain a bit of information about you.
+//
+It does not have to be complicated, but a nice personal website easily sets you
+apart from the rest of the crowd that thinks a LinkedIn or Facebook profile
+counts as a personal website footnote[They don't.].
+//
+This also gives you a chance to express some design flair and build something
+that is uniquely you.
+
+If you already have a website on GitHub pages, please find someone else in your
+section to help with this part of the lab.
+
+// vim: ts=2:sw=2:et
