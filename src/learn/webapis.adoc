@@ -1,0 +1,760 @@
+---
+title: Web, Web APIs, and Sorting Review
+date: 2018-11-26
+description:
+  Introduction the HTTP transport protocol and web APIs, followed by a brief
+  review of sorting algorithms.
+spelling_exceptions:
+  - DNS
+  - IPv4
+  - IPv6
+  - SMTP
+  - YNP
+  - Gmail
+  - MetaWeather
+  - Bob Kahn
+  - Vint Cerf
+  - frisbees
+  - transformative
+  - mockup
+---
+
+[[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
+[.oneword]
+== Web
+
+Some examples for today are available here:
+//
+https://github.com/cs125-illinois/lecture-webapis-examples[`https://github.com/cs125-illinois/lecture-webapis-examples`]
+//
+Feel free to fork!
+
+[[veOnIpogLKueYWhbDivieYRcjKowfnre]]
+== Internet As Wired Infrastructure
+
+[.lead]
+//
+The internet comprises an enormous amount of physical infrastructure.
+
+[.s]
+//
+* *Most of it is _wired_, not wireless.* Wireless is mainly used for the first
+hop.
+//
+* *Most of it is _fiber_ (glass), not copper.* Signals degrade quickly in copper
+but travel faster and with less attenuation in glass footnote:[This is why
+https://www.dow.com/en-us/electrical/markets/telecommunications/fiber-optic-cable[Dow
+Corning] has such a nice visitor center!]. Copper is only used for the last 100
+meters.
+//
+* *The internet wouldn't exist without fiber optic cable.* It's one of the
+wonders of the modern world. It's not just glass, it's _really clear_ glass.
+
+[[XJuAWlWvHKbznPnvNKsVXeIhuVedsJJB]]
+== Internet As Wireless Infrastructure
+
+[.lead]
+//
+In recent years we've also built out a huge amount of _wireless_ internet
+infrastructure.
+
+[.s]
+//
+* *Short range wireless* is dominated by
+//
+https://en.wikipedia.org/wiki/Wi-Fi[WiFi]
+//
+and what you use when you're on campus, at home, or at a coffee shop
+//
+* *Medium-range wireless* is used to provide connectivity to mobile devices like
+smartphones over longer distances.
+//
+You usually buy this from a cellular provider like Verizon or Sprint.
+
+[[CkjdIfoTgcqkpmGqJTAKkBeNopyvqhng]]
+== Internet As Connectivity
+
+[.lead]
+//
+The result is that by connecting a computer to the internet, you are now
+connected to _4 billion_ other computers.
+
+[.s]
+//
+* Many times the first connection is _wireless_
+//
+* But after that point there is literally a wire that you can follow from your
+computer to the other computer
+
+[[LmXnCXdQNKjkGrLddkQdwsvErCkGMxcZ]]
+[.oneword]
+//
+== But How Do Internet-Connected Devices _Communicate_?
+
+[[uABWjaBQLWAHnUzqcZzSwSopLIVGbKpW]]
+== The Internet Protocol (IP)
+
+[.lead]
+//
+The
+//
+https://en.wikipedia.org/wiki/Internet_Protocol[Internet Protocol (IP)]
+//
+consists of a series of agreements that allow internet-connected devices to
+communicate.
+
+[.s]
+//
+* *What do we call each other?*
+//
+IP specifies the format of internet protocol addresses, also called IP
+addresses.
+** Here's one: `192.17.96.8` (IPv4)
+** Here's a new one: `2607:f8b0:4009:807::2004` (IPv6)
+//
+* *How are our message structured?*
+//
+IP specifies a _format_ for each message (or datagram) exchanged across the
+internet.
+
+[[XAIXXwMRSThffUnNzkCdDDuLTjUjxQLT]]
+== Internet Protocol Stack
+
+[.lead]
+//
+One of the beautiful things about IP is that it supports many other protocols.
+
+[.table.small,cols="2*^.^",options='header']
+|===
+
+| Protocol(s)
+| Service
+
+| [.s]#*https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP]*#
+| [.s]#The World Wide Web#
+
+| [.s]#*https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol[SMTP]*#
+| [.s]#Email#
+
+| [.s]#*https://en.wikipedia.org/wiki/Domain_Name_System[DNS]*#
+| [.s]#Translating names (`cs125.cs.illinois.edu`) to IP addresses (`192.17.96.8`)#
+
+| [.s]#*YNP*#
+| [.s]#Your New Protocol, which does something cool and useful!#
+
+|===
+
+[[xehUSxrjbjVcIwmVbtmcKWGtdSveGImN]]
+[.oneword]
+== So The Web _Is Not_ The Internet
+
+The web is just _one of many_ services running over the internet.
+
+[[wNsnAdboNaMfwJQQGoHjzDJgBVvYpfVI]]
+== What is the World Wide Web?
+
+[.s]
+//
+* *A protocol*: the Hypertext Transfer Protocol
+//
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[(HTTP)]
+//
+* *A markup language*: the Hypertext Markup Language
+//
+https://en.wikipedia.org/wiki/HTML[(HTML)]
+//
+* *A styling language*: Cascading Style Sheets
+//
+https://en.wikipedia.org/wiki/Cascading_Style_Sheets[(CSS)]
+//
+* *A programming language*:
+//
+https://en.wikipedia.org/wiki/JavaScript[JavaScript]
+
+[[gzVWnKntRdaWetSwyLuadYFPntJXusHU]]
+== HTTP `GET` and `POST`
+
+[.lead]
+//
+HTTP defines many other types of requests, but `GET` and `POST` are by far the
+most common.
+
+[.s]
+//
+* *Every time you load a web page* it starts with a `GET`, and usually that's
+followed by many other `GET` requests to fetch others parts of the page: style
+sheets, images, JavaScript code.
+//
+* *Every time you submit a form* it uses a `POST` to send data to the server, at
+which point your Facebook comment is recorded, or your credit card is charged
+and an package starts its way toward your house
+
+[[MKWZqVVGklEKImCOLjMlSstXeLBUXybc]]
+== HTTP: `GET` v `POST`
+
+[.lead]
+//
+The HTTP protocol specifies different semantics for `GET` and `POST`:
+
+[.s]
+//
+* `GET` _should not_ change anything about the world, just return a document
+//
+* `POST` _should_ change something about the world&mdash;create a new account,
+pay your bill, purchase something, send a message, etc.
+//
+* As a result it is _safe_ to repeat a `GET` but potentially _problematic_ to
+repeat a `POST`: hence the "Do not click back" and "Do not submit this form
+twice" kind of warnings.
+
+[[ENeAbNYgDNrbwqRpHZJduekhgMOdxOow]]
+== Web Page Contents: HTML
+
+[.lead]
+//
+HTML defines how each page is _structured_:
+
+[source,html,role='small']
+----
+<h1>This is a Simple Web Page</h1>
+
+<p>
+  HTML includes both content and instructions to the browser determining
+  how the content should look. For example, the following items should be
+  in a numbered list:
+</p>
+
+<ol>
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ol>
+
+<p>
+  <strong>Here is some bold text.</strong> <i>And this in italics.</i>
+</p>
+----
+
+[[hKVjQbpzQALswjASEhlGXSTyHHgkGWvD]]
+[.nologo]
+== ! Web Page Contents: HTML
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/simple.html"></iframe>
+</div>
+++++
+
+[[jusdaKZZdKzMfBIQchXrTXKenbeDgzBl]]
+== Web Evolution
+
+[.lead]
+//
+The web has gone through many design changes over the years.
+
+[.s.small]
+//
+* *Static Sites*: the web server returns a _file_ from the disk that contains a
+complete web document
+** Example: most of `cs125.cs.illinois.edu` is a static website
+//
+* *Dynamic Sites*: the web server _runs code_ to produce an HTML document and
+respond to `POST` requests created by forms
+** Example: sites like `my.cs.illinois.edu` are dynamic sites
+//
+* *Web Apps*: most of the site is _generated by JavaScript_ that runs in the
+user's browser, with the server providing data as needed
+** Examples: `cs125.cs.illinois.edu/m/grades`, Discourse, Gmail, Google Docs
+
+[[kVGxyCnuUrtKMDbQUEwsrVEZuOyXqgyo]]
+== Web Page Contents: CSS
+
+[.lead]
+//
+CSS defines how each page _looks_:
+
+[source,css,role='small']
+----
+body {
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+----
+
+[[QCnklVenUskadiskeZRvQQIlwAPyKXZl]]
+[.nologo]
+== ! Web Page Contents: CSS
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/css.html"></iframe>
+</div>
+++++
+
+[[bqpQtLWMeCreTUItFEeLrXrmwetlXSJR]]
+== Web Page Contents: JavaScript
+
+[.lead]
+//
+JavaScript defines what each page _does_:
+
+[source,javascript,role='small']
+----
+setInterval(function () {
+  var x = document.getElementById("title")
+  if (x.style.visibility === "visible") {
+    x.style.visibility = "hidden"
+  } else {
+    x.style.visibility = "visible"
+  }
+}, 1000)
+----
+
+[[hvUpMeTGNRDIIgBOLjgIAGAeTuZUDHdv]]
+[.nologo]
+== ! Web Page Contents: JavaScript
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125-illinois.github.io/lecture-webapis-examples/javascript.html"></iframe>
+</div>
+++++
+
+[[wfdQvQZAipVkTZPRnQrNavedMEtHXFyO]]
+[.oneword]
+//
+== So What's a Web _API_?
+
+[[yyuJpkncwjTgIiTBmtNZIUHdZFQnXSGU]]
+== What's An API?
+
+[quote]
+____
+//
+https://en.wikipedia.org/wiki/Application_programming_interface[In computer
+programming, an application programming interface (API)]
+//
+is a set of subroutine definitions, protocols, and tools for building
+application software.
+____
+
+In English, an _API_ is a set of functions that perform a set of related and
+useful tasks.
+
+[[VhKcyDdXgMnfeOXUFUtqYTEIXFRxBmua]]
+== Example API
+
+[.lead]
+//
+Let's say we wanted to find out the weather at a particular location:
+
+[source,java]
+----
+// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+
+// Get the current weather a particular location and a particular time
+static WeatherInfo getAtLocation(WeatherLocation location, Date date)
+
+// Get a list of possible WeatherInfo objects for a given location string
+static WeatherLocation[] searchLocations(String query)
+----
+
+[[JLNFoBPiCoEGSAeKEmLVCEayqKYizNUm]]
+== Web APIs
+
+[.lead]
+//
+A _web API_ is just an API that you access over the web. Consider that:
+
+[.s]
+//
+* We can send data to a web server using `POST` and also using URL parameters in
+a `GET` request
+//
+* The web server can run code in response
+//
+* And return a response, [.s]#_which does not have to be an HTML document_#
+//
+* And in many cases custom internet protocols are blocked by firewalls, making
+it attractive to run APIs over HTTP
+
+[[sQoshKdkerQbElGQyoWmkEymnLkzrZKF]]
+== Web APIs: Sending Arguments
+
+[source,java,role="small"]
+----
+// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+----
+
+To send the `location` argument to the `getAtLocation` function over the web we
+have several options:
+
+[.s.small]
+//
+* Stick it the URL: `/api/getAtLocation/(location)/`, which can be mapped to a
+function call
+//
+* Add it as a query parameter: `/api/getAtLocation?location=(location)`
+//
+* Use a `POST` request and put it in the body, possibly as JSON:
+
+[source,role="small s"]
+----
+POST /api/getAtLocation/
+
+{
+  "location": (location)
+}
+----
+
+[[ijoYpJSPQQLblMzMSckYOpVMqASJepju]]
+== Web APIs: Returning Results
+
+[source,java,role="small"]
+----
+// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+----
+
+In many cases web APIs return results using _JSON_ (JavaScript Object Notation):
+
+[source,json,role='small']
+----
+{
+  "consolidated_weather": [
+  {
+    "id": 6511056423747584,
+      "weather_state_name": "Thunder",
+      "weather_state_abbr": "t",
+      "wind_direction_compass": "E",
+      "created": "2018-04-09T02:37:19.655990Z",
+      "applicable_date": "2018-04-08",
+      "min_temp": -2.6099999999999999,
+      "max_temp": 2.2149999999999999,
+      "the_temp": 2.4950000000000001,
+      "wind_speed": 2.8707529204565336,
+      ...
+----
+
+[[ZsOQNCeyFRLfYMLCfmRDxwhgFYiBXBXm]]
+[.oneword]
+== What's Awesome...
+
+Is that there are
+//
+https://github.com/toddmotto/public-apis[a gazillion]
+//
+public APIs out there.
+//
+So go have fun!
+
+[[ehlqzEhyBDazbIHaqTjpObNLXLubhqWa]]
+== What is REST?
+
+[.lead]
+//
+You'll often hear of REST or RESTful web APIs.
+
+[.s.small]
+//
+* REST is a _design pattern_ for creating web APIs.
+//
+* URLs map to resources: so `GET` `/products` returns a list of all products,
+while `GET` `/products/10` get information about product with ID 10
+//
+* HTTP verbs are meaningful: `GET` gets something, `POST` creates a new entity,
+`DELETE` removes one, etc.
+//
+* HTTP response codes are meaningful: 200 is `OK`, 405 is not authorized, etc.
+//
+* The bodies of requests and responses are in `JSON`
+
+[[SpcgsfLVgvldZzAVoUJHsBiUOxSPvLEE]]
+== REST Examples
+
+[.table.small,cols="3*^.^",options='header']
+|===
+
+|Request
+|Meaning
+|Java-Like Function
+
+|[.s]#`GET /items`#
+|[.s]#Retrieve a list of all items#
+|[.s]#`public static Item[] getItems()`#
+
+|[.s]#`GET /items/81`#
+|[.s]#Retrieve information about item 81#
+|[.s]#`public static Item[] getItems(int id)`#
+
+|[.s]#`GET /items?type=frisbee`#
+|[.s]#Retrieve a list of all items that are frisbees#
+|[.s]#`public static Item[] getItems(String type)`#
+
+|[.s]#`POST /items`#
+|[.s]#Create a new item#
+|[.s]#`public static boolean createItem(Item newItem)`#
+
+|===
+
+[[FKPZGlamLRDVEJHjjxFnDjkqMxooAsMH]]
+== More REST Examples
+
+With two additional useful HTTP verbs: `PUT` and `DELETE`
+
+[.table.small,cols="3*^.^",options='header']
+|===
+
+|Request
+|Meaning
+|Java-Like Function
+
+|[.s]#`PUT /items/81`#
+|[.s]#Update information about item 81#
+|[.s]#`public static boolean updateItem(Item updateTime, int id)`#
+
+|[.s]#`DELETE /items/81`#
+|[.s]#Delete item 81#
+|[.s]#`public static boolean deleteItem(int id)`#
+
+|===
+
+[[JuTQULKcDJyYbpOvzZuoVHSBBAMPJKQI]]
+[.oneword]
+//
+== Questions About Internet, Web, or Web APIs?
+
+[[HtKEWqTEwzEPzDSjqfIvDwiIWZWSzXqQ]]
+== Internet Design Principles
+
+[.lead]
+//
+The internet established many powerful and important _design principles_.
+//
+One of the most important is the _end-to-end principle_:
+
+[quote]
+____
+In networks designed according to the
+//
+https://en.wikipedia.org/wiki/End-to-end_principle[end-to-end principle],
+//
+application-specific features reside in the communicating end nodes of the
+network, rather than in intermediary nodes, such as gateways and routers, that
+exist to establish the network.
+____
+
+[[lTVxOqKIJeqpxtlWpxSuzjPINWGWZOwK]]
+== End-to-End Example: Reliable Delivery
+
+[.lead]
+//
+Reliable delivery is _not guaranteed_ by the core Internet Protocol.
+
+[.s]
+//
+* Not every application needs it!
+//
+* Moved to the _endpoints_: that is, implemented on your device and whatever
+computer you want to communicate with reliably.
+
+[[GiuISzhloTQxbzcjHBBhFhJAzWSOnGUx]]
+== End-to-End Principle: Consequences
+
+[.lead]
+//
+The end-to-end principles has had powerful implications for internet design and
+evolution.
+
+[.s]
+//
+* The core network stays simple
+//
+* The core network _doesn't choose winners and losers_
+
+[[WsnIIRchesWsJjxchaCCShmRJuhiaGML]]
+== Net Neutrality
+
+[.lead]
+//
+Net neutrality is essentially enshrining the end-to-end principle in law.
+
+[.s]
+//
+* Internet service providers should not discriminate against traffic based on
+where it comes from, where it is going, or other features
+//
+* *This keeps the internet available for the kinds of transformative innovation
+it has supported since its creation.*
+
+[[PCmWKojKEZEbGdSLJwQxcCBCHMeHVXBk]]
+[.oneword]
+//
+== This Will Be Your Problem Soon
+
+Please do the right thing.
+
+[[JnbDWRLxHyezxdypdCAdLwXGseAepanB]]
+[.oneword]
+//
+== Questions about the Internet, Web, and Web APIs?
+
+[[lsnddnyuiysyQezzTLpdvlzADoeIDBJu]]
+== Review: Sorting Input Dependence
+
+[.table.small,cols="3*^.^",options='header']
+|===
+
+|Algorithm
+{set:cellbgcolor!}
+|Best Case
+|Worst Case
+
+| *Insertion Sort*
+| [.s]#Already sorted#
+| [.s]#Sorted backwards#
+
+| *Merge Sort*
+| [.s]#Doesn't matter#
+| [.s]#Doesn't matter#
+
+| *Quicksort*
+| [.s]#Random#
+| [.s]#Sorted footnote:[Order depends on pivot choice]#
+
+|===
+
+(Note that most of these are implementation dependent.)
+
+[[nnrTdlBzznlMZLyWdmEQmetbBQnieKKK]]
+== Review: Sorting Runtime
+
+[.table.small,cols="4*^.^",options='header']
+|===
+
+|Algorithm
+{set:cellbgcolor!}
+|Best Case
+|Worst Case
+|Average Case
+
+| *Insertion Sort*
+| [.s]#O(n)#
+| [.s]#O(n^2)#
+| [.s]#O(n^2)#
+
+| *Merge Sort*
+| [.s]#O(n log n)#
+| [.s]#O(n log n)#
+| [.s]#O(n log n)#
+
+| *Quicksort*
+| [.s]#O(n log n)#
+| [.s]#O(n^2)#
+| [.s]#O(n log n)#
+
+|===
+
+[[nvtqBFHUVjFwbuyYMCFGUinfdvTLeqeA]]
+== Review: Sorting Space
+
+[.table.small,cols="2*^.^",options='header']
+|===
+
+|Algorithm
+{set:cellbgcolor!}
+|Extra Memory
+
+| *Insertion Sort*
+| [.s]#O(1)#
+
+| *Merge Sort*
+| [.s]#O(n)#
+
+| *Quicksort*
+| [.s]#O(log n), due to the recursive calls#
+
+|===
+
+[[RMMoEHJwGPhzNNlqWfwerFJwIfDOdIcB]]
+== There Be Tradeoffs
+
+[.s]
+//
+* *If you have a very small array?* [.s]#Try _insertion sort_. It avoids the
+recursive calls made by merge sort and quick sort and is fastest on small
+arrays.#
+//
+* *Do you want predictable performance?* [.s]#Try _merge sort_. It's performance
+doesn't vary based on its inputs, although it requires O(n) space.#
+//
+* *Are you short on space?* [.s]#Try _Quicksort_. It's best-case
+performance is as good as merge sort but it can be done using much less memory.#
+
+[[ctXSCdeuRnmaipTMpLABIYtntfCrmwyy]]
+== Sorting Stability
+
+[.lead]
+//
+We also refer to sorts as being either _stable_ or _unstable_:
+
+[.s]
+//
+* *Stable sorts*: two items with the same value cannot switch positions
+//
+* *Unstable sorts*: two items with the same value _may_ switch positions
+
+[[dWtjgQRehCWFeoROhzjuOPsImeoxgzWp]]
+== Why Is Stability Important?
+
+[source,java,role='small']
+----
+class Person {
+  int age;
+  String name;
+}
+----
+
+[.lead]
+//
+Let's say I wanted a list of all ``Person``s, sorted first by age and then by
+name. How would I do that?
+
+[.s]
+//
+. Sort first using the `name` field
+//
+. Then sort by the `age` field
+
+[.s]#*If the sort is not stable I cannot do this, since the second sort will
+alter the results of the first.*#
+
+[[rlOtWjdeSgzzQeNZjBAvbgjJcQptGIJF]]
+== Announcements
+
+* The link:/MP/6/[final project description has been posted.]
+//
+Please get started!
+//
+* **You do have a CBTF quiz this week** focusing on sorting algorithms.
+//
+* Homework restarts today.
+//
+* I have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
+//
+Please stop by!
+//
+* Remember to provide feedback on the course using the
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form].
+//
+* I've started to respond to existing feedback
+//
+https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+
+// vim: ts=2:sw=2:et
