@@ -1,9 +1,8 @@
 ---
-title: Web, Web APIs, and Sorting Review
+title: Web APIs
 date: 2018-11-26
 description:
-  Introduction the HTTP transport protocol and web APIs, followed by a brief
-  review of sorting algorithms.
+  Introduction of the HTTP transport protocol and web APIs.
 spelling_exceptions:
   - DNS
   - IPv4
@@ -21,7 +20,7 @@ spelling_exceptions:
 
 [[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
 [.oneword]
-== Web
+== Web APIs
 
 Some examples for today are available here:
 //
@@ -603,136 +602,6 @@ Please do the right thing.
 [.oneword]
 //
 == Questions about the Internet, Web, and Web APIs?
-
-[[lsnddnyuiysyQezzTLpdvlzADoeIDBJu]]
-== Review: Sorting Input Dependence
-
-[.table.small,cols="3*^.^",options='header']
-|===
-
-|Algorithm
-{set:cellbgcolor!}
-|Best Case
-|Worst Case
-
-| *Insertion Sort*
-| [.s]#Already sorted#
-| [.s]#Sorted backwards#
-
-| *Merge Sort*
-| [.s]#Doesn't matter#
-| [.s]#Doesn't matter#
-
-| *Quicksort*
-| [.s]#Random#
-| [.s]#Sorted footnote:[Order depends on pivot choice]#
-
-|===
-
-(Note that most of these are implementation dependent.)
-
-[[nnrTdlBzznlMZLyWdmEQmetbBQnieKKK]]
-== Review: Sorting Runtime
-
-[.table.small,cols="4*^.^",options='header']
-|===
-
-|Algorithm
-{set:cellbgcolor!}
-|Best Case
-|Worst Case
-|Average Case
-
-| *Insertion Sort*
-| [.s]#O(n)#
-| [.s]#O(n^2)#
-| [.s]#O(n^2)#
-
-| *Merge Sort*
-| [.s]#O(n log n)#
-| [.s]#O(n log n)#
-| [.s]#O(n log n)#
-
-| *Quicksort*
-| [.s]#O(n log n)#
-| [.s]#O(n^2)#
-| [.s]#O(n log n)#
-
-|===
-
-[[nvtqBFHUVjFwbuyYMCFGUinfdvTLeqeA]]
-== Review: Sorting Space
-
-[.table.small,cols="2*^.^",options='header']
-|===
-
-|Algorithm
-{set:cellbgcolor!}
-|Extra Memory
-
-| *Insertion Sort*
-| [.s]#O(1)#
-
-| *Merge Sort*
-| [.s]#O(n)#
-
-| *Quicksort*
-| [.s]#O(log n), due to the recursive calls#
-
-|===
-
-[[RMMoEHJwGPhzNNlqWfwerFJwIfDOdIcB]]
-== There Be Tradeoffs
-
-[.s]
-//
-* *If you have a very small array?* [.s]#Try _insertion sort_. It avoids the
-recursive calls made by merge sort and quick sort and is fastest on small
-arrays.#
-//
-* *Do you want predictable performance?* [.s]#Try _merge sort_. It's performance
-doesn't vary based on its inputs, although it requires O(n) space.#
-//
-* *Are you short on space?* [.s]#Try _Quicksort_. It's best-case
-performance is as good as merge sort but it can be done using much less memory.#
-
-[[ctXSCdeuRnmaipTMpLABIYtntfCrmwyy]]
-== Sorting Stability
-
-[.lead]
-//
-We also refer to sorts as being either _stable_ or _unstable_:
-
-[.s]
-//
-* *Stable sorts*: two items with the same value cannot switch positions
-//
-* *Unstable sorts*: two items with the same value _may_ switch positions
-
-[[dWtjgQRehCWFeoROhzjuOPsImeoxgzWp]]
-== Why Is Stability Important?
-
-[source,java,role='small']
-----
-class Person {
-  int age;
-  String name;
-}
-----
-
-[.lead]
-//
-Let's say I wanted a list of all ``Person``s, sorted first by age and then by
-name. How would I do that?
-
-[.s]
-//
-. Sort first using the `name` field
-//
-. Then sort by the `age` field
-
-[.s]#*If the sort is not stable I cannot do this, since the second sort will
-alter the results of the first.*#
 
 [[AsxLmEDgtPbMjuytmPbVygodvIRkWGZA]]
 == Final Project Reminders
