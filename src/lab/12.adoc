@@ -16,17 +16,21 @@ pieces of technology ever created.
 //
 A reliable system connecting 4 billion machines, it has also served as a
 platform enabling enormous amounts of innovation.
+//
+Today we'll look at the web in as a provider of services or
+__API__s that we can utilize when we create our own applications.
 
-Today we'll look at the web as a provider of services that you will utilize as
-your begin work on your final project.
-//
-Continue work today with the partner that you have chosen for your final
-project.
-//
 Note that there is no written part of this lab.
 //
 Instead, we'll expect you to find any required information using the internet
 itself.
+
+You'll work in pairs on today's activity, and you should work with your partner
+for your final project.
+//
+**If you don't have one you must join a group today.**
+//
+You have a 20-point project UI checkpoint due next week.
 
 [[apsi]]
 == Exploring Web APIs [.text-muted]#(60 Minutes)#
@@ -43,11 +47,9 @@ keys are provided for experimentation and limited use.
 
 We've set up an
 //
-https://github.com/cs125-illinois/Lab12-Android[GitHub repository for the
-Android component of Lab12].
+https://github.com/cs125-illinois/Lab12[GitHub repository for Lab 12].
 //
-It contains an Android Studio project that's correctly configured for this part
-of Lab 11.
+It contains an Android Studio project that's correctly configured for Lab 12.
 //
 Getting access to it is similar to how you
 //
@@ -60,8 +62,6 @@ If it's not obvious how to do that, try following
 https://help.github.com/articles/fork-a-repo/[these instructions].
 
 *Note that you should import this using Android Studio, not IntelliJ.*
-//
-You'll use IntelliJ for the _next_ part of the lab.
 
 === Understanding Volley
 
@@ -78,8 +78,7 @@ https://developer.android.com/training/volley/index.html[its documentation]
 //
 as you examine our starter code.
 
-Similar to link:/MP/4/[MP4], the Lab 11 code base uses a button to start another
-action: in this case making a web API call.
+The Lab 12 code base uses a button to initiate a web API call.
 //
 You should finish the web UI so that it displays the results in the text box
 provided and uses the progress bar appropriately.
@@ -166,7 +165,7 @@ Here's an example:
 
 [source,java,role='small']
 ----
-// Initialize a new JSONObject from a string. Not the escaping required.
+// Initialize a new JSONObject from a string. Note the escaping required.
 final JSONObject jsonBody = new JSONObject("{\"type\":\"example\"}");
 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
         Request.Method.POST,
@@ -280,28 +279,30 @@ the basics of API authentication].
 
 '''
 
-[[website]]
-== Your Personal Website [.text-muted]#(30 Minutes)#
+[[mp6]]
+== Final Project UI and Planning [.text-muted]#(50 Minutes)#
 
-[.lead]
+Use any remaining time in your lab section to work on
 //
-In the second part of the lab we'll show you how to quickly set up your own free
-personal website using
+link:/MP/6/[your final project]
 //
-https://pages.github.com/[GitHub pages].
+with your project partner.
 
-Your personal website is your calling card on the internet.
+During next week's lab we'll ask each group for a brief overview of their
+project and to demonstrate a working UI.
 //
-It should look nice and contain a bit of information about you.
+This means that all UI elements should be in place and should be attached as
+needed to some kind of handler in each activity.
 //
-It does not have to be complicated, but a nice personal website easily sets you
-apart from the rest of the crowd that thinks a LinkedIn or Facebook profile
-counts as a personal website footnote[They don't.].
+Those handlers don't have to do anything, yet: they can just log a message so
+that we know that they are working.
 //
-This also gives you a chance to express some design flair and build something
-that is uniquely you.
+Although you may want to keep going if you get to this point quickly.
 
-If you already have a website on GitHub pages, please find someone else in your
-section to help with this part of the lab.
+If you need help with UI development please refer to
+//
+link:/lab/12/[Lab 12],
+//
+or as on the forum.
 
 // vim: ts=2:sw=2:et
