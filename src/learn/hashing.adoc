@@ -1,0 +1,1058 @@
+---
+title: Hashing and Maps
+date: 2018-11-30
+description:
+  An introduction to hash functions, various uses of hashing, and hash tables
+  and maps.
+spelling_exceptions:
+  - blockchain
+  - Geez
+  - SHA
+  - Hashcash
+  - rethrow
+  - Rethrowing
+---
+:imagesdir: /learn/images
+
+[[axHCLhKQxzhwFHeqGvpZhWUIqRTRCEyt]]
+== !
+
+[.janini.smaller]
+--
+++++
+<div class="message">Hashing and Maps</div>
+++++
+....
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+
+static void countStrings(String[] inputArray) {
+  Map stringCount = new HashMap();
+  for (String input: inputArray) {
+    stringCount.put(input, (Integer) stringCount.getOrDefault(input, 0) + 1);
+  }
+  System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
+}
+countStrings(new String[] { "a", "b", "aa", "bb", "a" });
+....
+--
+
+[[YVOVNHgIXQcGbotRhnTLjlRxlloFSLng]]
+== Review: Types of Exceptions
+
+[.lead]
+//
+Java exceptions are broken into three distinct categories:
+
+[.s]
+//
+* *Checked exceptions*: these are for places where you _know_ something might go
+wrong and it's out of your control
+//
+* *Unchecked exceptions* (or runtime errors): these are unanticipated errors
+usually caused by something dumb that you (the programmer) did wrong
+//
+* *Errors*: these are reserved for serious system problems that are probably not
+recoverable
+
+[[ajpSqxeufhVlXQkgrigFcjuJqXwzCANS]]
+== Exception Handling Strategies
+
+[.lead]
+//
+Here are reasonable strategies for handling each kind of exception:
+
+[.s]
+//
+* *Errors*: _don't_ try to handle these, just go bye-bye
+//
+* *Unchecked exceptions*: try to _avoid_ these by improving your code
+//
+* *Checked exceptions*: try to handle these and have your program
+continue running, or exit gracefully...
+//
+* but don't go on unless you can.
+
+[[RoxnUIFqZCBrBZnusOrpzbLuksmJMpdG]]
+== Working with Exceptions
+
+[.lead]
+//
+Java exceptions are just another kind of Java object&mdash;and they have some
+useful features, particularly when debugging:
+
+[.s]
+//
+* `toString`: like every other Java `Object`, exceptions can be printed
+//
+* `getMessage`: retrieves just the message associated with this exception
+//
+* `printStackTrace`: print a _stack trace_ for the error showing what caused it
+and what other functions were involved
+
+[[wIAiKctczCEQFknYPSiRbruXLqBIGBMy]]
+== !Throwable Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html"></iframe>
+</div>
+++++
+
+[[zzlPSnhuaDjSgoGIAkpIjUQZeiuerNQe]]
+== !Working with Exceptions Examples
+
+[.janini.smaller]
+....
+static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}
+foo4();
+....
+
+[[CTsKSqiFCfFyikLMwtUmDbmSXijFayAL]]
+== Rethrowing Exceptions
+
+[.lead]
+//
+Sometimes you may want to just record what happened but not know what to do with
+an error.
+
+In that case you may want to rethrow it out of the catch block:
+
+[source,role='smaller']
+----
+static URI createURI(final String input) {
+  // Example where we handle URISyntaxExceptions
+  try {
+    return new URI(input);
+  } catch (URISyntaxException e) {
+    // Log that something went wrong
+    Log.e(TAG, input + " is not a valid URI");
+    // Rethrow the exception
+    throw(e);
+  }
+}
+----
+
+[[diIiwLksuhFzuaiuxOuRIZnfIpgBPFnP]]
+== Throwing Your Own Exceptions
+
+[.lead]
+//
+So how do we handle a case like this?
+
+[source,java]
+----
+class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize <= 0) {
+      // what now?
+    }
+  }
+}
+----
+
+[[tZEORkretvixoGRTiPQxDkXOhkrgdAUE]]
+== ! Throwing Your Own Exceptions
+
+[.janini.smaller.compiler]
+....
+public class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize <= 0) {
+      // what now?
+    }
+  }
+}
+public class Example {
+  public static void main(final String[] unused) {
+    StringStorage stringStorage = new StringStorage(-1);
+  }
+}
+....
+
+[[TyzTkvyjvmKDPkZwmxwufvXMjajIlrHV]]
+== `throw`
+
+[.lead]
+//
+To throw an exception in Java we use the `throw` keyword:
+
+[source,java]
+----
+Exception e = new Exception("you did something awful");
+throw(e);
+----
+
+[[qoTmuDmRuBRgiUxPONZaOVhCRmlElcLw]]
+== `throw` Well
+
+[.lead]
+//
+If you need to throw an exception:
+
+[.s]
+//
+* Look for an existing `Exception` class that's a good fit
+//
+* Or, create your own:
+
+[source,java,role='s smaller']
+----
+public class MyException extends Exception {
+}
+throw(new MyException("bad bad"));
+----
+
+[[SRZEFPcrGpKfBdzGREcjDZALhTbKaIsC]]
+== `finally`
+
+[.lead]
+//
+Java's `try-catch` also supports a `finally` block. It is _always_ executed after
+_either_ the `try` or the `catch` completes:
+
+[source,java,role='smaller']
+----
+try {
+  System.out.println("start");
+  couldError();
+  System.out.println("done");
+} catch (Exception e) {
+  System.out.println("catch");
+} finally {
+  System.out.println("finally");
+}
+----
+
+[[mhmYjmPPucLHcPEFfhzCtQfFbnqfuYjZ]]
+== ! `finally` Example
+
+[.janini.smaller]
+....
+import java.util.Random;
+
+static void couldError() {
+  Random random = new Random();
+  if (random.nextBoolean()) {
+    Object it = null;
+    it.hashCode();
+  }
+}
+
+try {
+  System.out.println("start");
+  couldError();
+  System.out.println("done");
+} catch (Exception e) {
+  System.out.println("catch");
+} finally {
+  System.out.println("finally");
+}
+....
+
+[[eZOQBRhCvuQhjkIrABjfwolqygMADAfE]]
+== Intelligent `try` Usage
+
+[.lead]
+//
+You can make intelligent use of `try-catch` blocks to avoid repetitive sanity
+checking:
+
+[source,java,role='smaller']
+----
+JsonParser parser = new JsonParser();
+JsonObject info = parser.parse(json).getAsJsonObject();
+if (!info.has("metadata")) {
+  return 0;
+}
+JsonObject metadata = info.getAsJsonObject("metadata");
+if (!metadata.has("width")) {
+  return 0;
+}
+JsonElement width = metadata.getAsJsonElement("width");
+return width.getAsInt();
+----
+
+[[PTcgGbrBNJAzQGjhIpXKlPnMXeUoxUmP]]
+== Intelligent `try` Usage
+
+[.lead]
+//
+You can make intelligent use of `try-catch` blocks to avoid repetitive sanity
+checking:
+
+(This is particularly nice when you can chain calls together.)
+
+[source,java,role='smaller']
+----
+try {
+  JsonParser parser = new JsonParser();
+  return parser.parse(json)
+    .getAsJsonObject()
+    .getAsJsonObject("metadata")
+    .get("width")
+    .getAsInt();
+} catch (Exception e) {
+  return 0;
+}
+----
+
+[[wPTGIacnajnLigKsnSOrFdDtdgnMXQbn]]
+[.oneword]
+//
+== Questions About Exceptions?
+
+[[ksZcHuGafKhHDLRGxrFjALYMVpMJgcXc]]
+== Let's Imagine...
+
+[.lead]
+//
+Imagine I told you that there was a function with the following
+properties:
+
+[.s]
+//
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute.
+
+[[wzbgdJVtyahrQzZFvohwYXcHCbZXFXUa]]
+== ! Example Hash Function
+
+[.janini.smallest]
+....
+public static long hash(int[] input) {
+  return 0;
+}
+....
+
+[[bQxAYgagIHKxIGvBvBzRhiMkryOaxuBt]]
+== Hash Functions
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Hash_function#Properties[A hash function]
+//
+is any function that can be used to map data of arbitrary size to data of fixed
+size.
+//
+The values returned by a hash function are called hash values, hash codes,
+digests, or simply hashes.
+//
+____
+
+[[TeyVyghMhqCClaJLJSUYCvQFyUignEXW]]
+== ! Example Hash Functions
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="http://www.burtleburtle.net/bob/hash/doobs.html"></iframe>
+</div>
+++++
+
+[[KXloElbfqdIMcAPEnHOTqFsFGaPabBOJ]]
+[.oneword]
+//
+== What Could We Do With Such A Function?
+
+It may not seem obvious at first, but hash functions have many, many uses.
+
+[[BobWolVzSbNjBtxTNpyhXPfCEsXmgkmo]]
+== Example: Download Verification
+
+[.lead]
+//
+Imagine the following scenario:
+
+[.s]
+//
+* You need to download a 120GB file to install a particular piece of software.
+//
+* It's possible that, along the way, some data gets corrupted&mdash;either by
+the network or by your disk, who knows.
+//
+* So before you install the software you want to be sure that you downloaded the
+file correctly.
+
+[[FrbDJChruSGDxWmEwdVklfGiANFpQizs]]
+== Without A Hash Function
+
+[.lead]
+//
+_Without_ a hash function, what do we have to do?
+
+[.s]
+//
+* Download the 120GB file.
+//
+* Download it again. (Slow.)
+//
+* Compare the two to make sure that they are the same. (Also slow.)
+
+[[DEDOyPgoyBidbsMBQXDldzTprshoQAoO]]
+== But...
+
+[.lead]
+//
+Remember, I have a function with the following properties:
+
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute.
+
+[[bbLykpLPQpmMwPBvKIHdSpKEebcjFUCc]]
+== With A Hash Function
+
+[.lead]
+//
+_With_ a hash function, what do we do?
+
+[.s]
+//
+* You compute the hash of your copy of the file.
+//
+* Download a _hash_ of the file: maybe only a few bytes.
+//
+* Compute the hash of the file locally and make sure that it matches.
+
+[[YoPlxhrMWDBtGHuommrErQnTEpPMttNN]]
+== ! Example Download With `md5sum`
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="http://www.tug.org/mactex/mactex-download.html"></iframe>
+</div>
+++++
+
+[[XihJKtnAxApjydpNBnasaUxLYEFcJFCE]]
+== Example Download With `md5sum`
+
+[.lead]
+//
+`md5` is a popular
+//
+https://en.wikipedia.org/wiki/MD5[hash function]
+//
+that produces a 128-bit value.
+
+We're expecting an `md5` hash value of `a04828f1ffacc0bf9b48879b57794c2b`:
+
+[source,bash]
+//
+----
+$ md5 mactex-20170524.pkg
+MD5 (mactex-20170524.pkg) = a04828f1ffacc0bf9b48879b57794c2b
+$
+----
+
+[[MiiWtddXjlyHUjiJaEAZmuwuyeMKvZtp]]
+== Example: Fingerprinting Content
+
+[.lead]
+//
+Imagine the following scenario.
+
+[.s]
+//
+* You sent me `foo.docx` at some point.
+//
+* (I deleted it because it was a `.docx` file, so in reality scenario over.)
+//
+* But let's pretend that you can't remember if you sent me the latest version.
+
+[[DzLVhrOFXklAwrwtVUTxusCuXrEmvhWl]]
+== Without a Hash Function
+
+[.lead]
+//
+_Without_ a hash function, what do we do?
+
+[.s]
+//
+* You send me the file again.
+//
+* (And I delete it again.)
+
+[[DQhBmXmRtvQgllyTvXfsJaAAlKnwdYNy]]
+== But...
+
+[.lead]
+//
+Remember, I have a function with the following properties:
+
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute.
+
+[[UyWmZasprElgrTBiiMlmMIGqmgESlbYS]]
+== With a Hash Function
+
+[.lead]
+//
+_With_ a hash function, what do we to do?
+
+[.s]
+//
+* You compute the hash of your file.
+//
+* I compute the hash of my file.
+//
+* If they are the same, we're done.
+//
+* Otherwise you send me your copy.
+
+[[EnfeobCprFLJevsjLxHYgEosrfsFLxhN]]
+== Example Content Hash with `git`
+
+[.lead]
+//
+`git` uses hashes (the
+//
+https://en.wikipedia.org/wiki/SHA-1[SHA-1 algorithm])
+//
+to fingerprint files and commits:
+
+image::github-example.png[role='mx-auto',width=600]
+
+[[tLANhGeDIHsfTkDVLaULCrzubCOTPUaG]]
+== Example `git push`
+
+[.lead]
+//
+More or less, here's what happens when you push to GitHub.com:
+
+[.s.small]
+//
+* Your computer says: "Hi GitHub.com, I have the following files:
+`a6efc501d57b88df337fe904483d25732bb3e45e`,
+`4e292499a1194d0493bd5350408fe3254d2335d3`,
+`20da0fbbf8e8c279bb1edbbe0ac5ae40349edceb`, ..."
+//
+* Server, "OK, I've got
+`4e292499a1194d0493bd5350408fe3254d2335d3` and
+`a6efc501d57b88df337fe904483d25732bb3e45e` but I need
+`20da0fbbf8e8c279bb1edbbe0ac5ae40349edceb` and ...".
+//
+* Your computer: "OK, sending those now..."
+
+[[TpBEMwHpxtautSSBbbBkYnAlTRpvClcL]]
+== Hash Collisions
+
+[.lead]
+//
+If a hash function produces the _same_ hash for two _different_ inputs this is
+called a _collision_.
+
+[.s]
+//
+* In some cases, particularly if the size of the hash is small, collisions are
+expected and we plan to deal with them.
+//
+* If the size of the hash is large enough and the hash function is uniform,
+collisions should _never happen_ and the world will end if they do. (Or at least
+`git` will stop working and my world will end.)
+
+[[cHacVvUBZzcwEmeEgKdgTPnsTLAGisUK]]
+== ! Example Small Hash
+
+[.janini.smallest]
+....
+public static byte hash(int[] input) {
+  return 0 % 16;
+}
+....
+
+[[CGYzkTirBBEMdBbcQGsUlgiZESQckfNw]]
+== The Birthday Paradox
+
+[.lead]
+//
+In a room with 100 students, what is the probability that _two_ will share the
+same birthday footnote:[Obviously birthdays are not uniformly distributed across
+the calendar, for, um, obvious reasons?]? [.s]#*99.9999%*#
+
+[.s]
+//
+* Does anybody know how many you need to get a 50% chance? [.s]#Only _23_!#
+//
+* This is bad for our hash functions... collisions are more likely than we might
+think!
+
+[[rxTFOLQfAkZIKnzVifZmfLrouKAWNZKH]]
+== Birthday Hashing Paradox
+
+[.lead]
+//
+How many documents do I have to hash before I find two with the
+//
+https://en.wikipedia.org/wiki/Birthday_attack[same hash with _50%_ probability?]
+
+[.s.small]
+//
+* It depends on how large the hash is!
+//
+* For 16 bits, 300. (The MP6 starter code had 80 files in it.)
+//
+* For 32 bits, 77,000 (My computer has 2.5 million files on it.)
+//
+* For 64 bits, 5 billion (GitHub.com has 1 billion files.)
+//
+* For 128 bits, 14,000,000,000,000,000,000. (Now we're getting warmer.)
+//
+* (Git actually uses a 160-bit hash function.)
+//
+* For 512 bits, 1.4 * 10^77 (The universe only has ~10^78 atoms, so this is
+probably enough.)
+
+[[RmqHvDyMcXOZJLTYeYrqtEZEDBttqvPW]]
+[.oneword]
+//
+== So Hashes Seem Useful...
+//
+But the best is yet to come!
+
+[[MyrGhUPKgRmmXjmEcsrXUWcATZMPZdIN]]
+== Remember Arrays?
+
+[source,java]
+----
+int[] numbers = new int[] { 5, 6, 7 };
+System.out.println(numbers[0]);
+numbers[1] = 8;
+----
+
+[.s]
+//
+* Arrays map an _index_ (0, 1, 2, `array.length` to a value).
+//
+* The value can be anything, but the indices _had to be be integers_.
+//
+* *No longer!*
+
+[[fhjgUbBtMKMYIUZbJCLadCUywBqvNvlg]]
+== Java Maps
+
+[.lead]
+//
+A Java `Map` allows us to use _any object_ like an array index.
+
+[source,java]
+----
+import java.util.Map;
+import java.util.HashMap;
+
+Map stringValues = new HashMap();
+stringLengths.put("test", 5);
+System.out.println(stringLengths.get("test")); // Prints 5
+stringLengths.put("test", 7);
+System.out.println(stringLengths.get("test")); // Prints 7
+----
+
+[[CJgsBxThVKDtdzSQrlgslMvaJdiPWzfY]]
+== A Map By Any Other Name
+
+[.lead]
+//
+Maps are one of the two data structures you meet in heaven. (Along with lists.)
+Every language has them:
+
+[.s.small]
+//
+* Python calls them dictionaries: `dict["key"] = "value"`
+//
+* JavaScript calls them anonymous objects `dict["key"] = "value"`
+//
+* C++ calls them maps: `dict.insert(std::make_pair("key", "value"));`
+//
+* Go calls them maps: `dict["key"] = "value"`
+//
+* Even Perl had them: `$dict{'key'} = "value"`!
+//
+* Sometimes we call them _key-value stores_, since each key maps to a single value
+
+[[cdHqlUjYDnxaiPsWZuWVmfWooIECaudM]]
+== ! `Map` Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html"></iframe>
+</div>
+++++
+
+[[DIynWmuEKOGgKyZkdXedVEOrHFdZEDZO]]
+== ! Fun With Maps
+
+[.janini.smaller]
+....
+import java.util.Map;
+import java.util.HashMap;
+
+Map mapExample = new HashMap();
+....
+
+[[bLeYoVrBJkyduCqNVDeGQigbOIGmBBXi]]
+== Map Usage Example
+
+[.lead]
+//
+Let's say that I want to process a large corpus of text and then be able to
+quickly answer queries about how many times particular words appear.
+
+[[zojCJOFHUkyJyRGwAlzjHiifxeqVbphM]]
+== ! Map Usage Example
+
+[.janini.smaller.compiler]
+....
+import java.util.Map;
+import java.util.HashMap;
+
+public class WordCounter {
+  private Map wordCount;
+  public WordCounter(String[] text) {
+    wordCount = new HashMap();
+  }
+  public int getWordCount(String word) {
+    return 0;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    String[] corpus = new String[] {
+      "here", "here", "there"
+    };
+    WordCounter wordCounter = new WordCounter(corpus);
+    System.out.println(wordCounter.getWordCount("here"));
+    System.out.println(wordCounter.getWordCount("there"));
+    System.out.println(wordCounter.getWordCount("nowhere"));
+  }
+}
+....
+
+[[pdwcMAZBmuwUFEWVSPCqjAbuKImRBdrd]]
+== Brief `Map` Implementation
+
+[.lead]
+//
+So how do we implement a `Map`?
+
+[.s]
+//
+* Use a `hashCode` to retrieve a hash code for each object.
+//
+* Use that value&mdash;or a smaller part of it&mdash;as an index into an array.
+//
+* But what about collisions?
+
+[[NdtRQfCIlNeCIwFdPzhycUCjiduKpRFM]]
+== `Map` As Array + Linked List
+
+image::http://math.hws.edu/javanotes/c10/hash-table.png[role='mx-auto', width=500]
+
+[[UsChKXDXPGKVOeKYnxsHACKOOsKlhJYx]]
+== ! HashMap Example
+
+[.janini.compiler.smallest]
+....
+public class Item {
+  public Object key;
+  public Object value;
+  public Item next;
+  Item(Object setKey, Object setValue, Item setNext) {
+    this.key = setKey;
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class HashMap {
+  private Item[] items = new Item[16];
+  public int itemCount = 0;
+  private int hash(Object key) {
+    int hashValue = key.hashCode() % 16;
+    if (hashValue < 0) {
+      hashValue += 16;
+    }
+    return hashValue;
+  }
+  public void put(Object key, Object value) {
+    int bucket = hash(key);
+    Item current = items[bucket];
+    for (; current != null; current = current.next) {
+      if (current.key.equals(key)) {
+        current.value = value;
+        return;
+      }
+    }
+    Item newItem = new Item(key, value, items[bucket]);
+    items[bucket] = newItem;
+    itemCount++;
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    HashMap ourHashMap = new HashMap();
+    ourHashMap.put("test", "me");
+    System.out.println(ourHashMap.itemCount);
+    ourHashMap.put("test", "another");
+    System.out.println(ourHashMap.itemCount);
+  }
+}
+....
+
+[[XzzFwecpZcVPGyIzrraJqXHDwFRgolqO]]
+== `HashMap` Performance
+
+[.lead]
+//
+Let's consider the performance of our simple `HashMap` in two cases. First, if
+the array is *very small* relative to the number of items:
+
+[.s]
+//
+* *`put`*: [.s]#O(n) with n being the number of items#
+//
+* *`get`*: [.s]#O(n) with n being the number of items#
+//
+* At this point the `HashMap` is acting [.s]#like a _linked list_.#
+
+[[XbDnmqvDhMnqdLZVipXfTlOWbYnAIHhL]]
+== `HashMap` Performance
+
+[.lead]
+//
+Let's consider the performance of our simple `HashMap` in two cases. Second, if
+the array is *very large* relative to the number of items:
+
+[.s]
+//
+* *`put`*: [.s]#O(1)#
+//
+* *`get`*: [.s]#O(1)#
+//
+* At this point the `HashMap` is acting [.s]#like an _array_.#
+//
+* What's the problem? [.s]#It requires _a lot_ of space.#
+
+[[kteyvggYdbvCdQkBtRmnnvWPfabuQoeJ]]
+== Realistic `HashMap` Performance
+
+[.lead]
+//
+In reality we want our `HashMap` to blend the good features of an array and a
+linked list.
+
+[.s]
+//
+* Usually implementations will _enlarge_ the array part of a `HashMap` once it
+gets filled past a certain point (called the _load factor_).
+
+[[DKcMSEbCvHQXPWKflVuXMgBAvudmWZUH]]
+[.oneword]
+//
+== Looking forward to CS 225 yet?
+//
+This is cool stuff!
+
+[[OlLkUqBdqugqchaDKdWOFMJMRXdgmfyW]]
+== And cooler still...
+
+Hash functions already provide:
+
+[.small]
+//
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* [.line-through]#*Efficiency*: it is efficient to compute.#
+
+But what if there were hash functions with the following _new_ properties:
+
+[.s.small]
+//
+* Given the hash, it is _infeasible_ to determine the original input
+//
+* A small change to the input produces a _large_ change in the output
+//
+* The function is _difficult_ to compute, not easy
+
+[[ahHxfzfBcLQvvuWqeAEfuFsGFcjqWsMQ]]
+== Cryptographic Hash Functions
+
+[.lead]
+//
+A hash function that satisfies these properties is known as a _cryptographic
+hash function_, largely because they are ubiquitous in modern cryptography.
+
+[[PdxviDVjqwEyJNsBsEAQRzzhphhYRviR]]
+== A Simple Example
+
+[.lead]
+//
+I need to be able to check your password, but I don't want to save it.
+//
+*Is that possible?*
+
+[.s.small]
+//
+* *Yes!*
+//
+* Save the cryptographic hash of your password, not the password itself.
+//
+* When you submit your password, I hash it and compare it with the saved hash.
+//
+* If someone steals my database, they can't recover the original passwords.
+//
+** Given the hashes, you can't recover the original passwords
+//
+** Hash values reveal nothing about how close you are to the actual password
+//
+** Hashing inputs to test them is expensive
+
+[[TBrLUXoSYNeiXBAytTdbidYEMrLAITEP]]
+== Small Input Change, Big Output Change
+
+[source,bash]
+----
+$ $ cat example.txt
+The quick brown fox jumps over the lazy dog
+$ md5 < example.txt
+37c4b87edffc5d198ff5a185cee7ee09
+$ cat example.txt
+The quick brown fox jumps over the lazy doG
+$ md5 < example.txt
+75559fc9857fe9bebf65f97760e3f67d
+----
+
+[[sqifxqIMMsbqDxLiLedePYbVGYpYDhzx]]
+== A Modern Example
+
+[.lead]
+//
+Heard of blockchain?
+
+Blocks are linked through _cryptographic hashes_.
+//
+And the blockchain is secured through an old idea called
+//
+https://en.wikipedia.org/wiki/Hashcash[Hashcash].
+
+[.s]
+//
+* Given a hash value of a given size, I can estimate how much work you'll have
+to do to guess the input that produced that value
+//
+* So I can force you to do that work and verify that you did it easily by
+hashing the value that you gave me
+
+[[gRZDKTXJypxDiTAoVSSwTfZOMUNyUxCG]]
+== Hashcash Example
+
+[.s]
+//
+* Alice: "Here's a challenge for you Bob, find an input that produces hash
+`39c3aa4015e7964914c311915316a2f78157c946`.
+* Bob: "Geez, that's hard. Give me a few minutes... OK, got it."
+//
+* Alice: "Wow, you're right. I computed the hash and it's
+`39c3aa4015e7964914c311915316a2f78157c946` that must have been hard."
+
+[[qGSmwzyNQfEsKimoddEsPTmTCROlLAfV]]
+[.oneword]
+//
+== Unintended Consequences
+
+Hashcash was intended to help fight spam. Now it's the reason that Bitcoin
+mining
+//
+https://www.nytimes.com/2018/01/21/technology/bitcoin-mining-energy-consumption.html[is
+ruining the planet].
+
+[[aGqRxSJOrbpxveHPtfUbwZvbJQMzOGnp]]
+== And, Beautiful Theory
+
+[quote]
+____
+In computer science, a
+//
+https://en.wikipedia.org/wiki/One-way_function[one-way function]
+//
+is a function that is easy to compute on every input, but hard to invert given
+the function's output for a random input.
+
+*The existence of such one-way functions is still an open conjecture.*
+//
+In fact, their existence would prove that the complexity classes P and NP are
+not equal, thus resolving the foremost unsolved question of theoretical computer
+science.
+//
+____
+
+[[jXRuKfHWdQnxhqBYQQVMOPSJlRrttssh]]
+[.oneword]
+//
+== Questions About Hashing?
+
+[[NatQECjiehpGWjBTDhWNjopXkXVqFVZq]]
+== Announcements
+
+* The link:/MP/6/[final project description has been posted.]
+//
+Please get started!
+//
+* I have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
+//
+Please stop by!
+//
+* Remember to provide feedback on the course using the
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form].
+//
+* I've started to respond to existing feedback
+//
+https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+
+// vim: ts=2:sw=2:et
