@@ -273,8 +273,8 @@ Java exceptions are broken into three distinct categories:
 * *Checked exceptions*: these are for places where you _know_ something might go
 wrong and it's out of your control
 //
-* *Unchecked exceptions* (or runtime errors): these are usually caused by
-something dumb that you (the programmer) did wrong
+* *Unchecked exceptions* (or runtime errors): these are unanticipated errors
+usually caused by something dumb that you (the programmer) did wrong
 //
 * *Errors*: these are reserved for serious system problems that are probably not
 recoverable
@@ -348,11 +348,14 @@ System.out.println(createURI("https://cs125.cs.illinois.edu/"));
 ....
 
 [[OfiMUvDfLqHrmsHHbwRRrxkkLLWCItZx]]
-== Unchecked Exceptions: Examples
+== Unchecked Exceptions
 
 [.lead]
 //
 Unchecked examples are usually the result of _programmer error_.
+
+(They are fundamentally unanticipated, since if you had anticipated them you
+would have fixed them.)
 
 You've probably made many of these mistakes by now...
 
