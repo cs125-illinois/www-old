@@ -858,17 +858,21 @@ List anotherList = new LinkedList();
 [[VazQjvfefhYtQVZbbAfnIinPqkOhFcuL]]
 == ! Non-Generic ``ArrayList``s
 
-[.janini.jdk]
+[.janini.jdk.compiler.smaller]
 ....
 import java.util.List;
 import java.util.ArrayList;
 
-List list = new ArrayList();
-// What goes in is a string...
-list.add("string");
-// But what comes out is an Object
-String s = list.get(0);
-// We can downcast this, but that's not safe
+public class Example {
+  public static void main(String[] unused) {
+    List list = new ArrayList();
+    // What goes in is a string...
+    list.add("string");
+    // But what comes out is an Object
+    String s = list.get(0);
+    // We can downcast this, but that's not safe
+  }
+}
 ....
 
 [[CfhXqjfTVWkvvUQsiviIgULshCtvBoql]]
@@ -908,18 +912,22 @@ List<String> stringList = new ArrayList<String>(); // This is a list of Strings
 [[icfvQmfITTojvuLTENxWELDeeUJPWeWO]]
 == ! Generic ``ArrayList``s
 
-[.janini.jdk]
+[.janini.jdk.compiler.smaller]
 ....
 import java.util.List;
 import java.util.ArrayList;
 
-List<String> list = new ArrayList();
-// What goes in is a string...
-list.add("string");
-// What comes out is a string
-String s = list.get(0);
-// I can't add Objects that aren't Strings or don't descend from String
-list.add(new Integer(10));
+public class Example {
+  public static void main(String[] unused) {
+    List<String> list = new ArrayList();
+    // What goes in is a string...
+    list.add("string");
+    // What comes out is a string
+    String s = list.get(0);
+    // I can't add Objects that aren't Strings or don't descend from String
+    list.add(new Integer(10));
+  }
+}
 ....
 
 [[fnYKRyUHsuLjpYqJuJPlrwHHedPLngvk]]
