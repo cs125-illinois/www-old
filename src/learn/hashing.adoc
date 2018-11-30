@@ -17,7 +17,7 @@ spelling_exceptions:
 [[axHCLhKQxzhwFHeqGvpZhWUIqRTRCEyt]]
 == !
 
-[.janini.smaller]
+[.janini.jdk.compiler.smaller]
 --
 ++++
 <div class="message">Hashing and Maps</div>
@@ -27,14 +27,18 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
 
-static void countStrings(String[] inputArray) {
-  Map stringCount = new HashMap();
-  for (String input: inputArray) {
-    stringCount.put(input, (Integer) stringCount.getOrDefault(input, 0) + 1);
+public class Example {
+  static void countStrings(String[] inputArray) {
+    Map<String, Integer> stringCount = new HashMap<>();
+    for (String input: inputArray) {
+      stringCount.put(input, stringCount.getOrDefault(input, 0) + 1);
+    }
+    System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
   }
-  System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
+  public static void main(String[] unused) {
+    countStrings(new String[] { "a", "b", "aa", "bb", "a" });
+  }
 }
-countStrings(new String[] { "a", "b", "aa", "bb", "a" });
 ....
 --
 
@@ -471,13 +475,13 @@ https://en.wikipedia.org/wiki/MD5[hash function]
 //
 that produces a 128-bit value.
 
-We're expecting an `md5` hash value of `a04828f1ffacc0bf9b48879b57794c2b`:
+We're expecting an `md5` hash value of `d95bacb4ccd59657a5ac2bf66b35ebcc`:
 
 [source,bash]
 //
 ----
 $ md5 mactex-20170524.pkg
-MD5 (mactex-20170524.pkg) = a04828f1ffacc0bf9b48879b57794c2b
+MD5 (mactex-20170524.pkg) = d95bacb4ccd59657a5ac2bf66b35ebcc
 $
 ----
 
@@ -681,7 +685,7 @@ A Java `Map` allows us to use _any object_ like an array index.
 import java.util.Map;
 import java.util.HashMap;
 
-Map stringValues = new HashMap();
+Map<String, Integer> stringValues = new HashMap<>();
 stringLengths.put("test", 5);
 System.out.println(stringLengths.get("test")); // Prints 5
 stringLengths.put("test", 7);
@@ -722,12 +726,16 @@ Every language has them:
 [[DIynWmuEKOGgKyZkdXedVEOrHFdZEDZO]]
 == ! Fun With Maps
 
-[.janini.smaller]
+[.janini.smaller.jdk.compiler]
 ....
 import java.util.Map;
 import java.util.HashMap;
 
-Map mapExample = new HashMap();
+public class Example {
+  public static void main(String[] unused) {
+    Map mapExample = new HashMap();
+  }
+}
 ....
 
 [[bLeYoVrBJkyduCqNVDeGQigbOIGmBBXi]]
@@ -741,15 +749,15 @@ quickly answer queries about how many times particular words appear.
 [[zojCJOFHUkyJyRGwAlzjHiifxeqVbphM]]
 == ! Map Usage Example
 
-[.janini.smaller.compiler]
+[.janini.jdk.smaller.compiler]
 ....
 import java.util.Map;
 import java.util.HashMap;
 
 public class WordCounter {
-  private Map wordCount;
+  private Map<String, Integer> wordCount;
   public WordCounter(String[] text) {
-    wordCount = new HashMap();
+    wordCount = new HashMap<>();
   }
   public int getWordCount(String word) {
     return 0;
