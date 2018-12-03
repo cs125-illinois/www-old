@@ -91,16 +91,6 @@ expected and we plan to deal with them.
 collisions should _never happen_ and the world will end if they do. (Or at least
 `git` will stop working and my world will end.)
 
-[[cHacVvUBZzcwEmeEgKdgTPnsTLAGisUK]]
-== ! Example Small Hash
-
-[.janini.smallest]
-....
-public static byte hash(int[] input) {
-  return 0 % 16;
-}
-....
-
 [[CGYzkTirBBEMdBbcQGsUlgiZESQckfNw]]
 == The Birthday Paradox
 
@@ -297,23 +287,24 @@ image::http://math.hws.edu/javanotes/c10/hash-table.png[role='mx-auto', width=50
 
 [.janini.compiler.smallest]
 ....
-public class Item {
-  public Object key;
-  public Object value;
-  public Item next;
-  Item(Object setKey, Object setValue, Item setNext) {
-    this.key = setKey;
-    this.value = setValue;
-    this.next = setNext;
-  }
-}
 public class HashMap {
-  private Item[] items = new Item[16];
+  private static final int TABLE_SIZE = 16;
+  class Item {
+    public Object key;
+    public Object value;
+    public Item next;
+    Item(Object setKey, Object setValue, Item setNext) {
+      key = setKey;
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item[] items = new Item[TABLE_SIZE];
   public int itemCount = 0;
   private int hash(Object key) {
-    int hashValue = key.hashCode() % 16;
+    int hashValue = key.hashCode() % TABLE_SIZE;
     if (hashValue < 0) {
-      hashValue += 16;
+      hashValue += TABLE_SIZE;
     }
     return hashValue;
   }
@@ -502,6 +493,15 @@ hashing the value that you gave me
 //
 * Alice: "Wow, you're right. I computed the hash and it's
 `39c3aa4015e7964914c311915316a2f78157c946` that must have been hard."
+
+[[guRSGeBImDPQydnsrPLxWGdCcxlgidXd]]
+== Blockchain Proof of Work
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://en.bitcoin.it/wiki/Proof_of_work"></iframe>
+</div>
+++++
 
 [[qGSmwzyNQfEsKimoddEsPTmTCROlLAfV]]
 [.oneword]
