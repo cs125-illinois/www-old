@@ -1,0 +1,203 @@
+---
+title: Generics
+date: 2018-12-05
+description:
+  Wrap up of hashing and a discussion of how to program with Java generics.
+draft: true
+---
+:imagesdir: /learn/images
+
+[[dCpHsyaBAaBpgNerMebmXnqvbeSuiedh]]
+== !
+
+[.janini.jdk.compiler.smaller]
+--
+++++
+<div class="message">Generics</div>
+++++
+....
+import java.util.List;
+import java.util.ArrayList;
+
+public class LastTen<T> {
+  private List<T> values = new ArrayList<>(10);
+  private int currentIndex = 0;
+  LastTen() {
+    for (int i = 0; i < 10; i++) {
+      values.add(i, null);
+    }
+  }
+  public void add(T newValue) {
+    values.set(currentIndex, newValue);
+    currentIndex = (currentIndex + 1) % 10;
+  }
+  public List<T> get() {
+    return values;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LastTen<String> lastTen = new LastTen<>();
+    for (int i = 0; i < 30; i++) {
+      lastTen.add("foo" + i);
+    }
+    System.out.println(lastTen.get());
+  }
+}
+....
+--
+
+[[BFsbQonOROfQfifbDIJlLLgeMhdrjZBu]]
+== Review: Crytographic Hash Function
+
+Hash functions already provide:
+
+[.small]
+//
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* [.line-through]#*Efficiency*: it is efficient to compute.#
+
+But what if there were hash functions with the following _new_ properties:
+
+[.s.small]
+//
+* Given the hash, it is _infeasible_ to determine the original input
+//
+* A small change to the input produces a _large_ change in the output
+//
+* The function is _difficult_ to compute, not easy
+
+[[ahHxfzfBcLQvvuWqeAEfuFsGFcjqWsMQ]]
+== Cryptographic Hash Functions
+
+[.lead]
+//
+A hash function that satisfies these properties is known as a _cryptographic
+hash function_, largely because they are ubiquitous in modern cryptography.
+
+[[PdxviDVjqwEyJNsBsEAQRzzhphhYRviR]]
+== A Simple Example
+
+[.lead]
+//
+I need to be able to check your password, but I don't want to save it.
+//
+*Is that possible?*
+
+[.s.small]
+//
+* *Yes!*
+//
+* Save the cryptographic hash of your password, not the password itself.
+//
+* When you submit your password, I hash it and compare it with the saved hash.
+//
+* If someone steals my database, they can't recover the original passwords.
+//
+** Given the hashes, you can't recover the original passwords
+//
+** Hash values reveal nothing about how close you are to the actual password
+//
+** Hashing inputs to test them is expensive
+
+[[sqifxqIMMsbqDxLiLedePYbVGYpYDhzx]]
+== A Modern Example
+
+[.lead]
+//
+Heard of blockchain?
+
+Blocks are linked through _cryptographic hashes_.
+//
+And the blockchain is secured through an old idea called
+//
+https://en.wikipedia.org/wiki/Hashcash[Hashcash].
+
+[.s]
+//
+* Given a hash value of a given size, I can estimate how much work you'll have
+to do to guess the input that produced that value
+//
+* So I can force you to do that work and verify that you did it easily by
+hashing the value that you gave me
+
+[[gRZDKTXJypxDiTAoVSSwTfZOMUNyUxCG]]
+== Hashcash Example
+
+[.s]
+//
+* Alice: "Here's a challenge for you Bob, find an input that produces hash
+`39c3aa4015e7964914c311915316a2f78157c946`.
+* Bob: "Geez, that's hard. Give me a few minutes... OK, got it."
+//
+* Alice: "Wow, you're right. I computed the hash and it's
+`39c3aa4015e7964914c311915316a2f78157c946` that must have been hard."
+
+[[guRSGeBImDPQydnsrPLxWGdCcxlgidXd]]
+== Blockchain Proof of Work
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://en.bitcoin.it/wiki/Proof_of_work"></iframe>
+</div>
+++++
+
+[[qGSmwzyNQfEsKimoddEsPTmTCROlLAfV]]
+[.oneword]
+//
+== Unintended Consequences
+
+Hashcash was intended to help fight spam. Now it's the reason that Bitcoin
+mining
+//
+https://www.nytimes.com/2018/01/21/technology/bitcoin-mining-energy-consumption.html[is
+ruining the planet].
+
+[[aGqRxSJOrbpxveHPtfUbwZvbJQMzOGnp]]
+== And, Beautiful Theory
+
+[quote]
+____
+In computer science, a
+//
+https://en.wikipedia.org/wiki/One-way_function[one-way function]
+//
+is a function that is easy to compute on every input, but hard to invert given
+the function's output for a random input.
+
+*The existence of such one-way functions is still an open conjecture.*
+//
+In fact, their existence would prove that the complexity classes P and NP are
+not equal, thus resolving the foremost unsolved question of theoretical computer
+science.
+//
+____
+
+[[jXRuKfHWdQnxhqBYQQVMOPSJlRrttssh]]
+[.oneword]
+//
+== Questions About Hashing?
+
+[[NatQECjiehpGWjBTDhWNjopXkXVqFVZq]]
+== Announcements
+
+* Your first link:/MP/6/[final project checkpoint is in lab this week].
+//
+* I have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
+//
+Please stop by!
+//
+* Remember to provide feedback on the course using the
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form].
+//
+* I've started to respond to existing feedback
+//
+https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+
+// vim: ts=2:sw=2:et
