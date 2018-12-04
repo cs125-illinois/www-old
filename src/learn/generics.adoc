@@ -3,7 +3,12 @@ title: Generics
 date: 2018-12-05
 description:
   Wrap up of hashing and a discussion of how to program with Java generics.
-draft: true
+spelling_exceptions:
+  - blockchain
+  - Geez
+  - SHA
+  - Hashcash
+  - generifying
 ---
 :imagesdir: /learn/images
 
@@ -48,7 +53,7 @@ public class Example {
 --
 
 [[BFsbQonOROfQfifbDIJlLLgeMhdrjZBu]]
-== Review: Crytographic Hash Function
+== Cryptographic Hash Function
 
 Hash functions already provide:
 
@@ -182,6 +187,313 @@ ____
 [.oneword]
 //
 == Questions About Hashing?
+
+[[aPkedSJgDzeujqwbdAasRSTZJjBMUVbF]]
+== Java Generics
+
+[.lead]
+//
+Lists and maps are the two data structures you meet in heaven.
+//
+Together you can use them to solve almost any problem.
+
+But you'll usually use Java`s built-in implementations.
+
+[source,java,role='smaller']
+----
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();
+Map map = new HashMap();
+Map anotherMap = new TreeMap();
+----
+
+[[VazQjvfefhYtQVZbbAfnIinPqkOhFcuL]]
+== ! Bare ``ArrayList``s and ``HashMap``s
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List list = new ArrayList();
+    // What goes in is a string...
+    list.add("string");
+    // But what comes out is an Object
+    String s = list.get(0);
+    // We can downcast this, but that's not safe
+
+    Map map = new HashMap();
+    // Keys and values can be any Java object...
+    map.put("key", 8);
+    // But what comes out is an Object
+    Integer i = map.get("key");
+    // We can downcast this, but that's (still) not safe
+  }
+}
+....
+
+[[CfhXqjfTVWkvvUQsiviIgULshCtvBoql]]
+== Compiler Errors v. Runtime Errors
+
+[.lead]
+//
+Java and many languages that followed it have tried to transform _runtime_
+errors into _compiler_ errors.
+//
+*Why?*
+
+[.s]
+//
+* You compile your code _before_ it runs: and so before you have to demo it to a
+client, or before you deploy it to hundreds of users.
+//
+* Catching errors at this stage is _critical_.
+
+[[CAmWlXhrXPgQfqJnzxuEyMbiMZcmBlDK]]
+== Generics
+
+[.lead]
+//
+Java generics allow us to create reusable classes while allowing the compiler to
+check our code for correctness.
+
+Type parameters tell the compiler what we are going to do with each data
+structure.
+
+[source,java,role='smaller']
+----
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+List<Integer> integerlist = new ArrayList<>(); // This is list of Integers
+Map<Integer, String> = new HashMap<>(); // This maps Integers to Strings
+----
+
+[[icfvQmfITTojvuLTENxWELDeeUJPWeWO]]
+== ! Generic ``ArrayList``s
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List<String> list = new ArrayList<>();
+    // What goes in is a string...
+    list.add("string");
+    // What comes out is a string
+    String s = list.get(0);
+    // I can't add Objects that aren't Strings or don't descend from String
+    list.add(new Integer(10));
+
+    Map<String, Integer> map = new HashMap<>();
+    // The compiler can check my mappings...
+    map.put("key", 8);
+    // And cast what comes out safely for me
+    Integer i = map.get("key");
+    // I can't add invalid mappings
+    map.put(8, 10);
+  }
+}
+....
+
+[[xeDYzlBEYAuWmiyunissqSphJYPGdfRN]]
+== ! Generics In Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/Map.html"></iframe>
+</div>
+++++
+
+[[ufnapiBBDPHnqhSKjaQWNGdfyDcOWJVS]]
+[.oneword]
+//
+== Generifying Your Classes
+
+[.lead]
+//
+So we know how to use existing generic class.
+//
+But how do we provide our own?
+
+[[gshanQpcjpeifKipeXsEwdwgrcRXdvee]]
+== Class Type Parameters
+
+[.lead]
+//
+First, we have to declare our class to accept _type parameters_:
+
+[source,java]
+----
+// T is a type parameter that can be used throughout our class
+public class SimpleLinkedList<E> {
+  // get returns a reference of type E
+  public E get(int index) {
+  }
+  // set takes a reference of type T as its second argument
+  public void set(int index, E value) {
+  }
+}
+----
+
+[[PmTBHbqtdzEwfOnTUNQqNLKNbdNtCnsc]]
+== Parameters Are Not Variables
+
+[.lead]
+//
+Class parameters _are not_ variables.
+
+I can use them where I would normally provide a type, but I can't get or set
+their values.
+
+[source,java]
+----
+public class SimpleLinkedList<E> {
+  // I can use the parameter here as a return type...
+  public E get(int index) {
+    E = String; // But I can't do something like this
+  }
+}
+----
+
+[[yFUOEpPuuncaCyOreneyqcdTWzAeDgTn]]
+== Compiling Generic Classes
+
+[.lead]
+//
+To help understand how generics work you can imagine the compiler rewriting them
+when it compiles your code.
+
+[[nIOLajpCRkeiqzqdfVGABscHwBcJsFPJ]]
+[.ss]
+//
+== Original and Rewritten Class
+
+[source,java,role='smallest']
+----
+public class List<E> {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List<String> list = new List<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class List {
+  public String get(int i) {
+  }
+  public void set(int i, String value) {
+  }
+}
+List list = new List<>();
+----
+
+[[rjGEMqeTIbLcWeCtNxiOeLLUdiZedeEI]]
+[.ss]
+//
+== Original and Rewritten Class
+
+[source,java,role='smallest']
+----
+public class List<E> {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List<Integer> list = new List<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class List {
+  public Integer get(int i) {
+  }
+  public void set(int i, Integer value) {
+  }
+}
+List list = new List<>();
+----
+
+[[PIyilhvdeQiJwljjSFmLVauXiVUleFhn]]
+== Type Erasure
+
+[.lead]
+//
+**Note that this is not actually what happens.**
+
+[.s]
+//
+* The compiler only creates _one_ instance of each generic class
+//
+* Type information is used during compilation to check access but then
+_erased_
+//
+* But this isn't a bad mental model of how generics work in practice
+
+[[OrueWINOdsdAZvLfddaaMKJoRgIuUxJS]]
+== Multiple Type Parameters
+
+[.lead]
+//
+Classes can use one or several type parameters:
+
+[source,java]
+----
+// This is a generic list storing elements of type T
+public class SimpleLinkedList<T> { }
+
+// This is a generic map mapping elements of type K to type V
+public class SimpleMap<K,V> { }
+----
+
+[[drYDduyVUSIMCAtgQvtfToxfemixBIsy]]
+== Parameter Naming Conventions
+
+[.lead]
+//
+To avoid confusing type parameters with variable names or other keywords, Java
+has established conventions for naming them.
+
+[.s.small]
+//
+* **By convention** type names are single uppercase letters: `T`, `K`, `V`, `E`,
+etc.
+//
+* Note that this is just a convention: it's not enforced by the compiler
+//
+* Certain type parameters have conventional meanings:
+//
+** `E` for element (which we'll use for our lists)
+//
+** `K` for key and `V` for value, (which we'll use for our maps)
+//
+** `N` for a number
 
 [[NatQECjiehpGWjBTDhWNjopXkXVqFVZq]]
 == Announcements
