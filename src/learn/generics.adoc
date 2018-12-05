@@ -385,7 +385,7 @@ when it compiles your code.
 [[nIOLajpCRkeiqzqdfVGABscHwBcJsFPJ]]
 [.ss]
 //
-== Original and Rewritten Class
+== Original and Rewritten List
 
 [source,java,role='smallest']
 ----
@@ -414,7 +414,7 @@ List list = new List<>();
 [[rjGEMqeTIbLcWeCtNxiOeLLUdiZedeEI]]
 [.ss]
 //
-== Original and Rewritten Class
+== Original and Rewritten List
 
 [source,java,role='smallest']
 ----
@@ -495,14 +495,596 @@ etc.
 //
 ** `N` for a number
 
+[[axHmNRJzTadAmepLanZWLuHzdffndwnf]]
+[.ss]
+//
+== Original and Rewritten Map
+
+[source,java,role='smallest']
+----
+public class Map<K, V> {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map<String, Double> map = new Map<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class Map {
+  public Double get(String key) {
+  }
+  public void put(String key, Double val) {
+  }
+}
+Map map = new Map();
+----
+
+[[eYOiAiRGjSSJrWYBWRwbfOwipdpennhD]]
+[.ss]
+//
+== Original and Rewritten Map
+
+[source,java,role='smallest']
+----
+public class Map<K, V> {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map<Integer, String> map = new Map<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class Map {
+  public String get(Integer key) {
+  }
+  public void put(Integer key, String val) {
+  }
+}
+Map map = new Map();
+----
+
+
+[[uAusintTCqeDSeGJzQzEfhxebKxeSdZk]]
+== ! Generifying SimpleLinkedList
+
+[.janini.jdk.smallest.compiler]
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private int currentSize;
+
+  public SimpleLinkedList() { }
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+      currentSize++;
+      return;
+    }
+    Item previousItem = getItem(index - 1);
+    if (previousItem == null) {
+      return;
+    }
+    Item newItem = new Item(toAdd, previousItem.next);
+    previousItem.next = newItem;
+    currentSize++;
+  }
+
+  public Object remove(int index) {
+    Object toReturn;
+    if (index == 0) {
+      toReturn = start;
+      start = start.next;
+      return toReturn;
+    }
+    Item previousItem = getItem(index - 1);
+    toReturn = previousItem.next;
+    previousItem.next = previousItem.next.next;
+    return toReturn;
+  }
+
+  public Object get(int index) {
+    Item item = getItem(index);
+    if (item == null) {
+      return null;
+    } else {
+      return item.value;
+    }
+  }
+
+  public void set(int index, Object toSet) {
+    Item item = getItem(index);
+    if (item != null) {
+      item.value = toSet;
+    }
+  }
+
+  public int size() {
+    return currentSize;
+  }
+
+  protected Item getItem(int index) {
+    if (index < 0 || index >= currentSize) {
+      return null;
+    }
+    int currentIndex = 0;
+    for (Item current = start; current != null; current = current.next) {
+      if (currentIndex == index) {
+        return current;
+      }
+      currentIndex++;
+    }
+    return null;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleList = new SimpleLinkedList();
+    for (int i = 0; i < 10; i++) {
+      simpleList.add(0, i);
+    }
+    System.out.println(simpleList.size());
+    for (int i = 0; i < 5; i++) {
+      simpleList.remove(i);
+    }
+    System.out.println(simpleList.get(0));
+  }
+}
+....
+
+[[qexqAkkifuIXasHnUyVKnZUKPHXMJDhs]]
+[.oneword]
+//
+== Questions So Far?
+
+Because it's about to get more interesting...
+
+[[AjzHJAjSLdiqNLruXOGHOnHrnxuAuDeW]]
+== ! Max Example
+
+[.janini.jdk.compiler.smaller]
+....
+public class Max {
+  private Integer[] values;
+  Max(Integer[] setValues) {
+    values = setValues;
+  }
+  public Integer max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    Integer currentMax = values[0];
+    for (int i = 1; i < values.length; i++) {
+      if (values[i] > currentMax) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max max = new Max(new Integer[] { 1, 2, 5 });
+    System.out.println(max.max());
+  }
+}
+....
+
+[[CNStHcEuMtLuLZNrRDHnHTfWoQKLaFOc]]
+== Bounded Type Parameters
+
+[.lead]
+//
+The compiler knows all about the relationship between different types, and so it
+can help us ensure that our generic classes receive appropriate type parameters.
+
+[.s]
+//
+* `<T extends S>`: type `T` extends class `S` _or_ implements interface `S`
+//
+* `<T extends S & U & V>`: type `T` extends _or_ implements `S`, `U`, and `V`
+
+[[NBwNwCLFtuvIOmBTFniwQfGjqxGIilgM]]
+== ! Sum Example
+
+[.janini.jdk.compiler.smaller]
+....
+public class Max<T> {
+  private T[] values;
+  Max(T[] setValues) {
+    values = setValues;
+  }
+  public T max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    T currentMax = values[0];
+    for (int i = 1; i < values.length; i++) {
+      if (values[i].compareTo(currentMax) > 0) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max<Integer> max = new Max<>(new Integer[] { 1, 2, 5 });
+    System.out.println(max.max());
+  }
+}
+....
+
+[[acJMdhJiXZbEnbTuUrdAXwOliHuicqON]]
+== Generic Interfaces
+
+[.lead]
+//
+Just like classes, interface definitions can use type parameters:
+
+[source,java]
+----
+public interface SimpleList<E> {
+  public E get(int index);
+  public void set(int index, E element);
+  public void add(int index, E element);
+  public E remove(int index);
+  public int size();
+}
+----
+
+[[euuZHusAeuacnfuZfcSNltmMoMlPTQzB]]
+== ! SimpleLinkedList Extends Generic Interface
+
+[.janini.jdk.smallest.compiler]
+....
+public interface SimpleList<E> {
+  public E get(int index);
+  public void set(int index, E element);
+  public void add(int index, E element);
+  public E remove(int index);
+  public int size();
+}
+public class SimpleLinkedList<E> implements SimpleList<E> {
+  class Item {
+    E value;
+    Item next;
+    Item(E setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private int currentSize;
+
+  public SimpleLinkedList() { }
+
+  public SimpleLinkedList(E[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+
+  public void add(int index, E toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+      currentSize++;
+      return;
+    }
+    Item previousItem = getItem(index - 1);
+    if (previousItem == null) {
+      return;
+    }
+    Item newItem = new Item(toAdd, previousItem.next);
+    previousItem.next = newItem;
+    currentSize++;
+  }
+
+  public E remove(int index) {
+    E toReturn;
+    if (index == 0) {
+      toReturn = start.value;
+      start = start.next;
+      return toReturn;
+    }
+    Item previousItem = getItem(index - 1);
+    toReturn = previousItem.next.value;
+    previousItem.next = previousItem.next.next;
+    return toReturn;
+  }
+
+  public E get(int index) {
+    Item item = getItem(index);
+    if (item == null) {
+      return null;
+    } else {
+      return item.value;
+    }
+  }
+
+  public void set(int index, E toSet) {
+    Item item = getItem(index);
+    if (item != null) {
+      item.value = toSet;
+    }
+  }
+
+  public int size() {
+    return currentSize;
+  }
+
+  protected Item getItem(int index) {
+    if (index < 0 || index >= currentSize) {
+      return null;
+    }
+    int currentIndex = 0;
+    for (Item current = start; current != null; current = current.next) {
+      if (currentIndex == index) {
+        return current;
+      }
+      currentIndex++;
+    }
+    return null;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleList = new SimpleLinkedList();
+    for (int i = 0; i < 10; i++) {
+      simpleList.add(0, i);
+    }
+    System.out.println(simpleList.size());
+    for (int i = 0; i < 5; i++) {
+      simpleList.remove(i);
+    }
+    System.out.println(simpleList.get(0));
+  }
+}
+....
+
+[[gBphzendXgwuWEZtZhRkrXYNYuseXjKN]]
+== ! Max Example
+
+[.janini.jdk.compiler.smaller]
+....
+public class Max<T extends Comparable> {
+  private T[] values;
+  Max(T[] setValues) {
+    values = setValues;
+  }
+  public T max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    T currentMax = values[0];
+    for (int i = 1; i < values.length; i++) {
+      if (values[i].compareTo(currentMax) > 0) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max max = new Max(new Integer[] { 1, 2, 5 });
+    System.out.println(max.max());
+  }
+}
+....
+
+[[eGnIkyHdLiXKxjLLaJTeZnUzetkwHOfn]]
+== Generic Gotchas
+
+[.lead]
+//
+I've elided many of the details of working with generics.
+//
+Review
+//
+https://docs.oracle.com/javase/tutorial/java/generics/index.html[the official
+documentation]
+//
+to learn more.
+
+But here's one of the more obvious things that doesn't work the way you'd want:
+
+[source,java]
+----
+public class LastTen<T> {
+  private T[] values;
+  private List<T> listOfValues;
+  LastTen() {
+    value = new T[10]; // You can't create an array of a generic type
+    // As a solution you can use a collection type like a list
+    listOfValues = new ArrayList<T>(); // This works
+  }
+}
+----
+
+[[UPAPOWEeeKidMowTCCjoibyydGiiZGUf]]
+== ! Generic `LastTen`
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+
+public class LastTen<T> {
+  private List<T> values = new ArrayList<>(10);
+  private int currentIndex = 0;
+  LastTen() {
+    for (int i = 0; i < 10; i++) {
+      values.add(i, null);
+    }
+  }
+  public void add(T newValue) {
+    values.set(currentIndex, newValue);
+    currentIndex = (currentIndex + 1) % 10;
+  }
+  public List<T> get() {
+    return values;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LastTen<String> lastTen = new LastTen<>();
+    for (int i = 0; i < 30; i++) {
+      lastTen.add("foo" + i);
+    }
+    System.out.println(lastTen.get());
+  }
+}
+....
+
+[[uMnbIPzTufFEHnvuXezGuoQWziZdYXxm]]
+[.oneword]
+//
+== Questions About Generics?
+
+[[QMnpLBhmSfuaDcVcmhNuOtYHGFWVdsfT]]
+== ! Generifying HashMap
+
+[.janini.compiler.jdk.smallest]
+....
+public class HashMap {
+  private static final int TABLE_SIZE = 16;
+  class Item {
+    public Object key;
+    public Object value;
+    public Item next;
+    Item(Object setKey, Object setValue, Item setNext) {
+      key = setKey;
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item[] items = new Item[TABLE_SIZE];
+  public int itemCount = 0;
+  private int hash(Object key) {
+    int hashValue = key.hashCode() % TABLE_SIZE;
+    if (hashValue < 0) {
+      hashValue += TABLE_SIZE;
+    }
+    return hashValue;
+  }
+  public void put(Object key, Object value) {
+    int bucket = hash(key);
+    Item current = items[bucket];
+    for (; current != null; current = current.next) {
+      if (current.key.equals(key)) {
+        current.value = value;
+        return;
+      }
+    }
+    Item newItem = new Item(key, value, items[bucket]);
+    items[bucket] = newItem;
+    itemCount++;
+    return;
+  }
+  public Object get(Object key, Object value) {
+    int bucket = hash(key);
+    Item current = items[bucket];
+    for (; current != null; current = current.next) {
+      if (current.key.equals(key)) {
+        return current.value;
+      }
+    }
+    return null;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    HashMap ourHashMap = new HashMap();
+    ourHashMap.put("test", "me");
+    System.out.println(ourHashMap.itemCount);
+    ourHashMap.put("test", "another");
+    System.out.println(ourHashMap.itemCount);
+  }
+}
+....
+
+[[qspXdnnnPMrHPIZooCVmfOAwPMtAqefr]]
+== Midterm 2
+
+[.lead]
+//
+The third and final midterm starts on **Saturday**.
+
+[.s]
+//
+* The focus is data structures and algorithms, but completing the programming
+questions will require both imperative and object-oriented programming
+//
+* There are four programming problems together worth 60 points. Most have
+partial credit.
+//
+* Our final midterm represents your more sophisticated set of programming tasks
+yet.
+//
+* (My goal is to irritate you before you complete the course evaluations...)
+
+[[PveideRkgiIGNisIczvYRBpdILPqoFlL]]
+== Midterm 2 Problems
+
+[.lead]
+//
+As always, the best way to review for the midterm is to review the practice
+homework problems.
+
+Midterm 2 consists of four programming tasks:
+
+[.s]
+//
+* One question on lists that is very similar to a homework problem
+//
+* One question on trees that is very similar to a homework problem
+//
+* One question on sorting **that is directly drawn from the homework**
+//
+* A final question that I'm not going to say more about
+
+[[jmNDeZXUdennBYdbVPnnJdeHyiRSidrS]]
+== Next Few Classes
+
+[.s]
+//
+* **Friday**: concurrency and a bit about hardware
+//
+* **Monday**: streams and functional Java
+//
+* **Wednesday**: wrap up and ICES forms
+
 [[NatQECjiehpGWjBTDhWNjopXkXVqFVZq]]
 == Announcements
 
 * Your first link:/MP/6/[final project checkpoint is in lab this week].
 //
-* I have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
-//
-Please stop by!
+* **No office hours today.** (I'm not feeling well.)
 //
 * Remember to provide feedback on the course using the
 //
