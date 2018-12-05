@@ -9,6 +9,7 @@ spelling_exceptions:
   - SHA
   - Hashcash
   - generifying
+  - HBGary
 ---
 :imagesdir: /learn/images
 
@@ -110,8 +111,29 @@ I need to be able to check your password, but I don't want to save it.
 //
 ** Hashing inputs to test them is expensive
 
+[[ftekiIkwjKDBRIAPKfeeeZroLcenjgfG]]
+== HBGary Hack
+
+[.lead]
+//
+Note that this does not mean that simply storing hashed password is safe,
+particularly if your users don't choose good passwords.
+
+[.s]
+//
+* For a great description of a sophisticated security breach using several
+different techniques,
+//
+https://arstechnica.com/tech-policy/2011/02/anonymous-speaks-the-inside-story-of-the-hbgary-hack/[read
+this article]
+//
+* **Note that I am in no way condoning the actions of Anonymous in this case**
+//
+* But reading about what HBGary did wrong can help you avoid similar mistakes,
+and understand a bit more about computer security and hashing
+
 [[sqifxqIMMsbqDxLiLedePYbVGYpYDhzx]]
-== A Modern Example
+== Another Example
 
 [.lead]
 //
@@ -282,6 +304,23 @@ import java.util.HashMap;
 List<Integer> integerlist = new ArrayList<>(); // This is list of Integers
 Map<Integer, String> = new HashMap<>(); // This maps Integers to Strings
 ----
+
+[[HsFQlSwEtyfFNiuOFdOsVftCdsCHdLrh]]
+== Generic Rationale
+
+[.lead]
+//
+Java generics allow to combine two desirable features of the language:
+
+[.s]
+//
+* **Polymorphism**: because every object inherits from `Object` it is easy to
+build general purpose data structures that can operate on every Java object
+//
+* **Type Checking**: however, upcasting everything to `Object` makes it
+impossible for the compiler to perform compile-time type checking
+//
+* Generics are intended to allow us to have the best of both worlds
 
 [[icfvQmfITTojvuLTENxWELDeeUJPWeWO]]
 == ! Generic ``ArrayList``s
