@@ -1,0 +1,75 @@
+---
+title: Functional Java
+date: 2018-12-10
+description:
+  A brief introduction to functional programming and functional programming in
+  Java.
+---
+:imagesdir: /learn/images
+
+[[cVYJkioOndXzyGmpBiGYyhNUfVqtkfNB]]
+== !
+
+[.janini.jdk.compiler.smaller]
+--
+++++
+<div class="message">Functional Java</div>
+++++
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  Dog(int setAge) {
+    age = setAge;
+  }
+  int getAge() {
+    return age;
+  }
+}
+interface DogAge {
+  Integer apply(Dog dog);
+}
+public class Example {
+  public static List<Integer> getAges(List<Dog> dogs, DogAge f) {
+    List<Integer> ages = new ArrayList<>();
+    for (Dog dog : dogs) {
+      ages.add(f.apply(dog));
+    }
+    return ages;
+  }
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] { new Dog(10), new Dog (12) }));
+    System.out.println(getAges(dogs, dog -> dog.getAge()));
+  }
+}
+....
+--
+
+[[DhdBPtMBcilVmdfiEmTtogvnnsmnLxeb]]
+== Final Project Fair Details
+
+[.s]
+//
+* **Thursday AM**: you'll receive an email telling you what room to demo in.
+//
+* **4:45PM**: setup throughout Siebel.
+//
+* **5&ndash;7:45PM**: demos and judging.
+//
+* **8PM**: awards and wrap-up _in Foellinger_. (Yes, you have to walk. No, it's
+not far.)
+
+[[KneqveyMmSXhRZTYjQfJHddwcUySFMiH]]
+== Announcements
+
+* My office hours continue today from 10AM&ndash;12PM in Siebel 2227.
+//
+Please stop by! It's not too late. I'd still love to meet you if we haven't already.
+//
+* We're grading your final project in lab this week and selecting the best to
+feature in this week's final project fair.
+
+// vim: ts=2:sw=2:et

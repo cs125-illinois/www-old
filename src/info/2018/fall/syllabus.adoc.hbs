@@ -1,9 +1,9 @@
 ---
-title: "CS 125 Spring 2019 Syllabus"
+title: "CS 125 Fall 2018 Syllabus"
 description: >
   Syllabus for "CS 125: Introduction to Computer Science" at the University of
-  Illinois in Spring 2019.
-priority: 0.9
+  Illinois in Fall 2018.
+priority: 0.1
 datatables:
   labtable:
     pageLength: 5
@@ -14,6 +14,12 @@ spelling_exceptions:
   - CS 196
   - Grainger
   - omelete
+outdated:
+  name: syllabus
+  current: /info/syllabus/
+internalize:
+  force: true
+  recheckDays: never
 ---
 
 :sectnums:
@@ -29,15 +35,6 @@ This web page serves as the syllabus for the course.
 
 You should familiarize yourself with these policies and refer to them when
 necessary.
---
-
-[.alert.alert-warning]
---
-**Note that content here is subject to change until class begins on 1/14/2019.**
-//
-Please review the syllabus again during the first week of the Spring 2019 to
-view a more final draft.
-//
 --
 
 [[overview]]
@@ -291,26 +288,17 @@ many (many) office hours footnote:[the more, the better!].
 
 Lectures are taught by Geoffrey Challen.
 //
-////
 Labs are led by the link:/info/people/#tas[{{
-course.Spring2019.staffByRole.TA.length }} TAs],
+course.Fall2018.staffByRole.TA.length }} TAs],
 //
 and office hours are staffed by the TAs and our link:/info/people/#cas[_{{
-course.Spring2019.staffByRole.assistant.length }}_ course assistants].
+course.Fall2018.staffByRole.assistant.length }}_ course assistants].
 //
 We also have link:/info/people/#developers[{{
-course.Spring2019.staffByRole.developer.length }} course developers] hacking away
-furiously to improve our course materials, tools, and infrastructure.
+course.Fall2018.staffByRole.developer.length }} course developers] hacking
+away furiously to improve our course materials, tools, and infrastructure.
 //
-////
-Labs are led by the TAs,
-//
-and office hours are staffed by the TAs and our course assistants.
-//
-We also have course developers hacking away furiously to improve our course
-materials, tools, and infrastructure.
-//
-You can find out more about the staff on the link:/info/people/[people
+You can find out more about the entire staff on the link:/info/people/[people
 page].
 
 [[calendar]]
@@ -338,11 +326,25 @@ other events that are relevant to the entire class.
 
 === Lectures
 
-This spring lectures are being held Monday, Wednesday, and Friday from
-10&ndash;10:50AM in
+This fall lectures are being held Monday, Wednesday, and Friday from
+9&ndash;9:50AM in
 //
-https://en.wikipedia.org/wiki/Lincoln_Hall_(University_of_Illinois)[beautiful
-and historic Lincoln Hall].
+https://en.wikipedia.org/wiki/Foellinger_Auditorium[beautiful and historic
+Foellinger Auditorium]
+//
+footnote:[I'm honored to take the same stage where
+//
+http://www.joanbaez.com/[Joan Baez],
+//
+http://wilcoworld.net/[Wilco],
+//
+http://www.jmonae.com/[Janelle Monae],
+//
+and
+//
+https://en.wikipedia.org/wiki/Foellinger_Auditorium#Events[other musical greats]
+//
+have perfomed.].
 //
 *Please attend and participate in lecture!*
 //
@@ -369,14 +371,13 @@ You
 link:#participation[will not receive credit for participation in the wrong
 lab].
 
-////
 [[labtable]]
 [.small.table.table-sm.colgroup.datatables.spelling_exception,cols="^1,^1,^1,^2,^4,^4,^4",options="header"]
 |===
 
 | &nbsp; | &nbsp; | Days | Time | Location | TAs | Assistants
 
-{{#each course.Spring2019.timesByType.lab }}
+{{#each course.Fall2018.timesByType.lab }}
 
 | {{ @index }}
 | {{ this.section }}
@@ -389,22 +390,18 @@ lab].
 {{/each}}
 
 |===
-////
 
 [[hours]]
 === Office Hours
 
-////
 Office hours are held by our
 //
-link:/info/people/#cas[_{{ course.Spring2019.staffByRole.assistant.length }}_
+link:/info/people/#cas[_{{ course.Fall2018.staffByRole.assistant.length }}_
 course assistants]
 //
 and our
 //
-link:/info/people/#tas[{{ course.Spring2019.staffByRole.TA.length }} TAs].
-////
-Office hours are staffed by our course assistants and TAs.
+link:/info/people/#tas[{{ course.Fall2018.staffByRole.TA.length }} TAs].
 //
 They are on the link:#calendar[calendar] and pretty much all day every day,
 except for Tuesday and Wednesday when we're busy with labs.
@@ -457,7 +454,7 @@ Feel free to talk to the course staff if you want tips.
 
 As a student in CS 125 *you are responsible for messages posted in the
 //
-https://cs125-forum.cs.illinois.edu/c/spring-2019-announcements[announcements
+https://cs125-forum.cs.illinois.edu/c/fall-2018-announcements[announcements
 category of the forum,role='noexternal'].*
 //
 These announcements are important and we will frequently post in this category
@@ -570,10 +567,13 @@ Your total score in CS 125 is broken down as follows:
 ^| 40%
 
 | <<homework, Homework>>
-^| 20%
+^| 10%
 
-| <<quizzes, Weekly Quizzes and Midterms>>
-^| 30%
+| <<quizzes, Weekly Quizzes>>
+^| 25%
+
+| <<midterms, Three Midterms>>
+^| 15% (5% each)
 
 | <<participation, Lab Participation>>
 ^| 5%
@@ -586,9 +586,9 @@ Your total score in CS 125 is broken down as follows:
 These weights are designed to reflect the amount of time that students spend on
 each part of the class.
 //
-They are also divided between points earned in controlled environments
+They are also evenly balanced between points earned in controlled environments
 //
-(<<quizzes, quizzes and midterms>>, <<participation, participation>>)
+(<<quizzes, quizzes>>, <<midterms, midterms>>, <<participation, participation>>)
 //
 and uncontrolled environments (<<mps, MPs>> and <<homework, homework>>).
 //
@@ -627,12 +627,17 @@ The table below summarizes the drop policy for course component:
 | <<homework, Homework Problems>>
 ^| 10%
 ^| 64
-^| 8
+^| 14
 
-| <<quizzes, Weekly Quizzes and Midterms>>
-^| 30%
+| <<quizzes, Weekly Quizzes>>
+^| 25%
 ^| 12
-^| 2 quizzes, 0 midterms
+^| 3
+
+| <<midterms, Midterms>>
+^| 15%
+^| 3
+^| *0*
 
 | <<participation, Lab Participation>>
 ^| 5%
@@ -650,7 +655,7 @@ So, for example, we will assign **8** MPs and drop your lowest **1** score.
 //
 We will track participation in **15** labs and drop your lowest **3** scores.
 //
-We will assign **64** homework problems and drop your lowest **8** scores.
+We will assign **50** homework problems and drop your lowest **10** scores.
 
 === Estimating Your Letter Grade
 
@@ -797,7 +802,7 @@ link:/m/grades/MPs[here].
 But you won't want to, because grading is generous, and the fair is huge fun.
 
 [[homework]]
-== Homework [.text-muted]#(20%)#
+== Homework [.text-muted]#(10%)#
 
 This semester will be frequently posting small programming problems on
 https://goo.gl/r9QTxn[PrairieLearn].
@@ -837,28 +842,28 @@ Before starting the homework you will need to log on to
 //
 https://prairielearn.engr.illinois.edu/pl[PrairieLearn]
 //
-with your `@illinois.edu` email address and join the CS 125 Spring 2019 course.
+with your `@illinois.edu` email address and join the CS 125 Fall 2018 course.
 //
 Access to the homework is unrelated to forum access and you can begin work on
 the homework as soon as you register.
 
 [[quizzes]]
-== Quizzes and Midterms [.text-muted]#(30%)#
+== Quizzes [.text-muted]#(25%)#
 
 [.lead]
 //
-30% of your grade is for performance on weekly quizzes and 3 midterms.
+25% of your grade is for performance on weekly quizzes.
 //
-Quizzes and midterms are given in the https://cbtf.engr.illinois.edu/[University
-of Illinois Computer-Based Testing Facility (CBTF)] and consist of questions
-that are randomized and automatically graded.
+Quizzes are given in the https://cbtf.engr.illinois.edu/[University of Illinois
+Computer-Based Testing Facility (CBTF)] and consist of questions that are
+randomized and automatically graded.
 
-*No course staff members are involved in grading CS 125 computerized exams, so
-please do not appeal your grade to the course staff.*
+*No course staff members are involved in grading CS 125 quizzes, so please do not
+appeal your grade to the course staff.*
 //
 If you have concerns about the questions themselves, please post on the {forum}.
 //
-You can check your official quiz and midterm scores
+You can check your official quiz scores
 //
 link:/m/grades/quizzes[here],
 //
@@ -999,11 +1004,12 @@ We will regularly review the answers to difficult quiz questions in class to
 ensure that everyone has a chance to learn from their mistakes.
 
 [[midterms]]
-=== Midterms
+== Midterms [.text-muted]#(15%)#
 
 [.lead]
 //
-Three midterms are spread through the semester.
+Three midterms spread through the semester are worth 5% each and comprise 15% of
+your final grade.
 //
 The midterms are identical to quizzes in terms of scheduling and presentation.
 //
@@ -1014,8 +1020,8 @@ In comparison to the weekly quizzes, the midterms will be more comprehensive.
 Anything covered up to that point in the semester is fair game, with particular
 emphasis given to the material covered since the last midterm.
 //
-Finally, you should expect _about half or more_ of the points on each midterm to
-be for auto-graded programming problems.
+Finally, you should expect _about half_ of the points on each midterm to be for
+auto-graded programming problems.
 //
 This may be more than a typical weekly quiz.
 
@@ -1036,12 +1042,12 @@ Note that CS 125 *does not have a final exam*.
 We will hold an (optional) final project fair on reading day for you to show off
 your
 //
-link:/info/fair/[cool new Android apps]
+link:/info/2018/spring/fair/[cool new Android apps]
 //
 and that joyful event will be the end of the course.
 
 [[participation]]
-== Participation [.text-muted]#(10%)#
+== Participation
 
 10% of your grade is earned by participating in lab section (5%) and lectures
 (5%).
@@ -1372,5 +1378,136 @@ proctors in person before you make your first reservation.
 //
 The proctors will advise you as to whether the CBTF provides your accommodations
 or whether you will need to make other arrangements.
+
+[[videos]]
+== Videos
+
+(Almost) all lectures from Fall 2018 were taped, properly captioned
+//
+footnote:[A huge thank you to Anne Fredericksen and her team at
+//
+https://www.disability.illinois.edu/[DRES]!]
+//
+and are
+//
+https://www.youtube.com/playlist?list=PLi9J8D4T_-pqnWHhc67TDbZQiyPWPMnmV[available
+on YouTube].
+
+[[people]]
+== People
+
+[.lead]
+//
+CS 125 has a large and motivated course staff.
+//
+We look forward to helping you learn computer science!
+
+[[instructors]]
+=== Instructor
+
+++++
+<div class="mt-2 spelling_exception">
+  <div class="row">
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/f018d0710c707024e5ad34f1b0dec4a6?s=200" alt="Photo of Geoffrey Challen">
+        <div class="card-body">
+          <h4 class="card-title text-center">Geoffrey (GWA) Challen</h4>
+          <p class="card-text">
+          Teaching lectures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+++++
+
+[[tas]]
+=== Teaching Assistants
+
+++++
+<div class="row spelling_exception">
+  {{#each course.Fall2018.staffByRole.TA }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{{ this.name }}}</h5>
+        {{#if this.labs }}
+        <p class="small card-text">
+        Teaching {{ inflect this.labs.length "section" "sections" }}
+        {{#and_list this.labs }}{{ this }}{{/and_list}}
+        </p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/each }}
+</div>
+++++
+
+[[cas]]
+=== Course Assistants
+
+Our course assistants are so excited about computer science that they are
+teaching you to learn more! Please treat them accordingly&mdash;with a lot of
+appreciation!
+
+++++
+<div class="row spelling_exception">
+  {{#each course.Fall2018.staffByRole.assistant }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <div class="person card-title text-center">{{{ this.name }}}</div>
+        {{#if this.labs }}
+        <p class="small card-text">
+        Assisting with {{ inflect this.labs.length "section" "sections" }}
+        {{#and_list this.labs }}{{ this }}{{/and_list}}
+        {{#if this.officehours }}
+        and holding office hours
+        {{/if}}
+        </p>
+        {{else}}
+        {{#if this.officehours }}
+        Holding office hours
+        {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/each }}
+</div>
+++++
+
+[[developers]]
+=== Course Developers
+
+Our course developers do not hold office hours or help with labs. But they
+are working hard behind the scenes to make CS 125 better this semester and
+in the future.
+
+++++
+<div class="row spelling_exception">
+  {{#each course.Fall2018.staffByRole.developer }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <div class="person card-title text-center">{{{ this.name }}}</div>
+        {{#if this.labs }}
+        <p class="small card-text">
+        Assisting with {{ inflect this.labs.length "section" "sections" }}
+        {{#and_list this.labs }}{{ this }}{{/and_list}}
+        </p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/each }}
+</div>
+++++
 
 // vim: ts=2:sw=2:et:ft=asciidoc
