@@ -43,6 +43,7 @@ public class Example {
   public static void main(String[] unused) {
     List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] { new Dog(10), new Dog (12) }));
     System.out.println(getAges(dogs, dog -> dog.getAge()));
+    System.out.println(getAges(dogs, dog -> dog.getAge() * 8));
   }
 }
 ....
