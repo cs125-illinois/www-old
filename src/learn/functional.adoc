@@ -281,8 +281,6 @@ which dogs should be included in as general a way as possible.
 [[CugmZjnredCTmEzxbrxDFeChqsxlxsAx]]
 == First-Class Functions
 
-[.lead]
-//
 Many programming languages support so-called _first class functions_, meaning
 that functions can be stored as variables and passed to other functions:
 
@@ -297,6 +295,7 @@ function filterDogs(dogs, filter) {
   }
   return filteredDogs;
 }
+const filteredDogs = filterDogs(dogs, dog => { return dog.age > 10 })
 ----
 
 [.s]
@@ -591,7 +590,7 @@ using:
 * **Functional interfaces**: interfaces that only require implementing a single
 method
 //
-* **Lambda expressions**: by using the arrow syntax we can clearly provide an
+* **Lambda expressions**: by using the arrow syntax we can cleanly provide an
 anonymous class that implements the single function of a functional interface
 
 [[mXbkaddxadUCeUPuMElVZgSaTdyaFLjz]]
@@ -901,7 +900,7 @@ public class Example {
 Writing _declarative_ code allows you to tell the computer _what_ you want and
 let it figure out how to accomplish it:
 
-[source,java]
+[source,java,role='s']
 ----
 // Give me only the items in dogs where dog.getBirthday() == today
 .filter(dog -> dog.getBirthday() == today)
