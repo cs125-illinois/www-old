@@ -52,7 +52,7 @@ public class Example {
 --
 
 [[VKisjrMZzEZSwdqvHynQvDniBHAlYKDk]]
-== Functional Programming
+== Programming Styles
 
 [.lead]
 //
@@ -692,6 +692,133 @@ operations are common:
 //
 * `forEach`: perform some operation for each item that does _not_ produce a new
 list
+
+[[pfZvwNEddlRvxwBZxAPhsRNqXOBqcenr]]
+== Additional Generality
+
+[source,java]
+----
+interface DogFilter {
+  boolean include(Dog dog);
+}
+----
+
+Do we really need to provide a special filter interface just for ``Dog``s?
+
+[[FfGZXRnbWEQXlJYeaRinesPMqDuKbnhd]]
+== ! Java Predicate
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/function/Predicate.html"></iframe>
+</div>
+++++
+
+[[qqxOOOpXPSlHSUdrCddhnCEMsNNdEkAD]]
+== Even More Generality
+
+[source,java]
+----
+public static List<Dog> filterDogs(List<Dog> dogs, DogFilter dogFilter) {
+  List<Dog> filteredDogs = new ArrayList<>();
+  for (Dog dog : dogs) {
+    if (dogFilter.include(dog)) {
+      filteredDogs.add(dog);
+    }
+  }
+  return filteredDogs;
+}
+----
+
+And do we really need a ``Dog``-specific filter function?
+
+[[czmOiNChnfbSCVusnHKDVLdiUcGEqBeB]]
+== Java Collection `removeIf`
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/Collection.html#removeIf(java.util.function.Predicate)"></iframe>
+</div>
+++++
+
+[[laKpwIBiynhpkBBtGfwynOWfdmwtweWp]]
+== ! With `removeIf`
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] {
+      new Dog(14, 100, "Chuchu"),
+      new Dog(15, 88, "Balou"),
+      new Dog(3, 88, "Lulu")
+    }));
+  }
+}
+....
+
+[[nxbzTSbfcxdaPlzTcLpMLjYjDFdIBqWa]]
+== Functional Programming
+
+[.lead]
+//
+What we've been doing today is exploring Java's support for _functional
+programming_.
+
+As a style, functional programming emphasizes:
+
+[.s]
+//
+* Solving problems by composing functions rather than writing loops
+//
+* Which leads to declarative rather than imperative code
+//
+* Reusable higher-order functions like `removeIf`, `map`, and `filter`
+
+[[wdZkTDBemdbsChECpCGIlPXjyFGZBCoi]]
+== Functional Java
+
+[.lead]
+//
+While Java supports some aspects of functional programming, it's a worse fit for
+others:
+
+[.s]
+//
+* Pure functions and immutable data fly in the face of object-oriented
+programming
+//
+* So if you want to really learn functional programming, learn a more strict
+functional language like Haskell or OCaml
 
 [[ahmBnZjeEYfgCPIhzScNmkhCAznAjKgV]]
 == Java Streams
