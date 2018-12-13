@@ -117,6 +117,7 @@ metalsmith(__dirname)
     let metadata = metalsmith.metadata()
     metadata.env = process.env
     metadata.fair = {
+      Fall2018: JSON.parse(files['info/fair.json'].contents.toString()),
       Spring2018: JSON.parse(files['info/2018/spring/fair.json'].contents.toString())
     }
     metadata.config = config

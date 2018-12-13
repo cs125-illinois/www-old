@@ -12,8 +12,8 @@ const expect = require('chai').expect
 const mongo = require('mongodb').MongoClient
 
 const argv = require('minimist')(process.argv.slice(2))
-mongo.connect(process.env.MONGO).then(async client => {
-  let projectGradesCollection = client.db(argv._[0]).collection('projectGrades')
+mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client => {
+  let projectGradesCollection = client.db(argv._[0]).collection('projectFair')
   let projectGrades = await projectGradesCollection.find({
     fair: true
   }).project({
