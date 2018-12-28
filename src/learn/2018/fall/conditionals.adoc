@@ -1,0 +1,434 @@
+---
+title: Conditional Expressions
+date: 2018-08-31
+description:
+  Introduction to comparisons and conditional expressions, the basis for
+  programmatic decision making.
+youtube: https://youtu.be/RR5Txa0VgWs
+---
+:imagesdir: /learn/images
+:!sectids:
+
+[[kHoCSCXzvsIAFbIrBWoBZmaPCNVOOCdM]]
+== !
+
+[role='janini']
+--
+++++
+<div class="message">Comparisons and conditional expressions</div>
+++++
+....
+boolean todayIsFriday = true;
+boolean weAreHavingClass = true;
+int currentTime = 8;
+if (todayIsFriday && weAreHavingClass) {
+  System.out.println("Let's discuss conditionals");
+} else if (todayIsFriday) {
+  System.out.println("Obama is coming...");
+}
+....
+--
+
+[[RTEKAAWDBTRSMXEAOVWANGHYBZFYMWPW]]
+== Review: Variable Types
+
+[.lead]
+//
+Java has _eight_
+//
+http://cs.fit.edu/~ryan/java/language/java-data.html[primitive data types].
+
+All other data in Java is represented by _combinations_ of these building blocks.
+//
+You can break them into four categories:
+
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+//
+. *Character*: `char`
+//
+. *True or false*: `boolean`
+
+[[IffEzqifWagrJAUVhbtbZpBeXbJOthRh]]
+== Why Are There Multiple Numeric Types?
+
+[.lead]
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+
+[.s]
+--
+Different types take up different amounts of _computer memory_ and so can store
+different values.
+--
+
+[.s]
+--
+*Don't worry too much about how things are stored yet.* But the limits are
+important to understand.
+--
+
+[[pTpMZAKphudHMkrjPpLsyJkayPzKtKhG]]
+== Type Limitations
+
+[.janini]
+....
+byte smallest = 10;
+smallest += 256;
+System.out.println(smallest);
+....
+
+[[jWVQatsSaYPEkUmTBXBmHDqOvukSqwsa]]
+== !Don't Memorize: Look Up
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html"></iframe>
+</div>
+++++
+
+[[jCkFZoKCBKjtJmyLFfIlxyNqxWopKADh]]
+== Why Types
+
+[.s.lead]
+//
+* Types force you to specify how much space you need to store your data. That
+can make your program more efficient
+//
+* Types also help catch some common programming errors
+
+[[POtIiKbRQNuZuYwSwdCgAeuyZhpQbmsv]]
+== What Are Computers Good At?
+
+. [.line-through]#Basic math#
+//
+. *Simple decision making*
+//
+. Doing things over and over again very, very fast
+//
+. [.line-through]#Storing data#
+//
+. And communicating
+
+[[bAuWhpDPmVGgDaepoowJukwlfVQsJPdR]]
+== Comparisons
+
+[.lead]
+//
+Java also allows me to compare different variables: either against literal
+values, or against other variables.
+
+This is basis for _simple decision making_.
+
+[[EuddnTejTlEZaIAttmJUDwqxLAWdYNQd]]
+== Simple Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+....
+
+[[kfjlldprRQUOtUaTuYveJPZEbFCgHlCU]]
+== A Common Mistake
+
+[.lead]
+//
+* `a = 10` means *set a to 10*
+//
+* `a == 10` means *test if a is equal to 10*
+
+[[uOanIxfYhyBAYDDSDumbwovkhBiwNNcg]]
+== Don't Get Confused
+
+[role='janini']
+....
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+// This is not
+System.out.println(tester = 5);
+System.out.println(tester);
+....
+
+[[NZRZqEBsBPejsjEIMEUExRtpUZwnPHvN]]
+== Comparisons Against Variables
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first > first);
+....
+
+[[JXtQIUEitmTgnNBVMLHYYnkyMeHylXzT]]
+== More Complex Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+System.out.println(first - second <= 10);
+....
+
+[[GieGtJaHsXZBBBMvZqGAdPacxybqOQxP]]
+[.oneword]
+== Questions About Simple Comparisons?
+
+[[BueiLwuNKbnJPZVcrKBddwHYcdYQyvjx]]
+== Compound Comparisons
+
+[.lead]
+//
+We can combine multiple comparisons together using logical and (`&&`) and or
+(`||`) operators.
+
+[[vDROZOQyBuCsHvUlGCATsKriCrZxCmeK]]
+== ! Combining Comparisons
+
+[role='janini']
+....
+int first = 10;
+System.out.println(first > 5 && first < 10);
+System.out.println(first < 10 && first > 5);
+System.out.println(first > 10 || first > 5);
+System.out.println(first > 10 || false);
+....
+
+[[FBXXgCFgySnrwZHYfSoUHPKWaxwklwjZ]]
+== Evaluation Order
+
+[.lead]
+//
+Conditionals are always evaluated from left to right, and evaluation stops as
+soon as the result is known.
+
+[[kTKjdTjMotZBlcgraocBlOSIGadWncvF]]
+== Comparisons Enable Decisions
+
+[role='janini']
+....
+// Comparisons enable decisions
+int first = 10;
+if (first > 20) {
+  System.out.println("First is greater than 20");
+} else {
+  System.out.println("First is not greater than 20");
+}
+....
+
+[[ZVszIucHlwfpNThvCPzvAuGXDQoXGDJm]]
+== `if-else`
+
+[.lead]
+//
+`if-else` statements are the building block for programmatic decision making:
+
+[.s]
+//
+* _if_ something is true, do one thing;
+//
+* _otherwise_, if something else is true, do some other thing;
+//
+* _otherwise_, if something else is true, do some other thing;
+//
+* etc.
+
+[[mKZSZKIqiozOhiBMXfrUaxnAYmcEWiNU]]
+== `if-elseif-elseif-else`
+
+[.lead]
+`if` statements can have multiple clauses:
+
+[source,java]
+----
+if (firstThing) {
+  // do one thing
+} else if (secondThing) {
+  // do another thing
+} else if (thirdThing) {
+  // another thing
+} else {
+  // run if firstThing, secondThing, and thirdThing are all false
+}
+----
+
+`else` statements are run if no if statement matches.
+
+[[CDpGeuKlxKgJwOfLsqWUIfCazJSauLSt]]
+== ! Only One Statement Runs
+
+[role='janini']
+....
+// Only the first matching branch of if is executed
+int comparison = 10;
+if (comparison > 5) {
+  System.out.println("I'll be executed");
+} else if (comparison > 3) {
+  System.out.println("I won't be executed");
+} else {
+  System.out.println("I definitely won't be executed");
+}
+....
+
+[[ulsvDseRWSMaJGiZXigRkKHBdYgQEGwm]]
+== Remember: Only One Statement Runs
+
+[.lead]
+//
+*In any if statement, only one statement is executed.*
+
+[[sCTwbrbupLHdZwRvBbUQlfGFoutbJTfB]]
+== Somewhat Useful Example
+
+[role='janini']
+....
+// Create an int called numSuperBowls, and then add 1 to it
+// if patriotsWinAgain is true
+....
+
+[[fcnIiRcbbDBZyWPgBSCPEDBMiSUCxLEy]]
+== Nested Conditionals
+
+[.lead]
+`if` statements can be nested inside other `if` statements
+
+[source,java]
+----
+if (testMe) {
+  if (testMeAgain) {
+    // I am well tested
+  } else {
+    // I'm only moderated well-tested
+  }
+} else {
+  // You need to write better tests
+}
+----
+
+[[ySgvSxVBLXrmJCUTffzlhLYXqdWCKBeX]]
+== !Practice With Nested Conditionals
+[role='janini']
+....
+// What should we decide today?
+....
+
+[[PgMLuXcxwdrkzLNqnpFFWLNAsIHpiYTB]]
+== Variable Scope
+
+[.lead]
+//
+`if` statements provide our first example of a _block_ of code.
+
+[source,java]
+----
+if (...) {
+  // I'm a block of code
+}
+----
+
+[.s]
+//
+* Blocks are enclosed by braces and can have multiple statements
+//
+* Variables declared _inside_ a block are not visible _outside_ it...
+//
+* But variables declared outside (and prior to) a block _are_ visible _inside_ it
+
+[[ECKCAOoavGvvNXrOtQqqIZMxNKnbmBAj]]
+== !Practice With Scope
+[role='janini']
+....
+int outside = 5;
+if (true) {
+  int inside = 10;
+  System.out.println(outside);
+}
+System.out.println(inside);
+....
+
+[[uyjfRCHsbnKWGDOzAwWeAPodEDLQbWjP]]
+== Indentation Hints
+
+[.lead]
+//
+Assuming you are indenting your code properly, a general rule of thumb about
+scope:
+
+[.s]
+//
+* You *can* access variables "to the left"
+//
+* You *cannot* access variables "to the right"
+
+(Where directions are defined relative to the start of the line of code you are
+writing.)
+
+[[eUWkVtCUwaoLWfYANZKlTLvlRthqeEIz]]
+== !Practice With Scope
+[role='janini']
+....
+int outside = 5;
+if (true) {
+  int inside = 10;
+  // outside is to my left, so OK
+  System.out.println(outside);
+}
+// inside is to my right, so bad
+System.out.println(inside);
+....
+
+[[BBCJNOXRBCHWLVOHHSHOYLGOPXKPBNVS]]
+[.oneword]
+== Monday: No Course Activities (Labor Day)
+
+[[DlfIqTyTBFGgkmhAEFlvVSLDzjPmbVxt]]
+[.oneword]
+== Wednesday: Algorithms and Loops
+
+[[TNSNJVRYDTHWFZDOADOWZQPSHGDIRZOY]]
+== Friday: This Guy Ruins Class
+
+image::https://static.politico.com/dims4/default/72dca5d/2147483647/resize/1160x%3E/quality/90/?url=http%3A%2F%2Fs3-origin-images.politico.com%2F2014%2F08%2F06%2Fobama_smile_ap328.jpg[role='mx-auto', width=600]
+
+[[SJSRWJEKJTEENRTVYEBXXQBLIVDQKYVB]]
+== Homework Progress
+
+*Please don't get behind already!*
+
+[.s]
+//
+* HW0: 890
+//
+* HW1: 867
+//
+* HW2: _844_
+//
+* HW3: *702*
+
+[[bAMIDJtTOruAKgjPWiRdBcIJIwClvpMV]]
+== Announcements
+
+* *No class Monday* (labor day)...
+//
+* But _we will_ release MP0 on Monday!
+//
+* We have link:/info/resources/#hours[office hours]
+//
+until 5PM today.
+//
+* But no office hours this weekend or Monday.
+//
+* Please fill out the https://goo.gl/forms/ZLOmoC8x2nkfmG753[initial student
+survey].
+//
+1% extra credit for anyone who does by *Sunday 09/09/2018*.

@@ -1,0 +1,592 @@
+---
+title: Loops and Arrays
+date: 2018-09-05
+description:
+  Overview of several kinds of loops and an introduction to arrays.
+youtube: https://youtu.be/t93WqX0vhg8
+---
+:imagesdir: /learn/images
+:!sectids:
+
+[[caZyHrLatQSNxCwDiamQVCvpwfAAlpKw]]
+== !
+
+[.janini]
+--
+++++
+<div class="message">Loops and arrays</div>
+++++
+....
+int[] numbers = {1, 2, 5};
+for (int number : numbers) {
+  System.out.println(number);
+}
+....
+--
+
+[[LiKkycvTzZlbDuaLypCFYUqutfOsHPzO]]
+== What Are Computers Good At?
+
+. [.line-through]#Basic math#
+//
+. [.line-through]#Simple decision making#
+//
+. *Doing things over and over again very, very fast*
+//
+. [.line-through]#And storing data#
+
+[[JTnQZFRZTMPsBYaFORUhWndrZvuDTLYV]]
+== Loops
+
+[.lead]
+//
+We call the process of repeatedly doing the same thing over and over again _a
+loop_.
+
+Here's the simplest loop, although it's not that useful:
+
+[source,java]
+----
+while (true) {
+  // do something
+}
+----
+
+[[hpPzyVDHsVcUTHxhRBIBIDpDoYDAQaTL]]
+== `while`
+
+[.lead]
+//
+The `while` loop has two parts:
+
+[.s]
+//
+. A block of code to repeat
+//
+. A condition that must be true each time the loop is entered
+
+[.bullet]
+--
+If the condition is false, the block of code is _not executed_ and execution
+continues *after the loop*
+--
+
+[[IthHUuotYlQXglvEfNEDqBmXvehHdyas]]
+== ! `while` Loop Example
+
+[.janini]
+....
+int index = 0;
+while (index < 4) {
+  System.out.println(index);
+  index++;
+}
+System.out.println("Done");
+....
+
+[[MMDjKstkRvjDzrwbdHDiGYuWdeMOPrYx]]
+== Unterminated Loops
+
+[.lead]
+//
+Now that we've acquired the power to make the computer do things repeatedly, we
+need to make sure it _stops_...
+
+An unterminated loop will cause your code to _hang_, or hit a timeout if you are
+running our tests.
+
+[[dmkapbQepuhgmraIXoKkUpioQjtQVtEa]]
+== ! Unterminated `while` Loop
+
+[.janini]
+....
+int index = 0;
+while (index < 4) {
+  System.out.println(index);
+  index--;
+}
+System.out.println("Done");
+....
+
+[[uKDbDaQJgzfkNteumxkPlMNZMOhoYtkx]]
+== ! `while(true)`
+
+[.janini]
+....
+// There's an easier way to write a forever loop...
+while (true) {
+  System.out.println("Here");
+}
+....
+
+[[cLTLFYAstNKNKUIOxcRhrwiHioqGOAaV]]
+== Common Loop Pattern
+
+[source,java]
+----
+int index = 0;
+while (index < 4) {
+  System.out.println(index);
+  index++;
+}
+----
+
+The pattern above is very common:
+
+[.s]
+//
+. Initialize a variable (`int index = 0`)
+//
+. Loop until a condition is met (`index < 4`)
+//
+. Update the variable inside the block (`index++`)
+
+[.bullet]
+--
+*So common that it has its own special syntax.*
+--
+
+[[igQzoFImihJpBylhMWbgJobJHooJvjLz]]
+== `for` Loops
+
+[source,java]
+----
+int index = 0;
+while (index < 4) {
+  // do something
+  index++;
+}
+----
+
+The `while` loop above is equivalent to this `for` loop:
+
+[source,java]
+----
+for (int index = 0; index < 4; index++) {
+  // do something
+}
+----
+
+[[rUfYyxiRjzhQmjdSwFyXFfRvpNkYLwkR]]
+== ! `while` to `for` Loop
+
+[.janini]
+....
+// Let's rewrite this using a for loop
+int index = 0;
+while (index < 4) {
+  System.out.println(index);
+  index++;
+}
+System.out.println("Done");
+....
+
+[[xmqrvtbQfhxcGzguCSyjWGnrMzOsGxgd]]
+== ! One Important Difference...
+
+[.janini]
+....
+// Try rewriting this using a for loop
+int index = 2;
+while (index < 8) {
+  System.out.print("A");
+  index++;
+}
+System.out.println(index);
+....
+
+[[gtRZuXzQrJLKMJVDuPIUmZayrwEaueHM]]
+== Understanding `for` Loops
+
+[.lead]
+//
+`for` loops are a bit more complex than `while` loops&mdash;but they are also
+_more common_.
+
+Here's what to keep in mind:
+
+[.s]
+//
+* *Initialization* only happens once when the loop is first executed
+//
+* *The conditional* is evaluated _every_ time the loop block is executed, including
+the first time
+//
+* *The update* is performed _after_ each time the block is executed and
+_before_ the condition is checked
+
+[[ozgDNPZwXnHqADUwyDbWGVxtwOeNAJha]]
+== `for` Loop Algorithm
+
+Initialize the loop variable.
+
+Then:
+
+[.s]
+//
+. Check the condition.
+//
+. If the condition is false, continue execution after the `for` loop
+//
+. If the condition is true, execute the loop block
+//
+. After the block finishes, update the loop variable
+//
+. Repeat
+
+[[yWOMKQPskjIQLNUhWbnpXXnPwgupMRsH]]
+== ! `for` Example
+
+[.janini]
+....
+// How many times does this execute?
+int counter = 0;
+for (int loop = 4; loop <= 8; loop += 2) {
+  counter++;
+}
+System.out.println(counter);
+....
+
+[[CTQjoXHAZGvMovdBCDVNUZJWMUilASoT]]
+== ! `for` Example
+
+[.janini]
+....
+// How about this one?
+int count = 0;
+for (int i = 10; i >= 0; i -= 3) {
+  count++;
+}
+System.out.println(count);
+....
+
+[[qJMeTVqGPDiCngVnJVwfARcFLfIdOvrM]]
+== ! `for` Example
+
+[.janini]
+....
+// And this one?
+int i = 0;
+for (int j = 2; j >= 4; j++) {
+  i++;
+}
+System.out.println(i);
+....
+
+[[cLcBBPyCgYmbTUZJEmJoUzaElagvGXnz]]
+== Incomplete `for` Loops
+
+[.lead]
+//
+All three parts of a for loop are _optional_.
+
+[source,java]
+----
+int i = 0;
+for (; i < 10; i++) {
+  // do something
+}
+for (; i < 10; ) {
+  // do something else
+}
+for (;;) {
+  // do something forever
+}
+----
+
+*Don't do this unless you have a good reason.*
+
+[[otZreWQRycIZnFeAOXdwyQppSPrZTzRP]]
+== If You Get Confused
+
+[.lead]
+//
+If you get confused by a `for` loop, try rewriting it as a `while` loop.
+
+That may help clear things up.
+
+[[ybLhqjistDkCNAkTrdsqlOrkmzRlQpOp]]
+== Controlling Loop Execution
+
+[.lead]
+//
+There are two important _control statements_ that we can use with loops:
+
+* `break`: immediately exit the loop
+//
+* `continue`: return to the top of the loop, perform the update, and continue if
+the condition is still true
+
+[[HKgDlCjYPlNepNOrEnTNoEsbVhhFnUKx]]
+== ! `break` Example
+
+[.janini]
+....
+int search = 8;
+for (int i = 0; i < 64; i++) {
+  if (i == search) {
+    System.out.println("Found");
+    break;
+  }
+  System.out.println("Not found...");
+}
+....
+
+[[VEAvuqSKWDzdowmSNwpZTiuKbMuZXlUh]]
+== `break`
+
+[.lead]
+//
+`break` is commonly used when you are looking for something using a loop and
+want to exit when you find it.
+
+(We'll talk about arrays in a few slides and this will make more sense.)
+
+[[yeJMpUzucBnvisKCBFeQuPFAKyJDDhxS]]
+== ! `continue` Example
+
+[.janini]
+....
+for (int i = 0; i < 4; i++) {
+  System.out.println("Going... " + i);
+  if (i >= 2) {
+    continue;
+  }
+  System.out.println("Here");
+}
+....
+
+[[avEsVhcoWVOBCcUOxOCEmUPdSBkghzNK]]
+== `continue`
+
+[.lead]
+//
+`continue` is commonly used when you only want to execute the loop for some
+values.
+
+What would be another way to accomplish this?
+
+[[lYWJpDhDlaBAhRNoglwuiNEqjZnTvPfj]]
+== ! `continue` As `if`
+
+[.janini]
+....
+for (int i = 0; i < 4; i++) {
+  System.out.println("Going... " + i);
+  if (i < 2) {
+    System.out.println("Here");
+  }
+}
+....
+
+[[aNalGdMeFFVkKJOavDZgsGFRnDnEXkin]]
+[.oneword]
+== Questions About Loops?
+
+[[fsXRRfTlImmAoFlRkZusGYibsjmZIgXO]]
+== Multiple Data Values
+
+[.lead]
+//
+So far we've been talking about _single_ data values.
+
+[.s]
+//
+* Java primitive types allow you to represent single numbers (integers or floating
+point), truth values (true or false), and characters.
+//
+* But what about representing _multiple_ values?
+
+[[GiWplwWmWjPsYCpNsGEaRgGRfCQkEdsC]]
+== Why Multiple Values?
+
+[.lead]
+//
+Can you think of some real things that could be represented as a series of
+Java's primitive types?
+
+[.s]
+//
+* *Text*, or what we call _strings_ in computer science.
+//
+* *DNA*, which we can represent as just a limited kind of string.
+//
+* *Time series data*, like a series of temperatures taken at regular intervals.
+//
+* *Music*, as a time series of air pressure measurements.
+
+[[YYHYZKQPnoHWpRycduGsvvbLQwJgpUja]]
+== Arrays
+
+[.lead]
+//
+A Java array represents a series of zero or more values of the _same type_.
+
+[.s]
+//
+* Arrays are our first example of a *data structure*.
+//
+* Arrays put values in order, one after another.
+//
+* Values in an array also have an _index_, their position in the array.
+
+[[UMiPoadjbicuTAcYIlVdVNeKMGFYrdfE]]
+== Declaring Arrays
+
+[.lead]
+//
+Just like other variables, arrays have a _name_ and _type_.
+
+But when we declare them we use brackets to declare an array instead of a single
+value.
+
+[source,java]
+----
+// A single integer named single
+int integer;
+// An array of integers named multiple
+int[] multiple;
+
+// A single character named one
+char one;
+// An array of characters named all
+char[] all;
+----
+
+[[tJMPuiccQZGCnpzKgMMfznvUwDxbjIXL]]
+== Initializing Arrays
+
+When it is declared an array is empty.
+//
+To use it we have to tell Java how many _elements_ it has.
+
+*The size cannot be changed once the array is initialized.*
+//
+All arrays have a `.length` property that we can use to get their size.
+
+[source,java]
+----
+// An array of 8 integers named multiple
+int[] multiple = new int[8];
+System.out.println(multiple.length); // Prints 8
+
+// An array of characters named all
+char[] all;
+// Initialize all to hold 4 characters
+all = new char[4];
+----
+
+[[ohKZqVQlpkWHLtofAuLeaCmCTyusEPhH]]
+== Initializing Arrays With Values
+
+[.lead]
+//
+We can also assign values to an array when it is initialized:
+
+[source,java]
+----
+// An array of the 4 integers 1, 2, 5, 10
+int[] multiple = { 1, 2, 5, 10 };
+
+// An array of the characters c, s, !
+char[] awesome = { 'c', 's', '!' };
+----
+
+[.bullet]
+--
+Here we don't have to specify the size. *Why not?*
+--
+
+[[bwjfoJpVbsFGXesuGmRdUiBZjSLKcEOv]]
+== Getting And Setting Array Values
+
+[.lead]
+//
+We use the _bracket syntax_ to both get and set array values by index.
+
+[source,java]
+----
+int[] twos = { 1, 2, 4 };
+System.out.println(twos[0]); // Prints 1
+twos[0] = 2;
+System.out.println(twos[0]); // Prints 2
+System.out.println(twos[2]); // Prints 4
+----
+
+[[KQHEOCPVWVTVBYBBLHXOBQVWIREBTKEJ]]
+== Data Structures and Metadata
+
+[.lead]
+//
+We'll discuss many data structures this semester.
+//
+Arrays are the first, and the simplest: but still _extremely useful_.
+
+Data structures associate _metadata_&mdash;or data about data&mdash;with the
+original data.
+
+For an array:
+
+[.s]
+//
+* The _data_ is the array contents
+//
+* What is the metadata?
+//
+* The _order_ of the items in the array.
+
+[[IXESSCRRZFEELXRCBYZVDUFZUERMJUGI]]
+== Lecture Participation Guidelines
+
+Lecture participation will be counted starting _Monday_.
+//
+We'll have scores out soon for the past four lectures, and some of you will be
+_upset_.
+
+But it's not that hard:
+
+* Arrive on time
+//
+* Follow along
+//
+* Don't leave early
+
+[[NQWSKBLVRITBVHRIUJPBNECDIIMTVKPQ]]
+== Homework Progress
+
+*Please don't get behind already!*
+
+[.s]
+//
+* HW0: 916
+//
+* HW1: 902
+//
+* HW2: 891
+//
+* HW3: 875
+//
+* HW4: _859_
+//
+* HW5: *634*
+
+[[yTcqcbhuTVUyfvIeFljgLPwifqfgMdtK]]
+== Announcements
+
+* Homework continues https://goo.gl/ruqwbf[_today_].
+//
+* *No class Friday* (thanks, Obama)...
+//
+* But we will post a video screencast for you to watch.
+//
+* link:/MP/2018/fall/0/[MP0] is out. Get started!
+//
+* link:/info/resources/#hours[Office hours] start up
+again tomorrow.
+//
+* Please fill out the https://goo.gl/forms/ZLOmoC8x2nkfmG753[initial student
+survey].
+//
+1% extra credit for anyone who does by *Sunday 09/09/2018*.
+
+// vim: ts=2:sw=2:et

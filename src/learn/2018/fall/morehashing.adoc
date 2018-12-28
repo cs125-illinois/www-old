@@ -1,0 +1,527 @@
+---
+title: Hashing and Maps
+date: 2018-12-03
+description:
+  Hash tables, maps, and some theory behind hashing.
+spelling_exceptions:
+  - blockchain
+  - Geez
+  - SHA
+  - Hashcash
+  - rethrow
+  - Rethrowing
+youtube: https://youtu.be/2cdEaS07yBE
+---
+:imagesdir: /learn/images
+
+[[axHCLhKQxzhwFHeqGvpZhWUIqRTRCEyt]]
+== !
+
+[.janini.jdk.compiler.smaller]
+--
+++++
+<div class="message">Hashing and Maps</div>
+++++
+....
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+
+public class Example {
+  static void countStrings(String[] inputArray) {
+    Map<String, Integer> stringCount = new HashMap<>();
+    for (String input: inputArray) {
+      stringCount.put(input, stringCount.getOrDefault(input, 0) + 1);
+    }
+    System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
+  }
+  public static void main(String[] unused) {
+    countStrings(new String[] { "a", "b", "aa", "bb", "a" });
+  }
+}
+....
+--
+
+[[ksZcHuGafKhHDLRGxrFjALYMVpMJgcXc]]
+== Review: Hash Functions
+
+[.lead]
+//
+Imagine I told you that there was a function with the following
+properties:
+
+[.s]
+//
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* *Efficiency*: it is efficient to compute.
+
+[[bQxAYgagIHKxIGvBvBzRhiMkryOaxuBt]]
+== Review: Hash Functions
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Hash_function#Properties[A hash function]
+//
+is any function that can be used to map data of arbitrary size to data of fixed
+size.
+//
+The values returned by a hash function are called hash values, hash codes,
+digests, or simply hashes.
+//
+____
+
+[[TpBEMwHpxtautSSBbbBkYnAlTRpvClcL]]
+== Hash Collisions
+
+[.lead]
+//
+If a hash function produces the _same_ hash for two _different_ inputs this is
+called a _collision_.
+
+[.s]
+//
+* In some cases, particularly if the size of the hash is small, collisions are
+expected and we plan to deal with them.
+//
+* If the size of the hash is large enough and the hash function is uniform,
+collisions should _never happen_ and the world will end if they do. (Or at least
+`git` will stop working and my world will end.)
+
+[[CGYzkTirBBEMdBbcQGsUlgiZESQckfNw]]
+== The Birthday Paradox
+
+[.lead]
+//
+In a room with 100 students, what is the probability that _two_ will share the
+same birthday footnote:[Obviously birthdays are not uniformly distributed across
+the calendar, for, um, obvious reasons?]? [.s]#*99.9999%*#
+
+[.s]
+//
+* Does anybody know how many you need to get a 50% chance? [.s]#Only _23_!#
+//
+* This is bad for our hash functions... collisions are more likely than we might
+think!
+
+[[rxTFOLQfAkZIKnzVifZmfLrouKAWNZKH]]
+== Birthday Hashing Paradox
+
+[.lead]
+//
+How many documents do I have to hash before I find two with the
+//
+https://en.wikipedia.org/wiki/Birthday_attack[same hash with _50%_ probability?]
+
+[.s.small]
+//
+* It depends on how large the hash is!
+//
+* For 16 bits, 300. (The MP6 starter code had 80 files in it.)
+//
+* For 32 bits, 77,000 (My computer has 2.5 million files on it.)
+//
+* For 64 bits, 5 billion (GitHub.com has 1 billion files.)
+//
+* For 128 bits, 14,000,000,000,000,000,000. (Now we're getting warmer.)
+//
+* (Git actually uses a 160-bit hash function.)
+//
+* For 512 bits, 1.4 * 10^77 (The universe only has ~10^78 atoms, so this is
+probably enough.)
+
+[[RmqHvDyMcXOZJLTYeYrqtEZEDBttqvPW]]
+[.oneword]
+//
+== So Hashes Seem Useful...
+//
+But the best is yet to come!
+
+[[MyrGhUPKgRmmXjmEcsrXUWcATZMPZdIN]]
+== Remember Arrays?
+
+[source,java]
+----
+int[] numbers = new int[] { 5, 6, 7 };
+System.out.println(numbers[0]);
+numbers[1] = 8;
+----
+
+[.s]
+//
+* Arrays map an _index_ (0, 1, 2, `array.length` to a value).
+//
+* The value can be anything, but the indices _had to be be integers_.
+//
+* *No longer!*
+
+[[fhjgUbBtMKMYIUZbJCLadCUywBqvNvlg]]
+== Java Maps
+
+[.lead]
+//
+A Java `Map` allows us to use _any object_ like an array index.
+
+[source,java]
+----
+import java.util.Map;
+import java.util.HashMap;
+
+Map<String, Integer> stringValues = new HashMap<>();
+stringLengths.put("test", 5);
+System.out.println(stringLengths.get("test")); // Prints 5
+stringLengths.put("test", 7);
+System.out.println(stringLengths.get("test")); // Prints 7
+----
+
+[[CJgsBxThVKDtdzSQrlgslMvaJdiPWzfY]]
+== A Map By Any Other Name
+
+[.lead]
+//
+Maps are one of the two data structures you meet in heaven. (Along with lists.)
+Every language has them:
+
+[.s.small]
+//
+* Python calls them dictionaries: `dict["key"] = "value"`
+//
+* JavaScript calls them anonymous objects `dict["key"] = "value"`
+//
+* C++ calls them maps: `dict.insert(std::make_pair("key", "value"));`
+//
+* Go calls them maps: `dict["key"] = "value"`
+//
+* Even Perl had them: `$dict{'key'} = "value"`!
+//
+* Sometimes we call them _key-value stores_, since each key maps to a single value
+
+[[cdHqlUjYDnxaiPsWZuWVmfWooIECaudM]]
+== ! `Map` Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html"></iframe>
+</div>
+++++
+
+[[DIynWmuEKOGgKyZkdXedVEOrHFdZEDZO]]
+== ! Fun With Maps
+
+[.janini.smaller.jdk.compiler]
+....
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    Map mapExample = new HashMap();
+  }
+}
+....
+
+[[bLeYoVrBJkyduCqNVDeGQigbOIGmBBXi]]
+== Map Usage Example
+
+[.lead]
+//
+Let's say that I want to process a large corpus of text and then be able to
+quickly answer queries about how many times particular words appear.
+
+[[zojCJOFHUkyJyRGwAlzjHiifxeqVbphM]]
+== ! Map Usage Example
+
+[.janini.jdk.smaller.compiler]
+....
+import java.util.Map;
+import java.util.HashMap;
+
+public class WordCounter {
+  private Map<String, Integer> wordCount;
+  public WordCounter(String[] text) {
+    wordCount = new HashMap<>();
+  }
+  public int getWordCount(String word) {
+    return 0;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    String[] corpus = new String[] {
+      "here", "here", "there"
+    };
+    WordCounter wordCounter = new WordCounter(corpus);
+    System.out.println(wordCounter.getWordCount("here"));
+    System.out.println(wordCounter.getWordCount("there"));
+    System.out.println(wordCounter.getWordCount("nowhere"));
+  }
+}
+....
+
+[[pdwcMAZBmuwUFEWVSPCqjAbuKImRBdrd]]
+== Brief `Map` Implementation
+
+[.lead]
+//
+So how do we implement a `Map`?
+
+[.s]
+//
+* Use a `hashCode` to retrieve a hash code for each object.
+//
+* Use that value&mdash;or a smaller part of it&mdash;as an index into an array.
+//
+* But what about collisions?
+
+[[NdtRQfCIlNeCIwFdPzhycUCjiduKpRFM]]
+== `Map` As Array + Linked List
+
+image::http://math.hws.edu/javanotes/c10/hash-table.png[role='mx-auto', width=500]
+
+[[UsChKXDXPGKVOeKYnxsHACKOOsKlhJYx]]
+== ! HashMap Example
+
+[.janini.compiler.smallest]
+....
+public class HashMap {
+  private static final int TABLE_SIZE = 16;
+  class Item {
+    public Object key;
+    public Object value;
+    public Item next;
+    Item(Object setKey, Object setValue, Item setNext) {
+      key = setKey;
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item[] items = new Item[TABLE_SIZE];
+  public int itemCount = 0;
+  private int hash(Object key) {
+    int hashValue = key.hashCode() % TABLE_SIZE;
+    if (hashValue < 0) {
+      hashValue += TABLE_SIZE;
+    }
+    return hashValue;
+  }
+  public void put(Object key, Object value) {
+    int bucket = hash(key);
+    Item current = items[bucket];
+    for (; current != null; current = current.next) {
+      if (current.key.equals(key)) {
+        current.value = value;
+        return;
+      }
+    }
+    Item newItem = new Item(key, value, items[bucket]);
+    items[bucket] = newItem;
+    itemCount++;
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    HashMap ourHashMap = new HashMap();
+    ourHashMap.put("test", "me");
+    System.out.println(ourHashMap.itemCount);
+    ourHashMap.put("test", "another");
+    System.out.println(ourHashMap.itemCount);
+  }
+}
+....
+
+[[XzzFwecpZcVPGyIzrraJqXHDwFRgolqO]]
+== `HashMap` Performance
+
+[.lead]
+//
+Let's consider the performance of our simple `HashMap` in two cases. First, if
+the array is *very small* relative to the number of items:
+
+[.s]
+//
+* *`put`*: [.s]#O(n) with n being the number of items#
+//
+* *`get`*: [.s]#O(n) with n being the number of items#
+//
+* At this point the `HashMap` is acting [.s]#like a _linked list_.#
+
+[[XbDnmqvDhMnqdLZVipXfTlOWbYnAIHhL]]
+== `HashMap` Performance
+
+[.lead]
+//
+Let's consider the performance of our simple `HashMap` in two cases. Second, if
+the array is *very large* relative to the number of items:
+
+[.s]
+//
+* *`put`*: [.s]#O(1)#
+//
+* *`get`*: [.s]#O(1)#
+//
+* At this point the `HashMap` is acting [.s]#like an _array_.#
+//
+* What's the problem? [.s]#It requires _a lot_ of space.#
+
+[[kteyvggYdbvCdQkBtRmnnvWPfabuQoeJ]]
+== Realistic `HashMap` Performance
+
+[.lead]
+//
+In reality we want our `HashMap` to blend the good features of an array and a
+linked list.
+
+[.s]
+//
+* Usually implementations will _enlarge_ the array part of a `HashMap` once it
+gets filled past a certain point (called the _load factor_).
+
+[[DKcMSEbCvHQXPWKflVuXMgBAvudmWZUH]]
+[.oneword]
+//
+== Looking forward to CS 225 yet?
+//
+This is cool stuff!
+
+[[OlLkUqBdqugqchaDKdWOFMJMRXdgmfyW]]
+== And cooler still...
+
+Hash functions already provide:
+
+[.small]
+//
+* *Determinism*: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.
+//
+* *Uniformity*: over many inputs, each output value is equally likely.
+//
+* [.line-through]#*Efficiency*: it is efficient to compute.#
+
+But what if there were hash functions with the following _new_ properties:
+
+[.s.small]
+//
+* Given the hash, it is _infeasible_ to determine the original input
+//
+* A small change to the input produces a _large_ change in the output
+//
+* The function is _difficult_ to compute, not easy
+
+[[ahHxfzfBcLQvvuWqeAEfuFsGFcjqWsMQ]]
+== Cryptographic Hash Functions
+
+[.lead]
+//
+A hash function that satisfies these properties is known as a _cryptographic
+hash function_, largely because they are ubiquitous in modern cryptography.
+
+[[PdxviDVjqwEyJNsBsEAQRzzhphhYRviR]]
+== A Simple Example
+
+[.lead]
+//
+I need to be able to check your password, but I don't want to save it.
+//
+*Is that possible?*
+
+[.s.small]
+//
+* *Yes!*
+//
+* Save the cryptographic hash of your password, not the password itself.
+//
+* When you submit your password, I hash it and compare it with the saved hash.
+//
+* If someone steals my database, they can't recover the original passwords.
+//
+** Given the hashes, you can't recover the original passwords
+//
+** Hash values reveal nothing about how close you are to the actual password
+//
+** Hashing inputs to test them is expensive
+
+[[TBrLUXoSYNeiXBAytTdbidYEMrLAITEP]]
+== Small Input Change, Big Output Change
+
+[source,bash]
+----
+$ $ cat example.txt
+The quick brown fox jumps over the lazy dog
+$ md5 < example.txt
+37c4b87edffc5d198ff5a185cee7ee09
+$ cat example.txt
+The quick brown fox jumps over the lazy doG
+$ md5 < example.txt
+75559fc9857fe9bebf65f97760e3f67d
+----
+
+[[qspXdnnnPMrHPIZooCVmfOAwPMtAqefr]]
+== Midterm 2
+
+[.lead]
+//
+The third and final midterm starts on **Saturday**.
+
+[.s]
+//
+* The focus is data structures and algorithms, but completing the programming
+questions will require both imperative and object-oriented programming
+//
+* There are four programming problems together worth 60 points. Most have
+partial credit.
+//
+* Our final midterm represents your more sophisticated set of programming tasks
+yet.
+//
+* (My goal is to irritate you before you complete the course evaluations...)
+
+[[PveideRkgiIGNisIczvYRBpdILPqoFlL]]
+== Midterm 2 Problems
+
+[.lead]
+//
+As always, the best way to review for the midterm is to review the practice
+homework problems.
+
+Midterm 2 consists of four programming tasks:
+
+[.s]
+//
+* One question on lists that is very similar to a homework problem
+//
+* One question on trees that is very similar to a homework problem
+//
+* One question on sorting **that is directly drawn from the homework**
+//
+* A final question that I'm not going to say more about
+
+[[nZnKVyhIuFdiNScwmnQBXRjidnlQPHUn]]
+[.oneword]
+//
+== Questions About Midterm 2?
+
+[[NatQECjiehpGWjBTDhWNjopXkXVqFVZq]]
+== Announcements
+
+* Your first link:/MP/2018/fall/6/[final project checkpoint is in lab this week].
+//
+* I have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
+//
+Please stop by!
+//
+* Remember to provide feedback on the course using the
+//
+link:/info/feedback/[anonymous feedback form].
+//
+* I've started to respond to existing feedback
+//
+https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+
+// vim: ts=2:sw=2:et

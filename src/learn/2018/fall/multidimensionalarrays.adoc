@@ -1,0 +1,301 @@
+---
+title: More Dimensions
+date: 2018-09-17
+description:
+  Two-dimensional arrays, more imperative programming constructs, and more
+  practice with algorithms.
+spelling_exceptions:
+  - GCD
+youtube: https://youtu.be/0JwuEFnYlb0
+---
+:imagesdir: /slides/images
+:!sectids:
+
+[[AvczmtcMxbAlkbXVcyXVfDZDLQyRMEtE]]
+== !
+
+[.janini.small]
+--
+++++
+<div class="message">More Dimensions</div>
+++++
+....
+char[][] currentBoard =
+{{'X', 'O', '.'}, {'O', 'X', '.'}, {'O', '.', 'X'}};
+static void printBoard(char[][] board) {
+  for (int i = 0; i < board.length; i++) {
+    for (int j = 0; j < board[i].length; j++) {
+      System.out.print(board[i][j]);
+    }
+    System.out.println();
+  }
+}
+printBoard(currentBoard);
+....
+--
+
+[[SACAUOBBYCMWEBUFWWOJOPWUGQIEEHVB]]
+== Next Few Weeks
+
+[.s]
+//
+* MP2 comes out today, due a week from today.
+//
+* Next week is our first midterm on imperative programming and concepts.
+//
+* We _will_ continue homework during the midterm as we begin to talk about
+object-oriented programming.
+//
+* However, we will wait to release MP3 until the midterm is over.
+
+[[MHUACFCTYKKNHATQQJUGMDLUUFACLYAD]]
+== Q1 Review: Scope
+
+[source,java]
+----
+int first = 5;
+if (first > 4) {
+    int second = 4;
+}
+second++;
+----
+
+What is wrong with this code?
+
+[[UGJATMYSZCCABTPCKVGFJNOELVPENUTT]]
+== Q1 Review: Assignment v. Equality
+
+[source,java]
+----
+if (i = 5) {
+    int j = 0;
+    j = 5;
+}
+----
+
+What is wrong with _this_ code?
+
+[[UKOEGYLWLIAQPKGGZQWCUHJYYLIOSCAM]]
+== Q1 Review: Conventions
+
+[.lead]
+//
+Why is the numeric value of the ASCII character 'k' 107?
+
+[[LYBXTYBhNNOkfWDQWAHmmmAYePQENetu]]
+== Arrays Can Have Multiple Dimensions
+
+[source,java]
+----
+// This is a single-dimensional array of ints of size 4
+int[] samples = new int[4];
+
+// This is a two-dimensional array of of chars of
+// size 4 in the first dimension and 8 in the second
+char[][] board = new char[4][8];
+
+// This is a three-dimensional array of of doubles of
+// size 6 in the first dimension, 8 in the second,
+// and 10 in the third
+double[][][] temperature = new double[6][8][10];
+----
+
+[[AYeaITTSBxWpPrEbXjyZmEongNkJVqiT]]
+== Understanding Multi-Dimensional Arrays
+
+[source,java]
+----
+// This is a two-dimensional array
+int[][] samples = new int[4][8];
+
+// This is a one-dimensional array
+int[] samplesSlice = samples[0];
+----
+
+[[OZTfWGqrMGPYGTRbiCLDBCeqOykWouWY]]
+== ! Understanding Multi-Dimensional Arrays
+
+[.janini.small]
+....
+// This is a two-dimensional array
+int[][] samples = new int[4][8];
+
+// This is a one-dimensional array
+int[] samplesSlice = samples[0];
+....
+
+[[XbzmRUFINATfpfsYOZndYqBJbDJTDaCK]]
+== Multi-Dimensional Array Initialization
+
+[.lead]
+//
+We can also initialize multi-dimensional arrays:
+
+[source,java]
+----
+int[][] measurements = {
+  { 1, 2 },
+  { 3, 4 }
+};
+// This is equivalent to
+int measurements = new int[2][2];
+measurements[0][0] = 1;
+measurements[0][1] = 2;
+measurements[1][0] = 3;
+measurements[1][1] = 4;
+----
+
+[.smaller]
+--
+(The ordering can be confusing, but you won't see this often.)
+--
+
+[[txMiehCfZKNUIQTrXUnNejdcmhuKoZsM]]
+== ! Multi-Dimensional Array Initialization
+
+[.janini.small]
+....
+int[][] measurements = {
+  { 1, 2 }
+  { 3, 4 }
+}
+System.out.println(measurements[0][0]);
+....
+
+[[phqJItalkKdADBlZJGKGTkleiyYQQmtP]]
+[.oneword]
+== Forget About Rows and Columns
+(These aren't spreadsheets&mdash;you're not in business school.)
+
+[[BMdFVVRUiVkQoIxKubbNdAGtimRATtKK]]
+== You're In Charge
+
+[.lead]
+//
+The first, second, third, or Nth index of an array mean _whatever you want_.
+
+This is particularly important when representing certain kinds of data using
+multi-dimensional arrays.
+
+[[MHcjRtzrWSmdWjhFoUgqyFYAlXrqeXcp]]
+== Multi-Dimensional Data
+
+[.lead]
+//
+What kind of data would work well in a multi-dimensional array?
+
+[[BepbCwECvQdCXlOVsuccxNgVREFBdMWj]]
+== ! Photos
+
+image::https://picsum.photos/640/480/?random[role='mx-auto meme',width=640]
+
+[[yqULMeaCDCWwJgAsZkkMOWGIAWHMDsNd]]
+== ! 3D Data
+
+image::https://www.originlab.com/doc/en/Tutorial/images/Stacked_3D_Surface_Plots/Stacked_3D_Surface_Plots_01.png[role='mx-auto meme',width=640]
+
+[[FSxgyqZIpPctgwZqENSSmBulUgwXctPM]]
+== ! Stereo Sound
+
+image::https://goo.gl/e5bxj9[role='mx-auto meme',width=640]
+
+[[BzeZDeXBfKvOPIzPuCYaNsSPjgYOUBde]]
+== Multi-Dimensional Data
+
+[.lead]
+//
+What kind of data would work well in a multi-dimensional array?
+
+[.s]
+//
+* *Pictures and images:* each pixel is stored in a 2-dimensional grid
+//
+* *Higher-dimensional data:* our world is 3D&mdash;4D, actually&mdash;so our
+data should be as well.
+//
+* *Sound:* even data that might _seem_ one dimensional often turns out to be
+more complicated than we expected
+
+[[dEZnUTMjzQsXtEmUYUGKcxIYUUsBwxfM]]
+== Multi-Level Loops
+
+[.lead]
+//
+A frequent use of nested `for` loops is to iterate over multi-dimensional
+arrays:
+
+[source,java]
+----
+for (int i = 0; i < array.length; i++) {
+  for (int j = 0; j < array[i].length; j++) {
+    System.out.println(array[i][j]);
+  }
+}
+----
+
+[[OqmwyrjnsTqkhKVnmUFRqLQbIARBdzDS]]
+== ! Checking A Tic-Tac-Toe Board
+
+[.small.janini]
+....
+char[][] currentBoard =
+{{'X', 'O', '.'}, {'O', 'X', '.'}, {'O', '.', 'X'}};
+
+// Return the winner if the game is over, '.' otherwise
+static char checkBoard(char[][] board) {
+}
+checkBoard(currentBoard);
+....
+
+[[EUORETSDHIBROIYIZUFYUGVBWXJKYTEB]]
+== String Rotation Master Class
+
+[.lead]
+//
+Let's look at some ways to do HW13.
+
+[.s]
+//
+* Note that all of these _passed_ our test suite.
+//
+* But that doesn't mean that they are all _correct_.
+//
+* I'm not going to post these as part of the slide deck to avoid disseminating
+potentially bad solutions
+//
+* Is this your code? Maybe. Maybe not though. There are a lot of students in the
+course.
+
+[[DKICYZRYMBPWPLDHKFZQPPHCVSYALBEL]]
+== ! String Rotation Attempt 1
+
+[.small.janini]
+....
+....
+
+[[NYYTCNESDSUSNTWBYRIAPIQSMVRXIVAU]]
+== ! String Rotation Attempt 2
+
+[.small.janini]
+....
+....
+
+[[PVALXNIKLNMGEMZMMCJTMXKDMKHWJEXJ]]
+== ! String Rotation Attempt 3
+
+[.small.janini]
+....
+....
+
+[[RwYaPzUMIaBzQKFpfjLgSPvjSBjHcGIZ]]
+== Announcements
+
+* link:/MP/2018/fall/1/[MP1] is due _today_ at 5PM.
+//
+Office hours all day today&mdash;please come if you need help!
+//
+* MP2 will be out tonight and due a week from today.
+//
+* Then the first midterm, then MP3.
+
+// vim: ts=2:sw=2:et

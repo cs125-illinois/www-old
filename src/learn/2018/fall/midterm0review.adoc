@@ -1,0 +1,278 @@
+---
+title: Midterm 0 Review
+date: 2018-09-24
+description:
+  AMA review session for the first midterm review.
+youtube: https://youtu.be/6XWcKjZrrDs
+---
+
+[[apdpoeMDsaePWRiutJrIJFYtBhClWsuc]]
+== !
+
+[.janini.small]
+--
+++++
+<div class="message">Midterm Review</div>
+++++
+....
+class Exam {
+  String[] questions;
+  int timeLimitMin = 60;
+  int yourGrade = 0;
+}
+Exam yourExam = new Exam();
+for (int i = 0; i < 125; i++) {
+  yourExam.yourGrade++;
+}
+if (yourExam.yourGrade > 100) {
+  System.out.println("Great job!");
+}
+....
+--
+
+[[wurgjhntdnnEyvXdHdETnnJOSzlutjgZ]]
+[.oneword]
+//
+== Checkpoint 0
+//
+You're come a long way in four weeks.
+
+[[fePsaJhBfjrCgOwfIyrEGSddKRhGEqqk]]
+[.oneword]
+//
+== Midterm Goal
+//
+I want to ensure that you are ready to go on and succeed in CS 125.
+
+
+[[hUbnAOHkHUJzepcHaieybiJeiGiMjusi]]
+== Midterm Format
+
+[.s]
+//
+* 12 multiple-choice questions, mostly on code reading
+//
+* 1 "what does this code do?" free response question, _graded after the exam_
+//
+* 4 programming questions:
+** one using arrays,
+** one using multi-dimensional arrays,
+** one using strings,
+** and the last implementing a algorithm according to a description
+
+[[dYTnfZsEfKogaywBhhBrBLueunGlhuKd]]
+== Q3 Review: Understanding Functions
+
+[source,java]
+----
+boolean g(char[] x, char[] y) {
+  if (x.length != y.length) {
+    return false;
+  }
+  for (int i = 0; i < x.length; i++) {
+    if (x[i] != y[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+----
+
+What happens if the function above is called with two empty arrays?
+
+[[xoAoyoxPPLjwffcMFCuRGNkZeNiFvfYn]]
+== Q3 Review: Understanding Functions
+
+[.lead]
+//
+What do we call the combination of the function name and list of argument types
+that is used by Java to determine which function to call?
+
+[[DZUdiHHdedRAtMuPdZQSJaLPtiDTueEz]]
+== Q3 Review: Understanding Functions
+
+[source,java]
+----
+int multiply(int first, int second, int third) {
+  return first * second * third;
+}
+double multiply(double first, double second) {
+  return first * second;
+}
+System.out.println(multiply(10, 20));
+----
+
+What will be printed when the code above runs?
+
+[[DxBEQdaytRTLhuenhFNsppEmYiezgoBi]]
+== Understanding Overloading
+
+[source,java]
+----
+int multiply(int first, int second, int third) {
+  return first * second * third;
+}
+double multiply(double first, double second) {
+  return first * second;
+}
+System.out.println(multiply(10, 20));
+----
+
+Why isn't the method _return type_ part of the function signature?
+
+[[TcdfQnWpZrkCncjhuGnWpjGDfRokomdn]]
+== Warm Up: Array Sum
+
+[.lead]
+//
+Sum all values in a one-dimensional array of `int` values.
+
+[[YJMfgnVSIedhBTTspgBPiOmCufydCkFi]]
+== ! Array Sum
+
+[.janini.small]
+....
+System.out.println(arraySum(new int[] { 1, 2, 5 }));
+....
+
+[[AJiQgnwolpDoLnWDntgiveuNGqrfrike]]
+== String Reverse
+
+[.lead]
+//
+Write a function called `reverseString` that takes a single `String` argument
+and returns that string reversed.
+
+If the passed `String` is null you should return null.
+
+**What's an algorithm?**
+
+[.s]
+//
+* Go through the passed string _backwards_ character by character
+//
+* Append each character to the _front_ of a new `String`
+//
+* Return the new reversed `String`
+
+[[LiVtEucdTyPfXaMDMerIUTMeCAUqwnUL]]
+== ! String Reverse
+
+[.janini.small]
+....
+System.out.println(reverseString("CS125"));
+....
+
+[[QYEEOfoJKcQcaVuFEWmgfESHKAfWFbnR]]
+== ! String Reverse Mistakes
+
+[.janini.small]
+....
+// Now let's review some common mistakes
+System.out.println(reverseString("CS125"));
+....
+
+[[dvfiGdGmqIdBfXMwgPeKKfIPfkJonmRQ]]
+== String Equality
+
+Write a function called `areEquals` that takes two `String` arguments and returns
+`true` if the two strings are equal (that is, they contain the same characters)
+and `false` otherwise.
+
+Note that either first or second may be `null`.
+//
+If either are `null` you should return `false`, including if both are `null`.
+
+**What's an algorithm?**
+
+[.s]
+//
+* Eliminate the `null` cases
+//
+* Go through each `String` character by character...
+//
+* ...or just read the docs.
+
+[[YeHcAOmQwjCuGdllwUENduyTfnYjclce]]
+== ! Read The Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[SclevVBYzdbdfVBNJocTqCeipeDIqAot]]
+== ! String Equality
+
+[.janini.small]
+....
+System.out.println(areEquals("CS125", "CS125"));
+System.out.println(areEquals("CS125", "CS173"));
+....
+
+[[pYCxnvLunyLzvOdyKrTFYRfeclhiYyde]]
+== ! String Equality Mistakes
+
+[.janini.small]
+....
+// Now let's review some common mistakes
+System.out.println(areEquals("CS125", "CS125"));
+System.out.println(areEquals("CS125", "CS173"));
+....
+
+[[eZDwJdFOcjHPWaLjdfBAKQlfyeXIHwBe]]
+== String Rotate Left
+
+Write a function called `rotateLeft` that takes a `String` as its first argument and
+a positive `int` as its second argument and rotates the `String` left by the given
+number of characters.
+
+**What's an algorithm?**
+
+[.s.small]
+//
+* Create a new character array of the same size as the input
+//
+* Go through the passed string character by character
+//
+* Compute the new position for that character
+//
+* Copy the character into position in the new character array
+
+[[DweFwnmrrJnLUgsXgBtdKgHniDEiwLrh]]
+== ! String Rotate Left
+
+[.janini.small]
+....
+System.out.println(rotateLeft("CS125"), 0);
+....
+
+[[dfCeFcBhotTuxCIrAkKnBJmQIgTjqTUZ]]
+== ! String Rotate Left Mistakes and Cleanup
+
+[.janini.small]
+....
+// Now let's review some common mistakes
+System.out.println(rotateLeft("CS125"), 0);
+....
+
+[[fjvdFjdiAeYeIjkpxpKvvyjRWUfSHvlQ]]
+== Announcements
+
+* *Midterm 0 starts tomorrow.*
+//
+As a reminder, you _cannot_ drop midterm scores, and we expect you to work with
+the CBTF to take it _this week_.
+//
+* link:/MP/2018/fall/2/[MP2] is due _today_ at 5PM.
+//
+Good luck wrapping up! (And it's good preparation for the midterm.)
+//
+* Office hours all day today.
+//
+* Daily homework introducing objects continues this week.
+//
+But MP3 won't be released until _Friday_.
+
+// vim: ts=2:sw=2:et

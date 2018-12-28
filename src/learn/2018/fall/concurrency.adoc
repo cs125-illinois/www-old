@@ -1,0 +1,1035 @@
+---
+title: Concurrency and Parallelism
+date: 2018-12-07
+description:
+  Wrap up generics and introduction to concurrency, parallelism, race
+  conditions, and synchronization.
+spelling_exceptions:
+  - i7
+  - Googler
+youtube: https://youtu.be/-rnv9HxuttY
+---
+:imagesdir: /learn/images
+
+[[NtikiyotWDrabCFnPfWbSxHFEzASENVM]]
+== ! Concurrency
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Concurrency</div>
+++++
+....
+public class Example implements Runnable {
+  public static int count = 0;
+  public void run() {
+    int myCount = count;
+    myCount += 1;
+    count = myCount;
+    System.out.println("Hello from " + count);
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i < 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 10; i++) {
+      threads[i].join();
+    }
+  }
+}
+....
+--
+
+[[gshanQpcjpeifKipeXsEwdwgrcRXdvee]]
+== Review: Class Type Parameters
+
+[.lead]
+//
+First, we have to declare our class to accept _type parameters_:
+
+[source,java]
+----
+// T is a type parameter that can be used throughout our class
+public class SimpleLinkedList<E> {
+  // get returns a reference of type E
+  public E get(int index) {
+  }
+  // set takes a reference of type T as its second argument
+  public void set(int index, E value) {
+  }
+}
+----
+
+[[yFUOEpPuuncaCyOreneyqcdTWzAeDgTn]]
+== Compiling Generic Classes
+
+[.lead]
+//
+To help understand how generics work you can imagine the compiler rewriting them
+when it compiles your code.
+
+[[nIOLajpCRkeiqzqdfVGABscHwBcJsFPJ]]
+[.ss]
+//
+== Original and Rewritten List
+
+[source,java,role='smallest']
+----
+public class List<E> {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List<String> list = new List<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class List {
+  public String get(int i) {
+  }
+  public void set(int i, String value) {
+  }
+}
+List list = new List<>();
+----
+
+[[uAusintTCqeDSeGJzQzEfhxebKxeSdZk]]
+== ! Generifying SimpleLinkedList
+
+[.janini.jdk.smallest.compiler]
+....
+public class SimpleLinkedList<E> {
+  class Item {
+    E value;
+    Item next;
+    Item(E setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private int currentSize;
+
+  public SimpleLinkedList() { }
+
+  public SimpleLinkedList(E[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+
+  public void add(int index, E toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+      currentSize++;
+      return;
+    }
+    Item previousItem = getItem(index - 1);
+    if (previousItem == null) {
+      return;
+    }
+    Item newItem = new Item(toAdd, previousItem.next);
+    previousItem.next = newItem;
+    currentSize++;
+  }
+
+  public E remove(int index) {
+    E toReturn;
+    if (index == 0) {
+      toReturn = start.value;
+      start = start.next;
+      return toReturn;
+    }
+    Item previousItem = getItem(index - 1);
+    toReturn = previousItem.next.value;
+    previousItem.next = previousItem.next.next;
+    return toReturn;
+  }
+
+  public E get(int index) {
+    Item item = getItem(index);
+    if (item == null) {
+      return null;
+    } else {
+      return item.value;
+    }
+  }
+
+  public void set(int index, E toSet) {
+    Item item = getItem(index);
+    if (item != null) {
+      item.value = toSet;
+    }
+  }
+
+  public int size() {
+    return currentSize;
+  }
+
+  protected Item getItem(int index) {
+    if (index < 0 || index >= currentSize) {
+      return null;
+    }
+    int currentIndex = 0;
+    for (Item current = start; current != null; current = current.next) {
+      if (currentIndex == index) {
+        return current;
+      }
+      currentIndex++;
+    }
+    return null;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList<Integer> simpleList = new SimpleLinkedList();
+    for (int i = 0; i < 10; i++) {
+      simpleList.add(0, i);
+    }
+    System.out.println(simpleList.size());
+    for (int i = 0; i < 5; i++) {
+      simpleList.remove(i);
+    }
+    System.out.println(simpleList.get(0));
+  }
+}
+....
+
+[[qexqAkkifuIXasHnUyVKnZUKPHXMJDhs]]
+[.oneword]
+//
+== Questions So Far?
+
+Because it's about to get more interesting...
+
+[[AjzHJAjSLdiqNLruXOGHOnHrnxuAuDeW]]
+== ! Max Example
+
+[.janini.jdk.compiler.smaller]
+....
+public class Max {
+  private Integer[] values;
+  Max(Integer[] setValues) {
+    values = setValues;
+  }
+  public Integer max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    Integer currentMax = values[0];
+    for (int i = 1; i < values.length; i++) {
+      if (values[i] > currentMax) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max max = new Max(new Integer[] { 1, 2, 5 });
+    System.out.println(max.max());
+  }
+}
+....
+
+[[CNStHcEuMtLuLZNrRDHnHTfWoQKLaFOc]]
+== Bounded Type Parameters
+
+[.lead]
+//
+The compiler knows all about the relationship between different types, and so it
+can help us ensure that our generic classes receive appropriate type parameters.
+
+[.s]
+//
+* `<T extends S>`: type `T` extends class `S` _or_ implements interface `S`
+//
+* `<T extends S & U & V>`: type `T` extends _or_ implements `S`, `U`, and `V`
+
+[[NBwNwCLFtuvIOmBTFniwQfGjqxGIilgM]]
+== ! Max Example
+
+[.janini.jdk.compiler.smaller]
+....
+public class Max<T> {
+  private T[] values;
+  Max(T[] setValues) {
+    values = setValues;
+  }
+  public T max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    T currentMax = values[0];
+    for (int i = 1; i < values.length; i++) {
+      if (values[i].compareTo(currentMax) > 0) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max<Integer> max = new Max<>(new Integer[] { 1, 2, 5 });
+    System.out.println(max.max());
+  }
+}
+....
+
+[[acJMdhJiXZbEnbTuUrdAXwOliHuicqON]]
+== Generic Interfaces
+
+[.lead]
+//
+Just like classes, interface definitions can use type parameters:
+
+[source,java]
+----
+public interface SimpleList<E> {
+  public E get(int index);
+  public void set(int index, E element);
+  public void add(int index, E element);
+  public E remove(int index);
+  public int size();
+}
+----
+
+[[eGnIkyHdLiXKxjLLaJTeZnUzetkwHOfn]]
+== Generic Gotchas
+
+I've elided many of the details of working with generics.
+//
+Review
+//
+https://docs.oracle.com/javase/tutorial/java/generics/index.html[the official
+documentation]
+//
+to learn more.
+
+But here's one of the more obvious things that doesn't work the way you'd want:
+
+[source,java,role='smaller']
+----
+public class LastTen<T> {
+  private T[] values;
+  private List<T> listOfValues;
+  LastTen() {
+    value = new T[10]; // You can't create an array of a generic type
+    // As a solution you can use a collection type like a list
+    listOfValues = new ArrayList<T>(); // This works
+  }
+}
+----
+
+[[uMnbIPzTufFEHnvuXezGuoQWziZdYXxm]]
+[.oneword]
+//
+== Questions About Generics?
+
+[[kyJILreCSHtKEbjmLqwmwaaumOajSOhK]]
+== Originally: Single-Core Processors
+
+image::https://information2share.files.wordpress.com/2011/05/intel-pentium-4-northwood.jpg[width=480,role='mx-auto']
+
+
+[[qSMkdBFINSclzXfQNlzzIjhpLnNtlBGg]]
+[.oneword]
+//
+== But Then How Could You Use Multiple Applications At Once?
+
+[[mzCSiXrPehxXUQWYOpWxQViHCUYYmRIw]]
+== The Illusion
+
+image::concurrency/concurrency.svg[width="640"]
+
+[[LbURTwnFvkkJbpEAGGdLChklHxYoJpVi]]
+== But Look Closer...
+
+image::concurrency/concurrency-1.svg[width="640"]
+
+[[GvUAcBZXdXwUoKhiMwLAUWpGSitTcnSE]]
+== And Even Closer...
+
+image::concurrency/concurrency-2.svg[width="640"]
+
+[[wrtGWgpftaLrDLCWbWZusLguUgCrHRaz]]
+== The Illusion of Parallelism
+
+image::concurrency/concurrency-2.svg[width="640"]
+
+[.lead]
+//
+All processors create the _illusion_ of parallelism by rapidly switching between
+multiple programs.
+
+[[lzHEBVqXiNpNUtGBwYjDczStgPuwvANr]]
+== Human Perceptual Limitations
+
+[.lead]
+//
+Why does this work? [.s]#Because _you are slow_.#
+
+Assuming a 1 GHz processor:
+
+[.s]
+//
+* 15 ms "rule of thumb": [.s]#*15,000,000* clock cycles!#
+//
+* 40 ms based on 25 frames-per-second for "smooth" video: [.s]#*40,000,000*
+clock cycles!#
+//
+* 100 ms was the rule for old telephone systems, the delay point after
+which human conversation patterns start to break down: [.s]#*100,000,000*
+clock cycles!#
+
+[[xoRwvcVfWWhgVhCGDzvxZdrHjDnvzsOW]]
+== Today: Multicore Everywhere
+
+image::https://i.stack.imgur.com/iG7o9.jpg[width=480,role='mx-auto']
+
+[[eXztgAnSiBfMWUadFLRFtTrkwUDCVzYf]]
+== Today's Reality: Both Real and Illusory Parallelism
+
+[.lead]
+//
+Today even your phone has multiple cores. So we have both:
+
+[.s]
+//
+* *Real* parallelism: your phone is _actually_ doing multiple things at once
+//
+* *Illusory* parallelism: each core is still rapidly switching between programs
+to create the illusion of _more_ parallelism.
+
+[[mfmyuxbtfEbMZLjgcMcjGmtmrrfDcotk]]
+== Single-Threaded
+
+[source,java,role='smallest']
+----
+public class Example {
+  private static void process() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
+    }
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+----
+
+[.lead]
+//
+So far all of the code we've written this semester only does _one thing_ at a
+time.
+
+Sometimes we call this _single-threaded_, for reasons that will make sense
+shortly.
+
+[[JVmPyXcazfSIGMavSiStdRNzBPMpDXeV]]
+== ! Single-Threaded Example
+
+[.janini.compiler.smallest]
+....
+public class Example {
+  private static void process() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[EOlaWWbCRSLYGtBPtTkeFCptwBiykAQs]]
+[.oneword]
+//
+== But We Have Multiple Cores!
+
+[[ZDfZzTWFqbwRCAnpIbXPgKbfwpoqScER]]
+== Parallelism In Java
+
+[.lead]
+//
+Java allows us to create a separate _thread_ of execution using the `Thread`
+class.
+
+[.s]
+//
+* Each `Thread` executes separately, and threads may run in parallel on
+different cores if possible.
+//
+* Each `Thread` can access the same program variables as other threads.
+
+[[yTiFNndxWuqnCbbxKXdaVoViKSKyLOAS]]
+[.oneword]
+//
+== But What Is a `Thread` To Do?
+
+[[JsjPMjNefmUmdufHhmhkpcecpxoKKEjN]]
+== ``Runnable``s
+
+[source,java,role='smaller']
+----
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) {
+    Thread t = new Thread(new Example());
+    t.start();
+  }
+}
+----
+
+[.lead]
+//
+When we create a `Thread` we need to give it something to do&mdash;a function as
+an _entry point_. (Remember `main`?)
+
+We do this by having our class implement `Runnable` and provide a `public void
+run()` method.
+
+[[RteOFhTDwNperQllWJLNWCbhceemNIbq]]
+== ! Thread Interface
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html"></iframe>
+</div>
+++++
+
+[[gvKoEAkoMowBvkchLItIzFLtbkqepyFz]]
+== ! Threads: Broken
+
+[.janini.smaller.compiler]
+....
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) {
+    // Why doesn't this work?
+    Thread t = new Thread(new Example());
+    t.start();
+  }
+}
+....
+
+[[HdcyGgwHNYuHLaTzicStFAqjEsafteTU]]
+== ! Threads: Less Broken
+
+[.janini.smaller.compiler]
+....
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) {
+    // This is better but inconsistent
+    Thread t = new Thread(new Example());
+    t.start();
+    System.out.println("World");
+  }
+}
+....
+
+[[XeTIdUXxzzkgeMiLAbfsqSxBDwIehcgP]]
+== Controlling Threads
+
+[.lead]
+//
+Java has multiple methods for controlling and communicating with `Thread`
+objects:
+
+[.s]
+//
+* `thread.start()`: begin executing a `Thread`
+//
+* `thread.join()`: wait for a `Thread` to complete
+//
+* `thread.interrupt()`: interrupt a `Thread`, causing an `InterruptedException`
+to be thrown
+
+[[kcTKwyxSWcmiuKikSLoZugZutplnzJwz]]
+== ! Threads: Fixed
+
+[.janini.smaller.compiler]
+....
+public class Example implements Runnable {
+  public void run() {
+    System.out.println("Hello!");
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    // This is better but inconsistent
+    Thread t = new Thread(new Example());
+    t.start();
+    System.out.println("World");
+    t.join();
+  }
+}
+....
+
+[[BXEdotZhgaTxFCNVWIaMCMGMXTxgRsJb]]
+== ! Single-Threaded Example
+
+[.janini.compiler.smallest]
+....
+public class Example {
+  private static void process() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[NCTlWTlwVOJmcgRszSyclzECxrKoiJRW]]
+== ! Multi-Threaded Example
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  public void run() {
+    for (int i = 0; i < 20000000L; i++);
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[txxSufCibPcHnHnEoMdFeyJIqxiHcQmu]]
+== Concurrency v. Parallelism
+
+[.lead]
+//
+You hear the terms _parallelism_ and _concurrency_ used together a lot, but each
+has a specific meaning:
+
+[.s]
+//
+* *Parallelism*: multiple things _are_ happening *at the same time*
+//
+* *Concurrency*: multiple parts of your program _can make progress_ *at the same
+time*
+//
+* Watch
+//
+https://blog.golang.org/concurrency-is-not-parallelism[this talk] by Googler Rob
+Pike if you want to clear up this distinction
+
+[[utGepSzOyDoBRltAcayUiVLQdQffUePx]]
+== Why Concurrency Is Important
+
+[.lead]
+//
+Parallelism is important if your program spends a lot of time
+computing&mdash;but most programs _don't_.
+
+They spend a lot of time waiting for other things to happen:
+
+[.s.small]
+//
+* Waiting for the user to enter some input
+//
+* Waiting for a read from the disk to complete
+//
+* Waiting for some data from the network
+//
+* Waiting for your web API call to complete
+
+[.s]
+//
+--
+//
+*If your program is concurrent, something useful can happen even while you're
+waiting for something else.*
+//
+--
+
+[[eRTXNFcMorGOpEYygbyQPbvlJHOGMjAD]]
+== Android Aside
+
+[.lead]
+//
+On Android there is a single user interface (UI) thread responsible for handling
+input like clicks.
+
+[.s]
+//
+* If that thread get stuck waiting, the entire UI becomes unresponsive.
+//
+* Which is why you need to do slow things using a background task&mdash;or, in
+the case of Volley, using its queue.
+//
+* This way the UI thread stays responsive even while slow operations like
+network requests are being completed.
+
+[[TsJwmxPhJkSWvoGWaVydNidBWbPyRTiP]]
+== ! Single-Threaded Example: Concurrency
+
+[.janini.compiler.smallest]
+....
+public class Example {
+  private static void process() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[BmPnUnZajLxILhFKBUpWoZWUQXdqYYgF]]
+== ! Multi-Threaded Example: Concurrency
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  public void run() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[kKVXScxCnFnrmwdtZebBwrgIqOBqdhzX]]
+[.oneword]
+//
+== But Concurrency Can Create Problems...
+
+[[wQkgIwrPGLObAoJMOmospeGhcGuzKdpi]]
+== ! Concurrency Creates Problems
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  private static int accountBalance = 10000;
+  public void run() {
+    int currentAccountBalance = accountBalance;
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i < 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 10; i++) {
+      threads[i].join();
+    }
+    System.out.println(accountBalance);
+  }
+}
+....
+
+[[teCYbnUIEHPmjXEVAAADFHazUgAgSDtR]]
+== Race Condition
+
+[quote]
+____
+A
+//
+https://en.wikipedia.org/wiki/Race_condition[race condition]
+//
+or race hazard is the behavior of an electronics, software, or other system
+where the output is *dependent on the sequence or timing* of other uncontrollable
+events.
+//
+It becomes a bug when events do not happen in the order the programmer intended.
+____
+
+[[iVFSIkjLeqndstXEqlvzHVEOCfHuxSRD]]
+== [.small]#Account Example: No Locking#
+
+[.table.smallest.noborder.array,cols="2*^.^",options='header']
+
+|===
+
+|Thread 1
+|Thread 2
+
+| [.s]#`currentAccountBalance = 1000`#
+| &nbsp;
+
+| &nbsp;
+| [.s]#`currentAccountBalance = 1000`#
+
+| &nbsp;
+| [.s]#`currentAccountBalance -= 10`#
+
+| &nbsp;
+| [.s]#`accountBalance = 990`#
+
+| [.s]#`currentAccountBalance -= 10`#
+| &nbsp;
+
+| [.s]#`accountBalance = 990`#
+| &nbsp;
+
+|===
+
+[[UdtiOqmDuIfsbsdPIFqqGntGWMxKiFmi]]
+== Locks
+
+[.lead]
+//
+One programming technique to avoid race conditions is to use a _lock_:
+
+[.s]
+//
+* Once one `Thread` grabs a lock no other threads can use the lock.
+//
+* We then do our operation on the shared variable or resource.
+//
+* And then drop the lock so that other threads can acquire it.
+
+[[yOKxVKQqNkcAUiwmnYEtgHhfLIKQZiwj]]
+== [.small]#Account Example: Locking#
+
+[.table.smallest.noborder.array,cols="2*^.^"]
+
+|===
+
+| [.s]#`// grab lock`#
+| &nbsp;
+
+| &nbsp;
+| [.s]#`// grab lock`#
+
+| [.s]#`currentAccountBalance = 1000`#
+| &nbsp;
+
+| [.s]#`currentAccountBalance -= 10`#
+| &nbsp;
+
+| [.s]#`accountBalance = 990`#
+| &nbsp;
+
+| [.s]#`// release lock`#
+| &nbsp;
+
+| &nbsp;
+| [.s]#`currentAccountBalance = 990`#
+
+| &nbsp;
+| [.s]#`currentAccountBalance -= 10`#
+
+| &nbsp;
+| [.s]#`accountBalance = 980`#
+
+| &nbsp;
+| [.s]#`// release lock`#
+
+|===
+
+[[AFJpOaePBpApxVMAHJaOwVqLgrdtlNgt]]
+== Java `synchronized` Keyword
+
+[source,java,role='smaller']
+----
+// Only one `Thread` can run this method at once on each object
+public synchronized void withdraw() {
+    int currentAccountBalance = accountBalance;
+    System.out.println(currentAccountBalance);
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+----
+
+[.lead]
+//
+Java has a special keyword called `synchronized` that allows us to easily add a
+lock to any existing method.
+
+[[HVCzgmsbdDtAVdKdqMJGHyXCOXalfEXo]]
+== Java `synchronized` Keyword
+
+[source,java,role='smaller']
+----
+// Only one `Thread` can run this method at once on the entire class
+public static synchronized void withdraw() {
+    int currentAccountBalance = accountBalance;
+    System.out.println(currentAccountBalance);
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+----
+
+[[quUytyricBobItBFNCdVMPPndZssDdxV]]
+== ! Fixing Concurrency Problems
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  private static int accountBalance = 10000;
+  public void run() {
+    int currentAccountBalance = accountBalance;
+    currentAccountBalance -= 10;
+    if (currentAccountBalance < 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i < 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 10; i++) {
+      threads[i].join();
+    }
+    System.out.println(accountBalance);
+  }
+}
+....
+
+[[pawNOmlreGwAxlXIvFpgGjvhuOFwlMPK]]
+[.oneword]
+== However, Locking Degrades Concurrency
+//
+Concurrency encourages a `Thread` free for all, while locking makes them get in
+line.
+
+[[vJlXrBPXuYjIBEdNynUAdrCFsZKfCnlx]]
+== ! Locking v. Concurrency
+
+[.janini.compiler.smallest]
+....
+public class Example implements Runnable {
+  public static synchronized void slowDown() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public void run() {
+    slowDown();
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i < 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i < 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}
+....
+
+[[jFhjQZLICyKhHtmneCbnNQCSBBnSOMwm]]
+[.oneword]
+//
+== Questions About Concurrency or Parallelism?
+
+[[gjnoLmtCHXsFQedVXzrfivitmyabCEoi]]
+== Fair Announcements
+
+[.lead]
+//
+Our final project fair will be **Thursday 12/13/2018** from 5&ndash;9PM.
+
+[.s]
+* Participation is optional but worth 1% extra credit.
+//
+* We'll start with project demos and judging in Siebel from 5&ndash;8PM. You'll
+receive an email assigning your group to a room or space.
+//
+* We'll be selecting some of the best projects to feature at the fair in lab
+this week.
+//
+* Then we'll move to Foellinger for a final awards presentation and
+announcements.
+
+[[sZCduqMyvtxtchSAdLdnetLdLLklSieQ]]
+== Announcements
+
+* The third and final midterm starts _tomorrow_. Good luck!
+//
+* I have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
+//
+Please stop by!
+//
+* Remember to provide feedback on the course using the
+//
+link:/info/feedback/[anonymous feedback form].
+//
+* I've started to respond to existing feedback
+//
+https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+
+// vim: ts=2:sw=2:et
