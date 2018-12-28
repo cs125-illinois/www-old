@@ -27,7 +27,7 @@ internalize:
 <div class="mt-3 spelling_exception">
   <h2 id="tas" class="text-primary">{{ course.Spring2018.staffByRole.TA.length }} Teaching Assistants</h2>
   <div class="row">
-    {{#each course.Fall2018.staffByRole.TA }}
+    {{#each course.Spring2019.staffByRole.TA }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -56,15 +56,16 @@ internalize:
   </div>
 </div>
 
+{{#if course.Spring2019.staffByRole.assistant.length }}
 <div class="mt-3 spelling_exception">
-  <h2 id="cas" class="text-primary">{{ course.Fall2018.staffByRole.assistant.length }} Course Assistants</h2>
+  <h2 id="cas" class="text-primary">{{ course.Spring2019.staffByRole.assistant.length }} Course Assistants</h2>
   <p class="lead">
     Our course assistants are so excited about computer science that they are
     helping you to learn more! Please treat them accordingly&mdash;with a lot of
     appreciation!
   </p>
   <div class="row">
-    {{#each course.Fall2018.staffByRole.assistant }}
+    {{#each course.Spring2019.staffByRole.assistant }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -89,16 +90,17 @@ internalize:
     {{/each }}
   </div>
 </div>
+{{/if}}
 
 <div class="mt-3 spelling_exception">
-  <h2 id="developers" class="text-primary">{{ course.Fall2018.staffByRole.developer.length }} Course Developers</h2>
+  <h2 id="developers" class="text-primary">{{ course.Spring2019.staffByRole.developer.length }} Course Developers</h2>
   <p class="lead">
     Our course developers do not hold office hours or help with labs. But they
     are working hard behind the scenes to make CS 125 better this semester and
     in the future.
   </p>
   <div class="row">
-    {{#each course.Fall2018.staffByRole.developer }}
+    {{#each course.Spring2019.staffByRole.developer }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">

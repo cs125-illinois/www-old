@@ -63,7 +63,6 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
 
   let peopleByEmail = {}
   for (let person of people) {
-    person.name = person.name.full
     delete (person._id)
     _.each(person.labs, lab => {
       expect(sectionInfo[lab]).to.be.ok
@@ -74,7 +73,13 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
       }
     })
     expect(peopleByEmail).to.not.have.property(person.email)
-    peopleByEmail[person.email] = person
+    peopleByEmail[person.email] = {
+      name: person.name.full,
+      email: person.email,
+      labs: person.labs,
+      officeHours: person.officeHours,
+      role: person.role
+    }
   }
 
   _.each(sectionInfo, labInfo => {
@@ -84,7 +89,7 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
 
   await fs.writeFile(path.join(argv._[1], 'course.json'), JSON.stringify({
     times: sectionInfo,
-    staff: people
+    staff: _.values(peopleByEmail)
   }, null, 2))
 
   client.close()

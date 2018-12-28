@@ -1,0 +1,753 @@
+---
+title: "MP4: 2D and Android"
+description:
+  In MP4 you have a chance to work with two-dimensional arrays and complete a
+  simple photo editing Android app.
+spelling_exceptions:
+  - RGBA
+  - Activitys
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp4[forum,role='noexternal']]
+
+[.lead]
+//
+As we have learned previously, computers are frequently used to transform and
+analyze data.
+//
+And an increasing amount of that data is _multi-dimensional_: including both
+photo and video data.
+//
+People are taking a
+//
+https://www.theatlantic.com/technology/archive/2015/11/how-many-photographs-of-you-are-out-there-in-the-world/413389/[huge
+amount of photos and video],
+//
+and processing that data is almost entirely done on or by computers.
+
+For MP4 you'll be working with two-dimensional photo pixel data as you complete
+the image transformations for a simple Android photo editing app.
+//
+MP4 is the first of two Android assignments to prepare you for your final
+project.
+//
+But our focus is still on data transformation and strengthening your existing
+programming abilities.
+
+*MP4 is due Monday 10/29/2018 @ 5PM.
+//
+To receive full credit, you must submit by this deadline.*
+//
+In addition, 10% of your grade on MP4 is for submitting code that earns at least
+_50 points_ by *Monday 10/22/2018 @ 5PM.*
+
+As usual, late submissions will be subject to the
+//
+link:/info/2018/fall/syllabus/#regrading[MP late submission policy].
+
+[[objectives]]
+== Learning Objectives
+
+The purpose of MP4 is to introduce you to data transformation and
+Android development.
+//
+You'll begin to learn how to:
+
+. implement various image transformations by performing transformations on 2D
+arrays
+//
+. avoid writing repetitive code by identifying similarities between various
+transformations
+//
+. work with existing object classes
+
+We'll also introduce you to the structure of a simple Android app, and you'll
+get practice modifying its UI to reflect the results of your image
+transformations.
+
+We'll also continue to reinforce the learning objectives from previous MPs
+(link:/MP/2018/fall/0/[0], link:/MP/2018/fall/1/[1], link:/MP/2018/fall/2/[2], and link:/MP/2018/fall/3/[3]).
+
+[[structure]]
+== Assignment Structure
+
+Unlike previous MPs, MP4 is split into two pieces:
+
+* `/lib/`: a library that performs various image transformations.
+//
+*This library is the only part of the MP tested by the test suite.*
+//
+* `/app/`: an Android app for you to use for your own interactive testing.
+//
+The Android app is _almost_ complete, but needs a few modifications from you.
+//
+And, to work correctly, you need to finish the library in `lib`.
+
+Your primary job is to complete the required transformations in `Transform.java`.
+//
+These make use of a pixel class defined in `RGBAPixel.java`.
+//
+These functions are called by the app and, once you complete them, your app will
+be almost completely functional&mdash;and we'll be happy to help you with the
+rest.
+
+As always, you may find our official
+//
+https://cs125-illinois.github.io/Fall-2018-MP4-Starter/[MP4 online documentation]
+//
+helpful in understanding what each function and class is supposed to do.
+
+[[getting]]
+=== Obtaining MP4
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/g3ygS4K8EAc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+*Note that we are using Android Studio for MP4.*
+//
+If you haven't set it up yet,
+//
+link:/MP/2018/fall/setup/android-studio[start here] and return when you're done.
+
+Once you have Android Studio installed, use
+//
+https://classroom.github.com/a/CewU5LCF[this GitHub Classroom invitation link]
+//
+to fork your copy of MP4.
+//
+Once your repository has been created, import it into *Android Studio* following
+//
+link:/MP/2018/fall/setup/git/#workflow[our assignment Git workflow guide].
+//
+The screencast above provides an overview of this process _after_ you have
+Android Studio correctly installed.
+
+[[requirements]]
+=== Your Goal
+
+At this point you should be familiar with the requirements from previous MPs.
+//
+See the <<grading, grading description below>>.
+
+[[approach]]
+== Approaching MP4
+
+All of our previous advice about how to approach the CS 125 MPs still applies.
+//
+But MP4 has some unique features that are designed to continue your development
+as computer scientists and software developers.
+
+[[packages]]
+=== Package Declarations
+
+Because MP4 is an Android app it requires a new code organization concept that
+we haven't discussed in lecture yet: Java packages.
+//
+Happily, this is not at all complicated.
+//
+Simply duplicate the `package edu.illinois.cs.cs125.mp4.lib` line from
+`RGBAPixel.java` in `Transform.java` once you create that file and everything
+will work properly.
+//
+We'll discuss this more soon.
+
+[[dry]]
+=== Don't Repeat Yourself (DRY)
+
+[.lead]
+//
+Whenever you write software, you should try to adhere to the DRY principle:
+_don't repeat yourself_.
+
+What does this mean?
+//
+It means that you should try to avoid writing duplicative code&mdash;multiple
+functions (or parts of the same function) that perform identical tasks.
+
+Consider the fact that any computer program _could_ be written as one giant
+function and with no subroutines at all
+//
+footnote:[Don't try this at home.].
+//
+But the result would be awful, since any time the program needed to repeat a
+task it would have to repeat the code needed to accomplish that task.
+//
+And any time you fixed a bug in one part of the code, you'd have to find every
+other identical part and fix the bug there as well.
+//
+Code like this quickly becomes impossible to understand, test, debug, and
+improve&mdash;and will also make it hard to keep a job.
+
+At first glance, MP4 may seem daunting.
+//
+You have _12_ functions to write!
+//
+And yes, you can complete MP4 by writing 12 separate independent functions.
+
+But there is a much smarter way to approach MP4.
+//
+As a hint, the solution set consists of only _4_ real functions&mdash;with the
+rest just calling into this much smaller set of _helper functions_.
+//
+The reason is that many of the transformations perform similar operations.
+//
+For example, a shift down is similar to a shift up, as well as a shift left and
+a shift right.
+//
+So rather than writing four separate extremely-similar functions, I can write a
+slightly more complicate generic shift function and have it called by all of the
+others.
+
+There is a balance here that requires practice to get right.
+//
+Trying to reduce the needs of 12 different functions to one single method
+produces overly-complicate and brittle code.
+//
+But writing them all separately misses opportunities to harness common
+subroutines.
+//
+You'll get better at this with practice, and MP4 is a good chance to get some.
+//
+So *do not* implement 12 separate transformation functions, but also *do not*
+attempt to implement one function that does everything.
+//
+There are some natural groupings that you will probably be able to identify.
+
+[[coordinates]]
+=== Understand Your Coordinate System
+
+If you are used to working with the coordinate plane in mathematics, the canvas
+coordinate system can take some getting used to.
+//
+In particular:
+
+. `(0, 0)` is at the _top left_, not the bottom left.
+//
+. Increasing Y values move the image _down_, not up&mdash;keep this in mind when
+implementing `shiftUp` and `shiftDown`.
+//
+. Increasing X values move the image to the right, which matches the
+mathematical coordinate system.
+
+Another important pitfall is that the that way that two-dimensional arrays in
+Java are initialized _does not_ match up with this coordinate system.
+//
+So, for example, this static array:
+
+[source,java]
+----
+int[][] myArray = {
+  { 1, 2 },
+  { 3, 4 }
+};
+----
+
+corresponds to _this_ image array:
+
+[.table-bordered]
+|===
+
+| `1` | `3`
+
+| `2` | `4`
+
+|===
+
+We suggest that you _do not_ try to interpret the statically initialized arrays in
+the test suite directly.
+//
+Instead, use the output from `RGBAPixel` helper methods, which is correctly
+formatted.
+
+[[centering]]
+==== Centering
+
+Understanding the coordinate system is also important when centering the image
+around `(0, 0)`, which you need to do to implement the rotate, flip, and resize
+transformations.
+//
+This is probably one of the trickier parts of MP4, so think it through
+carefully.
+
+It is helpful to work some simple examples.
+//
+For example, consider vertically flipping a 2x2 array.
+//
+In our coordinate system, the coordinate values of the pixels in the array would
+be:
+
+[.table-bordered]
+|===
+
+| `(0, 0)` | `(1, 0)`
+
+| `(0, 1)` | `(1, 1)`
+
+|===
+
+*Note that these are the coordinate values, not the pixel contents*.
+//
+In order to flip the array properly, we need to adjust the coordinate values as
+follows:
+
+[.table-bordered]
+|===
+
+| `(-0.5, -0.5)` | `(0.5, -0.5)`
+
+| `(-0.5, 0.5)` | `(0.5, 0.5)`
+
+|===
+
+At this point I can swap either the X or Y values and achieve either a
+horizontal or vertical flip around the origin.
+//
+There is only one problem&mdash;Java can't use `double` types as array indices.
+//
+So we need to do this transformation on a pixel-by-pixel basis.
+//
+Roughly, here is the approach.
+//
+For each pixel in the original image:
+
+. Center the pixel
+//
+. Determine how to transform it to a new location in the transformed image
+//
+. Undo the centering transformation
+//
+. Move data from the original image to the transformed image
+
+Once you have a centering procedure that works, you can use it for the
+rotations, flips, expands, and shrinks.
+//
+But this is one of the tougher parts of the assignment, so you might want to
+start with the parts that don't require centering: position shifts, color
+shifts, green screen and the mystery function.
+
+==== Shrinking and expanding
+
+As a final note about coordinates, please consider carefully how to implement
+the shrink and expand transformations.
+//
+Specifically, if I start with this 2x6 array (with pixel values shown):
+
+[.table-bordered]
+|===
+
+| `0` | `0` | `1` | `1` | `0` | `0`
+
+| `0` | `0` | `1` | `1` | `0` | `0`
+
+|===
+
+and expand it horizontally by a factor of 3, this is the correct result:
+
+[.table-bordered]
+|===
+
+| `1` | `1` | `1` | `1` | `1` | `1`
+
+| `1` | `1` | `1` | `1` | `1` | `1`
+
+|===
+
+But it is easy to get this instead:
+
+[.table-bordered]
+|===
+
+| `1` | *`0`* | `1` | `1` | *`0`* | `1`
+
+| `1` | *`0`* | `1` | `1` | *`0`* | `1`
+
+|===
+
+You will want to think about this carefully.
+//
+As a hint, instead of starting with the original array and trying to figure out
+where each pixel _goes_ in the transformed array, you may want to start with the
+transformed array and calculate where each pixel should _come from_.
+//
+Also keep in mind that simply casting a double to an integer _does not round the
+value properly_.
+//
+So `(int) doubleValue != Math.round(doubleValue)`.
+
+*Finally, note that shrinking is not tested by the test suite.*
+//
+You can feel free to implement it to get your web interface to work like the
+solution, but it will not affect your score.
+
+==== Testing diff helper
+
+You will notice that the `RGBAPixel` class defines a not very helpful `static`
+method to show the difference between two photo arrays.
+//
+You should feel free to improve this method so that it is more useful during
+your debugging.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/2018/fall/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[testerrors]]
+=== Identifying Test Errors
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/mXoi5cOxZvc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Because of how we have set up MP4, errors present themselves a bit differently.
+//
+The screencast above shows you how to identify errors caused by problems with
+your code when the test suite runs.
+
+In addition, our original Fall 2018 MP4 distribution configured `checkstyle` to
+fail the entire build if `checkstyle` fails.
+//
+This is not how the grader works and may not be what you want.
+//
+To change that, correct the `checkstyle` block in `lib/build.gradle` so that it
+looks like this:
+
+[source,groovy]
+----
+checkstyle {
+    ignoreFailures = true
+    toolVersion "8.12"
+    checkstyleTest.enabled = false
+    configFile = new File(rootDir, "config/checkstyle.xml")
+}
+----
+
+[[android]]
+== Android
+
+Android is a Java-based framework for building smartphone apps that run on the
+Android platform.
+//
+By learning how to build Android apps, your programs can have enormous impact.
+//
+As of a year ago, Google estimated that there were
+//
+https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/[_2
+billion_]
+//
+active Android devices.
+//
+That's over 25% of people on Earth&mdash;and
+//
+http://fortune.com/2017/03/06/apple-iphone-use-worldwide/[several times more
+than iOS].
+
+However, Android is also a huge and complex system.
+//
+It's easy to feel lost when you are getting started.
+//
+Our best advice is to just slow down, take a deep breath, and try to understand
+a bit of what is going on at a time.
+//
+We'll try to walk you through a few of the salient bits for MP4 below.
+//
+Google also maintains a
+//
+https://developers.google.com/training/courses/android-fundamentals[great set of
+tutorials on beginning Android development].
+
+**Note that you will use Android for MP4 and MP5 and for your final project**,
+so put in some time to familiarizing yourself with it now.
+//
+It's simply the best way to build exciting things in Android&mdash;programs that
+you can share with your friends and family.
+
+[[logging]]
+=== Logging
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/gE41VTk76_g" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Like any other computer program, an important part of developing on Android is
+generating debugging output.
+//
+On Android, our familiar `System.out.println`
+//
+https://stackoverflow.com/questions/2220547/why-doesnt-system-out-println-work-in-android[doesn't quite work the same way we're used to].
+
+However, Android has a simple yet powerful _logging_ system.
+//
+Unlike `System.out.println`, logging systems allow you to specify multiple log
+_levels_ indicating the kind of output that you are generating.
+//
+This allows you to distinguish between, for example, debugging output that might
+only be useful during development and a warning message that might indicate a
+more serious problem or failure.
+//
+The Android logger also allows you to attach a `String` _tag_ to each message to
+help separate them when you are debugging or developing.
+//
+So the final syntax of the call to generate a debugging message, for example, is
+`Log.d(TAG, message)`.
+
+For more information, watch the screencast above or review
+//
+https://developer.android.com/reference/android/util/Log.html[Android's official
+logging documentation].
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+Probably, since you need to determine what you app is doing or how things are
+going wrong.
+//
+--
+
+[[activitys]]
+=== ``Activity``s
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/0SfiLWdlwqs" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+The Android
+//
+https://developer.android.com/reference/android/app/Activity.html[`Activity` class]
+//
+corresponds to a single screen that the user can interact with.
+//
+Our simple app contains only one activity, but most apps consist of several:
+maybe an activity corresponding to the app's main screen, another for a
+settings dialog, and still others for other parts of the app.
+
+As you might expect, there are two important moments for an activity: when it
+appears on the screen, and when it leaves the screen.
+//
+Android provides functions that you can override to handle both of these events:
+`onCreate` and `onPause`.
+//
+It is typical for on `onCreate` method to perform tasks required to make the
+activity ready for a user to use, such as configuring buttons and other UI
+elements.
+
+For more information watch the screencast above or
+//
+review
+//
+https://developer.android.com/reference/android/app/Activity.html[Android's
+official `Activity` information].
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+No. But you may be confused by the overall app structure if you don't review it.
+//
+--
+
+[[uievents]]
+=== UI Events
+
+Why does code in your app run?
+//
+In many cases it's because a user _interacted_ with an activity&mdash;clicked a
+button, entered text into a dialog box, or adjusted an on-screen control.
+//
+Android provides a way for each app to register _handlers_ than run when various
+user interface (UI) events take place.
+
+Our app uses these to:
+
+* start the open file dialog
+//
+* start the process of capturing an image from the camera
+//
+* open the download file input box
+//
+* initiate various image transformations
+
+In the
+//
+<<activitys, screencast on Android ``Activity``s>>
+//
+above we show how elements of the user interface are linked programmatically to
+each specific action.
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+No.
+//
+But it will be hard to understand how your app works without reviewing it.
+//
+--
+
+[[tasks]]
+=== Asynchronous Tasks
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/aIpPOaBh9Zk" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+One of the core goals of every application, including smartphone apps, is to
+maintain a responsive user interface.
+//
+If your app freezes for long periods of time, or even short ones, users will
+quickly stop using it.
+
+Android accomplishes this by delegating certain slow operations to so-called
+_background tasks_.
+//
+They then run independently of the user interface.
+//
+So your app can be simultaneously responding to new user input _and_, for
+example, downloading a large file.
+
+This is an advanced topic and not one that we expect you to master on this MP or
+even on future ones.
+//
+But you will need to make _small_ changes to `Tasks.java` to complete MP4, so
+learn more by watching the screencast above.
+//
+Our MP4 app uses two background tasks: one to download files and save them to
+local storage, the second to run your image transformation functions.
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP4?*
+//
+Yes!
+//
+There are some missing pieces in waiting for you to complete.
+//
+--
+
+[[demo]]
+=== Putting It All Together
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/a5ku635f1TQ" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Finally, the screencast above provides a brief overview of how your app _should_
+work once you are done.
+//
+You can do it!
+//
+Good luck.
+
+[[grading]]
+== Grading
+
+MP4 is worth 100 points total, broken down as follows:
+
+. *80 points*: `Transform.java`
+  ** *20 points* for completing the position shift transformations
+  ** *20 points* for completing the rotation and flip transformations
+  ** *20 points* for completing the expand transformations
+  ** *20 points* for completing the green screen transformation
+. *10 points* for no `checkstyle` violations
+. *10 points* for submitting code that earns at least 50 points before *Monday
+10/22/2018 @ 5PM.*
+
+[[testing]]
+=== Test Cases
+
+As in previous MPs, we have provided exhaustive test cases
+for each part of MP4.
+//
+Please review the link:/MP/2018/fall/0/#testing[MP0 testing instructions].
+
+[[autograding]]
+=== Autograding
+
+Like previous MPs we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+//
+Please review the link:/MP/2018/fall/0#autograding[MP0 autograding instructions].
+
+[[submitting]]
+== Submitting Your Work
+
+Follow the instructions from the
+//
+link:/MP/2018/fall/setup/git#submitting[submitting portion]
+//
+of the
+//
+link:/MP/2018/fall/setup/git#workflow[CS 125 workflow]
+//
+instructions.
+
+And remember, you must submit something that earns 50 points before *Monday
+10/22/2018 @ 5PM* to earn 10 points on the assignment.
+
+[[cheating]]
+=== Academic Integrity
+
+Please review the link:/MP/2018/fall/0#cheating[MP0 academic integrity guidelines].
+
+Here's an example of the training that the CS 125 course staff undertakes to
+make sure we catch cheaters:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/XfZFuw7a13E" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++

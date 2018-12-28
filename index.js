@@ -68,11 +68,13 @@ const slides_pattern = 'learn/**/*.{adoc,info}'
 const isSlides = (filename, file) => {
   return file.slides == true;
 }
-const Fall2017_MP_pattern = 'MP/2017/fall/**/*.adoc'
-const Spring2018_MP_pattern = 'MP/2018/spring/**/*.adoc'
 const MP_pattern = 'MP/**/*.adoc'
-const Spring2018_lab_pattern = 'lab/2018/spring/*.adoc'
+const Fall2018_MP_pattern = 'MP/2018/fall/**/*.adoc'
+const Spring2018_MP_pattern = 'MP/2018/spring/**/*.adoc'
+const Fall2017_MP_pattern = 'MP/2017/fall/**/*.adoc'
 const lab_pattern = 'lab/**/*.adoc'
+const Fall2018_lab_pattern = 'lab/2018/fall/*.adoc'
+const Spring2018_lab_pattern = 'lab/2018/spring/*.adoc'
 const info_pattern = 'info/**/*'
 const tech_pattern = 'tech/**/*'
 const adoc_pattern = '*/**/*.adoc'
@@ -134,9 +136,10 @@ metalsmith(__dirname)
     pattern: /\.js$/
   }))
   .use(course({
-    Fall2017: 'info/2017/fall/course.yaml',
+    Spring2019: 'info/course.json',
+    Fall2018: 'info/2018/fall/course.json',
     Spring2018: 'info/2018/spring/course.json',
-    Fall2018: 'info/course.json'
+    Fall2017: 'info/2017/fall/course.yaml'
   }))
   .use(people())
   .use(filemetadata([
@@ -154,9 +157,11 @@ metalsmith(__dirname)
       },
       preserve: true
     },
+    { pattern: Fall2018_MP_pattern, metadata: { sidebar: 'Fall-2018-MP' }, preserve: true },
     { pattern: Spring2018_MP_pattern, metadata: { sidebar: 'Spring-2018-MP' }, preserve: true },
     { pattern: Fall2017_MP_pattern, metadata: { sidebar: 'Fall-2017-MP' }, preserve: true },
     { pattern: MP_pattern, metadata: { sidebar: 'MP' }, preserve: true },
+    { pattern: Fall2018_lab_pattern, metadata: { sidebar: 'Fall-2018-lab' }, preserve: true },
     { pattern: Spring2018_lab_pattern, metadata: { sidebar: 'Spring-2018-lab' }, preserve: true },
     { pattern: lab_pattern, metadata: { sidebar: 'lab' }, preserve: true },
     { pattern: info_pattern, metadata: { sidebar: 'info' }, preserve: false },

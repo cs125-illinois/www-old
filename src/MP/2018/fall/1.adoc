@@ -1,0 +1,351 @@
+---
+title: "MP1: Transformations"
+description:
+  MP1 has you transform strings, both to intelligently print a script and to
+  encrypt (and decrypt) text.
+outdated:
+  name: MP
+  current: /mp/
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp1[forum,role='noexternal']]
+
+[.lead]
+//
+Strings are an important data type in every programming language.
+//
+And computers are frequently used to _transform_ and _analyze_
+data&mdash;including string data.
+//
+While computers understand bits, bytes, and numbers, humans communicate using
+letters, words, and sentences.
+
+MP1 comprises two string-based tasks that involve straightforward transformation
+and modification tasks.
+//
+They will introduce you to strings, string representation, and simple state
+machines while also providing more practice with loops and algorithms.
+
+*MP1 is due Monday 9/17/2018 @ 5PM.
+//
+To receive full credit, you must submit by this deadline.*
+//
+In addition, 10% of your grade on MP1 is for submitting code that earns at least
+_20 points_ by *Friday 9/14/2018 @ 5PM.*
+//
+As usual, late submissions will be subject to the
+//
+link:/info/2018/fall/syllabus/#regrading[MP late submission policy].
+
+[[objectives]]
+== Learning Objectives
+
+The purpose of MP1 is to familiarize you with Java strings and string
+processing.
+//
+You'll begin to learn how to:
+
+. interpret text as a series of lines, lines as a series of words, words as
+a series of characters, and characters themselves as numbers
+//
+. use simple looping constructs to iterate over arrays of strings and strings
+themselves
+//
+. implement a simple state machine
+//
+. write correct Javadoc comments
+
+We'll also continue to reinforce the link:/MP/2018/fall/0/#objectives[learning objectives
+from MP0].
+
+[[structure]]
+== Assignment Structure
+
+MP1 consists of two short programs:
+
+. https://cs125-illinois.github.io/Fall-2018-MP1-Starter/PrintLines.html[`PrintLines.java`]:
+//
+parses a script and returns lines for a particular actress (or actor)
+//
+. https://cs125-illinois.github.io/Fall-2018-MP1-Starter/Encrypt.html[`Encrypt.java`]:
+//
+encrypts and decrypts text using the so-called
+//
+https://en.wikipedia.org/wiki/Caesar_cipher[Caesar Cipher]
+
+You may find our official
+//
+https://cs125-illinois.github.io/Fall-2018-MP1-Starter/[MP1 online documentation]
+//
+helpful in understanding what each function is supposed to do.
+
+[[getting]]
+=== Obtaining MP1
+
+Use
+//
+https://classroom.github.com/a/8XHQB55B[this GitHub Classroom invitation link]
+//
+to fork your copy of MP1.
+//
+Once your repository has been created, import it into IntelliJ following
+//
+link:/MP/2018/fall/setup/git/#workflow[our assignment Git workflow guide].
+
+[[requirements]]
+=== Your Goal
+
+All programs are incomplete and need work.
+//
+The structure of each program is similar:
+
+. Each contains a `main` method that solicits input from the user.
+//
+*You do not need to modify the `main` methods*, but you should understand how
+they work.
+//
+. User inputs are passed to a separate helper function that you are assigned to
+write.
+//
+These functions do the heavy lifting for each program: returning an actress's
+lines (`linePrinter`), and encrypting (`encrypter`) and decrypting (`decrypter`)
+text.
+//
+. Each program includes a test suite: `PrintLinesTest.java` and
+`EncryptTest.java`.
+//
+The test suite does not test the main method.
+//
+Instead, it directly tests the method that you are assigned to write.
+
+Your goal is to correctly implement the missing methods so that all of the tests
+pass.
+//
+Doing so will earn you almost full credit on the assignment&mdash;but see the
+section on <<style, style below>>.
+
+[[approach]]
+== How to Approach MP1
+
+All of link:/MP/2018/fall/2018/spring/0/#approach[the MP0 guidelines] still apply.
+//
+In addition, let us provide some new advice for MP1.
+
+=== Review `java.lang.String`
+
+An important part of MP1 is understanding the various methods that you can call
+on Java strings.
+//
+The best place to find a complete list is the
+//
+https://docs.oracle.com/javase/10/docs/api/java/lang/String.html[Javadoc
+documentation for the Java String type].
+
+You will definitely want to review the
+//
+https://docs.oracle.com/javase/10/docs/api/java/lang/String.html#method.summary[list
+of String methods] to find things that might be useful.
+//
+Specifically, the String methods `split`, `toLowerCase`, `toUpperCase`,
+`startsWith` may be useful in completing MP1&mdash;particularly for
+`printLinesFor`.
+
+=== Documenting Your Work
+
+[.lead]
+//
+While comments are not processed by the computer, they are some of the most
+important things that you will write (and read) as a software developer.
+
+The reason that comments are so important is simple&mdash;while the code you
+write is _run_ by a computer, is is _used_ by other human beings.
+//
+Regardless of whether a computer can understand what your code is trying to do,
+if other people cannot you will be in trouble.
+//
+In the open-source community, nobody will be able to use your
+contributions&mdash;even if they want to.
+//
+At a job, poorly documented code will get you fired extremely quickly.
+
+So an important job when writing code is _documenting_ it so that others can use
+it.
+//
+We will give you practice at doing this on the MPs, and also go over it several
+times during lab sections.
+//
+But here are some general guidelines to get you started:
+
+==== Documentation for packages and functions is extremely important
+
+This is one of the reasons that we are forcing you to write Javadoc comments,
+since they can be easily used to generate documentation.
+//
+https://cs125-illinois.github.io/mazemaker/[Here is an example from this week's
+lab.]
+//
+Well-written documentation makes it possible for others to use your code without
+understanding your implementation.
+//
+That is critical to modern software development.
+
+==== Comments within functions should be used sparingly
+
+On the other hand, comments _within_ your code should be used sparingly.
+//
+They are not a substitute for <<readable, writing clear and readable code>>.
+
+A good way to think about comments in your code is as a chance to explain
+something unusual that might confuse another person that is reading your
+code&mdash;or, more likely, you!
+
+Here's a fun example:
+
+++++
+<script
+src="https://gist.github.com/gchallen/96122f0e066c2dc1eebc7e6a08e160ab.js"></script>
+++++
+
+And yes&mdash;kudos for comments that are both informative and amusing.
+//
+http://fuzzzyblog.blogspot.com/2014/09/40-most-funny-code-comments.html[Here are
+some good examples.]
+
+[[readable]]
+=== Writing Readable Code
+
+Comments and documentation are not a substitute for writing reading code.
+//
+Think of it this way&mdash;documentation is for others that will try to use your
+code, including collaborators and co-workers.
+//
+Comments document unusual situations, but are primarily for you, not for others,
+since you're the one who's most likely to have to read (and probably debug) your
+code.
+
+Readable code is even more important for you and you alone.
+//
+So treat writing code that is clear and easy to understand as personal and
+selfish challenge, since it is most likely to benefit you.
+
+==== Good variable names
+
+One basic aspect of writing good code is good choices of variable names.
+//
+A good variable name should allow me to understand how it is being used
+_without_ reading much of the code.
+
+Good variable names depend a lot on context, but one good practice to get in to
+is to *avoid generic names* like `i`, `j`, `index`, `count`, etc.
+//
+Try more specific names like `indexInString`, `countOfLetters`, etc.
+//
+`count` could be anything&mdash;whereas `countOfLetters` lets me know more about
+what is being counted.
+//
+Keystrokes are cheap, understanding is expensive.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/2018/fall/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[grading]]
+== Grading
+
+MP1 is worth 100 points total, broken down as follows:
+
+. *40 points*: `PrintLines.java`
+  ** *10 points* for submitting code that compiles
+  ** *30 points* for passing the test
+. *40 points*: `Encrypt.java`
+  ** *10 points* for submitting code that compiles
+  ** *30 points* for passing the test
+. *10 points* for no `checkstyle` violations
+. *10 points* for submitting code that earns at least 20 points before *Friday
+9/14/2018 @ 5PM.*
+
+Programming is a skill, and you learn it with regular consistent practice.
+//
+If you wait until the day of the deadline, it's unlikely that you'll get as much
+practice and learn as much as if you start early.
+//
+When you give yourself enough time to complete the MP, you can also slow down,
+enjoy yourself, and do things right.
+//
+Take a few extra minutes to learn more about a library that you're using, or
+clean up your code so that it really shines.
+//
+The earlier you start, the more likely you'll do some of these useful things.
+
+So, we're going to incentive you starting on time.
+//
+10% of MP1 is earned by submitting something that earns 20 points by *Friday
+9/14/2018 @ 5PM.*
+//
+You don't have to do much to get 20 points, but we hope that it will get you
+reading and think about the MP before Monday, when office hours are packed.
+
+[[testing]]
+=== Test Cases
+
+Like link:/MP/2018/fall/0[MP0], we have provided exhaustive test cases for each part of
+MP1.
+//
+Please review the link:/MP/2018/fall/0#testing[MP0 testing instructions].
+
+[[autograding]]
+=== Autograding
+
+Like link:/MP/2018/fall/0[MP0], we have provided you with an autograding script that you
+can use to estimate your current grade as often as you want.
+//
+Please review the link:/MP/2018/fall/0/#autograding[MP0 autograding instructions].
+
+[[style]]
+=== Style Points
+
+Review the link:/MP/2018/fall/0/#style[style notes from MP0].
+//
+For MP1 you will have to correct some existing style errors.
+//
+Please look at the Javadoc comments on other provided functions for examples of
+how to use the `@param` and `@return` tag.
+
+[[submitting]]
+== Submitting Your Work
+
+Follow the instructions from the
+//
+link:/MP/2018/fall/setup/git#submitting[submitting portion]
+//
+of the
+//
+link:/MP/2018/fall/setup/git#workflow[CS 125 workflow]
+//
+instructions.
+
+[[cheating]]
+== Cheating
+
+[.lead]
+//
+Please review the
+//
+link:/info/2018/fall/syllabus#cheating[CS 125 cheating policies].
+
+All submitted MP source code will be checked by automated plagiarism detection
+software.
+//
+*Cheaters will receive stiff penalties&mdash;the hard-working students in the
+class that are willing to struggle for their grade demand it.*
+//
+Note that we have a full copy of every submission from the past several
+semesters and these _will be included_ in our examinations.

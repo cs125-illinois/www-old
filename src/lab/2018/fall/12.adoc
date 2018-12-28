@@ -1,0 +1,308 @@
+---
+title: Web and Web APIs
+description:
+  Today you'll have a chance to experiment with public web APIs and create your
+  own personal website on GitHub.
+spelling_exceptions:
+  - LinkedIn
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+The internet is one of the most&mdash;if not _the_ most&mdash;impressive
+pieces of technology ever created.
+//
+A reliable system connecting 4 billion machines, it has also served as a
+platform enabling enormous amounts of innovation.
+//
+Today we'll look at the web in as a provider of services or
+__API__s that we can utilize when we create our own applications.
+
+Note that there is no written part of this lab.
+//
+Instead, we'll expect you to find any required information using the internet
+itself.
+
+You'll work in pairs on today's activity, and you should work with your partner
+for your final project.
+//
+**If you don't have one you must join a group today.**
+//
+You have a 20-point project UI checkpoint due next week.
+
+[[apsi]]
+== Exploring Web APIs [.text-muted]#(60 Minutes)#
+
+[.lead]
+//
+Web interfaces make it possible for us to easily incorporate powerful services
+and enormous amounts of information into our Android apps.
+//
+Many of these interfaces are publicly-available, and in other cases free API
+keys are provided for experimentation and limited use.
+
+=== Forking and Cloning the Lab12 Android Studio Project
+
+We've set up an
+//
+https://github.com/cs125-illinois/Fall-2018-Lab12[GitHub repository for Lab 12].
+//
+It contains an Android Studio project that's correctly configured for Lab 12.
+//
+Getting access to it is similar to how you
+//
+link:/MP/2018/fall/setup/git/#importing[imported MP0].
+//
+But you have to fork our repository first.
+//
+If it's not obvious how to do that, try following
+//
+https://help.github.com/articles/fork-a-repo/[these instructions].
+
+*Note that you should import this using Android Studio, not IntelliJ.*
+
+=== Understanding Volley
+
+Our starter code uses
+//
+https://developer.android.com/training/volley/index.html[Google's Volley
+library]
+//
+to make API requests.
+//
+You may want to review
+//
+https://developer.android.com/training/volley/index.html[its documentation]
+//
+as you examine our starter code.
+
+The Lab 12 code base uses a button to initiate a web API call.
+//
+You should finish the web UI so that it displays the results in the text box
+provided and uses the progress bar appropriately.
+
+Here's the key bit of code that is making the web API request:
+
+[source,java,role='small']
+----
+JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        Request.Method.GET,
+        "",
+        null,
+        new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(final JSONObject response) {
+                Log.d(TAG, response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                Log.w(TAG, error.toString());
+            }
+        });
+----
+
+Answer the following questions about the code above:
+
+. What kind of HTTP request is being made?
+//
+. What is the URL being used?
+//
+. What code runs if the request succeeds?
+//
+. What code runs if the request fails?
+//
+. If the request fails, how would you find out more information about why?
+
+=== Adding URL Parameters to a Request
+
+Some APIs, like
+//
+https://iextrading.com/developer/[this one],
+//
+require that you add parameters to your URL.
+//
+So if I wanted to get a quote for Apple Computer, Inc., which has symbol `APPL`,
+just issuing a `GET` request with this URL:
+
+[source]
+----
+https://api.iextrading.com/1.0/stock/AAPL/batch
+----
+
+Returns an empty JSON array.
+//
+Because, as
+//
+https://iextrading.com/developer/docs/#batch-requests[their documentation]
+//
+explains, there is a required `types` request parameter.
+//
+So, to request a quote my `GET` request URL would look like
+
+[source]
+----
+https://api.iextrading.com/1.0/stock/AAPL/batch?types=quote
+----
+
+and to get both a quote and stock news
+
+[source]
+----
+https://api.iextrading.com/1.0/stock/AAPL/batch?types=quote,news
+----
+
+=== Adding Data to a `POST` Request
+
+When you use `POST` you'll usually want to add some JSON data to the body of the
+request.
+//
+Volley makes this quite easy.
+//
+Here's an example:
+
+[source,java,role='small']
+----
+// Initialize a new JSONObject from a string. Note the escaping required.
+final JSONObject jsonBody = new JSONObject("{\"type\":\"example\"}");
+JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        Request.Method.POST,
+        url,
+        jsonBody,
+        ...
+----
+
+Note that you can create a `JSONObject` from a `String` as shown, as long as it
+is valid JSON.
+//
+You also have to escape (`\"`) the double quotes inside the string literal.
+
+=== Adding Headers to a Request
+
+To authenticate with some APIs you must add your API key to the header of the
+HTTP message.
+//
+For example, the documentation for the
+//
+https://goo.gl/HWpPy5[Microsoft Cognitive Services Computer Vision API]
+//
+specifies that you must add an API key to the headers with name
+`Ocp-Apim-Subscription-Key`.
+
+Here's an example of how to do that using Volley that also logs the parameters
+to the debugging output:
+
+[source,java,role='small']
+----
+JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        Request.Method.GET,
+        "",
+        null,
+        new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(final JSONObject response) {
+                Log.d(TAG, response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                Log.w(TAG, error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Ocp-Apim-Subscription-Key", "YOUR_API_KEY");
+                Log.d(TAG, params.toString());
+                return params;
+            }
+        };
+----
+
+=== Making Your Own API Calls
+
+One of the things that makes learning how to use web APIs so powerful is that
+there are _so many of them_.
+//
+So for this part of the lab we'll ask you to use _four_ different external web
+APIs to access different kinds of data.
+//
+We suggest that you peruse
+//
+https://github.com/toddmotto/public-apis[this list of free public APIs that
+return JSON]
+//
+for inspiration, but you can also Google around for possible APIs to use.
+
+You'll also want to complete you starter application so that it both displays
+the JSON that is returned in the available text box and uses a
+//
+https://developer.android.com/guide/topics/ui/notifiers/toasts.html[Toast]
+//
+notification to indicate errors when something goes wrong.
+//
+You should also continue to log errors and warnings using Android's
+//
+https://developer.android.com/reference/android/util/Log.html[Logging system]
+//
+to aid your own development.
+
+Choose four different web APIs to make the following kinds of requests.
+//
+Note that
+//
+https://github.com/toddmotto/public-apis[this list above]
+//
+distinguishes between APIs that require authentication and those that do not
+
+. A `GET` that does not require authentication
+//
+. A `GET` that _does_ require authentication
+//
+. A `POST` that does not require authentication
+//
+. A `POST` that does require authentication
+
+Review the instructions above as needed to determine how to add information to
+your `GET` and `POST` requests.
+//
+But don't get stuck on one particular API for too long.
+//
+If it doesn't seem to be working, try another one.
+//
+You may also want to review
+//
+https://blog.restcase.com/restful-api-authentication-basics/[this tutorial on
+the basics of API authentication].
+
+'''
+
+[[mp6]]
+== Final Project UI and Planning [.text-muted]#(50 Minutes)#
+
+Use any remaining time in your lab section to work on
+//
+link:/MP/2018/fall/6/[your final project]
+//
+with your project partner.
+
+During next week's lab we'll ask each group for a brief overview of their
+project and to demonstrate a working UI.
+//
+This means that all UI elements should be in place and should be attached as
+needed to some kind of handler in each activity.
+//
+Those handlers don't have to do anything, yet: they can just log a message so
+that we know that they are working.
+//
+Although you may want to keep going if you get to this point quickly.
+
+If you need help with UI development please refer to
+//
+link:/lab/2018/fall/12/[Lab 12],
+//
+or as on the forum.
+
+// vim: ts=2:sw=2:et
