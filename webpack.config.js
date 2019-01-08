@@ -3,8 +3,8 @@ const webpack = require('webpack')
 const path = require('path')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = function (env, argv) {
   let config = {
@@ -38,6 +38,9 @@ module.exports = function (env, argv) {
     node: {
       fs: 'empty'
     },
+    optimization: {
+      minimizer: [ new TerserPlugin() ]
+    },
     plugins: [
       new webpack.ProvidePlugin({
         $: 'jquery',
@@ -46,9 +49,6 @@ module.exports = function (env, argv) {
         Popper: ['popper.js', 'default'],
       }),
       new ExtractTextPlugin('[name].[chunkhash].css'),
-      new UglifyJSPlugin({
-        cache: true
-      }),
       new WebpackCleanupPlugin()
     ],
     module: {
