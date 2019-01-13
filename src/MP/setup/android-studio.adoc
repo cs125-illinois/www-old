@@ -2,16 +2,13 @@
 title: "Android Studio Setup"
 description:
   Prepare your computer to complete the Android-based machine problems (MPs).
-outdated:
-  name: MP
-  current: /mp/
 ---
 :sectnums:
 :linkattrs:
 
 [.lead]
 //
-To complete the Android CS 125 machine problems (MPs) you'll write your
+To complete the Android CS 125 labs and machine problems (MPs) you'll write your
 //
 https://www.java.com/en/[Java]
 //
@@ -26,22 +23,6 @@ https://developer.android.com/studio/run/emulator.html[Android Emulator].
 This guide will help you install and configure this important and powerful
 development tool.
 
-[.alert.alert-warning]
---
-**Note that if have not
-//
-link:/MP/2018/fall/setup/java/[installed Java]
-//
-you should do that first.**
-//
-Return here when you're done.
-//
-Also note that you only need Android Studio for the Android-based MPs&mdash;this
-semester starting with
-//
-link:/MP/2018/fall/4/[MP4].
---
-
 [[intellij]]
 == Android Studio
 
@@ -51,10 +32,8 @@ https://developer.android.com/studio/index.html[Android Studio]
 //
 is _the_ integrated development environment (IDE) for Android development.
 //
-Happily, Android Studio is based on
-//
-link:/MP/2018/fall/setup/intellij/[IntelliJ], which you are have already been using for
-previous MPs.
+This semester all CS 125 lab programming assignments and MPs will be done using
+Android Studio.
 
 Follow the instructions below that are appropriate for your machine.
 //
@@ -71,8 +50,8 @@ the Android Studio category].
 [[version]]
 === Version
 
-For Fall 2018 we are using Android Studio version 3.2, which is the latest
-available as of October 2018.
+For Spring 2019 we are using Android Studio version 3.2.1, which is the latest
+available as of January 2019.
 //
 Please install this version of Android Studio and continue using it throughout
 the semester.
@@ -97,23 +76,72 @@ instructions].
 //
 **Please follow them carefully**.
 
+[[plugins]]
+== Android Studio Plugins
+
+Once you have <<install, installed Android Studio>>, continue by installing two
+Android Studio plugins:
+
+. https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[The `checkstyle` IntelliJ plugin]
+//
+. Our official link:/tech/intellijplugin/[CS 125 IntelliJ plugin]
+
 [[checkstyle]]
-== `checkstyle` Plugin
+=== `checkstyle` Plugin
 
-Once you have <<install, installed Android Studio>>, continue by installing the
+We use
 //
-https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[Checkstyle-IDEA
-IntelliJ plugin].
+http://checkstyle.sourceforge.net/[`checkstyle`]
 //
-It's the same one that you used for your Java assignments using IntelliJ, but
-should also work on Android Studio, and you can follow
+to help you learn how to write beautiful and maintainable code by requiring you
+to adhere to a coding standard.
 //
-link:/MP/2018/fall/setup/intellij/#plugins[the same instructions].
+**There are points on each MP for `checkstyle`, so you want to get the plugin
+installed so that you can check your style in Android Studio.**
 
-*Note that our CS 125 plugin is not yet compatible with Android Studio.*
-//
-We hope to fix that soon.
+Installing this plugin is straightforward:
 
+. Open the Android Studio plugins menu
+//
+. Click on "Install JetBrains plugin..."
+//
+. Search for "checkstyle" and install the "Checkstyle-IDEA" plugin that appears
+//
+. Restart Android Studio to complete the installation
+
+You should install the latest version of the `checkstyle` plugin, currently
+5.23.0.
+//
+`checkstyle` plugin updates that are released during the semester should be safe
+to install.
+
+[[cs125plugin]]
+=== CS 125 IntelliJ Plugin
+
+Our official link:/tech/intellijplugin[CS 125 IntelliJ plugin]
+//
+will both simplify your MP development process and help us ensure that you are
+making satisfactory progress on each assignment.
+//
+You can read more about it
+//
+link:/tech/intellijplugin[here].
+
+Installing our plugin is straightforward and similar to <<checkstyle,
+installing the `checkstyle` plugin>>.
+
+. Open the Android Studio plugins menu
+//
+. Click on "Install JetBrains plugin..."
+//
+. Search for "CS 125" and install the "CS 125 @ Illinois" plugin that appears
+//
+. Restart Android Studio to complete the installation
+
+You should install the latest version of our plugin, currently 0.2.0, and any
+updates we release during the semester.
+
+////
 [[emulator]]
 == Android Emulator
 
@@ -131,8 +159,6 @@ The easiest way to get a virtual device set up is to start a project, build it,
 and then try to run it.
 //
 That will launch a dialog allowing you to configure a virtual device.
-//
-// Follow the screencast above for a complete description.
 
 [[devices]]
 == Running on Real Devices
@@ -147,17 +173,4 @@ tutorial]
 //
 for instructions on how to configure your device properly to run your apps
 during development.
-
-[[helloworld]]
-== Hello, Android!
-
-Once you have completed the steps above you should be able to work through
-creating and building
-//
-https://codelabs.developers.google.com/codelabs/android-training-hello-world/#0[Google's
-"Hello, World!" example app].
-//
-It's a great introduction to Android development from start to finish, and
-covers aspects of app creation that we will not cover on
-//
-link:/MP/2018/fall/4/[MP4] or MP5.
+////
