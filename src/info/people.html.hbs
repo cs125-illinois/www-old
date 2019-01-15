@@ -71,6 +71,9 @@ internalize: false
         <div class="card-body">
           <div class="person card-title text-center">{{{ this.name }}}</div>
           {{#if this.labs }}
+          <p class="email text-center">
+            <a href="mailto:{{{ this.email }}}"><code>{{{ this.email }}}</code></a>
+          </p>
           <p class="small card-text">
           Assisting with {{ inflect this.labs.length "section" "sections" }}
           {{#and_list this.labs }}{{ this }}{{/and_list}}
