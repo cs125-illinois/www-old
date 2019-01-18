@@ -4,6 +4,8 @@ date: 2019-01-18
 description:
   Introduction to comparisons and conditional expressions, the basis for
   programmatic decision making.
+spelling_exceptions:
+  - MLK
 ---
 :imagesdir: /learn/images
 :!sectids:
@@ -17,13 +19,13 @@ description:
 <div class="message">Comparisons and conditional expressions</div>
 ++++
 ....
-boolean todayIsFriday = true;
+boolean todayIsMonday = true;
 boolean weAreHavingClass = true;
 int currentTime = 8;
-if (todayIsFriday && weAreHavingClass) {
-  System.out.println("Let's discuss conditionals");
-} else if (todayIsFriday) {
-  System.out.println("Obama is coming...");
+if (todayIsMonday && weAreHavingClass) {
+  System.out.println("Let's learn CS");
+} else if (todayIsMonday) {
+  System.out.println("We're celebrating MLK Day...");
 }
 ....
 --
@@ -100,6 +102,32 @@ can make your program more efficient
 //
 * Types also help catch some common programming errors
 
+[[thNGNuVJZgpjeuixrcjzWZgDtmmWCvwM]]
+== Our Types
+
+[.lead]
+//
+In CS 125 we'll primarily be dealing with just a few of Java's primitive types:
+
+[.s]
+//
+* `int` for storing integers
+//
+* `double` for storing floating point values
+//
+* `boolean` for storing truth values
+
+[[BOWngHncunytquMaQrLQnEBSLSwCARUu]]
+[.oneword]
+== Questions About Variables or Types?
+
+[[PVdesknoTzodrebNUEmVdNDGvCYmidfd]]
+[.oneword]
+//
+== I Want You Here Until May
+
+All of you. **Especially the beginners.**
+
 [[POtIiKbRQNuZuYwSwdCgAeuyZhpQbmsv]]
 == What Are Computers Good At?
 
@@ -118,8 +146,8 @@ can make your program more efficient
 
 [.lead]
 //
-Java also allows me to compare different variables: either against literal
-values, or against other variables.
+Java also allows me to compare variables: either against literal values, or
+against other variables.
 
 This is basis for _simple decision making_.
 
@@ -157,7 +185,7 @@ System.out.println(tester);
 ....
 
 [[NZRZqEBsBPejsjEIMEUExRtpUZwnPHvN]]
-== Comparisons Against Variables
+== Variable Comparisons
 
 [role='janini']
 ....
@@ -204,12 +232,33 @@ System.out.println(first > 10 || false);
 ....
 
 [[FBXXgCFgySnrwZHYfSoUHPKWaxwklwjZ]]
-== Evaluation Order
+== Evaluation Order and Grouping
 
 [.lead]
 //
-Conditionals are always evaluated from left to right, and evaluation stops as
+There are a few more rules that Java applies when evaluating conditionals
+expressions:
+
+[.s]
+//
+* Conditionals are always evaluated from left to right, and evaluation stops as
 soon as the result is known.
+//
+* Comparisons can be grouped using parentheses (`(` and `)`)
+//
+* But we'll try and keep our comparisons simple for now&mdash;and you should
+too!
+
+[[OHLyesdredLunhwymnQglBoPznFWnGEv]]
+== ! Grouping Comparisons
+
+[role='janini']
+....
+int first = 10;
+System.out.println((first > 0 && first < 10) || (first == 10));
+System.out.println((first > 0 && first < 10) && (first == 10));
+System.out.println(first < 10 && (first == 0 || first == 10));
+....
 
 [[kTKjdTjMotZBlcgraocBlOSIGadWncvF]]
 == Comparisons Enable Decisions
@@ -280,11 +329,18 @@ if (comparison > 5) {
 ....
 
 [[ulsvDseRWSMaJGiZXigRkKHBdYgQEGwm]]
-== Remember: Only One Statement Runs
+== Remember: At Most One Statement Runs
 
 [.lead]
 //
-*In any if statement, only one statement is executed.*
+*In any if statement, at most one statement is executed.*
+
+[.s]
+//
+* If there is an `else` statement _exactly_ one statement runs
+//
+* If there is _not_ an `else` statement _at most_ one statement runs, but it's
+possible than no statement runs
 
 [[sCTwbrbupLHdZwRvBbUQlfGFoutbJTfB]]
 == Somewhat Useful Example
@@ -386,7 +442,6 @@ if (true) {
 System.out.println(inside);
 ....
 
-////
 [[SJSRWJEKJTEENRTVYEBXXQBLIVDQKYVB]]
 == Homework Progress
 
@@ -394,21 +449,56 @@ System.out.println(inside);
 
 [.s]
 //
-* HW0: 890
+* HW0: 643
 //
-* HW1: 867
+* HW1: 621
 //
-* HW2: _844_
+* HW2: 598
 //
-* HW3: *702*
-////
+* HW3: _553_
+
+[[BktXnudeogGZUmOmuiDvjUHIvfkvtGud]]
+== Preparing for Quizzes
+
+[.lead]
+//
+Your first real CS 125 quiz starts next Tuesday in the CBTF.
+//
+Here's how to prepare.
+
+[.s]
+//
+* Multiple-choice questions will test content covered in class&mdash;so
+review the slides
+//
+* Programming questions will be quite similar to the homework problems&mdash;so
+review them too
+//
+* You have _unlimited_ attempts on the programming questions but limited
+attempts on the multiple-choice questions
 
 [[bAMIDJtTOruAKgjPWiRdBcIJIwClvpMV]]
 == Announcements
 
+[.small]
+//
+* I have office hours _today_ from 11AM&ndash;1PM in Siebel 2227.
+//
+*Please come by and say hi!*
+//
+* Homework continues _today_, _over the weekend_, **and on Monday**
+//
+* **No class or office hours on Monday (MLK Day)** footnote:[But there is
+homework!]
+//
+* Your first real quiz will start next Tuesday in the CBTF and cover variables
+and conditionals&mdash;material up through today
+//
 * We have link:/info/resources/#hours[office hours]
 //
-until 5PM today.
+until 5PM today
+//
+* Should we have weekend office hours?
 //
 * Please fill out the https://goo.gl/forms/FWkjiW2jp9HoU82U2[initial student
 survey].
