@@ -1,0 +1,448 @@
+---
+title: "MP0: Location"
+description:
+  MP0 has you complete three small well-contained programming tasks, and also
+  challenges you to hack on some much more advanced and complicated code. All in
+  the name of preparing you for this semester's Android development projects.
+spelling_exceptions:
+  - Robolectric
+secret: 6ctL61Hh
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp0[forum,role='noexternal']]
+
+[.lead]
+//
+Let's start hacking!
+//
+Our goal with MP0 is to provide a gentle but realistic introduction to Android
+development.
+//
+On one hand, most of the assignment is writing small pieces of code of the kind
+you should be increasingly familiar with.
+//
+On the other hand, MP0 also challenges you to hack on an larger and scarier
+chunk of code&mdash;the guts of a simple Android application.
+//
+It also introduces you to the development workflow we'll use throughout the rest
+of the semester.
+
+*MP0 is due Monday 2/4/2019 @ 5PM.
+//
+To receive full credit, you must submit by this deadline.*
+//
+In addition, 10% of your grade on MP0 is for submitting code that earns at least
+_30 points_ by *Friday 2/1/2019 @ 5PM.*
+//
+Late submissions will be subject to the
+//
+link:/info/syllabus/#regrading[MP late submission policy].
+
+[[objectives]]
+== Learning Objectives
+
+The core objectives of MP0 are both to keep you practicing writing simple
+functions _and_ to get you started working with Android.
+//
+We've brought both of those goals together under one roof in the form of
+location tracking app which is _almost_ complete but needs a bit of help from
+you.
+
+Specifically, MP0 continues training you to:
+
+. initialize and use variables and arrays of appropriate types
+//
+. perform simple calculations using integer and floating point arithmetic
+//
+. use simple loops and conditional statements to process arrays containing data
+//
+. translate program descriptions into working code, and
+//
+. work with test suites as part of your development process.
+
+[[structure]]
+== Assignment Structure
+
+Like all the MPs this semester MP0 is an Android app.
+//
+It's divided into to parts:
+
+* `/lib/`: a library that performs various computations on location data
+collected by the app.
+//
+* `/app/`: an Android app for you to use for your own interactive testing.
+//
+The Android app is _almost_ complete, but needs a few modifications from you.
+//
+And, to work correctly, you need to finish the library in `lib`.
+
+_Most_ of the points for MP0 are for completing the three short functions in
+`Locator.java` in the library.
+//
+These problems are a bit of an upgrade from what you have been doing on the
+homework, but not a dramatic change.
+
+In contrast, `MainActivity.java` in the app tosses you into the deep end of
+Android app development.
+//
+This is not a complicated app, but it does contain a lot of new ideas and
+scary-looking source code.
+//
+Don't worry&mdash;you'll understand all of it by the end of the semester.
+//
+But the app development part of the MP is designed to force you to get started
+on the uncomfortable task of _hacking_ on large pieces of unfamiliar software.
+
+There are a few points for finishing the app, and that only requires _a few_
+lines of code footnote:[technically, only one].
+//
+But you will spend a while poring over the app source code figuring out what on
+Earth is going on and what you need to do.
+//
+Again, this is not uncommon.
+//
+Modern software development involves working with large codebase with many
+contributors, meaning that it is rare to unheard of that you will understand
+every bit and piece of what you are working on.
+
+[[preparation]]
+=== MP0 Preparation
+
+Before starting MP0 you should make sure that you have completed
+//
+link:/MP/setup/android-studio[installing Android Studio],
+//
+and have either an emulator or real device that you can run Android apps on.
+//
+*If you don't please contact a course staff member immediately.*
+
+Next, work through our instructions on
+//
+link:/MP/setup/git[installing and using Git].
+//
+We will provide time during lab this week to review how to use Git to submit
+MP0, but you are welcome to go through our instructions beforehand if you are
+raring to get going.
+
+[[getting]]
+=== Obtaining MP0
+
+Use
+//
+https://classroom.github.com/a/ygd9hf0i[this GitHub Classroom invitation link]
+//
+to obtain your copy of MP0.
+//
+Once your repository has been created, import it into Android Studio following
+//
+link:/MP/setup/git/#workflow[our assignment Git workflow guide].
+
+[[requirements]]
+=== Your Goal
+
+[.lead]
+//
+Your goal is to complete the helper functions so that the app works properly and
+then make _one_ small modifications to the user interface to fix a
+non-functional button.
+
+All of the core app code is in `MainActivity.java` in the `app` directory.
+//
+That's the scary stuff&mdash;although we have tried to comment it heavily to
+help you understand what's going in there.
+
+But to work properly the app relies on three helper functions from
+`Locator.java` in the `lib` directory that process location data:
+
+. `farthestNorth`: given an array of positions, find the one that's the furthest
+north.
+//
+. `beenHere`: given a current position and an array of positions, determine
+whether the current position already exists in the array&mdash;meaning that
+we've been there before.
+//
+. `nextRandomLocation`: given a current position, randomly generate a new
+position to move to&mdash;or stay put.
+//
+This is used by a wandering feature of the app designed to help you see how it
+works without trekking all over campus.
+
+We have provided test suites for all of the helper functions.
+//
+Our test suites contains both simple tests for each method for you to use during
+development and then a more rigorous set of tests.
+
+Your goal is to correctly implement the missing methods so that all of the tests
+pass.
+//
+Doing so will earn you almost full credit on the assignment&mdash;but see the
+section on <<style, style below>>.
+
+[[approach]]
+== How to Approach MP0
+
+Although MP0 may seem daunting at first, do not get discouraged!
+//
+Focus on identifying what you need to do and understanding the requirements of
+each function.
+//
+There is really not a huge amount of code for you to write&mdash;our solution
+adds only several dozen lines, although yours may be slightly longer.
+
+=== Understanding What You Need to Do
+
+A core task when approaching any programming assignment or task is to _identify
+what you need to do_.
+//
+To finish the MP0 library there are three&mdash;and only three&mdash;functions
+that you need to change.
+//
+Begin by identifying those functions and understanding their requirements.
+//
+This will go *a long way* to helping you complete the MP.
+//
+Once you are done with the library then you can tackle the more daunting change
+to `MainActivity.java`.
+
+=== Getting Started
+
+Your initial clone of MP0 will receive 0 points.
+//
+That's intentional!
+//
+But once you start working you'll find that your score will go up quickly.
+//
+You only have to finish _one_ of the helper functions and correct the
+`checkstyle` error to get to 30 points by Friday.
+
+Use IntelliJ to help you here.
+//
+It can intelligently identify problems with your MP and guide you toward
+solutions.
+
+=== Test-driven Development
+
+We have provided you with testing suites that you can use to perform iterative
+test-driven development.
+//
+You should integrate this process into your normal
+//
+link:/MP/setup/git#workflow[CS 125 Git workflow].
+//
+Here's how that works:
+
+. Start with one function that you need to write for MP0&mdash;say
+`farthestNorth` in `Locator.java`.
+//
+. Open `Locator.java`.
+//
+Run the assignment test suite, which is installed as run configuration "Test
+Library".
+//
+Without changes to `Locator.java`, it should fail.
+//
+. Begin modifying the `farthestNorth` function.
+//
+When you think that you have a solution, re-run the test suite.
+//
+Better yet, run just one part of the test suite&mdash;for example, the test
+that tests simple inputs to `farthestNorth`.
+//
+. If the test suite succeeds, you're _almost_ done&mdash;congratulations!
+//
+. But make sure to run the full grading test suite to ensure that you get full
+marks!
+//
+There may be a case that the simple test suites are not trying that you are not
+handling correctly.
+//
+. If the test suite fails, try to diagnose the problem.
+//
+Interactive testing can help diagnose these kinds of problems.
+
+In general *the fewer lines of code you write before running a test, the
+better.*
+//
+When you are starting out, it is easy to introduce bugs into your code.
+//
+Bugs are easiest to catch one-by-one, and so the fewer lines of untested code
+the more likely you are to identify errors in your logic or implementation.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[grading]]
+== Grading
+
+MP0 is worth 100 points total, broken down as follows:
+
+. *20 points*: `farthestNorth`
+  ** *10 points* for passing the simple tests
+  ** *10 points* for passing the randomized tests
+. *20 points*: `beenHere`
+  ** *10 points* for passing the simple tests
+  ** *10 points* for passing the randomized tests
+. *20 points*: `nextRandomLocation`
+  ** *10 points* for passing the simple tests
+  ** *10 points* for passing the randomized tests
+. *20 points*: `testCenterButton`: note that passing this test requires
+modifying `MainActivity.java`
+. *10 points* for no `checkstyle` violations
+. *10 points* for submitting code that earns at least 30 points before *Friday
+2/1/2019 @ 5PM.*
+
+[[submitting]]
+=== Submitting Your Work
+
+Follow the instructions from the
+//
+link:/MP/setup/git#submitting[submitting portion]
+//
+of the
+//
+link:/MP/setup/git#workflow[CS 125 workflow]
+//
+instructions.
+//
+Note that the first time you do this you'll want to pay careful attention to the
+//
+link:/MP/setup/git/#troubleshooting[common submission pitfalls],
+//
+particularly if your submission doesn't show up when you think it should.
+
+[[testing]]
+=== Test Cases
+
+You should carefully review the test cases in `LocatorTest.java`.
+//
+The MP0 _library_ testing suite tests your code using random inputs and
+pre-computed correct outputs.
+//
+So, for example, when testing `beenHere`, we have pre-computed the correct
+answer for a small subset of test cases and use this to determine whether your
+solution works in all cases.
+
+In contrast, testing the user-facing parts of Android apps is notoriously
+difficult.
+//
+This semester we'll be using
+//
+http://robolectric.org/[Robolectric]
+//
+to write lightweight interface tests.
+//
+For MP0 all we are testing is that you've hooked up the "Center" button
+properly, but in future MPs these tests will become more exhaustive.
+
+Automated testing is a hugely important part of modern software development.
+//
+Just like computers are good at running programs, they are also good at running
+programs to debug other programs.
+//
+Independently developing a method and the function that tests it allows the two
+to support each other.
+//
+The test may find errors in the method, and, the method may also identify errors
+in the test.
+
+For all three library functions we provide you with both _simple_ test cases
+using a small number of select inputs *and* exhaustive test cases that use many
+randomly-generated inputs.
+//
+The former should be used during iterative development.
+//
+For MP0, both are used during grading&mdash;but on future MPs there will be few
+to no points for the simpler test suites.
+//
+The <<autograding, local autograder>> we provide will be able to help you
+estimate your score before you submit.
+
+[[autograding]]
+=== Autograding
+
+We have provided you with an autograding script that you can use to _estimate_
+your current grade as often as you want.
+//
+Your Android Studio project contains run configuration called "Grade" that will run the
+autograder for MP0.
+//
+You can also run the grader by installing
+//
+link:/tech/intellijplugin/[our plugin]
+//
+and then pressing the button that looks like the CS 125 shield.
+
+Unless you have modified the test cases or autograder configuration files, the
+autograding output should approximate the score that you will earn when you
+submit.
+//
+If you modify our test cases or the autograding configuration, _all bets are
+off_.
+//
+You may also lose points if your solution runs too slowly and exceeds the
+testing timeouts
+//
+footnote:[This can be a concern with LCM if you implement the most brute force
+solution.].
+
+[[style]]
+=== Style Points
+
+90 points on MP0 are for correctly implementing the required functions.
+//
+The other 10 points are for _style_.
+//
+Writing readable code according to a style guideline is extremely important, and
+we are going to help you get into this habit right from the start.
+//
+Every software development company and most active open-source projects maintain
+style guidelines.
+//
+Adhering to them will help others understand and integrate your contributions.
+
+We have configured the `checkstyle` plugin to enforce a variant of the
+//
+http://checkstyle.sourceforge.net/sun_style.html[Sun Java coding style].
+//
+IntelliJ should naturally generate code that meets this standard.
+//
+So you should not have to fight with IntelliJ too much to avoid `checkstyle`
+violations.
+
+However, the `checkstyle` plugin does require you to add
+//
+https://en.wikipedia.org/wiki/Javadoc[Javadoc]
+//
+comments, and also avoid the use of so-called
+https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad[_magic
+numbers_].
+//
+You may find these requirements a bit annoying at first, but we trust that you
+will get used to them.
+//
+Once you build good style habits, you won't have to think about it anymore, and
+will just go on with your business writing beautiful code.
+
+[[cheating]]
+== Cheating
+
+[.lead]
+//
+Please review the
+//
+link:/info/syllabus#cheating[CS 125 cheating policies].
+
+All submitted MP source code will be checked by automated plagiarism detection
+software.
+//
+Cheaters will receive stiff penalties&mdash;the hard-working students in the
+class that are willing to struggle for their grade demand it.
