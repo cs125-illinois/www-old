@@ -6,7 +6,8 @@ description:
   the name of preparing you for this semester's Android development projects.
 spelling_exceptions:
   - Robolectric
-secret: 6ctL61Hh
+  - Activitys
+  - Lifecycle
 ---
 :sectnums:
 :linkattrs:
@@ -46,9 +47,8 @@ link:/info/syllabus/#regrading[MP late submission policy].
 The core objectives of MP0 are both to keep you practicing writing simple
 functions _and_ to get you started working with Android.
 //
-We've brought both of those goals together under one roof in the form of
-location tracking app which is _almost_ complete but needs a bit of help from
-you.
+We've brought both of those goals together in the form of location tracking app
+which is _almost_ complete but needs a bit of help from you.
 
 Specifically, MP0 continues training you to:
 
@@ -67,7 +67,7 @@ Specifically, MP0 continues training you to:
 
 Like all the MPs this semester MP0 is an Android app.
 //
-It's divided into to parts:
+It's divided into two parts:
 
 * `/lib/`: a library that performs various computations on location data
 collected by the app.
@@ -88,7 +88,7 @@ In contrast, `MainActivity.java` in the app tosses you into the deep end of
 Android app development.
 //
 This is not a complicated app, but it does contain a lot of new ideas and
-scary-looking source code.
+scary code.
 //
 Don't worry&mdash;you'll understand all of it by the end of the semester.
 //
@@ -104,8 +104,8 @@ Earth is going on and what you need to do.
 Again, this is not uncommon.
 //
 Modern software development involves working with large codebase with many
-contributors, meaning that it is rare to unheard of that you will understand
-every bit and piece of what you are working on.
+contributors, meaning that it is rare to unheard of to understand every last
+bit of something you are working on.
 
 [[preparation]]
 === MP0 Preparation
@@ -129,7 +129,13 @@ raring to get going.
 [[getting]]
 === Obtaining MP0
 
-Use
+First,
+//
+link:/MP/setup/git/#account[sign up for a GitHub account]
+//
+if you haven't already.
+//
+Then use
 //
 https://classroom.github.com/a/ygd9hf0i[this GitHub Classroom invitation link]
 //
@@ -138,6 +144,21 @@ to obtain your copy of MP0.
 Once your repository has been created, import it into Android Studio following
 //
 link:/MP/setup/git/#workflow[our assignment Git workflow guide].
+
+[.alert.alert-danger]
+//
+--
+**Note that the first time you clone MP0 with Android Studio configuration may
+appear to fail with an "IDE Error"**.
+//
+This is OK.
+//
+Just restart Android Studio at this point and you should be able to continue
+working.
+//
+If that doesn't work check the <<troubleshooting, troubleshooting section
+below>>.
+--
 
 [[requirements]]
 === Your Goal
@@ -151,7 +172,7 @@ non-functional button.
 All of the core app code is in `MainActivity.java` in the `app` directory.
 //
 That's the scary stuff&mdash;although we have tried to comment it heavily to
-help you understand what's going in there.
+help you understand what's going on.
 
 But to work properly the app relies on three helper functions from
 `Locator.java` in the `lib` directory that process location data:
@@ -280,6 +301,222 @@ Please come to link:/info/syllabus/#calendar[office hours], or post on the
 You should also feel free to help each other, as long as you do not violate the
 <<cheating, academic integrity requirements>>.
 
+////
+[[testerrors]]
+=== Identifying Test Errors
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/mXoi5cOxZvc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+In Android Studio errors present themselves a bit differently than you are used
+to from working on the homework problems.
+//
+The screencast above shows you how to identify errors caused by problems with
+your code when the test suite runs.
+////
+
+[[android]]
+== Android
+
+Android is a Java-based framework for building smartphone apps that run on the
+Android platform.
+//
+By learning how to build Android apps, your programs can have enormous impact.
+//
+As of a year ago, Google estimated that there were
+//
+https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/[_2
+billion_]
+//
+active Android devices.
+//
+That's over 25% of people on Earth&mdash;and
+//
+http://fortune.com/2017/03/06/apple-iphone-use-worldwide/[several times more
+than iOS].
+
+However, Android is also a huge and complex system.
+//
+It's easy to feel lost when you are getting started.
+//
+Our best advice is to just slow down, take a deep breath, and try to understand
+a bit of what is going on at a time.
+//
+We'll try to walk you through a few of the salient bits for MP0 below.
+//
+Google also maintains a
+//
+https://developers.google.com/training/courses/android-fundamentals[great set of
+tutorials on beginning Android development].
+
+**Note that you will use Android for all MPs this semester and for your final
+project**, so put in some time to familiarizing yourself with it now.
+//
+It's simply the best way to build exciting things in Android&mdash;programs that
+you can share with your friends and family.
+
+[[logging]]
+=== Logging
+
+Like any other computer program, an important part of developing on Android is
+generating debugging output.
+//
+On Android, our familiar `System.out.println`
+//
+https://stackoverflow.com/questions/2220547/why-doesnt-system-out-println-work-in-android[doesn't quite work the same way we're used to].
+
+However, Android has a simple yet powerful _logging_ system.
+//
+Unlike `System.out.println`, logging systems allow you to specify multiple log
+_levels_ indicating the kind of output that you are generating.
+//
+This allows you to distinguish between, for example, debugging output that might
+only be useful during development and a warning message that might indicate a
+more serious problem or failure.
+//
+The Android logger also allows you to attach a `String` _tag_ to each message to
+help separate them when you are debugging or developing.
+//
+So the final syntax of the call to generate a debugging message, for example, is
+`Log.d(TAG, message)`.
+
+For more information
+// watch the screencast above or review
+//
+https://developer.android.com/reference/android/util/Log.html[Android's official
+logging documentation].
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP0?*
+//
+Probably, since you need to determine what you app is doing or how things are
+going wrong.
+//
+--
+
+[[activitys]]
+=== ``Activity``s and Activity Lifecycle
+
+The Android
+//
+https://developer.android.com/reference/android/app/Activity.html[`Activity` class]
+//
+corresponds to a single screen that the user can interact with.
+//
+Our simple app contains only one activity, but most apps consist of several:
+maybe an activity corresponding to the app's main screen, another for a
+settings dialog, and still others for other parts of the app.
+
+As you might expect, there are a few important moments for an activity: when it
+is created, when it appears on the screen, and when it leaves the screen.
+//
+Android provides functions that you can override to handle both of these events:
+`onCreate`, `onResume`, and `onPause`.
+//
+It is typical for on `onCreate` method to perform tasks required to make the
+activity ready for a user to use, such as configuring buttons and other UI
+elements.
+
+For more information
+// watch the screencast above or
+//
+review
+//
+https://developer.android.com/reference/android/app/Activity.html[Android's
+official `Activity` information].
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP0?*
+//
+No. But you may be confused by the overall app structure if you don't review it.
+//
+--
+
+[[uievents]]
+=== UI Events
+
+Why does code in your app run?
+//
+In many cases it's because a user _interacted_ with an activity&mdash;clicked a
+button, entered text into a dialog box, or adjusted an on-screen control.
+//
+Android provides a way for each app to register _handlers_: functions that run
+when various user interface (UI) events take place.
+
+Our app uses these to:
+
+* enable and disable location tracking
+//
+* enable and disable randomly-generated fake locations, or _wandering_
+//
+* center the map&mdash;although this doesn't quite work yet
+
+////
+In the
+//
+<<activitys, screencast on Android ``Activity``s>>
+//
+above we show how elements of the user interface are linked programmatically to
+each specific action.
+////
+
+[.alert.alert-primary]
+--
+//
+*Do you need to know this to complete MP0?*
+//
+Yes!
+//
+And it will be hard to understand how your app works without reviewing it.
+//
+--
+
+[[troubleshooting]]
+== Troubleshooting
+
+[.lead]
+//
+When building apps with Android Studio any one of a number of things can go
+wrong.
+//
+We'll try to keep an updated list here of troubleshooting strategies.
+
+=== General Advice
+
+If your app won't build, try the following steps:
+
+. **Restart Android Studio.**
+//
+Yes, this does in fact sometimes do the trick.
+//
+. **Invalidate Caches / Restart.**
+//
+You'll find this under the "File" menu.
+//
+Again, sometimes it seems to help.
+//
+. **Rebuild Project.**
+//
+You'll find this under the "Build" menu.
+//
+Sometimes rebuilding will help you pinpoint errors that are preventing your app
+from starting or the test suites from running.
+
+=== MP0 Specific Advice
+
+We'll add things here as we go, but please check the {forum} first.
+
 [[grading]]
 == Grading
 
@@ -341,7 +578,7 @@ http://robolectric.org/[Robolectric]
 to write lightweight interface tests.
 //
 For MP0 all we are testing is that you've hooked up the "Center" button
-properly, but in future MPs these tests will become more exhaustive.
+properly, but in future MPs these tests will become more comprehensive.
 
 Automated testing is a hugely important part of modern software development.
 //
