@@ -525,22 +525,42 @@ If you see the following error message when you run the test suites:
 image::NoTest.png[role='img-fluid']
 
 _and_ you downloaded the MP right after it was released, you may need to adjust
-your "Test Library" run configuration.
+your run configurations.
+//
+Here's how to do that:
 
-Click the dropdown next to the play button and choose "Edit Configurations".
+. Switch the left pane to Project view
 //
-Choose "Test Library".
+. Expand the top (`MP0-Spring2019-`...) folder, then `.preserve`, then
+`runConfigurations`
 //
-You want the bottom to look like this:
+. Double-click `Test_App.xml` to open it
+//
+Position your cursor after `<method v="2">` (line 15), press enter to insert a
+new line, and then paste this text:
+//
+[source,xml]
+----
+<option name="Android.Gradle.BeforeRunTask" enabled="true" goal=":lib:clean" />
+----
+//
+[start=4]
+//
+. Repeat steps 4 and 5 for `Test_Library.xml`
+//
+Press the Make button (green hammer) in the toolbar
 
-image::CleanBeforeBuild.png[role='img-fluid']
+Or, you could just watch Ben show you how to do it:
 
-**If it doesn't**, click on the plus button shown in the image above and, choose
-"Gradle-aware Make", and type ":lib:clean".
-//
-Then make sure that item is first in the list as shown above.
-//
-At that point you should be good to go!
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/xC-9TelgnWk" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
 
 ==== "No tests were found" (2/2)
 
