@@ -11,6 +11,7 @@ spelling_exceptions:
 ---
 :sectnums:
 :linkattrs:
+:imagesdir: /MP/images/MP0
 
 :forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp0[forum,role='noexternal']]
 
@@ -516,6 +517,50 @@ from starting or the test suites from running.
 === MP0 Specific Advice
 
 We'll add things here as we go, but please check the {forum} first.
+
+==== "No tests were found" (1/2)
+
+If you see the following error message when you run the test suites:
+
+image::NoTest.png[role='img-fluid']
+
+_and_ you downloaded the MP right after it was released, you may need to adjust
+your "Test Library" run configuration.
+
+Click the dropdown next to the play button and choose "Edit Configurations".
+//
+Choose "Test Library".
+//
+You want the bottom to look like this:
+
+image::CleanBeforeBuild.png[role='img-fluid']
+
+**If it doesn't**, click on the plus button shown in the image above and, choose
+"Gradle-aware Make", and type ":lib:clean".
+//
+Then make sure that item is first in the list as shown above.
+//
+At that point you should be good to go!
+
+==== "No tests were found" (2/2)
+
+Even if you've completed the steps shown above you can still encounter this
+message.
+//
+This is usually because your code doesn't
+_compile_ (usually due to a syntax error) and so can't be tested.
+//
+When you try to run the test suite or an individual test you see this:
+
+image::NoTest.png[role='img-fluid']
+
+However, see the "Build" tab down there a few over from the "Run" tab that is
+currently active?
+//
+That's what you want to look at, since it will show build output identifying the
+error:
+
+image::ShowTest.png[role='img-fluid']
 
 [[grading]]
 == Grading
