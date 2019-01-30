@@ -518,69 +518,87 @@ from starting or the test suites from running.
 
 We'll add things here as we go, but please check the {forum} first.
 
-==== "No tests were found" (1/2)
+[[gradlefix]]
+==== Fix `build.gradle`
 
-If you see the following error message when you run the test suites:
-
-image::NoTest.png[role='img-fluid']
-
-_and_ you downloaded the MP right after it was released, you may need to adjust
-your run configurations.
-//
-Here's how to do that:
-
-. Switch the left pane to Project view
-//
-. Expand the top (`MP0-Spring2019-`...) folder, then `.preserve`, then
-`runConfigurations`
-//
-. Double-click `Test_App.xml` to open it
-//
-Position your cursor after `<method v="2">` (line 15), press enter to insert a
-new line, and then paste this text:
-//
-[source,xml]
-----
-<option name="Android.Gradle.BeforeRunTask" enabled="true" goal=":lib:clean" />
-----
-//
-[start=4]
-//
-. Repeat steps 4 and 5 for `Test_Library.xml`
-//
-Press the Make button (green hammer) in the toolbar
-
-Or, you could just watch Ben show you how to do it:
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/6Xdmz8fX1eM" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-==== "No tests were found" (2/2)
-
-Even if you've completed the steps shown above you can still encounter this
-message.
-//
-This is usually because your code doesn't
-_compile_ (usually due to a syntax error) and so can't be tested.
-//
-When you try to run the test suite or an individual test you see this:
+The following fix corrects the following error message you may see when you run the test suites:
 
 image::NoTest.png[role='img-fluid']
 
-However, see the "Build" tab down there a few over from the "Run" tab that is
-currently active?
+It also causes Android Studio to correctly display errors when you run the test suites.
 //
-That's what you want to look at, since it will show build output identifying the
-error:
+**So it is important to apply this change!**
+//
+If you need help, post on the forum or come to office hours.
 
-image::ShowTest.png[role='img-fluid']
+To fix this error we're going to make two small changes to your root `build.gradle` file.
+//
+Here's how to do that.
+//
+First, switch the left pane to Project view.
+//
+Next, expand the top (`MP0-Spring2019-`...) folder, then double click `build.gradle`
+to open it.
+//
+**Note that there two other `build.gradle` files in the `app` and `lib` directory.**
+//
+You do not need to modify these files.
+
+There are _two_ changes you need to make to the file.
+//
+First, find the part that looks like this at the top:
+
+[source,groovy,role='nonumber']
+----
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+    dependencies {
+        classpath 'org.eclipse.jgit:org.eclipse.jgit:5.2.1.201812262042-r'
+        classpath 'com.github.cs125-illinois:gradlegrader:0.13.0'
+        classpath 'com.android.tools.build:gradle:3.3.0'
+    }
+}
+----
+
+We want to change the version of our CS 125 grading plugin from `0.13.0` to
+`0.13.3`.
+//
+So change this line:
+
+[source,groovy,role='nonumber']
+----
+        classpath 'com.github.cs125-illinois:gradlegrader:0.13.0'
+----
+
+so that it looks like this:
+
+[source,groovy,role='nonumber']
+----
+        classpath 'com.github.cs125-illinois:gradlegrader:0.13.3'
+----
+
+Next, look at the bottom of the file for the portion that looks like this:
+
+[source,groovy,role='nonumber']
+----
+tasks.grade.dependsOn('checkstyleMain')
+defaultTasks 'grade'
+----
+
+Remove the first line.
+//
+So afterward you should only have:
+
+[source,groovy,role='nonumber']
+----
+defaultTasks 'grade'
+----
 
 [[grading]]
 == Grading

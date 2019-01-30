@@ -66,6 +66,7 @@
 
 	function lineNumbersBlock (element, options) {
 		if (typeof element !== 'object') return;
+    if (element.classList.contains('nonumber')) return;
 
 		// define options or set default
 		options = options || {
