@@ -521,6 +521,16 @@ We'll add things here as we go, but please check the {forum} first.
 [[gradlefix]]
 ==== Fix `build.gradle`
 
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/8k6GPWMHaz0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
 The following fix corrects the following error message you may see when you run the test suites:
 
 image::NoTest.png[role='img-fluid']
@@ -528,6 +538,8 @@ image::NoTest.png[role='img-fluid']
 It also causes Android Studio to correctly display errors when you run the test suites.
 //
 **So it is important to apply this change!**
+//
+Read the instructions below or watch the screencast above.
 //
 If you need help, post on the forum or come to office hours.
 
@@ -583,6 +595,10 @@ so that it looks like this:
         classpath 'com.github.cs125-illinois:gradlegrader:0.13.3'
 ----
 
+**Android Studio will ask you to sync the Gradle configuration, but don't yet.**
+//
+Instead, make the next change first.
+
 Next, look at the bottom of the file for the portion that looks like this:
 
 [source,groovy,role='nonumber']
@@ -599,6 +615,11 @@ So afterward you should only have:
 ----
 defaultTasks 'grade'
 ----
+
+**At this point you should use the yellow dialog to sync your Gradle
+configuration.**
+//
+Once the synchronization completes you'll be good to go.
 
 [[grading]]
 == Grading
