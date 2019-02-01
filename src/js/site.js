@@ -69,6 +69,22 @@ $(() => {
     $(element).css("opacity", 0.6);
   });
   $('[data-toggle="tooltip"]').tooltip();
+
+  window.cookieconsent.initialise({
+    "palette": {
+      "popup": {
+        "background": "#13294b"
+      },
+      "button": {
+        "background": "#e84a27"
+      }
+    },
+    "theme": "edgeless",
+    "content": {
+      "message": "The CS 125 website uses cookies to ensure that you learn the most you can this semester.",
+      "dismiss": "Got it!"
+    }
+  })
 })
 
 // vim: ts=2:sw=2:et
