@@ -6,6 +6,7 @@ description:
   with Java functions and Strings.
 spelling_exceptions:
   - GCD
+youtube: https://youtu.be/Ax8hcZIx6Po
 ---
 :imagesdir: /slides/images
 :!sectids:
@@ -257,93 +258,6 @@ static String reverse(String input) {
 </div>
 ++++
 
-[[agRjmuPXNFgsskQjpuMryxBeLimsaExA]]
-== Testing
-
-[.lead]
-//
-Test cases are an indispensable part of modern software development.
-
-[.s]
-//
-* To perform a simple test, pick a input that you know the answer to and check
-that your function returns the expected value.
-//
-* Try to pick cases that are hard and where you might not get the right
-answer&mdash;we call these _corner cases_.
-
-[[JDBSSZFWWKMHOMENMWDYPTBBJVRGQKPE]]
-== String Search
-
-[.lead]
-//
-Given a `String` containing multiple words, determine if it contains a
-particular word
-
-*First, what is our algorithm?*
-
-[.s]
-//
-. Split the input `String` into multiple words, which requires picking a
-_delimiter_.
-//
-. Examine each word in the resulting array and see if it is equal to the word
-that we are searching for
-
-[[GEEIIXJOAUTKBKIZWJRYZQWLMPJZGLTE]]
-== String Equality
-
-[.lead]
-//
-How do we determine if two Strings are equal?
-
-[[GEPTREEJPWADYBAZNEPDMYZPUJJBYLOX]]
-== ! String Equality
-
-[.janini.small]
-....
-// Java is a bit confusing here
-String one = "new";
-String two = "new";
-System.out.println(one == two);
-String three = new String("new");
-String four = new String("new");
-System.out.println(three == four);
-....
-
-[[FXDTAFSPMWKHEJYHWWSUPDQADTGRBLXH]]
-== Object Equality
-
-[.lead]
-//
-Strings in Java are _objects_.
-//
-**Never test object equality using `==`!**
-
-Instead, using the `.equals` method.
-
-[[RPESPTVOTZVOXQQKKFJGKVBZHIMCNEPZ]]
-== ! String Equality
-
-[.janini.small]
-....
-// Java is a bit confusing here
-String one = "new";
-String two = "new";
-System.out.println(one.equals(two));
-String three = new String("new");
-String four = new String("new");
-System.out.println(three.equals(four));
-....
-
-[[UTSKXSDAVZMHRSUISNYGGKYBWPCKFEYZ]]
-== ! String Search
-
-[.janini.small]
-....
-static boolean search(String input, String toSearch) {
-}
-....
 
 [[IiSngNdYzdEnzLMjikxwjrNwXThqAOAO]]
 == Dropped Grade Policy
