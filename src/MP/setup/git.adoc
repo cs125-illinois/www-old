@@ -224,7 +224,7 @@ Let's walk through a typical MP workflow to get a sense for how you will
 normally be using Git.
 
 [[cloning]]
-=== Cloning the MP Starter Code Using GitHub
+=== Cloning the MP Starter Code
 
 To begin each MP footnote:[and many labs] you will use a special link to
 _clone_ a Git repository on
@@ -241,23 +241,28 @@ It is straightforward to start a new Android Studio project Using an existing
 GitHub repository--either one you created or one that was created for you when
 you accepted our MP invitation link.
 //
-Simply choose the "Check out from Version Control" option in the main Android
-Studio menu and then select "GitHub".
+Simply choose the "Check out project from Version Control" option in the main Android
+Studio menu and then select "Git".
+
+Paste the link that you obtain when you choose "Clone or download" at the GitHub
+page for your project.
 //
+It should look like
+//
+link:https://github.com/cs125-illinois-students/MP0-Spring2019-username.git[https://github.com/cs125-illinois-students/MP0-Spring2019-username.git, role="noclick link_exception"],
+//
+where `username` is your GitHub username.
+
 If you have not yet added your GitHub credentials to Android Studio, it will ask
-you to do that, and then for the URL of the GitHub repository.
-
-[[importing]]
-=== Importing Your New Project Into Android Studio
-
-You will then use Android Studio to import the new project from your remote GitHub
-Repository.
+you to do that.
 //
-Android Studio makes this extremely easy: there is an option to create a new project
-from a remote repository.
+At that point Android Studio will download the code from GitHub to your local
+machine and allow you to begin making and testing your changes.
+
+**Note that you should never use the "Download ZIP" or "Open in Desktop" options
+on GitHub.**
 //
-This step will download the code from GitHub to your local machine and allow you
-to begin making and testing your changes.
+These will result in an incorrect project setup that is hard to fix.
 
 [[identifying]]
 === Identifying Yourself
@@ -371,7 +376,7 @@ best score modulo penalties and other score calculations.
 [[troubleshooting]]
 === Troubleshooting the Submission Process
 
-MP grading usually completes quite quickly.
+Except around deadlines, MP grading usually completes quite quickly.
 //
 In most cases you'll see your latest submission show up
 //
@@ -379,10 +384,24 @@ link:/m/grades/MPs[on the MP grades page]
 //
 within a few minutes.
 //
+**However, if you submit right before a deadline, you may need to wait
+longer&mdash;maybe even several hours.**
+//
 Note that there is no need to reload the page: it will update automatically.
 
 If you don't find your commit there here are some common problems:
 
+. **Your submission isn't graded yet.**
+//
+If you submitted right before a deadline, you may need to wait several hours for
+grading to complete.
+//
+As a reminder, you can and should use our <<autograding, local autograder>> to
+estimate your score as you work.
+//
+Don't submit until you are confident that you have earned the score that you are
+aiming for.
+//
 . **Your commit is there, it just didn't get the score you thought it would.**
 //
 We put your best commit at the top of the list.
