@@ -76,15 +76,26 @@ into two pieces:
 
 * `/lib/`: a library that performs various image transformations.
 //
-*This library is the only part of the MP tested by the test suite.*
+60 / 100 points on the MP are for completing the library, which requires that
+you write multiple image transformation functions _from scratch_.
 //
 * `/app/`: an Android app for you to use for your own interactive testing.
 //
 The Android app is _almost_ complete, but needs a few modifications from you.
 //
+20 / 100 points on the MP are for completing the app, which requires that you
+understand the code that we have provided and make minor changes.
+//
 And, to work correctly, you need to finish the library in `lib`.
 
 Your primary job is to complete the required transformations in `Transform.java`.
+//
+**This file doesn't even exist yet!**
+//
+You'll have to create it, and then declare, complete, and document the required
+functions as listed in the
+//
+https://cs125-illinois.github.io/MP1-Solution/[official online documentation].
 //
 These make use of a pixel class defined in `RGBAPixel.java`.
 //
@@ -196,9 +207,9 @@ improve&mdash;and will also make it hard to keep a job.
 
 At first glance, MP1 may seem daunting.
 //
-You have _12_ functions to write!
+You have _13_ functions to write!
 //
-And yes, you can complete MP1 by writing 12 separate independent functions.
+And yes, you can complete MP1 by writing 13 separate independent functions.
 
 But there is a much smarter way to approach MP1.
 //
@@ -275,72 +286,6 @@ the test suite directly.
 Instead, use the output from `RGBAPixel` helper methods, which is correctly
 formatted.
 
-[[centering]]
-==== Centering
-
-Understanding the coordinate system is also important when centering the image
-around `(0, 0)`, which you need to do to implement the rotate, flip, and resize
-transformations.
-//
-This is probably one of the trickier parts of MP1, so think it through
-carefully.
-
-It is helpful to work some simple examples.
-//
-For example, consider vertically flipping a 2x2 array.
-//
-In our coordinate system, the coordinate values of the pixels in the array would
-be:
-
-[.table-bordered]
-|===
-
-| `(0, 0)` | `(1, 0)`
-
-| `(0, 1)` | `(1, 1)`
-
-|===
-
-*Note that these are the coordinate values, not the pixel contents*.
-//
-In order to flip the array properly, we need to adjust the coordinate values as
-follows:
-
-[.table-bordered]
-|===
-
-| `(-0.5, -0.5)` | `(0.5, -0.5)`
-
-| `(-0.5, 0.5)` | `(0.5, 0.5)`
-
-|===
-
-At this point I can swap either the X or Y values and achieve either a
-horizontal or vertical flip around the origin.
-//
-There is only one problem&mdash;Java can't use `double` types as array indices.
-//
-So we need to do this transformation on a pixel-by-pixel basis.
-//
-Roughly, here is the approach.
-//
-For each pixel in the original image:
-
-. Center the pixel
-//
-. Determine how to transform it to a new location in the transformed image
-//
-. Undo the centering transformation
-//
-. Move data from the original image to the transformed image
-
-Once you have a centering procedure that works, you can use it for the
-rotations, flips, expands, and shrinks.
-//
-But this is one of the tougher parts of the assignment, so you might want to
-start with the parts that don't require centering: position shifts, color
-shifts, green screen and the mystery function.
-
 ==== Shrinking and expanding
 
 As a final note about coordinates, please consider carefully how to implement
@@ -392,8 +337,8 @@ So `(int) doubleValue != Math.round(doubleValue)`.
 
 *Finally, note that shrinking is not tested by the test suite.*
 //
-You can feel free to implement it to get your web interface to work like the
-solution, but it will not affect your score.
+You can feel free to implement it to get your app to work like the solution, but
+it will not affect your score.
 
 ==== Testing diff helper
 
@@ -416,21 +361,69 @@ You should also feel free to help each other, as long as you do not violate the
 [[android]]
 == More About Android
 
+[.lead]
+//
+MP1 will continue introducing you to Android development.
+//
+You have a _bit_ more work to do to get your app to work, and we'll introduce a
+few new ideas below.
+
+////
 [[ui]]
 === UI Design
 
+Smartphone apps communicate with the user through a graphical _user interface_,
+or UI.
+//
+The aesthetic aspects of UI design are beyond the scope of this
+class&mdash;although there are other courses in the department that touch on
+this topic.
+
+We do encourage you to consider app UI design as you interact with the apps that
+you use daily.
+//
+What UI features of those apps do you like or dislike?
+//
+Are there parts of the app that feel intuitive&mdash;or unintuitive?
+//
+Do you find yourself fumbling around trying to accomplish things that seem like
+they should be simple?
+
+But that's as far as we'll go on the design aspects.
+//
+What we will focus on is the functional aspects&mdash;how we add elements to our
+UI and connect them with our app.
+
+For example, the link:/MP/0/[MP0] app has three buttons.
+//
+Two of them were toggle switches which could be turned either on or off.
+//
+The third was a simple button that could only be clicked.
+//
+We've already seen the Java code that provides the functionality for the two
+toggle switches, from link:/MP/0/[MP0] `MainActivity.java`:
+
+[source,java]
+----
+((ToggleButton) findViewById(R.id.enableLocation)).setOnCheckedChangeListener((v, setEnabled) -> {
+  enableOrDisableLocation(setEnabled);
+});
+
+((Switch) findViewById(R.id.wander)).setOnCheckedChangeListener((v, shouldWander) -> {
+  enableOrDisableLocation(locationEnabled);
+});
+----
+
+But what is actually going on here?
+//
+This is a topic that is hard to explain without using Android Studio, so please
+continue by viewing the screencast above.
+//
+We'll walk you through starting to use the UI designer in Android to examine and
+modify the MP1 user interface.
+
 [[tasks]]
 === Asynchronous Tasks
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/aIpPOaBh9Zk" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
 
 One of the core goals of every application, including smartphone apps, is to
 maintain a responsive user interface.
@@ -466,7 +459,6 @@ There are some missing pieces in waiting for you to complete.
 //
 --
 
-////
 [[demo]]
 === Putting It All Together
 
@@ -488,6 +480,41 @@ You can do it!
 Good luck.
 ////
 
+[[troubleshooting]]
+== Troubleshooting
+
+[.lead]
+//
+When building apps with Android Studio any one of a number of things can go
+wrong.
+//
+We'll try to keep an updated list here of troubleshooting strategies.
+
+=== General Advice
+
+If your app won't build, try the following steps:
+
+. **Restart Android Studio.**
+//
+Yes, this does in fact sometimes do the trick.
+//
+. **Invalidate Caches / Restart.**
+//
+You'll find this under the "File" menu.
+//
+Again, sometimes it seems to help.
+//
+. **Rebuild Project.**
+//
+You'll find this under the "Build" menu.
+//
+Sometimes rebuilding will help you pinpoint errors that are preventing your app
+from starting or the test suites from running.
+
+=== MP1 Specific Advice
+
+We'll add things here as we go, but please check the {forum} first.
+
 [[grading]]
 == Grading
 
@@ -502,7 +529,7 @@ MP1 is worth 100 points total, broken down as follows:
   ** *5 points* for adding the missing button icon
   ** *15 points* for fixing the broken buttons
 . *10 points* for no `checkstyle` violations
-. *10 points* for submitting code that earns at least 40 points before *Monday 2/11/2019 @ 5PM*.
+. *10 points* for submitting code that earns at least 50 points before *Monday 2/11/2019 @ 5PM*.
 
 [[testing]]
 === Test Cases
