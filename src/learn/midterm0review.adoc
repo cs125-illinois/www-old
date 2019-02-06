@@ -1,9 +1,8 @@
 ---
 title: Midterm 0 Review
-date: 2018-09-24
+date: 2019-02-08
 description:
   AMA review session for the first midterm review.
-youtube: https://youtu.be/6XWcKjZrrDs
 ---
 
 [[apdpoeMDsaePWRiutJrIJFYtBhClWsuc]]
@@ -52,57 +51,11 @@ I want to ensure that you are ready to go on and succeed in CS 125.
 //
 * 12 multiple-choice questions, mostly on code reading
 //
-* 1 "what does this code do?" free response question, _graded after the exam_
-//
 * 4 programming questions:
 ** one using arrays,
 ** one using multi-dimensional arrays,
 ** one using strings,
 ** and the last implementing a algorithm according to a description
-
-[[dYTnfZsEfKogaywBhhBrBLueunGlhuKd]]
-== Q3 Review: Understanding Functions
-
-[source,java]
-----
-boolean g(char[] x, char[] y) {
-  if (x.length != y.length) {
-    return false;
-  }
-  for (int i = 0; i < x.length; i++) {
-    if (x[i] != y[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-----
-
-What happens if the function above is called with two empty arrays?
-
-[[xoAoyoxPPLjwffcMFCuRGNkZeNiFvfYn]]
-== Q3 Review: Understanding Functions
-
-[.lead]
-//
-What do we call the combination of the function name and list of argument types
-that is used by Java to determine which function to call?
-
-[[DZUdiHHdedRAtMuPdZQSJaLPtiDTueEz]]
-== Q3 Review: Understanding Functions
-
-[source,java]
-----
-int multiply(int first, int second, int third) {
-  return first * second * third;
-}
-double multiply(double first, double second) {
-  return first * second;
-}
-System.out.println(multiply(10, 20));
-----
-
-What will be printed when the code above runs?
 
 [[DxBEQdaytRTLhuenhFNsppEmYiezgoBi]]
 == Understanding Overloading
@@ -257,6 +210,46 @@ System.out.println(rotateLeft("CS125"), 0);
 System.out.println(rotateLeft("CS125"), 0);
 ....
 
+[[QnhQJvuEeOxnAGKOVekLugtudfxnKQPH]]
+== String Rotation Master Class
+
+[.lead]
+//
+Let's look at some ways to do HW18.
+
+[.s]
+//
+* Note that all of these _passed_ our test suite.
+//
+* But that doesn't mean that they are all _correct_.
+//
+* I'm not going to post these as part of the slide deck to avoid disseminating
+potentially bad solutions
+//
+* Is this your code? Probably not&mdash;it's from last semester.
+
+[[DKICYZRYMBPWPLDHKFZQPPHCVSYALBEL]]
+== ! String Rotation Attempt 1
+
+[.small.janini]
+....
+....
+
+[[NYYTCNESDSUSNTWBYRIAPIQSMVRXIVAU]]
+== ! String Rotation Attempt 2
+
+[.small.janini]
+....
+....
+
+[[PVALXNIKLNMGEMZMMCJTMXKDMKHWJEXJ]]
+== ! String Rotation Attempt 3
+
+[.small.janini]
+....
+....
+
+////
 [[fjvdFjdiAeYeIjkpxpKvvyjRWUfSHvlQ]]
 == Announcements
 
@@ -274,5 +267,6 @@ Good luck wrapping up! (And it's good preparation for the midterm.)
 * Daily homework introducing objects continues this week.
 //
 But MP3 won't be released until _Friday_.
+////
 
 // vim: ts=2:sw=2:et
