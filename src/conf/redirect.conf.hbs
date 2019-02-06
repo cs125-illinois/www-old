@@ -13,3 +13,5 @@ rewrite ^/static-assets/main/site.css$ {{ lookup webpack.assets 'site.css' }} re
 rewrite ^/static-assets/main/site.js$ {{ lookup webpack.assets 'site.js' }} redirect;
 rewrite ^/static-assets/css/site.css$ {{ lookup webpack.assets 'site.css' }} redirect;
 rewrite ^/static-assets/js/site.js$ {{ lookup webpack.assets 'site.js' }} redirect;
+rewrite ^/info/2018/fall/fair/ /info/fair/ redirect;
+rewrite ^/info/2018/fall/fair /info/fair/ redirect;
