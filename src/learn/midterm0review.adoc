@@ -3,6 +3,8 @@ title: Midterm 0 Review
 date: 2019-02-08
 description:
   AMA review session for the first midterm review.
+spelling_exceptions:
+  - Tic-Tac-Toe
 ---
 
 [[apdpoeMDsaePWRiutJrIJFYtBhClWsuc]]
@@ -43,7 +45,6 @@ You've come a long way in four weeks.
 //
 I want to ensure that you are ready to go on and succeed in CS 125.
 
-
 [[hUbnAOHkHUJzepcHaieybiJeiGiMjusi]]
 == Midterm Format
 
@@ -51,27 +52,15 @@ I want to ensure that you are ready to go on and succeed in CS 125.
 //
 * 12 multiple-choice questions, mostly on code reading
 //
-* 4 programming questions:
+* 3 programming questions:
 ** one using arrays,
 ** one using multi-dimensional arrays,
-** one using strings,
-** and the last implementing a algorithm according to a description
-
-[[DxBEQdaytRTLhuenhFNsppEmYiezgoBi]]
-== Understanding Overloading
-
-[source,java]
-----
-int multiply(int first, int second, int third) {
-  return first * second * third;
-}
-double multiply(double first, double second) {
-  return first * second;
-}
-System.out.println(multiply(10, 20));
-----
-
-Why isn't the method _return type_ part of the function signature?
+** and one using strings.
+//
+* One programming question will be drawn _directly_ from the HW125 practice
+problems.
+//
+So use those to prepare.
 
 [[TcdfQnWpZrkCncjhuGnWpjGDfRokomdn]]
 == Warm Up: Array Sum
@@ -86,43 +75,6 @@ Sum all values in a one-dimensional array of `int` values.
 [.janini.small]
 ....
 System.out.println(arraySum(new int[] { 1, 2, 5 }));
-....
-
-[[AJiQgnwolpDoLnWDntgiveuNGqrfrike]]
-== String Reverse
-
-[.lead]
-//
-Write a function called `reverseString` that takes a single `String` argument
-and returns that string reversed.
-
-If the passed `String` is null you should return null.
-
-**What's an algorithm?**
-
-[.s]
-//
-* Go through the passed string _backwards_ character by character
-//
-* Append each character to the _front_ of a new `String`
-//
-* Return the new reversed `String`
-
-[[LiVtEucdTyPfXaMDMerIUTMeCAUqwnUL]]
-== ! String Reverse
-
-[.janini.small]
-....
-System.out.println(reverseString("CS125"));
-....
-
-[[QYEEOfoJKcQcaVuFEWmgfESHKAfWFbnR]]
-== ! String Reverse Mistakes
-
-[.janini.small]
-....
-// Now let's review some common mistakes
-System.out.println(reverseString("CS125"));
 ....
 
 [[dvfiGdGmqIdBfXMwgPeKKfIPfkJonmRQ]]
@@ -160,16 +112,6 @@ If either are `null` you should return `false`, including if both are `null`.
 
 [.janini.small]
 ....
-System.out.println(areEquals("CS125", "CS125"));
-System.out.println(areEquals("CS125", "CS173"));
-....
-
-[[pYCxnvLunyLzvOdyKrTFYRfeclhiYyde]]
-== ! String Equality Mistakes
-
-[.janini.small]
-....
-// Now let's review some common mistakes
 System.out.println(areEquals("CS125", "CS125"));
 System.out.println(areEquals("CS125", "CS173"));
 ....
@@ -233,6 +175,7 @@ potentially bad solutions
 
 [.small.janini]
 ....
+System.out.println(rotateRight("CS125", 1));
 ....
 
 [[NYYTCNESDSUSNTWBYRIAPIQSMVRXIVAU]]
@@ -240,6 +183,7 @@ potentially bad solutions
 
 [.small.janini]
 ....
+System.out.println(rotateRight("CS125", 1));
 ....
 
 [[PVALXNIKLNMGEMZMMCJTMXKDMKHWJEXJ]]
@@ -247,26 +191,90 @@ potentially bad solutions
 
 [.small.janini]
 ....
+System.out.println(rotateRight("CS125", 1));
 ....
 
-////
-[[fjvdFjdiAeYeIjkpxpKvvyjRWUfSHvlQ]]
+[[DcjHDBYsWssnceiYzjBqgJLuSIXGTuTb]]
+== Tic-Tac-Toe Master Class
+
+[.lead]
+//
+Let's look at some ways to do HW22.
+
+[.s]
+//
+* Note that all of these _passed_ our test suite.
+//
+* But that doesn't mean that they are all _correct_.
+//
+* I'm not going to post these as part of the slide deck to avoid disseminating
+potentially bad solutions
+//
+* Is this your code? Maybe. Maybe not.
+
+[[PvoeQVJetrdavwmHXXFIcLITcRinurei]]
+== ! Tic-Tac-Toe Attempt 1
+
+[.small.janini]
+....
+char[][] verticalWinner =
+  {{'X', 'O', '.'}, {'O', 'O', 'X'}, {'O', 'O', '.'}};
+char[][] horizontalWinner =
+  {{'X', 'O', '.'}, {'X', 'X', 'X'}, {'O', 'O', 'X'}};
+
+System.out.println(checkBoard(verticalWinner));
+System.out.println(checkBoard(horizontalWinner));
+....
+
+[[vFinuDewRXtWcfNCeFizfdnxgddAvzcS]]
+== ! Tic-Tac-Toe Attempt 2
+
+[.small.janini]
+....
+char[][] verticalWinner =
+  {{'X', 'O', '.'}, {'O', 'O', 'X'}, {'O', 'O', '.'}};
+char[][] horizontalWinner =
+  {{'X', 'O', '.'}, {'X', 'X', 'X'}, {'O', 'O', 'X'}};
+
+System.out.println(checkBoard(verticalWinner));
+System.out.println(checkBoard(horizontalWinner));
+....
+
+[[ysPvKBdnTnFWPVJvRKidOwvqImvHLOSE]]
+== ! Tic-Tac-Toe Attempt 3
+
+[.small.janini]
+....
+char[][] verticalWinner =
+  {{'X', 'O', '.'}, {'O', 'O', 'X'}, {'O', 'O', '.'}};
+char[][] horizontalWinner =
+  {{'X', 'O', '.'}, {'X', 'X', 'X'}, {'O', 'O', 'X'}};
+
+System.out.println(checkBoard(verticalWinner));
+System.out.println(checkBoard(horizontalWinner));
+....
+
+[[ZLEGLKEIWPJYLVFCYIQISYLBUJLUDHKV]]
 == Announcements
 
-* *Midterm 0 starts tomorrow.*
+[.small]
 //
-As a reminder, you _cannot_ drop midterm scores, and we expect you to work with
-the CBTF to take it _this week_.
+* Next week we will hold our first *midterm exam*: a one-hour quiz worth 2% of
+your grade that _cannot be dropped_
 //
-* link:/MP/2018/fall/2/[MP2] is due _today_ at 5PM.
+* **No labs as scheduled next week.**
 //
-Good luck wrapping up! (And it's good preparation for the midterm.)
+Instead, we'll hold office hours during the same times in Siebel 0403.
 //
-* Office hours all day today.
+Come to get some help preparing for the midterm.
 //
-* Daily homework introducing objects continues this week.
+* **Today I'll be doing _one_ James Scholar interview session**, here, now.
 //
-But MP3 won't be released until _Friday_.
-////
+If you want to interview me for your project this is your chance.
+//
+* Monday we will begin discussing _objects_!
+//
+* Office hours for MP1 continue&mdash;please get started, since it will help you
+prepare for the midterm exam next week
 
 // vim: ts=2:sw=2:et
