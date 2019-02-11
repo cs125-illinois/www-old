@@ -21,7 +21,7 @@ class Course {
 }
 Course CS125 = new Course();
 CS125.name = "CS 125";
-CS125.enrollment = 900;
+CS125.enrollment = 600;
 System.out.println(CS125.name + " has " + CS125.enrollment + " students.");
 ....
 --
@@ -300,12 +300,80 @@ diningRoom.dimensions = new Dimensions();
 diningRoom.dimensions.width = 10;
 ....
 
+[[kJdPixtDBkImvGtJdGKfmJlzHeZetJpL]]
+== Objects as Custom Types
+
+[.lead]
+//
+Java objects allow us to define our _own types_ built from the primitive types
+we've already discussed.
+
+This dramatically improves our ability to work with real-world data.
+
+[[DdxBQayDeviINfHKoufXBKWDjBCxdhGA]]
+== Custom Types: Location
+
+[.lead]
+//
+Remember link:/MP/0/[MP0]?
+
+[source,java,role='smaller']
+----
+public static int farthestNorth(final double[] latitudes, final double[] longitudes,
+                                final boolean[] validLocations) {
+    return 0;
+}
+----
+
+[[cTddVDyvlDdFeouMjkBFJuVbuTzjDswm]]
+== Custom Types: Location
+
+[source,java,role='smaller']
+----
+public static int farthestNorth(final double[] latitudes, final double[] longitudes,
+                                final boolean[] validLocations) {
+    return 0;
+}
+----
+
+Synchronized indices is *the wrong* solution to this problem footnote:[and also
+gross...]!
+
+What do we really want?
+
+[.s]
+//
+* One _location_ type that stores
+//
+* a latitude
+//
+* a longitude
+//
+* and whether it is valid or not
+
+[[cQEZfIBmFLFTMxYFcukooOOrcDDCCVes]]
+== Custom Types: Location
+
+[source,java,role='smaller']
+----
+class Location {
+  double latitude;
+  double longitude;
+  boolean isValid;
+}
+public static int farthestNorth(final Location[] locations) {
+    return 0;
+}
+----
+
 [[QKoelNsUekcMuVBvjHhyiYidAywzNuuZ]]
 [.oneword]
 == Objects as Data Structures
+
 Sometimes known as
 //
 https://en.wikipedia.org/wiki/Record_(computer_science)[records]&mdash;but
+//
 objects are much more than that...
 
 [[FSUYlrfygwJYgAGbGByoHcgFerXgMevA]]
@@ -405,19 +473,20 @@ We frequently use Java objects to model real objects or entities.
 Objects allow us to _design_ software that deals with things in realistic and
 natural ways.
 
-////
+[[lgQfefprNzbjsIHmmBdDzxInRNdQMAlK]]
 == Announcements
 
-* All lecture videos and EMP sessions have been posted to YouTube&mdash;and
-we're getting better at this, so lectures should be up quickly now
+* The link:/MP/1/[MP1] early deadline is _today_.
 //
-* Next Monday will be midterm review, with the midterm exam starting Tuesday
+Office hours until 5PM in Siebel 0403.
 //
-* Office hours for MP2 continue&mdash;please get it done, since it will help you
-prepare for the midterm exam next week
+* The first midterm exam on imperative programming starts _tomorrow_ in the
+CBTF.
 //
-* MP3 will come out _next Friday_ and be due two weeks from the following
-_Monday_
-////
+**Midterm exams cannot be dropped.**
+//
+Good luck!
+//
+* My office hours will be 3&ndash;5PM today in Siebel 0403.
 
 // vim: ts=2:sw=2:et
