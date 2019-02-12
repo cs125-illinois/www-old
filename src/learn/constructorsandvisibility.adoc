@@ -1,0 +1,474 @@
+---
+title: Constructors and Visibility
+date: 2019-02-13
+description:
+  A continued discussion of Java objects, introducing constructors and
+  visibility.
+---
+
+[[TzChbqJCgkFihBhsGKSsxQCgNgfcontb]]
+== !
+
+[.janini.compiler.small]
+--
+++++
+<div class="message">Constructors and Visibility</div>
+++++
+....
+public class Course {
+  private String name;
+  public Course(String setName) {
+    this.name = setName;
+  }
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course("CS 125");
+    CS125.printName();
+  }
+}
+....
+--
+
+[[cBvAQSUjOeMftzBoERafEeauVrkncSqx]]
+== Review: `this`
+
+[source,java]
+----
+class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}
+----
+
+[.lead]
+//
+Instance methods can refer to _their_ instance variables using the `this`
+keyword.
+
+`this` refers to the instance that is executing the method.
+
+[[XfjzwCcMeEaGJnQMGVKBGWTeoiIMHnXi]]
+== When to Use `this`
+
+[source,java]
+----
+class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return width * height;
+  }
+}
+----
+
+[.lead]
+//
+This also works, and you might consider it a bit cleaner.
+
+[[GQkSDDzyEwCVgBrPzzUIFXVBlGQVXknp]]
+== New Examples
+
+[.janini.compiler.small]
+....
+// Just a warning that some examples now work differently
+// When run the main method of the Example class below is executed
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("Hello, world!");
+  }
+}
+....
+
+[[mdNrgDBgmSLlrcmSFhPisvzgfeddDOdg]]
+== ! When to Use `this`
+
+[.janini.compiler.small]
+....
+public class Dimensions {
+  public int width;
+  public int height;
+
+  public int area() {
+    return width * height;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dimensions example = new Dimensions();
+    example.width = 10;
+    example.height = 20;
+    System.out.println(example.area());
+  }
+}
+....
+
+[[ajeIIqKVvQLniMORsJidtAJimqtKNpee]]
+== Constructors
+
+[source,java,role='small']
+----
+class Course {
+  String name;
+  // This is a constructor.
+  Course(String setName) {
+    this.name = setName;
+  }
+}
+----
+
+[.lead]
+//
+When we create a `new` object, a special method called a _constructor_ is run.
+
+[[buNTLZGlGhEWCuYdcziosJgrosQvbMTz]]
+== Constructors: Syntax
+
+[source,java,role='small']
+----
+public class Course {
+  String name;
+  // The constructor must be named Course
+  // It's not declared to return anything...
+  Course(String setName) {
+    this.name = setName;
+    // And doesn't explicitly return anything, but always returns a new Course
+  }
+}
+----
+
+[.s.small]
+//
+* Constructors can and do perform class-specific initialization.
+//
+* Constructors always shared the same same name as the class they create:
+`Course` in the example above.
+//
+* Constructors don't declare or explicitly return anything&mdash;but always
+return a new instance of their class.
+
+[[FTdOVkxrUPztoaVrEEgbYkZrQlZTFKrq]]
+== Constructors: Overloading
+
+[source,java,role='small']
+----
+public class Course {
+  String name;
+  // This constructor sets the name
+  Course(String setName) {
+    this.name = setName;
+  }
+  // This constructor initializes the name to a blank string
+  Course() {
+    this.name = "";
+  }
+}
+----
+
+[.lead]
+//
+Like other functions, constructors can be overloaded.
+
+[[DnfEfnflyEWiTptmnquiRqcrXeiBXMon]]
+== Constructors: `this`
+
+[source,java,role='small']
+----
+public class Course {
+  String name;
+  // This constructor sets the name
+  Course(String setName) {
+    this.name = setName;
+  }
+  // This constructor initializes the name to a blank string
+  // by calling the other constructor
+  Course() {
+    this("");
+  }
+}
+----
+
+[.lead]
+//
+Constructors can use `this()` to call other constructors.
+
+[[dNRMfdwEtepowaaciBuymTvAxgvQLMHB]]
+== The Default Constructor
+
+[source,java,role='small']
+----
+class Course {
+  String name;
+}
+// This is the same as
+class Course {
+  String name;
+  Course() {
+  }
+}
+----
+
+[.lead]
+//
+If you don't define a constructor, it's equivalent of an empty constructor that
+doesn't set any fields.
+
+[[RjGBTtWoaOclLyIPbQKbwFJrRvndpSPP]]
+== Constructors Can't Fail
+
+[source,java,role='small']
+----
+class Course {
+  String name;
+  Course(String setName) {
+    // What do I do if the name is invalid?
+    this.name = setName;
+  }
+}
+----
+
+[.lead.small]
+//
+Constructors _must_ return a new instance of their class.
+
+[.s]
+//
+* So we don't have a good way to reject invalid inputs in constructors&mdash;yet.
+//
+* We'll come back to this when we talk about static methods...
+//
+* and when we discuss exceptions.
+
+[[xerFaeehMgBcfwprdjQAKZoTzUWVPATK]]
+== ! Constructors: Example
+
+[.janini.compiler.small]
+....
+public class Person {
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person you = new Person();
+  }
+}
+....
+
+[[JlVmEinaPtCRqpZOnlTolvogFyPHVKXB]]
+[.oneword]
+== Questions about Constructors?
+
+[[vXjpdpUWinRcWjZxTCJyJbaYabbcApBO]]
+== Access Modifiers
+
+[source,java]
+----
+public class Person {
+  public String name;
+  private int age;
+
+  private void printName() {
+    System.out.println(this.name);
+  }
+  public int getAge() {
+    return this.age;
+  }
+}
+----
+
+[.lead]
+//
+Java provides ways to _protect_ instance variables and methods.
+//
+We refer to these as _access modifiers_:
+
+[[FuxctosbVUCwtkyRnvjrreGXOytKKWew]]
+== Variable Access Modifiers
+
+[source,java,role='small']
+----
+public class Person {
+  // Anybody can modify name
+  public String name;
+  // age can only be changed by this class's methods
+  private int age;
+}
+Person me = new Person();
+me.name = "Geoffrey"; // This works
+System.out.println(me.age); // This does not work
+----
+
+[.s]
+//
+* `public`: the variable can be read or written by anyone
+//
+* `private`: the variable can only read or written by methods defined _on that
+class_
+
+[[WGWQeZbaZmTWwTjOaQbZPLFULqrrDnwK]]
+== ! Variable Access Modifiers
+
+[.janini.compiler.small]
+....
+public class Person {
+  public String name;
+  private int age;
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.name = "Geoffrey"; // This works
+    System.out.println(me.age); // This does not work
+  }
+}
+....
+
+[[DDjYznJEOUsOqlfygxWWNizNjStwFhQc]]
+== Function Access Modifiers
+
+[source,java,role='small']
+----
+public class Person {
+  public void printIt() {
+    System.out.println("It");
+  }
+  private void printYou() {
+    System.out.println("You");
+  }
+}
+Person me = new Person();
+me.printIt(); // This works
+me.printYou(); // This does not work
+----
+
+[.s]
+//
+* `public`: the method can be called by anyone
+//
+* `private`: the method can only be called by other methods _on that class_
+
+[[iToiPLbiLPmoAciwPXgzIFUtaobXWyHu]]
+== ! Function Access Modifiers
+
+[.janini.compiler.small]
+....
+public class Person {
+  public void printIt() {
+    System.out.println("It");
+  }
+  private void printYou() {
+    System.out.println("You");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.printIt(); // This works
+    me.printYou(); // This does not work
+  }
+}
+....
+
+[[eElRbazMJbGpaHfrEAGOxqdhlEUjKpHJ]]
+== Other Access Modifiers
+
+[.lead]
+//
+(Java also provides `protected` and package private modifiers&mdash;but they
+don't make sense until we discuss packages.)
+
+[[uLPZroAsMblwalogMaPDbzszkcQeVlEo]]
+== Getters and Setters
+
+[source,java,role='small']
+----
+public class Person {
+  private int age;
+  public void setAge(int setAge) {
+    this.age = setAge;
+  }
+  public int getAge() {
+    return this.age;
+  }
+}
+----
+
+[.lead]
+//
+In Java it's common to have _private_ instance variables with public methods
+that set or get their values: called _setters_ and _getters_.
+
+[[oDKbLeOnKjNLLDaUpPxiFXRuDeUiVtUC]]
+== Getters and Setters: Why?
+
+[source,java,role='smallest']
+----
+public class Person {
+  private int name;
+  private int firstName;
+  private int lastName;
+  public void setName(int setName) {
+    String[] nameParts = setName.split(" ");
+    this.name = setName;
+    this.firstName = nameParts[0];
+    this.lastName = nameParts[1];
+  }
+  public int getName() {
+    return this.name;
+  }
+  public int getFirstName() {
+    return this.firstName;
+  }
+  public int getLastName() {
+    return this.lastName;
+  }
+}
+----
+
+[.lead]
+//
+Getters and setters allow an object to react to changes to its variables.
+
+[[EPACuRwxtQOGiRMiwgPeUQhPfmNSJMyx]]
+[.oneword]
+== Access Modifiers: Questions?
+
+[[efNgsNVacYNjhRepXrMbcCbfGDJiEdBK]]
+== Object Modeling
+
+[.lead]
+//
+We frequently use Java objects to model real objects or entities.
+
+Objects allow us to _design_ software that deals with things in realistic and
+natural ways.
+
+[[QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP]]
+== Let's Model Something
+
+[.janini.smaller]
+....
+....
+
+////
+[[RozEislgewEsTdtLUeTFnPCuWcuPsnFu]]
+== Announcements
+
+* Homework continues today.
+//
+* Good luck to those that have yet to take the midterm exam!
+//
+* MP3 will be out _Friday morning_.
+//
+* I'm holding regular office hours on _Friday_ mornings from 10AM&ndash;12PM for
+the rest of the semester. (Sorry for taking so long to get these set up.)
+////
+
+// vim: ts=2:sw=2:et
