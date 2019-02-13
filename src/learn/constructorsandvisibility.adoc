@@ -33,6 +33,27 @@ public class Example {
 ....
 --
 
+[[eYLaJspbncqffWNCyGeLCjhTXzwfKnYy]]
+== Review: Class Declaration
+
+[source,java]
+----
+class Person {
+  // Variable declarations
+  String name;
+  // Declarations can include initialization
+  int age = 0;
+
+  // Any code has to go inside functions
+  void printName() {
+    System.out.println(this.name);
+  }
+  void birthday() {
+    age++;
+  }
+}
+----
+
 [[cBvAQSUjOeMftzBoERafEeauVrkncSqx]]
 == Review: `this`
 
@@ -128,6 +149,11 @@ class Course {
 [.lead]
 //
 When we create a `new` object, a special method called a _constructor_ is run.
+
+[.s]
+//
+* Constructors are _only_ run when the class is created. They can't be called
+again.
 
 [[buNTLZGlGhEWCuYdcziosJgrosQvbMTz]]
 == Constructors: Syntax
@@ -382,7 +408,7 @@ public class Example {
 [.lead]
 //
 (Java also provides `protected` and package private modifiers&mdash;but they
-don't make sense until we discuss packages.)
+don't make sense quite yet...)
 
 [[uLPZroAsMblwalogMaPDbzszkcQeVlEo]]
 == Getters and Setters
@@ -453,22 +479,25 @@ natural ways.
 [[QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP]]
 == Let's Model Something
 
-[.janini.smaller]
+[.janini.compiler.small]
 ....
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
 ....
 
-////
-[[RozEislgewEsTdtLUeTFnPCuWcuPsnFu]]
+[[lgQfefprNzbjsIHmmBdDzxInRNdQMAlK]]
 == Announcements
 
-* Homework continues today.
+* Congrats to those that have taken the midterm! If you haven't yet, good luck.
 //
-* Good luck to those that have yet to take the midterm exam!
+* My office hours as usual today from 1&ndash;3PM in Siebel 2227.
 //
-* MP3 will be out _Friday morning_.
+* We have a
 //
-* I'm holding regular office hours on _Friday_ mornings from 10AM&ndash;12PM for
-the rest of the semester. (Sorry for taking so long to get these set up.)
-////
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
 
 // vim: ts=2:sw=2:et
