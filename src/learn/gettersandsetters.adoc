@@ -4,6 +4,7 @@ date: 2019-02-15
 description:
   More about Java objects, including static
   methods and variables and object modeling.
+youtube: https://youtu.be/-g4khHrqzTk
 ---
 
 [[wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi]]
@@ -12,7 +13,7 @@ description:
 [.janini.compiler.small]
 --
 ++++
-<div class="message">Static and Modeling</div>
+<div class="message">Getters and Setters</div>
 ++++
 ....
 public class Course {
@@ -146,7 +147,7 @@ public class Person {
   private int name;
   private int firstName;
   private int lastName;
-  public void setName(int setName) {
+  public void setName(String setName) {
     String[] nameParts = setName.split(" ");
     this.name = setName;
     this.firstName = nameParts[0];
@@ -341,28 +342,6 @@ class_
 * `public`: the (static) method can be called by anyone
 //
 * `private`: the (static) method can only be called by other methods _on that class_
-
-[[edyTnfheyncuqOGTqDCiVblPbDhDspnE]]
-== `static` Object Creation Method
-
-[.lead]
-//
-We can also use a class method to be able to return `null` when creating a new
-object if invalid parameters are supplied.
-
-[[vYdcSSHUfxavYQtnRnYMNLTmZdeandOy]]
-== ! `static` for Object Creation
-
-[.janini.smallest.compiler]
-....
-public class Storage {
-  private int[] storage;
-}
-public class Example {
-  public static void main(String[] unused) {
-  }
-}
-....
 
 [[efNgsNVacYNjhRepXrMbcCbfGDJiEdBK]]
 == Object Modeling

@@ -1,0 +1,495 @@
+---
+title: Inheritance
+date: 2019-02-18
+description:
+  A review of static, the final keyword, and an introduction to inheritance.
+spelling_exceptions:
+  - GCD
+  - Xyz
+  - Cubbies
+---
+
+[[wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi]]
+== !
+
+[.janini.compiler.small]
+--
+++++
+<div class="message">Inheritance</div>
+++++
+....
+public class Course {
+  public static void printName() {
+    System.out.println("CS 125");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course.printName();
+  }
+}
+....
+--
+
+[[eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ]]
+== Review: The `static` Keyword
+
+[source,java,role='small']
+----
+public class Course {
+  public static int count = 0;
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // We can call printName without creating an instance
+    Course.printName();
+    // We can increment count without creating an instance
+    Course.count++;
+  }
+}
+----
+
+[.lead]
+//
+`static` methods and variables belong to the _class_, not to a specific
+instance.
+
+[[JcfeftoggWYEqmVcqHqWFWLVDrBYSrKv]]
+== Review: `static` Methods
+
+[source,java,role='smaller']
+----
+public class Course {
+  public static void printName() {
+    System.out.println("Name");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works
+    Course.printName();
+    // This also works
+    Course CS125 = new Course();
+    CS125.printName();
+  }
+}
+----
+
+[.s]
+//
+* `static` methods are called directly on the class, rather than on an instance
+//
+* ...but they _can_ be called on the instance as well.
+
+[[GogDSWyLriatEwvWVbqNnpNScdTGsZnm]]
+== Review: `static` Methods and `this`
+
+[source,java]
+----
+public class Course {
+  public String name;
+  public static void printName() {
+    // This doesn't work
+    System.out.println(this.name);
+  }
+}
+----
+
+[.lead]
+//
+`static` methods can be called without an instance, and so can't use `this`
+
+[[AGXzadhOVsBxnfSsSKGKsHhYNePpixZD]]
+== Review: `static` Variables
+
+[source,java,role='small']
+----
+public class Course {
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(count);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course();
+    Course CS225 = new Course();
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}
+----
+
+[.lead]
+//
+`static` variables are shared by all instances of a given `class`
+
+
+[[XHfGpqVIAFIKzUxynzGVJLgDpLnzNwON]]
+== Review: `static` and `public`
+
+[.lead]
+//
+`public` and `private` also work on static variables and methods
+
+[.s]
+//
+* `public`: the (static) variable can be read or written by anyone
+//
+* `private`: the (static) variable can only read or written by methods defined _on that
+class_
+//
+* `public`: the (static) method can be called by anyone
+//
+* `private`: the (static) method can only be called by other methods _on that class_
+
+[[edyTnfheyncuqOGTqDCiVblPbDhDspnE]]
+== `static` Object Creation Method
+
+[.lead]
+//
+We can also use a class method to be able to return `null` when creating a new
+object if invalid parameters are supplied.
+
+[[vYdcSSHUfxavYQtnRnYMNLTmZdeandOy]]
+== ! `static` for Object Creation
+
+[.janini.smallest.compiler]
+....
+public class Storage {
+  private int[] storage;
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
+[[mlqtMBxERmbmWOjsDoKPXMdagktpcoHC]]
+== `final` and Constants
+
+[source,java]
+----
+class Example {
+  /** The number of hours of sleep you should get per night. */
+  public static final int HOURS_PER_NIGHT = 8;
+  ...
+}
+----
+
+[.lead]
+//
+In Java a `final` variable _cannot be modified_.
+
+You usually see this done to establish useful constant values&mdash;which can be
+either `public` or `private`
+
+[[aRzsozxWPRNaTyegwrsSvYWsqtLGDtIE]]
+== ! Example of `final`
+
+[.janini.small.compiler]
+....
+public class Example {
+  public static final int HOURS_PER_NIGHT = 8;
+
+  public static void main(String[] unused) {
+    HOURS_PER_NIGHT = 4;
+    System.out.println(HOURS_PER_NIGHT);
+    HOURS_PER_NIGHT = 2;
+    System.out.println(HOURS_PER_NIGHT);
+    // I will never change!
+  }
+}
+....
+
+
+[[FWfeifigjMBgeePuDDBqjptSumhLvikp]]
+[.oneword]
+//
+== Questions About `static` or `final`?
+
+[[kZbZRqBRAJYIOPOaCescsSsfdHSwSljm]]
+== ! A Puzzle
+
+[.janini.small.compiler]
+....
+// Why does this work?
+public class Example {
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.toString());
+  }
+}
+....
+
+[[konQFOEwPtcDQyBaBNGjJqYCQcSGJWhF]]
+== Inheritance
+
+[source,java,role='smaller']
+----
+public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println("I'm a " + this.type + " named " + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+Dog chuchu = new Dog("Chuchu");
+chuchu.printMe();
+----
+
+[.lead]
+//
+Java allows objects to _inherit_ state and behavior from another class.
+
+[[wTNNwUEDjkZqaKToynKrhgypMFbDeDxc]]
+== Inheritance Terminology
+
+[source,java]
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+----
+
+[.lead]
+//
+In Java we establish inheritance using the `extends` keyword.
+
+[.s]
+//
+* `Dog` extends `Pet` and so _inherits_ state and behavior from `Pet`
+//
+* `Cat` also extends `Pet` and so also _inherits_ state and behavior from `Pet`
+//
+* We sometimes call `Pet` ``Dog``'s and ``Cat``'s _parent_ class
+//
+* We sometimes call `Dog` and `Cat` ``Pet``'s _children_
+
+[[ZtxtPnriCGjIZxAAReEntXKwQJOMgPOo]]
+== More Inheritance Terminology
+
+[source,java]
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Mutt extends Dog { }
+----
+
+[.lead]
+//
+In Java we can have have multiple levels of inheritance.
+
+[.s]
+//
+* `Dog` extends `Pet` and so _inherits_ state and behavior from `Pet`
+//
+* `Mutt` extends `Dog` and so _inherits_ state and behavior from `Dog` *and* `Pet`
+//
+* We sometimes call `Pet` and `Dog` ``Mutt``'s _ancestors_
+//
+* We sometimes call `Dog` and `Mutt`  ``Pet``'s _descendants_
+
+[[EWGqFYyFGhaIiRMGqHCZmAAlEYacebZN]]
+== `protected`
+
+[source,java,role='smaller']
+----
+public class Pet {
+  public String name; // Anyone can set me
+  private String secret; // Only I can set this value
+  protected String type; // My descendants can use this value
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+----
+
+[.s]
+//
+* `public`: the variable can be read or written by anyone
+//
+* `private`: the variable can only read or written by methods defined _on that
+class_
+//
+* *`protected`*: the variable can only read or written by methods defined on that
+class _or its descendants_
+
+[[vQUxfPBiPWXztrplkCsSmaMctvPszGzJ]]
+== ! Inheritance
+
+[.janini.smallest.compiler]
+....
+public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println("I'm a " + this.type + " named " + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    chuchu.printMe();
+  }
+}
+....
+
+[[IHiQsyleCpwPeVYOopjNdQKqSCutxtaE]]
+== The Dirty Truth About `protected`
+
+[source,java,role='smaller']
+----
+public class Pet {
+  protected String name;
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    chuchu.name = "Xyz"; // This works...
+  }
+}
+----
+
+[.s]
+//
+* *`protected`*: the variable can read or written by methods defined on that
+class _or its descendants_... in _any package_
+//
+* *`protected`*: the variable can also be read and written by any method in the
+same _package_
+
+[[etbCgxcOIaavnXUYIwlYkvuFMEzVvDiw]]
+== `public`, `private`, and `protected`
+
+*Variables*:
+//
+[.s.small]
+//
+* `public`: the variable can be read or written by anyone
+//
+* `private`: the variable can only read or written by methods defined _on that
+class_
+* `protected`: the variable can be read or written by methods defined on any
+descendant of that class _in any package_ or any class in the same package
+
+*Methods*:
+//
+[.s.small]
+//
+* `public`: the method can be called by anyone
+//
+* `private`: the method can only be called by other methods _on that class_
+//
+* `protected`: the method can be called by other methods defined on any
+descendant of that class _in any package_ or any class in the same package
+
+[[IFpkAhWFfauLaQovWImwFbZRLhEIYBBh]]
+== `super` Constructor
+
+[source,java,role='smaller']
+----
+public class Pet {
+  protected String type;
+  Pet(String setType) {
+    this.type = setType;
+  }
+}
+public class Dog extends Pet {
+  private String breed;
+  Dog(String setBreed) {
+    super("Dog");
+    this.breed = setBreed;
+  }
+}
+----
+
+[.lead]
+//
+Java classes can access their parent's constructor using the `super` keyword.
+
+This must be the _first_ thing done in a child constructor.
+
+[[xHeowjhQRgmLBBPPeyTTvhoyhhdfUQab]]
+== ! `super` Constructor
+
+[.janini.smallest.compiler]
+....
+public class Pet {
+  protected String type;
+  Pet(String setType) {
+    this.type = setType;
+  }
+}
+public class Dog extends Pet {
+  private String breed;
+  Dog(String setBreed) {
+    super("Dog");
+    this.breed = setBreed;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Mutt");
+    System.out.println(chuchu.type);
+  }
+}
+....
+
+[[efNgsNVacYNjhRepXrMbcCbfGDJiEdBK]]
+== Object Modeling
+
+[.lead]
+//
+We frequently use Java objects to model real objects or entities.
+
+Objects allow us to _design_ software that deals with things in realistic and
+natural ways.
+
+[[QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP]]
+== Let's Model Something
+
+[.janini.compiler.small]
+....
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
+////
+[[PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt]]
+== Announcements
+
+* Good luck on link:/MP/2018/fall/3/[MP3]!
+//
+Get started.
+////
+
+// vim: ts=2:sw=2:et
