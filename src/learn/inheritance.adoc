@@ -19,17 +19,57 @@ spelling_exceptions:
 ++++
 ....
 public class Course {
-  public static void printName() {
+  public void printName() {
+    System.out.println("Some course");
+  }
+}
+public class BestCourse extends Course {
+  public void printName() {
     System.out.println("CS 125");
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    Course.printName();
+    Course course = new Course();
+    course.printName();
+    BestCourse bestCourse = new BestCourse();
+    bestCourse.printName();
   }
 }
 ....
 --
+
+[[uUTYrQKUGOmFrxidnSeoGRtPjfsFVxCD]]
+== Midterm Review
+
+[.lead]
+//
+Overall the class did well on the midterm&ndash;congratulations!
+
+* I've released two example programming questions to the HW125 problem set.
+
+[[dvnpgcRYWKBFVtTXjYDnKlNfxvdfXTnW]]
+== Interpreting Your Midterm Result
+
+I'd mainly consider how you did on the _programming questions_:
+
+[.s]
+//
+* *3/3*: Great job.
+//
+* *2/3*: You did well, but plan to continue working hard for the rest of the
+semester.
+//
+* *1/3*: Something about how you are preparing for exams needs to change...
+//
+* *0/3*: *Please talk to a course staff member.*
+
+[[LoBVEQwudsruuogwwunEsUpSxUhWFLiX]]
+[.oneword]
+//
+== Questions?
+
+About the midterm, grading, or anything in particular?
 
 [[eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ]]
 == Review: The `static` Keyword
@@ -483,13 +523,17 @@ public class Example {
 }
 ....
 
-////
 [[PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt]]
 == Announcements
 
-* Good luck on link:/MP/2018/fall/3/[MP3]!
+* link:/MP/1/[MP1] is due at **5PM today**.
 //
-Get started.
-////
+Good luck finishing up!
+//
+* Labs resume as usual this week.
+//
+* link:/MP/2/[MP2] will be released later today.
+//
+* I have office hours from 2&ndash;3PM in Siebel 0403. See you there!
 
 // vim: ts=2:sw=2:et
