@@ -5,7 +5,6 @@ description:
   And you get to implement a fun game along the way.
 spelling_exceptions:
   - ConnectN
-secret: 7aUF1tcT
 ---
 :sectnums:
 :linkattrs:
@@ -234,7 +233,6 @@ Please come to link:/info/syllabus/#calendar[office hours], or post on the
 You should also feel free to help each other, as long as you do not violate the
 <<cheating, academic integrity requirements>>.
 
-////
 [[android]]
 == More About Android
 
@@ -248,12 +246,102 @@ point you should be comfortable doing that from previous MPs.
 [[activitys]]
 === Multiple Activities (or Screens)
 
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/fObxlqDO57c" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Until this point all of our MP apps have only had a single activity (or screen).
+//
+In link:/MP/0/[MP0] that single screen showed location data.
+//
+In link:/MP/1/[MP1] that single screen showed your transformed image and
+background.
+
+But a typical app has multiple screens which a user can navigate to, each
+displaying different information.
+//
+For example, a chat app might have a contacts screen and a settings menu along
+with the main chat display.
+//
+An email app might have a screen for navigating between different folders or
+labels, a settings screen, and the main inbox or folder screen.
+
+In Android each screen is typically represented by a separate `Activity`, each
+in its own class.
+//
+In the screencast above we walk through how activities are launched, can launch
+other activities, and can pass information to launched activities using
+``Intent``s.
+
 [[dynamiclayout]]
 === Dynamic Layout
 
-[[visibility]]
-=== UI Element Visibility
-////
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/nxO7jfzgdng" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Our previous MP apps also had a single static layout per activity, which we
+created using Android Studio's UI designer.
+//
+This is fairly normal for many apps when core components of the layout don't
+change.
+//
+You set up a layout using the designer and then populate each field with
+appropriate content depending on the data available to the app.
+
+MP2, however, has different requirements, because configuring the game
+differently can and should produce different board views.
+//
+To accomplish this we create a layout _programatically_&mdash;using code in our
+app&mdash;rather than statically.
+//
+The screencast above walks you through how this is done.
+//
+If you are considering creating a game for your final project you may be curious
+in exploring this further, since many games need various kinds of dynamic
+layouts.
+
+[[uielements]]
+=== UI Element Properties
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/xaCXieAnWNU" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Finally, a common way to interact with the user is to modify the properties of
+existing UI elements.
+//
+You might create a text view using the layout designer when you are creating
+your app, but then have the text shown in the view be determined and modified
+when the app runs.
+//
+Alternatively, apps can modify the visibility of UI elements to react to changes
+in the app state&mdash;for example, to display or hide a warning message
+appropriately.
+
+The screencast above uses an example from the MP2 configuration activity to show
+how this is done.
+//
+You'll need to do something similar in the board activity to earn full credit on
+MP2.
 
 [[grading]]
 == Grading
