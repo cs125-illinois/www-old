@@ -1,0 +1,293 @@
+---
+title: Object Review
+date: 2019-02-22
+description:
+  A chance to slow down and review Java objects, including instances,
+  constructors, class design, inheritance, and polymorphism.
+---
+
+[[yvPGyAzjIWxppDwhCkgPugvxiKuRyxUi]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Object Review</div>
+++++
+....
+public class Pet {
+  public void printMe() {
+    System.out.println("I'm a pet");
+  }
+}
+public class Dog extends Pet {
+  public void printMe() {
+    System.out.println("I'm a dog");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Pet();
+    chuchu.printMe();
+    xyz.printMe();
+  }
+}
+....
+--
+
+[[tJAEhRBaxOdrIAfHFqeluBfFBFVZEkZI]]
+== Review: Polymorphism
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Polymorphism_(computer_science)[Polymorphism]:
+//
+the provision of a single interface to entities of different types.
+____
+
+[[xejQOFdnYNedKmENRxJOESdlitSRXvBw]]
+== Subtype Polymorphism
+
+[source,java,role='small']
+----
+public class Pet {
+  public void printMe() {
+    System.out.println("I'm a pet");
+  }
+}
+public class Dog extends Pet {
+  public void printMe() {
+    System.out.println("I'm a dog");
+  }
+}
+----
+
+[.lead]
+//
+In Java, _every_ object is really an instance of at least _two_ types:
+
+[.s]
+//
+* Each `Pet` is also an `Object`
+//
+* Each `Dog` is also a `Pet` and also an `Object`
+
+[[zAfgNaUvOdTRoYcImWOGArtsyjxiCuXW]]
+== Review: Object Upcasting
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}
+----
+
+[.lead]
+//
+Java will _upcast_ object types automatically.
+
+[[CibxAzCMpvrFpjbBUcHRBnCoPdroMZDc]]
+== ! Object Conversion: Upcasting
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}
+....
+
+[[YHYXBIyexgSczCgXpNsrgcVZtiCWeifQ]]
+== But Instances Retain Their Types
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}
+----
+
+[[faLGlVEpJnzuilavUdSpPJnjoRNXqcsn]]
+== ! But Instances Retain Their Types
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}
+....
+
+[[sdlBDsmJxGzipqJCuKbCXcwbxKBRbrno]]
+== Review: Object Downcasting
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    Example.printAnything(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    Example.printAnything(chuchuAsPet);
+  }
+}
+----
+
+[.lead]
+//
+We can also cast instances _down_ but only if the instance is
+actually the appropriate subtype.
+
+Java checks the cast at runtime to make sure that it is appropriate.
+
+[[GJrYLdzWnTewfJWDGEyNqVxQyxjMmJCk]]
+== ! Object Conversion: Downcasting
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    System.out.println(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    System.out.println(chuchuAsPet);
+    Dog chuchuAsDog = (Dog) chuchu; // chuchu is also a Dog, so this works
+    System.out.println(chuchuAsDog);
+  }
+}
+....
+
+[[AtydbVpehoLTEsgqUCgcTyIHlnazMXPZ]]
+== Liskov Substitution Principle
+
+[quote,role='spelling_exception']
+____
+https://en.wikipedia.org/wiki/Liskov_substitution_principle[Substitutability]
+//
+is a principle in object-oriented programming stating that, in a computer
+program, if S is a subtype of T, then objects of type T may be replaced with
+objects of type S (i.e. an object of type T may be substituted with any object
+of a subtype S) without altering any of the desirable properties of T
+(correctness, task performed, etc.).
+____
+
+[[YdzjjHYfOSgtZMjLkvIhKLkJaqIrXxop]]
+== Barbara Liskov, Turing Award Winner
+
+image::http://www.pmg.csail.mit.edu/~liskov/images/LISKOV_crop2.jpg[link='https://en.wikipedia.org/wiki/Barbara_Liskov',width=240,float='right']
+
+https://en.wikipedia.org/wiki/Barbara_Liskov[Barbara Liskov]
+//
+was one of the first women in the US to earn a doctorate in computer science.
+//
+She won the
+//
+https://en.wikipedia.org/wiki/Barbara_Liskov[Turing Award],
+//
+the highest honor in computer science, in 2008.
+
+[[efNgsNVacYNjhRepXrMbcCbfGDJiEdBK]]
+== Object Modeling
+
+[.lead]
+//
+We frequently use Java objects to model real objects or entities.
+
+Objects allow us to _design_ software that deals with things in realistic and
+natural ways.
+
+[[QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP]]
+== Let's Model Something
+
+[.janini.compiler.small]
+....
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
+////
+[[HiLlpvxKziOlYYkRfdKZIjluYKLMNtQj]]
+== Announcements
+
+* link:/MP/2/[MP2] is out and due in less than two weeks. **Get started!**
+//
+* We will reopen this week's lab exercise tomorrow and let you enjoy it over the
+weekend.
+//
+* I have office hours from 1&ndash;3PM today in Siebel 2227. Please stop by!
+//
+* We will _not_ have a lecture next Wednesday.
+//
+* We have a
+//
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+////
+
+// vim: ts=2:sw=2:et
