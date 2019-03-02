@@ -29,6 +29,8 @@ You also get practice working with data formatted in
 https://www.json.org/[JavaScript Object Notation (JSON)],
 //
 a simple and widely-supported data exchange format.
+//
+And we'll also continue to sharpen your Android UI design abilities.
 
 *MP3 is due Friday 3/15/2019 @ 5PM.
 //
@@ -51,9 +53,12 @@ We'll show you how to use the {csapi} to analyze image data, and you'll
 learn how to process the results using the
 //
 https://github.com/google/gson[Google GSON] library.
-//
+
 We'll also continue to reinforce the learning objectives from previous MPs
 (link:/MP/0/[0], link:/MP/1/[1], and link:/MP/2/[2]).
+//
+In particular MP3 forces you to do more with Android UI layout than you have in
+the past&mdash;this will help prepare you for the final project.
 
 [[structure]]
 == Assignment Structure
@@ -130,13 +135,33 @@ and ensure that the user interface functions properly.
 //
 To complete the UI you'll need to do the following things:
 
-* *Update the UI properly* using the results provided by your library in
-`finishProcessImage`.
+* *Ensure that your app is requesting data properly from the {csapi}.*
 //
-You should set the description and caption properly, and show or hide the
-cat and dog icons as appropriate.
+Investigate `Tasks.java` to ensure that your API call is retrieving all the
+necessary information.
 //
-* *Reset the UI properly* when no image is shown in `updateCurrentBitmap`.
+* *Add and update UI components to display information about the photo and the
+autogenrated caption.*
+//
+Note that this `TextView` doesn't even exist in the layout yet!
+//
+You'll need to create it and update it appropriately&mdash;both when a photo is
+loaded into the app and when the photo is cleared.
+//
+You should use the information returned by your `RecognizePhoto` library to set
+the photo information and caption properly.
+//
+* *Add and update dog and cat icons appropriately.*
+//
+When the image is a dog you should show a dog icon, and when it is a cat you
+should show a cat icon.
+//
+If it is neither a dog nor a cat you should not show either animal icon.
+//
+Again, these UI components don't even exist yet!
+//
+You get to add them to the UI and update them appropriately, using the results
+from your photo recognition library.
 //
 * *Do something when you find Rick.*
 //
@@ -279,7 +304,7 @@ by the API:
 <div class="row justify-content-center mt-3 mb-3">
   <div class="col-12 col-lg-8">
     <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/u0eVbgBddsI" allowfullscreen></iframe>
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/UJc6L36wkfQ" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -308,21 +333,37 @@ But let's get there first.
 So the first step to gaining access to the Cognitive Services API is to get an
 API key.
 //
-You can
+First, use
 //
-https://azure.microsoft.com/en-us/try/cognitive-services/[follow these instructions]
+https://azure.microsoft.com/en-us/free/students/[this link]
 //
-or watch the screencast above.
-
-Microsoft API keys are only valid for specific regions, so note that when you
-generate your key.
+to create a free Azure for Students account.
 //
-You'll need both the key _and_ the region in just a minute.
+This provides free access to many existing Microsoft APIs as well as $100 of
+free cloud credits.
 
-=== Integrating the {csapi} into MP3
+Next,
+//
+https://azure.microsoft.com/en-us/try/cognitive-services/[use this link to start
+the process of creating an API key for cognitive services].
+//
+**Make sure that your key is created in the West Central region!**
+//
+If it is not you'll have to modify other parts of MP3 for your key to work.
 
-The screencast above shows you how we use the {csapi} in MP3 and how to add
+The screencast above also shows you how we use the {csapi} in MP3 and how to add
 _your_ {csapi} key to your project so that you can make your own requests.
+//
+Specifically, you need to create a file called `secrets.properties` in the `app`
+folder of your project and add the following content to that file:
+
+[source]
+----
+API_KEY=<Your Cognitive Services API Key>
+----
+
+You should replace "Your Cognitive Services API Key" with the key that you
+obtained following the instructions above.
 
 Of course, like any artificial intelligence system, the {csapi} is not perfect.
 //
@@ -591,29 +632,14 @@ working on... if you really know what you are doing.].
 [[csapi-json]]
 === Example JSON
 
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Dj_LgQsmBxs" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-
 link:/MP/3/example.json[Here is some example JSON,role='external'] produced by
 the {csapi}.
 //
 You may want to consult this as you begin work on your image recognition
 functions.
-
-== Putting It All Together
-
-Finally, the screencast above provides a brief overview of how your app _should_
-work once you are done.
 //
-Good luck!
+The app will also display the JSON returned for the photo that you have loaded
+below the image after the API request completes.
 
 [[grading]]
 == Grading
@@ -628,7 +654,7 @@ MP3 is worth 100 points total, broken down as follows:
   ** *10 points* for `isADog`
   ** *10 points* for `isACat`
   ** *10 points* for `isRick`
-. *25 points*: `MainActivity.java` and `Tasks.java`
+. *25 points*: `MainActivity.java`
   ** *5 points* for making an API request properly when the button is clicked
   ** *5 points* for setting the metadata properly
   ** *5 points* for setting the caption properly
