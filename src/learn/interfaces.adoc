@@ -464,6 +464,39 @@ true depending on the value of the instance variables.
 Note that Java uses the _reference_ type, _not_ the object type when matching
 method signatures.
 
+[.s]
+//
+* If the reference type doesn't match, Java will upcast until it finds a match
+or the call fails
+
+[[zvUfGJunftTkpBMRNDeDwJnBggyXoXWB]]
+== ! References v. Objects
+
+[.janini.smaller.compiler]
+....
+public class Pet {
+  public String toString() {
+    return "Object is a pet";
+  }
+}
+public class Example {
+  public static void what(Object o) {
+    System.out.println("Reference is an object");
+    System.out.println(o);
+  }
+  public static void what(Pet p) {
+    System.out.println("Reference is a pet");
+    System.out.println(p);
+  }
+  public static void main(String[] unused) {
+    Pet pet = new Pet();
+    what(pet);
+    Object object = pet;
+    what(object);
+  }
+}
+....
+
 [[mnDqRCVkWICxufbFPHRzAanMpKHXsOYx]]
 == ! Review: Simple Polymorphism
 
