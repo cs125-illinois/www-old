@@ -497,52 +497,6 @@ public class Example {
 }
 ....
 
-[[mnDqRCVkWICxufbFPHRzAanMpKHXsOYx]]
-== ! Review: Simple Polymorphism
-
-[.janini.smallest.compiler]
-....
-public class Turtle extends Pet {
-  Turtle() {
-    super("turtle");
-  }
-}
-public class Dog extends Pet {
-  Dog() {
-    super("dog");
-  }
-  public void woof() {
-    System.out.println("woof");
-  }
-}
-public class Cat extends Pet {
-  Cat() {
-    super("cat");
-  }
-  public void meow() {
-    System.out.println("meow");
-  }
-}
-public class Pet {
-  private String type;
-  Pet(String setType) {
-    type = setType;
-  }
-  public static void speak(Pet pet) {
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-    Pet dog = new Dog();
-    Pet cat = new Cat();
-    Pet turtle = new Turtle();
-    Pet.speak(dog);
-    Pet.speak(cat);
-    Pet.speak(turtle);
-  }
-}
-....
-
 [[bsXbUlKaQeGfqKCdyACmnTqmWQHfuiqE]]
 [.oneword]
 //
