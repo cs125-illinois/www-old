@@ -1,240 +1,154 @@
 ---
-title: References and Interfaces
-date: 2019-03-04
+title: References and Java Memory Management
+date: 2019-03-06
 description:
-  A continuation of a discussion of object references and an overview of Java
-  interfaces.
-spelling_exceptions:
-  - Chromecast
-youtube: https://youtu.be/DysB_KbV_sU
+  A discussion of Java memory management with reminders about references.
 ---
 :imagesdir: /learn/images
 
 [[XvVPGwaRhahvjdxCblIifRgJogEUVwFu]]
 == !
 
-[.janini.smallest.compiler]
+[.janini]
 --
 ++++
-<div class="message">References and Interfaces</div>
+<div class="message">References and Java Memory Management</div>
 ++++
 ....
-public interface Add {
-  int add(int first, int second);
-}
-public class Adder implements Add {
-  public int add(int first, int second) {
-    return first + second;
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-    Add add = new Adder();
-    System.out.println(add.add(10, 12));
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
   }
 }
 ....
 --
 
-[[XxGahOwmXfZrBFQuELVZOxrslVpDJEnC]]
-== References
-
-[quote]
+[[RkliOLTPuAhdvGWYPAFzrKmGWaPUfXgH]]
+[.oneword]
 //
-____
+== You're Halfway There
+
+Congratulations!
 //
-https://en.wikipedia.org/wiki/Reference_(computer_science)[Reference:]
+Almost exactly 50% of the points in the class have been handed out
 //
-a value that enables a program to _indirectly_ access a particular datum, such
-as a variable's value or a record, in the computer's memory or in some other
-storage device.
-//
-The reference is said to refer to the datum, and accessing the datum is called
-dereferencing the reference.
-____
+footnote:[excluding MP3].
 
-[[jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge]]
-== Review: Java Reference Variables
-
-[source,java,role='smallest']
-----
-class Person { }
-/*
- * me is declared to hold a reference to an object of type Person,
- * but currently refers to nothing.
- */
-Person me;
-
-/*
- * Initializing an instance to null is another way of indicating
- * that it currently refers to nothing.
- */
-Person you = null;
-
-me = new Person(); // Now me refers to a new Person object
-you = me; // Now me and you refer to the same Person object
-System.out.println(you == me);
-you = new Person(); // Now you refers to a new Person object
-System.out.println(you == me);
-----
-
-[.lead]
-//
-We can refer to a Java variable that refers to an object as a _reference
-variable_.
-
-[[dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv]]
-== Review: References Are Not Objects
-
-[.lead]
-//
-References _are not_ the thing the refer to.
-
-Some real-world references include:
-
-* *A phone number*: which refers to a phone
-//
-* *A street address*: which refers to a physical location
-//
-* *A social security number*: which refers to a person
-
-[[itfuafekfLjAzwwbVrkStPQVIGyxObCF]]
-== Review: Copying References
-
-[.lead]
-//
-Copying a reference _does not_ copy the object it refers to.
+[[UadeeCkeSgAdNxowguiLSoYhJRdguKFW]]
+== Before/After: Content
 
 [.s]
 //
-* *Copying a phone number doesn't copy the phone.*
+* *Before*: imperative and object-oriented programming
 //
-Anyone with the number can call the same person.
-//
-* *Copying a street address doesn't copy the location.*
-//
-Anyone with the address can navigate to the same spot.
-//
-* *Copying a social security number doesn't copy the person* footnote:[Is that
-even possible?].
-//
-Anyone with social security number may be able to impersonate that person.
+* *After*: algorithms, data structures, recursive and functional programming
 
-[[mIzaMkJisKMhTtGuDJdBQQQLzmaeZvUp]]
-[.ss]
-== Copying References
+[[LgdffzhfPunAMesAbWZBqllohPQOYWff]]
+== Before/After: Assessments
 
-[source,java]
-----
-class Person {
-  public int age;
-}
-Person me;
-----
+[.s]
+//
+* *Before*: 1 short MPs, two long MPs, one midterm
+//
+* *After*: 1 medium MPs, 1 long MP, one final project, two midterms
 
-<<<
+[[cenLRPaenukyZMdPCFcWGfinjtuOQxqN]]
+== Current Status
+
+[.lead]
+//
+Overall the class is doing quite well.
+//
+**Without considering MP3:**
+
+[.s]
+//
+* *Without drops*: median 88, average 84
+//
+* *With drops*: median 95, average 90
+
+[[onbDKixndTKnWddwSghDWjneiqYQCpcu]]
+== Midterm Grades
+
+[.lead]
+//
+Your current grades are always available on
+//
+https://cs125.cs.illinois.edu/m/grades/overview[our grading page].
+
+[.s.small]
+//
+* We do not assign midterm letter grades
+//
+* But you should be able to estimate how you are doing using this information
+//
+* *Please be careful if your scores with and without drops are quite different.*
+//
+This indicates that you have some bad scores waiting to "pop out" if you do
+poorly again in the future.
+//
+* This information is intended to help you decide whether to continue in
+the course or not
+//
+* Have feedback you want to share?
+//
+Use the
+//
+https://cs125.cs.illinois.edu/info/feedback/[anonymous feedback form].
+
+[[pldddmEseeLzsgZhznFeEAojBuonZzoV]]
+== ! Anonymous Feedback Form
 
 ++++
-<div class="digraph default">
-  me
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/info/feedback/"></iframe>
 </div>
 ++++
 
-[[oTxeeptDAAbhPoFfhrUmlbRqOGBifBCI]]
-[.ss]
-== Copying References
+[[KforFFinAoafSeZwPUmMnQduNOEIEwrV]]
+[.oneword]
+//
+== Questions?
 
-[source,java]
-----
-class Person {
-  public int age;
+Anything is fair game.
+
+[[nVhGDIPHKdueqliUaiRGIurGcDZWYxOc]]
+== Homework Review: `Creator`
+
+Implement a public class called `Creator`.
+
+`Creator` should provide one public class method called `newOrOld` taking a
+single `boolean` argument.
+//
+If the argument is `true`, `newOrOld` should return a reference to a _new_
+`Creator` instance.
+//
+If the argument is `false`, `newOrOld` should return a reference to the last
+`Creator` created by `newOrOld`.
+//
+If `newOrOld` has never been called before, you should return `null`.
+
+`Creator` should not expose any public state or allow itself to be extended.
+
+[[CnPOgXHnlenordetuHtoMtFgwpduZMTC]]
+== ! Homework Review: `Creator`
+
+[.janini.compiler.smaller]
+....
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Creator.newOrOld(false));
+    System.out.println(Creator.newOrOld(true));
+    System.out.println(Creator.newOrOld(false));
+    System.out.println(Creator.newOrOld(true));
+  }
 }
-Person me = new Person();
-----
-
-<<<
-
-++++
-<div class="digraph default">
-  Person [ label = "Person|age = 0" ]
-  me -> Person [ label = "refers to" ]
-</div>
-++++
-
-[[HRLZQYDutqYyuRJLAfRTUKWsHAAnIsXh]]
-[.ss]
-== Copying References
-
-[source,java]
-----
-class Person {
-  public int age;
-}
-Person me = new Person();
-Person you = me;
-----
-
-<<<
-
-++++
-<div class="digraph default">
-  Person [ label = "Person|age = 0" ]
-  me -> Person [ label = "refers to" ]
-  you -> Person [ label = "refers to" ]
-</div>
-++++
-
-[[BNDFZUWJXXyorFCxmkBrigvGUpbPKsEb]]
-[.ss]
-== Copying References
-
-[source,java]
-----
-class Person {
-  public int age;
-}
-Person me = new Person();
-Person you = me;
-me.age = 10;
-----
-
-<<<
-
-++++
-<div class="digraph default">
-  Person [ label = "Person|age = 10" ]
-  me -> Person [ label = "set age" ]
-  you -> Person
-</div>
-++++
-
-[[EbMSAXuEuSUQYYKcghZAlJXEgDAazCWh]]
-[.ss]
-== Copying References
-
-[source,java]
-----
-class Person {
-  public int age;
-}
-Person me = new Person();
-Person you = me;
-me.age = 10;
-System.out.println(you.age);
-----
-
-<<<
-
-++++
-<div class="digraph default">
-  Person [ label = "Person|age = 10" ]
-  me -> Person
-  you -> Person [ label = "get age" ]
-</div>
-++++
+....
 
 [[MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB]]
-== Pass By (Copied) Reference
+== Review: Pass By (Copied) Reference
 
 [source,java,role='smaller']
 ----
@@ -261,7 +175,7 @@ So they *can* modify the object the reference refers to.
 
 [[TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO]]
 [.ss]
-== Pass By (Copied) Reference
+== Review: Pass By (Copied) Reference
 
 [source,java,role='smaller']
 ----
@@ -289,7 +203,7 @@ Person me = new Person(38);
 
 [[QeoegaQWqRCqwRWjFgcHecPcBnblAsuu]]
 [.ss]
-== Pass By (Copied) Reference
+== Review: Pass By (Copied) Reference
 
 [source,java,role='smaller']
 ----
@@ -319,7 +233,7 @@ System.out.println(birthday(me));
 
 [[LCApeGyQtFkuQzuHRiWVCZeNpdydfeht]]
 [.ss]
-== Pass By (Copied) Reference
+== Review: Pass By (Copied) Reference
 
 [source,java,role='smaller']
 ----
@@ -347,156 +261,220 @@ System.out.println(me.age);
 </div>
 ++++
 
-[[vBVVoNbvCRZapCtVZOalDGPPOGiDqYTV]]
-== ! Arrays Store Object References
+[[YkxyDKHKOIwHLcdjIZCcUkSxnwqzgejc]]
+== References Are Powerful
 
-[.janini.smallest.compiler]
-....
-public class Person {
-  public int age;
-  Person(int setAge) {
-    this.age = setAge;
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-    Person[] people = new Person[4];
-    for (int i = 0; i < people.length; i++) {
-      people[i] = new Person(18 + i);
-    }
-    Person[] samePeople = new Person[4];
-    for (int i = 0; i < people.length; i++) {
-      samePeople[i] = people[i];
-    }
-    for (int i = 0; i < people.length; i++) {
-      people[i].age += 10;
-    }
-    for (int i = 0; i < samePeople.length; i++) {
-      System.out.println(samePeople[i].age);
-    }
-  }
-}
-....
+[.lead]
+//
+References are a widely-used idea in computer science.
 
-[[wLKMXRVWDTOLVmKPzLGUzkHWsYXfjKhd]]
-== How To Copy Objects
+By controlling the process of dereferencing or _translating_ a reference we can:
+
+[.s]
+//
+* *move* objects from place to place: just like your phone can move around with
+the same number
+//
+* *block* translation in certain cases: just like you can reject email from
+certain senders
+
+[[VjdvpgqzTAgeaTuQOvPNlsUiBIhYcxFE]]
+[.oneword]
+== And Memory Management
+(Or why you never need to `delete` anything in Java...)
+
+[[LMkQlNJtjcgVmFapXzOxalWcbrMgJCdj]]
+== Java Memory Management
 
 [source,java]
 ----
-public class Person {
-  public int age;
-  Person(int setAge) {
-    this.age = setAge;
-  }
-  Person(Person other) {
-    this.age = other.age;
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
   }
 }
 ----
 
-[.lead]
-//
-If we want to copy an object, we have a few options:
+Java utilizes references to automatically clean up unused objects to reclaim
+memory&mdash;a process known as _garbage collection_.
 
 [.s]
 //
-* `Object` provides a `clone` method
+* If a reference to an object exists, it must still be useful, *so keep it*
 //
-* You can implement a _copy_ constructor as shown above
+* If no reference to an object exists, _it cannot be used_, *so remove it*
 
-[[yIuWQkMigaAVPvtEIROvoEbkHSwxdNBQ]]
-== Shallow v. Deep Copies
+[[ExXBunKhuHMRMgeissCMJFagFMaATymr]]
+[.ss]
+== Reference Counting Example
 
 [source,java]
 ----
-public class Person {
-  public Pet pet;
-  Person(Person other) {
-    this.pet = other.pet;
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
   }
+  // i == 0
 }
 ----
 
-[.lead]
-//
-What is a potential problem with the copy constructor shown above?
+<<<
 
-[.s]
-//
-* It only copies the _reference_ to the `Pet` object. So both the existing and
-the new object will share the same `Pet` object.
-//
-* This is called a _shallow_ copy. A _deep_ copy copies all of the objects so
-the old and new object share nothing.
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  save -> String
+  s -> String
+</div>
+++++
 
-[[tTAXvrPmiXsApAXXqjpgJRjMksTFlnuv]]
-== Review: Reference v. Object Equality
+[[DhaLhZFXsqpNrJSlnhNezfCAhyJMtdkH]]
+[.ss]
+== Reference Counting Example
 
-[source,java,role='smaller']
+[source,java]
 ----
-public class Person {
-  public int age;
-  Person(int setAge) {
-    this.age = setAge;
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
   }
-  boolean equals(Person other) {
-    return this.age == other.age;
-  }
+  // i == 1
 }
-Person me = new Person(38);
-Person other = new Person(38);
-System.out.println(me == other);
-System.out.println(me.equals(other));
 ----
 
-[.s]
-//
-* If two _references_ are equal then they refer to _the same_ object, and
-`.equals` is almost always true.
-//
-* If two references are not equal, the class may still define `.equals` to be
-true depending on the value of the instance variables.
+<<<
 
-[[vdVcDrcyfndBJrDOfJFeeeQnkBfjdelO]]
-== References and Method Overriding
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  save -> String
+  s -> String1
+</div>
+++++
 
-[.lead]
-//
-Note that Java uses the _reference_ type, _not_ the object type when matching
-method signatures.
+[[ySGaaRXUtptkhVrcBQumHCwMiBCjyqCp]]
+[.ss]
+== Reference Counting Example
 
-[.s]
-//
-* If the reference type doesn't match, Java will upcast until it finds a match
-or the call fails
-
-[[zvUfGJunftTkpBMRNDeDwJnBggyXoXWB]]
-== ! References v. Objects
-
-[.janini.smaller.compiler]
-....
-public class Pet {
-  public String toString() {
-    return "Object is a pet";
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
   }
+  // i == 2
 }
-public class Example {
-  public static void what(Object o) {
-    System.out.println("Reference is an object");
-    System.out.println(o);
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  save -> String
+  s -> String2
+  {rank=same; String String1 String2}
+</div>
+++++
+
+[[zEHDaKoSAyMYFCMSoqKCpNYvHppfhklu]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
   }
-  public static void what(Pet p) {
-    System.out.println("Reference is a pet");
-    System.out.println(p);
-  }
-  public static void main(String[] unused) {
-    Pet pet = new Pet();
-    what(pet);
-    Object object = pet;
-    what(object);
-  }
+  // i == 3
 }
-....
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1" ]
+  String2 [ label = "String|2" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+++++
+
+[[GrSlJoshnMHiqwfLmUJHgieSBvLWhWFV]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String1 [ label = "String|1", fillcolor="red", style="filled" ]
+  String2 [ label = "String|2", fillcolor="red", style="filled" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+  {rank=same; String String1 String2 String3}
+</div>
+++++
+
+[[kYPIHYzgsQZYzQsiBRpOBnQwzxswiPLl]]
+[.ss]
+== Reference Counting Example
+
+[source,java]
+----
+String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}
+----
+
+<<<
+
+++++
+<div class="digraph small">
+  String [ label = "String|0" ]
+  String3 [ label = "String|3" ]
+  save -> String
+  s -> String3
+</div>
+++++
+
 
 [[bsXbUlKaQeGfqKCdyACmnTqmWQHfuiqE]]
 [.oneword]
@@ -506,16 +484,8 @@ public class Example {
 This concept is critical once we start talking about data structures and
 algorithms next week.
 
-[[VPVMUWTAEgXSNueHburUmttCKeuhcdeZ]]
-== Interfaces
-
-[.lead]
-//
-Interfaces are an incredibly important idea when building computer programs and
-systems.
-
 [[nRANkNJSPjdGATReHMsdJtMowgfdvacN]]
-== What Is An Interface?
+== Review: What Is An Interface?
 
 [quote]
 //
@@ -534,64 +504,6 @@ hardware, between computers and their users, or between various permutation of
 these components.
 //
 * Interfaces enable different parts of a system to interact in a structured way.
-
-[[TIuSskfZFyHWIeJRkatzJACsXzKQOnCW]]
-== Examples of Computer Interfaces
-
-[.s]
-//
-* *Software-software:* between the test cases that we write and the code that you
-complete for each MP or homework problem.
-//
-* *Software-hardware:* between my laptop and the Chromecast that is displaying
-today's lecture slides.
-//
-* *Computer-user:* computer displays, keyboards, pointing devices, and other
-peripherals.
-
-[[kZihYTenzabHfhSeWrCxkpibegcwLXHX]]
-== Software Interfaces
-
-[.lead]
-//
-We're going to focus on software interfaces, and specifically on interfaces in
-Java.
-
-[.s]
-//
-* However, interfaces are _not_ a Java- or language-specific idea.
-//
-* Some languages&mdash;like Java, Go, and others&mdash;include a specific notion
-of interfaces as part of the language.
-//
-* For other languages this is done by convention.
-//
-* *But all software development involves interfaces, regardless of what language
-you are using.*
-
-[[ekCWZZfsdfEsUsXaLAiqefgmefuSoXyd]]
-== Note: Every Java Object Has An Interface
-
-[.lead]
-//
-Even Java classes that don't `implements` a Java interface provide an interface.
-//
-**The interface to a Java `class` is the the set of methods that it
-provides.**
-
-[[dReSmHaciJqendBXUVzMVldfeiOVfSaB]]
-== Interface Documentation
-
-[.lead]
-//
-Interfaces are also a place where we need _excellent documentation_.
-
-[.s]
-//
-* This facilitates communication between _users_ of an interface and _providers_
-of an interface.
-//
-* This is exactly what Javadoc is for.
 
 [[urfTHuaUJiLxdlIRadfUXiTfXyeBnveI]]
 == Java Interfaces
@@ -727,26 +639,6 @@ So far this seems very similar to inheritance and overloading.
 //
 * Providing your own implementation is like overriding a parent's method
 
-[[diEefpzMSuzcCJKtyfTPxiunXQAbRzHg]]
-== ! Interfaces v. Inheritance
-
-[.janini.compiler]
-....
-public class Add {
-  public int add(int first, int second) {
-    return 0;
-  }
-}
-public class Adder extends Add {
-}
-public class Example {
-  public static void main(String[] unused) {
-    Add add = new Adder();
-    System.out.println(add.add(10, 12));
-  }
-}
-....
-
 [[rEXiyfgutbqfnnJnxneeVZDEdCdHnLqu]]
 == `abstract` Methods
 
@@ -764,24 +656,6 @@ public abstract class Add {
   public abtract int add(int first, int second);
 }
 ----
-
-[[DqntdeINezlRUJCiZTneLdEInJxxamCe]]
-== ! `abstract` Methods
-
-[.janini.compiler]
-....
-public abstract class Add {
-  public abstract int add(int first, int second);
-}
-public class Adder extends Add {
-}
-public class Example {
-  public static void main(String[] unused) {
-    Add add = new Adder();
-    System.out.println(add.add(10, 12));
-  }
-}
-....
 
 [[cgqGfQnuLznNbTnHhTcGnSPLtdtnLnNY]]
 [.oneword]
@@ -939,19 +813,21 @@ public class Example {
 }
 ....
 
-////
 [[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
 == Announcements
 
-* link:/MP/2/[MP2] is due _today_! Office hours all day today.
+* link:/MP/3/[MP3] is out and due _a week from Friday_
 //
-* I'll be available in Siebel 0403 at 2PM today.
+footnote:[No, it is not a prank.]. Get started!
+//
+* I have office hours as usual today, 1&ndash;3PM, Siebel 2227.
+//
+Please come by and say hi!
 //
 * We have a
 //
 link:/info/feedback/[anonymous feedback form]
 //
 to the course website. Use it to give us feedback!
-////
 
 // vim: ts=2:sw=2:et
