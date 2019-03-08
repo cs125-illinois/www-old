@@ -341,7 +341,7 @@ features
 _implemented_ but I know that I can correctly compare two objects
 
 [[yPdDeAdLGrhcjXhpHLwhrZKtYvleUnVU]]
-== Review: HW35
+== Review: HW40
 
 [source,java]
 ----
@@ -376,8 +376,11 @@ Specifically `compareTo` should return:
 //
 * 1 if `other` is greater than the specified object
 
+(**Note that this is backwards from the official `Comparable` interface**, but
+the result is just a convention.)
+
 [[iJeOmiztFvnnugqBLVFXcnUvqwuBfrWq]]
-== ! Review: HW 35
+== ! Review: HW40
 
 [.janini.smallest.compiler]
 ....
@@ -455,9 +458,53 @@ public class Example {
 }
 ....
 
+[[BuLNedtjJeeGXeGbFuVaRWijiUPuGURO]]
+== Review: HW42
+
+Create a class called `Minimum` that provides a single class method `min`.
+//
+`min` should take an array of any object that implements `Comparable` and return
+the minimum value from the array, using `compareTo` to compare object instances.
+//
+So the function signature of `min` should be `public static Comparable
+min(Comparable[] values)`.
+
+[[ybiNNiFdeZPFElPXQYoqBGidQLDUYHNi]]
+== Review: HW42
+
+As a reminder, `first.compareTo(second)` returns a positive value if `first` is
+larger than `second`, a negative value if `first` is smaller than `second`, and
+0 if they are equal.
+//
+Note that the array of `Comparable` references passed to `min` will all be the
+same type and contain no `null` references.
+//
+However, the array _may_ be `null` or empty in which case you should return
+`null`.
+
+[[RJedsoPedKGSnRDxVQZPJeZmRBoxdXvB]]
+== ! Review: HW42
+
+[.janini.smallest.compiler]
+....
+public class Minimum {
+  public static Comparable min(Comparable[] values) {
+    return values[0];
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Minimum.min(new String[] { "one", "two", "five" }));
+    System.out.println(Minimum.min(new Integer[] { 1, 2, 5 }));
+  }
+}
+....
+
 [[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
 == Announcements
 
+* I have no office hours today. Have a great weekend!
+//
 * link:/MP/3/[MP3] is out and due _a week from Friday_
 //
 footnote:[No, it is not a prank.]. Get started!
