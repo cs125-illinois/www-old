@@ -9,6 +9,7 @@
 		<meta content="{{ author }}" name="author">
 		{{/if}}
 		<meta name="description" lang="en-us" content="{{ description }}">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE" />
 
     {{#if css }}
       <link rel="stylesheet" href="{{ lookup webpack.assets 'index.css' }}">
@@ -23,7 +24,19 @@
     {{/if }}
 
 		{{> favicon }}
-		<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
   </head>
 
   <body data-spy="scroll" data-target="#toc">

@@ -70,6 +70,23 @@ $(() => {
   });
   $('[data-toggle="tooltip"]').tooltip();
 
+  $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+    $(elem).click(function (event) {
+      event.preventDefault()
+      const url = $(elem).attr('href')
+      ga('send', 'event', 'outbound', 'click', url, {
+        'transport': 'beacon',
+        'hitCallback': () => {
+          if ($(elem).hasClass('external')) {
+            window.open(url, '_blank')
+          } else {
+            document.location = url
+          }
+        }
+      })
+    })
+  })
+
   window.cookieconsent.initialise({
     "palette": {
       "popup": {

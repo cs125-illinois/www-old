@@ -91,9 +91,6 @@ module.exports = function (env, argv) {
       ]
     }
   }
-  if (!(process.env.ENV === 'production')) {
-    config.plugins = config.plugins.filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin')
-  }
   return config
 }
 // vim: ts=2:sw=2:et:ft=javascript
