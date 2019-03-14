@@ -12,6 +12,18 @@
   <link rel="stylesheet" href="{{ lookup webpack.assets 'slides.css' }}">
   <link rel="stylesheet" href="{{ env.SLIDER }}slider.css">
 
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
   {{> favicon }}
 </head>
 <body>
@@ -84,5 +96,23 @@
 	</div>
   <script src="https://apis.google.com/js/api:client.js"></script>
   <script src="{{ env.SLIDER }}slider.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
 </body>
 </html>
