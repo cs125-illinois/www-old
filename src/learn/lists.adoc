@@ -71,21 +71,6 @@ public class SimpleArrayList implements SimpleList {
     return toReturn;
   }
   public void add(int addIndex, Object toAdd) {
-    if (addIndex < 0 || addIndex > array.length + 1) {
-      return;
-    }
-
-    Object[] newArray = new Object[array.length + 1];
-    int originalIndex = 0;
-    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
-      if (newIndex == addIndex) {
-        newArray[newIndex] = toAdd;
-      } else {
-        newArray[newIndex] = array[originalIndex];
-        originalIndex++;
-      }
-    }
-    array = newArray;
     return;
   }
 }
@@ -280,28 +265,12 @@ public class SimpleArrayList implements SimpleList {
     return toReturn;
   }
   public void add(int addIndex, Object toAdd) {
-    if (addIndex < 0 || addIndex > array.length + 1) {
-      return;
-    }
-
-    Object[] newArray = new Object[array.length + 1];
-    int originalIndex = 0;
-    for (int newIndex = 0; newIndex < newArray.length; newIndex++) {
-      if (newIndex == addIndex) {
-        newArray[newIndex] = toAdd;
-      } else {
-        newArray[newIndex] = array[originalIndex];
-        originalIndex++;
-      }
-    }
-    array = newArray;
     return;
   }
 }
 public class Example {
   public static void main(String[] unused) {
     SimpleList simpleList = new SimpleArrayList(new Integer[] { 1, 2 });
-    simpleList.add(2, (Integer) 5);
     for (int i = 0; i < simpleList.size(); i++) {
       System.out.println(simpleList.get(i));
     }
@@ -827,7 +796,6 @@ list.get(2);
 </div>
 ++++
 
-////
 [[lJcCMyeWhddIzcdhiLSDPvylMQZYwVRV]]
 [.oneword]
 == Questions About Lists?
@@ -835,17 +803,11 @@ list.get(2);
 [[nGsigkJsZbIIiuBueedkjOHenoatcePu]]
 == Announcements
 
-* I now have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
+* My office hours today are canceled. Enjoy spring break!
 //
-Please stop by!
+* This week's lab is open today and there is a new homework problem open over
+break and due when you return.
 //
-* Remember to provide feedback on the course using the
-//
-link:/info/feedback/[anonymous feedback form].
-//
-* I've started to respond to existing feedback
-//
-https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
-////
+* On Monday 3/25/2019 we'll review for the object midterm.
 
 // vim: ts=2:sw=2:et
