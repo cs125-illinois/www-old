@@ -1,7 +1,7 @@
 ---
-title: "MP5: Molecules"
+title: "MP4: Molecules"
 description:
-  In MP5 you will use recursion to analyze and name simple organic molecules.
+  In MP4 you will use recursion to analyze and name simple organic molecules.
 spelling_exceptions:
   - al
   - /aldehydes?/i
@@ -57,6 +57,7 @@ spelling_exceptions:
   - propyl
   - propylcyclopropane
   - propylpropane
+  - SharedPreferences
   - /substituents?/i
   - tetr
   - tetrol
@@ -64,12 +65,13 @@ spelling_exceptions:
   - trifluoropropane
   - triol
   - yl
+secret: YSC5L7gI
 ---
 :sectnums:
 :linkattrs:
-:imagesdir: /MP/2018/fall/images/MP5
+:imagesdir: /MP/images/MP4
 
-:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/fall2018-mp5[forum,role='noexternal']]
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/mps/mp4[forum,role='noexternal']]
 
 [.lead]
 
@@ -81,39 +83,36 @@ only_ way to solve a problem.
 Recursion can be tricky to wrap your head around at first, but as usual the best
 way to get comfortable with this technique is to practice.
 
-For MP5 you'll analyze molecules represented as graphs, another recursive data
+For MP4 you'll analyze molecules represented as graphs, another recursive data
 structure.
 //
 You will use recursive and iterative functions, and apply recursive problem
 solving technique by breaking down a large task into several smaller ones.
-//
-MP5 is the second of two Android assignments to prepare you for your final
-project.
 
-*MP5 is due Friday 11/16/2018 @ 5PM.
+*MP4 is due Monday 4/15/2019 @ 5PM.
 //
 To receive full credit, you must submit by this deadline.*
 //
-In addition, 10% of your grade on MP5 is for submitting code that earns at least
-_40 points_ by *Monday 11/12/2018 @ 5PM.*
+In addition, 10% of your grade on MP4 is for submitting code that earns at least
+_40 points_ by *Monday 4/8/2019 @ 5PM.*
 //
 As usual, late submissions will be subject to the
-link:/info/2018/fall/syllabus/#regrading[MP late submission policy].
+link:/info/syllabus/#regrading[MP late submission policy].
 
 [[objectives]]
 == Learning Objectives
 
-MP5 gives you plenty of practice with recursive programming.
+MP4 gives you plenty of practice with recursive programming.
 //
-You'll work with existing data structures like you did in link:/MP/2018/fall/4/[MP4],
-write member functions like you did in link:/MP/2018/fall/3/[MP3], use collections like
-the arrays you used in link:/MP/2018/fall/2/[MP2], work with strings like in
-link:/MP/2018/fall/1/[MP1], and of course continue to use the imperative programming
-constructs introduced in link:/MP/2018/fall/0[MP0].
+You'll work with existing data structures like you did in link:/MP/3/[MP3],
+write member functions like you did in link:/MP/2/[MP2], use collections like
+the arrays you used in link:/MP/1/[MP1],
+and of course continue to use imperative programming
+constructs like in link:/MP/0[MP0].
 //
 It really does bring together almost everything we've done this semester.
 
-The main task in MP5 is naming simple organic molecules.
+The main task in MP4 is naming simple organic molecules.
 //
 Writing one function to handle all molecules would be **extremely hard**.
 //
@@ -129,16 +128,13 @@ more and more kinds of molecules.
 [[structure]]
 == Assignment Structure
 
-Like MP4, MP5 is split into two modules:
+As usual, MP4 is split into two modules:
 
 * `/lib/`: a library that performs various analyses of the given molecule.
 //
-*This library is the only part of the MP tested by the test suite.*
-//
 * `/app/`: an Android app for you to use for your own interactive testing.
 //
-The Android app is technically functional, but could use a few modifications
-from you.
+The Android app is technically functional, but could use one modification from you.
 //
 And, for it to work correctly, you need to finish the library in `lib`.
 
@@ -170,30 +166,24 @@ Ask on the {forum} if you'd like any clarifications.
 //
 --
 
-Your analysis functions are called by the app and, once you complete them, your
-app will be almost completely functional&mdash;and we'll be happy to help you
-with the rest.
-
 As always, you will find our official
 //
-https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/package-summary.html[MP5 online documentation]
+https://cs125-illinois.github.io/MP4-Solution/[MP4 online documentation]
 //
 helpful in understanding what each function and class does.
 
 [[getting]]
-=== Obtaining MP5
+=== Obtaining MP4
 
-We are again using link:/MP/2018/fall/setup/android-studio[Android Studio] for MP5.
-
-In *Android Studio*, use
+Use
 //
-https://classroom.github.com/a/xCpvJ2Ab[this GitHub Classroom invitation link]
+https://classroom.github.com/a/sRPUeiXp[this GitHub Classroom invitation link]
 //
-to fork your copy of MP5.
+to fork your copy of MP4.
 //
 Once your repository has been created, import it into Android Studio following
 //
-link:/MP/2018/fall/setup/git/#workflow[our assignment Git workflow guide].
+link:/MP/setup/git/#workflow[our assignment Git workflow guide].
 
 [[requirements]]
 === Your Goal
@@ -202,11 +192,11 @@ At this point you should be familiar with the requirements from previous MPs.
 For the points breakdown, see the <<grading, grading description below>>.
 
 [[approach]]
-== Approaching MP5
+== Approaching MP4
 
-Getting 100 points on MP5 doesn't take a ton of code
+Getting 100 points on MP4 doesn't take a ton of code
 //
-footnote:[But getting _110_ points on MP5 _may_ require a ton of code. The extra
+footnote:[But getting _110_ points on MP4 _may_ require a ton of code. The extra
 credit _is not easy_.].
 //
 But some of it is _recursive_ code, so it will take you longer.
@@ -228,9 +218,9 @@ fundamental]
 //
 to your success.
 //
-Understand the
+Understand
 //
-https://cs125-illinois.github.io/Fall-2018-MP5-Starter/[specification],
+https://cs125-illinois.github.io/MP4-Solution/[the specification],
 //
 <<lists, how to use lists in Java>>,
 //
@@ -266,7 +256,7 @@ crash.
 //
 . *The problem should get smaller each time.*
 //
-Each recursive step should reduce the size of the problem somehow.
+Each recursive step should make progress somehow.
 //
 This can happen in several ways.
 //
@@ -287,30 +277,17 @@ Now, extend that to a list with two elements, then three.
 You may begin to see a pattern emerge that helps you understand how to design
 your recursive approach.
 
-[[help]]
-=== Getting Help
-
-The course staff is ready and willing to help you every step of the way!
-//
-Please come to link:/info/2018/fall/syllabus/#calendar[office hours], or post on the
-{forum} when you need help.
-//
-You should also feel free to help each other, as long as you do not violate the
-<<cheating, academic integrity requirements>>.
-
 [[lists]]
 === Java ``ArrayList``s
 
 [.lead]
 //
-Your work on MP5 will be aided by the one of the two data structures that you
+Your work on MP4 will be aided by the one of the two data structures that you
 meet in heaven: lists.
 
 We've built a simple list together in lecture.
 //
-But for MP5 you'll want to use
-//
-Java's built-in
+But for MP4 you'll want to use Java's built-in
 //
 https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html[``ArrayList``]
 class,
@@ -323,16 +300,16 @@ interface]
 footnote:[You could also use other implementations, like ``LinkedList``s, but
 the performance differences aren't important for this MP.].
 
-As a review, like an array a list is an ordered collection of values.
+As a review, like an array, a list is an ordered collection of values.
 //
 Unlike an array, a list allows you to add and remove items after it has been
 created.
 //
-You'll make extensive use of these list methods as you complete MP5:
+You'll make extensive use of these list methods as you complete MP4:
 
 * `add`: adds a new item at the end, extending the list's length by 1
 //
-* `contains`: returns `true` if the list contains the passed value, and false
+* `contains`: returns `true` if the list contains the passed value, and `false`
 otherwise
 //
 * `size`: gets the current length of the list, just like the `length` field of
@@ -346,6 +323,17 @@ https://docs.oracle.com/javase/10/docs/api/java/util/List.html[`List` interface
 documentation]
 //
 for the complete list and documentation.
+
+[[help]]
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
 
 [[graphs]]
 == Graphs
@@ -386,8 +374,9 @@ graph.
 === Examples of Graphs
 
 In this MP you'll be working with undirected graphs where the nodes are atoms
-and have properties (like which element they are) and the edges are bonds
-between the atoms.
+and the edges are bonds between the atoms. Both have properties in this case:
+the type of atom for the nodes, and the strength of bond (single vs. double)
+for the edges.
 //
 But graphs are so ubiquitous and so powerful in computer science because of the
 sheer number of different things in the real world that can be represented as
@@ -398,7 +387,7 @@ friendship relationships between them.
 //
 Depending on the type of social network the graph could be either undirected
 (accepting my friend request means that you are my friend and I am also yours)
-or directed (following me on Twitter does not mean that I follow you).
+or directed (following me on Twitter does not imply that I follow you).
 //
 Given the increasing importance of social networks in spreading information
 //
@@ -426,15 +415,15 @@ internet and the edges paths between them, both wired and wireless.
 Just like on transportation graphs, routing on the internet involves trying to
 determine the best path between two communicating machines.
 
-=== Graph Operations for MP5
+=== Graph Operations for MP4
 
-To simplify MP5, we've provided you with helper functions that perform the
+To simplify MP4, we've provided you with helper functions that perform the
 chemistry-specific naming tasks.
 //
 But to get them to work, you need to complete a series of recursive functions
 that operate on graphs.
 
-**MP5 is set up specifically so that there is a strong mapping between the
+**MP4 is set up specifically so that there is a strong mapping between the
 functions you need to complete and common operations on graphs.**
 //
 So, for example, while your `getRing` function locates a ring in the molecule
@@ -445,40 +434,40 @@ this is a common graph operation:
 https://en.wikipedia.org/wiki/Cycle_(graph_theory)[_cycle detection_].
 
 Here are some of the `MoleculeAnalyzer` helper functions you need to complete to
-get full credit on MP5
+get full credit on MP4
 //
 footnote:[_not_ including extra credit, that requires more work]
 //
 and their analogous graph operations:
 
-. https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#findAllAtoms(edu.illinois.cs.cs125.mp5.lib.BondedAtom,java.util.ArrayList)[`findAllAtoms`]:
+. https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#findAllAtoms(edu.illinois.cs.cs125.mp4.lib.BondedAtom,java.util.ArrayList)[`findAllAtoms`]:
 //
 https://en.wikipedia.org/wiki/Graph_traversal[graph traversal]
 //
-. https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getRing()[`getRing`]: https://en.wikipedia.org/wiki/Cycle_(graph_theory)[cycle detection]
+. https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#getRing()[`getRing`]: https://en.wikipedia.org/wiki/Cycle_(graph_theory)[cycle detection]
 //
-. https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getTips()[`getTips`]: locating https://en.wikipedia.org/wiki/Vertex_(graph_theory)[leaf
+. https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#getTips()[`getTips`]: locating https://en.wikipedia.org/wiki/Vertex_(graph_theory)[leaf
 vertices]
 //
-. https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#findPath(edu.illinois.cs.cs125.mp5.lib.BondedAtom,edu.illinois.cs.cs125.mp5.lib.BondedAtom)[`findPath`]: https://en.wikipedia.org/wiki/Pathfinding[pathfinding]
+. https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#findPath(edu.illinois.cs.cs125.mp4.lib.BondedAtom,edu.illinois.cs.cs125.mp4.lib.BondedAtom)[`findPath`]: https://en.wikipedia.org/wiki/Pathfinding[pathfinding]
 
 In addition, many of the other helper functions you need to compete use the
 results of these operations.
 //
 In particular,
 //
-https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getMolecularWeight()[`getMolecularWeight`],
+https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#getMolecularWeight()[`getMolecularWeight`],
 //
-https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#hasChargedAtoms()[`hasChargedAtoms`],
+https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#hasChargedAtoms()[`hasChargedAtoms`],
 //
 and
 //
-https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#getTips()[`getTips`]
+https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#getTips()[`getTips`]
 //
 are fairly simple once you have established a list of all of the atoms in the
 molecule using
 //
-https://cs125-illinois.github.io/Fall-2018-MP5-Starter/edu/illinois/cs/cs125/mp5/lib/MoleculeAnalyzer.html#findAllAtoms(edu.illinois.cs.cs125.mp5.lib.BondedAtom,java.util.ArrayList)[`findAllAtoms`].
+https://cs125-illinois.github.io/MP4-Solution/edu/illinois/cs/cs125/spring2019/mp4/lib/MoleculeAnalyzer.html#findAllAtoms(edu.illinois.cs.cs125.mp4.lib.BondedAtom,java.util.ArrayList)[`findAllAtoms`].
 
 [[findallatoms]]
 === Recursion on Graphs
@@ -489,7 +478,7 @@ But there are some additional considerations to keep in mind.
 
 Let's consider `findAllAtoms`.
 //
-As usual, we want to (1) identify the base case, (2) the recursive step, (3) and
+As usual, we want to identify (1) the base case, (2) the recursive step, (3) and
 how we are going to combine results.
 //
 Imagine we're finding all nodes on this simple graph:
@@ -617,7 +606,7 @@ Ask for help!
 ==== Generalizing `findAllAtoms`
 
 `findAllAtoms` is a good starting point but simpler than the other recursive
-functions that you'll need to complete to finish the MP.
+functions that you'll need to complete the MP.
 //
 One way in which it's simpler is that it only maintains _one_ list.
 //
@@ -674,10 +663,9 @@ learn all the cool details by taking a chemistry class!].
 
 === Basics
 
-All molecules are composed of multiple atoms.
+Molecules are composed of multiple atoms.
 //
-Every atom in a molecule has at least one bond to another atom in that same
-molecule.
+Atoms are joined by at least one bond to other atoms in the same molecule.
 //
 Hydrogen gas, for example, consists of two hydrogen atoms bonded to each other.
 //
@@ -691,15 +679,15 @@ link:https://en.wikipedia.org/wiki/Valence_(chemistry)[_valence_].
 //
 Oxygen wants two bonds, for example.
 //
-Depending on the number of electrons shared, bonds can be single, double, or
-triple&mdash;we'll only concern ourselves with single and double bonds.
+Depending on the number of electrons shared, multiple bonds can connect a pair of atoms.
+Double bonds are still represented by just one edge in our graphs.
 //
 The oxygen molecules you breathe each consist of two oxygen atoms connected to
-each other by a double bond, so atom is involved in exactly the number of bonds
+each other by a double bond, so each atom is involved in exactly the number of bonds
 it wants to be.
 //
 If an atom has more or fewer bonds than is appropriate for its valence it is
-considered to be _charged_.
+considered _charged_.
 
 Different elements have different weights&mdash;for example, a carbon atom is
 heavier than a hydrogen atom.
@@ -720,8 +708,8 @@ drawings and formulas.
 You may recognize these from the link:https://www.ptable.com/[periodic table].
 For example, "O" is the symbol for oxygen.
 //
-This MP uses only six elements: carbon, hydrogen, oxygen, fluorine, chlorine,
-and bromine.
+This MP uses only seven elements: carbon, hydrogen, oxygen, helium,
+fluorine, chlorine, and bromine.
 //
 Those last three are all _halogens_&mdash;we'll come back to that.
 
@@ -748,11 +736,12 @@ H-C-H
 To pass `testMolecularWeight` and `testHasCharged` you need to first complete
 <<findallatoms, `findAllAtoms`>>.
 //
-Once you have a list of atoms you either sum their weight or return whether any
+Once you have a list of atoms you can sum their weight or return whether any
 atom is charged.
 //
 --
 
+[[chemicaldrawing]]
 === Drawing
 
 The app code we've given you handles the drawing of molecules, but the rest of
@@ -820,7 +809,7 @@ Of course, the name needs to be descriptive enough that the molecule can be
 unambiguously identified.
 //
 Ideally each molecule would only have one standard name.
-//
+
 Naming things in computer science is also a challenge.
 //
 There is a famous saying that there are only
@@ -865,13 +854,15 @@ image::Hexane.png[role='img-fluid']
 //
 --
 //
-To pass `testNamingSimpleStraight` you only need to identify the longest chain
-of carbons in the molecule.
+To pass `testNamingSimpleStraight`, your `getLinearBackbone` implementation only
+needs to identify the longest chain of carbons in the molecule.
 //
-Use `getTips` to find all tip carbons and then `findPath` on each pair of tips,
-then select the longest.
+`getBackbones` is responsible for finding all backbone candidates, by
+using `getTips` to find all tip carbons and then `findPath` on each pair of tips.
 //
-Each `BondedAtom` has an `isCarbon` method that you may find useful.
+Then `getLinearBackBone` can select the longest.
+//
+Each `BondedAtom` instance has an `isCarbon` method that you may find useful.
 //
 --
 
@@ -895,18 +886,10 @@ image::Cyclopentane.png[role='img-fluid']
 //
 --
 //
-To pass `testNamingSimpleCyclic`, you need to complete `getRing` to determine
-whether the molecule is cyclic.
+To pass `testNamingSimpleCyclic`, you need to complete `getRing` to return
+the list of carbon atoms in the ring, if present.
 //
 --
-
-At this point you will probably need to refine your recursive approach.
-//
-If you recurse down every possible bond every time, you might end up going
-around and around infinitely, in which case your program will crash.
-//
-You'll need to keep track of which atoms you've seen already using a data
-structure and stop once you arrive at them again.
 
 === Naming Simple Substituents
 
@@ -937,7 +920,7 @@ That's also propane with a bromine attached, but in a different place!
 //
 We need a way to say where the substituent is attached to the backbone.
 //
-To do this, we number the carbons:
+To do this, we number the carbons starting at 1 and increasing along the backbone:
 
 image::NumberedPropane.png[role='img-fluid']
 
@@ -1019,46 +1002,22 @@ image::PropylCyclopropane.png[role='img-fluid']
 --
 //
 To pass `testNamingOneSubstituentCyclic`, you need to find any ring present
-(using `getRing`) and then rotate it properly so that the substituent is located
-at position 1 on the ring (using `rotateRing`).
+(using `getRing`) and then rotate it properly (using `rotateRing`) so that any
+substituent is located at position 1 on the ring (index 0 of the list).
 
-To pass `testNamingOneSubstituentLinear`, you need to select the longest
-backbone that places the substituent in the lowest numbered position.
+To pass `testNamingOneSubstituentLinear`, you need to refine `getLinearBackbone`
+to select the longest backbone that places the substituent in the
+lowest-numbered position.
 //
 Note that you should consider backbones running in _either_ direction.
 //
 --
 
-Here is a strategy to find the correct backbone and direction:
-
-. Identify all the tip carbons, which are bonded to at most one other carbon
-atom
+**You now know all the naming rules you need to get 100 points on MP4!**
 //
-. For each tip carbon, recursively find all paths through the molecule starting
-at that carbon
+There are a couple other details of these last couple test cases handled by our starter code,
 //
-** Your recursive function will probably take the last carbon visited, the path
-taken so far, and the list in which to store complete paths.
-//
-** At every carbon, recurse into all the attached carbons that aren't the one
-previously visited, extending the path taken so far
-//
-** If another tip has been reached, add the now-finished path to the list of
-complete paths
-//
-. Select the longest carbon chain from the list of complete paths&mdash;this is
-the backbone
-//
-. Find the substituent, if present
-//
-. If the substituent's position is closer to the high-numbered end of the chain
-than to the beginning, reverse the list of backbone carbons
-
-Any carbon atom not in the list of backbone carbons is part of an alkyl
-substituent.
-//
-When exploring alkyl substituent chains to find their length, you must be
-careful to avoid recursing back into the backbone.
+so if you're curious about those&mdash;or attempting the extra credit&mdash;read on.
 
 === High-Priority Substituents
 
@@ -1139,8 +1098,8 @@ does not need to be made explicit in the name.
 //
 Aldehydes are essentially ketones that happen to be at a tip
 //
-footnote:[ They're named differently because they have somewhat different
-chemical reactivity.  Collectively, they're referred to as _carbonyls_.].
+footnote:[They're named differently because they have somewhat different
+chemical reactivity. Collectively, they're referred to as _carbonyls_.].
 //
 They are named similarly to alcohols, but with "al" instead of "ol" on the end.
 //
@@ -1148,9 +1107,6 @@ This molecule has a two-carbon backbone ("eth") and an aldehyde tip ("al"), so
 we name it ethanal:
 
 image::Ethanal.png[role='img-fluid']
-
-To identify aldehydes, notice that the tip carbon is double-bonded to an oxygen
-and single-bonded to at least one hydrogen.
 
 Carboxylic acids are essentially a combination of an aldehyde and an alcohol on
 one tip carbon.
@@ -1161,21 +1117,18 @@ So the three-carbon carboxylic acid is named "propanoic acid":
 
 image::PropanoicAcid.png[role='img-fluid']
 
-To identify carboxylic acids, notice that the tip carbon is double-bonded
-to one oxygen and single-bonded to another.
-
 [.alert.alert-success]
 //
 --
 //
-Note that we have provided code to handle suffix-altering substituents as
+We have provided code to handle suffix-altering substituents as
 described above, so there is nothing extra for you to do here.
 //
 Move on to the extra credit if you want an additional challenge!
 //
 --
 
-**You now know all the naming rules you need to get 100 points on MP5.**
+**You now know all the naming rules involved in the main MP4 test cases.**
 //
 But you can earn a total of _10 points of extra credit_ by handling more
 interesting cases!
@@ -1214,9 +1167,6 @@ We then have a bromine at position 1 ("1-bromo") and a chlorine at position 2
 //
 The carbon backbone's name is "propane," so we put it all together, separate
 substituent fragments with an extra dash, and get 1-bromo-2-chloropropane.
-//
-Note the lack of dash between the last substituent fragment and the backbone
-name.
 
 Now let's swap the halogens:
 
@@ -1255,7 +1205,7 @@ image::FluoroMethylPropane.png[role='img-fluid']
 That's 2-fluoro-2-methylpropane because the (top) fluorine substituent and the
 (bottom) methyl substituent are both on position 2 of the (horizontal) backbone.
 //
-Notice that the "fluoro" part is first because F sorts before M.
+The "fluoro" part is first because F sorts before M.
 
 If the same substituent occurs multiple times on the same carbon, the position
 number appears multiple times in the list.
@@ -1263,21 +1213,6 @@ number appears multiple times in the list.
 So this is 1,1-difluoropropane:
 
 image::DifluoroPropane.png[role='img-fluid']
-
-The multiplicity prefixes **do not affect the sorting of the substituent names**.
-//
-Consider this molecule:
-
-image::ChloroDibromoPropane.png[role='img-fluid']
-
-It has bromine ("bromo") substituents at position 1 and 2, plus a chlorine
-("chloro") substituent at position 1.
-//
-So the bromine part of the name is "1,2-dibromo" and the chlorine part is
-"1-chloro."
-//
-The prefix "di" in "dibromo" doesn't count for substituent sorting, so B sorts
-before C and the full name is 1,2-dibromo-1-chloropropane.
 
 There can also be multiple high-priority substituents.
 //
@@ -1310,20 +1245,16 @@ image::PropaneTetrol.png[role='img-fluid']
 //
 To pass `testNamingMultipleSubstituents`, you need to find the best backbone
 (whether linear or cyclic), numbered in a way that minimizes the position of the
-first substituent encountered.
+_first_ substituent encountered.
 //
-If you haven't implemented `rotateRing` yet, you should do that now.
-//
-You may also need to refine your `getLinearBackbone` helper function.
+You may need to refine your `getLinearBackbone` helper function.
 
-This test case does not involve end groups.
-//
 The molecules you're asked to name here have _either_ low-priority or
 high-priority substituents, not a mix of both.
 //
 --
 
-**You now know enough naming rules to get 5 extra credit points on MP5!**
+**You now know enough naming rules to get 5 extra credit points on MP4!**
 //
 You can earn 5 more by handling even more tricky cases.
 
@@ -1375,10 +1306,10 @@ Previously this molecule would be expected to have a five-carbon backbone:
 image::ForkedDiol.png[role='img-fluid']
 
 But (our simplified version of) IUPAC rules say that **all high-priority
-substituents must be attached to the backbone**.
+substituents must be attached directly to the backbone**.
 //
 So that molecule's backbone is the three carbons between the alcohol
-substituents, and the three-carbon chain going off to the left is a "propyl"
+substituents, and the three-carbon chain going off to the left is a propyl
 substituent.
 //
 This molecule's name is 2-propylpropane-1,3-diol.
@@ -1433,13 +1364,13 @@ to left produces two at position 1.
 //
 So right-to-left wins, and the correct name is 1,1,3-trifluoropropane.
 //
-One high-priority substituent beats any number of low-priority ones, so if the
+**One high-priority substituent beats any number of low-priority ones**, so if the
 leftmost fluorine was replaced with an alcohol, the numbering would go left to
 right.
 
 If the count of substituents of both priorities is the same at every backbone
 carbon, the final tiebreak is the name of the substituent&mdash;alphabetically
-first wins:
+first wins.
 
 image::AlphabetTiebreak.png[role='img-fluid']
 
@@ -1507,9 +1438,10 @@ and filter that down by comparing two at a time.
 //
 --
 //
-To pass `testNamingPriority`, you will need to further refine `getLinearBackbone` and `getRing`.
+To pass `testNamingPriority`, you will need to further refine
+`getLinearBackbone` and `rotateRing`.
 //
-In particular, `getRing` will need the ability to flip the ring, causing it to
+In particular, `rotateRing` will need the ability to flip the ring, causing it to
 be numbered in the opposite direction.
 //
 Take full advantage of the convenience methods on `BondedAtom`&mdash;they're all
@@ -1517,17 +1449,69 @@ there for a reason.
 //
 --
 
-**You now know all the naming rules you need to get 110 points on MP5!**
+**You now know all the naming rules you need to get 110 points on MP4!**
 //
 None of the molecules we ask you to name have multiple different types of
 high-priority substituents, since that requires new rules.
+
+[[android]]
+== Android
+
+The MP4 app contains several molecules which the user can cycle through.
+//
+For the currently displayed molecule, the app renders its
+<<chemicaldrawing, skeletal drawing>> and uses the `lib` module
+to display its weight, formula, and systematic name.
+
+[[sharedpreferences]]
+=== `SharedPreferences`
+
+Many applications store persistent information like user preferences.
+//
+This information should be preserved even if the app is terminated and restarted.
+
+One option is to write the data to a file.
+//
+But for small pieces of data, Android's
+link:https://developer.android.com/training/data-storage/shared-preferences[`SharedPreferences`]
+feature is more convenient to work with.
+//
+Each `SharedPreferences` entry has a name ("key") and value.
+//
+Only certain types of values, mostly primitive types, are supported.
+
+The provided app code uses `SharedPreferences` to remember whether the user wants
+//
+molecules drawn in color. It also saves (but does not load) the
+//
+index of the last-viewed molecule.
+//
+To complete the app, you need to load and restore the index so that the app
+//
+remembers which molecule the user was looking at, even if the app is restarted.
+//
+You may find the
+link:https://developer.android.com/reference/android/content/SharedPreferences.html[
+`SharedPreferences` class documentation]
+helpful.
+
+[[appdebugging]]
+=== Debugging with the App
+
+The app's ability to render molecules can help you visualize the library test cases.
+//
+Feel free to copy test cases from `MoleculeAnalyzerTest.java` and add them
+to the list populated by `loadMolecules` in `MoleculeActivity.java`.
+
+The app draws standard skeletal formulas, so keep
+<<chemicaldrawing, implicit hydrogens>> in mind.
 
 [[grading]]
 == Grading
 
 As always, 100 points is full credit on the MP.
 //
-But in MP5, there are **110** points available, broken down as follows:
+But in MP4, there are **110** points available, broken down as follows:
 
 . *10 points* for computing molecular weight (`getMolecularWeight`), which
 requires implementing `findAllAtoms`
@@ -1535,23 +1519,23 @@ requires implementing `findAllAtoms`
 . *10 points* for determining whether the molecule has any charged atoms
 (`hasChargedAtoms`), which also requires implementing `findAllAtoms`
 //
-. *70 points* for naming: (`getIupacName`)
+. *65 points* for naming (tested through `getIupacName`):
 //
 ** Note that while all the test cases below test this single function, they test
 increasingly complex cases
 //
-** *20 points* for cyclic (ring) molecules with no substituents, which requires
-`findRing`
-//
 ** *20 points* for linear (straight-chain) molecules with no branching or
-substituents, which requires implementing `findPath` and `getLinearBackbone`
+substituents, which requires implementing `getTips`, `findPath`, `getBackbones`,
+and `getLinearBackbone`
 //
-** *10 points* for cyclic molecules with exactly one substituent that does not
-affect the suffix of the name, which requires implementing `rotateRing`
+** *15 points* for cyclic (ring) molecules with no substituents, which requires
+`getRing`
 //
-** *10 points* for linear molecules with exactly one substituent that does not
-affect the suffix of the name (but that may be a branch), which requires
-refining `getLinearBackbone`
+** *10 points* for cyclic molecules with exactly one substituent,
+which requires implementing `rotateRing`
+//
+** *10 points* for linear molecules with exactly one substituent
+(that may be a branch), which may require refining `getLinearBackbone`
 //
 ** *5 points* for molecules with multiple substituents, some of which may be
 different, but where no priority tiebreaks are required&mdash;**this is extra
@@ -1560,66 +1544,44 @@ credit**
 ** *5 points* for molecules with multiple substituents where priority tiebreaks
 _are_ required&mdash;**this is very hard extra credit**
 //
-footnote:[The reference solution is ~650 lines, most of which are for dealing
-with this.]
+. *5 points* for making the app restore the last-viewed molecule index
 //
 . *10 points* for no `checkstyle` violations
 //
 . *10 points* for pushing code that earns at least 40 points before *Monday
-11/12/2018 @ 5PM*
+4/8/2019 @ 5PM*
+
+The library test suite has a handful of "helper" test cases to exercise your
+naming-related helper functions.
+//
+These are **not** comprehensive and **not** graded&mdash;they are only
+there to help guide you.
 
 [[testing]]
 === Test Cases
 
-As in previous MPs, we have provided exhaustive test cases for each part of MP5.
+As in previous MPs, we have provided exhaustive test cases for each part of MP4.
 //
-Please review the link:/MP/2018/fall/0/#testing[MP0 testing instructions].
-
-////
-[[android]]
-== Android
-
-////
-
-[[formulas]]
-=== Chemical Formulas
-
-The `getFormula` function is not tested by the test suite, but can be used by
-the app.
-//
-Since it is not graded, you may implement this function using any formula format
-that you like.
-//
-The reference solution uses the
-//
-https://en.wikipedia.org/wiki/Chemical_formula#Hill_system[Hill system], in
-which (for example) methane's formula is `CH4` and ethanol's is `C2H6O`.
-//
-If you're feeling adventurous, you might try generating
-//
-https://en.wikipedia.org/wiki/Chemical_formula#Condensed_formula[condensed
-structural]
-//
-formulas.
+Please review the link:/MP/0/#testing[MP0 testing instructions].
 
 [[submitting]]
 == Submitting Your Work
 
 Follow the instructions from the
 //
-link:/MP/2018/fall/setup/git#submitting[submitting portion]
+link:/MP/setup/git#submitting[submitting portion]
 //
 of the
 //
-link:/MP/2018/fall/setup/git#workflow[CS 125 workflow].
+link:/MP/setup/git#workflow[CS 125 workflow].
 
 And remember, you must submit something that earns 40 points before *Monday
-11/12/2018 @ 5PM* to earn your 10 early deadline points.
+4/8/2019 @ 5PM* to earn your 10 early deadline points.
 
 [[cheating]]
 === Academic Integrity
 
-Please review the link:/info/2018/fall/syllabus/#cheating[syllabus academic integrity section].
+Please review the link:/info/syllabus/#cheating[syllabus academic integrity section].
 
-If you cheat on MP5, we will treat your CS 125 grade with a strong
+If you cheat on MP4, we will treat your CS 125 grade with a strong
 link:https://en.wikipedia.org/wiki/Reducing_agent[reducing agent].
