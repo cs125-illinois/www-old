@@ -67,93 +67,6 @@ public class Example {
 
 I hope you all had a restful weekend.
 
-[[gRDqpIvNYsoaRJfrfHSXsebpZMSkrUuJ]]
-== Recursive Tree Right Greater Than Left
-
-[.lead]
-//
-Let's find the number of nodes in our tree where the value of the right child is
-greater than or equal to value of the left child.
-
-[[SYKjilNSxLlsdxRsuxYvvTgpGnSqBtXT]]
-[.oneword]
-//
-== What's Our (Recursive) Algorithm?
-
-[[zSswMAKnLOEUAmowsjltDxsmgyLuCSii]]
-== Recursive Tree Right Greater Than Left
-
-[.s]
-//
-* *Base case*: [.s]#We've reached a tree with one node. It does not have a right
-child or left child, so we can return 0.#
-//
-* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
-//
-* *Combine results*: [.s]#Determine whether our right child is greater than our
-left child. If so, add 1 to the sum of results from our left and right child.#
-
-[[LWTPSosRFqExmcZpSPYAxSifaSoFXjZU]]
-== !Recursive Right Greater Than Left Example
-
-[.janini.compiler.smallest]
-....
-import java.util.Random;
-
-public class BinaryTree {
-  private static Random random = new Random();
-  private class Node {
-    private Object value;
-    private Node right;
-    private Node left;
-    Node(Object setValue) {
-      value = setValue;
-    }
-  }
-  private Node root;
-  BinaryTree(Object[] values) {
-    for (Object value : values) {
-      add(root, value);
-    }
-  }
-  public void add(Object value) {
-    add(root, value);
-  }
-  private void add(Node current, Object value) {
-    if (current == null) {
-      root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else if (random.nextBoolean()) {
-      add(current.right, value);
-    } else {
-      add(current.left, value);
-    }
-  }
-  public String toString() {
-    return toString(root);
-  }
-  private String toString(Node current) {
-    if (current == null) {
-      return "";
-    }
-    return "[" + current.value.toString() + "]" +
-      toString(current.right) + toString(current.left);
-  }
-  public int rightGreaterThanLeft() {
-  }
-}
-
-public class Example {
-  public static void main(String[] unused) {
-    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
-    System.out.println(binaryTree.rightGreaterThanLeft());
-  }
-}
-....
-
 [[WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV]]
 == Recursive Tree Print Leaves
 
@@ -237,6 +150,87 @@ public class Example {
   }
 }
 ....
+
+[[hEQFCftiCbUeeqhYNCdtcAliBQFMeBsE]]
+== Writing Perfect Code
+
+[.lead]
+//
+Starting today we'll be assigning a _small_ amount of credit on each homework
+problem for writing "perfect" code.
+
+Obviously we can't tell whether your code is _really_ perfect footnote:[Yet!]&mdash;meaning
+correct, beautiful, minimal, concise, readable.
+//
+But for the purposes of automated checking we will consider your code not to be
+perfect if:
+
+[.s]
+//
+* It contains dead or _unreachable_ code.
+//
+* It is overly complex compared to our solution.
+
+[[PGfdgeecFutSuJehIurfApSaupuZUKsG]]
+== Dead Code
+
+[source,java,role='smaller']
+----
+public class YourBinaryTree extends BinaryTree {
+  public int size() {
+    return size(root);
+  }
+  private int size(Node current) {
+    if (current == null) {
+      return 0;
+    }
+    if (current != null) {
+      return 1 + size(current.left) + size(current.right);
+    } else {
+      return 0;
+    }
+  }
+}
+----
+
+[.s]
+//
+* The last `return 0` will never be reached!
+
+[[hGTaVDLvuRWYmaMiiHTDeKSXtDlYMefO]]
+== High Complexity
+
+[source,java,role='smaller']
+----
+public class YourBinaryTree extends BinaryTree {
+  public int size() {
+    return size(root);
+  }
+  private int size(Node current) {
+    if (current == null) {
+      return 0;
+    }
+    if (current.left == null) {
+      return 1 + size(current.right);
+    } else if (current.right == null) {
+      return 1 + size(current.left);
+    } else {
+      return 1 + size(current.right) + size(current.left);
+    }
+  }
+}
+----
+
+[.s]
+//
+* There are _5_ paths through `size(Node current)`
+//
+* For the solution there are only _2_.
+
+[[iGeDDuAGheLcsDveIlxakkRpOcIWeEbQ]]
+[.oneword]
+//
+== Questions About Perfection?
 
 [[MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb]]
 == Recursive Tree Search
@@ -601,50 +595,44 @@ reversal of the rest of the list.#
 
 [.janini.smallest.compiler]
 ....
-public class Item {
-  public int value;
-  public Item next;
-  Item(int setValue, Item setNext) {
-    value = setValue;
-    next = setNext;
-  }
-}
-public class LinkedList {
-  private Item start;
-  public LinkedList(Integer[] array) {
-    for (int i = 0; i < array.length; i++) {
-      this.addToEnd(array[i]);
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
     }
   }
-  public void addToEnd(int value) {
-    Item item = new Item(value, null);
-    if (start == null) {
-      start = item;
-      return;
+  public Item start;
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
     }
-    Item current;
-    for (current = start; current.next != null; current = current.next);
-    current.next = item;
+  }
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+    }
   }
   public String toString() {
-    String string = "";
-    Item current = start;
-    while (current != null) {
-      string += current.value + " ";
-      current = current.next;
+    String toReturn = "";
+    for (Item current = start; current != null; current = current.next) {
+      toReturn += current.value;
     }
-    return string.trim();
+    return toReturn;
   }
   public void reverse() {
-    if (start != null) {
-      start = start.reverse();
-    }
+    return;
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    LinkedList myList = new LinkedList(new Integer[] { 1, 2, 3 });
-    System.out.println(myList);
+    SimpleLinkedList simpleLinkedList = new SimpleLinkedList(new Integer[] { 1, 2, 5 });
+    System.out.println(simpleLinkedList);
+    simpleLinkedList.reverse();
+    System.out.println(simpleLinkedList);
   }
 }
 ....
@@ -774,8 +762,8 @@ This will be our third CS 125 Final Project Fair: bigger and better than ever.
 
 [.s]
 //
-* *Date:* _either_ Thursday 5/2/2019 (*Reading Day*) or Friday 5/3/2019 (during
-our official exam slot)
+* *Date:* Thursday 5/2/2019 from 1&ndash;3PM, with awards Friday 5/3/2019 at
+1:30PM (our official final exam slot).
 //
 * *Participation:* _Optional_ but worth *1% extra credit*
 //
@@ -826,24 +814,13 @@ Here's a good strategy for not getting a good job:
 </div>
 ++++
 
-////
-[[ozTEehqBqloFcjlwPAYzKAswtrxjuDlr]]
+[[oApTeMfnuZvIlKHitawrVCWwZsdsdjoD]]
 == Announcements
 
-* link:/MP/2018/fall/5/[MP5] is out! Get started.
+* link:/MP/4/[MP4] is out.
 //
-* I have office hours today from 10AM&ndash;12PM. Please come by!
+* We also have our usual heavy office hours today. Come by and get started on
 //
-* Note that we _will_ have class on the Friday before Thanksgiving but _not_ on
-the Wednesday before Thanksgiving.
-//
-As usual, the link:/info/2018/fall/syllabus/#calendar[calendar is up-to-date].
-//
-* We've added an
-//
-link:/info/feedback/[anonymous feedback form]
-//
-to the course website. Use it to give us feedback!
-////
+* link:/MP/4/[MP4]!
 
 // vim: ts=2:sw=2:et
