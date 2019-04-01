@@ -1,0 +1,1741 @@
+---
+title: Recursion and Sorting
+date: 2019-04-03
+description:
+  Introduction to array and list recursion and sorting.
+---
+
+[[vQhCNZPmhDkacsIkVENqhlvWmIoVZXYl]]
+== !
+
+[.janini]
+--
+++++
+<div class="message">Sorting Algorithms</div>
+++++
+....
+import java.util.Arrays;
+
+static int[] sort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(sort(testArray)));
+....
+--
+
+[[pxteXKKdyCZGTrkOnzndCdGiiVhhiIWW]]
+== Recursive Tree Traversal
+
+[.lead]
+//
+Let's find all nodes in the tree and add them to a list.
+
+[[AFRvWZfeQQeGdVMvXnMzPEVICMgonSdu]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[WoTyiduwYKpDJQqjEQouvluMZvMMMVtx]]
+== Recursive Tree Traversal
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a `null` node, at which point we can stop.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Add ourselves to the list of nodes.#
+
+[[ngyjededPiWzJRbJEefcJndHYEAaanwn]]
+== Java ``ArrayList``s
+
+[.lead]
+//
+Lists are one of the two data structures you meet in heaven.
+
+We've studied them in class together.
+//
+But you'll usually use Java`s built-in implementations.
+
+[source,java]
+----
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();
+----
+
+[[HYqlNDapesPenEQfkFhuOjHcdeaozZnd]]
+== ! Java List Interface
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/List.html"></iframe>
+</div>
+++++
+
+[[PvTLWdfnSyZiVbCqNAoJVZumecHuRfTP]]
+== ! Java ``ArrayList``s
+
+[.janini]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();
+....
+
+[[uVJpYoHLxekeOagIBhsAKNLEUXnddLlp]]
+== !Recursive Right Greater Than Left Example
+
+[.janini.compiler.smallest]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+    } else if (current.right == null) {
+      current.right = new Node(value);
+    } else if (current.left == null) {
+      current.left = new Node(value);
+    } else if (random.nextBoolean()) {
+      add(current.right, value);
+    } else {
+      add(current.left, value);
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return "";
+    }
+    return "[" + current.value.toString() + "]" +
+      toString(current.right) + toString(current.left);
+  }
+  public List allValues() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
+    System.out.println(binaryTree.allValues());
+  }
+}
+....
+
+[[dlFNBwsqXFAyyhoLtlAUEfOdFTVxCjtN]]
+== Other Recursive Data Structures
+
+[.lead]
+//
+Every sub(blank) of a (blank) is, itself, a (blank).
+
+[.s]
+//
+* Tree
+//
+* (Contiguous) List
+//
+* (Contiguous) Array
+
+[[kmbZhVumjGSPFcCcMibmLWEDUwnRrJhe]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[fPLwvRZpMLpgAbFmsmVXykozRMYLXgkE]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="salmon" style="filled" ]
+  Item5 [ label = "Item|5" fillcolor="salmon" style="filled" ]
+  Item6 [ label = "Item|6" fillcolor="lightblue" style="filled" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[QJZCNssehzpodbsXIwumIgkJjqbesXxa]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="salmon" style="filled" ]
+  Item5 [ label = "Item|5" fillcolor="lightblue" style="filled" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[SAWIkJIKdArGDGWOEuSIOckVUonqVeVQ]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="salmon" style="filled" ]
+  Item8 [ label = "Item|8" fillcolor="lightblue" style="filled" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[htyLoPaJeGNagdUbhSiZBycNHKepYWxQ]]
+[.ss]
+== List Recursion
+
+[source,java,role='smaller']
+----
+public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" fillcolor="lightblue" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  Item6 [ label = "Item|6" ]
+  Item6 -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[vbXBPPTomEodDCheSwtbLJKhaEJVlbgk]]
+== List Recursion
+
+[.lead]
+//
+Just like with trees, we need a way to both make the problem smaller _and_
+identify the smallest subproblem.
+
+[.s]
+//
+* **How do we make the problem smaller?** [.s]#Break the list into the current
+item and the rest of the list.#
+//
+* **What's the smallest subproblem?** [.s]#A list with a single element.#
+
+[[ZIKNZtjqIfbtoVYDnWFyLhhWTxkTkGTq]]
+== Linked List Reversal
+
+[.lead]
+//
+Given a linked list, reverse the elements in the list.
+
+[[vOXakArTtpQmThyCXthtpDAKZrVUPycO]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[djHYIxZwzkRMwlyEUZRXOdVoeWoeHZFP]]
+== Linked List Reversal
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a list with one element. No need to do
+anything, since it's the same reversed.#
+//
+* *Recursive step*: [.s]#Consider the current element and the rest of the list
+separately.#
+//
+* *Combine results*: [.s]#Add the current element as the _last_ element of the
+reversal of the rest of the list.#
+
+[[wFNWVdesWuPpnnrLmauFROPuQgwTRSps]]
+== ! Recursive Linked List Reversal
+
+[.janini.smallest.compiler]
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  public Item start;
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+    }
+  }
+  public String toString() {
+    String toReturn = "";
+    for (Item current = start; current != null; current = current.next) {
+      toReturn += current.value;
+    }
+    return toReturn;
+  }
+  public void reverse() {
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleLinkedList = new SimpleLinkedList(new Integer[] { 1, 2, 5 });
+    System.out.println(simpleLinkedList);
+    simpleLinkedList.reverse();
+    System.out.println(simpleLinkedList);
+  }
+}
+....
+
+[[PqfHWTVnimwZsyMvgLsrlBiYQnBSjTwl]]
+[.oneword]
+== This Is Tricky
+
+[[CoRERgdZhASxkLKgNeYWVorbgZRVaYrV]]
+== Recursive List Reversal
+
+[source,java,role='smaller']
+----
+// Set ourselves as the end of the list
+current.next.next = current;
+
+// Mark that the item after us is null
+current.next = null;
+
+----
+
+++++
+<div class="digraph smaller">
+  Item6 [ label = "Item|6" ]
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item [ label = "Item|0" ]
+  Item6 -> Item5
+  Item5 -> Item6 [style="invis"]
+  Item5 -> Item8 [style="invis"]
+  Item8 -> Item5
+  Item8 -> Item [style="invis"]
+  Item -> Item8
+</div>
+++++
+
+[.s]
+//
+* At this point we've reversed the end of the list.
+//
+* But `Item6` still has a reference to what was _its_ next element, but is now the
+_end_ of the rest of the list.
+//
+* So we can use that to set it as the last item.
+
+[[OVgIoOkRPNDpXUYGlvlujMuYgqPwkedC]]
+== Recursive List Reversal
+
+[source,java,role='smaller']
+----
+// Set ourselves as the end of the list
+current.next.next = this;
+
+// Mark that the item after us is null
+current.next = null;
+
+----
+
+++++
+<div class="digraph smaller">
+  Item6 [ label = "Item|6" ]
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item [ label = "Item|0" ]
+  Item6 -> Item5
+  Item5 -> Item6
+  Item5 -> Item8 [style="invis"]
+  Item8 -> Item5
+  Item8 -> Item [style="invis"]
+  Item -> Item8
+</div>
+++++
+
+* At this point we've reversed the end of the list.
+//
+* But `Item6` still has a reference to what was _its_ next element, but is now the
+_end_ of the rest of the list.
+//
+* So we can use that to set it as the last item.
+
+[[VigVulbdwEscNHHeuusSJyscbfwVdeGf]]
+== Recursive List Reversal
+
+[source,java,role='smaller']
+----
+// Set ourselves as the end of the list
+current.next.next = this;
+
+// Mark that the item after us is null
+current.next = null;
+
+----
+
+++++
+<div class="digraph smaller">
+  Item6 [ label = "Item|6" ]
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item [ label = "Item|0" ]
+  Item6 -> Item5 [style="invis"]
+  Item5 -> Item6
+  Item5 -> Item8 [style="invis"]
+  Item8 -> Item5
+  Item8 -> Item [style="invis"]
+  Item -> Item8
+</div>
+++++
+
+* At this point we've reversed the end of the list.
+//
+* But `Item6` still has a reference to what was _its_ next element, but is now the
+_end_ of the rest of the list.
+//
+* So we can use that to set it as the last item.
+
+[[ygNFFhaGzqpqHdDCEbdTtuhXruhPGpUE]]
+[.oneword]
+//
+== But Don't Recurse on Lists
+//
+Just use a loop.
+
+[[fRYSVhjZFSqSrcQxQJUwIFnOmSiELoOV]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+[[FnYMFpnCMoCyMoXwXBZKkDgesOkgFxIn]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor:lightblue}
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor!}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[tQxxuMUWKQobEQNYHlSIVZoXmGlBvQwx]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor:lightblue}
+| 10
+| 5
+{set:cellbgcolor!}
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[SOdLTSSAsCIlrVMJKuHvVseAmhfqGRgV]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor:lightblue}
+| 10
+{set:cellbgcolor!}
+| 5
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[TWmxrRwPgWRlqQYhoIjxtOeCnYZJGJrE]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+{set:cellbgcolor:lightblue}
+| 5
+{set:cellbgcolor!}
+| 6
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[GPjlznIJPJQTqOskvXOKQCZZLMaHqMoK]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+{set:cellbgcolor:lightblue}
+| 6
+| 4
+{set:cellbgcolor!}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[ChpYEykifjLwpwVRhzhZPEoCQCZitSBj]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+{set:cellbgcolor:lightblue}
+| 6
+{set:cellbgcolor!}
+| 4
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[NAkqTkwtbVhUObBRiahACtGdXwDaPEAW]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+{set:cellbgcolor:lightblue}
+| 4
+{set:cellbgcolor!}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[sAAHDoMDcEBqTqoQaLagSyOjKyhhEOsy]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor:lightblue}
+| 11
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[QjcqYYIDQXRtnTYMvnETFaEDDyOlKjFN]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor:lightblue}
+| 11
+| 7
+{set:cellbgcolor!}
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[vFvinbLxcBtZFpxLRzBzzhqQtDmSrdkU]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+{set:cellbgcolor:lightblue}
+| 11
+{set:cellbgcolor!}
+| 7
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[ttJCuudnFWLahjaMHholCnXmZfPUoaJY]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+| 10
+| 5
+| 6
+| 4
+| 11
+{set:cellbgcolor:lightblue}
+| 7
+{set:cellbgcolor!}
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[ppfwZoJPNzulpyaZRxbvNYzkANVTdRKW]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+{set:cellbgcolor:lightblue}
+| -1
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[QDbbKzWxMVtGodvPExHEzUMWyGvEbcwh]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+{set:cellbgcolor:lightblue}
+| -1
+{set:cellbgcolor!}
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[cpZwGLAOPJjNHNevULDJtSleWnVlKNRl]]
+[.ss]
+== Array Recursion
+
+[.table.array,cols="8*^.^"]
+|===
+
+| 1
+{set:cellbgcolor!}
+| 10
+| 5
+| 6
+| 4
+| 11
+| 7
+| -1
+{set:cellbgcolor:lightblue}
+
+|===
+
+<<<
+
+Each contiguous subarray of an array is, itself, an array.
+
+[[cyyScLzhUVvSHWPiZBRZBPvdGDCnSsNH]]
+== Array Recursion
+
+[.lead]
+//
+Just like with trees and lists, we need a way to both make the problem smaller
+_and_ identify the smallest subproblem.
+
+[.s]
+//
+* **How do we make the problem smaller?** [.s]#Break the list into two smaller
+subarrays.#
+//
+* **What's the smallest subproblem?** [.s]#An array with a single item.#
+
+
+[[sAPnGAwOXnBnpsaxiKHFBzvTRHFdvvHd]]
+== Sorting Algorithms
+
+[.lead]
+//
+Sorting algorithms bring together several of the things that we have discussed
+recently:
+
+[.s]
+//
+* Imperative programming
+//
+* Big-O algorithm runtime analysis
+//
+* Recursion
+
+[[iGCyTSiKXNfsaBVeoPLKYPWvrUCgRsPc]]
+== Sorting Matters
+
+[.lead]
+//
+Sorting is often a building block for many other algorithms.
+
+[.s]
+//
+* _Searching_ is more efficient if the data is sorted first
+//
+* Sorting can be used to _detect duplicates_
+//
+* Sorting is often used to produce a canonical representation of data or for
+presentation to human users
+
+[[UzdywHbjMcMOrUOmWfhFtSuqvxQroXyl]]
+[.nologo]
+== ! Sorting Matters
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://sortbenchmark.org/"></iframe>
+</div>
+++++
+
+[[sHTXsaPnEYBhYRsqvojNwHmdfjslfdOD]]
+== In Memory of Jim Gray, Turing Award Winner
+
+image::http://jimgray.azurewebsites.net/Photos/Portrait1.jpg[link='http://jimgray.azurewebsites.net/jimgrayvita.htm',width=240,float='right']
+
+https://en.wikipedia.org/wiki/Jim_Gray_(computer_scientist)[Jim Gray]
+//
+was a pioneer in the fields of databases and data processing.
+
+He vanished at seat in 2007 and, despite a worldwide crowdsourced effort to
+locate his boat, was never found.
+
+[[uRnJiWZsMXJNZDfbOXlwNGuTovCgQJhE]]
+== There Are Many Sorting Algorithms
+
+[.lead]
+//
+And we won't discuss them all...
+
+[.s]
+//
+* https://en.wikipedia.org/wiki/Insertion_sort[Insertion sort] (today)
+//
+* https://en.wikipedia.org/wiki/Selection_sort[Selection sort] (lab)
+//
+* https://en.wikipedia.org/wiki/Merge_sort[Merge sort] (lecture)
+//
+* https://en.wikipedia.org/wiki/Heapsort[Heapsort]
+//
+* https://en.wikipedia.org/wiki/Quicksort[Quicksort] (lecture)
+//
+* https://en.wikipedia.org/wiki/Bubble_sort[Bubble sort] (lab)
+//
+* And even new ones, like https://en.wikipedia.org/wiki/Timsort[Timsort] (circa
+2002)
+
+[[khwhfRJyzLZyFdPywtVhtqeQpekquiND]]
+== Sorting Basics
+
+[.s]
+//
+* We'll discuss sorting on **arrays** which allow random access, although many
+algorithms will also work on lists.
+//
+* We'll be sorting in **ascending order**, although obviously descending order
+sorts are also possible.
+//
+* We can sort anything that we can compare&mdash;but we'll mostly be sorting
+integers.
+
+[[BMTnhTaELTJyHufbMgBIqXtQdHPGzoUb]]
+== Analyzing Sorting Algorithms
+
+[.lead]
+//
+Since sorting algorithms handle data, we care about _both_ time and space
+complexity.
+
+[.s]
+//
+* *Time complexity*: how long does it take?
+//
+* *Space complexity*: how much space is required?
+
+[[rduBAmSBMxCXSMfKQswgKuLkfohHLiLr]]
+[.ss]
+== Insertion Sort: Overview
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 8
+{set:cellbgcolor:salmon}
+| 5
+| 7
+| 3
+| 4
+| 11
+| 6
+| -1
+
+|===
+
+<<<
+
+[.s]
+//
+* Insertion sort divides the array into two parts: a sorted part and an unsorted
+part
+//
+* The sorted part starts at the beginning of the array and grows during each
+step
+
+[[McABCCCztQYwbnywwZOfnTfacDdqWIBN]]
+[.ss]
+== Insertion Sort: Overview
+
+[.table.smallest.s.showfirst.noborder.array,cols="8*^.^"]
+|===
+
+| 8
+{set:cellbgcolor:salmon}
+| 5
+| 7
+| 3
+| 4
+| 11
+| 6
+| -1
+
+| 8
+{set:cellbgcolor:lightblue}
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 11
+| 6
+| -1
+
+| 5
+{set:cellbgcolor:lightblue}
+| 8
+| 7
+{set:cellbgcolor:salmon}
+| 3
+| 4
+| 11
+| 6
+| -1
+
+| 5
+{set:cellbgcolor:lightblue}
+| 7
+| 8
+| 3
+{set:cellbgcolor:salmon}
+| 4
+| 11
+| 6
+| -1
+
+| 3
+{set:cellbgcolor:lightblue}
+| 5
+| 7
+| 8
+| 4
+{set:cellbgcolor:salmon}
+| 11
+| 6
+| -1
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| 8
+| 11
+{set:cellbgcolor:salmon}
+| 6
+| -1
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| 8
+| 11
+| 6
+{set:cellbgcolor:salmon}
+| -1
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 6
+| 7
+| 8
+| 11
+| -1
+{set:cellbgcolor:salmon}
+
+| -1
+{set:cellbgcolor:lightblue}
+| 3
+| 4
+| 5
+| 6
+| 7
+| 8
+| 11
+
+|===
+
+<<<
+
+* Insertion sort divides the array into two parts: a sorted part and an unsorted
+part
+//
+* The sorted part starts at the beginning of the array and grows during each
+step
+
+[[pskIjVoBGhXeMZAunJMYFYKwlNoksQWa]]
+[.ss]
+== Insertion Sort: Insertion
+
+[.table.smallest.s.showfirst.noborder.array,cols="8*^.^"]
+|===
+
+| 8
+{set:cellbgcolor:yellow}
+| 5
+{set:cellbgcolor:salmon}
+| 7
+| 3
+| 4
+| 11
+| 6
+| -1
+
+| 8
+{set:cellbgcolor:lightgreen}
+| 5
+{set:cellbgcolor:yellow}
+| 7
+{set:cellbgcolor:salmon}
+| 3
+| 4
+| 11
+| 6
+| -1
+
+| 5
+{set:cellbgcolor:lightgreen}
+| 8
+{set:cellbgcolor:lightblue}
+| 7
+{set:cellbgcolor:yellow}
+| 3
+{set:cellbgcolor:salmon}
+| 4
+| 11
+| 6
+| -1
+
+| 5
+{set:cellbgcolor:lightblue}
+| 7
+{set:cellbgcolor:lightgreen}
+| 8
+{set:cellbgcolor:lightblue}
+| 3
+{set:cellbgcolor:yellow}
+| 4
+{set:cellbgcolor:salmon}
+| 11
+| 6
+| -1
+
+| 3
+{set:cellbgcolor:lightgreen}
+| 5
+{set:cellbgcolor:lightblue}
+| 7
+| 8
+| 4
+{set:cellbgcolor:yellow}
+| 11
+{set:cellbgcolor:salmon}
+| 6
+| -1
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+{set:cellbgcolor:lightgreen}
+| 5
+{set:cellbgcolor:lightblue}
+| 7
+| 8
+| 11
+{set:cellbgcolor:yellow}
+| 6
+{set:cellbgcolor:salmon}
+| -1
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| 8
+| 11
+{set:cellbgcolor:lightgreen}
+| 6
+{set:cellbgcolor:yellow}
+| -1
+{set:cellbgcolor:salmon}
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 6
+{set:cellbgcolor:lightgreen}
+| 7
+{set:cellbgcolor:lightblue}
+| 8
+| 11
+| -1
+{set:cellbgcolor:yellow}
+
+| -1
+{set:cellbgcolor:lightgreen}
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 6
+| 7
+| 8
+| 11
+
+|===
+
+<<<
+
+* In each step we take the _first_ item from the unsorted region and _insert it_
+in the right place in the sorted region
+
+[[mkBQVhdzbbOIQJEZQlvzcooLTdZDOJYA]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.s.showfirst.noborder.array,cols="8*^.^"]
+|===
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| 8
+| 11
+| 6
+{set:cellbgcolor:yellow}
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[IzfRqlwlxzlLjUaetMrMtfstNYwdiiNV]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| 6
+{set:cellbgcolor:yellow}
+| &nbsp;
+{set:cellbgcolor!}
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| 8
+| 11
+| &nbsp;
+{set:cellbgcolor!}
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[wUxGyKuoxqVZpAjTvzoFYdRaJJQPlUEp]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| 6
+{set:cellbgcolor:yellow}
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| 8
+| 11
+| &nbsp;
+{set:cellbgcolor!}
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[cBuJPtBqAImzMFdJuANACGoJQjCeMocq]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| 6
+{set:cellbgcolor:yellow}
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| 8
+| &nbsp;
+{set:cellbgcolor!}
+| 11
+{set:cellbgcolor:lightblue}
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[QnXPZwaayBzDMGBnwkyaQwVydrrVqHzC]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| 6
+{set:cellbgcolor:yellow}
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| &nbsp;
+{set:cellbgcolor!}
+| 8
+{set:cellbgcolor:lightblue}
+| 11
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[JPNeswvlPxYiBLJzBkQJRRLCQxbnfSTX]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| 6
+{set:cellbgcolor:yellow}
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 7
+| &nbsp;
+{set:cellbgcolor!}
+| 8
+{set:cellbgcolor:lightblue}
+| 11
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[URhhqfcvhRRkZWIgvpkKAIxtiTXxoBUg]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+| 6
+{set:cellbgcolor:yellow}
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| &nbsp;
+{set:cellbgcolor!}
+| 7
+{set:cellbgcolor:lightblue}
+| 8
+| 11
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[TUPqdwoStLAYpNafCGBVvuXfgSNSyvLw]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| 6
+{set:cellbgcolor:yellow}
+| &nbsp;
+{set:cellbgcolor!}
+| &nbsp;
+| &nbsp;
+| &nbsp;
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| &nbsp;
+{set:cellbgcolor!}
+| 7
+{set:cellbgcolor:lightblue}
+| 8
+| 11
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[wwfxxKPdIRRatvmHBSvabsQuYLQaOStK]]
+[.ss]
+== Insertion Sort: A Single Step
+
+[.table.smallest.noborder.array,cols="8*^.^"]
+|===
+
+| 3
+{set:cellbgcolor:lightblue}
+| 4
+| 5
+| 6
+{set:cellbgcolor:lightgreen}
+| 7
+{set:cellbgcolor:lightblue}
+| 8
+| 11
+| -1
+{set:cellbgcolor:salmon}
+
+|===
+
+<<<
+
+* Let's look at one step in more detail
+
+[[cVLFezUZVrLAtiUPpIWGDIEUFTqzRKJv]]
+== ! Implement Insertion Sort
+
+[.janini.small]
+....
+import java.util.Arrays;
+
+static int[] insertionSort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(insertionSort(testArray)));
+....
+
+[[tcFsyPhgXpQkjLqKfPfWqdWIxPwpjtxS]]
+== Insertion Sort Runtime
+
+*Time complexity*:
+
+[.s]
+//
+* *Worst case*: [.s]#O(n^2) if the array is sorted in descending order (for this
+implementation)#
+//
+* *Best case*: [.s]#O(n) if the array is already sorted (for this implementation)#
+//
+* *Average case*: [.s]#O(n^2)#
+
+*Space complexity*: [.s]#can be done in place with one temporary variable, so
+O(1)#
+
+[[RlkNanLYawqmEuDppmdiRAqDPbbjLOQi]]
+== Insertion Sort Runtime
+
+[.small,cols="4*^.^",options='header']
+|===
+
+|Measure
+{set:cellbgcolor!}
+|Best Case
+|Worst Case
+|Average Case
+
+| Time
+| O(n)
+| O(n^2)
+| O(n^2)
+
+| Space
+| O(1)
+| O(1)
+| O(1)
+
+|===
+
+[[mAIBVftltgWjmzzQAnLbOunYFOxnhido]]
+[.oneword]
+//
+== We Can Do Better
+//
+[.lead]
+//
+Optimal sorting algorithms should be *O(n log n)* in the _worst_ case and _close
+to_ *O(n)* in the best case.
+
+[[iBEibjgrsUjidKlUanILdeVbCctzwKIe]]
+[.oneword]
+//
+== CS 125 Project Fair
+
+[[iFJXhHSwmyelvbyequhRjdneNfenakHm]]
+== Fair Overview
+
+[.lead]
+//
+This will be our third CS 125 Final Project Fair: bigger and better than ever.
+
+[.s]
+//
+* *Date:* Thursday 5/2/2019 from 1&ndash;3PM, with awards Friday 5/3/2019 at
+1:30PM (our official final exam slot).
+//
+* *Participation:* _Optional_ but worth *1% extra credit*
+//
+* *Location*: TBD
+
+[[nOYsfksqNFeDtLWnedcWSkMnRDDuZqff]]
+== How to Not Get a Great CS Job
+
+[.lead]
+//
+All of you will get a job.
+//
+Not all of you will get a _great_
+//
+footnote:[Change the world kind of]
+//
+job.
+
+Here's a good strategy for not getting a good job:
+
+[.s]
+//
+* Take CS classes.
+//
+* Do the projects.
+//
+* Get good grades.
+//
+* Don't do any side projects: focus on grades instead.
+
+[[edrfAnHBTbCoURGLfVRZneuxOnwMuivs]]
+== How to Get a Great CS Job
+
+[.lead]
+//
+**Show your passion for technology.**
+
+[.s]
+//
+* The CS 125 Project Fair is intended to get you started doing that.
+
+[[iBsnBqtjtIRjZDKVzDvCInanmDdoxhNH]]
+== Example Fall 2018 Fair Projects
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/info/fair"></iframe>
+</div>
+++++
+
+////
+[[oJRhVCGGxcwKUTUPuqKsQJQQYbKIkOtm]]
+== Announcements
+
+* The early link:/MP/2018/fall/5/[MP5] deadline is _next Monday_.
+//
+Please get started!
+//
+* I now have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
+//
+Please stop by!
+//
+* Remember to provide feedback on the course using the
+//
+link:/info/feedback/[anonymous feedback form].
+//
+* I've started to respond to existing feedback
+//
+https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+////
+
+// vim: ts=2:sw=2:et
