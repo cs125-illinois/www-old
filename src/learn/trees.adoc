@@ -43,16 +43,22 @@ public class BinaryTree {
     if (current == null) {
       root = new Node(value);
       currentSize++;
-    } else if (current.right == null) {
-      current.right = new Node(value);
-      currentSize++;
-    } else if (current.left == null) {
-      current.left = new Node(value);
-      currentSize++;
-    } else if (random.nextBoolean()) {
-      add(current.right, value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+        currentSize++;
+      } else {
+        add(current.right, value);
+      }
     } else {
-      add(current.left, value);
+      if (current.left == null) {
+        current.left = new Node(value);
+        currentSize++;
+      } else {
+        add(current.left, value);
+      }
     }
   }
   public int size() {
@@ -1357,14 +1363,20 @@ public class BinaryTree {
   private void add(Node current, Object value) {
     if (current == null) {
       root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else if (random.nextBoolean()) {
-      add(current.right, value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
     } else {
-      add(current.left, value);
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
     }
   }
   public int size() {

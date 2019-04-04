@@ -39,14 +39,20 @@ public class BinaryTree {
   private void add(Node current, Object value) {
     if (current == null) {
       root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else if (random.nextBoolean()) {
-      add(current.right, value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
     } else {
-      add(current.left, value);
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
     }
   }
   public String toString() {
@@ -794,14 +800,20 @@ public class BinaryTree {
   private void add(Node current, Object value) {
     if (current == null) {
       root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else if (random.nextBoolean()) {
-      add(current.right, value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
     } else {
-      add(current.left, value);
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
     }
   }
   public int size() {
@@ -942,327 +954,6 @@ static int factorial(int n) {
 System.out.println(factorial(4));
 ....
 
-[[vpoHjCEyroQgpqhOwrlcZsKVUMAUhXxb]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-0 [style=invis]
-5 -> 3 [style=invis]
-5 -> 10 [style=invis]
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5
-3 [style=invis]
-10 [style=invis]
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-[[PwLcRQFuTmPzYZIQnoEPAAJBGqNLlDLF]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-5 -> 3 [style=invis]
-5 -> 10 [style=invis]
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5 [fillcolor="lightblue" style="filled"]
-3 [style=invis]
-10 [style=invis]
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 5 doesn't have a left child
-
-[[yTWkklJcXXfgRXKuSKAEAepHqdbUpRuJ]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-0 [style=invis]
-5 -> 3
-5 -> 10 [style=invis]
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5 [fillcolor="lightblue" style="filled"]
-3
-10 [style=invis]
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 5 doesn't have a left child
-//
-* Add 3 as 5's left child
-
-[[GyzgNvdaVBpDuYkRxMeAgJSaTYgVNSUJ]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-5 -> 3
-5 -> 10 [style=invis]
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5 [fillcolor="lightblue" style="filled"]
-3
-10 [style=invis]
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 5 doesn't have a right child
-
-[[vKydIATmSNQXKDDGBvHArqtHIAHeznOR]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-5 -> 3
-5 -> 10
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5 [fillcolor="lightblue" style="filled"]
-3
-10
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 5 doesn't have a right child
-//
-* Add 10 as 5's right child
-
-[[UtsBLLEZLvWPrlLzoMTHBxptgGOLmTEI]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-1 [style=invis]
-5 -> 3
-5 -> 10
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5 [fillcolor="lightblue" style="filled"]
-3
-10
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 5 has both a right and left child
-
-[[ViXGWrhunnFrYSUSpyfUiQOaCWulkhbR]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-5 -> 3
-5 -> 10
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5 [fillcolor="lightblue" style="filled"]
-3
-10 [fillcolor="lightsalmon" style="filled"]
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 5 has both a right and left child
-//
-* Randomly choose a subtree
-
-[[TAJCugGueGfIbLKwmxxwaqzNCsKjnVIN]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-5 -> 3
-5 -> 10
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5
-3
-10 [fillcolor="lightblue" style="filled"]
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 5 has both a right and left child
-//
-* Randomly choose a subtree
-//
-* And call `add` on that subtree
-
-[[EVXpdhPCbdgLFYtZmiLdHVJqmQDTUKbP]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-5 -> 3
-5 -> 10
-3 -> 7 [style=invis]
-10 -> 9 [style=invis]
-10 -> 1 [style=invis]
-5
-3
-10 [fillcolor="lightblue" style="filled"]
-7 [style=invis]
-9 [style=invis]
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 10 doesn't have a left child
-
-[[YfSxcnBsFREfddoDXEkVuAscgGIDJUWg]]
-[.ss]
-== Recursive Add
-
-++++
-<div class="digraph small tree TB center">
-splines="curved"
-5 -> 3
-5 -> 10
-3 -> 7 [style=invis]
-10 -> 9
-10 -> 1 [style=invis]
-5
-3
-10 [fillcolor="lightblue" style="filled"]
-7 [style=invis]
-9
-1 [style=invis]
-</div>
-++++
-
-<<<
-
-* 10 doesn't have a left child
-//
-* Add 9 as its left child
-
-[[eHoepguHmEvnbWauEKstwpIohLsdnIdl]]
-== ! Recursive Add
-
-[.janini.smallest.compiler]
-....
-import java.util.Random;
-
-public class BinaryTree {
-  private static Random random = new Random();
-  private class Node {
-    private Object value;
-    private Node right;
-    private Node left;
-    Node(Object setValue) {
-      value = setValue;
-    }
-  }
-  private Node root;
-  BinaryTree(Object[] values) {
-    for (Object value : values) {
-      add(root, value);
-    }
-  }
-  public void add(Object value) {
-    add(root, value);
-  }
-  private void add(Node current, Object value) {
-    if (current == null) {
-      root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else if (random.nextBoolean()) {
-      add(current.right, value);
-    } else {
-      add(current.left, value);
-    }
-  }
-  public String toString() {
-    return toString(root);
-  }
-  private String toString(Node current) {
-    if (current == null) {
-      return "";
-    }
-    return "[" + current.value.toString() + "]" +
-      toString(current.right) + toString(current.left);
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-    BinaryTree tree = new BinaryTree(new Integer[] { 1, 2, 5, 8, 9 });
-    System.out.println(tree);
-  }
-}
-....
-
 [[gRDqpIvNYsoaRJfrfHSXsebpZMSkrUuJ]]
 == Recursive Tree Right Greater Than Left
 
@@ -1318,14 +1009,20 @@ public class BinaryTree {
   private void add(Node current, Object value) {
     if (current == null) {
       root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else if (random.nextBoolean()) {
-      add(current.right, value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
     } else {
-      add(current.left, value);
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
     }
   }
   public String toString() {
