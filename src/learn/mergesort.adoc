@@ -1,9 +1,8 @@
 ---
 title: Merge Sort
-date: 2018-11-09
+date: 2019-04-05
 description:
   Discussion of merge sort and Java generics.
-youtube: https://youtu.be/WwP5KK_-OVk
 ---
 
 [[bzZohpujfVOvrNRhXHxXdNvabGaupZxy]]
@@ -30,134 +29,7 @@ System.out.println(Arrays.toString(sort(testArray)));
 //
 == You're Doing Great
 
-Keep up the good work.
-//
-Thanksgiving is one week away!
-
-[[lKrgqJusqAQrVhofJKtHaDoPgZOiNVpk]]
-== Recursive Tree Balanced
-
-[.lead]
-//
-A tree is balanced if, at every node, the height of both subtrees does not
-differ by more than one.
-
-[[zVVPVKftUqskkAzHrzhseZKqmcXdrjfi]]
-[.oneword]
-//
-== What's Our (Recursive) Algorithm?
-
-[[bHudkpASVJhJNdOebnIxezsyrZkJuBOB]]
-== Recursive Tree Balanced
-
-[.s]
-//
-* *Base case*: [.s]#We've reached a `null` node. Empty trees are balanced.#
-//
-* *Recursive step*: [.s]#Consider our right tree and left subtree separately.#
-//
-* *Combine results*: [.s]#Return true if the tree is balanced at this node and
-both of our subtrees are balanced. Otherwise return false.#
-
-[[epnCTOPnRxDFiiRwdijioVFyieUuvLln]]
-== !Recursive Tree Balanced
-
-[.janini.compiler.smallest]
-....
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
-
-public class BinaryTree {
-  private static Random random = new Random();
-  private class Node {
-    private Object value;
-    private Node right;
-    private Node left;
-    Node(Object setValue) {
-      value = setValue;
-    }
-  }
-  private Node root;
-  BinaryTree(Object[] values, boolean balanced) {
-    for (Object value : values) {
-      if (!balanced) {
-        add(root, value);
-      } else {
-        balancedAdd(root, value);
-      }
-    }
-  }
-  private void add(Node current, Object value) {
-    if (current == null) {
-      root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else {
-      add(current.right, value);
-    }
-  }
-  private void balancedAdd(Node current, Object value) {
-    if (current == null) {
-      root = new Node(value);
-    } else if (current.right == null) {
-      current.right = new Node(value);
-    } else if (current.left == null) {
-      current.left = new Node(value);
-    } else if (height(current.left) > height(current.right)) {
-      add(current.right, value);
-    } else {
-      add(current.left, value);
-    }
-  }
-  public String toString() {
-    return toString(root);
-  }
-  private String toString(Node current) {
-    if (current == null) {
-      return "";
-    }
-    return "[" + current.value.toString() + "]" +
-      toString(current.right) + toString(current.left);
-  }
-  public boolean heightBalanced() {
-  }
-}
-
-public class Example {
-  public static void main(String[] unused) {
-    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4, 5, 6 }, true);
-    System.out.println(binaryTree.heightBalanced());
-  }
-}
-....
-
-[[dSblbfsBwIxofvpdefdyygTiSuKEelnv]]
-== Recursive Tree Height
-
-[.lead]
-//
-The height (or depth) of a tree is the distance to the farthest leaf node.
-
-[[NHhTAiUBSLHnulVtuMZtiTYPKlfkleKD]]
-[.oneword]
-//
-== What's Our (Recursive) Algorithm?
-
-[[sVlvjqezJDgTeAAMgRwVwmRiGKvAdQYu]]
-== Recursive Tree Height
-
-[.s]
-//
-* *Base case*: [.s]#We've reached a `null` node. The height of an empty tree is
-0.#
-//
-* *Recursive step*: [.s]#Consider our right tree and left subtree separately.#
-//
-* *Combine results*: [.s]#Return the maximum of the height of our left subtree
-and right subtree, plus 1 for us.#
+Keep up the good work!
 
 [[eDDHyzrDGfZevMjyCYUAGvUCUqlSKbkk]]
 == There Are Many Sorting Algorithms
@@ -2196,23 +2068,9 @@ solved directly. The solutions to the sub-problems are then combined to give a
 solution to the original problem.
 ____
 
+////
 [[oJRhVCGGxcwKUTUPuqKsQJQQYbKIkOtm]]
 == Announcements
-
-* The early link:/MP/2018/fall/5/[MP5] deadline is _next Monday_.
-//
-Please get started!
-//
-* I now have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
-//
-Please stop by!
-//
-* Remember to provide feedback on the course using the
-//
-link:/info/feedback/[anonymous feedback form].
-//
-* I've started to respond to existing feedback
-//
-https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
+////
 
 // vim: ts=2:sw=2:et
