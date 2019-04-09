@@ -1,0 +1,159 @@
+---
+title: Sorting and Searching
+description:
+  "Sorting and searching are fundamental computer science algorithms. They get to
+  the heart of two things that computers are very good at: organizing and
+  retrieving data. They are also building blocks on which other algorithms are
+  built. Today you'll think about how basic searching and sorting algorithms
+  work, and have a chance to implement two yourself."
+spelling_exceptions:
+  - unsearched
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+Sorting and searching are fundamental computer science tasks.
+//
+They get to the heart of two things that computers are very good at: organizing
+and retrieving data.
+//
+They are also building blocks on which other algorithms are built.
+
+Today's lab introduces you to basic searching and sorting algorithms.
+//
+You'll have the chance to implement _two_ classic algorithms: Bubblesort and
+binary search.
+
+[[sorting]]
+== Bubblesort [.text-muted]#(30 Minutes)#
+
+At this point we've discussed multiple sorting algorithms in class, and you're
+getting practice at implementing them on our homework problems this week.
+//
+We've talked about iterative approaches (insertion sort) and recursive
+approaches (Mergesort and Quicksort).
+
+But we can't finish up sorting without discussing a classic sorting algorithm:
+_Bubblesort_.
+//
+The idea behind Bubblesort is simple: scan the array, and if you find any two
+adjacent items that are out of order, swap them.
+//
+Repeat this process until you find no elements to swap, at which point the array
+is sorted.
+//
+https://www.hackerearth.com/practice/algorithms/sorting/bubble-sort/visualize/[Here's
+a great visualization] of how the algorithm works.
+
+OK&mdash;get on to today's lab homework to complete Bubblesort as a warm up to
+the next programming part of the lab.
+
+[[searching]]
+== Binary Search [.text-muted]#(60 Minutes)#
+
+We discussed in class how we could structure binary trees to make searching more
+efficient.
+//
+It turns out that we can also structure our _array_ to make searching more
+efficient&mdash;by sorting them, which we now know how to do!
+
+How does this work?
+//
+Let's use the famous phone book analogy, since it also contains sorted
+information.
+//
+Imagine you are looking for someone in the phone book.
+//
+You could start at the beginning and flip through every page, one by one&mdash;
+a linear search that would take forever.
+
+But you're smarter than that.
+//
+You open the book at around the midway point.
+//
+That allows you to determine whether the name you are looking for is _before_ or
+_after_ the entries on that page, meaning that you've reduced the number of
+items you need to search for by _half_.
+//
+Nice!
+//
+(This is the origin of the famous
+//
+https://www.youtube.com/watch?v=o2LqhHoAXxI[CS 50]
+//
+phone book sorting video.)
+
+There are multiple ways to implement a binary search on an array, and we're
+going to let you wrestle with this a bit on today's lab homework.
+//
+However, here are some hints:
+
+* You can but don't have to implement the algorithm recursively&mdash;our
+solution uses an iterative approach.
+//
+* You probably need to track the start and end indices of the part of the array
+you are still searching.
+//
+Then, in each step, you either update the start or the end, depending on whether
+you need to search the front or back half of the unsearched portion.
+//
+* Off-by-one errors are common here&mdash;be careful!
+//
+Feel free to work with a partner and sketch out approaches on a white board.
+
+[[partnering]]
+=== Picking a Project Partner [.text-muted]#(20 Minutes)#
+
+The final project description will be released in less than one week, so even
+though you are wrapping up link:/MP/4/[MP4] we want you to think ahead to your
+final project.
+
+*Today you should pick someone that you will work with on your final project and
+in lab together for the next few weeks.*
+//
+Obviously you want to find someone to work with that you enjoy working with and
+think that you can do an awesome project with&mdash;since we will be giving
+extra credit for some of the best projects.
+//
+Another consideration is ensuring that at least one of you has a laptop that can
+smoothly run Android Studio and the emulator, or an Android phone for demoing
+your new application.
+
+If you would like to work with someone from another lab section, _you must both
+attend the same lab and work together for the remaining three labs_.
+//
+This means that only one of you will receive participation credit for that lab.
+//
+*You will not receive credit for working in lab without your
+partner.*
+//
+If you want to work with someone from another lab, this is the tradeoff you will
+have to make.
+//
+(Remember that you have three excused lab absences.)
+
+[[mp4]]
+== MP4 [.text-muted]#(Remaining Time)#
+
+If you have any time left over use it to continue working on
+//
+link:/MP/4/[MP4].
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've completed our in-lab homework problems.
+//
+. You've finished link:/MP/4/[MP4]...
+//
+. And so has everyone else in your lab!
+
+If you need more help completing the tasks above please come to
+//
+link:/info/syllabus/#calendar[office hours]
+//
+or post on the {forum}.
