@@ -2,8 +2,8 @@
 title: Internet and Web
 date: 2019-04-10
 description:
-  Introduction to the internet, the world-wide web (WWW), the HTTP transport
-  protocol, and web APIs.
+  Conclusion of a discussion of Quicksort and sorting comparisons, followed by
+  an introduction to the internet and the world-wide web (WWW).
 spelling_exceptions:
   - DNS
   - IPv4
@@ -21,13 +21,7 @@ spelling_exceptions:
 
 [[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
 [.oneword]
-== Web
-
-Some examples for today are available here:
-//
-https://github.com/cs125-illinois/lecture-webapis-examples[`https://github.com/cs125-illinois/lecture-webapis-examples`]
-//
-Feel free to fork!
+== Internet and Web
 
 [[rPUPMphiZqzseOSzyEnDsVANPDfWXKqm]]
 [.ss]
@@ -1761,151 +1755,15 @@ https://en.wikipedia.org/wiki/Cascading_Style_Sheets[(CSS)]
 //
 https://en.wikipedia.org/wiki/JavaScript[JavaScript]
 
-[[NxVEgTtxJQBwXSRTGeZkSwpXPfxWueKa]]
-== HTTP: `GET` Request
-
-[.lead]
-//
-HTTP defines how web browsers request (`GET`) content:
-
-When you type
-//
-http://cs125-illinois.github.io/lecture-webapis-examples/simple.html[`http://cs125-illinois.github.io/lecture-webapis-examples/simple.html`]
-//
-into your browser, it sends a message to `cs125-illinois.github.io` that looks
-like this:
-
-[source]
-----
-GET /lecture-webapis-examples/simple.html HTTP/1.1
-Host: cs125-illinois.github.io
-----
-
-[[xMoFkJGPpBflVvnxoNQxSyVAJzUNENBT]]
-== `GET` Parameters
-
-[.lead]
-//
-You can send some data to the server in a `GET` request using _query
-parameters_.
-
-[.s.small]
-//
-* These follow the path and an `?` sign in the URL
-//
-* Each takes the form `key=value`
-//
-* Key-value pairs are separated by `&` delimiters
-//
-* Here's an example: `search?safe=off&source=hp&q=cs125`:
-** `safe=off`
-** `source=hp`
-** `q=cs125`
-
-[[qBHMBGGzPiPgkvlLhCFGzgFiFJfxjBNh]]
-== HTTP: `GET` Response
-
-[.lead]
-//
-If the request succeeds, the server responds with something that looks like
-this:
-
-[source]
-----
-HTTP/1.1 200 OK
-Date: Sun, 08 Apr 2018 08:56:53 GMT
-Last-Modified: Sat, 20 Nov 2014 07:16:26 GMT
-Content-Length: 44
-Content-Type: text/html
-
-<html>
-  <body>
-    ...
-----
-
-[[msLpSFZesNttCvPreqQKvJoRnCFjHEjE]]
-== HTTP: `POST` Request
-
-[.lead]
-//
-HTTP also defines how web browsers submit information (`POST`):
-
-When you submit the form on
-//
-http://cs125-illinois.github.io/lecture-webapis-examples/form.html[`http://cs125-illinois.github.io/lecture-webapis-examples/form.html`],
-//
-it sends a message to `cs125-illinois.github.io` that looks like this:
-
-[source]
-----
-POST /lecture-webapis-examples/simple.html HTTP/1.1
-Host: cs125-illinois.github.io
-
-text=word
-----
-
-Note that this fails on `github.io` because it only serves _static_ pages and
-doesn't deal with data provided by users.
-
-[[gzVWnKntRdaWetSwyLuadYFPntJXusHU]]
-== HTTP: `GET` and `POST`
-
-[.lead]
-//
-HTTP defines many other types of requests, but `GET` and `POST` are by far the
-most common.
-
-[.s]
-//
-* *Every time you load a web page* it starts with a `GET`, and usually that's
-followed by many other `GET` requests to fetch others parts of the page: style
-sheets, images, JavaScript code.
-//
-* *Every time you submit a form* it uses a `POST` to send data to the server, at
-which point your Facebook comment is recorded, or your credit card is charged
-and an package starts its way toward your house
-
-[[MKWZqVVGklEKImCOLjMlSstXeLBUXybc]]
-== HTTP: `GET` v `POST`
-
-[.lead]
-//
-The HTTP protocol specifies different semantics for `GET` and `POST`:
-
-[.s]
-//
-* `GET` _should not_ change anything about the world, just return a document
-//
-* `POST` _should_ change something about the world&mdash;create a new account,
-pay your bill, purchase something, send a message, etc.
-//
-* As a result it is _safe_ to repeat a `GET` but potentially _problematic_ to
-repeat a `POST`: hence the "Do not click back" and "Do not submit this form
-twice" kind of warnings.
-
-////
-[[rlOtWjdeSgzzQeNZjBAvbgjJcQptGIJF]]
+[[oApTeMfnuZvIlKHitawrVCWwZsdsdjoD]]
 == Announcements
 
-* **Enjoy break!**
+* Good luck finishing up link:/MP/4/[MP4]!
 //
-Get some rest.
+* I have office hours today from 1&ndash;3PM.
 //
-Start planning your final project.
+Please come by!
 //
-* The link:/MP/2018/fall/5/[MP5] deadline is _today_&mdash;office hours until 5PM.
-//
-* I have office hours MWF from 10AM&ndash;12PM in Siebel 2227.
-//
-Please stop by!
-//
-* Remember to provide feedback on the course using the
-//
-link:/info/feedback/[anonymous feedback form].
-//
-* I've started to respond to existing feedback
-//
-https://cs125-forum.cs.illinois.edu/c/feedback[on the forum].
-////
+It's not too late to stop by and introduce yourself.
 
 // vim: ts=2:sw=2:et
