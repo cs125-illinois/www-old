@@ -1,0 +1,963 @@
+---
+title: Functional Java
+date: 2019-04-29
+description:
+  A brief introduction to functional programming and functional programming in
+  Java.
+spelling_exceptions:
+  - Doh
+  - OCaml
+---
+:imagesdir: /learn/images
+
+[[cVYJkioOndXzyGmpBiGYyhNUfVqtkfNB]]
+== !
+
+[.janini.jdk.compiler.smaller]
+--
+++++
+<div class="message">Functional Java</div>
+++++
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  Dog(int setAge) {
+    age = setAge;
+  }
+  int getAge() {
+    return age;
+  }
+}
+interface DogAge {
+  Integer apply(Dog dog);
+}
+public class Example {
+  public static List<Integer> getAges(List<Dog> dogs, DogAge f) {
+    List<Integer> ages = new ArrayList<>();
+    for (Dog dog : dogs) {
+      ages.add(f.apply(dog));
+    }
+    return ages;
+  }
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] { new Dog(10), new Dog (12) }));
+    System.out.println(getAges(dogs, dog -> dog.getAge()));
+    System.out.println(getAges(dogs, dog -> dog.getAge() * 8));
+  }
+}
+....
+--
+
+[[VKisjrMZzEZSwdqvHynQvDniBHAlYKDk]]
+== Programming Styles
+
+[.lead]
+//
+This semester we've introduced you to three different programming styles using
+Java:
+
+[.s]
+//
+* **Imperative programming:** using a series of statements to show the computer
+how to solve a problem
+//
+* **Object-oriented programming:** using objects to combine program state (data)
+and behavior (algorithms)
+//
+* **Recursive programming:** solving problems by breaking them into smaller
+pieces
+
+[[fVNFQKVAPMtQWECbhsQAlJXTdnbGpZed]]
+== Beyond Java
+
+[.lead]
+//
+But there's a lot more to learn about _both_ computer science _and_ programming
+
+[.s.small]
+//
+* Most working programmers know multiple different languages
+//
+* Frequently those multiple languages will enable programming in multiple
+_environments_ and in different _styles_
+//
+* Solving a problem then starts by choosing the right language
+//
+* Many of today's languages (Java, Python, JavaScript, C{plus}{plus}) also support multiple programming styles or
+_paradigms_
+//
+* You can find lots of advice online about which to use
+
+[[efLqznupjFgZOnVBCLbqgejjeWnZyyGn]]
+== Powerful Programming
+
+[.lead]
+//
+The following argument is a reprise of part of
+//
+http://www.paulgraham.com/avg.html[an article]
+//
+by
+//
+http://www.paulgraham.com[Paul Graham], famous Silicon Valley entrepreneur.
+
+[.s.small]
+//
+* Programming styles vary in power
+//
+* In general you want to choose the most powerful style available
+//
+* (There are many exceptions to this rule. Sometimes your choice is
+constrained by what you want to do, or by needing to use a particular library or
+language.)
+//
+* Programmers typically find less-powerful styles familiar but limited
+//
+* **Programmers typically find more-powerful styles unfamiliar and
+bewildering**
+
+[[qXnIdMRIZdbSdMRcMwqeOxmTIgjJbnnR]]
+== Looking Up
+
+[quote,Paraphrased from Paul Graham,role='small']
+____
+As long as our hypothetical programmer is looking down the power continuum,
+she knows she's looking down.
+//
+Styles less powerful than the one she uses are obviously less powerful,
+because they're missing some feature she's used to.
+//
+But when our hypothetical programmer looks in the other direction, up the
+power continuum, she doesn't realize she's looking up.
+//
+What she sees are merely weird styles.
+//
+She probably considers them about equivalent in power to what she's used to, but
+with all this other hairy stuff thrown in as well.
+//
+How she programs is good enough for her, because it's how she thinks.
+
+(Paraphrased from
+//
+http://www.paulgraham.com/avg.html[this article].)
+____
+
+[[RsvbXBXnvRRrpixpwAYMrdPIgcjAXJgW]]
+== Our Progression
+
+[.lead]
+//
+Let's think about how we arrived at today:
+
+[.s.small]
+//
+* *Purely imperative:* you _can_ solve every problem by just writing one class,
+but you wouldn't want to because you'd rather...
+//
+* *Object-oriented*: ...use objects to combine state and behavior and allow you to
+model real-world entities. Like trees, which you could walk iteratively
+except...
+//
+* *Recursive*: ...that recursion provides a much cleaner and more powerful way to
+program using trees.
+//
+* For many of you one or several of these concepts was new and unfamiliar at
+first, but then became more natural with practice
+
+[[BCDdfxKZedptbIOeMTwfdBweRuazOWwT]]
+[.oneword]
+//
+== But There's More Ahead&mdash;Or Above
+
+[[TpVpuinPzuJJaCPBVRfCzlvuHUgerwCn]]
+== Motivating Example
+
+[.lead]
+//
+Let's imagine we have a group of dogs with ages and birthdays stored in a `Dog`
+class.
+
+Say we want to write a function that, given a list of `Dog` objects, finds ones
+matching some criteria.
+
+[[eFfSpXdKFTPekWfcuaGadqeOnZjRcDen]]
+== ! Motivating Example
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] {
+      new Dog(14, 100, "Chuchu"),
+      new Dog(15, 88, "Balou"),
+      new Dog(3, 88, "Lulu")
+    }));
+    int today = 100;
+  }
+}
+....
+
+[[DHNheBYnGsfqRtwXNjLdANOJeZKvUIXv]]
+== Imperative Programming
+
+[.lead]
+//
+Writing _imperative_ code forces you to tell the computer exactly _how_ to do
+everything:
+
+[source,java,role='smaller']
+----
+List<Dog> birthdayDogs = new ArrayList<>();
+for (Dog dog : dogs) {
+  if (dog.getBirthday() == today) {
+    birthdayDogs.add(dog);
+  }
+}
+----
+
+[[gikCbdfUjaWWUemfVNEuvddbDLHdJOAD]]
+== Declarative Programming
+
+[.lead]
+//
+Writing _declarative_ code allows you to tell the computer _what_ you want and
+let it figure out how to accomplish it:
+
+[source,java]
+----
+// Give me only the items in dogs where dog.getBirthday() == today
+// How do we do that?
+----
+
+[[tIkjJxiyaeloZPqBuRyKrgPzRKpqCiqV]]
+== Dog Filtering
+
+[source,java]
+----
+List<Dog> filterDogs(List<Dog> dogs, // filter specification...?) {
+  List<Dog> filteredDogs = new ArrayList<>();
+  for (Dog dog : dogs) {
+    // if dog should be in the list, add it
+  }
+  return filteredDogs;
+}
+----
+
+We need to pass _something_ to `filterDogs` that allows the caller to specify
+which dogs should be included in as general a way as possible.
+
+[[CugmZjnredCTmEzxbrxDFeChqsxlxsAx]]
+== First-Class Functions
+
+Many programming languages support so-called _first class functions_, meaning
+that functions can be stored as variables and passed to other functions:
+
+[source,javascript,role='smaller s']
+----
+function filterDogs(dogs, filter) {
+  filteredDogs = []
+  for (dog of dogs) {
+    if (filter(dog)) {
+      filteredDogs.push(dog)
+    }
+  }
+  return filteredDogs;
+}
+const filteredDogs = filterDogs(dogs, dog => { return dog.age > 10 })
+----
+
+[.s]
+//
+* But why am I showing you _JavaScript_ code above, rather than Java code?
+//
+* **Because Java doesn't support first-class functions.** Doh!
+
+[[RGGuufmzfEDMmYQgZQfedhhMhNubKfcQ]]
+== Let's Regroup
+
+[source,java]
+----
+List<Dog> filterDogs(List<Dog> dogs, // filter specification...?) {
+  List<Dog> filteredDogs = new ArrayList<>();
+  for (Dog dog : dogs) {
+    // if dog should be in the list, add it
+  }
+  return filteredDogs;
+}
+----
+
+[.s]
+//
+* `filterDogs` needs guarantees about what it can do with it's second
+argument...
+//
+* ...but the goal is still to provide a flexible filtering function.
+//
+* We've seen something like this before.
+
+[[sezobeeHyKfOiflNRuZgdWyfrrDmiLoQ]]
+== Interfaces to the Rescue
+
+[source,java,role='smaller']
+----
+interface DogFilter {
+  boolean include(Dog dog);
+}
+List<Dog> filterDogs(List<Dog> dogs, DogFilter dogFilter) {
+  List<Dog> filteredDogs = new ArrayList<>();
+  for (Dog dog : dogs) {
+    if (dogFilter.include(dog)) {
+      filteredDogs.add(dog);
+    }
+  }
+  return filteredDogs;
+}
+----
+
+[.s]
+//
+* `filterDogs` knows that it can call `include` on `dogFilter` and get a
+`boolean`
+//
+* But the caller can _implement_ `dogFilter` any way it wants!
+
+[[ORjogVzdVIjqnCesUpfdznGILnAhuJGn]]
+== ! With Interfaces
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+interface DogFilter {
+  boolean include(Dog dog);
+}
+public class Example {
+  public static List<Dog> filterDogs(List<Dog> dogs, DogFilter dogFilter) {
+    List<Dog> filteredDogs = new ArrayList<>();
+    for (Dog dog : dogs) {
+      if (dogFilter.include(dog)) {
+        filteredDogs.add(dog);
+      }
+    }
+    return filteredDogs;
+  }
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] {
+      new Dog(14, 100, "Chuchu"),
+      new Dog(15, 88, "Balou"),
+      new Dog(3, 88, "Lulu")
+    }));
+    int today = 100;
+  }
+}
+....
+
+[[dSLSCnetSvrWojALwFbhezSrwSDfubpB]]
+== Anonymous Classes
+
+We can make this a bit cleaner with the help of some new Java syntax: _anonymous
+classes_.
+
+[source,java,role='smaller']
+----
+public interface DogFilter {
+  boolean include(Dog dog);
+}
+// Use new on the interface type...
+DogFilter birthdayFilter = new DogFilter() {
+  // And immediately provide an implementation
+  public boolean include(Dog dog) {
+    return dog.getBirthday() == 100;
+  }
+}
+----
+
+[.s.small]
+//
+* That implementation of `DogFilter` is now stored in reference variable
+`birthdayFilter`
+//
+* But otherwise has no name, hence it being an _anonymous_ class
+//
+* Anonymous classes are convenient when you only use a class once
+
+[[qurGzdAAfheiNehiOnUckiBMbuyOJDek]]
+== Anonymous Classes: Extension
+
+[.lead]
+//
+Anonymous classes can also be used to extend an existing class and override its
+methods.
+
+[source,java]
+----
+public class Dog {
+  String toString() {
+    return "Dog";
+  }
+}
+Dog sweetOldDog = new Dog() {
+  String toString() {
+    return "SweetOldDog";
+  }
+}
+----
+
+[[zRYHbXyGnsFrbveAhnAkxcwbTJERIxGX]]
+== ! With Anonymous Classes
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+interface DogFilter {
+  boolean include(Dog dog);
+}
+public class Example {
+  public static List<Dog> filterDogs(List<Dog> dogs, DogFilter dogFilter) {
+    List<Dog> filteredDogs = new ArrayList<>();
+    for (Dog dog : dogs) {
+      if (dogFilter.include(dog)) {
+        filteredDogs.add(dog);
+      }
+    }
+    return filteredDogs;
+  }
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] {
+      new Dog(14, 100, "Chuchu"),
+      new Dog(15, 88, "Balou"),
+      new Dog(3, 88, "Lulu")
+    }));
+    int today = 100;
+  }
+}
+....
+
+[[RRIYKLVLZdmbTBpkakTeKMGjwYxjFaZP]]
+== And Cleaner Still With Lambda Expressions
+
+We can make this even cleaner yet with the help of some new Java syntax: _lambda
+expressions_.
+
+[source,java,role='smaller']
+----
+public interface DogFilter {
+  boolean include(Dog dog);
+}
+DogFilter birthdayFilter = new DogFilter() {
+  public boolean include(Dog dog) {
+    return dog.getBirthday() == 100;
+  }
+}
+// Is the same as
+DogFilter birthdayFilter = (dog) -> { return dog.getBirthday() == 100; };
+// Or, even cleaner
+DogFilter birthdayFilter = (dog) -> dog.getBirthday() == 100;
+----
+
+[[BddtxfJnBqJRnfbQEVGuRHsrTVLWsTdD]]
+== Lambda Functions
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Anonymous_function[An anonymous function]
+//
+(function literal, lambda abstraction, or lambda expression) is a function
+definition that is not bound to an identifier.
+//
+Anonymous functions are often arguments being passed to higher-order functions,
+or used for constructing the result of a higher-order function that needs to
+return a function.
+//
+____
+
+[.s]
+//
+* The name lambda comes from the work of Alonzo Church on the
+//
+https://en.wikipedia.org/wiki/Lambda_calculus[λ-calculus]:
+//
+a formal system for expression computation mathematically
+//
+* Many programming languages have lambda functions. (Python actually uses the
+`lambda` keyword to declare one.)
+
+[[tkfYVlZCkMNGdasDCFmqVKnBeMumdnez]]
+== First-Class Functions in Java
+
+[source,java,role='smaller']
+----
+public interface DogFilter {
+  boolean include(Dog dog);
+}
+DogFilter birthdayFilter = (dog) -> dog.getBirthday() == 100;
+----
+
+So while Java does not have first-class functions, but we can approximate them
+using:
+
+[.s]
+//
+* **Functional interfaces**: interfaces that only require implementing a single
+method
+//
+* **Lambda expressions**: by using the arrow syntax we can cleanly provide an
+anonymous class that implements the single function of a functional interface
+
+[[mXbkaddxadUCeUPuMElVZgSaTdyaFLjz]]
+== ! With Lambdas
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+interface DogFilter {
+  boolean include(Dog dog);
+}
+public class Example {
+  public static List<Dog> filterDogs(List<Dog> dogs, DogFilter dogFilter) {
+    List<Dog> filteredDogs = new ArrayList<>();
+    for (Dog dog : dogs) {
+      if (dogFilter.include(dog)) {
+        filteredDogs.add(dog);
+      }
+    }
+    return filteredDogs;
+  }
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] {
+      new Dog(14, 100, "Chuchu"),
+      new Dog(15, 88, "Balou"),
+      new Dog(3, 88, "Lulu")
+    }));
+    System.out.println(filterDogs(dogs, (dog) -> dog.getBirthday() == 100));
+  }
+}
+....
+
+[[zBHUfbeFPSDSudeevtdBLSLeiBgajiUe]]
+== Higher-Order Functions
+
+[source,java,role='smaller']
+----
+public static List<Dog> filterDogs(List<Dog> dogs, DogFilter dogFilter) {
+  List<Dog> filteredDogs = new ArrayList<>();
+  for (Dog dog : dogs) {
+    if (dogFilter.include(dog)) {
+      filteredDogs.add(dog);
+    }
+  }
+  return filteredDogs;
+}
+----
+
+[.s]
+//
+* A _higher-order function_ is a function that operates on or uses another
+function
+//
+* `filterDogs` above is really a higher-order function, since `DogFilter` is a
+functional interface
+
+[[JWxPzbzQTyiBdyFqdSsVZBxZSiyfknur]]
+== Common Higher-Order Functions
+
+[.lead]
+//
+When operating on collections of items (like lists) certain higher-order
+operations are common:
+
+[.s]
+//
+* `filter`: retain only items that pass some test
+//
+* `map`: apply some transformation to each item that produces a new list
+//
+* `forEach`: perform some operation for each item that does _not_ produce a new
+list
+
+[[pfZvwNEddlRvxwBZxAPhsRNqXOBqcenr]]
+== Additional Generality
+
+[source,java]
+----
+interface DogFilter {
+  boolean include(Dog dog);
+}
+----
+
+Do we really need to provide a special filter interface just for ``Dog``s?
+
+[[FfGZXRnbWEQXlJYeaRinesPMqDuKbnhd]]
+== ! Java Predicate
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/function/Predicate.html"></iframe>
+</div>
+++++
+
+[[qqxOOOpXPSlHSUdrCddhnCEMsNNdEkAD]]
+== Even More Generality
+
+[source,java]
+----
+public static List<Dog> filterDogs(List<Dog> dogs, DogFilter dogFilter) {
+  List<Dog> filteredDogs = new ArrayList<>();
+  for (Dog dog : dogs) {
+    if (dogFilter.include(dog)) {
+      filteredDogs.add(dog);
+    }
+  }
+  return filteredDogs;
+}
+----
+
+And do we really need a ``Dog``-specific filter function?
+
+[[czmOiNChnfbSCVusnHKDVLdiUcGEqBeB]]
+== Java Collection `removeIf`
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/Collection.html#removeIf(java.util.function.Predicate)"></iframe>
+</div>
+++++
+
+[[laKpwIBiynhpkBBtGfwynOWfdmwtweWp]]
+== ! With `removeIf`
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] {
+      new Dog(14, 100, "Chuchu"),
+      new Dog(15, 88, "Balou"),
+      new Dog(3, 88, "Lulu")
+    }));
+  }
+}
+....
+
+[[nxbzTSbfcxdaPlzTcLpMLjYjDFdIBqWa]]
+== Functional Programming
+
+[.lead]
+//
+What we've been doing today is exploring Java's support for _functional
+programming_.
+
+As a style, functional programming emphasizes:
+
+[.s]
+//
+* Solving problems by composing functions rather than writing loops
+//
+* Which leads to declarative rather than imperative code
+//
+* Reusable higher-order functions like `removeIf`, `map`, and `filter`
+
+[[wdZkTDBemdbsChECpCGIlPXjyFGZBCoi]]
+== Functional Java
+
+[.lead]
+//
+While Java supports some aspects of functional programming, it's a worse fit for
+others:
+
+[.s]
+//
+* Pure functions and immutable data fly in the face of object-oriented
+programming
+//
+* So if you want to really learn functional programming, learn a more strict
+functional language like
+//
+https://www.haskell.org/[Haskell]
+//
+or
+//
+https://ocaml.org/[OCaml]
+
+[[ahmBnZjeEYfgCPIhzScNmkhCAznAjKgV]]
+== Java Streams
+
+[.lead]
+//
+Java streams allow us to compactly represent a series of operations on a
+collection as a sequence of functional transformations:
+
+[source,java]
+----
+dogs.stream()
+  .filter(dog -> dog.getAge() <= 10)
+  .map(dog -> dog.getName())
+  .map(String::toUpperCase)
+  .sorted()
+  .forEach(System.out::println);
+----
+
+(There are a few other new ideas in this example, including function references.
+//
+Use the internet to find out more!)
+
+[[WdZLiTMXuOJkwHLHGcGgIfecxmxGrXui]]
+== ! With Streams
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    List<Dog> dogs = new ArrayList<>(Arrays.asList(new Dog[] {
+      new Dog(14, 100, "Chuchu"),
+      new Dog(15, 88, "Balou"),
+      new Dog(3, 88, "Lulu")
+    }));
+    dogs.stream()
+      .filter(dog -> dog.getAge() <= 10)
+      .map(dog -> dog.getName())
+      .map(String::toUpperCase)
+      .sorted()
+      .forEach(System.out::println);
+  }
+}
+....
+
+[[hueQKnLtlmeGSirHufELcdNoaRoGFxei]]
+== Declarative Programming
+
+[.lead]
+//
+Writing _declarative_ code allows you to tell the computer _what_ you want and
+let it figure out how to accomplish it:
+
+[source,java,role='s']
+----
+// Give me only the items in dogs where dog.getBirthday() == today
+.filter(dog -> dog.getBirthday() == today)
+----
+
+[[MmdfnOVnOppMdMoCrfoXFKzlnhLHcBee]]
+[.oneword]
+//
+== There Is Always More
+
+Go forth and have fun, but always remember: if something seems confusing, it
+might actually be more powerful.
+//
+**So don't get scared off!**
+
+[[KzIIfnSJHseUrCsCBZQBHiMvnXIeTcew]]
+[.oneword]
+//
+== Questions About Functional Java?
+
+[[DhdBPtMBcilVmdfiEmTtogvnnsmnLxeb]]
+== Final Project Fair Details
+
+[.s]
+//
+* **Thursday AM**: you'll receive an email telling you what room to demo in.
+//
+* **12:45PM**: setup throughout Siebel.
+//
+* **1&ndash;3PM**: demos and judging.
+//
+* **Friday @ 1:30PM**: awards and wrap-up _here in Lincoln Hall_.
+
+[[fuCuDxNwQXYLNjUMwlntfgtEkSifuFdd]]
+== Wednesday
+
+[.s]
+//
+* CS 125 by numbers. (Anyone want to guess how many times you looked at the
+slides this semester?)
+//
+* **ICES forms**: these matter and we take your feedback extremely serious.
+Please come.
+
+[[KneqveyMmSXhRZTYjQfJHddwcUySFMiH]]
+== Announcements
+
+* Please double-check your grades this week to make sure they look correct.
+//
+* We're grading your final project in lab this week and selecting the best to
+feature in this week's final project fair.
+
+// vim: ts=2:sw=2:et
