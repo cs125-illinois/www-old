@@ -14,9 +14,13 @@ const mongo = require('mongodb').MongoClient
 const argv = require('minimist')(process.argv.slice(2))
 mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client => {
   let projectGradesCollection = client.db(argv._[0]).collection('projectFair')
-  let projectGrades = await projectGradesCollection.find({
+  let query = {
     fair: true
-  }).project({
+  }
+  if (argv.semester) {
+    query.semester = argv.semester
+  }
+  let projectGrades = await projectGradesCollection.find(query).project({
     impressive: 1, youTubeID: 1, title: 1, room: 1, index: 1, beginner: 1
   }).toArray()
   let output = {
