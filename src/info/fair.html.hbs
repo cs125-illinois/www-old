@@ -108,7 +108,7 @@ priority: 0.9
         <div class="card-body text-center">
           <h5>{{{ this.title }}}{{#if beginner }}&nbsp;<span class="fa fa-star" data-toggle="tooltip" title="Beginner project!"></span>{{/if}}</h5>
           {{#if room }}
-          <span class="small muted">Project #{{ this.index}}, Room {{ this.room }}</span>
+          <span class="small muted">Project #{{ this.index}}, {{ this.room }}</span>
           {{else}}
           <span class="small muted">Project #{{ this.index}}</span>
           {{/if}}
@@ -135,7 +135,7 @@ priority: 0.9
         <div class="card-body text-center">
           <h5>{{{ this.title }}}{{#if beginner }}&nbsp;<span class="fa fa-star" data-toggle="tooltip" title="Beginner project!"></span>{{/if}}</h5>
           {{#if room }}
-          <span class="small muted">Project #{{ index }}, Room {{ room }}</span>
+          <span class="small muted">Project #{{ index }}, {{ room }}</span>
           {{else}}
           <span class="small muted">Project #{{ index }}</span>
           {{/if}}
