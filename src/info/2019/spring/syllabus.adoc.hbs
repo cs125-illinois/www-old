@@ -1,0 +1,1544 @@
+---
+title: "CS 125 Spring 2019 Syllabus"
+description: >
+  Syllabus for "CS 125: Introduction to Computer Science" at the University of
+  Illinois in Spring 2019.
+priority: 0.1
+datatables:
+  labtable:
+    pageLength: 5
+    lengthMenu: [ 5, 10, 25 ]
+    order: []
+spelling_exceptions:
+  - CBTF
+  - CS 196
+  - Grainger
+  - omelete
+outdated:
+  name: syllabus
+  current: /info/syllabus/
+internalize:
+  force: true
+  recheckDays: never
+---
+
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.hidden-print]
+--
+[.lead]
+//
+This web page serves as the syllabus for the course.
+
+You should familiarize yourself with these policies and refer to them when
+necessary.
+--
+
+[[overview]]
+== Overview
+
+[.lead]
+//
+This course is an introduction to the concepts and craft
+//
+footnote:[the https://en.wikipedia.org/wiki/Techne[_techne_]]
+//
+of computer science.
+//
+It will teach you to both _think_ and _act_ like a computer scientist.
+//
+It will change how you approach problems and provide you with powerful tools
+that you _can_ use to change the world.
+
+Computer science is both an applied and a conceptual discipline.
+//
+You _will_ learn how to program in this course.
+//
+Learning how to program effectively helps you bring your ideas to life.
+//
+It can be frustrating at first&mdash;computers are irritatingly literal
+machines.
+//
+But programming is a skill, and like any other skill you will get better with
+practice.
+//
+Computers are one of the most powerful tools that we have at our disposal to
+solve almost any problem.
+//
+Learning how to get them to do your bidding is extremely empowering.
+//
+You will quickly come to understand the hackers lament:
+//
+Once you can program well, you can do *anything*&mdash;but you still can't do
+_everything_.
+
+But while programming is both important and enjoyable, computer science also
+has deep conceptual concerns at its core.
+//
+As a computer scientist, you'll learn to design solutions to problems so that
+computers can carry them out efficiently&mdash;we call these *algorithms*.
+//
+Being a computer scientist means coming up with new ways to solve problems
+more effectively.
+//
+And then you get to build your solutions and can easily deploy them to
+billions of people all over the world.
+//
+*No other field has this potent mixture of left-brain analytics, right-brain
+design and creativity, and the potential for global impact.*
+
+=== Description and Prerequisites
+
+From the
+//
+https://courses.illinois.edu/search/schedule/2019/spring/CS/125?sess=[official
+catalog description]:
+
+* [.underline]#Description:# Basic concepts in computing and fundamental
+techniques for solving computational problems.
+//
+Intended as a first course for computer science majors and others with a deep
+interest in computing.
+
+* [.underline]#Prerequisites:# Three years of high school mathematics or Math 112.
+
+=== Required Materials
+
+**There is no required textbook for CS 125.**
+//
+We make all of the materials you need available online&mdash;including
+//
+link:/learn/[lecture slides],
+//
+link:/lab/[lab handouts],
+//
+and link:/MP/[MP descriptions].
+//
+We also maintain a footnote:[necessarily incomplete] list of
+//
+link:/learn/more/[available online learning resources]
+//
+that may help supplement the materials we will provide you.
+
+=== Learning Objectives
+
+CS 125 works on both conceptual and skill-based levels.
+//
+We teach you how to _think_, and we teach you how to _do_.
+
+==== Conceptual Objectives
+
+When you finish this course, you will be able to:
+
+[.small,cols=2,options='header']
+|===
+
+^| Outcome
+^| Assessment
+
+| *Develop algorithms to effectively solve problems using computers*&mdash;including
+both iterative and recursive algorithms&mdash;and *reason about their
+computational and storage requirements*.
+
+.4+| Class and lab participation, quizzes, and midterms. 70%
+correctly identified marks outcome achieved.
+
+| *Describe how computers represent, structure, and manipulate
+data*&mdash;including numbers, strings, and multimedia data including images and
+audio.
+
+| *Explain the importance of core Java software development
+concepts*&mdash;including object orientation, object types, encapsulation, and
+inheritance.
+
+| *Understand runtime and design tradeoffs* between different algorithms, data structures,
+and data structure implementations.
+
+|===
+
+==== Programming Objectives
+
+When you finish this course, you will be able to:
+
+[.small,cols=2,options='header']
+|===
+
+^| Outcome
+^| Assessment
+
+| *Design and implement small and medium-sized Java programs* that perform
+straightforward operations on simple data types, using iterative,
+object-oriented, and recursive approaches as appropriate.
+
+.5+| Machine problems, lab programming projects, office hours attendance. 70%
+correctly identified marks outcome achieved.
+
+| *Learn to use modern Java software development tools*&mdash;including an
+integrated development and debugging environment (Android Studio),
+source version control (Git), testing framework
+(TestNG), coding convention tool (`checkstyle`), build system (Gradle), and pair
+programming techniques.
+
+| *Utilize standard Java features and libraries*&mdash;including objects and simple
+built-in data structures.
+
+| *Debug and test Java programs*.
+
+| *Use programming to solve problems in other domains*.
+
+|===
+
+=== Preparation
+
+[.lead]
+//
+*CS 125 assumes no prior knowledge of computer science or programming
+experience.*
+//
+However, the course is _a lot_ of work&mdash;and so is best suited to those who are
+either majoring in computer science or have a strong interest in the subject.
+
+Some students in CS 125 have no experience with computer science.
+//
+Others have been programming for years.
+//
+We will do our best to accommodate both groups.
+
+==== If you're new to computer science...
+
+Welcome to the most exciting field on Earth!
+//
+We're extremely happy to have you.
+//
+We know that it can be hard to get started, but trust us&mdash;you'll get
+better with practice.
+//
+Programming is a skill.
+//
+The more you do, the better you get.
+//
+If you're willing to put in the time and energy, we're here to help you
+succeed.
+
+When you're starting something new, it's normal to occasionally feel
+intimidated by those around you.
+//
+We were all new once, and most of us try new things at least once and a while.
+//
+So we know what it feels like.
+//
+Just remember that no matter how it may seem, there are a lot of other
+students in CS 125 that are beginners too.
+//
+And if you're working harder than some other students in the class, then it
+just means that you're learning more than they are.
+
+Also keep in mind that computer scientists can get extremely excited about
+what they know.
+//
+Our field is awesome, and we're all learning new things all of the time.
+//
+Unfortunately, sometimes that can come off as arrogance or bragging.
+//
+But don't let it get you down.
+//
+We want you to share in the excitement, and will do our best to make sure that
+happens.
+
+==== If you kind of already know what you are doing...
+
+There's so much more to learn!
+//
+No matter how much background in computer science you have, there are always
+new areas to explore, new languages to learn, new problems to solve.
+
+Even if you don't find every aspect of CS 125 challenging, we hope that it can
+continue to move you forward on your journey in computer science.
+//
+Keep in mind that continuing to develop as a programmer requires practice.
+//
+If the MPs don't take you that long, then you aren't getting the practice that
+you need to keep improving.
+//
+You might want to join the http://cs196.cs.illinois.edu/[honors section (CS 196)],
+//
+get involved with the
+//
+https://acm.illinois.edu/[Illinois Chapter of the Association for Computing Machinery (ACM)],
+//
+or just make sure that you have some side projects to keep you busy.
+
+And please feel free to help other students in the class that might not know
+as much as you.
+//
+One of the best things about computer science is the community of generous and
+patient people willing to help beginners get started.
+
+==== If you _really_ know what you are doing...
+
+Maybe you should sign up for the
+//
+link:/info/proficiency[CS 125 Proficiency Exam]
+//
+and bypass CS 125 entirely?
+//
+You may not get much out of the class.
+
+=== General Education Information
+
+CS 125 meets the University of Illinois
+//
+https://courses.illinois.edu/gened/DEFAULT/DEFAULT[General Education Requirements]
+//
+in the Quantitative Reasoning 1 category.
+
+[[faq]]
+=== FAQ
+
+Here are answers to some commonly-asked questions about CS 125.
+
+[[availability]]
+==== I'm still waiting for a seat in CS 125. What should I do?
+
+https://goo.gl/forms/Ht1isBv49aqzQ4EI2[Use this form] to sign up to receive
+_temporary_ access to the Spring 2019 course forum and be put on our mailing
+lists.
+//
+Note that temporary access will end on 2/4/2019, so you must officially register
+before that point.
+
+[[registration]]
+==== I want to register for lecture or a lab, but it's full? Can you help me?
+
+No, sorry.
+//
+**I have absolutely no control over registration.**
+//
+You'll need to talk to
+//
+https://cs.illinois.edu/academics/undergraduate/undergraduate-advising[an
+academic adviser].
+
+[[waitlist]]
+==== Is there a wait list for CS 125?
+
+No.
+//
+The CS department has never and does not now offered official wait list for courses.
+//
+See the note about registration above.
+
+==== I want to switch labs. Can you help me?
+
+No, sorry.
+//
+<<registration, See above>>.
+
+[[times]]
+== Dates, Times, and Locations
+
+[.lead]
+//
+CS 125 consists of lecture taught in an active learning format, weekly lab
+sections, and office hours.
+//
+You will attend three one-hour lecture per week, one two-hour lab section, and
+many (many) office hours footnote:[the more, the better!].
+
+Lectures are taught by Geoffrey Challen.
+//
+Labs are led by the link:/info/people/#tas[{{
+course.Spring2019.staffByRole.TA.length }} TAs],
+//
+and office hours are staffed by the TAs and our link:/info/people/#cas[_{{
+course.Spring2019.staffByRole.assistant.length }}_ course assistants].
+//
+We also have link:/info/people/#developers[{{
+course.Spring2019.staffByRole.developer.length }} course developers] hacking
+away furiously to improve our course materials, tools, and infrastructure.
+//
+You can find out more about the staff on the link:/info/people/[people page].
+
+[[calendar]]
+=== Calendar
+
+We suggest that you add our https://goo.gl/ZPqFQf[shared calendar] to your
+calendaring program.
+//
+If you are not using a calendaring program, we suggest that you start using a
+calendaring program.
+
+We don't maintain separate calendars for labs, so this calendar is only for
+collective class events: lectures, office hours, quizzes, MP deadlines, and
+other events that are relevant to the entire class.
+
+++++
+<div class="row mt-3 mb-3">
+  <div class="col-12 col-lg-10 col-xl-8 ml-auto mr-auto">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=illinois.edu_qgiuk1q8vvclkbcqkffb85sal0@group.calendar.google.com&amp;color=%23B1440E&amp;ctz=America%2FChicago"></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+=== Lectures
+
+This spring lectures are being held Monday, Wednesday, and Friday from
+10&ndash;10:50AM in
+//
+https://en.wikipedia.org/wiki/Lincoln_Hall_(University_of_Illinois)[beautiful
+and historic Lincoln Hall].
+//
+*Please attend and participate in lecture!*
+//
+And please refer to the <<participation, information below>> for our definition
+of lecture participation.
+//
+All lecture slides are
+//
+link:/learn/[posted online] for use during class and review afterward.
+
+Lecture videos will be
+//
+link:/info/resources#videos[posted online].
+//
+Feel free to view them if you are absent or need to review.
+
+[[labs]]
+=== Labs
+
+*Please attend and participate in the lab that you are registered for.*
+//
+You
+//
+link:#participation[will not receive credit for participation in the wrong
+lab].
+
+[[labtable]]
+[.small.table.table-sm.colgroup.datatables.spelling_exception,cols="^1,^1,^1,^2,^4,^4,^4",options="header"]
+|===
+
+| &nbsp; | &nbsp; | Days | Time | Location | TAs | Assistants
+
+{{#each course.Spring2019.timesByType.lab }}
+
+| {{ @index }}
+| {{ this.section }}
+| {{ this.days }}
+| {{ this.start}}&ndash;{{ this.end }}
+| {{ this.location }}
+| pass:[{{#and_list this.TAs }}{{ this.name }}{{/and_list}}]
+| pass:[{{#and_list this.assistants }}{{ this.name }}{{/and_list}}]
+
+{{/each}}
+
+|===
+
+[[hours]]
+=== Office Hours
+
+Office hours are held by our
+//
+link:/info/people/#cas[_{{ course.Spring2019.staffByRole.assistant.length }}_
+course assistants]
+//
+and our
+//
+link:/info/people/#tas[{{ course.Spring2019.staffByRole.TA.length }} TAs].
+//
+They are on the link:#calendar[calendar] and pretty much all day every day,
+except for Tuesday and Wednesday when we're busy with labs.
+//
+See the link:/info/resources#hours[resources page] for more details.
+
+[[communication]]
+== Communication
+
+[.lead]
+//
+CS 125 is a large class.
+//
+This makes it important for us to communicate with each other in effective ways.
+
+We have set up a comprehensive and well-organized course website
+footnote:[You're using it!] and modern course {forum} to help you
+find our what you need to know.
+//
+Our goal is to avoid email as much as possible, along with other 1-to-1 forms of
+communication that don't scale well to large numbers of students.
+
+There are two primary sources of information for CS 125:
+
+. This website
+//
+. The course {forum}
+
+If you have a question about the class, first look on the main course
+website&mdash;the one that you are currently browsing.
+//
+Then, search the {forum}&mdash;maybe another student has
+asked your question and we've already answered it.
+//
+If you still can't find an answer, post your question on the {forum}.
+
+=== What You Are Responsible For
+
+As a student at the University of Illinois *you are responsible for email sent
+to your `@illinois.edu` email address.*
+//
+We will occasionally use a course email list to send important announcements.
+//
+So messages in your inbox might say things like: "There's a quiz tomorrow" or
+"There's a fire alarm in Siebel and class is canceled."
+//
+We all get too much email, but learning to manage it is a fact of modern life.
+//
+Feel free to talk to the course staff if you want tips.
+
+As a student in CS 125 *you are responsible for messages posted in the
+//
+https://cs125-forum.cs.illinois.edu/c/spring-2019-announcements[announcements
+category of the forum,role='noexternal'].*
+//
+These announcements are important and we will frequently post in this category
+in lieu of using email.
+//
+You can configure Discourse to send emails each time a topic is created in a
+specific category.
+//
+We would suggest that you do that&mdash;or plan on visiting the forum each and
+every day.
+//
+In fact, both are good ideas.
+
+[[contacting]]
+=== Contacting the Course Staff
+
+[.lead]
+//
+*Please do not email the course staff with general course questions.*
+//
+You may think that the professor spending five minutes responding to your email
+is not a huge problem.
+//
+But five-minute responses to 900 students consumes _75 hours_ of time, which is
+about half of my work week footnote:[OK, maybe a bit more than half.].
+//
+You should also never contact a TA or CA directly unless they have agreed to
+this beforehand.
+//
+_Post on the {forum}._
+
+This is not because we don't like you or don't like email.
+//
+It's simply because there are a lot of you, a much smaller number of us, and
+many of the questions that you have are shared by other students.
+//
+If you email us, we can answer your question to one person: you.
+//
+If you post on the forum, we can answer your question to the entire class.
+//
+And you may find that your question has already been answered, or that another
+student can answer it for you.
+
+At times, I may even ask you to post on the forum if a good question or
+observation comes out of a conversation that we have together.
+//
+That way everyone can learn what you just did, and I don't need to answer the
+same question repeatedly.
+//
+If I ask you to do this, _please do_.
+
+Here is a general guide about how to contact the course staff:
+
+* [.underline]#I need help installing (insert name of software here)...:# post
+on the {forum}.
+//
+* [.underline]#I'm confused about (insert name of concept here)...:# post
+on the {forum}.
+//
+* [.underline]#I need help with (insert any CS 125-related item here)...:# post
+on the {forum}.
+//
+* [.underline]#I can't find (insert name of CS 125-related resource here)...:#
+post the {forum}.
+
+Can you see a pattern emerging here?
+
+In contrast, here are some cases where you _can_ and _should_ contact the course
+instructors:
+
+* *I think that my friend is cheating in CS 125*: contact the course staff.
+//
+* *I'm really sick and getting behind in the class*: contact the course staff.
+//
+* *I'm feeling really overwhelmed and need someone to talk to*: contact the
+course staff, or an academic advisor, or a friend.
+
+[[grading]]
+== Grading
+
+[.lead]
+//
+Your CS 125 grade is determined by your performance on the
+//
+<<mps, machine problems (MPs)>> (40%),
+//
+completion of <<homework, frequent online homework problems>> (20%),
+//
+weekly <<quizzes, quizzes>> and
+//
+three one-hour <<midterms, midterms>> (30% total) evenly spaced during the semester,
+//
+and participation in <<participation, lecture>> (5%) and <<participation, lab>>
+(5%).
+
+There are also exciting (!) opportunities to earn <<extracredit, extra credit>>
+during the semester.
+
+=== Grade Components
+
+Your total score in CS 125 is broken down as follows:
+
+[.table.table-striped,options='header',cols='2']
+|===
+
+^| Component
+^| Percentage (%)
+
+| <<mps, Machine Problems (MPs)>>
+^| 40%
+
+| <<homework, Homework>>
+^| 20%
+
+| <<quizzes, Weekly Quizzes and Midterms>>
+^| 30%
+
+| <<participation, Lab Participation>>
+^| 5%
+
+| <<participation, Lecture Participation>>
+^| 5%
+
+|===
+
+These weights are designed to reflect the amount of time that students spend on
+each part of the class.
+//
+They are also divided between points earned in controlled environments
+//
+(<<quizzes, quizzes and midterms>>, <<participation, participation>>)
+//
+and uncontrolled environments (<<mps, MPs>> and <<homework, homework>>).
+//
+You will spend most of your time completing the MPs and homework problems.
+//
+That is where you will get the practice that turns you into a computer
+scientist.
+//
+The quizzes and midterms give us a chance to evaluate your abilities in a
+controlled setting.
+
+Details about each grade component are included below.
+
+[[drops]]
+=== Dropped Grades
+
+To account for illness, absence, forgetfulness, mistakes, temporary stupidity,
+and other normal life events, we will drop _a few_ of your lowest scores for all
+course components *except the midterms*.
+//
+The table below summarizes the drop policy for course component:
+
+[.table.table-striped,options='header',cols='4']
+|===
+
+^| Component
+^| Percentage (%)
+^| # Assessments (Estimated)
+^| # Dropped (Firm)
+
+| <<mps, Machine Problems (MPs)>>
+^| 40%
+^| 6
+^| *0*
+
+| <<homework, Homework Problems>>
+^| 20%
+^| 70
+^| 8
+
+| <<quizzes, Weekly Quizzes and Midterms>>
+^| 30%
+^| 15
+^| 2 quizzes, 0 midterms
+
+| <<participation, Lab Participation>>
+^| 5%
+^| 15
+^| 3
+
+| <<participation, Lecture Participation>>
+^| 5%
+^| 36
+^| 6
+
+|===
+
+So, for example, we will track participation in **15** labs and drop your lowest **3** scores.
+//
+We will assign **70** homework problems and drop your lowest **8** scores.
+//
+We will assign **6** MPs and _not drop any scores_.
+
+=== Estimating Your Letter Grade
+
+Letter grades in CS 125 are assigned based on how well _you_ do, not based on
+your performance relative to other students.
+//
+*We have an unlimited number of A grades that we can hand out.*
+//
+If everyone in the learns all of the material to our
+satisfaction, everyone in the class will make an A.
+
+Inevitably the difficulty of various parts of the course varies from semester to
+semester.
+//
+So we do not determine the final grading scale until we examine all scores at
+the end of the semester.
+//
+During the semester, do not ask us to estimate your grade or tell you how well
+you need to do on an assignment to make a certain grade.
+
+*Instead, focus on learning the material to the best of your ability.*
+//
+Programming in particular is a skill&mdash;the more you do, the better you get
+at it.
+//
+So you should focus on doing as much as you need to get good at it, rather than
+the minimum necessary to make a particular grade.
+
+=== Posting Grades
+
+We do not maintain grade components on Compass
+//
+footnote:[Don't get me started...].
+//
+CS 125 maintains its own link:/m/grades/[grading and statistics] interface which
+you will use throughout the semester.
+
+[[mps]]
+== Machine Problems (MPs) [.text-muted]#(40%)#
+
+[.lead]
+//
+Programming is a skill.
+//
+Like other skills, the more you do it, the better at it you become.
+//
+The CS 125 _machine problems_ (MPs)
+//
+footnote:[Known in other places as _programming assignments_]
+//
+are the primary way that you will learn the powerful skill of computer
+programming&mdash;today's
+https://www.youtube.com/watch?v=nKIu9yen5nc&t=81s[modern superpower].
+
+Together the MPs are worth 40% of your grade&mdash;the largest single grade
+component.
+//
+Working on them will deepen your understand of the material covered in lecture,
+and improve your performance on the quizzes and midterms.
+
+=== How to Complete the MPs
+
+The CS 125 MPs are designed to take a significant amount of time.
+//
+So you should arrange your schedule so that you can devote a significant amount
+of time on them.
+//
+*Do not start the night before.*
+//
+Not only will it be unlikely that you will complete the MP, but you will also be
+unlikely to be able to get help when you get stuck.
+
+Learning to program is like learning other skills&mdash;how to play an
+instrument, throw a perfect spiral, cook the perfect omelete, or learn another
+_human_ language.
+//
+You have to do it _every day_.
+//
+You can't expect to complete a marathon or perform at Carnegie Hall if you start
+practicing the night before.
+//
+As soon as each MP is released, sit down and spend a few hours on it.
+//
+And then do that the next day, and the day after that.
+//
+If you start early and work often, you will have no problem completing the MP
+before the deadline.
+//
+If it turns out to be easy for you, you'll be done early and can relax and help
+other students.
+//
+If it turns out to be more difficult, you'll know early on and be able to budget
+your time according to complete it on time.
+//
+*Nothing correlates more strongly with success on the MPs than starting
+early.*
+//
+And coming to link:/info/resources/#hours[office hours].
+
+[[regrading]]
+=== Late Submission Policy
+
+It is extremely important that you keep up with the MPs.
+//
+CS 125 moves quickly, and if you get behind early you will quickly find yourself
+lost and unable to complete the later assignments.
+//
+*This is the number one source of student lack of success in the course.*
+
+As a result, the late submission policy is designed to reward students that do a
+fair amount of work _before_ the deadline.
+//
+Here are the details of the policy:
+
+* You can submit footnote:[by pushing] each MP as many times as you want until
+11:59:59 PM on Wednesday 5/1/2019 (the last day of class).
+//
+* Late submissions can earn back 50% of any points lost by your best on-time
+submission.
+//
+So if you submit code that earns 80/100 before the deadline, you will receive a
+90/100 if you submit a perfect MP after the deadline.
+//
+If you submit code that earns 0/100 before the deadline, the best you can do is
+a 50/100 with a perfect submission anytime after the deadline.
+//
+* Late submissions will not recover any starting the assignment on time points.
+//
+So if there were 10 starting the assignment on time points that you did not
+earn, and your best score before the deadline was a 60/100, the best you can do
+is a 75/100: half of the 30 points you missed that were not for starting the
+assignment on time.
+//
+* *You will always receive the best score earned by any submission.*
+//
+You can check your office MP scores
+//
+link:/m/grades/MPs[here].
+
+[[homework]]
+== Homework [.text-muted]#(20%)#
+
+This semester will be frequently posting small programming problems on
+https://goo.gl/r9QTxn[PrairieLearn].
+//
+Early in the semester these will be released _every day_, to provide you with
+programming practice before you get started on the MPs.
+//
+Later in the semester once you begin work on the MPs we may slow down the rate
+at which homework questions are assigned, but we plan to continue posting at
+least a few per week until the end of the semester.
+
+The reason we are doing this is simple: *programming takes regular consistent
+practice.*
+//
+If you are training for a marathon, you have to run _almost every day_, not just
+try to pack in hundreds of miles the week before the race.
+//
+Learning to program is similar.
+//
+In particular, when you are getting started you'll tired quickly from this
+engaging right-left brain activity.
+//
+So it's better to do a bit each day than large amounts in one sitting.
+
+We expect that the daily homework problems should take you no more than
+10&ndash;15 minutes to complete, particularly if you have been coming to lecture
+and keeping up with the MPs.
+//
+Homework problems also a key way to prepare yourself for the programming component
+of each week's quiz, since the programming problems on the quiz will look
+similar to footnote:[and may even be identical to] the ones you've been
+practicing on your homework assignments.
+
+=== Homework Sign Up
+
+Before starting the homework you will need to log on to
+//
+https://prairielearn.engr.illinois.edu/pl[PrairieLearn]
+//
+with your `@illinois.edu` email address and join the CS 125 Spring 2019 course.
+//
+Access to the homework is unrelated to forum access and you can begin work on
+the homework as soon as you register.
+
+[[quizzes]]
+== Quizzes and Midterms [.text-muted]#(30%)#
+
+[.lead]
+//
+30% of your grade is for performance on weekly quizzes and 3 midterms.
+//
+Quizzes and midterms are given in the https://cbtf.engr.illinois.edu/[University
+of Illinois Computer-Based Testing Facility (CBTF)] and consist of questions
+that are randomized and automatically graded.
+
+*No course staff members are involved in grading CS 125 computerized exams, so
+please do not appeal your grade to the course staff.*
+//
+If you have concerns about the questions themselves, please post on the {forum}.
+//
+You can check your official quiz and midterm scores
+//
+link:/m/grades/quizzes[here],
+//
+*but please be aware that there is a lag between when you finish your quiz and
+when these scores are updated.*
+
+[[format]]
+=== Format
+
+Quiz questions are a mix of multiple-choice questions drawn from lecture and
+small programming problems.
+//
+Many of the small programming questions that we use on the quizzes will reappear
+on later homework assignments.
+//
+Or problems from the homework assignments may appear on quizzes.
+
+You only get one or two attempts at the multiple choice questions.
+//
+But you will have _unlimited_ attempts at the programming problems without
+losing credit.
+//
+At this stage, we *want* you to practice&mdash;and we won't penalize you for
+practicing.
+//
+However, obviously you do not have an unlimited amount of _time_.
+
+The multiple-choice questions should be easy if you have been coming to and
+//
+<<participation, participating in lecture>>.
+//
+**You may find the programming questions more of a challenge.**
+//
+Programming in the CBTF is quite different from programming on the MPs.
+//
+You don't have unlimited time or access to resources such as the course staff or
+the internet.
+//
+However, we believe that there are small programming tasks that you should be
+able to complete as the semester goes on _without_ needing to look up things
+online or ask for help.
+//
+That said, generally the programming challenges that appear on the quizzes will
+be considerably easier than the MP that you are working on at the same point in
+the semester.
+
+[[quizscheduling]]
+=== Scheduling
+
+The CBTF is located in the basement of https://goo.gl/M8C8vN[Grainger Library].
+//
+You can use https://cbtf.engr.illinois.edu/[this link] to sign up to take each
+quiz.
+//
+Using the CBTF allows us to provide you with flexibility in scheduling your
+weekly quizzes.
+//
+You can take each quiz over a range of dates and times, starting on Tuesday and
+ending on Thursday each week.
+//
+All quizzes are posted <<calendar, on the course calendar>>.
+
+[[quizpreparation]]
+=== Preparation
+
+Quizzes focus on material covered that week, but all material covered that
+semester is fair game.
+//
+*The best way to prepare for a quiz is to <<participation, participate in
+class>> that week.*
+//
+Attend lectures and participate, attend labs and participate, work on the
+assigned MP (if any), and ask and answer questions on the {forum}.
+//
+If you engage with the course content on a daily basis, you will not need to
+cram material right before you take the quiz.
+
+=== Missed Quizzes
+
+*Do not contact the course staff regarding missed quizzes.*
+//
+Because you have a several day window to complete each quiz, we expect that you
+will be able to work around most other commitments and even short illnesses.
+//
+However, we will drop your <<drops, _lowest 2 quiz scores_>> when computing the
+quiz component of your final grade.
+
+If you do miss a scheduled quiz and can retake it within the time window, you
+can
+//
+https://cbtf.engr.illinois.edu/contact.html[contact the CBTF to attempt to
+reschedule].
+//
+There are no guarantees though.
+//
+The CBTF is busy and they may not be able to accommodate you if you miss your
+initial appointment.
+//
+The best approach is to not do that.
+
+=== CBTF Policies
+
+The policies of the CBTF are the policies of this course, and academic integrity
+infractions related to the CBTF are infractions in this course.
+
+Any problem with testing in the CBTF **must be reported to CBTF staff at the time
+the problem occurs.**
+//
+If you do not inform a proctor of a problem during the test
+then you forfeit all rights to redress.
+
+=== Reporting Quiz Problems
+
+If you believe that you have spotted a problem with a quiz question, please use
+//
+https://prairielearn.engr.illinois.edu/pl[PrairieLearn's]
+//
+built-in issue reporting to report the issue to the course staff.
+//
+Note that you have to be in the CBTF to access our quizzes and report problems.
+//
+At that point we will do one of the following things:
+
+. *If the question has a bug*, we will fix it and ensure that all students receive
+full credit&mdash;even those that took the quiz before the bug was identified.
+//
+. *If the question has a minor typo* that we don't think affects its
+ability to be correctly answered, we will fix it and distribute that change.
+//
+. *If the question is fine* we will not do anything. Unfortunately, there is no
+way for us to respond to your issue on PrairieLearn.
+//
+However, please keep in mind that your perception of the question's correct
+answer may be wrong&mdash;that's the whole idea behind having the quizzes in the
+first place.
+
+We will regularly review the answers to difficult quiz questions in class to
+ensure that everyone has a chance to learn from their mistakes.
+
+[[midterms]]
+=== Midterms
+
+[.lead]
+//
+Three midterms are spread through the semester.
+//
+The midterms are identical to quizzes in terms of scheduling and presentation.
+//
+*However, you cannot drop any midterm scores.*
+
+In comparison to the weekly quizzes, the midterms will be more comprehensive.
+//
+Anything covered up to that point in the semester is fair game, with particular
+emphasis given to the material covered since the last midterm.
+//
+Finally, you should expect _about half or more_ of the points on each midterm to
+be for auto-graded programming problems.
+//
+This may be more than a typical weekly quiz.
+
+Midterm dates are posted <<calendar, on the course calendar>>.
+//
+*You must <<quizscheduling, make arrangements to take each midterm in the
+CBTF>>.*
+//
+If you miss a midterm, you will receive a zero.
+
+Preparing for the midterms is similar to <<quizpreparation, preparation for a
+weekly quiz>>: review the lecture materials, practice the <<homework, homework
+problems>>, and ensure that you are comfortable with the material covered on the
+<<mps, MPs>>.
+
+Note that CS 125 *does not have a final exam*.
+//
+We will hold an (optional) final project fair on reading day for you to show off
+your
+//
+link:/info/fair/[cool new Android apps]
+//
+and that joyful event will be the end of the course.
+
+[[participation]]
+== Participation [.text-muted]#(10%)#
+
+10% of your grade is earned by participating in lab section (5%) and lectures
+(5%).
+//
+We will use several tools to track your participation in scheduled course
+activities.
+//
+However, here are the ground rules:
+
+* *You must participate in the lab or lecture that you are enrolled in.*
+//
+CS 125 is always completely enrolled and so we have no space in other lab or
+lecture sections.
+//
+If you attend the wrong lab or lecture, you will not receive participation
+points.
+//
+Period.
+//
+* *Participation is not attendance.*
+//
+Just having your butt in the right seat at the right time does not constitute
+participation.
+//
+In labs, you are expected to be working with your section on the lab activity.
+//
+In lecture, you are expected to follow along and engage with the material.
+//
+If you attend, but do not participate, you will not earn points for
+participation.
+//
+* *You have several pre-excused absences.*
+//
+You have <<drops, _3 preexcused lab absences_>> and <<drops, _6 preexcused
+lecture absences_>>.
+//
+*So if you need to miss a lab or lecture for any reason&mdash;illness, traveling,
+personal issues, or anything else&mdash;there is no need to notify the course
+staff.*
+//
+If you miss a lab, feel free to attend
+//
+link:#labs[another lab section], but you will not get lab participation points
+for that week.
+//
+If you miss a lecture, just
+//
+link:/info/resources/#videos[watch the video online]
+//
+to review what you missed.
+//
+CS 125 moves fast, so don't get behind!
+
+For both lecture and lab attendance you will receive a linear proportion of
+credit depending on how many participation points you earn and the number of
+dropped labs or lectures.
+//
+So, for example, if you miss 5 out of 10 labs, you would receive credit for 8 /
+10 labs (due to three drops) and 4% out of the 5% allocated for lab
+participation.
+
+[[labparticipation]]
+=== Lab Participation [.text-muted]#(5%)#
+
+*Do not contact the course staff regarding missed labs.*
+//
+We do not excuse individual absences.
+//
+Instead, any missed labs are covered by the <<drops, dropped grade policy>>.
+
+To receive participation points for each lab, you have to do three things:
+
+. *Attend the right lab.*
+//
+You don't get credit for participating in a lab other than the one that you are
+assigned to.
+//
+. *Work on the lab activity until you are finished or the lab ends.*
+//
+Labs are not office hours or a time to work on the MP, homework problems, or
+other things.
+//
+If you are not working on the lab handout, your TA may ask you to leave.
+//
+. *Assist others if asked.*
+//
+Some of you know more than others and may finish the lab rapidly.
+//
+If you do, your TA may ask you to stick around to help other students.
+//
+If you are asked to do this, please do so willingly and cheerfully.
+//
+You will learn a great deal from trying to help other students.
+
+*Before you leave lab you should check your lab participation score on our
+grading interface to ensure that you received participation credit.*
+//
+TAs _will not_ change lab participation scores after the lab ends.
+
+
+[[lectureparticipation]]
+=== Lecture Participation [.text-muted]#(5%)#
+
+*Do not contact the course staff regarding missed lectures.*
+//
+We do not excuse individual absences.
+//
+Instead, any missed lectures are covered by the <<drops, dropped grade policy>>.
+
+To receive participation points for each lecture, you have to do three things:
+
+. *Attend lecture.* (Duh.)
+//
+. *Log on to the slide tool.* If you don't see a green check box in the top
+right, you are not logged in.
+//
+. *Follow along with the slides.*
+
+The
+//
+http://www.dictionary.com/browse/follow-along[definition of follow along]
+//
+is "to move or proceed in accord or in unison with someone."
+//
+Following along with the slides means that when the presentation slide changes,
+you change the one you are looking at as well.
+//
+Both the amount of time you have to notice that the slide has changed and the
+overall percent of slides that you need to track are very generous.
+//
+If you are paying attention, you should not have a hard time earning
+participation credit for each lecture.
+
+[[extracredit]]
+== Extra Credit
+
+There will be opportunities to earn extra credit this semester.
+//
+Note that we _do not_ give extra credit for things that we think that you
+absolutely should be doing to succeed in the class.
+//
+Extra credit is exactly that: _extra_.
+//
+We might provide extra credit for providing some data that helps improve the
+class, or bearing with us while we try something experimental and new, or for
+helping other students.
+
+This semester we are planning at least the following extra credit opportunities:
+
+* *1%* for completing our https://goo.gl/forms/FWkjiW2jp9HoU82U2[initial student
+survey].
+//
+This data helps us improve the course for future semesters.
+//
+* *1%* for participating in the final project fair, which will be held on
+*Thursday May 2nd* (Reading Day).
+//
+Participation is optional, but worth extra credit.
+
+[[other]]
+== Other Policies
+
+[.lead]
+//
+Below we summarize some other general course-related policies.
+
+[[cheating]]
+=== Cheating
+
+[.lead]
+//
+Learning computer science requires hard work and practice.
+//
+If you submit code that is not your own work, or take other steps to subvert the
+course policies, you are not getting the practice that you need to improve.
+
+*All work submitted for CS 125 must be your own.*
+//
+Cheating in CS 125 may result in a grade reduction, your removal from the CS
+program, or from the University of Illinois.
+//
+We have many bright, honest students that want to learn computer science.
+//
+We don't need to waste time and energy on cheaters that don't want to learn.
+
+Specifically, the following activities constitute cheating and will be dealt
+with according to relevant
+//
+https://cs.illinois.edu/academics/honor-code[departmental]
+//
+and http://studentcode.illinois.edu/[university policies].
+//
+*You may not*:
+
+. *Turn in work that was completed by anyone other than yourself.*
+//
+. *Copy or paste code that you did not write* from any source.
+//
+. *Misrepresent your work as the work of another student.*
+//
+. *Examine another classmates solution*, reproduce it, and submit it as your own
+work.
+//
+. *Share information about the content of quizzes or other course assessments.*
+//
+Anyone caught removing information from the exam center will receive a letter
+grade reduction and a FAIR violation.
+//
+. *Publish your MPs or coursework anywhere where other students can find them.*
+//
+Note that this includes publishing your MPs publicly on GitHub.
+//
+Nobody wants to see your solutions to the MPs anyway.
+//
+If you want to impress employers, fill your GitHub page with your own
+independent projects.
+
+We _will_ run cheating detection software on all submitted student work.
+//
+These programs are extremely accurate, and any evidence of cheating that they
+uncover will initiate academic integrity violation proceedings.
+//
+*In Fall 2018 we filed 23 FAIR violations almost all of which resulted a
+letter grade reduction.*
+//
+We are serious about this, and ask you to be serious about learning.
+
+==== A simple rule of thumb about collaboration
+
+A general rule of thumb is that exchanging or soliciting _ideas_ about how to
+solve the MP is not cheating, but exchanging code is cheating.
+//
+Feel free to discuss your solutions with other students as long as you do not
+provide them or allow them to view your source code.
+//
+If you are talking in English footnote:[or another spoken human language...],
+that's fine.
+//
+If you are talking or exchanging _computer code_, that's cheating.
+
+==== Penalties
+
+*If you are caught cheating in CS 125 you will _definitely_ receive a FAIR
+violation.*
+//
+Depending on the severity of the situation, you may also have any of the
+following penalties applied:
+
+* A letter grade reduction in the class.
+//
+*Note that this will likely make it impossible for you to transfer into the
+Computer Science department.*
+//
+* An F in the course.
+//
+*This will _definitely_ make it impossible for you to transfer into the major.*
+
+[[extensions]]
+=== Extensions
+
+CS 125 is a fast-moving and demanding course.
+//
+You signed up to learn computer science and programming for 15 weeks, and we do
+our best to give you your money's worth.
+
+One of the consequences of this is that it is hard to catch up if you have a
+significant illness or other problem mid-semester.
+//
+We will give extensions on the MPs and other assignments to accommodate
+unforeseen short-term circumstances.
+//
+But if you are struggling with a larger issue, we may encourage you to withdraw
+and enroll again next semester.
+
+*Note that, to receive an extension you should approach the course staff _before_
+the relevant deadline.*
+//
+Except in exceptional cases footnote:[such as hospitalization, verifiable
+kidnapping by aliens, etc.] we will _not_ grant requests for extensions or other
+accommodations after the relevant deadline has passed.
+
+[[accommodations]]
+=== Accommodations
+
+We are more that happy to make arrangements to help accommodate students with
+learning disabilities or other challenges.
+//
+*However, we ask that you assist us by informing us of your situation as soon
+as possible.*
+//
+We will be much more accommodating of requests received _before_ the relevant
+assessment or deadlines, rather than after.
+//
+The earlier in the semester you can let us know what kind of help you need, the
+better prepared we can be to provide it effectively.
+//
+**Please use https://goo.gl/forms/fIpBGh7fl19KQmRN2[this web form] to ensure that
+we have your Letter of Accommodation on file.**
+
+Note that in many cases your letter of accommodation will _require_ that you
+request accommodations before or on the relevant deadlines.
+//
+If you fail to do so, we will not consider late requests.
+//
+Part of our job in ensuring that you&mdash;and every CS 125
+student&mdash;succeeds in the course is keeping you on track throughout the
+semester.
+//
+By the time the end of the semester rolls around, it is far to late to begin
+asking for deadline extension and completing missed assignments.
+
+As far as our
+//
+<<quizzes, quizzes in the CBTF>>,
+//
+if you have accommodations identified by the
+//
+http://www.disability.illinois.edu/[Division of Rehabilitation-Education
+Services (DRES)]
+//
+for quizzes and midterms, please take your Letter of Accommodation to the CBTF
+proctors in person before you make your first reservation.
+//
+The proctors will advise you as to whether the CBTF provides your accommodations
+or whether you will need to make other arrangements.
+
+=== Diversity Statement
+
+The University of Illinois is committed to equal opportunity for all persons,
+regardless of race, ethnicity, religion, sex, gender identity or expression,
+creed, age, ancestry, national origin, handicap, sexual orientation, political
+affiliation, marital status, developmental disability, or arrest or conviction
+record.
+//
+We value diversity in all of its definitions, including who we are, how we
+think, and what we do.
+//
+We cultivate an accessible, inclusive, and equitable culture where everyone can
+pursue their passions and reach their potential in an intellectually stimulating
+and respectful environment.
+//
+We will continue to create an inclusive campus culture where different
+perspectives are respected and individuals feel valued.
+
+[[people]]
+== People
+
+[.lead]
+//
+CS 125 has a large and motivated course staff.
+//
+We look forward to helping you learn computer science!
+
+[[instructors]]
+=== Instructor
+
+++++
+<div class="mt-2 spelling_exception">
+  <div class="row">
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/f018d0710c707024e5ad34f1b0dec4a6?s=200" alt="Photo of Geoffrey Challen">
+        <div class="card-body">
+          <h4 class="card-title text-center">Geoffrey (GWA) Challen</h4>
+          <p class="card-text">
+          Teaching lectures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+++++
+
+[[tas]]
+=== Teaching Assistants
+
+++++
+<div class="row spelling_exception">
+  {{#each course.Spring2019.staffByRole.TA }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{{ this.name }}}</h5>
+        {{#if this.labs }}
+        <p class="small card-text">
+        Teaching {{ inflect this.labs.length "section" "sections" }}
+        {{#and_list this.labs }}{{ this }}{{/and_list}}
+        </p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/each }}
+</div>
+++++
+
+[[cas]]
+=== Course Assistants
+
+Our course assistants are so excited about computer science that they are
+teaching you to learn more! Please treat them accordingly&mdash;with a lot of
+appreciation!
+
+++++
+<div class="row spelling_exception">
+  {{#each course.Spring2019.staffByRole.assistant }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <div class="person card-title text-center">{{{ this.name }}}</div>
+        {{#if this.labs }}
+        <p class="small card-text">
+        Assisting with {{ inflect this.labs.length "section" "sections" }}
+        {{#and_list this.labs }}{{ this }}{{/and_list}}
+        {{#if this.officehours }}
+        and holding office hours
+        {{/if}}
+        </p>
+        {{else}}
+        {{#if this.officehours }}
+        Holding office hours
+        {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/each }}
+</div>
+++++
+
+[[developers]]
+=== Course Developers
+
+Our course developers do not hold office hours or help with labs. But they
+are working hard behind the scenes to make CS 125 better this semester and
+in the future.
+
+++++
+<div class="row spelling_exception">
+  {{#each course.Spring2019.staffByRole.developer }}
+  <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="card pt-2 pl-2 pr-2">
+      <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+      <div class="card-body">
+        <div class="person card-title text-center">{{{ this.name }}}</div>
+        {{#if this.labs }}
+        <p class="small card-text">
+        Assisting with {{ inflect this.labs.length "section" "sections" }}
+        {{#and_list this.labs }}{{ this }}{{/and_list}}
+        </p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/each }}
+</div>
+++++
+
+// vim: ts=2:sw=2:et:ft=asciidoc
