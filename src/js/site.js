@@ -74,16 +74,21 @@ $(() => {
     $(elem).click(function (event) {
       event.preventDefault()
       const url = $(elem).attr('href')
-      ga('send', 'event', 'outbound', 'click', url, {
-        'transport': 'beacon',
-        'hitCallback': () => {
-          if ($(elem).hasClass('external')) {
-            window.open(url, '_blank')
-          } else {
-            document.location = url
-          }
+      const openURL = () => {
+        if ($(elem).hasClass('external')) {
+          window.open(url, '_blank')
+        } else {
+          document.location = url
         }
-      })
+      }
+      if (window.ga && ga.create) {
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': openURL
+        })
+      } else {
+        openURL()
+      }
     })
   })
 
