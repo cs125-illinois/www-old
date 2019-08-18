@@ -55,9 +55,12 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client =>
   let people = await peopleCollection.find({
     semester: argv._[0],
     $or: [
+      { role: 'head' },
+      { role: 'captain' },
       { role: 'TA' },
+      { role: 'assistant', active: true },
       { role: 'developer' },
-      { role: 'assistant', active: true }
+      { role: 'dataanalyst' },
     ]
   }).toArray()
 

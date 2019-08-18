@@ -1,0 +1,419 @@
+---
+title: "MP2: ConnectN"
+description:
+  MP2 provides you with practice in Java class design and working with objects.
+  And you get to implement a fun game along the way.
+spelling_exceptions:
+  - ConnectN
+outdated:
+  name: MP
+  current: /mp/
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/spring2019-mp2[forum,role='noexternal']]
+
+[.lead]
+//
+Maybe you play them, maybe you don't, maybe you carry your gaming desktop with
+you at all times&mdash;but regardless of how you feel about it, a fair number of
+people use computers to play games.
+//
+Some of those games can be instructive, some can be fun.
+//
+But an MP where you get to build a fun game is both fun _and_ instructive!
+//
+For MP2 you'll be learning Java class design and object-oriented programming as
+you complete a simple Connect-4-like game.
+//
+You'll also have a chance to continue sharpening your Android development
+skills.
+
+*MP2 is due Monday 3/4/2019 @ 5PM.
+//
+To receive full credit, you must submit by this deadline.*
+//
+In addition, 10% of your grade on MP2 is for submitting code that earns at least
+_50 points_ by *Monday 2/25/2019 @ 5PM.*
+//
+Note that, unlike link:/MP/2019/spring/1/[MP1], you have to do a bit more work on MP2 to get
+to 50 points.
+
+As usual, late submissions will be subject to the
+//
+link:/info/2019/spring/syllabus/#regrading[MP late submission policy].
+
+[[objectives]]
+== Learning Objectives
+
+The purpose of MP2 is to begin introducing you to object-oriented programming.
+//
+MP2 does not explore more advanced topics like inheritance, interfaces, or
+polymorphism.
+//
+It sticks to the basics: instance and class variables, getters and setters,
+constructors, and instance and class methods.
+//
+You'll begin to learn how to:
+
+. design a class that meets a given specification
+//
+. implement that class including both properly-protected variables and
+appropriate methods
+
+We'll also introduce you some new parts of this simple Android
+app&mdash;including multiple activities, dynamic layouts, and modifying UI
+element visibility.
+
+We'll also continue to reinforce the learning objectives from
+link:/MP/2019/spring/0/[MP0],
+and link:/MP/2019/spring/1/[MP1]: imperative programming, working with 2D arrays
+footnote:[Although this is much, much simpler on MP2...], and Android app
+development and testing.
+
+[[structure]]
+== Assignment Structure
+
+Like link:/MP/2019/spring/0/[MP0] and link:/MP/2019/spring/1/[MP1], MP2 is a single Android app with its
+source code divided into two pieces:
+
+* `/lib/`: a library that manages the ConnectN game state.
+//
+60 / 100 points on the MP are for completing the library, which requires that
+you complete the implementation of the `ConnectN` class in `ConnectN.java`.
+//
+* `/app/`: an Android app for you to use for your own interactive testing.
+//
+The Android app is _almost_ complete, but needs a few modifications from you.
+//
+20 / 100 points on the MP are for completing the app, which requires that you
+understand the code that we have provided and make minor changes.
+//
+And, to work correctly, you need to finish the library in `lib`.
+
+Your primary job is to complete the game logic in `ConnectN.java`.
+//
+Like link:/MP/2019/spring/1/[MP1], this file doesn't even exist yet.
+//
+You'll have to create it, and then declare, complete, and document the required
+functions as listed in the
+//
+https://cs125-illinois.github.io/MP2-Solution/[official online documentation].
+//
+These make use of a player class defined in `Player.java`.
+//
+These functions are called by the app and, once you complete them, your app will
+be almost completely functional&mdash;and we'll be happy to help you with the
+rest.
+
+As always, you may find our official
+//
+https://cs125-illinois.github.io/MP2-Solution/[MP2 online documentation]
+//
+helpful in understanding what each function and class is supposed to do.
+
+The MP2 app is a bit more complicated than the MP1 app footnote:[which was a bit
+more complicated than the MP0 app...].
+//
+It has _two_ activities: `SetupActivity.java` and `GameActivity.java`, each
+corresponding to one screen of the app.
+//
+Unlike the previous apps, this app has two different screens: one to set up the
+game and a second to render it as it is being played.
+//
+`GameActivity.java` also includes code that creates a _custom game layout_,
+allowing the game board to be sized according to parameters entered by the user.
+
+As usual you don't need to fully understand either file yet,
+//
+but you do need to explore and experiment with them to finish the app and earn
+full credit.
+
+[[getting]]
+=== Obtaining MP2
+Use
+//
+https://classroom.github.com/a/mWtc5Evb[this GitHub Classroom invitation link]
+//
+to fork your copy of MP2.
+//
+Once your repository has been created, import it into Android Studio following
+//
+link:/MP/2019/spring/setup/git/#workflow[our assignment Git workflow guide].
+
+[[requirements]]
+=== Your Goal
+
+At this point you should be familiar with the requirements from previous MPs.
+//
+See the <<grading, grading description below>>.
+
+[[approach]]
+== Approaching MP2
+
+While the concepts are new, MP2 is not a lot of code to write, and you have two
+weeks.
+//
+But here are the bits that are likely to trip you up.
+
+=== Read the Fine Manual
+
+To complete MP2 you _must_ understand the
+//
+https://cs125-illinois.github.io/MP2-Solution/[specification].
+//
+That's your starting point, and your returning point when you get confused.
+
+Writing code to a specification is an important skill to learn.
+//
+In many software companies, designing code and implementing it are not always
+done by the same group.
+//
+A project manager or program manager may write a specification, which is
+provided to developers to implement.
+//
+Or a team of developers may come up with a specification, and then divide up the
+implementation work between them.
+
+Regardless of where it comes from, writing code in groups almost always requires
+a specification to be successful&mdash;unlike when you do independent projects
+and can make up things as you go.
+//
+A lot of the design work and high-level decisions end up going in to the
+specification, so by the time the implementation begins the hard and interesting
+choices have been made.
+//
+That's not to say it still isn't fun at that point&mdash;even developing to a
+spec provides huge opportunities for simultaneous creativity and correctness in
+that unique programming way.
+
+=== Getters and Setters
+
+MP2 requires you to implement some simple getters and setters (just return or
+change the variable), and some ones with more complicated behavior.
+//
+Be sure to read the documentation carefully.
+
+=== Game Logic
+
+You will need to do a bit of work to implement the game board.
+//
+ConnectN is a Connect-4-like game.
+//
+Tiles fall in the top (large Y values) and sit at the bottom.
+//
+We're in the proper first quadrant of 2D space, with X values going left
+to right and Y values going down to up:
+
+[.table-bordered]
+|===
+
+| `(0, 2)` | `(1, 2)` | `(2, 2)`
+
+| `(0, 1)` | `(1, 1)` | `(2, 1)`
+
+| `(0, 0)` | `(1, 0)` | `(2, 0)`
+
+|===
+
+A ConnectN game ends when either player plays N consecutive tiles in either a
+single row or column footnote:[There: I said row and column.].
+//
+Tiles always have to be played at the lowest possible location in each
+column&mdash;in a real Connect-4 board they fall downward and rest on the tiles
+below them.
+//
+Consult the https://en.wikipedia.org/wiki/Connect_Four[Wikipedia] page for more
+details.
+
+=== Getting Help
+
+The course staff is ready and willing to help you every step of the way!
+//
+Please come to link:/info/2019/spring/syllabus/#calendar[office hours], or post on the
+{forum} when you need help.
+//
+You should also feel free to help each other, as long as you do not violate the
+<<cheating, academic integrity requirements>>.
+
+[[android]]
+== More About Android
+
+[.lead]
+//
+MP2 continues introducing new Android ideas.
+//
+You'll still have to poke around a bit to finish your app, although at this
+point you should be comfortable doing that from previous MPs.
+
+[[activitys]]
+=== Multiple Activities (or Screens)
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/fObxlqDO57c" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Until this point all of our MP apps have only had a single activity (or screen).
+//
+In link:/MP/2019/spring/0/[MP0] that single screen showed location data.
+//
+In link:/MP/2019/spring/1/[MP1] that single screen showed your transformed image and
+background.
+
+But a typical app has multiple screens which a user can navigate to, each
+displaying different information.
+//
+For example, a chat app might have a contacts screen and a settings menu along
+with the main chat display.
+//
+An email app might have a screen for navigating between different folders or
+labels, a settings screen, and the main inbox or folder screen.
+
+In Android each screen is typically represented by a separate `Activity`, each
+in its own class.
+//
+In the screencast above we walk through how activities are launched, can launch
+other activities, and can pass information to launched activities using
+``Intent``s.
+
+[[dynamiclayout]]
+=== Dynamic Layout
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/nxO7jfzgdng" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Our previous MP apps also had a single static layout per activity, which we
+created using Android Studio's UI designer.
+//
+This is fairly normal for many apps when core components of the layout don't
+change.
+//
+You set up a layout using the designer and then populate each field with
+appropriate content depending on the data available to the app.
+
+MP2, however, has different requirements, because configuring the game
+differently can and should produce different board views.
+//
+To accomplish this we create a layout _programmatically_&mdash;using code in our
+app&mdash;rather than statically.
+//
+The screencast above walks you through how this is done.
+//
+If you are considering creating a game for your final project you may be curious
+in exploring this further, since many games need various kinds of dynamic
+layouts.
+
+[[uielements]]
+=== UI Element Properties
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/xaCXieAnWNU" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Finally, a common way to interact with the user is to modify the properties of
+existing UI elements.
+//
+You might create a text view using the layout designer when you are creating
+your app, but then have the text shown in the view be determined and modified
+when the app runs.
+//
+Alternatively, apps can modify the visibility of UI elements to react to changes
+in the app state&mdash;for example, to display or hide a warning message
+appropriately.
+
+The screencast above uses an example from the MP2 configuration activity to show
+how this is done.
+//
+You'll need to do something similar in the board activity to earn full credit on
+MP2.
+
+[[grading]]
+== Grading
+
+MP2 is worth 100 points total, broken down as follows:
+
+. *60 points*: `ConnectN.java`
+  ** *15 points total* for completing the width, height, and N value getters and
+  setters
+  ** *10 points* for completing the constructors
+  ** *15 points* for completing the get and set board functions
+  ** *10 points* for determining the game winner properly
+  ** *10 points* for class static methods, including equality checks and factory
+  creation methods
+. *20 points*: `SetupActivity.java`
+  ** *10 points* for properly making the game tiles clickable
+  ** *10 points* for adjusting the UI properly on each turn and when the game
+  ends
+. *10 points* for no `checkstyle` violations
+. *10 points* for submitting code that earns at least 50 points before *Monday
+2/25/2019 @ 5PM.*
+
+[[testing]]
+=== Test Cases
+
+As in previous MPs, we have provided exhaustive test cases
+for each part of MP2.
+//
+Please review the link:/MP/2019/spring/0/#testing[MP0 testing instructions].
+
+[[autograding]]
+=== Autograding
+
+Like link:/MP/2019/spring/0[MP0] and link:/MP/2019/spring/1/[MP1], we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+//
+Please review the link:/MP/2019/spring/0#autograding[MP0 autograding instructions].
+
+[[submitting]]
+== Submitting Your Work
+
+Follow the instructions from the
+//
+link:/MP/2019/spring/setup/git#submitting[submitting portion]
+//
+of the
+//
+link:/MP/2019/spring/setup/git#workflow[CS 125 workflow]
+//
+instructions.
+
+And remember, you must submit something that earns 50 points before *Monday
+2/25/2019 @ 5PM* to earn 10 points on the assignment.
+
+[[cheating]]
+== Academic Integrity
+
+Please review the link:/MP/2019/spring/0#cheating[MP0 academic integrity guidelines].
+
+Here's how _we'll_ feel if we catch you cheating in CS 125:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/1-BfDBTFLSc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++

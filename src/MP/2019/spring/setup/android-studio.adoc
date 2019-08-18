@@ -1,0 +1,186 @@
+---
+title: "Android Studio Setup"
+description:
+  Prepare your computer to complete the Android-based machine problems (MPs).
+outdated:
+  name: MP
+  current: /mp/
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+To complete the Android CS 125 labs and machine problems (MPs) you'll write your
+//
+https://www.java.com/en/[Java]
+//
+code using the
+//
+https://developer.android.com/studio/index.html[Android Studio]
+//
+Integrated Development Environment (IDE) and test your apps using the
+//
+https://developer.android.com/studio/run/emulator.html[Android Emulator].
+//
+This guide will help you install and configure this important and powerful
+development tool.
+
+[[intellij]]
+== Android Studio
+
+[.lead]
+//
+https://developer.android.com/studio/index.html[Android Studio]
+//
+is _the_ integrated development environment (IDE) for Android development.
+//
+This semester all CS 125 lab programming assignments and MPs will be done using
+Android Studio.
+
+Follow the instructions below that are appropriate for your machine.
+//
+But keep in mind that installing new software can be challenging, so don't be
+discouraged if you get stuck.
+//
+We're here to help!
+//
+Come to office hours or
+//
+https://cs125-forum.cs.illinois.edu/c/mps/android-studio[post on the forum in
+the Android Studio category].
+
+[[version]]
+=== Version
+
+For Spring 2019 we are using Android Studio version 3.3, which is the latest
+available as of January 2019.
+//
+Please install this version of Android Studio and continue using it throughout
+the semester.
+//
+Minor upgrades are probably safe to install.
+//
+If a major upgrade is released, the course staff will let you if it is safe to
+use.
+
+[[install]]
+=== Installation
+
+Begin by downloading the version of Android Studio appropriate for your machine
+using
+//
+https://developer.android.com/studio/index.html[this link].
+//
+Next, follow
+//
+https://developer.android.com/studio/install.html[these excellent installation
+instructions].
+//
+**Please follow them carefully**.
+
+[[plugins]]
+== Android Studio Plugins
+
+Once you have <<install, installed Android Studio>>, continue by installing two
+Android Studio plugins:
+
+. https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[The `checkstyle` IntelliJ plugin]
+//
+. Our official link:/tech/intellijplugin/[CS 125 IntelliJ plugin]
+
+[[checkstyle]]
+=== `checkstyle` Plugin
+
+We use
+//
+http://checkstyle.sourceforge.net/[`checkstyle`]
+//
+to help you learn how to write beautiful and maintainable code by requiring you
+to adhere to a coding standard.
+//
+**There are points on each MP for `checkstyle`, so you want to get the plugin
+installed so that you can check your style in Android Studio.**
+
+Installing this plugin is straightforward:
+
+. Open the Android Studio plugins menu
+//
+. Click on "Browse repositories..."
+//
+. Search for "checkstyle" and install the "Checkstyle-IDEA" plugin that appears
+//
+. Restart Android Studio to complete the installation
+
+You should install the latest version of the `checkstyle` plugin, currently
+5.23.0.
+//
+`checkstyle` plugin updates that are released during the semester should be safe
+to install.
+
+[[cs125plugin]]
+=== CS 125 IntelliJ Plugin
+
+Our official link:/tech/intellijplugin[CS 125 IntelliJ plugin]
+//
+will both simplify your MP development process and help us ensure that you are
+making satisfactory progress on each assignment.
+//
+You can read more about it
+//
+link:/tech/intellijplugin[here].
+
+Installing our plugin is straightforward and similar to <<checkstyle,
+installing the `checkstyle` plugin>>.
+
+. Open the Android Studio plugins menu
+//
+. Click on "Browse repositories..."
+//
+. Search for "CS 125" and install the "CS 125 @ Illinois" plugin that appears
+//
+. Restart Android Studio to complete the installation
+
+You should install the latest version of our plugin, currently 0.2.1, and any
+updates we release during the semester.
+
+[[emulator]]
+== Android Emulator
+
+An important part of Android development is to be able to test your work.
+//
+If you have an Android device, you can configure Android Studio to install your
+test app onto it.
+//
+However, if you don't have an Android device, or want to test on devices other
+than ones that you own, you'll need to utilize the
+//
+https://developer.android.com/studio/run/emulator.html[Android Emulator].
+
+The easiest way to get a virtual device set up is to
+//
+https://developer.android.com/training/basics/firstapp/[start a project, build it,
+and then try to run it].
+//
+That will launch a dialog allowing you to configure a virtual device.
+//
+Going through the
+//
+https://developer.android.com/training/basics/firstapp/[Android "Hello, World!"
+tutorial]
+//
+is also a great way to get started familiarizing yourself with app development.
+
+[[devices]]
+== Running on Real Devices
+
+If you have an Android phone you can also install and run your apps on your own
+device, which will be faster and more fun that using the emulator.
+//
+Follow
+//
+https://developer.android.com/training/basics/firstapp/running-app[this
+tutorial]
+//
+for instructions on how to configure your device properly to run your apps
+during development.

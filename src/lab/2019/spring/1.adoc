@@ -1,0 +1,396 @@
+---
+title: "Debugging and More Android Setup"
+description:
+  Today you'll complete some debugging homework problems and finish setting up
+  your Android environment in preparation for MP0 which will be released next
+  week.
+outdated:
+  name: lab
+  current: /lab/
+---
+
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.lead]
+//
+Today's lab begins teaching you to debug and completes preparing you to work on
+this semester's Android-based MPs.
+//
+You'll start by completing some in-lab homework problems that help you learn to
+debug problems with your code.
+//
+Next you'll finish preparing your Android development environment by installing
+and using Android emulators to run and debug your Android code.
+
+[[debugging]]
+== Learning How to Debug [.text-muted]#(60 Minutes Total)#
+
+Programmers never stop making mistakes.
+//
+I've been doing this for almost 20 years and I make many, many programming
+mistakes every day.
+//
+What you _do_ get better at is fixing them, quickly, so that they don't slow you
+down and you can get on with your business of changing the world.
+
+Our first lab homework assignment today is designed to help you learn to do
+that.
+//
+This knowledge will come in handy in all of your future programming
+tasks&mdash;but definitely during your CS 125 CBTF quizzes this semester, where
+you may small mistakes and be pressed for time.
+
+Oh, and in case you're wondering, programmers have long referred to fixing
+mistakes in their code as
+//
+https://en.wikipedia.org/wiki/Debugging[_debugging_],
+//
+a term attributed at least in part to
+//
+https://en.wikipedia.org/wiki/Grace_Hopper[computer science pioneer Grace Hopper]
+//
+footnote:[Who was also https://www.youtube.com/watch?v=1-vcErOPofQ[great on
+Letterman].].
+
+=== Understanding Your Program's Output [.text-muted]#(20 Minutes)#
+
+A key part of learning to debug effectively is understanding the various kinds
+of output that your program produces.
+//
+You _can_ just stare at your code and try to figure out what's wrong&mdash;that
+might work, eventually, maybe.
+//
+But it's slow.
+//
+**Frequently a much faster route is to use the output that the computer provides
+when testing your code to help you fix it.**
+
+Note that this is not just an artifact of how we do things in CS 125.
+//
+Every large tech company has sophisticated systems for testing their code before
+it is released to users or to the public.
+//
+This is because mistakes can be both embarrassing and expensive, so it's better
+to test things first rather than try to clean up the mess later.
+//
+Before modifications get made to widely-used pieces of software like, say, the
+Chrome browser, those changes go through extensive automated testing along with
+multiple rounds of review by other human developers.
+//
+So increasingly one of the many things that computers are helping automate is
+the process of testing changes to their own code!
+
+When you submit your program for grading in CS 125 the following steps
+take place.
+
+==== Code Format Checking
+
+First, we test the _format_ of your code using
+//
+http://checkstyle.sourceforge.net/[`checkstyle`],
+//
+a program that checks it against a set of rules about how Java code should be
+formatted.
+//
+We do this because writing _readable_ code is as important as writing _correct_
+code.
+
+For example, the following code has a `checkstyle` error&mdash;can you spot what
+it is?
+
+[source,java]
+----
+if (x>0) {
+  System.out.println("x is positive");
+}
+----
+
+`checkstyle` produces error messages that look like this (note that this is
+_not_ for the snippet above):
+
+[source]
+----
+[ERROR] /base/src/main/java/Question.java:3:10: 'else' is not preceded with whitespace.
+[ERROR] /base/src/main/java/Question.java:3:10: '}' is not followed by whitespace.
+----
+
+Note that the error message identifies the line number (3) where the error
+occurs, along with a brief human-readable description of the problem.
+//
+Given the error message above, can you come up with a snippet that could have
+produced this error?
+
+==== Compilation
+
+Second, we try to _compile_ your code using the
+//
+https://en.wikipedia.org/wiki/Java_compiler[Java compiler].
+//
+This is step that we'll discuss more soon in class, but certain kinds of
+mistakes can be caught at this point.
+//
+We sometimes refer to errors identified at this stage as _compiler errors_ or
+_syntax errors_.
+//
+**Note that if the Java compiler can't compile your code we can't run it and
+continue with testing, so we stop at this point.**
+
+For example, the following code will produce a compiler error&mdash;can you spot
+it?
+
+[source,java]
+----
+double latitude = 80.98274;
+if (latitute > 0) {
+  System.out.println("You're in the northern hemisphere");
+}
+----
+
+The Java compiler can produce all kinds of error messages depending on what you
+did wrong.
+//
+Understanding how to interpret them will _greatly_ improve your ability to fix
+errors and perform well on the homework, quizzes, and MPs.
+//
+Here are a few examples of common mistakes.
+//
+Note that, like the `checkstyle` errors above, each identifies the line number
+where the error took place and provide some information about the problem that
+was encountered.
+//
+For each, see if you can determine a piece of code that could produce that
+error.
+
+[source,java]
+----
+/base/src/main/java/Question.java:2: error: cannot find symbol
+        if (currenttime > 10000000) {
+            ^
+  symbol:   variable currenttime
+  location: class Question
+1 error
+----
+
+[source,java]
+----
+/base/src/main/java/Question.java:4: error: reached end of file while parsing
+}
+ ^
+1 error
+----
+
+[source,java]
+----
+/base/src/main/java/Question.java:2: error: ';' expected
+            System.out.println("Smaller")
+                                         ^
+1 error
+----
+
+==== Testing
+
+Finally, we run your code using a _test suite_.
+//
+At that point your program will run, but it might not be correct.
+//
+For example, we may have asked you to add `x` and `y` but if your code instead
+computes `x * y`, then it doesn't match our specification.
+//
+Our test suite will try and determine this and, if your code doesn't behave
+correctly, we'll provide some information about what went wrong.
+
+Usually how we do this is to compare the behavior of your program to what we had
+expected.
+//
+For example, let's say that we instructed you to write a snippet of code that
+printed `North Pole` at the appropriate `latitude` and `longitude` and not print
+anything otherwise.
+//
+You submitted the following code:
+
+[source,java]
+----
+if (latitude == 0.0) {
+  System.out.println("North Pole");
+} else {
+  System.out.println("Not at North Pole");
+}
+----
+
+What we would do is test your code with different values of `latitude`.
+//
+First we'd say, let's see if it's right if `latitude` is equal to `0.0`.
+//
+In that case it does print `North Pole`, so that's good.
+//
+OK, now what happens if we set `latitude` to `1.0`?
+//
+We didn't tell you to not print anything otherwise, but you printed `Not at
+North Pole`.
+//
+So you might get an error message something like this:
+
+[source]
+----
+java.lang.AssertionError: expected [] but found [North Pole]
+----
+
+These error messages might look different depending on the problem you are
+working on.
+//
+But in general they describe a mismatch between our _expectations_ of how your
+code should behave based on our instructions and the _reality_ of how it worked
+when we ran it.
+
+=== Practice Debugging [.text-muted]#(40 Minutes)#
+
+Next, you should the next 40 minutes on our
+//
+https://prairielearn.engr.illinois.edu/pl/course_instance/20716/assessment_instance/733789[in-lab homework].
+//
+**You will only be able to access this homework beginning 20 minutes after your
+lab starts and ending 40 minutes later.**
+//
+So if your lab starts at 9AM, you can start the homework at 9:20AM and should
+complete it by 10AM sharp.
+//
+And if you are in the wrong lab you will not be able to complete the lab
+homework assignment&mdash;please attend the right lab next time.
+
+Please feel free to work with a partner or in a small group on the lab
+homework.
+//
+**But every student must submit their own answers to receive credit.**
+
+Note that the best way to approach these debugging problems is _not_ to just
+resubmit your solution over and over again.
+//
+In fact, we've disable cut and paste on these problems to prevent you from doing
+that.
+//
+Instead, first run the code, then use the output to identify the errors, and
+then fix them by modifying the code that is in front of you.
+//
+**All of these errors can be fixed with only a few keystrokes.**
+
+[[android]]
+== Building and Running Android Apps [.text-muted]#(Remaining Time)#
+
+Next, let's return to the Android Studio tutorial and complete
+//
+link:/MP/2019/spring/setup/android-studio#emulator[an additional portion]
+//
+of the tutorial.
+//
+To work on our CS 125 MPs, you will need either an Android device or a working
+emulator&mdash;even if it runs a bit slowly.
+//
+Again, work with the course staff to try and complete this portion of the lab.
+
+**Note that if you have an Android device you should
+//
+link:/MP/2019/spring/setup/android-studio/#devices[use it for Android development].**
+//
+Even an old and slow Android device can provide a more enjoyable development
+environment than using the emulator.
+
+=== You're a Hacker Now
+
+Note that we are definitely throwing you into the deep end today.
+//
+As you work your way through the
+//
+https://developer.android.com/training/basics/firstapp/[Android "Hello, World!"
+tutorial]
+//
+you will _definitely_ encounter code and concepts that are new and unfamiliar to
+you.
+//
+That's normal.
+
+CS 125 is designed to introduce you to two sides of programming and computer
+science.
+//
+In lectures and on our homework problems and quizzes you'll be working on clean,
+simple, isolated problems.
+//
+Our goal is to prepare you to think and solve problems like a computer
+scientist.
+
+But building real things also requires a different set of skills and mindset,
+sometimes referred to as _hacking_.
+//
+Hacking involves learning how to work with large, complicated systems.
+//
+It means spending more time learning about how other things work than building
+your own things.
+//
+It requires that you get comfortable _not_ necessarily understanding how
+every part of your program works&mdash;at least not right away.
+
+You'll get lots of practice at this on our labs and MPs, starting today.
+//
+**Our advice: be brave and unafraid.**
+//
+Try things, experiment, and have fun.
+//
+You aren't going to break anything important, and even if you get a mess and get
+stuck we'll be able to help bail you out.
+//
+And the rewards are huge.
+//
+Once you can hack together Android apps, you can distribute them to billions of
+users all over the world.
+//
+When we said "change the world", we meant it.
+
+=== Modifying "Hello, World"
+
+Once you have the
+//
+https://developer.android.com/training/basics/firstapp/["Hello, world!" app]
+//
+running, try to make the following modifications:
+
+* Change the text that is shown to "Hello, CS 125!"
+//
+* Change the size of the text
+//
+* Change the position of the text
+//
+* Add some other element to the user interface
+
+Your goal today should be to get at least to the
+//
+https://developer.android.com/training/basics/firstapp/building-ui["Build a
+simple user interface"]
+//
+portion of the tutorial.
+//
+You don't need to get farther than that&mdash;we'll continue with this tutorial
+in future labs.
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've reviewed our <<debugging, debugging instructions>> and completed our
+first
+//
+https://prairielearn.engr.illinois.edu/pl/course_instance/20716/assessment_instance/733789[in-lab homework].
+//
+. You've built and run
+//
+https://developer.android.com/training/basics/firstapp/[your first Android app]
+//
+on either an emulated device or your own Android device.
+
+If you need more help completing the tasks above please come to
+//
+link:/info/2019/spring/syllabus/#calendar[office hours]
+//
+or post on the {forum}.

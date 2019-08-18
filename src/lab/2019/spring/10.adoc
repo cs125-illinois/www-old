@@ -1,0 +1,181 @@
+---
+title: A Knight's Tour
+description:
+  Implement a recursive algorithm to tour a chess board and get started on MP4!
+spelling_exceptions:
+  - MxN
+  - Warnsdorff
+outdated:
+  name: lab
+  current: /lab/
+---
+
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+This lab continues our discussion of recursion&mdash;a powerful new problem
+solving tool.
+//
+You'll develop a recursive algorithm to explore a chess board and implement it
+in Java.
+
+[[recursion]]
+== Recursion [.text-muted]#(110 Minutes)#
+
+Recursion is an important and powerful programming tool.
+//
+At times, it can be the only way to elegantly solve a particular programming
+problem.
+//
+But it is also a hard concept to wrap your head around.
+
+In class we've seen recursion on trees, and will soon see the same idea applied
+to lists and arrays.
+//
+link:/MP/2019/spring/4/[MP4] introduces you to recursion on graphs&mdash;another powerful
+and ubiquitous data structure.
+
+=== The Knight's Tour
+
+But today's lab introduces you to recursion on a _chess board_.
+//
+The problem we'll be solving today is a classic known as the
+//
+https://en.wikipedia.org/wiki/Knight%27s_tour[Knight's Tour].
+//
+The goal is to visit _every_ square on a rectangular board _once_ using the
+knight from chess, which moves in a distinctive
+//
+https://en.wikipedia.org/wiki/Knight_(chess)[L shape].
+//
+(Please review the Wikipedia article if you aren't familiar with chess or with
+this particular piece&mdash;or ask a neighbor.)
+
+We're doing this problem for two reasons.
+//
+First, it's really interesting.
+//
+But second, and most importantly, it will help you get started on
+//
+link:/MP/2019/spring/4/[MP4], since touring the chess board is akin to graph exploration.
+
+This may seem like a strange problem to approach recursively.
+//
+But let's apply our usual strategy.
+
+==== Base case
+
+There are actually _two_ bases cases, one indicating success and one
+indicating failure:
+
+* *Success:* if we have successfully visited all squares we are done and can
+stop.
+//
+* *Failure:* if we end up on a square where all moves would take us to squares
+that we have already visited, we are stuck and _this particular_ path did not
+work out.
+
+==== Recursive step
+
+How do we make the problem smaller?
+//
+Well, given an MxN board, a tour has to take M * N steps.
+//
+So if we take one move in any direction we are a bit closer to finishing the
+tour!
+//
+Given a position on the board, we have several smaller subproblems to
+solve&mdash;we need to see if we can visit all remaining squares from each of
+our neighbors.
+//
+Since we have visited our current location, each subproblem also represents a
+board with fewer squares to visit, and so a smaller problem.
+
+==== Combine results
+
+How do we combine results from multiple moves in different directions?
+//
+Here the idea is simple: just use the first direction that results in a valid
+tour of the board.
+
+==== Pseudocode
+
+Before we start with our Java code let's jot down some pseudocode for our tour
+algorithm:
+
+[source]
+----
+if all squares are visited:
+  return the board with the current successful tour
+for all valid moves we can make:
+  if the move takes us to a square we've visited:
+    continue
+  copy the current board
+  make the move on the copied board
+  restart the tour on the copied board
+  if the tour completes succesfully:
+    return that board
+  otherwise:
+    try the next move
+if we reach here we didn't find a move that worked, so return failure
+----
+
+=== Open and Closed Tours
+
+We can also distinguish between two kinds of Knight's tours.
+//
+An *open tour* can end anywhere.
+//
+But a closed tour has to link up with the start&mdash;meaning that it forms a
+loop that the knight could continue forever footnote:[although you'd think that
+they would get bored eventually...].
+
+As a challenge problem on today's lab homework we'll have you try and implement
+a _closed_ tour starting with your solution to the open tour algorithm.
+//
+It's not a huge change, but you may find it tricky.
+
+=== Warnsdorff's Rule
+
+Finally, even though our recursive algorithm works reasonably well, we can help
+optimize it using a _heuristic_ called
+//
+https://en.wikipedia.org/wiki/Knight%27s_tour#Warnsdorff's_rule[Warnsdorff's
+rule].
+//
+It states that, if we have multiple options of valid moves, we should choose the
+one that results in the _smallest_ number of next moves.
+//
+While counterintuitive, it allows us to solve the Knight's Tour in linear time
+and makes even large boards tractable.
+
+So as a _final_ challenge problem on today's lab we'll let you give Warnsdorff's
+rule a try.
+
+[[mp4]]
+== MP4 [.text-muted]#(Remaining Time)#
+
+If you have any time left over use it to work on
+//
+link:/MP/2019/spring/4/[MP4].
+//
+It's due in less than two weeks and it's _not easy_.
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've completed our in-lab recursion homework problem.
+//
+. You've made some more progress on link:/MP/2019/spring/4/[MP4]...
+//
+. And so has everyone else in your lab!
+
+If you need more help completing the tasks above please come to
+//
+link:/info/2019/spring/syllabus/#calendar[office hours]
+//
+or post on the {forum}.

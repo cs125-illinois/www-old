@@ -1,0 +1,411 @@
+---
+title: Final Project UI
+description:
+  Today you'll get started on your final project. Specifically, you'll find a
+  partner and begin planning your project by sketching out a user interface
+  design for your app. You'll work on the final part of the lab using a
+  technique called pair programming.
+spelling_exceptions:
+  - DIY
+  - GSON
+outdated:
+  name: lab
+  current: /lab/
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+Today's lab marks the beginning of the end of your introduction to computer
+science.
+//
+You'll begin preliminary work on your final project and gain insights into how
+to design a _user interface_.
+
+Note that there is no written part of this lab.
+//
+Instead, we'll expect you to seek out any required information yourself or
+consulting your lab members for help.
+
+[[pairs]]
+== Pair Programming
+
+[.lead]
+//
+You'll work in pairs on today's activity.
+//
+You should pick with and work with your <<partnering, final project partner>>.
+//
+And you'll also have a chance to practice a programming approach called _pair
+programming_.
+
+[[partnering]]
+=== Picking a Project Partner
+
+Today you should pick someone that you will work with on your final project and
+in lab together for the next few weeks.
+//
+Obviously you want to find someone to work with that you enjoy working with and
+think that you can do an awesome project with&mdash;since we will be giving
+extra credit for some of the best projects.
+//
+Another consideration is ensuring that at least one of you has a laptop that can
+smoothly run Android Studio and the emulator, or an Android phone for demoing
+your new application.
+
+*If you don't have a partner yet, find one before proceeding.*
+
+If you would like to work with someone from another lab section, _you must both
+attend the same lab and work together_.
+//
+This means that only one of you will receive participation credit for that lab.
+//
+*You will not receive credit for working in lab without your
+partner.*
+//
+If you want to work with someone from another lab, this is the tradeoff you will
+have to make.
+//
+(Remember that you have three excused lab absences.)
+
+[[pairprogramming]]
+=== Pair Programming
+
+By now you've probably realized that programming is a mentally taxing full-brain
+activity.
+//
+So, frequently when programming, two heads are _literally_ better than one.
+//
+That's where the idea of
+//
+https://en.wikipedia.org/wiki/Pair_programming[_pair programming_]
+//
+comes from.
+
+What is pair programming?
+//
+Simply put, it describes any programming approach where two programmers work
+together simultaneously using a single machine.
+//
+No&mdash;you don't type with all four hands footnote:[Although if you can do
+that, there's probably some YouTube fame in it for you...].
+//
+Instead, pair programming divides the work into two roles:
+
+. *Driver*: this programmer touches the keyboard and does all code editing
+tasks.
+//
+. *Observer*: the second programmer _does not touch the keyboard_ but rather
+observes what the driver is doing, reviewing each line of code, asking
+questions, and generally serving as a guide and check on what the driver is
+doing.
+
+As a metaphor, think about the process of navigating a vehicle before voice
+navigation footnote:[Can you remember those days?].
+//
+One person, the driver, keeps their hands on the wheel and their eyes on the
+road.
+//
+The second person, the navigator, is able to observe the surroundings, look at
+the map, and generally help keep the trip on track.
+
+Pair programmers should switch roles often, and you should multiple times as you
+complete the lab tasks below.
+//
+Pair programming is widely used in industry, partly because it is sometimes
+considered to produce better code, but mainly because it's more fun than working
+alone.
+
+*Why are we doing this today?*
+//
+Simple: we want to help make sure that you and your partner can communicate and
+work together effectively.
+//
+Pair programming forces you to communicate with your partner.
+//
+If you are driving and not communicating, your observer has no idea what you are
+trying to do.
+//
+If you are observing and not communicating, your driver has no way to
+incorporate your guidance.
+
+So please complete the following tasks _using pair programming_.
+//
+Each group should only have one laptop active and the other put away.
+
+[[diyui]]
+== DIY UI [.text-muted]#(90 Minutes)#
+
+[.lead]
+//
+Your first pair challenge for today's lab is to add a user interface (UI) to a
+simple Android app.
+
+We've set up the app to look up the location of different Internet Protocol (IP)
+addresses using
+//
+https://ipinfo.io/.
+//
+Currently it just looks up a single fixed IP address on startup: `192.17.96.8`,
+which is a very special and important IP address.
+
+But currently the app has no way to take input from the user or display results.
+//
+It's missing a UI!
+//
+So that's your challenge.
+
+*Note that this is far from easy.*
+//
+If you have never done UI design before, you will soon gain an appreciation for
+how hard it is footnote:[Many a night I have spent trying to get a particular
+website to just look a _bit_ different...].
+//
+And you'll quickly develop an appreciation for all of the beautiful and
+well-designed apps that you use on a regular basis.
+//
+Design is hard!
+
+Another reason that we are doing this MP now is that we want you to come up with
+realistic UI goals for your final project.
+//
+That's what we'll work on during the <<mockup, second part of today's lab>>.
+
+=== Forking and Cloning the Lab12 Android Studio Project
+
+We've set up an
+//
+https://github.com/cs125-illinois/Lab12[Lab 12 GitHub repository]
+//
+containing an Android Studio Project that's correctly configured for Lab 12.
+//
+Getting access to it is similar to how you
+//
+link:/MP/2019/spring/setup/git/#importing[imported MP0].
+//
+But you have to fork our repository first.
+//
+If it's not obvious how to do that, try following
+//
+https://help.github.com/articles/fork-a-repo/[these instructions].
+
+=== Examining the Existing Layout
+
+We haven't really provided much for you to start with for Lab 12.
+//
+But go ahead and open up `res/layout/activity_main.xml` and examine the
+skeleton that we've provided.
+
+==== Design view v. text view
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/vmlK8pQpCGc" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+When working with Android UIs, it's important to understand that Android uses
+its own kind of markup language to design user interfaces.
+//
+Just like HTML determines the structure of a web page, Android uses XML to
+define and position layout elements.
+
+Android Studio always provides two ways to examine the layout: one is the
+_design view_ that shows a graphical representation of how the UI will look.
+//
+The second is the _text view_ that shows the XML markup used to generate the
+layout.
+
+As you get started with UI design, we suggest using the design view as much as
+possible&mdash;it will make things easier.
+//
+But if you want to continue Android development you'll want to get comfortable
+with the XML view as well, and may want to learn how to design UIs by writing
+the XML directly.
+
+==== `LinearLayout`
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/x0W0UU-KUsU" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Your app's `MainActivity` currently uses a single UI layout called a
+//
+https://developer.android.com/guide/topics/ui/layout/linear.html[`LinearLayout`].
+//
+It arranges all elements inside it into a single row, either horizontally or
+vertically.
+//
+A `LinearLayout` is not suitable for more complex UI designs, but it can be a
+decent starting point for simple applications.
+
+=== Android Design Principles
+
+Roughly speaking we can break the available Android UI components into three
+categories:
+
+* *Layouts*: these determine how the elements inside them are positioned.
+Examples include the `LinearLayout`, the new `ConstraintLayout`, as well as
+`FrameLayout` and `TableLayout`. Layouts are largely invisible to the user.
+//
+* *Containers*: these determine how a larger amount of content is displayed, for
+example by scrolling (`ScrollView`, `HorizontalScrollView`), in a drop-down menu
+(`Spinner`), or by using tabs (`TabLayout`). Containers may have navigation
+elements that are visible, like a scroll bar, but mainly exist to organize the
+things that they contain.
+//
+* *Components*: these are everything that is actually visible to the user,
+including images (`ImageView`), buttons (`Button`, `ImageButton`), progress
+bars, text input fields, etc.
+
+One way to approach Android design is to start by answering the question: what
+will the user see or interact with?
+//
+Then pick which component to use.
+//
+Next, figure out how to use the containers or layouts to adjust where the
+component appears on the screen.
+//
+More often than not, that's the really tricky part.
+
+=== Part 1: Button
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/kMAimyVNeVk" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+To begin, add a button to the UI.
+//
+Have that button trigger a lookup of some IP address.
+//
+Feel free to look at previous labs and MPs for help.
+//
+When the button is clicked you should see something like this printed in the
+logs:
+
+[source]
+----
+D/Lab12:Main: {
+      "ip": "192.17.96.8",
+      "hostname": "cs125-stu-01.cs.illinois.edu",
+      "city": "Urbana",
+      "region": "Illinois",
+      "country": "US",
+      "loc": "40.1106,-88.2073",
+      "postal": "61801",
+      "org": "AS38 University of Illinois"
+    }
+I/Lab12:Main: cs125-stu-01.cs.illinois.edu
+----
+
+This is the data in JSON format returned by the web interface that your app is
+using.
+
+Note that each UI element that you want to access in your code must have a
+unique ID.
+//
+You can can elements whatever you want, but a good name for this button might be
+`lookup_address` or something like that.
+//
+It's good to pick a meaningful name so that you remember what the button is for
+what you are adding code to your `MainActivity.java` class.
+
+Here are the steps required to add the button:
+
+. Add the button to the UI. You can do this easily using the UI designer.
+//
+. Make sure that the button has useful text and a useful ID.
+//
+. Register a click handle for the button in your `onCreate` method, similar to
+what you've done on several previous MPs.
+//
+. Have that click handler run the function that retrieves information about the
+current IP address.
+
+==== Viewing the XML
+
+When you're done with adding your button using the UI designer, flip over to the
+text view and take a look at what's there now.
+//
+Try to get a general understanding of how the various components fit together.
+//
+Try changing a few of the XML properties and see if you can alter how things
+look on the display, and gain an understanding of what each property is for.
+
+=== Part 2: Location Display
+
+Next, find a way to display something about the location of the IP address on
+the user interface.
+//
+You'll need to parse a portion of the retrieved JSON and stick it into a text
+box.
+//
+We've provided a starting point as an example.
+
+=== Part 3: User Input
+
+Finally add a way to take an IP address to look up from the user.
+//
+You'll want to combine a text box for input, the button you added above, and a
+separate text view to show something about the output.
+
+=== Part 4: Help Others
+
+Are you done early?
+//
+Great!
+//
+There's probably someone else in your lab that needs help.
+//
+Please try and provide them with some guidance.
+
+[[mockup]]
+== Final Project Planning and UI Mockup [.text-muted]#(20 Minutes)#
+
+You and your partner should use the remaining lab time to begin work on two
+important final project objectives.
+
+First, you should decide what you are going to try and accomplish.
+//
+Keep in mind how much time and energy you have left, your relative ability
+levels, and how much you want (or need) 1% extra credit.
+//
+*We also highly suggest working on a project that you enjoy.*
+//
+Excitement about the final product is extremely important to get you through the
+inevitable moments of frustration.
+
+Once you have decided on a final project idea, you should begin sketching a user
+interface for your app.
+//
+Please use this lab to inform your UI design.
+//
+If you have some experience in this area, or just really like what you did for
+the first hour, then by all means consider something a bit complicated.
+//
+If you struggled, stick with something simple.
+//
+Note that Android provides some built-in activities that come with basic layouts
+designed for certain types of apps.
+//
+You can explore those by right-clicking on your project, choosing new and then
+either activity or Google, which also contains some starter activities.
+
+// vim: ts=2:sw=2:et

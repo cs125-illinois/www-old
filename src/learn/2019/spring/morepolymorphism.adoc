@@ -1,0 +1,568 @@
+---
+title: More Polymorphism
+date: 2019-02-25
+description:
+  A continued discussion of polymorphism and practice with inheritance and class
+  design.
+spelling_exceptions:
+  - Barbara Liskov
+youtube: https://youtu.be/Juj2K8NJNds
+---
+
+[[yvPGyAzjIWxppDwhCkgPugvxiKuRyxUi]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">More Polymorphism</div>
+++++
+....
+public class Pet {
+  public void printMe() {
+    System.out.println("I'm a pet");
+  }
+}
+public class Dog extends Pet {
+  public void printMe() {
+    System.out.println("I'm a dog");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Pet();
+    chuchu.printMe();
+    xyz.printMe();
+  }
+}
+....
+--
+
+[[RLvwFWZxPUMlEjaBhKQYkihiRaBXyfVY]]
+== Review: The Tree Of (Java) Life
+
+image::https://staff.fnwi.uva.nl/a.j.p.heck/Courses/JAVAcourse/ch3/lettertree.gif[role='mx-auto',width=240]
+
+[.lead]
+//
+In Java, each class has a single parent, meaning that classes are organized into
+a _tree_.
+
+If we follow each node to its parent, we eventually get to the top, or root...
+
+[[chcUpUfLDMseiHLxSlASXEYJEaTVeNjg]]
+== The Root Object: `Object`
+
+[source,java]
+----
+public class Dog { }
+// is equivalent to
+public class Dog extends Object { }
+----
+
+[.lead]
+//
+If a Java `class` does not explicitly `extend` another class, it implicitly
+extends `Object`.
+
+[[PBFsjLWvxmDzvQAhAIJrHBKYZYcJOdLu]]
+== Review: Inherited from `Object`
+
+[source,java,role='small']
+----
+public class Dog {
+  private String name;
+  Dog(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}
+----
+
+[.lead]
+//
+All Java objects inherit a small number of _important_ methods from `Object`.
+
+As a result, _all_ Java objects implement these methods!
+
+[[bvfhqvDEaqQWMvndBAgPFeBJZqsCfood]]
+== Review: Methods Inherited from `Object`
+
+[.lead]
+//
+For our purposes, the following methods inherited from `Object` are important:
+
+[.s]
+//
+* `String toString()`: return a `String` representing the instance. Frequently used for
+debugging.
+//
+* `boolean equals(Object other)`: return a `boolean` indicating whether this
+object is the same as another object
+//
+* `int hashCode()`: return an `int` uniquely representing an object's contents.
+We'll talk more about hashing later&mdash;it's incredibly important and useful.
+
+[[VcAngWrEfIXxLHOWDgZRMlkZaSDSlBFd]]
+== Review: Method Overriding
+
+[source,java,role='smaller']
+----
+public class Dog {
+  private String name;
+  Dog(String setName) {
+    this.name = setName;
+  }
+  public String toString() {
+    return this.name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}
+----
+
+[.lead]
+//
+The default `Object` methods are rarely useful.
+
+So classes usually _override_ them and provide their own.
+
+[[utODlYJfUqsTWlZolzOmbJQfoeybEMtO]]
+== Hierarchical Name and Method Resolution
+
+[.lead]
+//
+The Java type hierarchy is used when resolving the names of variables and
+methods:
+
+[.s]
+//
+. Does the class have a variable or method with the given name? If so, use it.
+//
+. If not, search the parent class&mdash;but limited by `public` and `protected`
+//
+. Continue up the tree until the name is found or the search fails
+
+[[EFtrqgaiRBTgcQdTnJRPbWjgrNlnxZhF]]
+== ! Method Overriding
+
+[.janini.smallest.compiler]
+....
+public class Animal {
+  public String toString() {
+    return "I'm an animal!";
+  }
+}
+public class Pet extends Animal { }
+public class Dog extends Pet { }
+public class OldDog extends Dog { }
+public class SweetOldDog extends OldDog { }
+public class Example {
+  public static void main(String[] unused) {
+    SweetOldDog chuchu = new SweetOldDog();
+    System.out.println(chuchu.toString());
+  }
+}
+....
+
+[[tJAEhRBaxOdrIAfHFqeluBfFBFVZEkZI]]
+== Polymorphism
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Polymorphism_(computer_science)[Polymorphism]:
+//
+the provision of a single interface to entities of different types.
+____
+
+We'll discuss interfaces in more detail when we talk about about packages.
+//
+For now, let's identify two kinds of Java polymorphism using examples.
+
+[[xejQOFdnYNedKmENRxJOESdlitSRXvBw]]
+== Subtype Polymorphism
+
+[source,java,role='small']
+----
+public class Pet {
+  public void printMe() {
+    System.out.println("I'm a pet");
+  }
+}
+public class Dog extends Pet {
+  public void printMe() {
+    System.out.println("I'm a dog");
+  }
+}
+----
+
+[.lead]
+//
+In Java, _every_ object is really an instance of at least _two_ types:
+
+[.s]
+//
+* Each `Pet` is also an `Object`
+//
+* Each `Dog` is also a `Pet` and also an `Object`
+
+[[zAfgNaUvOdTRoYcImWOGArtsyjxiCuXW]]
+== Object Conversion: Upcasting
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}
+----
+
+[.lead]
+//
+Java will _upcast_ object types automatically.
+
+[[CibxAzCMpvrFpjbBUcHRBnCoPdroMZDc]]
+== ! Object Conversion: Upcasting
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}
+....
+
+[[YHYXBIyexgSczCgXpNsrgcVZtiCWeifQ]]
+== But Instances Retain Their Types
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}
+----
+
+[[faLGlVEpJnzuilavUdSpPJnjoRNXqcsn]]
+== ! But Instances Retain Their Types
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}
+....
+
+[[sdlBDsmJxGzipqJCuKbCXcwbxKBRbrno]]
+== Object Conversion: Downcasting
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    Example.printAnything(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    Example.printAnything(chuchuAsPet);
+  }
+}
+----
+
+[.lead]
+//
+We can also cast instances _down_ but only if the instance is
+actually the appropriate subtype.
+
+Java checks the cast at runtime to make sure that it is appropriate.
+
+[[GJrYLdzWnTewfJWDGEyNqVxQyxjMmJCk]]
+== ! Object Conversion: Downcasting
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    System.out.println(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    System.out.println(chuchuAsPet);
+    Dog chuchuAsDog = (Dog) chuchu; // chuchu is also a Dog, so this works
+    System.out.println(chuchuAsDog);
+  }
+}
+....
+
+[[CpZeQftzcOFsQCDCxiBqCcyBJtoOHNvI]]
+== Type Testing: `instanceof`
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}
+----
+
+The Java `instanceof` operator allows you to test whether an object is an
+instance of _or_ a descendant of a particular class.
+
+[[OefedXVUqXZifDYrxutlCilKEnwfvnij]]
+== ! Type Testing: `instanceof`
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}
+....
+
+[[tvirHLHXNkNnicxBiBCNdQxjdbnqjSts]]
+== Review: Liskov Substitution Principle
+
+An example for Java:
+
+[quote,role='spelling_exception']
+____
+https://en.wikipedia.org/wiki/Liskov_substitution_principle[Substitutability]
+//
+is a principle in object-oriented programming stating that, in a computer
+program, if `Dog` is a subtype of `Pet`, then objects of type `Pet` may be replaced with
+objects of type `Dog` (i.e. an object of type `Pet` may be substituted with any object
+of a subtype `Dog`) without altering any of the desirable properties of `Pet`
+(correctness, task performed, etc.).
+____
+
+[[nUWyBwYOCDtTXFYmxzjQBKdtSVcLLhjZ]]
+== Substitutability in Practice
+
+[source,java,role='smaller']
+----
+public class Pet {
+  public boolean useful() {
+    return true;
+  }
+}
+public class Dog extends Pet {
+  public String toString() {
+    return "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    System.out.println(chuchu.useful());
+    System.out.println(xyz.useful());
+  }
+}
+----
+
+[[VhyrHDhYiwsScmHUunmuvwgwbiWRJPqJ]]
+[.oneword]
+== Subtype Polymorphism
+
+[.lead]
+//
+We can always use `toString`, but every class can implement it
+differently.
+
+[[yvYtRfULCbIvhMMdEOcGHIreUrBynaXT]]
+[.oneword]
+== Same Names, Different Behavior
+
+[.lead]
+//
+Where else have we seen this before?
+
+[[vGwilOBrBAWUfzutpyvFACGGhIYzMNyQ]]
+== ! Java Method Overloading
+
+[.janini.small]
+....
+static int sum(int first, int second) {
+  return first + second;
+}
+static double sum(double first, double second) {
+  return first + second;
+}
+System.out.println(sum(10, 20));
+System.out.println(sum(10.0, 20.0));
+....
+
+[[CaeAiZMIixRpAkCxQeiqMdVeitvqdxFV]]
+== Polymorphism
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Polymorphism_(computer_science)[Polymorphism]:
+//
+the provision of a single interface to entities of different types.
+____
+
+[.s]
+//
+* *Subtype polymorphism*: a single method can act on all descendants of a given
+class
+//
+* *Method overloading*: a method can behave differently depending on its arguments
+//
+* Generic types (discussed later)
+
+[[ufJmZnSeceinndtXZprPsVdWxQYnEceY]]
+== Why Polymorphism?
+
+[.lead]
+//
+This really gets to the purpose behind Java's entire type system.
+
+[.s]
+//
+* Descendant classes can implement or override ancestor behavior while retaining
+desirable ancestor properties
+//
+* Polymorphism makes it possible to write methods that work for any descendant
+class&mdash;even ones that you may not have created
+
+[[UrXbXVjItLWsQbiVhoeLQbuFuiAMhWgj]]
+== Generality v. Capability
+
+[.lead]
+//
+Polymorphism presents one of many _tradeoffs_ in computer program and system
+design:
+
+[.s]
+//
+* *Higher* on the object hierarchy: more general, but can use fewer capabilities
+//
+* *Lower* on the object hierarchy: less general, but can use more capabilities
+
+[[WntsfyfctNExAnIlgDdzfqdylondybee]]
+== ! Generality v. Capability
+
+[.janini.smallest.compiler]
+....
+public class Animal {
+  public String animalInfo() {
+    return "I'm an animal!";
+  }
+}
+public class Pet extends Animal {
+  public String petInfo() {
+    return "I'm an animal!";
+  }
+}
+public class Dog extends Pet { }
+public class OldDog extends Dog { }
+public class SweetOldDog extends OldDog { }
+public class Example {
+  public static void main(String[] unused) {
+    SweetOldDog chuchu = new SweetOldDog();
+    System.out.println(chuchu.toString());
+  }
+}
+....
+
+[[llSwhDiJhDVPeyiCsBwpfdfEdrSUupdC]]
+[.oneword]
+//
+== Questions About Polymorphism?
+
+[[HiLlpvxKziOlYYkRfdKZIjluYKLMNtQj]]
+== Announcements
+
+* **We will _not_ have a lecture this Wednesday.**
+//
+* My office hours today and Wednesday are canceled. See you Friday!
+//
+* The link:/MP/2019/spring/2/[MP2] early deadline is _today_ at 5PM.
+
+// vim: ts=2:sw=2:et
