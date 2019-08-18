@@ -13,7 +13,7 @@ const mongo = require('mongodb').MongoClient
 
 const argv = require('minimist')(process.argv.slice(2))
 let topClient
-mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client => {
+mongo.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => {
   topClient = client
   let peopleCollection = client.db('cs125').collection('people')
   let sectionCollection = client.db('cs125').collection('state')
