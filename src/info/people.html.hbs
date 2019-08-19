@@ -7,26 +7,40 @@ notitle: true
 internalize: false
 ---
 <div class="mt-2 spelling_exception">
-  <h2 id="instructors" class="text-primary">Instructor</h2>
   <div class="row">
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <h2 id="instructors" class="text-primary">Instructor</h2>
       <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/f018d0710c707024e5ad34f1b0dec4a6?s=200" alt="Photo of Geoffrey Challen">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/f018d0710c707024e5ad34f1b0dec4a6?s=200" alt="Photo of Geoff Challen">
         <div class="card-body">
-          <h4 class="card-title text-center">Geoffrey (GWA) Challen</h4>
+          <h4 class="card-title text-center">Geoff Challen</h4>
           <p class="card-text">
-          Teaching lectures.
+            The buck stops here.
           </p>
         </div>
       </div>
     </div>
+    {{#each course.Fall2019.staffByRole.head }}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <h2 id="headca" class="text-primary">Head CA</h2>
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <div class="card-body">
+          <h4 class="card-title text-center">{{{ this.name }}}</h4>
+          <p class="card-text">
+            Second in command.
+          </p>
+        </div>
+      </div>
+    </div>
+    {{/each}}
   </div>
 </div>
 
 <div class="mt-3 spelling_exception">
-  <h2 id="tas" class="text-primary">{{ course.Spring2019.staffByRole.TA.length }} Teaching Assistants</h2>
+  <h2 id="tas" class="text-primary">{{ course.Fall2019.staffByRole.TA.length }} Teaching Assistants</h2>
   <div class="row">
-    {{#each course.Spring2019.staffByRole.TA }}
+    {{#each course.Fall2019.staffByRole.TA }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -55,16 +69,38 @@ internalize: false
   </div>
 </div>
 
-{{#if course.Spring2019.staffByRole.assistant.length }}
 <div class="mt-3 spelling_exception">
-  <h2 id="cas" class="text-primary">{{ course.Spring2019.staffByRole.assistant.length }} Course Assistants</h2>
+  <h2 id="captains" class="text-primary">{{ course.Fall2019.staffByRole.captain.length }} Office Hour Captains</h2>
+  <div class="row">
+    {{#each course.Fall2019.staffByRole.captain }}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{{ this.name }}}</h5>
+          <p class="email text-center">
+            <a href="mailto:{{{ this.email }}}"><code>{{{ this.email }}}</code></a>
+          </p>
+          <p class="small card-text">
+            Leading office hours.
+          </p>
+        </div>
+      </div>
+    </div>
+    {{/each }}
+  </div>
+</div>
+
+{{#if course.Fall2019.staffByRole.assistant.length }}
+<div class="mt-3 spelling_exception">
+  <h2 id="cas" class="text-primary">{{ course.Fall2019.staffByRole.assistant.length }} Course Assistants</h2>
   <p class="lead">
     Our course assistants are so excited about computer science that they are
     helping you to learn more! Please treat them accordingly&mdash;with a lot of
     appreciation!
   </p>
   <div class="row">
-    {{#each course.Spring2019.staffByRole.assistant }}
+    {{#each course.Fall2019.staffByRole.assistant }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -95,14 +131,14 @@ internalize: false
 {{/if}}
 
 <div class="mt-3 spelling_exception">
-  <h2 id="developers" class="text-primary">{{ course.Spring2019.staffByRole.developer.length }} Course Developers</h2>
+  <h2 id="developers" class="text-primary">{{ course.Fall2019.staffByRole.developer.length }} Course Developers</h2>
   <p class="lead">
     Our course developers do not hold office hours or help with labs. But they
     are working hard behind the scenes to make CS 125 better this semester and
     in the future.
   </p>
   <div class="row">
-    {{#each course.Spring2019.staffByRole.developer }}
+    {{#each course.Fall2019.staffByRole.developer }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
