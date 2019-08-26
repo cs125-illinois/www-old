@@ -16,6 +16,49 @@ doTOC: false
   <a href="#Fall_2018">Fall 2018</a> only.
 </p>
 
+<a class="anchor" id="Fall_2019"></a>
+<h1>Fall 2019</h1>
+
+<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-po13lr8381OFhWqmE_xHDoO">
+  YouTube Playlist
+</a>&nbsp;//<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-pqdHPdZRW_1aEpKdHH4hy4O">
+  Pre-Lecture Music
+</a>
+
+<hr />
+
+<div class="mt-2 smaller">
+  {{#each slides.Fall2019 }}
+  <div class="row">
+    <div class="col-12">
+      <h2 id="_{{ this.slug }}" class="h3">
+        {{ format_date this.date "slides" }}.
+        <span style="font-weight: normal;">
+          {{{ this.title }}}
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+        {{#if this.slides }}
+          <a class="external" target="_blank" href="{{ this.slides }}">Slides</a>
+        {{/if}}
+        {{#if this.separator }}
+          //
+        {{/if}}
+        {{#if this.echo }}
+          <a class="external" target="_blank" href="{{ this.echo }}">Echo 360 Video</a>
+        {{/if}}
+        {{#if this.youtube }}
+          <a class="external" target="_blank" href="{{ this.youtube }}">YouTube</a>
+        {{/if}}
+      </div>
+      <p>
+        {{{ this.description }}}
+      </p>
+    </div>
+  </div>
+  {{/each}}
+</div>
+
 <a class="anchor" id="Spring_2019"></a>
 <h1>Spring 2019</h1>
 
@@ -146,14 +189,17 @@ doTOC: false
   <nav id="toc" class="nav flex-column">
     <ul class="section-nav">
       <li class="entry">
-        <a class="nav-link" href="#Spring_2019">Spring 2019</a>
+        <a class="nav-link" href="#Fall_2019">Fall 2019</a>
         <ul>
-        {{#each slides.Spring2019 }}
+        {{#each slides.Fall2019 }}
           <li class="small">
             <a class="nav-link" href="#_{{ this.slug }}"><code>{{ format_date this.date "shortSlides" }}</code>: {{ this.title }}</a>
           </li>
         {{/each}}
         </ul>
+      </li>
+      <li class="entry">
+        <a class="nav-link" href="#Spring_2019">Spring 2019</a>
       </li>
       <li class="entry">
         <a class="nav-link" href="#Fall_2018">Fall 2018</a>
