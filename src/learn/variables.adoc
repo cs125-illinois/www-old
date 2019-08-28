@@ -1,0 +1,500 @@
+---
+title: Types and Variables
+date: 2019-08-28
+description:
+  Introduction to Java primitive types, variable initialization and declaration,
+  and modifying variable values through a variety of expressions.
+---
+:imagesdir: /learn/images
+:!sectids:
+
+[[ATBHkGXvFSWfEfPtxFTaGtPoeDEqqmKA]]
+== !
+
+[.janini]
+--
+++++
+<div class="message">Primitive types, variables, and expressions</div>
+++++
+....
+float i;
+i = 0;
+i++;
+i /= 2;
+System.out.println(i);
+....
+--
+
+[[dmICKmgxEaeFVDnRmoouGYPomfQjelVz]]
+[.oneword]
+== You're Learning a New Language
+
+And your computer is a very eager but unforgiving conversant
+
+[[LMSVWMDVRIRYONNUARUXPCWBXZRKTZDW]]
+== !Small Mistakes
+
+[.janini]
+....
+// And computers can communicate
+System.out.println("Hello, world!');
+....
+
+[[HzvMPOcXRBcxTiCawrMAPICZfbcnZyYW]]
+== Our Approach
+
+[.s]
+//
+* Start small: with just a few lines of code
+//
+* Work up to slightly more complicated examples
+//
+* Then to complete functions and algorithms
+//
+* And eventually to understanding entire files of Java code
+
+[[aoBhdVncEOFFdpoLjiBnHnpnqGeUvndy]]
+== Quantity v. Quality
+
+[quote,role='small']
+____
+The ceramics teacher announced on opening day that he was dividing the class
+into two groups.
+//
+All those on the left side of the studio, he said, would be
+graded solely on the quantity of work they produced, all those on the right
+solely on its quality.
+//
+His procedure was simple: on the final day of class he
+would bring in his bathroom scales and weigh the work of the "quantity" group:
+fifty pound of pots rated an "A", forty pounds a "B", and so on.
+//
+Those being
+graded on "quality", however, needed to produce only one pot - albeit a perfect
+one - to get an "A".
+
+**Well, come grading time and a curious fact emerged: the works of highest quality
+were all produced by the group being graded for quantity.**
+//
+It seems that while the "quantity" group was busily churning out piles of
+work&mdash;and learning from their mistakes&mdash;the "quality" group had sat
+theorizing about perfection, and in the end had little more to show for their
+efforts than grandiose theories and a pile of dead clay.
+____
+
+
+[[VBGzOzMUlIEziEhivMByHeyXbOzffNwX]]
+== What Are Computers Good At?
+
+. *Basic math*
+//
+. Simple decision making
+//
+. Doing things over and over again very, very fast
+//
+. *Storing data*
+//
+. And communicating
+
+[[AsbqATwBNKvdCYvjZAzsXqxQWdiLEquk]]
+== Variable Declaration
+
+[source,java,linenums]
+----
+// I declare a variable named c of type char
+char c;
+
+// I'm going to use an int and call it first
+int first;
+
+// I hereby create a boolean and shall name it isSet
+boolean isSet;
+----
+
+[.s]
+//
+* In Java every variable has a _name_ and a _type_
+//
+* The name is for you, the programmer
+//
+* The type is both for you and for Java
+
+[[pRyNruakCGYMibaQiXiRPYtFSICkIVgF]]
+== Variable Names Must Be Unique
+
+[source,java]
+----
+// I declare a variable named c of type char
+char c;
+
+// This doesn't work. How will I tell them apart?
+int c;
+
+// Even this doesn't work if c has already been declared.
+char c;
+----
+
+* There are rules allowing the same name to be used in multiple places in the
+same program
+//
+* We'll learn about them later
+
+[[CsumONHCkuznIwwqbsOFPqYGzdhjQLYE]]
+== Good Variable Names
+
+[.lead]
+//
+Choosing good variable names will make your life a lot easier as a programmer.
+
+Good variable names are:
+
+[.s]
+//
+. Descriptive
+//
+. Indicative of the variable's function
+//
+. As succinct as possible...
+//
+. But see #2 above
+//
+. This will make more sense as we go along
+
+[[EILFHOZETEGZEDCURSNNWICQQTXIHYDQ]]
+== Variable Naming Example
+
+Just so that you know that I practice what I preach:
+
+[source,java]
+----
+for (int i = startingPoint; i < doubles.length; i++) {
+    if (doubles[i] > maximum || i == startingPoint) {
+        maximum = doubles[i];
+    }
+}
+----
+
+(This is code from the Spring 2018 MP0 solution set.)
+
+[[cAdnFWhghzGDfXGbhMdutjduikIJITRV]]
+[.oneword]
+//
+== Poetic Programming
+
+[quote, Clive Thompson]
+____
+//
+Code is speech; speech a human utters to silicon, which makes the machine come
+to life and do our will.
+//
+____
+
+[[mYKcPepOrSkLsuLXBOmQMIUssNBBVQcW]]
+== Comments
+
+[source,java]
+----
+// Also: this is a single-line comment.
+// It starts with a //
+
+/*
+ * Here is another one. Multiline comments start with /* and end with
+ */
+
+// Comments are ignored by the computer, but can be
+// some of the most important parts of your code
+// They're for you and other humans
+----
+
+[[yTXvoDLkxPLfKdDEwqcbgcwbBjKliDkT]]
+== Variable Types
+
+[.lead]
+//
+Java has _eight_
+//
+http://cs.fit.edu/~ryan/java/language/java-data.html[primitive data types].
+
+All other data in Java is represented by _combinations_ of these building blocks.
+//
+You can break them into four categories:
+
+[.s]
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+//
+. *Character*: `char`
+//
+. *True or false*: `boolean`
+
+[[KAJCDCJDQBDSTGVXXRMUZFOIXTZZROHA]]
+[.oneword]
+//
+== This is About Data
+
+[[eIhzSGdomQfxADXtZqDXzjXGEAqMmsWK]]
+== Variable Initialization
+
+[source,java]
+----
+// I declare a variable named mine of type float
+// and initialize it to 0.1
+float mine = 0.1;
+
+// Let there be a boolean called isItSnowing
+// and initialize it to false
+boolean isItSnowing = false;
+
+// Declare timeSince1979 of type long
+// and initially set it to 1204209
+long timeSince1979 = 1204209;
+----
+
+[[PFgALdBwLvDVYkQRHZTIGjXoueZTccDF]]
+== Experimenting With Initialization
+
+[.janini]
+....
+// Let's create and initialize some variables of different types
+double x;
+System.out.println(x);
+// Try reinitializing the same variable to see what happens
+....
+
+[[mnqvSopbyJJQZGqGLivHdtSjHypzpwxd]]
+== Literals
+
+A _literal_ is a number or other value that appears directly in the source
+code.
+
+[source,java]
+----
+// 1000 is a long literal. Note the L suffix.
+long big = 1000L;
+
+// 'g' is a character literal.
+char one = 'g';
+
+// true and false are boolean literals.
+boolean itsEarly = true;
+boolean iSleptWell = false;
+----
+
+[[xnWysQQnbfFCUmWTfBvEpvXdTqHDwXlL]]
+== Variables Can Be Modified
+
+[.janini]
+....
+// Let's modify some integers
+int changing = 10;
+changing = 20; // I can set them again
+changing = 20 + 10; // Math is OK on the right side
+changing += 1; // I have some special operators
+changing /= 2; // +, -, / and * all work with =
+....
+
+[[upWVceueDWDXMLtzpLzaAIKPyAJKeHTm]]
+== Variables Must Maintain the Same Type
+
+[.janini]
+....
+// Ruh-roh...
+int changing = 10;
+changing = 10.0;
+....
+
+[[wGIfxmUfDEWxDVwvbMGAIYmZqXltNoYR]]
+== Variables Can Be Modified Using Other Variables
+
+[.janini]
+....
+double first = 10.0;
+double second = 5.0;
+first = second; // This is assignment, not equality
+second = 20.0;
+first = second + 10.0;
+double third = 2.0;
+first = second + third;
+....
+
+[[flxBJUbKdOinyRtOmdidhiOTCJGDeRMy]]
+== This is Not Algebra
+
+[.janini]
+....
+int z = 10;
+z = z + 1; // WTF?
+System.out.println(z);
+....
+
+[[OMZMbfnYVaynkvZBlALgdedbZonRZyzm]]
+== This is Not English
+
+[.janini]
+....
+// Read assignment from left to right
+double first = 10.0;
+double second = 5.0;
+first = first + second + 10.0;
+....
+
+[[bMGnqDmfcpDxPXDytpJKpUzIBGbeHrwH]]
+== What Makes Primitive Types _Primitive_?
+
+[.s.lead]
+//
+.What makes the Java primitive types primitive?
+//
+* They can all be stored by the computer as a _single number_.
+
+[.s.lead]
+--
+But wait... what about `char`?
+--
+
+[[iRHwdJsVVeIxycGCObkWHCstYYMLMPNs]]
+== !What About Characters?
+
+image::https://4toc.com/fb/FBHelp/gfx/AppF_ASCIITable.png[role='mx-auto meme',width=640]
+
+[[pPNGiUTPJIhsUrdVljKBdQvygNaaohAu]]
+== Our First Example of a _Convention_
+
+[.lead]
+//
+There's no law of the universe that says that the number 97 should represent
+'a'.
+
+It's just what we've all agreed on.
+
+[[IffEzqifWagrJAUVhbtbZpBeXbJOthRh]]
+== Why Are There Multiple Numeric Types?
+
+[.lead]
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+
+[.s]
+--
+Different types take up different amounts of _computer memory_ and so can store
+different values.
+--
+
+[.s]
+//
+--
+//
+*Don't worry too much about how things are stored yet.*
+//
+But the limits are important to be aware of.
+//
+--
+
+[[pTpMZAKphudHMkrjPpLsyJkayPzKtKhG]]
+== Type Limitations
+
+[.janini]
+....
+byte smallest = 10;
+smallest += 256;
+System.out.println(smallest);
+....
+
+[[jWVQatsSaYPEkUmTBXBmHDqOvukSqwsa]]
+== !Don't Memorize: Look Up
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html"></iframe>
+</div>
+++++
+
+[[geVtMXBAdnOPzUZylQwvKNdYIjinNTTp]]
+== An Analogy
+
+[.lead]
+//
+_Variables_ are like a container that can hold data.
+//
+_Types_ are rules about what you can store in each container.
+
+[[BOWngHncunytquMaQrLQnEBSLSwCARUu]]
+[.oneword]
+== Questions About Variables or Types?
+
+[[nkUXrGivKZLttoExOZkFgfFUZysQDKdt]]
+== Cheating
+
+[.lead]
+//
+I take academic integrity extremely seriously.
+//
+Cheaters will be caught and punished.
+
+[[pcTKTHTGiagufvkaflflGOLUKcZkDgkr]]
+== EMP
+
+[.lead]
+//
+https://cs125.cs.illinois.edu/info/resources/#emp[CS 199 EMP (Even More
+Practice)]
+//
+is a chance for you to get (even) more practice.
+
+* It's held Thursday nights from 5&ndash;7PM in Siebel 1403.
+//
+* You can register for it for one credit. If you do you'll need to attend
+regularly.
+//
+* You can also not register and show up when you want. It's open to all.
+//
+* More details
+//
+https://cs125.cs.illinois.edu/info/resources/#emp[on the website].
+
+[[JMZWIRVIHJIFILUVTHJYPXQQVCQHZGKW]]
+== After Lecture
+
+[.lead]
+//
+Please don't bum rush the stage after lecture.
+
+* I teach until 10:50, but that means I have to scoot immediately after class
+//
+* I'll meet anyone who has questions in the lobby and then we'll either hang out
+outside or head back to Siebel
+
+[[HRNDBAMSESSDCZESNZXBDXBLSNKSQVGZ]]
+== Announcements
+
+[.small]
+//
+* I have office hours _today_ from 1PM&ndash;4PM in Siebel 2227.
+//
+*Please come by and say hi!*
+//
+* Homework continues _today_.
+//
+* Friday we will continue with the basics of imperative programming, including
+conditionals and loops.
+//
+* Our quiz on course policies continues today in the CBTF. Please
+//
+https://cbtf.engr.illinois.edu/[sign up]
+//
+and take it.
+//
+* link:/info/2019/spring/resources/#hours[Office hours]
+//
+will start _tomorrow_ and be posted on the calendar.
+//
+* Please fill out the https://forms.gle/AfQKi6QihhM3Fe1f6[initial student
+survey].
+//
+1% extra credit for anyone who does by *Sunday 09/08/2019*.
+
+// vim: ts=2:sw=2:et
