@@ -9,16 +9,19 @@ description:
 [.lead]
 //
 To complete the Android CS 125 labs and machine project (MP) you'll write your
+Java code
 //
-https://www.java.com/en/[Java]
+footnote:[Note that you do not need to install Java separately&mdash;it comes
+bundled with Android Studio]
 //
-code using the
+using the
 //
 https://developer.android.com/studio/index.html[Android Studio]
 //
 Integrated Development Environment (IDE) and test your apps using the
 //
-https://developer.android.com/studio/run/emulator.html[Android Emulator].
+https://developer.android.com/studio/run/emulator.html[Android
+Emulator]&mdash;and on a real device, if you have one.
 //
 This guide will help you install and configure this important and powerful
 development tool.
@@ -32,8 +35,8 @@ https://developer.android.com/studio/index.html[Android Studio]
 //
 is _the_ integrated development environment (IDE) for Android development.
 //
-This semester all CS 125 lab programming assignments and MPs will be done using
-Android Studio.
+This semester all CS 125 lab programming assignments, the machine project, and
+your final project will all be done using Android Studio.
 
 Follow the instructions below that are appropriate for your machine.
 //
@@ -44,8 +47,8 @@ We're here to help!
 //
 Come to office hours or
 //
-https://cs125-forum.cs.illinois.edu/c/mps/android-studio[post on the forum in
-the Android Studio category].
+https://cs125-forum.cs.illinois.edu/c/fall2019-mp/androidstudio[post on the
+forum in the Android Studio category].
 
 [[version]]
 === Version
@@ -79,15 +82,12 @@ instructions].
 [[plugins]]
 == Android Studio Plugins
 
-Once you have <<install, installed Android Studio>>, continue by installing two
-Android Studio plugins:
-
-. https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[The `checkstyle` IntelliJ plugin]
+[.lead]
 //
-. Our official link:/tech/intellijplugin/[CS 125 IntelliJ plugin]
-
-[[checkstyle]]
-=== `checkstyle` Plugin
+Once you have <<install, installed Android Studio>>, continue by installing
+//
+https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[the `checkstyle`
+IntelliJ plugin]
 
 We use
 //
@@ -96,8 +96,8 @@ http://checkstyle.sourceforge.net/[`checkstyle`]
 to help you learn how to write beautiful and maintainable code by requiring you
 to adhere to a coding standard.
 //
-**There are points on each MP for `checkstyle`, so you want to get the plugin
-installed so that you can check your style in Android Studio.**
+**There are `checkpoint` points on each MP checkpoint**, so you want to get the plugin
+installed so that you can check your style as you go.
 
 Installing this plugin is straightforward:
 
@@ -115,6 +115,7 @@ You should install the latest version of the `checkstyle` plugin, currently
 `checkstyle` plugin updates that are released during the semester should be safe
 to install.
 
+////
 [[cs125plugin]]
 === CS 125 IntelliJ Plugin
 
@@ -140,6 +141,7 @@ installing the `checkstyle` plugin>>.
 
 You should install the latest version of our plugin, currently 0.2.1, and any
 updates we release during the semester.
+////
 
 [[emulator]]
 == Android Emulator
@@ -181,3 +183,80 @@ tutorial]
 //
 for instructions on how to configure your device properly to run your apps
 during development.
+
+[[hacking]]
+== You're a Hacker Now
+
+Note that we are definitely throwing you into the deep end with Android Studio.
+//
+As you work your way through the
+//
+https://developer.android.com/training/basics/firstapp/[Android "Hello, World!"
+tutorial]
+//
+you will _definitely_ encounter code and concepts that are new and unfamiliar to
+you.
+//
+That's normal.
+
+CS 125 is designed to introduce you to two sides of programming and computer
+science.
+//
+In lectures and on our homework problems and quizzes you'll be working on clean,
+simple, isolated problems.
+//
+Our goal is to prepare you to think and solve problems like a computer
+scientist.
+
+But building real things also requires a different set of skills and mindset,
+sometimes referred to as _hacking_.
+//
+Hacking involves learning how to work with large, complicated systems.
+//
+It means spending more time learning about how other things work than building
+your own things.
+//
+It requires that you get comfortable _not_ necessarily understanding how
+every part of your program works&mdash;at least not right away.
+
+You'll get lots of practice at this on our labs and MPs, starting today.
+//
+**Our advice: be brave and unafraid.**
+//
+Try things, experiment, and have fun.
+//
+You aren't going to break anything important, and even if you get a mess and get
+stuck we'll be able to help bail you out.
+//
+And the rewards are huge.
+//
+Once you can hack together Android apps, you can distribute them to billions of
+users all over the world.
+//
+When we said "change the world", we meant it.
+
+[[helloworld]]
+== Modifying "Hello, World"
+
+Once you have the
+//
+https://developer.android.com/training/basics/firstapp/["Hello, world!" app]
+//
+running, try to make the following modifications:
+
+* Change the text that is shown to "Hello, CS 125!"
+//
+* Change the size of the text
+//
+* Change the position of the text
+//
+* Add some other element to the user interface
+
+Your goal before we release MP0 should be to at least complete through the
+//
+https://developer.android.com/training/basics/firstapp/building-ui["Build a
+simple user interface"]
+//
+portion of the tutorial.
+//
+That will prepare your will to begin the machine project.
