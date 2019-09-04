@@ -4,6 +4,13 @@ description:
   MP0 is the first of multiple machine project checkpoints you'll complete this
   semester as you complete a cool Android app!
 secret: v8L87DQH
+spelling_exceptions:
+  - dropdown
+  - KTS
+  - lifecycle
+  - logcat
+  - Robolectric
+  - scrollbar
 ---
 :sectnums:
 :linkattrs:
@@ -77,8 +84,8 @@ computing devices&mdash;also known as smartphones.
 Teams compete to capture real-world objectives by visiting them before opposing
 teams.
 //
-The objectives may be specific locations&mdash;_target mode_&mdash;or cells
-cells on an evenly spaced rectangular grid&mdash;_area mode_.
+The objectives may be specific locations--**target mode**--or cells
+on an evenly spaced rectangular grid--**area mode**.
 
 But there's a twist: the _snake rule_.
 //
@@ -256,7 +263,7 @@ Once that's finished, double-check that everything is ready to go by opening the
 Note that when you open the project in Android Studio you may receive a warning
 about "Gradle KTS Build Files."
 //
-This is normal, and you can safely ignore this error message.
+This is normal, and you can safely ignore this warning.
 //
 --
 
@@ -549,7 +556,7 @@ back on again. Really.
 several options, from which you should choose "Invalidate and Restart" for the
 most complete refresh.
 //
-However, note that Android Studio will busy itself after it restarts reindexing
+However, note that Android Studio will busy itself after it restarts indexing
 your project.
 //
 . **Build | Rebuild Project**: If there are errors in your code that are
@@ -564,12 +571,17 @@ Android platform.
 //
 By learning how to build Android apps, your programs can have enormous impact.
 //
-A couple years ago, Google estimated that there were [*2
-billion*](https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/)
+A couple years ago, Google estimated that there were
+//
+https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/[*2
+billion*]
+//
 active Android devices.
 //
-That's over 25% of people on Earth&mdash;and [several times more than
-iOS](https://fortune.com/2017/03/06/apple-iphone-use-worldwide/).
+That's over 25% of people on Earth&mdash;and
+//
+https://fortune.com/2017/03/06/apple-iphone-use-worldwide/[several times more
+than iOS].
 //
 And that number is certainly larger now.
 
@@ -622,7 +634,7 @@ which our starter code does.
 
 Logs are visible in the Logcat pane (near the bottom) of Android Studio.
 //
-You can type in that pane's search textbox to filter what messages you see.
+You can type in that pane's search text box to filter what messages you see.
 //
 For example, if your app crashed, filtering for `FATAL` will help you find the
 crash details.
@@ -664,7 +676,7 @@ for a settings screen, and still others for other sections of the app.
 There are a few important moments for an activity, especially when it is created and
 when it is terminated.
 //
-Android provides functions that can be overriden (implemented) to handle
+Android provides functions that can be overridden (implemented) to handle
 both of these events: `onCreate` and `onDestroy`.
 //
 It is typical for on `onCreate` method to perform tasks required to make the activity ready
