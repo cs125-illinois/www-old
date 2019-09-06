@@ -164,7 +164,7 @@ in the right direction.
 While the comments in the files you need to work with should explain everything
 you need to know, you can also examine our official
 //
-https://cs125-illinois.github.io/Fall2019-MP-Writeups/0/edu/illinois/cs/cs125/fall2019/mp/package-summary.html[online documentation]
+https://cs125-illinois.github.io/Fall2019-MP-Starter/[online documentation]
 //
 if you're curious what each function and class does.
 
@@ -209,6 +209,7 @@ We will provide time during lab this week to review how to use Git to submit the
 but you are welcome to go through our instructions beforehand if you are raring to get going.
 ////
 
+[[plugin]]
 ==== Install the CS 125 plugin
 
 Next, please download and install our
@@ -631,7 +632,7 @@ So the final syntax of the call to generate a debugging message, for example, is
 `Log.d(TAG, message)`, where `message` is the text to log.
 //
 This assumes that the Java class you're working in has a `TAG` constant defined,
-which our starter code does.
+which `GameActivity` does.
 
 Logs are visible in the Logcat pane (near the bottom) of Android Studio.
 //
@@ -785,10 +786,21 @@ on your own machine as often as you want.
 Your Android Studio project contains a run configuration
 called "Grade" that will run the autograder for the current checkpoint.
 //
-////
-You can also run the grader by installing [our plugin](/tech/intellijplugin/)
+You can also run the grader by installing <<plugin, our plugin>>
+//
 and then pressing the button that looks like the CS 125 shield.
-////
+
+Before your grade your checkpoint you will need to identify yourself by entering
+your `@illinois.edu` email address into the `email.txt` file located in the root
+project directory.
+//
+The autograder will not run until you do this.
+//
+**Please make sure to get this right!**
+//
+If you don't, your results will not be visible on the grading page, and may be
+attributed to another student&mdash;putting you at risk of an academic integrity
+violation.
 
 Unless you have modified the test suite or autograder configuration,
 the autograding output should approximate the score that you will earn when you submit.
@@ -798,6 +810,19 @@ If you modify our test cases or the autograding configuration, *all bets are off
 You may also lose points if your solution runs too slowly and exceeds the testing timeouts.
 
 === Submitting Your Work
+
+[.alert.alert-warning]
+//
+--
+//
+Note that official MP grading for Fall 2019 is not working yet.
+//
+You can still score and grade your assignment using Android Studio, but no
+official grades will appear on our grading page after you submit.
+//
+We notify you when official grading is available.
+//
+--
 
 First make sure you've identified yourself in your repository by entering your Illinois
 email address into the `email.txt` file in the outermost folder of the project.
