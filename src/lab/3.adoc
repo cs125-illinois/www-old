@@ -1,0 +1,144 @@
+---
+title: Strings
+description:
+  Today you'll go through another algorithm design exercises including another
+  in-lab homework problem. If you have extra time, continue working on your
+  first MP checkpoint, MP0, which is due next weekend.
+spelling_exceptions:
+  - PrairieLearn
+  - CS125
+  - DT236
+  - EU347
+  - ABCDEFGHIJKLMN
+  - ROT13
+---
+
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.lead]
+//
+Today's lab gives you _even_ more practice designing computer _algorithms_: the
+sets of steps that a computer takes to solve a problem.
+//
+You'll design a string-processing algorithm with your lab and then implement it
+as a homework problem.
+//
+If you have extra time, working on finishing up link:/MP/0/[MP0], your first MP
+checkpoint, which is due this coming weekend.
+
+[[algorithms]]
+== String Algorithm Design and Implementation [.text-muted]#(60 Minutes Total)#
+
+[.lead]
+//
+Recently we've discussed both computer algorithms&mdash;the steps a computer uses to
+solve a problem&mdash;and strings&mdash;how computers store text.
+
+Today's lab bring's both together, providing you with practice at algorithm
+design and implementation using Java's `String` class.
+//
+To successfully complete today's lab homework you'll have to _both_ design your
+algorithm carefully and learn more about Java ``String``s to implement it.
+
+=== Design ROT13 Encryption [.text-muted]#(10 Minutes)#
+
+Like last week, today's lab prevents you from trying to jump right into the
+code.
+//
+You *must* spend the next 20 minutes designing a algorithm with the rest of your
+lab.
+//
+You'll also want to spend some time reviewing the
+//
+https://docs.oracle.com/javase/10/docs/api/java/lang/String.html[`String`
+documentation]
+//
+to find useful methods to aid your implementation.
+//
+Only then can you begin to implement and test it.
+
+Today our challenge is to implement
+//
+https://en.wikipedia.org/wiki/Caesar_cipher[a so-called Caesar cipher].
+//
+This is a primitive form of encryption known as a _substitution cipher_, where
+each letter in a message or string is replaced with a single other letter.
+//
+In a Caesar cipher each letter is replaced with a letter a fixed places down the
+alphabet.
+//
+So, for example, "CS125" could become "DT236" with each letter replaced with the
+letter one place down the alphabet, or "EU347" with each letter replaced with
+the letter _two_ places down the alphabet.
+
+**Note that a Caesar cipher is _not_ a secure way to encrypt information.**
+//
+It may have worked in the days before computers, but now computers can trivially
+break any substitution cipher.
+
+Note that to shift a letter down the alphabet we both have to decide what
+characters we are going to include _and_ the order in which they appear in our
+alphabet.
+//
+Our examples above assume the standard ordering of characters that we've all
+been taught in school and by the song: "ABCDEFGHIJKLMN...", etc.
+//
+We also need to handle cases where a character shifts around from the end of the
+alphabet to the beginning.
+
+=== Implement ROT13 Encryption [.text-muted]#(40 Minutes)#
+
+Next, you should 40 minutes on our in-lab homework problem, which you can find
+on PrairieLearn.
+//
+**Just like last week, you will only be able to access this homework beginning
+20 minutes after your lab starts and ending 40 minutes later.**
+//
+If you are in the wrong lab you will not be able to complete the lab
+homework assignment&mdash;please attend the right lab next time.
+
+Please feel free to work with a partner or in a small group on the lab
+homework.
+//
+**But every student must submit their own answers to receive credit.**
+
+Note that to finish this problem you will need to use several `String` methods
+that you may have not used before.
+//
+Please review the
+//
+https://docs.oracle.com/javase/10/docs/api/java/lang/String.html[`String`
+documentation].
+//
+As a footnote:[fairly big] hint, you may find `indexOf` useful.
+
+[[mp1]]
+== Help with MP0 [.text-muted]#(Remaining Time)#
+
+We've set aside the remainder of lab for you to continue working on our first MP
+checkpoint:
+//
+link:/MP/0/[MP0].
+//
+Please take advantage of this opportunity to work with the rest of your lab and
+the course staff!
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've designed your encryption algorithm and completed our third lab homework problem
+//
+. You've made some more progress on link:/MP/0/[MP0]...
+//
+. And so has everyone else in your lab!
+
+If you need more help completing the tasks above please come to
+//
+link:/info/syllabus/#calendar[office hours]
+//
+or post on the {forum}.
