@@ -1,0 +1,455 @@
+---
+title: Compilation
+date: 2019-09-18
+description:
+  A last review of imperative programming including a few more constructs and a
+  behind-the-scenes look at what happens when your code is compiled and
+  executed.
+spelling_exceptions:
+  - Wallacian
+---
+:imagesdir: /slides/images
+:!sectids:
+
+[[GfHTlawcMZRgXqXNhwcWsVHYtFCxBOvF]]
+== !
+
+[.janini.smaller]
+--
+++++
+<div class="message">Constructs and Compilation</div>
+++++
+....
+char[][] currentBoard =
+  {{'X', 'O', '.'}, {'O', 'X', 'X'}, {'O', 'O', 'O'}};
+static char checkBoard(char[][] board) {
+  for (int i = 0; i < board.length; i++) {
+    if (board[i][0] != '.' &&
+        board[i][0] == board[i][1] &&
+        board[i][1] == board[i][2]) {
+      return board[i][0];
+    }
+  }
+  return '.';
+}
+System.out.println(checkBoard(currentBoard));
+....
+--
+
+[[zqkWJGCYXfgOIAVqIEaVDzqdRRbYKglb]]
+== The do-while Loop
+
+[.lead]
+//
+Remember the `while` loop?
+
+[source,java]
+----
+while (condition) {
+  // do something
+}
+----
+
+It also has a friend:
+
+[.s]
+--
+[source,java]
+----
+do {
+  // do something
+} while (condition);
+----
+
+What's the difference?
+--
+
+[[SVAENFKQRVFRMLJNYZWCHROBJMRNADCG]]
+== ! do-while Example
+
+[.janini.small]
+....
+int i = 0;
+while (i < 0) {
+  System.out.println("while " + i);
+  i++;
+}
+i = 0;
+do {
+  System.out.println("do-while " + i);
+  i++;
+} while (i < 0);
+....
+
+[[AQXHCVSPBGXXSSKINXGOXBCLSOMCSRXG]]
+== Switch Statements
+
+[.lead]
+//
+Remember the `if` statement?
+[source,java]
+----
+if (conditionA) {
+  // do something
+} else if (conditionB) {
+  // do something else
+} else if (conditionC) {
+  // ...
+}
+----
+
+It too has a friend:
+
+[.s]
+--
+[source,java]
+----
+switch (variable) {
+  case A:
+    // do something
+  case B:
+    // do something else...
+}
+----
+--
+
+[[DMGXDWKRNOGYYYRKZPYNSKPCKVACBLHS]]
+== Switch Statements
+
+[.lead]
+//
+`switch` is more limited than `if-else`, but also more flexible:
+
+[.s]
+//
+* It only works for testing primitive types and ``String``s
+//
+* But you can match multiple ``case``s in a single `switch` statement
+//
+* Execution _starts_ at a matching `case` statement and continues until a
+`break` statement is reached
+
+[[BNTWPZKfwWhfxfRAtLWKGjIEGdZoPTVZ]]
+== ! Switch Statements
+
+[.janini.small]
+....
+int test = 2;
+switch (test) {
+  case 0: System.out.print("A");
+  case 1: System.out.print("B");
+  case 2: System.out.print("C");
+  case 3: System.out.print("D");
+  default: System.out.println("E");
+}
+System.out.println();
+....
+
+[[OMPRZIJYPLWHLPUMMEUVLJGAZFHGJSJO]]
+[.oneword]
+//
+== Questions on Imperative Programming?
+
+[[AAGGXWTTJZBRPTQGKWDVXWLPUPFYLOCL]]
+== Compilation and Execution
+
+(And now, a small digression.)
+
+[.lead]
+//
+So far we've been letting you admire the magic that happens when you execute
+Java code.
+//
+*But what is actually happening?*
+
+[.s.small]
+//
+* As a computer scientist, part of your job is to be curious about how things
+work!
+//
+* This will also help clear up a few things that may have been confusing to you
+up until this point...
+//
+* It's also quite interesting...
+//
+* ...but note that I am _not_ going to go into detail here
+//
+footnote:[The details can and do consume an entire other course!].
+//
+Ask on the forum if you want to know more!
+
+[[OOKYUHMILFABUATCCUWQISGTWZOVLFST]]
+== When You Run Java Code
+
+[.lead]
+//
+Roughly speaking, when you run your Java code&mdash;on our playground, on
+PrairieLearn, or in Android Studio&mdash;the process works like this:
+
+[.s.small]
+//
+. *Compilation*: your Java source code is _compiled_ to a simpler representation
+called _Java bytecode_ by the Java compiler (`javac`).
+//
+** Errors that occur at this stage are called _compilation errors_.
+//
+** *If your code doesn't compile, it doesn't run.*
+//
+. *Execution*: the bytecode from Step 1 is then executed by a program called the
+_Java Virtual Machine (JVM)_ (`java`).
+//
+** Errors that occur at this stage are called _runtime errors_.
+
+[[ENFGHYDFYCARQXOUNXQMCKOGECQAPQOR]]
+== ! Compilation Errors: Parsing
+
+[.janini.small]
+....
+Dear Java, please complete MP2. Now!
+....
+
+[[KSILBBGPBRMXYVAZGFEIAXIRXBIPOSNE]]
+== ! Compilation Errors: Type Safety
+
+[.janini.small]
+....
+int instructions = "Finish MP1... now!";
+....
+
+[[QKMQALZQXJPVHZDWRPPEZYWHLOMKBUMI]]
+== ! Runtime Errors: null
+
+[.janini.small]
+....
+String s = null;
+System.out.println(s.length());
+....
+
+[[JCCTJPYQOUSCCQDZVZDLGAUZSKUWATHT]]
+== Compiler Errors v. Runtime Errors
+
+[.lead]
+//
+Java and many languages that followed it have tried to transform _runtime_
+errors into _compiler_ errors.
+//
+*Why?*
+
+[.s]
+//
+* You compile your code _before_ it runs: and so before you have to demo it to a
+client, or before you deploy it to hundreds of users.
+//
+* Catching errors at this stage is _critical_.
+
+[[ZNYWLZYPAXRWNMBBJMXKGWTJHHRVRBUU]]
+== ! Runtime Errors: null
+
+[.janini.small]
+....
+// So why does Java let me do this?
+String s = null;
+System.out.println(s.length());
+....
+
+[[LHLVEXWGCVWQGGJZMWCFBFDBIBNDSMIF]]
+== Java Compilation: `javac`
+
+[.lead]
+//
+The Java compiler transforms Java source code into Java bytecode.
+//
+On many machines it is a program called `javac`.
+
+(Quick demo.)
+
+[[QOIVVLJAVZSGCJKWBAFBLSINDNNGWKVG]]
+== Java Execution: `java`
+
+[.lead]
+//
+The Java Virtual Machine executes Java bytecode.
+//
+On many machines it is a program simply called `java`.
+
+(Quick demo.)
+
+[[BMJGEVQAZRRSCRAXFKBLJHQOZAHRQXIO]]
+== Bytecode v. Machine Code
+
+[.s]
+//
+* Many compiled languages compile into instructions that an actual CPU or
+processor can execute&mdash;we call this _machine code_.
+//
+* Java does not&mdash;it compiles into _bytecode_ that is then run by the Java
+Virtual Machine (JVM), a piece of _software_.
+//
+* *Why?*
+
+[[FOQRONBLILYFXJEJXZOYVWKAIRVUJXZJ]]
+== Write Once, Run Anywhere (TM)
+
+(I will do my best to avoid a truly Wallacian stem-winder of a digression here,
+since this is a truly fascinating story.)
+
+[.s.small]
+//
+* Different computer processors use different instructions&mdash;this is still
+true today, but was even more true when Java was being designed
+//
+** (This is kind of like them speaking different languages.)
+//
+* So if I take a program that was compiled for an `x86` processor and try to run
+it on an `ARM` processor, it won't work
+//
+* But if I take a _Java_ program that was compiled into Java bytecode I can run
+it anywhere...
+//
+* ...as long as that computer has the Java Virtual Machine (JVM).
+//
+* (This is the difference between the Java Runtime Environment (JRE) and the
+Software Development Kit (SDK). The SDK includes `javac`, the JRE does
+not.)
+
+[[QESZVMCOMCEYDDWNYSYKIKWXKBPVKBVJ]]
+== As Computers Get Faster...
+
+[.lead]
+//
+_compilers_ also get faster, leading to important and useful changes in language
+design.
+
+[source,java,role='s']
+//
+----
+// Wait, what black magic is this?
+var integerValue = 5;
+----
+
+[.s]
+//
+* Java 10 introduced
+//
+https://developer.oracle.com/java/jdk-10-local-variable-type-inference.html[local
+variable type inference]
+//
+* Which means that you do not need to specify the type for local variables _if_
+the compiler can determine what it should be
+
+[[HOFUPTYNEVDDAXPNANVLZCQHDOUGCSWV]]
+== Java 10 Type Inference
+
+[.lead]
+//
+You can use this feature now using IntelliJ, on our PrairieLearn homework
+problems, and in the slide playground.
+
+[source,java]
+//
+----
+var sum = 0;
+for (var i = 0; i < array.length; i++) {
+  for (var j = 0; j < array[i].length; j++) {
+    sum += array[i][j];
+  }
+}
+----
+
+[[ePUfnfQHeXHitZiwnijKRNupRsiATEri]]
+== ! Local Variable Inference Example
+
+[.janini.jdk.small]
+....
+var sum = 0;
+for (int i = 0; i < 10; i++) {
+  sum += i;
+}
+System.out.println(sum);
+....
+
+[[WqRJLyEMGzDnROsHBdlzMUbDckIilcNd]]
+== Let's Talk `main`
+
+[source,java]
+----
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("How did I get here?");
+  }
+}
+----
+
+[.lead]
+//
+We saw a `main` method in the demo and we'll start using it in upcoming in-class
+examples.
+//
+But _what is it_?
+
+[[PMvcyTJMxlQGwACGdChxIxqgfkfNHdhZ]]
+== Everything Has To Start Somewhere
+
+[source,java]
+----
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("And this is it!");
+  }
+}
+----
+
+[.s]
+//
+* When Java runs your program, execution has to start _somewhere_.
+//
+* If a class has a `main` method Java can execute that class and begin the
+process of running a program.
+//
+* So _every_ Java application starts in `main` somewhere.
+
+[[rHYJXgpSsZBecBvjSvwYlEpsQEnYnqEu]]
+== But What About `unused`?
+
+[source,java]
+----
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println("And this is it!");
+  }
+}
+----
+
+[.lead]
+//
+But why is `main` passed an array of ``Strings``s (that we sometimes ignore)?
+
+[[XYSumkbedLslVGwyAGffpwSOkRXunCdg]]
+[.oneword]
+//
+== Questions on Compilation?
+
+[[eDaqhGgeyhqfXbMTgTkTfnYkyVBwuWLr]]
+[.oneword]
+//
+== Hang In There
+
+[.lead]
+//
+This is a tough week, but you can do it.
+//
+Don't give up!
+
+[[ZLEGLKEIWPJYLVFCYIQISYLBUJLUDHKV]]
+== Announcements
+
+* Monday we will begin discussing _objects_, Friday will be
+midterm review
+//
+* Office hours for MP0 continue&mdash;please get started, since it will help you
+prepare for the midterm exam next week
+//
+* Next week we will hold our first *midterm exam*: a one-hour quiz worth 2% of
+your grade that _cannot be dropped_
+
+// vim: ts=2:sw=2:et
