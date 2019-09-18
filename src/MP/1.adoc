@@ -1,0 +1,511 @@
+---
+title: "MP1: Area Mode"
+description:
+  The MP1 checkpoint introduces you to Android UI and lets you build the other gameplay
+  mode of the game app you're working on!
+spelling_exceptions:
+  - AreaDivider
+  - dropdown
+  - uncaptured
+secret: MH0yKjc3
+---
+:sectnums:
+:linkattrs:
+:imagesdir: /MP/images/MP1
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp1[forum,role='noexternal']]
+
+[.lead]
+In the first Machine Project checkpoint, link:/MP/0[MP0], you started making a cool Android app.
+This checkpoint and all subsequent ones build on that codebase, adding new features and improving
+the structure of the code.
+
+In this second checkpoint (MP1), you will use your new _object-oriented programming_
+skills to package up some game logic into a _class_ that will help you implement a new mode
+of the game. You will take advantage of Android Studio's UI designer to create an interface
+that allows the user to select the game mode.
+
+In _area mode_, the objectives that can be captured are rectangular cells on an evenly spaced grid
+rather than specific targets. Entering a cell captures it if possible.
+If at least one capture has already been made, subsequent cells can only be captured if
+they share a side with the most recently captured cell.
+
+Again, **deadlines for each checkpoint vary by your deadline group**.
+MP1 is due at:
+
+* **8 PM on Sunday 10/6/2019 for the Blue Group**: all labs starting at 2 PM or earlier
+* **8 PM on Monday 10/7/2019 for the Orange Group**: all labs starting at 3 PM or later
+
+Since MP1 is another multi-week checkpoint, 10% of your grade on it is for submitting code that
+earns at least _40 points_ by **Sunday 9/29/2019 (Blue)** or **Monday 9/30/2019 (Orange)**.
+Late submissions will be subject to the
+link:/info/syllabus#regrading[MP late submission policy].
+
+== Learning Objectives
+
+This is the first checkpoint that makes use of object-oriented programming.
+In addition to the imperative skills you practiced on MP0, you will:
+
+1. implement a class to bundle state and behavior,
+2. obtain and use instances of existing classes,
+3. work with data in multidimensional arrays, and
+4. design a user interface
+
+== Assignment Structure
+
+You'll be working on the same repository for the entirety of the Machine Project.
+MP0 focused only on the Java code files, but Android projects have another major part:
+_resources_. These are found in the `res` folder, which is in the `main` folder that also
+holds `java`. The resources you'll work with most are _layouts_, which are stored in the `layout`
+subfolder of `res`. They represent the screens and controls the user sees when using your app.
+The Android section later in this document will tell you more about how to work on the user interface.
+
+=== Obtaining MP1
+
+You already have your GitHub repository ready to go; all that's missing is the test suite for
+Checkpoint 1. To get set up for receiving new files from us, you need to add our common
+distribution repository as a second Git remote. Go to the _VCS_ menu, expand _Git_,
+and choose _Remotes_. Press the small plus button near the upper right to open the Define Remote
+dialog. In the Name box, enter `release`. In the URL box, paste this:
+
+[.spelling_exception]
+____
+https://github.com/cs125-illinois/Fall2019-MP-Starter.git
+____
+
+// TODO: Test this
+Press OK on both dialogs to save your changes. Then you can integrate our new files by using the
+_VCS | Git | Merge Changes_ menu item, checking `remotes/release/master`, entering a commit message
+for the merge, and pressing Merge.
+
+To tell the autograder that you're working on the new checkpoint, open the `grade.yaml` file
+in the root of the project, change the `checkpoint` setting from `0` to `1`, and do
+_File | Sync Project with Gradle Files_. Running the Grade task should then produce a grade
+report for Checkpoint 1 rather than Checkpoint 0.
+
+A Test Checkpoint 1 run configuration is included in the MP1 update, but Android Studio
+might not see it until you close and reopen the project.
+
+=== Late MP0 Submissions
+
+If you didn't finish the `TargetVisitChecker` functions in MP0, you can still do MP1.
+Changing the `useProvided` setting in `grade.yaml` from `false` to `true` (after updating
+`checkpoint` to `1`) and doing a Gradle sync will make the app and grader use our correct
+`TargetVisitChecker` implementation. That is, calling `TargetVisitChecker` functions
+from `GameActivity` will produce the result from our solution, not your code.
+If you're happy with your `TargetVisitChecker` implementation, leave `useProvided` set to `false`
+to continue using your MP0 code.
+
+5% of the MP1 grade requires a working target mode game, so even if you use our provided
+`TargetVisitChecker` functions, you will still need to implement the `GameActivity` logic of MP0
+yourself. If you have not done this, please do so now, coming to office hours as needed.
+
+If you want to go back later and work on a late MP0 submission for half credit,
+change the `checkpoint` setting in `grade.yaml` back to `0`.
+That tells our grader to do an MP0 grading run.
+It's OK if you've started working on MP1 or even a later checkpoint when you regrade MP0:
+the test suites are forward-compatible.
+
+== Android
+
+MP1 continues introducing you to Android development.
+We'll introduce a couple new ideas and tools below.
+There's a bit more work to do than on MP0, but the MP1 tasks should be more straightforward,
+especially since you've started finding your way around the codebase.
+
+=== UI Designer
+
+Most Android resources are link:https://en.wikipedia.org/wiki/XML[XML] files.
+While it is possible footnote:[and necessary for advanced applications] to edit these directly,
+Android Studio provides a graphical interface that makes it much easier to design your UI layouts.
+When you open a layout XML file, Android Studio shows a preview of the layout in the main view.
+(If you instead see a bunch of text, switch to the Design tab in the lower left.)
+
+Every piece of user interface offered by Android has a type of _view_, also called a
+_control_ or _UI element_. For example, a `Button` view represents a button the user can push to
+do something. A `TextView` is a plain label that displays some text. An `EditText` is a box
+that the user can type text into. To the upper right of the UI preview, you'll find the
+Palette pane, which shows many kinds of views available to you.
+
+Android organizes views into containers nested inside each other.
+For example, a row of buttons might be represented by a
+`LinearLayout` containing several ``Button``s.
+That could then be nested inside other containers to build a more complex screen.
+To the lower left of the preview, you'll see a Component Tree pane.
+This shows the hierarchy of all controls in the layout.
+To add a view, drag your desired kind of view from the Palette pane
+to where you want it to be in the Component Tree.
+To delete a view and any views inside it, right-click it in the Component Tree and choose Delete.
+
+When you select a view in the preview or Component Tree, the Attributes pane on the right
+shows many _attributes_ (properties) that you can set for that view.
+For controls that have text, the `text` attribute sets the text initially displayed by the view.
+The `id` attribute at the top sets the view's ID that can be used in code to manipulate the view.
+
+[.alert.alert-warning]
+--
+Some attributes appear twice in the Attributes pane, once with a wrench icon and once without.
+The value of the setting with the wrench is only visible in the preview,
+not during testing or in the app.
+You almost always want to use the setting _without_ the wrench.
+--
+
+=== Manipulating UI from Java
+
+Usually at least part of a user interface is dynamic, changing at runtime when the user
+does something or when data is fetched.
+To make this happen, your Java code needs to be able to manipulate the UI elements.
+Android exposes views to Java as objects with functions that allow you to get information
+about the view or modify its attributes.
+If a view has an ID set in the Attributes pane of the UI designer, you can get an object
+representing it from the `findViewById` function. For example, this code gets a `TextView` object
+corresponding to the `TextView` with ID `greeting`:
+
+[source,java]
+----
+TextView label = findViewById(R.id.greeting);
+----
+
+The variable type (e.g. `TextView`) must match the type of view from the UI designer.
+The variable name (e.g. `label`) can be anything of your choosing.
+The field name after `R.id.` is the view ID from the UI designer.
+
+[.alert.alert-warning]
+--
+Since the view classes are defined in Android rather than your project, they have to be _imported_
+before you can use them from your code.
+Android Studio can help with this: if you tab-complete the class name as you're typing it,
+the needed import statement will be automatically added to the top of the file.
+--
+
+Once you have a view object, you can use dot notation to call its functions and do something with it.
+For example, all views have a `setVisibility` method to change whether the view can be seen.
+If the greeting label was invisible or gone, this code would make it visible again:
+
+[source,java]
+----
+label.setVisibility(View.VISIBLE);
+// or pass View.INVISIBLE to make it invisible
+// or View.GONE to make it gone (invisible and taking up no space)
+----
+
+Views that display text have a `setText` method to change the text:
+
+[source,java]
+----
+label.setText("Hello!");
+----
+
+Member functions can also be used to set handlers&mdash;code that will be run when something
+happens to the view, like a button being clicked.
+The syntax for handlers is a little messy, but Android Studio's tab completion can help you with it,
+as can the examples in our starter code or in lab.
+For example, this attaches a click handler to a `Button` variable named `goodbye`:
+
+[source,java]
+----
+goodbye.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(final View v) {
+        // Change the label's text
+        label.setText("Goodbye.");
+    }
+});
+----
+
+Or more concisely:
+
+[source,java]
+----
+goodbye.setOnClickListener(v -> {
+    // Change the label's text
+    label.setText("Goodbye.");
+});
+----
+
+=== Multiple Activities
+
+Most apps have multiple different screens that are shown at different times.
+To switch to a different activity, code has to launch the new activity using an `Intent`.
+An intent specifies what is to be done and provides any extra information needed to do
+that&mdash;kind of like calling a function.
+
+To create an intent to launch an activity, you need to specify the current context
+footnote:[usually `this` but possibly `CurrentActivity.this` if you're inside a non-concise handler]
+and the new activity:
+
+[source,java]
+----
+Intent intent = new Intent(this, OtherActivity.class);
+// Don't worry about what the .class part means
+----
+
+Once you have an intent, you can pass it to the `startActivity` function to act on it:
+
+[source,java]
+----
+startActivity(intent);
+----
+
+By default, when a new activity is launched, the user can return to the old one by using the back
+button on the device. To make the old activity completely finish and no longer be available,
+you can call `finish()` after the `startActivity` call.
+
+Additional data that needs to be passed to the new activity can be placed in _extras_.
+Intent extras are identified by a string name and can have various kinds of values.
+Each intent can have many extras. To add an extra, use a `putExtra` instance method of the intent:
+
+[source,java]
+----
+intent.putExtra("name", "Jane Smith");
+intent.putExtra("gpa", 4.0);
+----
+
+To access this data from the new activity, use the `getIntent` function to get the `Intent`
+that was used to launch the activity. To extract extras from the intent, call the `get<Type>Extra`
+functions, like `getStringExtra` or `getDoubleExtra`. The functions to get extras of primitive
+types require you to specify a default value that will be returned in case that extra wasn't present.
+For example:
+
+[source,java]
+----
+Intent intent = getIntent();
+String name = intent.getStringExtra("name");
+double gpa = intent.getDoubleExtra("gpa", 0.0); // 0.0 is the default
+----
+
+If you'd like more information, feel free to refer to Android's
+link:https://developer.android.com/guide/components/intents-filters[official `Intent` documentation].
+
+== Your Goal
+
+When you're done with MP1, your Campus Snake 125 app will support target mode and the new area mode.
+In area mode, the map will show a grid of cells and highlight captured cells with green rectangles.
+There will be a user interface to select the game mode and set game configuration
+(proximity threshold for target mode, area and cell size for area mode).
+
+MP1 is a step up from MP0, and may seem overwhelming at first. This is normal!
+As we always recommend: **start early**, take it one step at a time, get help when you need it,
+and you'll be able to build amazing things.
+
+=== `AreaDivider` Class
+
+You may notice after acquiring the Checkpoint 1 test suite that the project can no longer compile.
+This is because the test code refers to an `AreaDivider` class that you need to create.
+So the first order of business is to define that class and the needed functions on it.
+To add a new class file in the Project view, right-click the package folder
+(`edu.illinois.cs.cs125.fall2019.mp`) that contains all the existing files you've been working on
+and choose _New | Java Class_. Enter the class name, `AreaDivider` in this case, in the Name box
+and press OK. If prompted to add the file to Git, press Add.
+
+[.alert.alert-warning]
+--
+**You must create the new file in our package in `main` source set**,
+the one containing all the other files you've been working on.
+If you incorrectly create it in the `test` part of the project, the class may appear to work
+locally but will not be usable from `GameActivity` or during official grading.
+--
+
+**To see what you need to add to this class**, refer to our
+link:https://cs125-illinois.github.io/Fall2019-MP-Writeups/1/edu/illinois/cs/cs125/fall2019/mp/AreaDivider.html[official Javadoc].
+You may find our link:/MP/0/#_understanding_the_coordinate_system[coordinate system figure] helpful.
+
+If you prefer to work on other parts of the checkpoint before _implementing_ these functions,
+you can&mdash;you just need the class and its members _declared_ so that the test suite can compile.
+
+=== Create Game Button
+
+When the app is done, the main screen represented by `MainActivity` will have several options.
+We'll start on it in this checkpoint by adding a Create Game button that takes the user to
+the game setup screen, `NewGameActivity`.
+
+Open the `activity_main.xml` layout resource file.
+Add a `Button` with ID `createGame` and text "Create Game".
+Then add code to the `MainActivity` Java file to make pushing the button launch `NewGameActivity`.
+For an example of how to attach a function as a button click handler, see the provided
+`NewGameActivity` code.
+For an example of how to switch to a new activity, see the existing code in `MainActivity`:
+you need to make it switch to `NewGameActivity` rather than `GameActivity` in the
+button click handler function.
+`MainActivity` should no longer immediately launch `GameActivity`.
+
+=== Game Setup UI
+
+The game configuration screen will allow the user to select their desired game mode
+(area or target) and set other parameters like the cell size or proximity threshold.
+This screen's layout is `activity_new_game.xml` and its Java class is `NewGameActivity`.
+
+Our starter version of the layout contains a `RadioGroup` with id `gameModeGroup`.
+Add two ``RadioButton``s (from the Buttons section of the Palette) to inside this group.
+One should have ID `targetModeOption` and the other should have ID `areaModeOption`.
+The user will use these to pick the game mode.
+
+Some settings only make sense for one game mode, so they shouldn't be shown all the time.
+For example, the user shouldn't see a setting for proximity threshold when setting up an
+area mode game. To allow showing and hiding the different game-mode-specific settings as a unit,
+we'll organize the views into containers. Add some kind of container
+footnote:[probably a `LinearLayout`] inside the existing `LinearLayout` and give it the ID
+`areaSettings`. Move the `areaSizeMap` control inside this new container. Also add to this container
+a numeric `EditText` control with ID `cellSize`: this will allow the user to set the cell size.
+For target mode settings, add another container with ID `targetSettings` to the provided `LinearLayout`.
+Inside that new container, add another numeric text box with ID `proximityThreshold`:
+the user will use this to set a custom proximity threshold.
+Also feel free to add any labels or extra instructions you like.
+
+To make the radio buttons change the containers' visibility, we need to add code to `NewGameActivity`.
+In `onCreate`, attach a handler that will be run when the selected radio button in the `RadioGroup`
+is changed:
+
+[source,java]
+----
+// Suppose modeGroup is a RadioGroup variable (maybe an instance variable?)
+modeGroup = findViewById(R.id.gameModeGroup);
+modeGroup.setOnCheckedChangeListener((unused, checkedId) -> {
+    // checkedId is the R.id constant of the currently checked RadioButton
+    // Your code here: make only the selected mode's settings group visible
+});
+----
+
+=== Game Setup Intent
+
+Once the user has configured the game as they like by selecting the mode,
+entering a cell size or proximity threshold, and panning/zooming the area map if in area mode,
+they will press the Create Game button to start the game.
+We attached a handler to that button that calls the `createGameClicked` function in `NewGameActivity`.
+You need to fill out that function to populate an `Intent` with the game setup
+and start the game activity.
+
+Specifically, you need to add several extras to the `Intent` we initialized for you.
+The string extra named `mode` specifies the game mode, either "target" or "area".
+If the game is target mode, there should be an integer extra named `proximityThreshold` specifying
+the proximity threshold. If the game is area mode, there should be an integer extra named
+`cellSize` specifying the cell size and four double extras&mdash;``areaNorth``, `areaEast`,
+`areaSouth`, ``areaWest``&mdash;specifying the boundaries of the selected area.
+
+To get all of this information, you will need to call functions of the view objects.
+``RadioGroup``s have a
+link:https://developer.android.com/reference/android/widget/RadioGroup#getCheckedRadioButtonId()[`getCheckedRadioButtonId`]
+function that returns the `R.id` constant of the selected option.
+Interestingly, the `getText` method of text-containing views doesn't return just a string,
+but the result's `toString` method will get just the text.
+To get the integer represented by a string of text, use Java's `Integer.parseInt` function:
+
+[source,java]
+----
+// Suppose textBox is an EditText variable
+String text = textBox.getText().toString();
+int number = Integer.parseInt(text); // This will crash if text isn't a number
+----
+
+Finally, Google Maps controls like `areaMap` have a function to get the visible region
+(for the area boundaries) as a
+link:https://developers.google.com/android/reference/com/google/android/gms/maps/model/LatLngBounds[`LatLngBounds`]
+object:
+
+[source,java]
+----
+LatLngBounds bounds = areaMap.getProjection().getVisibleRegion().latLngBounds;
+----
+
+If the user didn't finish setting up the game before pressing Create Game&mdash;that is,
+no radio button is selected or a needed numeric text box is empty&mdash;no intent should be launched.
+
+=== Area Mode Gameplay
+
+Now that you have the user's game setup stored in intents and an `AreaDivider` class to help with
+area division and grid drawing, you can add logic to `GameActivity` to make area mode games work.
+
+First, `GameActivity` needs to know the game configuration.
+Add logic to `onCreate` to get the intent and record the needed information in instance variables
+of your design.
+You will probably want to wrap our provided target mode variable setup in an if statement,
+then use the other (area mode) branch to create an `AreaDivider` instance to manage cell boundaries
+and a `boolean[][]` to store whether each cell has been visited.
+
+Update `setUpMap` to check the game mode and render the grid if the game is area mode.
+This should be very easy because all the work is done by the `AreaDivider` object.
+If the game is target mode, markers should still be placed at target positions like in MP0.
+
+Similarly, add a branch to `updateLocation` with area mode gameplay logic:
+detect cell capture and show the user's progress on the map.
+Initially any cell in the area can be captured.
+Subsequent captures are only possible of the cell the user is currently in is uncaptured
+and shares one side with the most recently captured cell
+footnote:[which you can keep track of with instance variables].
+When a cell is captured, it should be filled with a green polygon
+footnote:[If you use the same color constant as in MP0, the polygons will be completely opaque.
+That's perfectly fine, but if you want to make them _translucent_ green the test suite can accept that.].
+To add a polygon to a Google Maps control, pass a
+link:https://developers.google.com/android/reference/com/google/android/gms/maps/model/PolygonOptions[`PolygonOptions`]
+instance to the map's `addPolygon` method.
+As you read the `PolygonOptions` method summary, look for two methods that you'll need:
+one to add vertices to the polygon and one to set the polygon's fill color.
+
+To make the custom proximity threshold take effect, tweak your MP0 target mode logic in
+`updateLocation` to use your proximity threshold variable instead of a constant.
+
+== Grading
+
+MP1 is worth 100 points total, broken down as follows:
+
+* **20 points** for the area division calculation features of `AreaDivider`
+* **10 points** for the `renderGrid` function of `AreaDivider`
+* **5 points** for the Create Game button in `MainActivity`
+* **10 points** for setting up the user interface in `NewGameActivity` and
+  making the radio buttons work
+* **10 points** for making the Create Game button in `NewGameActivity` start a correctly
+  configured `Intent`
+* **20 points** for making area mode work by updating `GameActivity`
+* **5 points** for making target mode respect the user's proximity threshold setting
+* **10 points** for having no `checkstyle` violations
+* **10 points** for submitting code that earns at least _40 points_ by 8 PM on your early deadline day
+
+=== Test Cases
+
+Just like link:/MP/0/#_test_cases[on MP0], we have provided a test suite that exhaustively
+tests your code. You should not modify the test suite, but feel free to examine it to see
+what it is doing with your code, especially when you're debugging test failures.
+`Checkpoint1Test` is stored in the same folder as `Checkpoint0Test`, under the `test` part
+of the `src` folder hierarchy.
+
+To run Checkpoint 1 tests, change the run configurations dropdown to Test Checkpoint 1 and
+press the green run button. You can also run a specific test function using the button in the left
+margin when looking at the test suite code. After updating `grade.yaml`, the Grade run configuration
+that you used in MP0 will grade MP1 instead.
+
+=== Submitting Your Work
+
+Submitting is the same process as in MP0. When you've made progress you want to save,
+do _VCS | Commit_ to make a Git commit. To submit your commits to GitHub and our official grader,
+do _VCS | Git | Push_. The Push dialog should show `master &rarr; origin : master` near the top,
+indicating that you are about to push to the `master` (main) branch of your submission repository.
+If it says `release` instead of `origin`, click the `release` link and select `origin`.
+(You would not be able to push changes to our common distribution repository.)
+
+=== Style Points
+
+Like in MP0, 10% of your MP1 score is from successful `checkstyle` validation.
+One thing checked by `checkstyle` is the presence of Javadoc documentation on each function
+and function parameter. Android Studio can help with this:
+once you've written a function signature, typing `/**` (the start of a Javadoc comment)
+right above the function and pressing Enter will insert any necessary `@param` and `@return`
+tags for you to fill out.
+`checkstyle` also wants all function parameters to be declared `final` (like we did in MP0),
+which means you cannot reassign them inside the function.
+
+== Cliffhanger
+
+After completing MP1 you may be thinking that it would be nice to bundle all the target mode
+logic together in one place and all the area mode logic together in another
+rather than having all those if statements throughout `GameActivity`.
+Later in lecture you'll learn about a concept called _polymorphism_ that will allow us to do this.
+
+Now that we can create customized games, we'll want some way to share or join games with other people
+and see ongoing games' configuration. We'll start on that in the next checkpoint by connecting
+the app to a server.
+
+== Cheating
+
+All submissions on all CS 125 assignments will be checked for plagiarism.
+You may not submit work done by anyone else, nor may you share your assignment code with others.
+Please review the link:/info/syllabus/#cheating[cheating policies] from the syllabus.
