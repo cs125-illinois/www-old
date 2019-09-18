@@ -21,12 +21,12 @@ spelling_exceptions:
 ++++
 ....
 char[][] currentBoard =
-  {{'X', 'O', '.'}, {'O', 'X', 'X'}, {'O', 'O', 'O'}};
+    {{'X', 'O', '.'}, {'O', 'X', 'X'}, {'O', 'O', 'O'}};
 static char checkBoard(char[][] board) {
   for (int i = 0; i < board.length; i++) {
-    if (board[i][0] != '.' &&
-        board[i][0] == board[i][1] &&
-        board[i][1] == board[i][2]) {
+    if (board[i][0] != '.'
+        && board[i][0] == board[i][1]
+        && board[i][1] == board[i][2]) {
       return board[i][0];
     }
   }
@@ -105,10 +105,10 @@ It too has a friend:
 [source,java]
 ----
 switch (variable) {
-  case A:
-    // do something
-  case B:
-    // do something else...
+    case A:
+      // do something
+    case B:
+      // do something else...
 }
 ----
 --
@@ -136,11 +136,11 @@ switch (variable) {
 ....
 int test = 2;
 switch (test) {
-  case 0: System.out.print("A");
-  case 1: System.out.print("B");
-  case 2: System.out.print("C");
-  case 3: System.out.print("D");
-  default: System.out.println("E");
+    case 0: System.out.print("A");
+    case 1: System.out.print("B");
+    case 2: System.out.print("C");
+    case 3: System.out.print("D");
+    default: System.out.println("E");
 }
 System.out.println();
 ....
