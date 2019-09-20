@@ -1,0 +1,269 @@
+---
+title: Midterm 0 Review
+date: 2019-09-20
+description:
+  AMA review session for the first midterm review.
+spelling_exceptions:
+  - Tic-Tac-Toe
+---
+
+[[apdpoeMDsaePWRiutJrIJFYtBhClWsuc]]
+== !
+
+[.janini.small]
+--
+++++
+<div class="message">Midterm Review</div>
+++++
+....
+class Exam {
+  String[] questions;
+  int timeLimitMin = 60;
+  int yourGrade = 0;
+}
+Exam yourExam = new Exam();
+for (int i = 0; i < 125; i++) {
+  yourExam.yourGrade++;
+}
+if (yourExam.yourGrade > 100) {
+  System.out.println("Great job!");
+}
+....
+--
+
+[[wurgjhntdnnEyvXdHdETnnJOSzlutjgZ]]
+[.oneword]
+//
+== Checkpoint 0
+//
+You've come a long way in four weeks.
+
+[[fePsaJhBfjrCgOwfIyrEGSddKRhGEqqk]]
+[.oneword]
+//
+== Midterm Goal
+//
+I want to ensure that you are ready to go on and succeed in CS 125.
+
+[[hUbnAOHkHUJzepcHaieybiJeiGiMjusi]]
+== Midterm Format
+
+[.s]
+//
+* 12 multiple-choice questions, mostly on code reading
+//
+* 3 programming questions:
+** one using arrays,
+** one using multi-dimensional arrays,
+** and one using strings.
+//
+* One programming question will be drawn _directly_ from the HW125 practice
+problems.
+//
+So use those to prepare.
+
+[[TcdfQnWpZrkCncjhuGnWpjGDfRokomdn]]
+== Warm Up: Array Sum
+
+[.lead]
+//
+Sum all values in a one-dimensional array of `int` values.
+
+[[YJMfgnVSIedhBTTspgBPiOmCufydCkFi]]
+== ! Array Sum
+
+[.janini.small]
+....
+System.out.println(arraySum(new int[] { 1, 2, 5 }));
+....
+
+[[dvfiGdGmqIdBfXMwgPeKKfIPfkJonmRQ]]
+== String Equality
+
+Write a function called `areEquals` that takes two `String` arguments and returns
+`true` if the two strings are equal (that is, they contain the same characters)
+and `false` otherwise.
+
+Note that either first or second may be `null`.
+//
+If either are `null` you should return `false`, including if both are `null`.
+
+**What's an algorithm?**
+
+[.s]
+//
+* Eliminate the `null` cases
+//
+* Go through each `String` character by character...
+//
+* ...or just read the docs.
+
+[[YeHcAOmQwjCuGdllwUENduyTfnYjclce]]
+== ! Read The Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/lang/String.html"></iframe>
+</div>
+++++
+
+[[SclevVBYzdbdfVBNJocTqCeipeDIqAot]]
+== ! String Equality
+
+[.janini.small]
+....
+System.out.println(areEquals("CS125", "CS125"));
+System.out.println(areEquals("CS125", "CS173"));
+....
+
+[[eZDwJdFOcjHPWaLjdfBAKQlfyeXIHwBe]]
+== String Rotate Left
+
+Write a function called `rotateLeft` that takes a `String` as its first argument and
+a positive `int` as its second argument and rotates the `String` left by the given
+number of characters.
+
+**What's an algorithm?**
+
+[.s.small]
+//
+* Create a new character array of the same size as the input
+//
+* Go through the passed string character by character
+//
+* Compute the new position for that character
+//
+* Copy the character into position in the new character array
+
+[[DweFwnmrrJnLUgsXgBtdKgHniDEiwLrh]]
+== ! String Rotate Left
+
+[.janini.small]
+....
+System.out.println(rotateLeft("CS125"), 0);
+....
+
+[[dfCeFcBhotTuxCIrAkKnBJmQIgTjqTUZ]]
+== ! String Rotate Left Mistakes and Cleanup
+
+[.janini.small]
+....
+// Now let's review some common mistakes
+System.out.println(rotateLeft("CS125"), 0);
+....
+
+[[QnhQJvuEeOxnAGKOVekLugtudfxnKQPH]]
+== String Rotation Master Class
+
+[.lead]
+//
+Let's look at some ways to do HW18.
+
+[.s]
+//
+* Note that all of these _passed_ our test suite.
+//
+* But that doesn't mean that they are all _correct_.
+//
+* I'm not going to post these as part of the slide deck to avoid disseminating
+potentially bad solutions
+//
+* Is this your code? Probably not&mdash;it's from last semester.
+
+[[DKICYZRYMBPWPLDHKFZQPPHCVSYALBEL]]
+== ! String Rotation Attempt 1
+
+[.small.janini]
+....
+System.out.println(rotateRight("CS125", 1));
+....
+
+[[NYYTCNESDSUSNTWBYRIAPIQSMVRXIVAU]]
+== ! String Rotation Attempt 2
+
+[.small.janini]
+....
+System.out.println(rotateRight("CS125", 1));
+....
+
+[[PVALXNIKLNMGEMZMMCJTMXKDMKHWJEXJ]]
+== ! String Rotation Attempt 3
+
+[.small.janini]
+....
+System.out.println(rotateRight("CS125", 1));
+....
+
+[[DcjHDBYsWssnceiYzjBqgJLuSIXGTuTb]]
+== Tic-Tac-Toe Master Class
+
+[.lead]
+//
+Let's look at some ways to do HW22.
+
+[.s]
+//
+* Note that all of these _passed_ our test suite.
+//
+* But that doesn't mean that they are all _correct_.
+//
+* I'm not going to post these as part of the slide deck to avoid disseminating
+potentially bad solutions
+//
+* Is this your code? Maybe. Maybe not.
+
+[[PvoeQVJetrdavwmHXXFIcLITcRinurei]]
+== ! Tic-Tac-Toe Attempt 1
+
+[.small.janini]
+....
+char[][] verticalWinner =
+  {{'X', 'O', '.'}, {'O', 'O', 'X'}, {'O', 'O', '.'}};
+char[][] horizontalWinner =
+  {{'X', 'O', '.'}, {'X', 'X', 'X'}, {'O', 'O', 'X'}};
+
+System.out.println(checkBoard(verticalWinner));
+System.out.println(checkBoard(horizontalWinner));
+....
+
+[[vFinuDewRXtWcfNCeFizfdnxgddAvzcS]]
+== ! Tic-Tac-Toe Attempt 2
+
+[.small.janini]
+....
+char[][] verticalWinner =
+  {{'X', 'O', '.'}, {'O', 'O', 'X'}, {'O', 'O', '.'}};
+char[][] horizontalWinner =
+  {{'X', 'O', '.'}, {'X', 'X', 'X'}, {'O', 'O', 'X'}};
+
+System.out.println(checkBoard(verticalWinner));
+System.out.println(checkBoard(horizontalWinner));
+....
+
+[[ysPvKBdnTnFWPVJvRKidOwvqImvHLOSE]]
+== ! Tic-Tac-Toe Attempt 3
+
+[.small.janini]
+....
+char[][] verticalWinner =
+  {{'X', 'O', '.'}, {'O', 'O', 'X'}, {'O', 'O', '.'}};
+char[][] horizontalWinner =
+  {{'X', 'O', '.'}, {'X', 'X', 'X'}, {'O', 'O', 'X'}};
+
+System.out.println(checkBoard(verticalWinner));
+System.out.println(checkBoard(horizontalWinner));
+....
+
+[[ZLEGLKEIWPJYLVFCYIQISYLBUJLUDHKV]]
+== Announcements
+
+[.small]
+//
+* Next week we will hold our first *midterm exam*: a one-hour quiz worth 2% of
+your grade that _cannot be dropped_
+//
+* Monday we will begin discussing _objects_!
+//
+* Office hours for MP0 continue&mdash;good luck finishing up!
+
+// vim: ts=2:sw=2:et
