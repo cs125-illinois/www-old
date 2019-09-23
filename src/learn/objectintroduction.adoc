@@ -19,10 +19,10 @@ class Course {
   String name;
   int enrollment;
 }
-Course CS125 = new Course();
-CS125.name = "CS 125";
-CS125.enrollment = 800;
-System.out.println(CS125.name + " has " + CS125.enrollment + " students.");
+Course cs125 = new Course();
+cs125.name = "CS 125";
+cs125.enrollment = 800;
+System.out.println(cs125.name + " has " + cs125.enrollment + " students.");
 ....
 --
 
@@ -235,7 +235,7 @@ class Person {
   }
 }
 Person geoffrey = new Person();
-geoffrey.age = 38;
+geoffrey.age = 40;
 System.out.println(geoffrey.age);
 ----
 
@@ -319,9 +319,12 @@ Remember link:/MP/2019/spring/0/[MP0]?
 
 [source,java,role='smaller']
 ----
-public static int farthestNorth(final double[] latitudes, final double[] longitudes,
-                                final boolean[] validLocations) {
-    return 0;
+public static int getTargetWithinRange(final double[] latitudes, final double[] longitudes, final int[] path,
+		final double currentLatitude, final double currentLongitude,
+		final int range) {
+	// HINT: To find the distance in meters between two locations, use a provided helper function:
+	// LatLngUtils.distance(oneLatitude, oneLongitude, otherLatitude, otherLongitude)
+	return -1;
 }
 ----
 
@@ -330,9 +333,12 @@ public static int farthestNorth(final double[] latitudes, final double[] longitu
 
 [source,java,role='smaller']
 ----
-public static int farthestNorth(final double[] latitudes, final double[] longitudes,
-                                final boolean[] validLocations) {
-    return 0;
+public static int getTargetWithinRange(final double[] latitudes, final double[] longitudes, final int[] path,
+		final double currentLatitude, final double currentLongitude,
+		final int range) {
+	// HINT: To find the distance in meters between two locations, use a provided helper function:
+	// LatLngUtils.distance(oneLatitude, oneLongitude, otherLatitude, otherLongitude)
+	return -1;
 }
 ----
 
@@ -363,6 +369,10 @@ class Location {
 }
 public static int farthestNorth(final Location[] locations) {
     return 0;
+}
+public static int getTargetWithinRange(final Location[] path,
+		final Location currentLocation, int range) {
+	return -1;
 }
 ----
 
