@@ -53,10 +53,10 @@ public class Person {
   private int age;
 
   private void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
   public int getAge() {
-    return this.age;
+    return age;
   }
 }
 ----
@@ -130,10 +130,10 @@ don't make sense until we discuss packages.)
 public class Person {
   private int age;
   public void setAge(int setAge) {
-    this.age = setAge;
+    age = setAge;
   }
   public int getAge() {
-    return this.age;
+    return age;
   }
 }
 ----
@@ -154,18 +154,18 @@ public class Person {
   private int lastName;
   public void setName(String setName) {
     String[] nameParts = setName.split(" ");
-    this.name = setName;
-    this.firstName = nameParts[0];
-    this.lastName = nameParts[1];
+    name = setName;
+    firstName = nameParts[0];
+    lastName = nameParts[1];
   }
   public int getName() {
-    return this.name;
+    return name;
   }
   public int getFirstName() {
-    return this.firstName;
+    return firstName;
   }
   public int getLastName() {
-    return this.lastName;
+    return lastName;
   }
 }
 ----
@@ -247,8 +247,8 @@ public class Example {
     // This works
     Course.printName();
     // This also works
-    Course CS125 = new Course();
-    CS125.printName();
+    Course cs125 = new Course();
+    cs125.printName();
   }
 }
 ----
@@ -268,7 +268,7 @@ public class Course {
   public String name;
   public static void printName() {
     // This doesn't work
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 ----
@@ -285,16 +285,16 @@ public class Course {
 public class Course {
   public static int count = 0;
   public void printCount() {
-    System.out.println(this.count);
+    System.out.println(count);
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    Course CS125 = new Course();
-    Course CS225 = new Course();
+    Course cs125 = new Course();
+    Course cs225 = new Course();
     Course.count++;
-    CS125.printCount();
-    CS225.printCount();
+    cs125.printCount();
+    cs225.printCount();
   }
 }
 ----
@@ -313,19 +313,19 @@ public class Course {
   private String name;
   public static int count = 0;
   public void printCount() {
-    System.out.println(this.name + " " + this.count);
+    System.out.println(name + " " + count);
   }
   Course(String setName) {
-    this.name = setName;
+    name = setName;
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    Course CS125 = new Course("125");
-    Course CS225 = new Course("225");
+    Course cs125 = new Course("125");
+    Course cs225 = new Course("225");
     Course.count++;
-    CS125.printCount();
-    CS225.printCount();
+    cs125.printCount();
+    cs225.printCount();
   }
 }
 ....
