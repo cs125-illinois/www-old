@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js" data-dtconfig="rid=RID_-2018356100|rpid=-1277192723|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1569258585034|dtVersion=10175190917092722|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1569258585034|dtVersion=10175190917092722|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-1680617015|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js" data-dtconfig="rid=RID_-2018356100|rpid=-943703578|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1569445923471|dtVersion=10175190917092722|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1569445923471|dtVersion=10175190917092722|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-61060658|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -2101,6 +2101,9 @@
 			
 				
 			
+			
+				
+			
 			<li class="arrow-active">
 				
 
@@ -3291,7 +3294,7 @@
 
 					<!-- Mobile locations tab -->
 					<li class="dropdown component-dropdownHeader support--dropdown new-suport-tab text last hidden-sm hidden-md hidden-lg" style="margin-top: 2px;">
-						<a href="https://corporate.dow.com/en-us/locations" class="dropdown-toggle primary deepLink">
+						<a href="/content/corp/en-us/locations" class="dropdown-toggle primary deepLink">
 							<span class="button--label ">Locations</span>
 						</a>
 					</li>
@@ -3784,7 +3787,7 @@
 								</li>
 								<!-- location tab for tablet -->
 								<li class="pdp-detail-list-locations hidden-xs hidden-lg hidden-md override-container-mobile">
-									<a href="https://corporate.dow.com/en-us/locations" class="pdp-detail-lists-title-locations" title="locationstext.title">
+									<a href="/content/corp/en-us/locations" class="pdp-detail-lists-title-locations" title="locationstext.title">
 										<span class="button--label">Locations</span>
 									</a>
 								</li>
@@ -5526,6 +5529,9 @@
 			
 				
 			
+			
+				
+			
 			<li class="arrow-active">
 				
 
@@ -6928,7 +6934,7 @@
                     <div class="col-xs-12">
                         <div class="modal-terms-and-conditions">
 
-                            <p>An Email has been sent to <span class="dcc_simple_registration_signup_registration_email"></span>with a unique code, please check your e-mail and enter the code below.</p>
+                            <p>An Email has been sent to <span class="dcc_simple_registration_signup_registration_email"></span> with a unique code, please check your e-mail and enter the code below.</p>
 
                             <!-- <button type="button" class="btn btn-block reauth_logout_btn btn-info" onclick="doThis()">Click me yo</button> -->
                             
@@ -7110,7 +7116,7 @@
     <script>
 
         window.isNewDowEnvironment = true;
-        window.locationsHref = "https:\/\/corporate.dow.com\/en\u002Dus\/locations";
+        window.locationsHref = "\/content\/corp\/en\u002Dus\/locations";
         window.locationsText = "Locations";
 
     </script>
@@ -7420,19 +7426,13 @@
             
                <div>
                   <li>
-                     <a href="https://www.dow.com/en-us/support.html#EHS" title="EH&amp;S Resources"><span class="font-black legal__link">EH&amp;S Resources</span></a>
-                  </li>
-               </div>
-            
-               <div>
-                  <li>
                      <a href="https://corporate.dow.com/en-us/careers.html" target="_blank" title="Careers"><span class="font-black legal__link">Careers</span></a>
                   </li>
                </div>
             
                <div>
                   <li>
-                     <a href="https://corporate.dow.com/en-us/seek-together" target="_blank" title="Seek Together"><span class="font-black legal__link">Seek Together</span></a>
+                     <a href="https://corporate.dow.com/en-us/seek-together.html" target="_blank" title="Seek Together"><span class="font-black legal__link">Seek Together</span></a>
                   </li>
                </div>
             

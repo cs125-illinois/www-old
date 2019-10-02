@@ -1,0 +1,637 @@
+---
+title: "MP2: Web APIs"
+description:
+The MP2 checkpoint starts connecting your app to our web service and continues building its UI.
+spelling_exceptions:
+- singleplayer
+- multiplayer
+- gson
+- gameplay
+- Firebase
+- hardcoding
+secret: JB3Tfhn8
+---
+:sectnums:
+:linkattrs:
+:imagesdir: /MP/images/MP2
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp2[forum,role='noexternal']]
+
+[.lead]
+In link:/MP/0[MP0] and link:/MP/1[MP1], you implemented both game modes for a singleplayer version
+of the Campus Snake 125 game. This checkpoint starts making the app multiplayer by connecting it
+to an authentication service and our central game server.
+
+To make the multiplayer game work, users will need to be able to identify themselves to the app
+and to a central server that relays information between users. Displaying data from the server
+first requires fetching it. Services designed to make information accessible to other machines,
+like our central server, expose a _web API_ that programs can contact in a structured manner to
+receive structured information.
+
+Now that you know how to create and use objects, you can take advantage of an incredible
+number of existing pieces of software, often referred to as _libraries_),
+to easily add features to your program.
+This checkpoint uses Google's link:https://firebase.google.com/docs/auth[Firebase Authentication],
+link:https://sites.google.com/site/gson/gson-user-guide[Gson],
+and (indirectly) link:https://developer.android.com/training/volley/index.html[Volley] libraries
+to let the user log in and respond to game invitations.
+
+As usual, **deadlines for each checkpoint vary by your deadline group**.
+MP2 is due at:
+
+* **8 PM on Sunday 10/20/2019 for the Blue Group**: all labs starting at 2 PM or earlier
+* **8 PM on Monday 10/21/2019 for the Orange Group**: all labs starting at 3 PM or later
+
+Since MP2 is another multi-week checkpoint, 10% of your grade on it is for submitting code that
+earns at least _40 points_ by **Sunday 10/13/2019 (Blue)** or **Monday 10/14/2019 (Orange)**.
+Late submissions will be subject to the
+link:/info/syllabus#regrading[MP late submission policy].
+
+== Learning Objectives
+
+MP2 introduces two major skills that will be extremely useful for your final project
+and in software development in general. You will:
+
+* Integrate existing libraries into your application to provide functionality to your users
+  without needing to implement all those features yourself
+* Access data from a web service according to a web API specification
+
+We'll keep making use of your imperative programming, object-oriented programming,
+and Android UI skills exercised in previous checkpoints.
+
+== Assignment Structure
+
+You already have the one MP repository you'll be working on and are familiar with the
+relevant parts of the folder structure. You just need the test suite for Checkpoint 2.
+
+=== Obtaining MP2
+
+Like link:/MP/1/#mp1[for MP1], we distribute the new MP2 files in a _patch_.
+To apply it and begin working on the checkpoint, follow these steps:
+
+1. Commit your work just in case you run into any problems applying the patch.
+2. Download link:/MP/patches/MP2.patch[the patch file].
+3. In Android Studio, do _VCS | Apply Patch_.
+4. Select the downloaded patch file and press OK to apply it.
+5. Change the `checkpoint` setting in `grade.yaml` to `2`.
+6. Do _File | Sync Project with Gradle Files_.
+
+The Grade task should then grade Checkpoint 2.
+A new run configuration called Test Checkpoint 2 will run the Checkpoint 2 test suite.
+If you run into a problem obtaining MP2, please get help immediately.
+
+=== Late MP1 Submissions
+
+If you didn't finish MP1 or even MP0, you can still do MP2.
+Setting `useProvided` in `grade.yaml` to `true` will make the app use our
+`AreaDivider` class, `GameActivity` logic, and singleplayer game setup UI
+footnote:[but not game setup intent, for reasons of compatibility with future checkpoints].
+Our provided logic cannot suppress ``MainActivity``'s original behavior of immediately
+launching `GameActivity`, but if you remove the original `startActivity` and `finish` calls
+our provided version will add the Create Game button as needed.
+Other than that, MP2 can be graded completely independently from MP0 and MP1.
+
+If you want to finish up MP1 before starting MP2, consider holding off on applying the MP2
+patch because the new test suite will not be able to compile until an activity introduced in
+MP2 is added to the project.
+
+If you want to go back later and work on a late submission of a previous checkpoint,
+you can change the `checkpoint` setting back to the number of the checkpoint you would like to
+have graded.
+
+== Android
+
+You already know a lot about Android activities and UI from previous checkpoints.
+Here we introduce some extensions to that knowledge that will allow you even more
+flexibility in building apps.
+
+=== Getting Results from Activities
+
+You previously launched other activities by passing an `Intent` to the `startActivity` function.
+Sometimes the activity you launched needs to return the user to your activity once some data
+has been produced. For example, when you go to attach a picture to a text message, your phone
+takes you to a camera or gallery screen; once you take or select a picture, you're taken back
+to the texting screen which received the chosen picture.
+
+To start an activity that you need to get a result from, use the `startActivityForResult`
+function. It takes the intent specifying the activity to launch and a numeric _request code_
+of your choice that is useful in case your activity issues multiple different requests.
+For example:
+
+[source,java]
+----
+// Suppose intent is an Intent variable and MY_REQUEST_CODE is an int constant
+startActivityForResult(intent, MY_REQUEST_CODE);
+----
+
+When the activity finishes and produces its result, the Android system calls the original activity's
+`onActivityResult` function to deliver the result. To act on that notification, you need to
+override `onActivityResult` (similar to how all activities override `onCreate` to do something
+when they are created):
+
+[source,java]
+----
+/**
+ * Invoked by the Android system when a request launched by startActivityForResult completes.
+ * @param requestCode the request code passed by to startActivityForResult
+ * @param resultCode a value indicating how the request finished (e.g. completed or canceled)
+ * @param data an Intent containing results (e.g. as a URI or in extras)
+ */
+@Override
+protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == MY_REQUEST_CODE) {
+        // Do something that depends on the result of that request
+    }
+}
+----
+
+=== Inflating Layouts
+
+You previously used the UI designer to add UI to activity layouts.
+It is also possible for layout resources to contain smaller, _repeatable_ pieces of UI rather than
+entire screens' worth. For example, the email app on your phone has a chunk of UI
+repeated for each email in your inbox, containing text views for the sender, subject, send time,
+and possibly more. Like how functions allow us to break up our programs into manageable,
+reusable pieces, layouts allow organization and reuse of user interface elements.
+
+To create a layout file without an associated activity, right-click the `layout` folder under
+`res` and select _New | Layout Resource File_. Our convention for small layout "chunk" resources
+is that their names begin with `chunk_`. Once you've created the resources, you can use the
+UI designer to add views to it just like before.
+
+Before your code can use the layout chunk, it must be _inflated_.
+That turns the layout resource, specified by its `R.layout` constant,
+into a hierarchy of views that can be manipulated as usual.
+Much like setting an ID for a view produces a constant on `R.id` named the same as the ID,
+creating a layout resource produces a constant on `R.layout` named the same as the file.
+For the chunk to be laid out properly, its future parent view&mdash;the container that it will
+be added into&mdash;should be specified.
+
+[source,java]
+----
+// Suppose parent is some kind of container that will hold this chunk
+View messageChunk = getLayoutInflater().inflate(R.layout.chunk_email, parent, false);
+// If the last parameter was true, inflate would return parent
+----
+
+The return value of `inflate` is a `View` that represents the chunk as a group of views.
+To get a reference to a specific view inside that copy/instance of the chunk, call the `findViewById`
+instance method like before but on the chunk's `View`:
+
+[source,java]
+----
+TextView senderLabel = messageChunk.findViewById(R.id.sender);
+// Do something with senderLabel...
+----
+
+=== Variable-Length UI
+
+However, inflating a layout chunk does not add it to the current activity's UI
+footnote:[unless `true` is passed as `attachToRoot`, but again, that causes `inflate` to
+return the parent view, which makes it difficult to get the newly inflated chunk].
+Usually repeatable chunks of layout will be used to display a variably sized list of things
+in a container. Once you have a reference to a container like a `LinearLayout`,
+you can add a chunk to it with `addView`:
+
+[source,java]
+----
+// Suppose parent is the container specified as the parent for messageChunk
+parent.addView(messageChunk);
+----
+
+If you want to remove all the entries in a container, you can call its `removeAllViews` function.
+
+Adding repeatable UI to containers is often done in loops. For example:
+
+[source,java]
+----
+LinearLayout parent = findViewById(R.id.emails_list);
+for (Email email : inboxMessages) {
+    View messageChunk = getLayoutInflater().inflate(R.layout.chunk_email, parent, false);
+    TextView senderLabel = messageChunk.findViewById(R.id.sender);
+    senderLabel.setText(email.getSenderName());
+    // Do something with any other views in the chunk...
+    parent.addView(messageChunk);
+}
+----
+
+=== Accessing Resources
+
+To make it easier to translate apps into different languages, Android considers it good practice
+to put user-facing strings of text in string resources in `res/values/strings.xml`
+rather than hardcoding them as string literals in your Java files.
+We don't impose that as a requirement, but you will find it helpful
+to be able to access string and string array resources.
+
+The object returned by the `getResources` function of activities grants access to the app's
+resources. The value of string resources identified by their `R.string` constants
+footnote:[which come from the `name` attributes in that XML file]
+can be accessed with `getString`:
+
+[source,java]
+----
+String appName = getResources().getString(R.string.app_name);
+----
+
+More relevant to the MP, string arrays can be accessed with `getStringArray`
+by their `R.array` constant:
+
+[source,java]
+----
+String[] teamNames = getResources().getStringArray(R.array.team_choices);
+----
+
+If you're curious, you can see Android's official
+link:https://developer.android.com/reference/android/content/res/Resources[`Resources` documentation]
+for more information.
+
+== Web API
+
+[.lead]
+link:https://en.wikipedia.org/wiki/Application_programming_interface[_API_] stands for
+Application Programming Interface. An API specifies the structure or _contract_ for communication
+between applications.
+When using an API you don't need to be concerned about how the service is implemented.
+You just need to properly submit a request and understand the response.
+
+Here and for your final project we are most interested in _web APIs_, which are accessed
+over the Internet using standardized web protocols.
+The most common Internet protocol is
+link:https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP],
+Hypertext Transfer Protocol.
+Each HTTP request specifies a document, method, and sometimes a body.
+When browsing the web, the document specifies which page you'd like to look at.
+When using an API, the document is often referred to as the _endpoint_ and specifies
+what function you would like the service to do for you.
+The most common HTTP methods are `GET` and `POST`.
+`GET` requests access data; `POST` requests make a submission, change something, or generally
+take an action.
+
+=== What is JSON?
+
+In object-oriented languages, structured data can be modeled with classes.
+But servers and clients can be written in many different languages with wildly varying
+conceptions of how data should be laid out, so for the response data to be transferred
+between them, it must be written in (_serialized_ into) a mutually understandable format
+that correctly conveys the structure of the information.
+
+link:https://en.wikipedia.org/wiki/JSON[JSON] has become an extremely common format
+for exchanging data on the web. JSON is text that describes a hierarchy of objects and their
+properties. A Google Maps `LatLng` object might be represented like this in JSON:
+
+[source,json]
+----
+{
+  "latitude": 40.109187,
+  "longitude": -88.227213
+}
+----
+
+Curly braces surround the contents of a JSON object. Each _property_ (which corresponds to
+a variable in Java) has a quoted name before the colon and a value after.
+Values can be numbers, strings, booleans, objects, or arrays
+footnote:[or even null].
+
+Here's a more complicated JSON object partially representing a class:
+
+[source,json]
+----
+{
+  "name": "CS 125",
+  "enrollment": 800,
+  "location": {
+    "name": "Foellinger Auditorium",
+    "allows_food": false,
+    "latitude": 40.105952,
+    "longitude": -88.227204
+  },
+  "lecture_days": [
+    "Monday",
+    "Wednesday",
+    "Friday"
+  ]
+}
+----
+
+There, the value of the `location` property on the root object is another object,
+which has four properties of its own.
+`lecture_days` on the root object is an array of the three strings
+`Monday`, `Wednesday`, and `Friday`.
+Arrays may contain any kind of value including objects or other arrays.
+
+=== Using Gson
+
+Virtually all languages in common use today have JSON libraries available, so you don't
+have to parse the JSON text yourself.
+
+For the MP we'll be using Google's Gson library to work with JSON.
+We have added it to the project for you and provided helper functions that automatically
+parse JSON received from our server into instances of Gson classes.
+The classes you'll be working with most are
+link:https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonElement.html[`JsonElement`],
+link:https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonObject.html[`JsonObject`],
+and
+link:https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonArray.html[`JsonArray`].
+
+[.alert.alert-warning]
+--
+The Android SDK includes very similarly named classes like `JSONObject` (note
+the capitalization).
+You must use Gson; attempting to use other JSON libraries will fail during grading.
+--
+
+A `JsonObject` represents a curly-braced JSON object.
+Its `get` method returns the value of a specified property as a `JsonElement`
+(or null if the requested property was absent).
+``JsonElement``s have several methods to get the value as a specific type,
+e.g. `getAsInt` interprets the value as an integer and returns a Java `int`.
+For example, this snippet gets the class name and enrollment from the second example object
+in the previous section:
+
+[source,java]
+----
+// Suppose cs125 is a JsonObject variable
+String className = cs125.get("name").getAsString();
+int enrollment = cs125.get("enrollment").getAsInt();
+----
+
+Accessing values from nested objects requires getting a `JsonObject` for those nested objects first.
+Trying to get the `allows_food` property on the root object would fail because it doesn't exist
+there, but this works:
+
+[source,java]
+----
+JsonObject venue = cs125.get("location").getAsJsonObject();
+boolean allowsFoodInClass = venue.get("allows_food").getAsBoolean();
+----
+
+``JsonArray``s have a `get` method to get the value at the specified index,
+but they are also iterable with the enhanced for loop like a normal array:
+
+[source,java]
+----
+JsonArray lectureDays = cs125.get("lecture_days").getAsJsonArray();
+for (JsonElement d : lectureDays) {
+    String day = d.getAsString();
+    // Do something with day?
+}
+----
+
+=== Making Web Requests
+
+We have provided a `WebApi` class with some functions that issue web requests
+by using Google's Volley library.
+Web requests take a while, so rather than stalling the execution of your app,
+Volley waits for the request's completion in the background and runs a handler
+when the response comes back. If the request failed for some reason (maybe the phone
+isn't connected to the Internet), Volley notifies a different handler of the error.
+You can make a `GET` request from activity code like this:
+
+[source,java]
+----
+WebApi.startRequest(this, WebApi.API_BASE + "/some/endpoint", response -> {
+    // Code in this handler will run when the request completes successfully
+    // Do something with the response?
+}, error -> {
+    // Code in this handler will run if the request fails
+    // Maybe notify the user of the error?
+    Toast.makeText(this, "Oh no!", Toast.LENGTH_LONG).show();
+});
+----
+
+The first parameter is the Android context, which can just be the current activity instance.
+The second is the URL to contact. In the MP, it should always be `WebApi.API_BASE` concatenated
+with the endpoint you'd like to access. In the success handler, the `response` object will contain
+the response data as a `JsonObject` if the endpoint returns a result, otherwise it will be null.
+We don't test for any specific error-related behavior, so your error handler can do anything
+you think is reasonable.
+
+To make a `POST` request, use the more complex overload of `startRequest` that allows
+specifying the method and including a body. The method parameter can be either
+`Request.Method.POST` or `Request.Method.GET` (imported from Volley).
+For this checkpoint, the body parameter can always be null, since no data needs to be uploaded.
+
+=== Our API Documentation
+
+[.lead]
+To use an API, you need to know what requests are valid and what format of data you get back.
+This section tells you the endpoints you need to contact and the structure of the JSON response.
+
+The `/games` endpoint accepts `GET` requests and returns information on the games the
+user is involved in or invited to. The resulting object has a single property called `games`,
+which is an array. Each element of that array is an object with at least these properties:
+
+* `id` (string) is the game's unique ID for use in other requests about that game specifically.
+* `owner` (string) is the email address of the game's owner/creator.
+* `state` (integer) is the `GameStateID` code for the game's current status.
+* `mode` (string) is the game mode, either "area" or "target".
+* `players` is the array of all players, including the current user, invited to or involved in
+  the game. Each object has at least these properties:
+  - `email` (string) is the player's email.
+  - `state` (integer) is the `PlayerStateID` code for the player's current status in the game.
+  - `team` (integer) is the `TeamID` code for the player's team/role in the game.
+
+You may find this link:/MP/files/MP2/games.json[**example JSON response**] helpful.
+
+Some of the values mentioned are numeric codes: integers that indicate different states,
+like Android's `View.VISIBLE` or `View.GONE`. Constants for game-relevant codes are provided
+in the three classes in `Constants.java`. So e.g. rather than comparing against the magic number 2
+to see if the game is over, compare against `GameStateID.ENDED`.
+
+The following three endpoints accept `POST` requests regarding the user's participation in
+a specific game and return no information.
+Replace `GAME_ID` in the endpoint with the game's unique ID from the above results.
+All will fail with an HTTP 404 error if the specific game does not exist.
+
+* `/games/GAME_ID/accept` accepts the invitation to the game.
+  Will fail if the user does not have a pending invitation to it.
+* `/games/GAME_ID/decline` declines the invitation to the game.
+  Will fail if the user does not have a pending invitation to it.
+* `/games/GAME_ID/leave` leaves an ongoing game that the user previously accepted an invitation to.
+  Will fail if the user already left or was never invited.
+
+== Your Goal
+
+Once you finish Checkpoint 2, the app will start by requiring the user to log in.
+The main activity will show a list of invitations fetched from our central game server
+and allow the user to accept or decline them.
+It will also list ongoing games (accepted invitations) and provide UI to enter the game
+or withdraw from it.
+
+While there may be slightly more lines of code necessary for MP2 than previous checkpoints,
+it should be more straightforward than MP1 if you **read the above sections** and refer to them
+as you apply their concepts to the project. As always, **starting early** and making steady
+progress is the best strategy to succeed on the MP.
+
+=== Login Activity
+
+Like when you first started Checkpoint 1, the test suites will not be able to compile immediately
+after acquiring the new Checkpoint 2 files. You need to create the `LaunchActivity` activity,
+which will become the app's new initial/startup activity.
+
+Right-click our package that contains all the Java files you've been working with and select
+_New | Activity | Empty Activity_. Enter `LaunchActivity` in the Activity Name box, which should
+automatically set the Layout Name to `activity_launch`. Make sure the Source Language is set
+to Java, then press Finish to create the activity.
+
+To change the app's startup activity, we need to change the _manifest_, an XML file file
+that contains various registration and metadata about the app.
+It is named `AndroidManifest.xml`, located directly inside the `main` folder.
+We planned for you to move the `<intent-filter>` section from ``MainActivity``'s registration to
+``LaunchActivity``'s yourself, but due to an error in the Checkpoint 0 distribution process
+we accidentally gave the Checkpoint 2 solution version of the manifest to _some_ of you.
+So in the interest of fairness,
+link:https://gist.github.com/Fleex255/390bb22a54c2054c2e5150223e489cdb[here is the solution manifest]
+which you may simply copy-paste over the version in your repository.
+If you're curious, you can read
+link:https://developer.android.com/guide/topics/manifest/manifest-intro[Android's official manifest documentation].
+
+We will be using Google's Firebase Authentication service to display a login flow and
+manage credentials.
+`FirebaseAuth.getInstance().getCurrentUser()` returns an object representing the authenticated
+user or null if the user has not logged in. Add code to `onCreate` to check if the user has signed in.
+If yes, immediately launch `MainActivity` and `finish()`.
+If not, start a Firebase Authentication UI flow according to
+link:https://firebase.google.com/docs/auth/android/firebaseui#sign_in[this Google example]
+but with only email authentication enabled. `RC_SIGN_IN` in that example is an integer constant
+with a value of your choice.
+You may ignore the further-down `onActivityResult` example in favor of using our scaffolding
+from the Android section above. To determine whether the user completed the login flow,
+you can either check if the result code is `RESULT_OK` or try to get the current user again.
+If the user did sign in, proceed to `MainActivity` and `finish()`.
+
+If the user canceled the login flow, they'll see the `LaunchActivity` UI.
+Use the UI designer to add a button with ID `goLogin`. Feel free to caption this whatever you like
+and add any explanatory labels about needing to log in to use the app.
+Pushing the button should start the login process again.
+
+[.alert.alert-warning]
+--
+When testing your app in the emulator, you'll be prompted to create an account with email
+and password. Even if you use your university email address, your account with the game service
+will not be linked to Shibboleth. For your security, do not reuse your Active Directory (NetID)
+password here.
+--
+
+=== Games Lists
+
+Now we'll make the main activity display invitations and ongoing games.
+When the app is complete, it will be possible to invite players to new multiplayer games and set
+their role: either an observer or a player on one of up to four teams.
+In addition to the fact that they've been invited to a game, players would want to know who
+invited them and in what capacity they would participate.
+
+Open the `activity_main.xml` layout resource file and add some views to hold game information:
+
+1. Add some kind of container (vertical `LinearLayout` suggested) with ID `invitationsGroup`
+   inside the provided `LinearLayout`.
+2. Inside that group, add a `TextView` label displaying the word _Invitations_.
+3. Also inside that group, add a vertical `LinearLayout` with ID `invitationsList`.
+   We're not going to put anything inside this in the UI designer&mdash;it'll be populated at
+   runtime with invitation entries.
+4. In the outermost, provided `LinearLayout`, add some kind of container with ID `ongoingGamesGroup`.
+5. Inside that group, add a label displaying the phrase _Ongoing Games_.
+6. Also inside that group, add a vertical `LinearLayout` with ID `ongoingGamesList`.
+   Like `invitationsList`, it should remain empty here.
+
+Update `MainActivity` to immediately request the games list from the server when it starts.
+Refer to the Our API Documentation section above for the request endpoint and result format.
+Until the request completes (that is, initially) the invitations and ongoing games groups should
+have "gone" visibility. When the response is received, populate the games list ``LinearLayout``s
+with one chunk/row per game. We have provided the empty `chunk_ongoing_game.xml` layout resource
+to which you can add repeatable game information UI. While you could use that some chunk for
+both invitations and ongoing games, it will be useful in the next section to add a
+`chunk_invitations.xml` layout resource for invitations specifically.
+
+Entries for games to which the user has a pending invitation should
+be in `invitationsList`. The `invitationsGroup` container should be gone if there are no
+pending invitations.
+Entries for games the user is currently involved in and that have not ended
+should be in `ongoingGamesList`. Both kinds of entries should display the game owner's email,
+the game mode, and the user's role/team name
+footnote:[for which the `team_choices` string array resource will be relevant]
+in labels.
+
+Games that have ended are considered "historical" and should not be displayed in
+either of the required games lists, but you are welcome to add a third group and list for them.
+We will also accept an optional `chunk_historical_game.xml` layout for holding repeatable
+historical game UI.
+
+**To test your games list UI** in the emulator even though it's not possible to create invitations,
+we have set up link:https://misc.rigeltechnical.com/campussnake/invitetest.html[a web site]
+where you can sign in to the game service (with the same credentials you use for the app)
+and make virtual players invite you to games with a random mode and role.
+
+=== Invitation/Game Buttons
+
+To allow the user to respond to invitations or leave games, we will need to make it possible
+to interact with the game information chunks.
+
+To the invitation entries, add two buttons, one labeled Accept and one labeled Decline.
+Similarly, each ongoing game entry should have an Enter and a Leave button,
+except that Leave should be gone if the user is the owner/creator of that game&mdash;if a game's
+owner left, the game could no longer be controlled. Pressing Accept, Decline, or Leave should
+send the appropriate web request to inform the server of the user's decision.
+Once that request completes, the games list should be fetched again and the UI should be updated
+so that the user sees that their decision took effect.
+
+**To confirm that these buttons and web requests are working**, you can use
+link:https://misc.rigeltechnical.com/campussnake/invitetest.html[the invitation testing site].
+The "invitation status" column will update immediately when you respond to an invitation
+or leave a game created by a virtual player.
+
+When the app is done, pressing the Enter button on an ongoing game will enter that game,
+showing the map and putting the user into active gameplay. Multiplayer games aren't implemented
+yet, but we can set up the intent in advance. Make clicking an Enter button launch `GameActivity`
+with the game's unique ID in the `game` extra.
+
+== Grading
+
+MP2 is worth 100 points total, broken down as follows:
+
+* **5 points** for making `LaunchActivity` the startup activity
+* **20 points** for the login flow
+* **25 points** for the games lists
+* **20 points** for the invitation response buttons
+* **10 points** for the enter-game intent
+* **10 points** for having no `checkstyle` violations
+* **10 points** for submitting code that earns at least _40 points_
+  by 8 PM on your early deadline day
+
+=== Test Cases
+
+Unlike previous checkpoints, Checkpoint 2 has no purely computational functions&mdash;everything
+you do here makes the _app_ do something. Therefore, the test suite doesn't call your functions
+with selected inputs or directly check their return values; it instead tries interacting with
+your app in a simulated Android environment. While fully understanding how `Checkpoint2Test`
+works is not expected, reading the assertions it makes may help you understand what exactly
+the tests are looking for.
+
+=== Style Points
+
+Proper style continues to constitute 10% of your grade.
+Android Studio and `checkstyle` may have different opinions on how much handlers
+should be indented when passed as parameters to functions like `WebApi.startRequest`.
+If the default indentation level does not satisfy `checkstyle`, you can select a chunk of code
+and use Shift+Tab to remove one level of indentation or Tab to add one level.
+Alternatively, you can select some of the spaces at the beginning of the line and press Delete
+to remove them without Android Studio trying to put them back.
+
+=== Submitting Your Work
+
+As before, submitting your work requires committing **and pushing** the files you modified/added.
+You can review the link:/MP/setup/git/#committing[submitting portion] of our Git workflow.
+
+== Cliffhanger
+
+It is somewhat common in larger projects for a feature to not be very useful to the application
+overall until several pieces of functionality are in place.
+While the app can show and respond to invitations after you complete Checkpoint 2,
+there is no way to actually create or invite anyone to a multiplayer game.
+Checkpoint 3 will make it possible to configure multiplayer games and send invitations.
+
+== Cheating
+
+The link:/info/syllabus/#cheating[cheating policies] in the syllabus continue to apply.
+Do not submit work done by anyone else or share your MP code with others.
