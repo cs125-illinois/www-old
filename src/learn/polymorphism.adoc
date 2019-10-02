@@ -105,7 +105,7 @@ extends `Object`.
 public class Dog {
   private String name;
   Dog(String setName) {
-    this.name = setName;
+    name = setName;
   }
 }
 public class Example {
@@ -148,10 +148,10 @@ We'll talk more about hashing later&mdash;it's incredibly important and useful.
 public class Dog {
   private String name;
   Dog(String setName) {
-    this.name = setName;
+    name = setName;
   }
   public String toString() {
-    return this.name;
+    return name;
   }
 }
 public class Example {
@@ -214,14 +214,14 @@ public class Example {
 public class Pet {
   protected String type;
   Pet(String setType) {
-    this.type = setType;
+    type = setType;
   }
 }
 public class Dog extends Pet {
   private String breed;
   Dog(String setBreed) {
     super("Dog");
-    this.breed = setBreed;
+    breed = setBreed;
   }
 }
 ----
@@ -240,14 +240,14 @@ This must be the _first_ thing done in a child constructor.
 public class Pet {
   protected String type;
   Pet(String setType) {
-    this.type = setType;
+    type = setType;
   }
 }
 public class Dog extends Pet {
   private String breed;
   Dog(String setBreed) {
     super("Dog");
-    this.breed = setBreed;
+    breed = setBreed;
   }
 }
 public class Example {
