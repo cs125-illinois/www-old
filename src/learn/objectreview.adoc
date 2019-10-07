@@ -45,7 +45,7 @@ public class Example {
 
 Probably everyone.
 //
-What do you do when you're frustrated?
+[.s]#What do you do when you're frustrated?#
 
 
 [[tJAEhRBaxOdrIAfHFqeluBfFBFVZEkZI]]
@@ -86,7 +86,7 @@ In Java, _every_ object is really an instance of at least _two_ types:
 * Each `Dog` is also a `Pet` and also an `Object`
 
 [[zAfgNaUvOdTRoYcImWOGArtsyjxiCuXW]]
-== Review: Object Upcasting
+== Object Upcasting
 
 [source,java,role='smaller']
 ----
@@ -182,7 +182,7 @@ public class Example {
 ....
 
 [[sdlBDsmJxGzipqJCuKbCXcwbxKBRbrno]]
-== Review: Object Downcasting
+== Object Downcasting
 
 [source,java,role='smallest']
 ----
@@ -371,9 +371,29 @@ class
 
 Define a public `class` named `Flip` with a single public instance method
 called `flop` that takes no parameters and returns a `boolean`.
-//
+
+Calling `flop` changes the state from `false` to `true` or `true` to `false` and
+returns the _new_ (not the old) state.
+
 It should also provide a single constructor that takes a `boolean` argument that
 sets the initial state of the `Flip` instance.
+
+[[MzdAMfAlwfmcvOdDvOFNujLpGqUqxaIi]]
+== ! `Flip`
+
+[.janini.small.compiler]
+....
+public class Example {
+  public static void main(String[] unused) {
+    Flip flip = new Flip(true);
+    Flip flop = new Flip(false);
+    for (int i = 0; i < 8; i++) {
+      System.out.println(i + " " + flip.flop());
+      System.out.println(i + " " + flop.flop());
+    }
+  }
+}
+....
 
 [[orYebYemmWfwiIkouECEpHwzgUmvHngq]]
 == Review: `LastTen`
@@ -456,13 +476,11 @@ public class Example {
 [[HiLlpvxKziOlYYkRfdKZIjluYKLMNtQj]]
 == Announcements
 
-* link:/MP/2019/spring/2/[MP2] is out and due in less than two weeks. **Get started!**
+* Congrats to the Blue Team for finishing up MP1!
 //
-* This week's lab exercise is open and available over the weekend. Have fun!
+Good luck to the Orange Team who have their deadline day today.
 //
-* I have office hours from 1&ndash;3PM today in Siebel 2227. Please stop by!
-//
-* **We will _not_ have a lecture next Wednesday.**
+* link:/MP/2/[MP2] will be released at 8PM tonight.
 //
 * We have a
 //
