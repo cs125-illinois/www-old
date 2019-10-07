@@ -1,0 +1,256 @@
+---
+title: Testing
+description:
+  Today we'll introduce you to the art of software testing. We'll discuss what
+  testing is and why we do it, and then give you practice at testing several
+  functions that you wrote previously this semester.
+spelling_exceptions:
+  - PrairieLearn
+---
+
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.lead]
+//
+Today's lab introduces an incredibly important part of software development:
+_testing_.
+//
+By writing tests we allow computers to help us debug and maintain our code.
+//
+It may seem strange to write more code to help test your existing code&mdash;but
+that's what we do.
+//
+In fact, some claim you should write your tests _first_ and your code _second_.
+
+Testing is not a topic that we ask you to examine on the MPs, and not something
+that we've even approached in CS 125 previously.
+//
+But today's lab is intended to give you a bit of a taste of the adversarial
+mindset associated with writing good software tests.
+//
+Properly applied, that mindset can help you write better code until the point
+where writing tests becomes a normal part of how you develop software
+//
+footnote:[And trust us&mdash;that day is coming soon!].
+
+[[testing]]
+== Software Testing [.text-muted]#(50 Minutes Total)#
+
+[.lead]
+//
+Up to this point in CS 125 we've focused on writing code to solve problems.
+//
+But there is a big problem that we encountered over and over again&mdash;how do
+we know that our code works?
+//
+And indeed, because we are computer scientists, we are going to solve that
+problem the same way that we solve other problems.
+//
+**By writing more code.**
+
+Software testing usually refers to the process of writing code to test your
+code.
+//
+Some software testing is impossible to automate and done manually by
+humans&mdash;but that's extremely tedious.
+//
+So a lot of work has gone into automating as much testing as possible, meaning
+that it is done by code rather than by hand.
+
+We've budgeted 10 minutes for you to review the material below, at which point
+you'll have the remainder of lab to complete the testing homework on PrairieLearn.
+
+=== Why Test?
+
+Every decent software project contains tests&mdash;usually a lot of them.
+//
+https://github.com/JetBrains/intellij-community/tree/master/java/java-tests/testSrc/com/intellij[Here
+is the testing directory for IntelliJ, which powers Android Studio].
+//
+https://github.com/chromium/chromium/tree/master/testing[And here's the testing
+directory for Chromium, the open-source version of Chrome].
+//
+https://github.com/discourse/discourse/tree/master/test[And here are the tests
+for Discourse, the open source software that powers our CS 125 forum].
+//
+Anyway&mdash;our point is that all sane software developers write tests.
+//
+Frequently a lot of them.
+//
+Sometimes you actually end up with _more_ testing code than you have non-testing
+code&mdash;particularly if you are trying to test a particularly complex or
+important piece of software.
+
+Companies also devote a huge amount of time to software testing.
+//
+Somewhere in a room at Google or Microsoft or Facebook or Twitter or Instagram
+is a room full of computers (or phones) that are churning away night and day
+running tests to identify bugs in new versions of their products.
+//
+When you begin writing software in industry, frequently the _first_ step in
+changing something is making sure all existing tests have passed.
+//
+Then you'll be required to write your own tests for whatever new feature you are
+trying to add.
+//
+Only once existing tests all pass and new ones are added will anyone even
+_think_ about actually accepting your new change.
+
+**Why?
+//
+Because almost every piece of useful software is complicated.**
+//
+And really useful ones can become incredibly complex.
+//
+What seems like a small change to you can affect other parts of the application
+or program in ways that you didn't intend and could never foresee.
+//
+This problem is exacerbated by the fact that frequently no one person
+understands the entire program or system.
+//
+So rather than try and use our limited human brains to try and determine how a
+change will affect the rest of the program, we just write a lot of tests and
+hope that they will identify anything that breaks.
+//
+Computers helping us write more computer code
+//
+footnote:[Will they appreciate the irony of the situation once they become
+sentient and take over?].
+
+=== Types of Tests
+
+https://en.wikipedia.org/wiki/Software_testing[Software testing]
+//
+employs many different strategies and methods&mdash;far, far too many to cover
+in one lab.
+
+But one important thing to realize is that tests are typically done at different
+//
+https://en.wikipedia.org/wiki/Software_testing#Testing_levels[levels of
+granularity].
+//
+From bottom to top:
+
+. **Unit testing**: these tests focus on isolating the smallest part of the
+program possible.
+//
+Frequently they test a single function.
+//
+You'll be writing unit tests on today's homework.
+//
+. **Integration testing**: these tests focus on verifying that larger parts of a
+complete program fit together (or integrate) properly.
+//
+Another way to think about integration tests is that, if Alice wrote one part of
+an app and Bob wrote another, integration tests should ensure that they
+interoperate properly.
+//
+. **System testing**: the highest level of tests are designed to ensure that
+the app or program works from the perspective of a user.
+//
+A user doesn't care what functions get called or different parts of the system
+interact when they click on a button that should open a menu&mdash;they just
+expect it to work.
+
+=== Testing in CS 125
+
+Given the size of the problems you are able to solve in CS 125, almost all of
+our tests are _unit tests_.
+
+However, we want to point out that the tests that you find on our CS 125 MPs
+_are not_ good examples of how to write tests.
+//
+Why not?
+//
+Because they were written _with access to a solution_.
+//
+Normally you are testing your code because you aren't sure whether it solves a
+problem.
+//
+In contrast, when _grading_ your code we _are_ sure that our solution is correct
+and we want to test whether or not your code behaves the same way.
+//
+However, we also don't want to give away our solution.
+
+=== Writing Good Tests
+
+On today's homework problems we give you practice writing test cases for a few
+small programming problems.
+//
+These are unit tests, since each is testing a single function.
+
+Writing good tests requires a certain adversarial mindset.
+//
+You have to think&mdash;what kind of mistakes is someone implementing this
+likely to make?
+//
+Or, put another way, you can ask the question: how would _I_ mess this up?
+//
+Then, for each potential error, you construct a test case to catch it.
+
+How do you know the right answer?
+//
+Well, you could write a function to compute it&mdash;but then you'd have
+something else to test!
+//
+Instead, what we typically do is compute the result beforehand, offline.
+
+As an example, say that I am testing a function that takes an array as input and
+returns an `int`.
+//
+The documentation says that, if the array is `null`, the function should return
+-1.
+//
+Knowing myself, I might miss that part.
+//
+So I know that I want to test to make sure that `null` is handled properly, and
+I should check that it returns -1 in that case, since that's what the
+documentation says will happen.
+
+Coming up with good adversarial inputs also depends on what you are trying to
+test.
+//
+For example, one of the homework problems today is testing a generalized version
+of `String` rotation.
+//
+An input like `aaa` is an awful input for testing `String` rotation&mdash;while
+`abc` could be a good input.
+//
+Similarly, tests that always use 0 as the amount to rotate will fail to uncover
+many bugs.
+
+=== Get Testing!
+
+OK, now get started on our testing homework challenge.
+//
+**Please feel free to discuss the problems with other students in your lab**,
+although everyone needs to submit their own work.
+
+[[mp2]]
+== Starting MP2 [.text-muted]#(Any Remaining Time)#
+
+We've set aside the remainder of lab for you to begin work on
+//
+link:/MP/2/[MP2].
+//
+Good luck getting started!
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've completed our in-lab testing homework problems.
+//
+. You've made some more progress on link:/MP/2/[MP2]...
+//
+. And so has everyone else in your lab!
+
+If you need more help completing the tasks above please come to
+//
+link:/info/syllabus/#calendar[office hours]
+//
+or post on the {forum}.
