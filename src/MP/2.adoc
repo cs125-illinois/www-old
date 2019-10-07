@@ -1,15 +1,11 @@
 ---
 title: "MP2: Web APIs"
 description:
-  The MP2 checkpoint starts connecting your app to our web service and continues
-  building its UI.
+  The MP2 checkpoint starts connecting your app to our web service and continues building its UI.
 spelling_exceptions:
-  - singleplayer
   - multiplayer
   - gson
   - gameplay
-  - Firebase
-  - hardcoding
 secret: JB3Tfhn8
 ---
 :sectnums:
@@ -70,12 +66,12 @@ relevant parts of the folder structure. You just need the test suite for Checkpo
 Like link:/MP/1/#mp1[for MP1], we distribute the new MP2 files in a _patch_.
 To apply it and begin working on the checkpoint, follow these steps:
 
-1. Commit your work just in case you run into any problems applying the patch.
-2. Download link:/MP/patches/MP2.patch[the patch file].
-3. In Android Studio, do _VCS | Apply Patch_.
-4. Select the downloaded patch file and press OK to apply it.
-5. Change the `checkpoint` setting in `grade.yaml` to `2`.
-6. Do _File | Sync Project with Gradle Files_.
+. Commit your work just in case you run into any problems applying the patch.
+. Download link:/MP/patches/MP2.patch[the patch file, download=true].
+. In Android Studio, do _VCS | Apply Patch_.
+. Select the downloaded patch file and press OK to apply it.
+. Change the `checkpoint` setting in `grade.yaml` to `2`.
+. Do _File | Sync Project with Gradle Files_.
 
 The Grade task should then grade Checkpoint 2.
 A new run configuration called Test Checkpoint 2 will run the Checkpoint 2 test suite.
@@ -337,8 +333,7 @@ link:https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/J
 
 [.alert.alert-warning]
 --
-The Android SDK includes very similarly named classes like `JSONObject` (note
-the capitalization).
+The Android SDK includes very similarly named classes like `JSONObject` (note the captialization).
 You must use Gson; attempting to use other JSON libraries will fail during grading.
 --
 
@@ -460,6 +455,8 @@ and allow the user to accept or decline them.
 It will also list ongoing games (accepted invitations) and provide UI to enter the game
 or withdraw from it.
 
+image::/MP/images/MP2/gameslists.png[completed games lists UI]
+
 While there may be slightly more lines of code necessary for MP2 than previous checkpoints,
 it should be more straightforward than MP1 if you **read the above sections** and refer to them
 as you apply their concepts to the project. As always, **starting early** and making steady
@@ -474,9 +471,20 @@ which will become the app's new initial/startup activity.
 Right-click our package that contains all the Java files you've been working with and select
 _New | Activity | Empty Activity_. Enter `LaunchActivity` in the Activity Name box, which should
 automatically set the Layout Name to `activity_launch`. Make sure the Source Language is set
-to Java, then press Finish to create the activity.
+to Java, then press Finish to create the activity. If prompted to add the new files to Git,
+do so.
 
-To change the app's startup activity, we need to change the _manifest_, an XML file file
+[.alert.alert-warning]
+--
+While creating the activity, Android Studio may damage the `build.gradle.kts` file
+under the `app` folder, causing **script compilation errors**.
+If so, right-click that file in the Project pane and choose _Git | Revert_.
+Make sure only the `build.gradle.kts` file is selected, then press Revert to restore
+the correct version. If a "Gradle project sync failed" banner appeared at the top
+of the code editor, click the "try again" link.
+--
+
+To change the app's startup activity, we need to change the _manifest_, an XML file
 that contains various registration and metadata about the app.
 It is named `AndroidManifest.xml`, located directly inside the `main` folder.
 We planned for you to move the `<intent-filter>` section from ``MainActivity``'s registration to
@@ -490,21 +498,56 @@ link:https://developer.android.com/guide/topics/manifest/manifest-intro[Android'
 
 We will be using Google's Firebase Authentication service to display a login flow and
 manage credentials.
+We want the user to be sent directly to the main app if they're already logged in,
+but if not we will start the login process. So the `onCreate` logic will have this structure:
+
+[source,java]
+----
+if (/* the user is logged in */) { // see below discussion
+    // launch MainActivity
+    finish();
+} else {
+    // start login activity for result - see below discussion
+}
+----
+
 `FirebaseAuth.getInstance().getCurrentUser()` returns an object representing the authenticated
-user or null if the user has not logged in. Add code to `onCreate` to check if the user has signed in.
-If yes, immediately launch `MainActivity` and `finish()`.
-If not, start a Firebase Authentication UI flow according to
+user or null if the user has not logged in. Checking it for null allows you to determine
+whether the user needs to sign in. Later in this checkpoint you'll find this object's
+`getEmail()` function useful for getting the current user's email, which serves as their
+identifier in the game.
+
+If you've determined that the user needs to log in, you can start the Firebase Authentation UI
+flow according to
 link:https://firebase.google.com/docs/auth/android/firebaseui#sign_in[this Google example]
-but with only email authentication enabled. `RC_SIGN_IN` in that example is an integer constant
-with a value of your choice.
-You may ignore the further-down `onActivityResult` example in favor of using our scaffolding
-from the Android section above. To determine whether the user completed the login flow,
-you can either check if the result code is `RESULT_OK` or try to get the current user again.
-If the user did sign in, proceed to `MainActivity` and `finish()`.
+but with only email authentication enabled.
+The example code assumes an `RC_SIGN_IN` constant ("__r__equest __c__ode for _sign_-_in_"),
+which you may define as an integer of your choice or pick a different name for.
+Either way, the value you pass to `startActivityForResult` will be passed as the request code to
+`onActivityResult` when the login flow completes.
+
+`onActivityResult`, as described in the Getting Results from Activities section,
+will be called when the login flow is over whether or not the user actually signed in.
+So `onActivityResult` will need logic to check that before proceeding to the main activity:
+
+[source,java]
+----
+if (/* the result is from the login request */) {
+    if (/* the user successfully logged in */) { // see below discussion
+        // launch MainActivity
+        finish();
+    }
+}
+----
+
+To see if the login flow was successful, you can either check the result code against
+`RESULT_OK` like Google's example does, or repeat the logic you used to determine whether
+the user was signed in in the first place.
 
 If the user canceled the login flow, they'll see the `LaunchActivity` UI.
-Use the UI designer to add a button with ID `goLogin`. Feel free to caption this whatever you like
-and add any explanatory labels about needing to log in to use the app.
+Use the UI designer to add a button with ID `goLogin`.
+Feel free to caption this whatever you like and add any explanatory labels about
+needing to log in to use the app.
 Pushing the button should start the login process again.
 
 [.alert.alert-warning]
@@ -525,15 +568,15 @@ invited them and in what capacity they would participate.
 
 Open the `activity_main.xml` layout resource file and add some views to hold game information:
 
-1. Add some kind of container (vertical `LinearLayout` suggested) with ID `invitationsGroup`
+. Add some kind of container (vertical `LinearLayout` suggested) with ID `invitationsGroup`
    inside the provided `LinearLayout`.
-2. Inside that group, add a `TextView` label displaying the word _Invitations_.
-3. Also inside that group, add a vertical `LinearLayout` with ID `invitationsList`.
+. Inside that group, add a `TextView` label displaying the word _Invitations_.
+. Also inside that group, add a vertical `LinearLayout` with ID `invitationsList`.
    We're not going to put anything inside this in the UI designer&mdash;it'll be populated at
    runtime with invitation entries.
-4. In the outermost, provided `LinearLayout`, add some kind of container with ID `ongoingGamesGroup`.
-5. Inside that group, add a label displaying the phrase _Ongoing Games_.
-6. Also inside that group, add a vertical `LinearLayout` with ID `ongoingGamesList`.
+. In the outermost, provided `LinearLayout`, add some kind of container with ID `ongoingGamesGroup`.
+. Inside that group, add a label displaying the phrase _Ongoing Games_.
+. Also inside that group, add a vertical `LinearLayout` with ID `ongoingGamesList`.
    Like `invitationsList`, it should remain empty here.
 
 Update `MainActivity` to immediately request the games list from the server when it starts.
@@ -542,7 +585,7 @@ Until the request completes (that is, initially) the invitations and ongoing gam
 have "gone" visibility. When the response is received, populate the games list ``LinearLayout``s
 with one chunk/row per game. We have provided the empty `chunk_ongoing_game.xml` layout resource
 to which you can add repeatable game information UI. While you could use that some chunk for
-both invitations and ongoing games, it will be useful in the next section to add a
+both invitations and ongoing games, it will be useful for the next section to add a
 `chunk_invitations.xml` layout resource for invitations specifically.
 
 Entries for games to which the user has a pending invitation should
@@ -585,7 +628,7 @@ or leave a game created by a virtual player.
 When the app is done, pressing the Enter button on an ongoing game will enter that game,
 showing the map and putting the user into active gameplay. Multiplayer games aren't implemented
 yet, but we can set up the intent in advance. Make clicking an Enter button launch `GameActivity`
-with the game's unique ID in the `game` extra.
+with that game's unique ID (a string) in the `game` extra.
 
 == Grading
 
