@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js" data-dtconfig="rid=RID_-2018356100|rpid=-943703578|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1569445923471|dtVersion=10175190917092722|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1569445923471|dtVersion=10175190917092722|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10175190917092722.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-61060658|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191004125156.js" data-dtconfig="rid=RID_-2018356100|rpid=-1816250689|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1570597815817|dtVersion=10177191004125156|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191004125156.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191004125156.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1570597815817|dtVersion=10177191004125156|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191004125156.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-597726958|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -151,7 +151,7 @@
         
         	
     
-<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.489734a5bc2c725606efdcf879dd1858.css" type="text/css">
+<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.9d78e991fb95c18078ff8a3cb60861e3.css" type="text/css">
 
 
 
@@ -225,7 +225,7 @@
                  	 				       
 			    </div>
                 <!-- @AEM COMPONENT: NEW NAV END -->								
-
+				
 				<ul class="nav navbar-nav logo-lockup hidden-xs">
 					<li class="hamburger icon products hidden-xs hidden-md hidden-lg">
 						<a href="javascript:void(0);">
@@ -7772,7 +7772,7 @@
                         <div class="product-description description">
                             <strong>Product Information</strong>
                             <span>
-                                Access datasheets, exclusive content and application
+                                Access datasheets, exclusive content and applications
                             </span>
                         </div>
                     </div>
@@ -7824,7 +7824,7 @@
     
         <meta/>
     
-<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.65b327f1f5ec23895d18e60a2d26f37e.js"></script>
+<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.d278a31e2cb7de1ff8eff0a07ae36d3a.js"></script>
 
 
 
