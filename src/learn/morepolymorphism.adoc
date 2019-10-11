@@ -1,10 +1,9 @@
 ---
-title: More Polymorphism and Class Design
+title: Polymorphism and References
 date: 2019-10-11
 description:
-  A continued discussion of polymorphism and practice with inheritance and class
-  design.
-draft: true
+  A continued discussion of polymorphism in light of what we now know about
+  object references.
 ---
 
 [[yvPGyAzjIWxppDwhCkgPugvxiKuRyxUi]]
@@ -13,30 +12,53 @@ draft: true
 [.janini.smallest.compiler]
 --
 ++++
-<div class="message">More Polymorphism and Class Design</div>
+<div class="message">Polymorphism and References</div>
 ++++
 ....
 public abstract class Pet {
-  public String toString() {
-    return "I'm a pet";
+  public String getOwner() {
+    return "My owner is ...";
   }
 }
-public class Dog extends Pet { }
-public final class Cat extends Pet {
-  public String toString() {
-    return "I'm a cat, not just a pet!";
+public class Dog extends Pet {
+  public String bark() {
+    return "Woof";
+  }
+}
+public class Cat extends Pet {
+  public String meow() {
+    return "Meow...";
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    Pet chuchu = new Dog();
-    Pet xyz = new Cat();
+    Dog chuchu = new Dog();
+    System.out.println(chuchu.bark());
+    System.out.println(chuchu.getOwner());
     System.out.println(chuchu);
-    System.out.println(xyz);
+
+    Pet chuchuAsPet = chuchu;
+    // System.out.println(chuchuAsPet.bark()); // Doesn't work
+    System.out.println(chuchuAsPet.getOwner());
+    System.out.println(chuchuAsPet);
+
+    Object chuchuAsObject = chuchu;
+    // System.out.println(chuchuAsObject.bark()); // Doesn't work
+    // System.out.println(chuchuAsObject.getOwner()); // Doesn't work
+    System.out.println(chuchuAsObject);
   }
 }
 ....
 --
+
+[[PnibedMlQLqeiYounxGGGDxsmuwChEFl]]
+[.oneword]
+//
+== Today's Goal
+
+[.lead]
+//
+Connect _polymorphism_ (Monday) and _references_ (Wednesday)
 
 [[RLvwFWZxPUMlEjaBhKQYkihiRaBXyfVY]]
 == Review: The Tree Of (Java) Life
@@ -184,7 +206,7 @@ https://en.wikipedia.org/wiki/Polymorphism_(computer_science)[Polymorphism]:
 the provision of a single interface to entities of different types.
 ____
 
-We'll discuss interfaces in more detail when we talk about about packages.
+We'll discuss interfaces in more detail next week.
 //
 For now, let's identify two kinds of Java polymorphism using examples.
 
@@ -207,16 +229,16 @@ public class Dog extends Pet {
 
 [.lead]
 //
-In Java, _every_ object is really an instance of at least _two_ types:
+In Java, _every_ object _can be referred to_ as at least _two_ types:
 
 [.s]
 //
-* Each `Pet` is also an `Object`
+* Each `Pet` can also be referred to as an `Object`
 //
-* Each `Dog` is also a `Pet` and also an `Object`
+* Each `Dog` can be referred to as a `Pet` and also as an `Object`
 
 [[zAfgNaUvOdTRoYcImWOGArtsyjxiCuXW]]
-== Object Conversion: Upcasting
+== Reference Conversion: Upcasting
 
 [source,java,role='smaller']
 ----
@@ -241,10 +263,11 @@ public class Example {
 
 [.lead]
 //
-Java will _upcast_ object types automatically.
+Java will _upcast_ object references automatically.
+
 
 [[CibxAzCMpvrFpjbBUcHRBnCoPdroMZDc]]
-== ! Object Conversion: Upcasting
+== ! Reference Conversion: Upcasting
 
 [.janini.smaller.compiler]
 ....
@@ -312,7 +335,7 @@ public class Example {
 ....
 
 [[sdlBDsmJxGzipqJCuKbCXcwbxKBRbrno]]
-== Object Conversion: Downcasting
+== Reference Conversion: Downcasting
 
 [source,java,role='smallest']
 ----
@@ -334,13 +357,13 @@ public class Example {
 
 [.lead]
 //
-We can also cast instances _down_ but only if the instance is
+We can also cast references _down_ but only if the instance is
 actually the appropriate subtype.
 
 Java checks the cast at runtime to make sure that it is appropriate.
 
 [[GJrYLdzWnTewfJWDGEyNqVxQyxjMmJCk]]
-== ! Object Conversion: Downcasting
+== ! Reference Conversion: Downcasting
 
 [.janini.smaller.compiler]
 ....
@@ -403,24 +426,147 @@ public class Example {
 }
 ....
 
-[[CaeAiZMIixRpAkCxQeiqMdVeitvqdxFV]]
-== Polymorphism
+[[jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge]]
+== Review: Reference Variables
 
-[quote]
-____
-https://en.wikipedia.org/wiki/Polymorphism_(computer_science)[Polymorphism]:
+[source,java,role='smallest']
+----
+class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me); // The variables store the same reference
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);
+----
+
+[.lead]
 //
-the provision of a single interface to entities of different types.
-____
+We can (and will) refer to a Java variable that refers to an object as a _reference
+variable_.
+
+[[dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv]]
+== Review: References Are Not Objects
+
+[.lead]
+//
+References _are not_ the thing the refer to.
+
+What are some real-world examples of references?
 
 [.s]
 //
-* *Subtype polymorphism*: a single method can act on all descendants of a given
-class
+* *A phone number*: which refers to a phone
 //
-* *Method overloading*: a method can behave differently depending on its arguments
+* *A street address*: which refers to a physical location
 //
-* Generic types (discussed later)
+* *A social security number*: which refers to a person
+
+[[FveseaiiYjpDdFnrARWToOKPGwkirajm]]
+== Instance v. Reference Types
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog(); // Reference type Dog, instance type Dog
+    Object chuchuAsObject = new Dog(); // Reference type Object, instance type Dog
+    Pet chuchuAsPet = chuchu; // Reference type Pet upcast from Dog reference
+    chuchu = (Dog) chuchuAsObject; // Reference type Dog downcast from Object
+    reference
+  }
+}
+----
+
+[.s]
+//
+* **Instance type**: whatever is to the right of `new`, the actual type of the object, never changes
+//
+* **Reference type**: the type of the reference that we use to refer to an
+object, can be the instance type or any of its ancestors
+
+[[pJVfnZPQCzlJUoFgWVfPudeHoJFdbXnP]]
+== Reference Types
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public void woof() {
+    System.out.println("Bark");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    chuchu.woof(); // I can call woof on a Dog reference
+    Object chuchuAsObject = chuchu;
+    chuchuAsObject.woof(); // I can't call woof on an Object reference...
+    Object stringObject = new String("String");
+    stringObject.woof(); // ...because not every object implements woof()!
+    System.out.println(stringObject.toString()); // But I can call toString
+  }
+}
+----
+
+[.lead]
+//
+In Java the _reference_ type controls what instance methods and variables we can
+access.
+
+[[HUgPdXIvnrdstaIpRwnjOImMVdnudXqT]]
+== !Reference Type Example
+
+[.janini.smallest.compiler]
+//
+----
+public abstract class Pet {
+  public String getOwner() {
+    return "My owner is ...";
+  }
+}
+public class Dog extends Pet {
+  public String bark() {
+    return "Woof";
+  }
+}
+public class Cat extends Pet {
+  public String meow() {
+    return "Meow...";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    System.out.println(chuchu.bark());
+    System.out.println(chuchu.getOwner());
+    System.out.println(chuchu);
+
+    Pet chuchuAsPet = chuchu;
+    // System.out.println(chuchuAsPet.bark()); // Doesn't work
+    System.out.println(chuchuAsPet.getOwner());
+    System.out.println(chuchuAsPet);
+
+    Object chuchuAsObject = chuchu;
+    // System.out.println(chuchuAsObject.bark()); // Doesn't work
+    // System.out.println(chuchuAsObject.getOwner()); // Doesn't work
+    System.out.println(chuchuAsObject);
+  }
+}
+----
 
 [[ufJmZnSeceinndtXZprPsVdWxQYnEceY]]
 == Why Polymorphism?
@@ -566,6 +712,19 @@ public class Example {
 [[llSwhDiJhDVPeyiCsBwpfdfEdrSUupdC]]
 [.oneword]
 //
-== Questions About Polymorphism or Class Design?
+== Questions About Polymorphism, References, or Class Design?
+
+[[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
+== Announcements
+
+* **Wednesday 5&ndash;8PM office hours have been canceled.**
+//
+We will now hold office hours on _Fridays_ (today) from 5&ndash;8PM.
+//
+* We have a
+//
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
 
 // vim: ts=2:sw=2:et
