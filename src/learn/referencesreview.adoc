@@ -1,0 +1,696 @@
+---
+title: Review of References
+date: 2019-10-14
+description:
+  A review of object references and an introduction to interfaces.
+spelling_exceptions:
+  - Chromecast
+---
+:imagesdir: /learn/images
+
+[[XvVPGwaRhahvjdxCblIifRgJogEUVwFu]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Review of References</div>
+++++
+....
+public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Add add = new Adder();
+    System.out.println(add.add(10, 12));
+  }
+}
+....
+--
+
+[[FGYdgTOISDkkODtssqfnpsFbxSkPbHkB]]
+[.oneword]
+//
+== ACM Mental Health Awareness Night
+
+[.lead]
+//
+**Tuesday** (tomorrow) 10/15 from 8&ndash;9PM in Siebel 2405.
+
+[[EqKwDFinakbAdndbazGzcnYdaSteqzbn]]
+== Mental Health in Computer Science
+
+[.lead]
+//
+**Don't be a computer.**
+
+[.s]
+//
+* Computers are never wrong.
+//
+* Computers incessantly point out human error.
+
+[[WwXpSnJMPNyKcjfXjcoBEIsidpgMSQUI]]
+== Mental Health in Computer Science
+
+[.lead]
+//
+**Be _not_ a computer.**
+
+[.s]
+//
+* If a computer can do it, it's not uniquely human.
+//
+* Try to emphasize your human qualities when interacting with
+others&mdash;especially with computer scientists.
+//
+* Also join the Computer Support Group that meets daily in Siebel 0403...
+
+[[DCjjzoWayWemShjeeEvuUguuRORBFmoa]]
+[.oneword]
+//
+== Speaking of Being Wrong...
+
+The machine project is intended to be confusing and frustrating at times...
+//
+[.s]#but not _this_ confusing and frustrating.#
+
+[[gbmhhCeQihSnWTncaxVammGvmTimOWma]]
+== The Machine Project is Too Hard
+
+[.lead]
+//
+**That's entirely my fault, and I apologize.**
+
+[.s]
+//
+* When we try new things we sometimes have to make adjustments, and probably
+should have made this one sooner.
+//
+* It's also been putting a huge amount of stress on the course staff, who have
+been handling things extremely well.
+//
+* And you're also all doing quite well, despite the increased difficulty level.
+
+[[sRduSZBCdgOdTaZTGFzJoFnsnGPvGcrM]]
+== Adjusting the MP Difficulty Level
+
+[.lead]
+//
+Here's what we're going to do.
+
+[.s]
+//
+. We're adjusting the length and difficulty level of the remaining parts of the
+MP
+//
+. **We've also provided everyone with 1 MP checkpoint drop.** (The grades page
+is up-to-date as of this morning.)
+//
+. The midterm grades that went out over the weekend _do not_ include this
+change.
+
+[[RPklXieYiAOiKUpqaXyAyoedKIGNYyYH]]
+[.oneword]
+//
+== Questions or Concerns?
+
+I have office hours _today_ from 1&ndash;3PM if you want to come by and chat.
+
+[[XxGahOwmXfZrBFQuELVZOxrslVpDJEnC]]
+== Review: References
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Reference_(computer_science)[Reference:]
+//
+a value that enables a program to _indirectly_ access a particular datum, such
+as a variable's value or a record, in the computer's memory or in some other
+storage device.
+//
+The reference is said to refer to the datum, and accessing the datum is called
+dereferencing the reference.
+____
+
+[[jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge]]
+== Review: Java Reference Variables
+
+[source,java,role='smallest']
+----
+class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me);
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);
+----
+
+[.lead]
+//
+We can refer to a Java variable that refers to an object as a _reference
+variable_.
+
+[[dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv]]
+== Review: References Are Not Objects
+
+[.lead]
+//
+References _are not_ the thing the refer to.
+
+Some real-world references include:
+
+* *A phone number*: which refers to a phone
+//
+* *A street address*: which refers to a physical location
+//
+* *A social security number*: which refers to a person
+
+[[itfuafekfLjAzwwbVrkStPQVIGyxObCF]]
+== Review: Copying References
+
+[.lead]
+//
+Copying a reference _does not_ copy the object it refers to.
+
+[.s]
+//
+* *Copying a phone number doesn't copy the phone.*
+//
+Anyone with the number can call the same person.
+//
+* *Copying a street address doesn't copy the location.*
+//
+Anyone with the address can navigate to the same spot.
+//
+* *Copying a social security number doesn't copy the person* footnote:[Is that
+even possible?].
+//
+Anyone with social security number may be able to impersonate that person.
+
+[[mIzaMkJisKMhTtGuDJdBQQQLzmaeZvUp]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  me
+</div>
+++++
+
+[[oTxeeptDAAbhPoFfhrUmlbRqOGBifBCI]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
+</div>
+++++
+
+[[HRLZQYDutqYyuRJLAfRTUKWsHAAnIsXh]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
+  you -> Person [ label = "refers to" ]
+</div>
+++++
+
+[[BNDFZUWJXXyorFCxmkBrigvGUpbPKsEb]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 10" ]
+  me -> Person [ label = "set age" ]
+  you -> Person
+</div>
+++++
+
+[[EbMSAXuEuSUQYYKcghZAlJXEgDAazCWh]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 10" ]
+  me -> Person
+  you -> Person [ label = "get age" ]
+</div>
+++++
+
+[[MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB]]
+== Pass By (Copied) Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);
+System.out.println(birthday(me));
+System.out.println(me.age);
+----
+
+[.lead]
+//
+In Java methods receive _a copy_ of a reference to the passed object.
+
+So they *can* modify the object the reference refers to.
+
+[[TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO]]
+[.ss]
+== Pass By (Copied) Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 40" ]
+  me -> Person
+</div>
+++++
+
+[[QeoegaQWqRCqwRWjFgcHecPcBnblAsuu]]
+[.ss]
+== Pass By (Copied) Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);
+System.out.println(birthday(me));
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person
+  toSet -> Person [ label = "age++" ]
+</div>
+++++
+
+[[LCApeGyQtFkuQzuHRiWVCZeNpdydfeht]]
+[.ss]
+== Pass By (Copied) Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);
+System.out.println(birthday(me));
+System.out.println(me.age);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person [ label = "get age" ]
+</div>
+++++
+
+[[vBVVoNbvCRZapCtVZOalDGPPOGiDqYTV]]
+== ! Arrays Store Object References
+
+[.janini.smallest.compiler]
+....
+public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person[] people = new Person[4];
+    for (int i = 0; i < people.length; i++) {
+      people[i] = new Person(18 + i);
+    }
+    Person[] samePeople = new Person[4];
+    for (int i = 0; i < people.length; i++) {
+      samePeople[i] = people[i];
+    }
+    for (int i = 0; i < people.length; i++) {
+      people[i].age += 10;
+    }
+    for (int i = 0; i < samePeople.length; i++) {
+      System.out.println(samePeople[i].age);
+    }
+  }
+}
+....
+
+[[wLKMXRVWDTOLVmKPzLGUzkHWsYXfjKhd]]
+== How To Copy Objects
+
+[source,java]
+----
+public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  Person(Person other) {
+    this.age = other.age;
+  }
+}
+----
+
+[.lead]
+//
+If we want to copy an object, we have a few options:
+
+[.s]
+//
+* `Object` provides a `clone` method
+//
+* You can implement a _copy_ constructor as shown above
+
+[[yIuWQkMigaAVPvtEIROvoEbkHSwxdNBQ]]
+== Shallow v. Deep Copies
+
+[source,java]
+----
+public class Person {
+  public Pet pet;
+  Person(Person other) {
+    this.pet = other.pet;
+  }
+}
+----
+
+[.lead]
+//
+What is a potential problem with the copy constructor shown above?
+
+[.s]
+//
+* It only copies the _reference_ to the `Pet` object. So both the existing and
+the new object will share the same `Pet` object.
+//
+* This is called a _shallow_ copy. A _deep_ copy copies all of the objects so
+the old and new object share nothing.
+
+[[tTAXvrPmiXsApAXXqjpgJRjMksTFlnuv]]
+== Review: Reference v. Object Equality
+
+[source,java,role='smaller']
+----
+public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  boolean equals(Person other) {
+    return this.age == other.age;
+  }
+}
+Person me = new Person(40);
+Person other = new Person(40);
+System.out.println(me == other);
+System.out.println(me.equals(other));
+----
+
+[.s]
+//
+* If two _references_ are equal then they refer to _the same_ object, and
+`.equals` is almost always true.
+//
+* If two references are not equal, the class may still define `.equals` to be
+true depending on the value of the instance variables.
+
+[[vdVcDrcyfndBJrDOfJFeeeQnkBfjdelO]]
+== References and Method Overriding
+
+[.lead]
+//
+Note that Java uses the _reference_ type, _not_ the object type when matching
+method signatures.
+
+[.s]
+//
+* If the reference type doesn't match, Java will upcast until it finds a match
+or the call fails
+
+[[zvUfGJunftTkpBMRNDeDwJnBggyXoXWB]]
+== ! References v. Objects
+
+[.janini.smaller.compiler]
+....
+public class Pet {
+  public String toString() {
+    return "Object is a pet";
+  }
+}
+public class Example {
+  public static void what(Object o) {
+    System.out.println("Reference is an object");
+    System.out.println(o);
+  }
+  public static void what(Pet p) {
+    System.out.println("Reference is a pet");
+    System.out.println(p);
+  }
+  public static void main(String[] unused) {
+    Pet pet = new Pet();
+    what(pet);
+    Object object = pet;
+    what(object);
+  }
+}
+....
+
+[[bsXbUlKaQeGfqKCdyACmnTqmWQHfuiqE]]
+[.oneword]
+//
+== Questions About Object References?
+
+This concept is critical once we start talking about data structures and
+algorithms next week.
+
+[[VPVMUWTAEgXSNueHburUmttCKeuhcdeZ]]
+== Interfaces
+
+[.lead]
+//
+Interfaces are an incredibly important idea when building computer programs and
+systems.
+
+[[nRANkNJSPjdGATReHMsdJtMowgfdvacN]]
+== What Is An Interface?
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Interface_(computing)[Interface:]
+//
+a shared boundary across which two or more separate components of a computer
+system exchange information.
+____
+
+[.s]
+//
+* Interfaces can be between two pieces of software, between software and
+hardware, between computers and their users, or between various permutation of
+these components.
+//
+* Interfaces enable different parts of a system to interact in a structured way.
+
+[[TIuSskfZFyHWIeJRkatzJACsXzKQOnCW]]
+== Examples of Computer Interfaces
+
+[.s]
+//
+* *Software-software:* between the test cases that we write and the code that you
+complete for each MP or homework problem.
+//
+* *Software-hardware:* between my laptop and the Chromecast that is displaying
+today's lecture slides.
+//
+* *Computer-user:* computer displays, keyboards, pointing devices, and other
+peripherals.
+
+[[kZihYTenzabHfhSeWrCxkpibegcwLXHX]]
+== Software Interfaces
+
+[.lead]
+//
+We're going to focus on software interfaces, and specifically on interfaces in
+Java.
+
+[.s]
+//
+* However, interfaces are _not_ a Java- or language-specific idea.
+//
+* Some languages&mdash;like Java, Go, and others&mdash;include a specific notion
+of interfaces as part of the language.
+//
+* For other languages this is done by convention.
+//
+* *But all software development involves interfaces, regardless of what language
+you are using.*
+
+[[ekCWZZfsdfEsUsXaLAiqefgmefuSoXyd]]
+== Note: Every Java Object Has An Interface
+
+[.lead]
+//
+Even Java classes that don't `implements` a Java interface provide an interface.
+//
+**The interface to a Java `class` is the the set of methods that it
+provides.**
+
+[[dReSmHaciJqendBXUVzMVldfeiOVfSaB]]
+== Interface Documentation
+
+[.lead]
+//
+Interfaces are also a place where we need _excellent documentation_.
+
+[.s]
+//
+* This facilitates communication between _users_ of an interface and _providers_
+of an interface.
+//
+* This is exactly what Javadoc is for.
+
+[[xidutqLLsdvzSKnIoEfrmoibdeBcuDHb]]
+== Announcements
+
+* **No Coders** on this week's quiz. Chapters 5 _and_ 6 for _next_ week.
+//
+* I have office hours _today_ from 1&ndash;3PM in Siebel 0403.
+//
+* We have a
+//
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+
+// vim: ts=2:sw=2:et

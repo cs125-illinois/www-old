@@ -1,11 +1,9 @@
 ---
-title: Interfaces
-date: 2019-10-16
+title: More About Interfaces
+date: 2019-10-18
 description:
-  Continuation of an introduction to Java interfaces.
-spelling_exceptions:
-  - Chromecast
-youtube: https://youtu.be/pfJV0zLvnXo
+  A continuation of discussion of interfaces.
+draft: true
 ---
 :imagesdir: /learn/images
 
@@ -15,7 +13,7 @@ youtube: https://youtu.be/pfJV0zLvnXo
 [.janini.smallest.compiler]
 --
 ++++
-<div class="message">Interfaces</div>
+<div class="message">More About Interfaces</div>
 ++++
 ....
 public interface Add {
@@ -35,16 +33,8 @@ public class Example {
 ....
 --
 
-[[VPVMUWTAEgXSNueHburUmttCKeuhcdeZ]]
-== Interfaces
-
-[.lead]
-//
-Interfaces are an incredibly important idea when building computer programs and
-systems.
-
 [[nRANkNJSPjdGATReHMsdJtMowgfdvacN]]
-== What Is An Interface?
+== Review: What Is An Interface?
 
 [quote]
 //
@@ -63,64 +53,6 @@ hardware, between computers and their users, or between various permutation of
 these components.
 //
 * Interfaces enable different parts of a system to interact in a structured way.
-
-[[TIuSskfZFyHWIeJRkatzJACsXzKQOnCW]]
-== Examples of Computer Interfaces
-
-[.s]
-//
-* *Software-software:* between the test cases that we write and the code that you
-complete for each MP or homework problem.
-//
-* *Software-hardware:* between my laptop and the Chromecast that is displaying
-today's lecture slides.
-//
-* *Computer-user:* computer displays, keyboards, pointing devices, and other
-peripherals.
-
-[[kZihYTenzabHfhSeWrCxkpibegcwLXHX]]
-== Software Interfaces
-
-[.lead]
-//
-We're going to focus on software interfaces, and specifically on interfaces in
-Java.
-
-[.s]
-//
-* However, interfaces are _not_ a Java- or language-specific idea.
-//
-* Some languages&mdash;like Java, Go, and others&mdash;include a specific notion
-of interfaces as part of the language.
-//
-* For other languages this is done by convention.
-//
-* *But all software development involves interfaces, regardless of what language
-you are using.*
-
-[[ekCWZZfsdfEsUsXaLAiqefgmefuSoXyd]]
-== Note: Every Java Object Has An Interface
-
-[.lead]
-//
-Even Java classes that don't `implements` a Java interface provide an interface.
-//
-**The interface to a Java `class` is the the set of methods that it
-provides.**
-
-[[dReSmHaciJqendBXUVzMVldfeiOVfSaB]]
-== Interface Documentation
-
-[.lead]
-//
-Interfaces are also a place where we need _excellent documentation_.
-
-[.s]
-//
-* This facilitates communication between _users_ of an interface and _providers_
-of an interface.
-//
-* This is exactly what Javadoc is for.
 
 [[urfTHuaUJiLxdlIRadfUXiTfXyeBnveI]]
 == Java Interfaces
@@ -256,26 +188,6 @@ So far this seems very similar to inheritance and overloading.
 //
 * Providing your own implementation is like overriding a parent's method
 
-[[diEefpzMSuzcCJKtyfTPxiunXQAbRzHg]]
-== ! Interfaces v. Inheritance
-
-[.janini.compiler]
-....
-public class Add {
-  public int add(int first, int second) {
-    return 0;
-  }
-}
-public class Adder extends Add {
-}
-public class Example {
-  public static void main(String[] unused) {
-    Add add = new Adder();
-    System.out.println(add.add(10, 12));
-  }
-}
-....
-
 [[rEXiyfgutbqfnnJnxneeVZDEdCdHnLqu]]
 == `abstract` Methods
 
@@ -293,24 +205,6 @@ public abstract class Add {
   public abtract int add(int first, int second);
 }
 ----
-
-[[DqntdeINezlRUJCiZTneLdEInJxxamCe]]
-== ! `abstract` Methods
-
-[.janini.compiler]
-....
-public abstract class Add {
-  public abstract int add(int first, int second);
-}
-public class Adder extends Add {
-}
-public class Example {
-  public static void main(String[] unused) {
-    Add add = new Adder();
-    System.out.println(add.add(10, 12));
-  }
-}
-....
 
 [[cgqGfQnuLznNbTnHhTcGnSPLtdtnLnNY]]
 [.oneword]
@@ -447,8 +341,105 @@ features
 * If I _use_ `Comparable` I don't need to worry about how the interface is
 _implemented_ but I know that I can correctly compare two objects
 
+[[yPdDeAdLGrhcjXhpHLwhrZKtYvleUnVU]]
+== Review: HW40
+
+[source,java]
+----
+interface Comparable {
+    int compareTo(Object other);
+}
+----
+
+Create a class called `StringLength` that implements a version of the Java
+//
+https://docs.oracle.com/javase/10/docs/api/java/lang/Comparable.html[`Comparable`]
+interface as shown above.
+//
+`StringLength` wraps a `String` and should provide a constructor that takes a
+`String` as a single parameter, which is stored internally by each instance of
+`StringLength`.
+
+[[SfrXcQrodGfnCdekvBiZODRQcbgeQslk]]
+== Review: `Comparable`
+
+`Comparable` allows objects to be put _in order_.
+//
+In this case, you should order `StringLength` objects based on the _length_ of
+their `String` instance variable.
+//
+Specifically `compareTo` should return:
+
+* -1 if `other` is less than the specified object, `null`, or not an instance of
+`StringLength`
+//
+* 0 if `other` is equal to the specified object
+//
+* 1 if `other` is greater than the specified object
+
+(**Note that this is backwards from the official `Comparable` interface**, but
+the result is just a convention.)
+
+[[iJeOmiztFvnnugqBLVFXcnUvqwuBfrWq]]
+== ! Review: HW40
+
+[.janini.smallest.compiler]
+....
+public interface Comparable {
+  int compareTo(Object other);
+}
+public class StringLength {
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
+[[nffLXHWaLxLnEnaehpdpLKHlUViCHDYN]]
+== It's Good to `Comparable`
+
+[.lead]
+//
+This small function is surprisingly powerful.
+//
+It allows _existing_ Java code to:
+
+[.s]
+//
+* *sort* instances of your class
+//
+* efficiently *search* for instances of your class
+//
+* We'll discuss both data structures and algorithms that utilize `Comparable`
+over the next few months
+
+[[MnCJNXfHfcHfJtoZeVxoVvufdqodlCVC]]
+== `.equals` v. `compareTo`
+
+[.lead]
+//
+In Java _every_ object must provide `.equals`, but only those that implement
+`Comparable` must provide `.compareTo`.
+//
+*Why?*
+
+[.s]
+//
+* Java decided that every class must have some notion of _equality_: at minimum,
+an object instance should be equal to itself!
+//
+* In contrast, not every class supports meaningful comparisons
+
+[[MlpiPlhpiUyuStpvicLkRAfntNuSvftd]]
+[.oneword]
+//
+== `Comparable` or Not
+
+What are some examples of classes that _can_ or _cannot_ be compared?
+
 [[hAIYbXvZIbCeHuFcdefAdTFdKMeLZzcV]]
-== ! Comparable Example
+== ! Another Comparable Example
 
 [.janini.smallest.compiler]
 ....
@@ -467,5 +458,68 @@ public class Example {
   }
 }
 ....
+
+[[BuLNedtjJeeGXeGbFuVaRWijiUPuGURO]]
+== Review: HW42
+
+Create a class called `Minimum` that provides a single class method `min`.
+//
+`min` should take an array of any object that implements `Comparable` and return
+the minimum value from the array, using `compareTo` to compare object instances.
+//
+So the function signature of `min` should be `public static Comparable
+min(Comparable[] values)`.
+
+[[ybiNNiFdeZPFElPXQYoqBGidQLDUYHNi]]
+== Review: HW42
+
+As a reminder, `first.compareTo(second)` returns a positive value if `first` is
+larger than `second`, a negative value if `first` is smaller than `second`, and
+0 if they are equal.
+//
+Note that the array of `Comparable` references passed to `min` will all be the
+same type and contain no `null` references.
+//
+However, the array _may_ be `null` or empty in which case you should return
+`null`.
+
+[[RJedsoPedKGSnRDxVQZPJeZmRBoxdXvB]]
+== ! Review: HW42
+
+[.janini.smallest.compiler]
+....
+public class Minimum {
+  public static Comparable min(Comparable[] values) {
+    return values[0];
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Minimum.min(new String[] { "one", "two", "five" }));
+    System.out.println(Minimum.min(new Integer[] { 1, 2, 5 }));
+  }
+}
+....
+
+////
+[[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
+== Announcements
+
+* I have no office hours today. Have a great weekend!
+//
+* link:/MP/2019/spring/3/[MP3] is out and due _a week from Friday_
+//
+footnote:[No, it is not a prank.]. Get started!
+//
+* I have office hours as usual today, 1&ndash;3PM, Siebel 2227.
+//
+Please come by and say hi!
+//
+* We have a
+//
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+////
 
 // vim: ts=2:sw=2:et
