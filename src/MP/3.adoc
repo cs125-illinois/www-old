@@ -14,7 +14,6 @@ spelling_exceptions:
 - resizable
 - stringify
 - LatLng
-- instantiable
 secret: O3XI92fF
 ---
 :sectnums:
@@ -59,6 +58,10 @@ like in previous checkpoints.
 
 Like in previous checkpoints, we distribute the new MP3 files in a _patch_ to your existing
 repository.
+
+For information on all classes present after the completion of Checkpoint 3,
+refer to our
+**https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/package-summary.html[official Javadoc]**.
 
 === Obtaining MP3
 
@@ -111,9 +114,9 @@ are inconvenient.
 
 Fortunately, Java provides _lists_: objects that hold dynamically resizable lists of things.
 All lists are instances of
-https://docs.oracle.com/javase/8/docs/api/java/util/List.html[`List`], but `List` isn't
-a concrete, instantiable type. To create a list you create an instance of a `List` implementation,
-the most common of which is
+https://docs.oracle.com/javase/8/docs/api/java/util/List.html[`List`], but `List` is an
+interface rather than a concrete type.
+To create a list you create an instance of a `List` implementation, the most common of which is
 https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html[`ArrayList`].
 This is an example of _polymorphism_.
 
@@ -255,7 +258,6 @@ cs125.add("lecture_days", lectureDays);
 Gson objects stringify to the JSON text they represent, so you can pass them to
 `System.out.println` to see what JSON you've built. It will be condensed onto one line and difficult
 to read, so you may find it helpful to paste that into
-//
 https://jsonformatter.org/json-pretty-print[a JSON formatter] to see its structure more easily.
 
 [[api]]
@@ -268,17 +270,17 @@ The body should be a JSON object (Gson `JsonObject` instance) with these propert
 
 * `mode` (string) is the game mode, either "target" or "area"
 * `invitees` (array of objects) is the list of players invited to the game, including the user;
-  each object should have these properties:
-  - `email` (string) is the invitee's email address
-  - `team` (integer) is the `TeamID` code for the role/team the user is invited to
+each object should have these properties:
+- `email` (string) is the invitee's email address
+- `team` (integer) is the `TeamID` code for the role/team the user is invited to
 * _For target mode only_, `proximityThreshold` (integer) is the proximity threshold in meters
 * _For target mode only_, `targets` (array of objects) is the list of targets in the game;
-  each object should have these properties:
-   - `latitude` (double) is the latitude of the target
-   - `longitude` (double) is the longitude of the target
+each object should have these properties:
+- `latitude` (double) is the latitude of the target
+- `longitude` (double) is the longitude of the target
 * _For area mode only_, `cellSize` (integer) is the cell size in meters
 * _For area mode only_, `areaNorth`, `areaEast`, `areaSouth`, and `areaWest` (all doubles)
-  are the latitude/longitude bounds of the area
+are the latitude/longitude bounds of the area
 
 You may find the **link:/MP/files/MP3/target.json[example target mode body]** and
 **link:/MP/files/MP3/area.json[example area mode body]** helpful.
@@ -298,25 +300,38 @@ targets lists from the server. Those are accessible by a GET request to the `/pr
 The server's response will be a JSON object containing this property:
 
 * `presets` (array of objects) is the list of preset options; each object has these properties:
-  - `name` (string) is the human-readable name of the preset
-  - `targets` (array of objects) is the list of targets in the preset; each has at least these
-    properties:
-     ** `latitude` (double) is the target's latitude
-     ** `longitude` (double) is the target's longitude
+- `name` (string) is the human-readable name of the preset
+- `targets` (array of objects) is the list of targets in the preset; each has at least these
+properties:
+** `latitude` (double) is the target's latitude
+** `longitude` (double) is the target's longitude
 
 You may find **link:/MP/files/MP3/presets.json[this example response]** helpful.
 Do not assume that the `note` property will always be present on target objects,
 but feel free to do anything you like with it if it's there. You can always ignore it completely.
 
+[[git_revert]]
+=== Reverting Changes with Git
+
+Version control systems like Git make it possible to retrieve older versions
+of your code, which is very useful if you accidentally damage a file.
+Android Studio integrates with Git to allow you to undo (_revert_) changes with its UI.
+
+If you would like to put a file back to how it was at the last commit, right-click
+it in the Project pane and choose _Git | Revert_. This brings up the Revert Changes
+dialog, where you can select any additional files you would like to revert.
+Reverting a file throws away all changes to it since the last commit and **is usually not
+reversible**.
+
+For a more surgical approach, Android Studio highlights changed regions of files
+with colored bars or gray triangles in the left margin of the code editor.
+Clicking one of these decorations produces a toolbar with a back arrow (Rollback Lines)
+button that reverts just the highlighted lines to how they were in the last commit.
+This rollback method may sometimes be reversible with Ctrl+Z, but you should still
+be certain that you want to throw away your changes.
+
 [[goal]]
 == Your Goal
-
-[.alert.alert-danger]
---
-// TODO: Remove this notice after improving the section
-**Work in progress:** This documentation should be sufficient for course staff to be able
-to complete the checkpoint, but it should be improved before being released to students.
---
 
 When you're done with Checkpoint 3, the game setup activity will allow the user to
 invite other people and assign their roles/teams. The user will be able to press locations
@@ -328,11 +343,27 @@ While setting up a target mode game, the user might see UI like this:
 
 image::TargetGameSetup.png[completed games lists UI]
 
+A video tour of MP3 created by the CA captains footnote:[narrated by Daniel]
+is available:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/710HVIECocw" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Unless otherwise noted, you can do these sections in any order.
+
 [[target]]
 === `Target` Class
 
 The new test suite, `Checkpoint3Test`, is initially unable to compile because it refers to a
-`Target` class which does not exist. We will be using the `Target` class primarily in the
+`Target` class which does not exist, so this must be fixed first.
+We will be using the `Target` class primarily in the
 next checkpoint to help manage a target marker on the map,
 since the Checkpoint 0 approach of passing coordinates to a
 `changeMarkerColor` function is unwieldy footnote:[and somewhat error-prone, as some noticed
@@ -340,15 +371,39 @@ during MP0].
 
 Create the class by right-clicking the package containing all your other Java source files,
 choosing _New | Java Class_, entering `Target` in the Name field, and clicking OK.
+
+[.alert.alert-warning]
+--
 Like in previous checkpoints, make sure that the file was created inside our package in the
 `main` source set and that it was added to Git.
+--
 
 **To see the needed public members of this class**, refer to
 https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/Target.html[our official Javadoc].
 You will need to store a Google Maps
 https://developers.google.com/android/reference/com/google/android/gms/maps/model/Marker.html[`Marker`]
-object in a private instance variable. For a hint on how to change the marker's color
-after it has been created, see the implementation of our provided `changeMarkerColor` function.
+object in a private instance variable.
+
+To place a marker on a Google map, use the map's `addMarker` function
+footnote:[like the provided `placeMarker` function in `GameActivity` does]:
+
+[source,java]
+----
+// Suppose position is a LatLng variable
+MarkerOptions options = new MarkerOptions().position(position);
+// Set any other options you like?
+Marker marker = map.addMarker(options);
+----
+
+To change the color of a marker after it has been created, use its `setIcon`
+function footnote:[like `changeMarkerColor` in `GameActivity` does]:
+
+[source,java]
+----
+// Suppose hue is a hue value like the constants defined on BitmapDescriptorFactory
+BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(hue);
+marker.setIcon(icon);
+----
 
 After completing this task, `testTargetClass` will pass.
 You may _optionally_ rework your target mode logic in `GameActivity` to take advantage of this
@@ -368,12 +423,15 @@ than seven parameters; we had to change that to allow our original version of th
 Download
 link:/MP/patches/MP3-LineCrossDetector.patch[the `LineCrossDetector` patch, download=true]
 and apply it with _VCS | Apply Patch_ like you do with the checkpoint patches.
-This will introduce compilation errors&mdash;you need to adjust your code to use the
-https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/LineCrossDetector.html#linesCross-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-[improved version's signature].
+This will introduce compilation errors in your functions that use `linesCross`!
+You need to adjust those to use the
+https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/LineCrossDetector.html#linesCross-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-[improved version's signature],
+calling it with four ``LatLng`` positions.
 
 [.alert.alert-warning]
 --
-**If the patch does not apply cleanly** due to how you fixed the `checkstyle` errors in Checkpoint 0,
+**If Android Studio is unable to apply the patch** due to how you fixed the `checkstyle`
+errors in Checkpoint 0, or if there are compilation errors _inside_ `LineCrossDetector`,
 you can instead copy-paste the updated class from
 https://gist.github.com/Fleex255/f47ed822be5f0054cfc0e7827eb38d7e[this Gist].
 --
@@ -381,6 +439,10 @@ https://gist.github.com/Fleex255/f47ed822be5f0054cfc0e7827eb38d7e[this Gist].
 Similarly refactor the
 https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/GameActivity.html#addLine-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-int-[`addLine` function]
 in `GameActivity` to take two `LatLng` endpoints rather than four `double` coordinates.
+You will need to update the function's callers to be compatible with its new signature.
+
+If you make a mistake while refactoring and want to put a file back to how it was
+at the last commit, see the section on <<git_revert, reverting changes>>.
 
 After completing these tasks, `testLatLngRefactor` will pass.
 
@@ -390,12 +452,15 @@ After completing these tasks, `testLatLngRefactor` will pass.
 You may _optionally_ refactor your `TargetVisitChecker` methods to take a `LatLng[]` in place
 of the two ``double[]``s.
 https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/TargetVisitChecker.html[Updated Javadoc]
-is available. The Checkpoint 0 test suite is forward-compatible with this change.
+is available. The Checkpoint 0 tests are forward-compatible with this change.
 After doing that, you'll probably want to use the `getPositions` function of `DefaultTargets`
 rather than `getLatitudes` and `getLongitudes` in your `GameActivity` target mode setup.
 
 Better yet, you may take advantage of your new list skills to keep track of the target mode
-game state without `TargetVisitChecker`.
+game state entirely inside `GameActivity`.
+If `TargetVisitChecker` is removed, the Checkpoint 0 test results will be all-or-nothing
+based on the result of `testTargetModeGameplay`.
+
 `TargetVisitChecker` will be removed entirely in the next checkpoint and `GameActivity` will be
 significantly remodeled then, so don't get too attached to either.
 
@@ -408,7 +473,8 @@ to choose the targets for a target mode game by pressing to add a target and cli
 to remove it.
 
 To add another map to the game setup activity, open `activity_new_game.xml` in the UI designer,
-copy the `areaSizeMap` fragment, paste it inside the target mode settings layout, and change the
+copy the `areaSizeMap` fragment, paste it inside the target mode settings layout
+footnote:[the `LinearLayout` with ID `targetSettings`], and change the
 copy's ID to `targetsMap`.
 
 In ``NewGameActivity``'s `onCreate` we provided this chunk of code:
@@ -429,22 +495,43 @@ in the instance variable `areaMap` and passed to our `centerMap` function for ce
 Campustown.
 
 Declare another instance variable to store the targets map, then duplicate the above section of
-code to similarly prepare your `targetsMap` fragment. You'll then be able to see in the app that
+code to similarly prepare your `targetsMap` fragment. Make sure to change the `findFragmentById`
+parameter to operate on your new fragment. You'll then be able to see in the app that
 the map that appears for target mode setup is centered on Campustown just like the area mode setup
 one.
 
 To keep track of the targets added so far, declare an instance variable to hold a
-<<lists, list>> of Google Maps markers: a `List<Marker>`. Initialize it to a new, empty list.
+list of Google Maps markers: a `List<Marker>`. Initialize it to a new, empty <<lists, list>>.
 Add some code to your new `getMapAsync` handler to make the user's actions on the map
 add targets:
 
-* Register a `setOnMapLongClickListener` handler on the targets map. The handler receives a
-  `LatLng` object specifying the point that was pressed. When that happens, create a marker
-  at that point and add it to the list.
-* Also register a `setOnMarkerClickListener` handler, which is passed a `Marker` that the user
-  clicked. Remove that marker from the map by calling its `remove` function and remove it from the
-  targets list. This handler must return a `boolean` indicating whether to suppress the default
-  Google Maps map movement reaction, which is entirely your choice.
+* Register a long-press handler on the targets map by calling `setOnMapLongClickListener`.
+The handler receives a `LatLng` object specifying the point that was pressed. When that happens,
+create a marker at that position and add it to the list. Again see the implementation of the
+`placeMarker` function in `GameActivity` for how to place a marker on a map.
+* Likewise register a `setOnMarkerClickListener` handler, which is passed a `Marker` that the user
+clicked. Remove that marker from the map by calling its `remove` function and remove it from the
+targets list you declared as an instance variable.
+
+In summary, you'll want code like this inside the new `getMapAsync`:
+
+[source,java]
+----
+targetMap.setOnMapLongClickListener(location -> {
+    // Code here runs whenever the user presses on the map.
+    // location is the LatLng position where the user pressed.
+    // 1. Create a Google Maps Marker at the provided coordinates.
+    // 2. Add it to your targets list instance variable.
+});
+
+targetMap.setOnMarkerClickListener(clickedMarker -> {
+    // Code here runs whenever the user taps a marker.
+    // clickedMarker is the Marker object the user clicked.
+    // 1. Remove the marker from the map with its remove function.
+    // 2. Remove it from your targets list.
+    return true; // This makes Google Maps not pan the map again
+});
+----
 
 After completing this task, `testTargetMap` will pass.
 
@@ -460,10 +547,10 @@ Remove button in their row.
 
 To make this possible, we will need three new UI elements in `activity_new_game.xml`:
 
-1. A vertical `LinearLayout` with ID `playersList` to hold the list of players, empty here
-2. An email text box (from the Text tab) with ID `newInviteeEmail` to allow the user to
-   enter an invitee's email
-3. A button with ID `addInvitee` to actually add the invitee to the list
+1. An email text box (from the Text tab) with ID `newInviteeEmail` to allow the user to
+enter an invitee's email
+2. A button with ID `addInvitee` to actually add the invitee to the list
+3. An initially **empty** vertical `LinearLayout` with ID `playersList` to hold the list of players
 
 To display one player entry, we have provided `chunk_invitee.xml` in the patch.
 You do not need to modify it, though you may customize it if you like.
@@ -473,39 +560,43 @@ class. These will be used in `NewGameActivity` to make the invitees UI work.
 
 Add an instance variable to `NewGameActivity` to store the list of players, that is,
 a `List<Invitee>`. `onCreate` should initialize it to an empty list and then add
-an `Invitee` representing the user with the role of observer. We recommend but do not require
-that you use two helper functions to make the players list work:
+an `Invitee` representing the user with the role of observer.
+You should create two helper functions to make the players list UI work:
 
 ==== Update Players UI
 
 This function is responsible for repopulating the players list in the UI with the information
 stored in the players list instance variable.
 
-First it should `removeAllViews` from the players list `LinearLayout`.
+First it should `removeAllViews` from the players `LinearLayout`.
 Then, much like in Checkpoint 2, it should go through the list variable and
-https://cs125.cs.illinois.edu/MP/2/#_inflating_layouts[add a chunk] to the `LinearLayout`
+link:/MP/2/#_inflating_layouts[add a chunk] to the `LinearLayout`
 for each player. We provided three views in that chunk:
 
 * `inviteeEmail` is a `TextView` whose text should be set to the player's email.
 * `inviteeTeam` is a `Spinner` to let the user see and change the player's role.
-  Its selection should be set to the player object's team ID. When its selection is changed by
-  the user, the player object's team ID should be updated to match. See our <<spinners, guide
-  to the relevant spinner functions>>.
+Its selection should be set to the player object's team ID. When its selection is changed by
+the user, the player object's team ID should be updated to match. See our <<spinners, guide
+to the relevant spinner functions>>.
 * `removeButton` is a `Button` that removes the invitee. It should be gone for the first entry
-  in the list (the user, since the user shouldn't able to leave their own game). When clicked,
-  it should remove the player object from the list variable and refresh the players UI list.
+in the list (the user, since the user shouldn't able to leave their own game). When clicked,
+it should remove the player object from the list variable and refresh the players UI list.
 
-This function should be called by `onCreate` after adding the user to the players list so that
+When accessing these views, make sure to call `findViewById` on the chunk you inflated
+inside your loop so that you get a reference to the view from the specific chunk you're
+currently building.
+
+This function should be called by `onCreate` after adding the user to the players list variable so that
 the initial UI is set up and the user can choose their own role.
 
 ==== Add Invitee
 
 This function should be called when the user presses the `addInvitee` button.
 
-If the `newInviteeEmail` text box is not empty, a new `Invitee` with the entered email address
-and the role of observer should be added to the players list. The email text box's text should
-be made blank so that the user can enter the next invitee. Then the players UI should be updated
-by calling the other helper function so that the change is visible.
+If the `newInviteeEmail` text box is not empty, a new invitee object with the entered email address
+and the role of observer should be added to the players list instance variable.
+The email text box should be made empty so that the user can enter the next invitee.
+Then the players UI should be updated by calling the other helper function so that the change is visible.
 
 After completing this task, `testInvitees` will pass.
 
@@ -515,10 +606,14 @@ After completing this task, `testInvitees` will pass.
 The targets map and invitees UI can be done in either order. Once they're both ready,
 the data they solicit from the user can be submitted to the server to create a multiplayer game.
 
-When the Create Game button is clicked, <<gson, create a `JsonObject`>> according to
-<<api, our API documentation>> for the game creation endpoint. You will need to include the
-configuration you made possible in Checkpoint 1, plus data from the targets map (if in target mode)
-and players list. Much of your Checkpoint 1 logic can still be used; you're just putting the data
+When the Create Game button is clicked, <<gson, build a `JsonObject`>> according to
+<<api, our API documentation>> for the game creation endpoint. You will need to include:
+
+* the configuration you made possible in Checkpoint 1, plus
+* data from the targets map (if in target mode) and
+* players/invitees list.
+
+Much of your Checkpoint 1 logic can still be used; you're just putting the data
 in a JSON object rather than an intent.
 
 When your game JSON object is ready, POST it to the game creation endpoint.
@@ -541,8 +636,9 @@ If you're up for a challenge, you can continue on to the extra credit section be
 [[presets]]
 === Extra Credit: Target Presets
 
-**Challenge problem!** This is extra credit because it involves figuring out another
-new Android feature.
+**Challenge problem!** This is extra credit because it takes a bit more work and tinkering.
+It can be done before the game creation API request, but you will need to have the targets
+map working first.
 
 Many users won't want to spend a lot of time picking out enough targets for an interesting
 target mode game. To make it easier to add a set of targets, the app could have several
@@ -556,9 +652,13 @@ https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog[`AlertDia
 for details.
 
 We've provided `chunk_presets_list.xml` which you can inflate _with a null parent_
+footnote:[Android Studio will warn about that, but it's OK&mdash;this is the one
+place in Android where it's acceptable and necessary to pass a null root.]
 and pass to the dialog builder's `setView` function. For each preset option, add a `RadioButton`
 inside the provided `RadioGroup` (ID `presetOptions`), with the radio button's text set to the
-preset's name.
+preset's name. This is the one place in the MP where you should create an individual view
+dynamically using `new`. The constructors for most Android views take a context, which can be
+the activity: `this`.
 
 The alert dialog's positive button should be labeled "Load"; its negative button should be labeled
 "Cancel." The dialog might look like this:
@@ -581,14 +681,14 @@ As always, 100 points is full credit on the checkpoint.
 But on MP3 there are **120** points available, broken down as follows:
 
 * **15 points** for the `Target` class
-* **10 points** for refactoring `addLine` and target mode gameplay logic
+* **10 points** for refactoring `addLine` and the uses of `LineCrossDetector`
 * **15 points** for the targets map
 * **20 points** for the invitees UI
 * **20 points** for the create-game web request
 * **20 points** of _extra credit_ for the _optional_ Load Preset feature
 * **10 points** for passing `checkstyle` inspection
 * **10 points** for submitting footnote:[by committing and pushing]
-  code that earns 40 points by 8 PM on your early deadline day
+code that earns 40 points by 8 PM on your early deadline day
 
 If you missed a deadline in a previous checkpoint, doing the extra credit here is a great way
 to earn some of those points back!
