@@ -650,7 +650,8 @@ Refer to Android's
 https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog[`AlertDialog` guide]
 for details.
 
-We've provided `chunk_presets_list.xml` which you can inflate _with a null parent_
+link:/MP/patches/MP3-Chunk.patch[This patch]
+provides a `chunk_presets_list.xml` layout resource which you can inflate _with a null parent_
 footnote:[Android Studio will warn about that, but it's OK&mdash;this is the one
 place in Android where it's acceptable and necessary to pass a null root.]
 and pass to the dialog builder's `setView` function. For each preset option, add a `RadioButton`
