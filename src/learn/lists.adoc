@@ -19,11 +19,11 @@ spelling_exceptions:
 ++++
 ....
 public interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
 }
 public class SimpleArrayList implements SimpleList {
   private Object[] array;
@@ -76,7 +76,7 @@ public class SimpleArrayList implements SimpleList {
 }
 public class Example {
   public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleArrayList(new Integer[] { 1, 2 });
+    SimpleList simpleList = new SimpleArrayList(new Integer[] {1, 2});
     simpleList.add(2, (Integer) 5);
     for (int i = 0; i < simpleList.size(); i++) {
       System.out.println(simpleList.get(i));
@@ -192,15 +192,15 @@ insertions are *fast* (O(1))
 ----
 interface SimpleList {
   /** Get the object at this index. */
-  public Object get(int index);
+  Object get(int index);
   /** Set the object at this index to the passed element. */
-  public void set(int index, Object element);
+  void set(int index, Object element);
   /** Add the object at the specified location in the list. */
-  public void add(int index, Object element);
+  void add(int index, Object element);
   /** Remove and return the object at the specified location in the list. */
-  public Object remove(int index);
+  Object remove(int index);
   /** Return the number of elements in the list. */
-  public int size();
+  int size();
 }
 ----
 
@@ -213,11 +213,11 @@ want.)
 [.janini.smallest.compiler]
 ....
 public interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
 }
 public class SimpleArrayList implements SimpleList {
   private Object[] array;
@@ -270,7 +270,7 @@ public class SimpleArrayList implements SimpleList {
 }
 public class Example {
   public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleArrayList(new Integer[] { 1, 2 });
+    SimpleList simpleList = new SimpleArrayList(new Integer[] {1, 2});
     for (int i = 0; i < simpleList.size(); i++) {
       System.out.println(simpleList.get(i));
     }
@@ -432,11 +432,11 @@ items = new Item((Integer) 5, items);
 [source,java,role='smallest']
 ----
 interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
 }
 public class SimpleLinkedList implements SimpleList {
   class Item {
@@ -803,11 +803,10 @@ list.get(2);
 [[nGsigkJsZbIIiuBueedkjOHenoatcePu]]
 == Announcements
 
-* My office hours today are canceled. Enjoy spring break!
+* The link:/MP/3/[MP3] early deadline is this week on your deadline day.
 //
-* This week's lab is open today and there is a new homework problem open over
-break and due when you return.
+Good luck getting started!
 //
-* On Monday 3/25/2019 we'll review for the object midterm.
+* Have a great weekend...
 
 // vim: ts=2:sw=2:et
