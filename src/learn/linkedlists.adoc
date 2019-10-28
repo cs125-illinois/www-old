@@ -18,11 +18,11 @@ spelling_exceptions:
 ++++
 ....
 public interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
 }
 public class Example {
   public static void main(String[] unused) {
@@ -208,11 +208,11 @@ items = new Item((Integer) 5, items);
 [source,java,role='smallest']
 ----
 interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
 }
 public class SimpleLinkedList implements SimpleList {
   class Item {
@@ -866,11 +866,11 @@ characteristics.
 [.janini.smallest.compiler]
 ....
 public interface SimpleList {
-  public Object get(int index);
-  public void set(int index, Object element);
-  public void add(int index, Object element);
-  public Object remove(int index);
-  public int size();
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
 }
 public class SimpleLinkedList implements SimpleList {
   class Item {
