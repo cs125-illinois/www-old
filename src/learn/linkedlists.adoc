@@ -26,7 +26,7 @@ public interface SimpleList {
 }
 public class Example {
   public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleArrayList(new Integer[] { 1, 2 });
+    SimpleList simpleList = new SimpleArrayList(new Integer[] {1, 2});
     simpleList.add(2, (Integer) 5);
     for (int i = 0; i < simpleList.size(); i++) {
       System.out.println(simpleList.get(i));
@@ -564,7 +564,7 @@ public class SimpleLinkedList {
 }
 public class Example {
   public static void main(String[] unused) {
-    SimpleLinkedList myList = new SimpleLinkedList(new Integer[] { 1, 2, 3 });
+    SimpleLinkedList myList = new SimpleLinkedList(new Integer[] {1, 2, 3});
     myList.printList();
   }
 }
@@ -905,7 +905,7 @@ public class SimpleLinkedList implements SimpleList {
 }
 public class Example {
   public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleLinkedList(new Integer[] { 1, 2, 5 });
+    SimpleList simpleList = new SimpleLinkedList(new Integer[] {1, 2, 5});
     System.out.println(simpleList.size());
   }
 }
