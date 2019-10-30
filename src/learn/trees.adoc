@@ -70,13 +70,13 @@ public class BinaryTree {
     if (current == null) {
       return "";
     }
-    return "[" + current.value.toString() + "]" +
-      toString(current.right) + toString(current.left);
+    return "[" + current.value.toString() + "]"
+      + toString(current.right) + toString(current.left);
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    BinaryTree tree = new BinaryTree(new Integer[] { 1, 2, 5, 8, 9 });
+    BinaryTree tree = new BinaryTree(new Integer[] {1, 2, 5, 8, 9});
     System.out.println(tree.size());
     System.out.println(tree);
   }
@@ -369,64 +369,12 @@ characteristics.
 
 |===
 
-
-[[XRenWLYUsfpGLdlyrLDHyMkeRTSGMukE]]
-== ! SimpleArrayList
-
-[.janini.smallest.compiler]
-....
-public interface SimpleList {
-  Object get(int index);
-  void set(int index, Object element);
-  void add(int index, Object element);
-  Object remove(int index);
-  int size();
-}
-public class SimpleLinkedList implements SimpleList {
-  class Item {
-    Object value;
-    Item next;
-    Item(Object setValue, Item setNext) {
-      value = setValue;
-      next = setNext;
-    }
-  }
-  private Item start;
-
-  public SimpleLinkedList(Object[] array) {
-    for (int i = array.length - 1; i >= 0; i--) {
-      this.add(0, array[i]);
-    }
-  }
-
-  public void add(int index, Object toAdd) {
-    if (index == 0) {
-      start = new Item(toAdd, start);
-    }
-  }
-
-  public int size() {
-    int currentSize = 0;
-    for (Item current = start; current != null; current = current.next) {
-      currentSize++;
-    }
-    return currentSize;
-  }
-}
-public class Example {
-  public static void main(String[] unused) {
-    SimpleList simpleList = new SimpleLinkedList(new Integer[] {1, 2, 5});
-    System.out.println(simpleList.size());
-  }
-}
-....
-
 [[lJcCMyeWhddIzcdhiLSDPvylMQZYwVRV]]
 [.oneword]
 == Questions About Lists?
 
 [[uLYlpoTCIwMkbfEIrAQAaqVsDduxKlsq]]
-== Trees
+== Onward! Trees
 
 [quote]
 ____
@@ -1729,13 +1677,13 @@ public class BinaryTree {
     if (current == null) {
       return "";
     }
-    return "[" + current.value.toString() + "]" +
-      toString(current.right) + toString(current.left);
+    return "[" + current.value.toString() + "]"
+      + toString(current.right) + toString(current.left);
   }
 }
 public class Example {
   public static void main(String[] unused) {
-    BinaryTree tree = new BinaryTree(new Integer[] { 1, 2, 5, 8, 9 });
+    BinaryTree tree = new BinaryTree(new Integer[] {1, 2, 5, 8, 9});
     System.out.println(tree.size());
     System.out.println(tree);
   }
@@ -1745,17 +1693,8 @@ public class Example {
 [[IKpQlomrsnCLKTSXiDoVtmCeSbDSxmlt]]
 == Announcements
 
-* I have office hours today from 1&ndash;2PM. Please come by!
+* Good luck on the midterm!
 //
-* As a reminder we have midterm preparation office hours today from
-11AM&ndash;9PM.
-//
-As usual, the link:/info/2019/spring/syllabus/#calendar[calendar is up-to-date].
-//
-* We've added an
-//
-link:/info/feedback/[anonymous feedback form]
-//
-to the course website. Use it to give us feedback!
-
+* I don't have office hours today, but we have them as normally scheduled from
+12&ndash;8PM in Siebel 0403.
 // vim: ts=2:sw=2:et
