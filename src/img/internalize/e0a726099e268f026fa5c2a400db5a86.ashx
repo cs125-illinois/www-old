@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js" data-dtconfig="rid=RID_-2018356100|rpid=-527641124|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1571936995912|dtVersion=10177191024092634|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,1,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1571936995912|dtVersion=10177191024092634|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=894936198|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js" data-dtconfig="rid=RID_-2018356100|rpid=-369245985|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1572550487556|dtVersion=10177191024092634|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1572550487556|dtVersion=10177191024092634|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=1247584637|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -39,24 +39,35 @@
 
     <link rel="icon" type="image/vnd.microsoft.icon" href="/etc/designs/dcc/favicon.ico"/>
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/etc/designs/dcc/favicon.ico"/>
-    <title>Error Page 404</title>
+    
+	    <title>Error Page 404 | Dow Inc.</title>
+    
 
-
+	
+		<script type="text/javascript">
+			digitalData = {
+				page: {
+					name: "Error Page 404",
+					lastUpdated: "Aug 14, 2019"
+				},
+				lang: {
+					lang: "en",
+					country: "us"
+				}
+			};
+		</script>
 	
 	<script type="text/javascript">
-		digitalData = {
-			page: {
-				name: "Error Page 404",
-				lastUpdated: "Aug 14, 2019"
-			},
-			lang: {
-				lang: "en",
-				country: "us"
-			}
+		window.loadAdobeLaunch = function() {
+			$.getScript("\/\/assets.adobedtm.com\/launch\u002DENfbe9becd4baf447f830f501ba0c6b1dd.min.js")
+					.done(function (script, textStatus) {
+						console.log('Adobe Launch successfully loaded!');
+					})
+					.fail(function (jqxhr, settings, exception) {
+						console.log('Error while loading Adobe Launch');
+					});
 		};
 	</script>
-	
-	<script id="dtmLib" src="//assets.adobedtm.com/launch-ENfbe9becd4baf447f830f501ba0c6b1dd.min.js"></script>
 	
 </meta>
 
@@ -90,7 +101,7 @@
 	</meta>
 	</meta>
 
-	<meta name="sp_pageTitle" content="Error Page 404"/>
+	<meta name="sp_pageTitle" content="Error Page 404 | Dow Inc."/>
 	</meta>
 	<meta name="sp_category" content="pages"/></meta>
 	<meta name="sp_support"/></meta>
@@ -103,6 +114,7 @@
 	<meta name="sp_textGraphic" content="badge--www"/></meta>
 	<meta name="sp_date"/></meta>
 
+	</meta>
 	</meta>
 	</meta>
 	</meta>
@@ -151,7 +163,7 @@
         
         	
     
-<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.9d78e991fb95c18078ff8a3cb60861e3.css" type="text/css">
+<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.24163f3a4a7026ca366af71cd030230d.css" type="text/css">
 
 
 
@@ -189,7 +201,7 @@
 	                <li class="logo">
 	                    <div class="brand-icon">
 	                        <a class="navbar-brand" href="/">
-	                            <img class="svg-header_dow-logo-lockup--mobile" src="/content/dcc/svg/icons/header_dow-logo-lockup--mobile.svg?v=1" alt="Dow Consumer Solutions"/>
+	                            <img class="svg-header_dow-logo-lockup--mobile" src="/content/dcc/svg/icons/header_dow-logo-lockup--mobile.svg?v=1" alt="Dow Inc."/>
 	                        </a>
 	                    </div>
 	                </li>
@@ -241,7 +253,7 @@
 					</li>
 					<li class="logo hidden-xs">
 					  <a href="/en-us.html">
-					   <img id="dow-logo-home" class="svg-header_dow-logo-lockup--desktop" src="/content/dcc/svg/icons/header_dow-logo-lockup--desktop.svg?v=1" alt="Dow Consumer Solutions"/>
+					   <img id="dow-logo-home" class="svg-header_dow-logo-lockup--desktop" src="/content/dcc/svg/icons/header_dow-logo-lockup--desktop.svg?v=1" alt="Dow Inc."/>
 					  </a>
 					</li>
 				</ul>
@@ -3256,7 +3268,7 @@
             
                <div>
                   <li>
-                     <a href="https://www.dow.com/en-us/support.html#EHS" title="EH&amp;S Resources"><span class="fontcolor-black legal__link">EH&amp;S Resources</span></a>
+                     <a href="/en-us/support.html" title="EH&amp;S Resources"><span class="fontcolor-black legal__link">EH&amp;S Resources</span></a>
                   </li>
                </div>
             
@@ -6633,7 +6645,7 @@
             
                <div>
                   <li>
-                     <a href="https://www.dow.com/en-us/support.html#EHS" title="EH&amp;S Resources"><span class="fontcolor-black legal__link">EH&amp;S Resources</span></a>
+                     <a href="/en-us/support.html" title="EH&amp;S Resources"><span class="fontcolor-black legal__link">EH&amp;S Resources</span></a>
                   </li>
                </div>
             
@@ -7426,6 +7438,12 @@
             
                <div>
                   <li>
+                     <a href="/en-us/support.html" title="EH&amp;S Resources"><span class="font-black legal__link">EH&amp;S Resources</span></a>
+                  </li>
+               </div>
+            
+               <div>
+                  <li>
                      <a href="https://corporate.dow.com/en-us/careers.html" target="_blank" title="Careers"><span class="font-black legal__link">Careers</span></a>
                   </li>
                </div>
@@ -7818,13 +7836,33 @@
         </div>
     </div>
 
+    <div class="modal fade dccModal accessRequiredModal" id="accessRequiredModal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button class="close" data-dismiss="modal">
+
+                        <svg class="svg-nav-close">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#nav-close"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        If you are not currently a Dow customer and would like to buy from us please call one of our <a href="/en-us/contact-us.html">Customer service centers</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </meta>
 
     
         <meta/>
     
-<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.745022f8dadd13d4f7166aeaa465bc1d.js"></script>
+<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.a533ab38a180ed9b88313c2fd42ff005.js"></script>
 
 
 
