@@ -38,6 +38,22 @@ to create a class to manage each kind of game. You will organize the codebase an
 related logic by refactoring the gameplay logic out of the game activity and into those new
 classes.
 
+A screencast with an overview of the checkpoint is available footnote:[planned by the CA
+captains, narrated by Daniel]:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/oN6CZT5Sf3M" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Please note that the organization of the Your Goal section was improved since the recording,
+so section numbers and ordering will not match exactly.
+
 As usual, deadlines vary based on your deadline group. MP4 is due at:
 
 * **8 PM on Sunday, 11/17/2019 for the Blue Group**: all labs starting at 2 PM or earlier
@@ -71,14 +87,14 @@ Since this patch includes changes to the `main` source set like Checkpoint 3 did
 
 To apply the patch, follow these steps:
 
-1. Ensure that all your work is committed, meaning that none of your files' names appear green or blue
-   in the Project pane.
-// TODO: Upload this patch
+1. Ensure that all your work is committed, i.e. none of your files' names appear green or blue
+in the Project pane.
+// TODO: Upload the updated version of this patch
 2. Download link:/MP/patches/MP4.patch[the MP4 patch file, download=true].
 3. In Android Studio, select the _VCS | Apply Patch_ menu item.
 4. Select the downloaded patch.
-5. Change the Name dropdown to Default Changelist. footnote:[This makes Android Studio
-   include the updates in commits made normally by the commit dialog.]
+5. Change the Name dropdown to **Default Changelist**. footnote:[This makes Android Studio
+include the updates in commits made normally by the commit dialog.]
 6. Press OK to apply the patch.
 7. Change the `checkpoint` setting in `grade.yaml` to `4`.
 8. Select the _File | Sync Project with Gradle Files_ menu item.
@@ -90,6 +106,14 @@ To get that part of the starter code, copy-paste
 over your `GameActivity`. The work you did in that file is still accessible on GitHub or through
 _Git | Show History_; you will want to refer to your previous code as you refactor that logic
 into separate files.
+
+[.alert.alert-warning]
+--
+If the patch didn't apply fully, you may get **compilation errors in the new `GameActivity`**.
+Those can be fixed by opening the `activity_game.xml` layout resource, switching to Text view,
+and pasting https://gist.github.com/Fleex255/9fe8452bb61671c70cfda87cf10cc8af[this Gist] over
+the existing contents.
+--
 
 You can test your Checkpoint 4 work by running the new Test Checkpoint 4 run configuration.
 You can run the local autograder with the Grade run configuration.
@@ -205,7 +229,7 @@ is processed by our provided code, but your code is responsible for some parts.
 
 Since all websocket messages are turned into ``JsonObject``s by our provided code,
 there needs to be some way to tell what kind of update each message is. Our convention for
-this app is that every websocket message has a string `type` property specifying what kind of
+this app is that **every websocket message has a string `type` property** specifying what kind of
 event it represents.
 
 You don't need to and probably don't want to read this kind of dense API documentation
@@ -224,33 +248,33 @@ game. It has these properties:
 * `state` (integer) is the `GameStateID` code for the game state
 * `mode` (string) is the game mode, either "area" or "target"
 * `players` (array) is the list of players involved in or invited to the game, each of which is
-  an object with these properties:
-  - `email` (string) is the player's email
-  - `team` (integer) is the `TeamID` code for the player's team/role
-  - `state` (integer) is the `PlayerStateID` code for the player
-  - `lastLatitude` and `lastLongitude` (doubles) are the player's last known location,
-    only present if the player is currently playing the game and their phone has sent a
-    location update
-  - `path` (array) is the ordered list of objectives captured by the player, each of which is an
-    object with these properties:
-    ** _Target mode only:_ `id` (string) is the unique ID of the target
-    ** _Target mode only:_ `latitude` and `longitude` (doubles) are the position of the target
-    ** _Area mode only:_ `x` and `y` are the `AreaDivider`-style cell indexes of the cell
+an object with these properties:
+- `email` (string) is the player's email
+- `team` (integer) is the `TeamID` code for the player's team/role
+- `state` (integer) is the `PlayerStateID` code for the player
+- `lastLatitude` and `lastLongitude` (doubles) are the player's last known location,
+only present if the player is currently playing the game and their phone has sent a
+location update
+- `path` (array) is the ordered list of objectives captured by the player, each of which is an
+object with these properties:
+** _Target mode only:_ `id` (string) is the unique ID of the target
+** _Target mode only:_ `latitude` and `longitude` (doubles) are the position of the target
+** _Area mode only:_ `x` and `y` are the `AreaDivider`-style cell indexes of the cell
 * _Target mode only:_ `proximityThreshold` (integer) is the proximity threshold of the game in meters
 * _Target mode only:_ `targets` (array) is the list of all targets in the game, each of which is an
-  object with these properties:
-  - `id` (string) is the unique ID of the target
-  - `latitude` and `longitude` (doubles) are the position of the target
-  - `team` (integer) is the `TeamID` code of the team that captured the target, or `TeamID.OBSERVER`
-    if not captured yet
+object with these properties:
+- `id` (string) is the unique ID of the target
+- `latitude` and `longitude` (doubles) are the position of the target
+- `team` (integer) is the `TeamID` code of the team that captured the target, or `TeamID.OBSERVER`
+if not captured yet
 * _Area mode only:_ `areaNorth`, `areaEast`, `areaSouth,` and `areaWest` are the latitude/longitude
-  of the boundaries of the area
+of the boundaries of the area
 * _Area mode only:_ `cellSize` (integer) is the requested cell size in meters
 * _Area mode only:_ `cells` (array) is the list of **captured** cells, each of which is an object
-  with these properties:
-  - `x` and `y` (integers) are the `AreaDivider`-style cell indexes
-  - `email` (string) is the email of the player who captured the cell
-  - `team` (integer) is the `TeamID` code of the team that captured the cell
+with these properties:
+- `x` and `y` (integers) are the `AreaDivider`-style cell indexes
+- `email` (string) is the email of the player who captured the cell
+- `team` (integer) is the `TeamID` code of the team that captured the cell
 
 You may find this **link:/MP/files/MP4/full_target.json[example target mode update]** and
 **link:/MP/files/MP4/full_area.json[example area mode update]** helpful.
@@ -349,12 +373,6 @@ An **link:/MP/files/MP4/cellCapture.json[example update]** is available.
 [[goal]]
 == Your Goal
 
-[.alert.alert-danger]
---
-**Work in progress:** This section should be sufficient for course staff to finish the checkpoint,
-but it should be improved before release to students. Please give feedback on the forum.
---
-
 When you're finished with Checkpoint 4, the game activity will support multiplayer games in
 both target mode and area mode! Other players' movements and objective captures will be displayed
 and the user's movements will update the game information on the server when the game is running.
@@ -363,12 +381,9 @@ players capture objectives. The game state (paused vs. running) will be displaye
 will have UI to change it or end the game. When the game is ended, the winning team will be displayed
 in a popup.
 
-// TODO: Screencast?
-
 MP4 may sound scary at first&mdash;there are several new moving parts&mdash;so **start early**
-and take it one step at a time. It's probably less code to write than MP1, and you have your
-previous code to refer to for help. Feel free to come to office hours or post on the {forum}
-when stuck.
+and take it one step at a time. Fortunately, you have your previous code to refer to for help.
+Feel free to come to office hours or post on the {forum} when stuck.
 
 Unless otherwise specified, the following tasks can be done in any order.
 
@@ -381,10 +396,11 @@ To start getting the user in the multiplayer game, the activity will need to con
 websocket for the game. We have provided the `connectWebSocket` function to start that process,
 but it relies on the game ID being stored in the `gameId` instance variable.
 
-Recall from link:/MP/2/#_invitationgame_buttons[MP2's Enter button] that the game ID
-is passed to the game activity in the `game` extra of the link:/MP/1/#_multiple_activities[intent].
-You need to fill in `onCreate` to store the game ID in the instance variable and call the
-function to connect to the websocket.
+Recall from link:/MP/2/#_invitationgame_buttons[MP2's `MainActivity` Enter buttons] that the game ID
+is passed to the game activity in the `game` extra of the intent.
+**You need to fill in** ``GameActivity``'s `onCreate` to store the game ID,
+link:/MP/1/#_multiple_activities[retrieved from the intent], in the `gameId` instance variable
+then call the `connectWebSocket` function to connect to the websocket.
 
 After completing this task, `testWebSocket` will pass. When the server sends an update via
 websocket, the message will be passed to your `receivedData` function, which you will complete
@@ -396,28 +412,38 @@ in later sections.
 You will need to finish the previous section before starting this one.
 
 The <<update_full, `full` update>> sent by the server shortly after the websocket is connected
-specifies the current game state, either paused or running. Your `updateGameState` helper
-function is responsible for recording that new state in the `gameState` instance variable
-and updating the UI to match. We provided two views whose text you will need to update:
+specifies the current game state, either paused or running. The `updateGameState` helper
+function, which **you need to fill in**, is responsible for recording that new state in the
+`gameState` instance variable and updating the UI to match.
+The state code it's passed can be checked against
+`GameStateID` constants footnote:[declared in `Constants.java`] to determine the current state.
+We provided two views whose text you will need to update:
 
 * The `gameState` label should say "Running" when the game is running and "Paused" when it's paused
 * The `pauseUnpauseGame` button's text should be "Pause" when the game is running and "Resume"
-  when it's paused
+when it's paused
 
-After implementing `updateGameState`, fill in the `full` case of the `receivedData` function
-to call that helper function, passing it the current game state. Ignore the comment about the
-game instance variable for now&mdash;we'll come back to that soon.
+After implementing `updateGameState`, you need to **fill in the `full` case** of the `receivedData`
+function to call that helper function, passing it the current game state.
+Ignore the comment about the game instance variable for now&mdash;we'll come back to that
+in the next section.
 
 We have provided UI and code that allows the game owner to pause and resume the game.
 These actions generate a <<update_gamestate, `gameState` update>> sent to all participants
-in the game via websocket. To keep the game state label continuously up to date, fill in the
-`gameState` case of `receivedData` to pass the new state to your helper function.
+in the game via websocket. To keep the game state label continuously up to date, **fill in the
+`gameState` case** of `receivedData` to pass the new state to your helper function.
 Don't worry about detecting game-over yet: that will be handled at the end of the checkpoint.
 
 After completing this task, `testGameStateDisplay` will pass.
 
-[[targetmode]]
-=== Target Mode Gameplay
+[[subclasses]]
+=== Using `Game` Subclasses
+
+Putting game logic for both game modes directly in `GameActivity` makes that one class
+responsible for a lot. Rather than using if statements in several places, it would be nice if
+the activity could trigger appropriate gameplay logic without always needing to check the game mode.
+This can be accomplished by taking advantage of polymorphism: a game object can be notified
+through a consistent interface of events that affect the game.
 
 We have provided an abstract
 https://cs125-illinois.github.io/Fall2019-MP-Writeups/4/edu/illinois/cs/cs125/fall2019/mp/Game.html[`Game` class]
@@ -427,116 +453,42 @@ for implementing game-specific subclasses. Mode-specific logic will go in the ov
 methods:
 
 * The constructor is responsible for loading the current progress of the game and rendering
-  that on the map.
+that on the map.
 * `locationUpdated` updates the running game according to the user's movements, much like
-  `updateLocation` from the old `GameActivity` but specific to one game mode. When the player's
-  movements cause something to happen, it updates appropriate instance variables, draws on the map,
-  and sends updates to the server.
-* `handleMessage` updates the game progress and map according to an update from the server.
-* `getTeamScore` returns how many objectives the given team has captured so far. This function
-  doesn't have to be implemented for this section; we'll return to it later.
+`updateLocation` from the old `GameActivity` but specific to one game mode. When the player's
+movements cause something to happen, it updates appropriate instance variables, draws on the map,
+and sends updates to the server.
+* `handleMessage` updates the game progress and map according to an update from the server about
+another player's activity.
+* `getTeamScore` returns how many objectives the given team has captured so far. This will be
+used for scoring near the end of the checkpoint.
 
-We have provided a _partially_ complete
-https://cs125-illinois.github.io/Fall2019-MP-Writeups/4/edu/illinois/cs/cs125/fall2019/mp/TargetGame.html[`TargetGame` class]
-that represents a multiplayer target mode game. Your job is to fill out the missing parts to
-make target mode games work.
+We're not going to _implement_ those quite yet, but we will set up `GameActivity` to _use_ them
+so you can test your gameplay logic in the emulator if you like.
 
-In addition to calling the `Game` constructor with `super`, ``TargetGame``'s constructor
-loads targets and paths from the JSON, storing them in instance variables and drawing them.
-It stores all targets in the `targets` <<maps, map>> variable, looked up by the unique ID
-assigned to each by the server. Each player's path is a list of the IDs of the targets they captured,
-stored as a `List<String>` as a value of the `playerPaths` map variable. The data loading
-is correct, but the drawing depends on the `addLineSegment` helper function which you need to
-implement.
-
-To make the user's movements affect the game, you will need to put target mode gameplay logic
-in `locationUpdated`. You will probably _not_ want to use `TargetVisitChecker`, but the
-overall approach is the same as in Checkpoint 0:
-
-1. Iterate over `targets` to find a target that's within the proximity threshold.
-   We suggest organizing the rest of the logic into the `tryClaimTarget` helper function
-   which can focus on just one target.
-2. Make sure the target isn't already captured by any team.
-3. If the player has captured a target already, check the hypothetical new line for crosses
-   with existing lines from _any_ player's path. Here the `playerPaths` map will be helpful.
-4. If the snake rule is satisfied, capture the target.
-   a. Your `Target` class can change the marker's color for you.
-   b. The provided `extendPlayerPath` function can update the instance variables and add a line.
-   c. To notify the server of the capture, build a <<update_targetvisit, `targetVisit` update>>
-      and send it with the protected `sendMessage` function.
-
-[.alert.alert-warning]
---
-Since `Game` subclasses should work in isolation from the app and Firebase, **they should not
-use `FirebaseAuth` to get the player's email**. Instead, `Game` provides a protected `getEmail`
-function to retrieve the email passed to the constructor.
---
-
-To show captures made by other players, you will need to add a little logic to `handleMessage`.
-The case that deals with <<update_playertargetvisit, `playerTargetVisit` updates>> has some
-provided code to get the properties of the update. You can use those to change the target's marker
-color and extend the player's path.
-
-After completing this work, `testMultiplePlayersTargetMode` will pass.
-
-[[usingsubclasses]]
-=== Using `Game` Subclasses
-
-After completing <<connectwebsocket, Connecting>> and <<targetmode, Target Mode Gameplay>> you
-understand how the `Game` subclasses synchronize the gameplay between the app and the server via
-websocket. Before tackling area mode we can take a moment to connect the logic in `Game` to the
-app's `GameActivity`.
+[[usinggame]]
+==== Connecting `GameActivity` to `Game`
 
 The app only knows which subclass is needed once the `full` update is received to specify the
-game mode. Fill in the other part of that case in `receivedData` to initialize the `game` instance
-variable with a new `TargetGame` or `AreaGame` as appropriate for the mode. You have variables for
-almost all the constructor parameters; the context can be the activity itself.
+game mode. **Fill in the other part of that case in `receivedData`** to initialize the
+`game` instance variable with a new `TargetGame` or `AreaGame` as appropriate for the mode.
+You have variables for almost all the constructor parameters footnote:[refer to the `Game` code or
+https://cs125-illinois.github.io/Fall2019-MP-Writeups/4/edu/illinois/cs/cs125/fall2019/mp/Game.html#Game-java.lang.String-com.google.android.gms.maps.GoogleMap-com.neovisionaries.ws.client.WebSocket-com.google.gson.JsonObject-android.content.Context-[the Javadoc]
+for what you need to pass]; the last parameter, `context`, can be the activity itself
+footnote:[that is, the current `GameActivity` instance].
 Once the game object is set, other parts of the activity code can use it without needing to
 care about the specific game mode.
 
 The activity itself handles the `full` update and `gameState` updates, but all others have to do
-with gameplay and should be handled by the game object. Fill in the default case in `receivedData`
-to call the game object's `handleMessage` function with the received update.
+with gameplay and should be handled by the game object. **Fill in the default case** in
+`receivedData` to call the game object's `handleMessage` function with the received update.
 
-Forwarding location changes to the game object will be done by `updateLocation`, which we'll get
-to soon!
+When the phone moves, `GameActivity` is notified and calls its own `updateLocation` function.
+To make the user's movements affect the game and be sent to the server, you will need to **fill
+in `updateLocation`**:
 
-[[areamode]]
-=== Area Mode Gameplay
-
-The MP4 patch includes much more starter code for target mode than area mode,
-so you may prefer to finish Target Mode Gameplay first for an example.
-
-The
-https://cs125-illinois.github.io/Fall2019-MP-Writeups/4/edu/illinois/cs/cs125/fall2019/mp/AreaGame.html[`AreaGame` class]
-is responsible for multiplayer area mode games. It has the same
-public functions as `TargetGame`, but with the different rules for that game mode, the implementations
-will be different. Specifically:
-
-* The constructor is responsible for loading the area configuration, cell captures, and
-  the player's path from the JSON. It should render the area grid footnote:[probably using a
-  class you made in a previous checkpoint] and fill in captured cells with the capturing team's
-  color. footnote:[You'll probably want a helper function for this, since polygons will be
-  added from other functions too.]
-* `locationUpdated` is responsible for detecting, displaying, and reporting area mode updates
-  made by the player. If the user entered an uncaptured cell satisfying the
-  link:/MP/1/#_area_mode_gameplay[area mode snake rule], it should:
-  a. record the change in your instance variables,
-  b. add a polygon on the cell colored with the player's team color, and
-  c. send a <<update_cellcapture, `cellCapture` update>> to the server.
-* `handleMessage` is responsible for showing cell captures made by other players, which it is
-  notified of by <<update_playercellcapture, `playerCellCapture` updates>>. When that happens,
-  instance variables should be updated and a colored polygon should be added to show the capture.
-  Other kinds of updates should be delegated to the superclass.
-
-After completing this work, `testMultiplePlayersAreaMode` will pass.
-
-[[locationupdates]]
-=== Location Updates
-
-When the phone moves, `GameActivity` is notified and calls its `updateLocation` function.
-To make the user's movements affect the game and be sent to the server, you will need to fill
-that function in.
+[[updatelocation]]
+==== `updateLocation` Logic
 
 As noted in the comments provided inside that function, observers only watch the game and do not
 affect it. So if the user's role in the game is Observer, the function should return before
@@ -550,7 +502,131 @@ websocket.
 Movements shouldn't affect a paused game, so only if the game is in the running state,
 call `locationUpdated` on the game object.
 
-After completing this function, `testLocationUpdates` will pass.
+After completing this function, `testLocationUpdates` will pass. Other work in this section will
+be tested indirectly by later sections. If you're not sure whether you successfully connected
+`GameActivity` to `Game` functions, add print statements footnote:[or use the debugger] to trace
+the flow of execution to make sure `Game` functions are being entered when the test suite expects
+things to be happening.
+
+[[targetmode]]
+=== Target Mode Gameplay
+
+A visual explanation of this section is available footnote:[narrated by Nikhil]:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/yqd-_0E6gBk" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+We have provided a _partially_ complete
+https://cs125-illinois.github.io/Fall2019-MP-Writeups/4/edu/illinois/cs/cs125/fall2019/mp/TargetGame.html[`TargetGame` class]
+that represents a multiplayer target mode game. Your job is to fill out the missing parts to
+make target mode games work.
+
+In addition to calling the `Game` constructor with `super`, ``TargetGame``'s constructor
+loads targets and paths from the JSON, storing them in instance variables and drawing them.
+It stores all targets in the `targets` <<maps, map>> variable, looked up by the unique ID
+assigned to each by the server. Each player's path is a list of the IDs of the targets they captured,
+stored as a `List<String>` as a value of the `playerPaths` map variable.
+
+The data loading is correct, but the drawing depends on the
+**`addLineSegment` helper function which you need to implement**.
+Getting the team colors array resource is very similar to how you
+link:/MP/2/#_accessing_resources[got the names resource] in MP2 except that colors are stored as
+``int``s, so `team_colors` is an integer array resource accessible with `getIntArray`:
+
+[source,java]
+----
+getContext().getResources().getIntArray(R.array.team_colors)
+----
+
+As before, you can index the array using a team ID: the `team` parameter passed to your function.
+
+To make the user's movements affect the game, you will need to put **target mode gameplay logic
+in `locationUpdated`**. You will probably _not_ want to use `TargetVisitChecker`, but the
+overall approach is the same as in Checkpoint 0:
+
+1. Iterate over `targets` (see <<maps, Maps>>) to find a target that's within the proximity threshold.
+We suggest organizing the rest of the logic into the `tryClaimTarget` helper function
+which can focus on just one target.
+2. Make sure the target isn't already captured by any team.
+3. If the player has captured a target already, check the hypothetical new line for crosses
+with existing lines from _any_ player's path. Here the `playerPaths` map will be helpful.
+4. If the snake rule is satisfied, capture the target.
+a. Your `Target` class can change the marker's color for you.
+b. The provided `extendPlayerPath` function can update the instance variables and add a line.
+c. To notify the server of the capture, build a <<update_targetvisit, `targetVisit` update>>
+and send it with the protected `sendMessage` function.
+
+[.alert.alert-warning]
+--
+Since `Game` subclasses should work in isolation from the app and Firebase, **they should not
+use `FirebaseAuth` to get the player's email**. Instead, `Game` provides a protected `getEmail`
+function to retrieve the email passed to the constructor.
+--
+
+To show captures made by other players, you will need to **add a little logic to `handleMessage`**.
+The case that deals with <<update_playertargetvisit, `playerTargetVisit` updates>> has some
+provided code to get the properties of the update. You need to use those to change the
+target's marker color and extend the player's path.
+
+After completing this work, `testMultiplePlayersTargetMode` will pass. We'll come back to
+`getTeamScore` later. You can delete the fairly gross `TargetVisitChecker` class now that
+target mode gameplay is handled in a nicer way&mdash;previous checkpoints' test suites are
+forward-compatible.
+
+[[areamode]]
+=== Area Mode Gameplay
+
+The MP4 patch includes much more starter code for target mode than area mode,
+so you may prefer to finish <<targetmode, Target Mode Gameplay>> first for an example.
+
+A visual explanation of this section is available footnote:[again narrated by Nikhil]:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Lw89kpeB_ks" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+The
+https://cs125-illinois.github.io/Fall2019-MP-Writeups/4/edu/illinois/cs/cs125/fall2019/mp/AreaGame.html[`AreaGame` class]
+is responsible for multiplayer area mode games. It has the same
+public functions as `TargetGame`, but with the different rules for that game mode, the implementations
+will be different. Specifically, **you need to implement this logic**:
+
+* The constructor is responsible for loading the area configuration, cell ownerships, and
+the player's last capture from the JSON. It should render the area grid footnote:[probably using a
+class you made in a previous checkpoint] and fill in captured cells with the capturing team's
+color. footnote:[You'll want a helper function for this, since polygons will be
+added from other functions too.]
+* `locationUpdated` is responsible for detecting, displaying, and reporting area mode updates
+made by the player. If the user entered an uncaptured cell satisfying the
+link:/MP/1/#_area_mode_gameplay[area mode snake rule], it should:
+a. record the change in your instance variables,
+b. add a polygon on the cell colored with the player's team color, and
+c. send a <<update_cellcapture, `cellCapture` update>> to the server.
+* `handleMessage` is responsible for showing cell captures made by other players, which it is
+notified of by <<update_playercellcapture, `playerCellCapture` updates>>. When that happens,
+instance variables should be updated and a colored polygon should be added to show the capture.
+Other kinds of updates should be delegated to the superclass.
+
+Much of this logic can be reused from or based on the area mode logic you wrote in Checkpoint 1.
+You may not assume, however, that the user is entering the game for the first time&mdash;your
+constructor will need to load the existing game progress, which may include a previous capture
+already made by the user.
+
+After completing this work, `testMultiplePlayersAreaMode` will pass. `getTeamScore` will be
+tested in the next section.
 
 [[scoring]]
 === Scoring
@@ -559,14 +635,14 @@ You should complete all previous sections before starting this one.
 
 Before the game can determine a winner, it will need to have a concept of score.
 We define a team's score as the number of objectives&mdash;targets or cells&mdash;it has
-captured. Fill in the `getTeamScore` implementation of both `Game` subclasses to count
+captured. **Fill in the `getTeamScore` implementation of both `Game` subclasses** to count
 the given team's captured objectives according to the current values in their instance variables.
 
 We have provided a `gameScores` label in the game activity layout to show the scores.
-Fill in the `updateScores` helper function in `GameActivity` to set that label's text according
+**Fill in the `updateScores` helper function** in `GameActivity` to set that label's text according
 to the scores of all four teams according to the game object.
 
-That label should be kept up to date with the game, so you will need to call that helper function
+That label should be kept up to date with the game, so you will need to **call that helper function**
 from several places. New score information may be available:
 
 * When initial information about the game is received
@@ -582,7 +658,7 @@ You should complete all previous sections before starting this one.
 
 When handling <<gamestate, Game State>> you took care of the paused and running states.
 That update is also sent when the game is ended by the owner. In that case,
-a popup should be shown stating the winning team.
+**you need to show a popup/dialog** stating the winning team.
 
 The winning team is the one with the most points as reported by the game object's `getTeamScore`
 function. Ties are not tested and you may do anything you think is reasonable in that case.
@@ -592,8 +668,9 @@ link:/MP/2/#_accessing_resources[resource].
 To show a popup, create and show an
 https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog[`AlertDialog`]
 similar to the example in the provided `endGame` function. The message should state the winner,
-e.g. "Red wins!", and dismissing the dialog should finish the activity. You only need
-one button and it can say anything you like.
+e.g. "Red wins!", and **dismissing the dialog should finish the activity**. You only need
+one button footnote:[technically you don't need any but the user would probably want a button]
+and it can say anything you like.
 
 You can register a handler with `setOnDismissListener` that will run even if the user taps
 outside the dialog to close it:
@@ -612,14 +689,14 @@ MP4 is worth 100 points total, broken down as follows:
 
 * **5 points** for connecting to the game's websocket
 * **5 points** for displaying the game state
+* **5 points** for sending location updates to the server when appropriate
 * **25 points** for multiplayer target mode gameplay
 * **25 points** for multiplayer area mode gameplay
-* **5 points** for sending location updates to the server when appropriate
 * **10 points** for scoring (`getTeamScore` implementations and score display)
 * **5 points** for the game-over popup
 * **10 points** for passing `checkstyle` inspection
 * **10 points** for submitting code that earns at least _40 points_ by 8 PM
-  on your early deadline day
+on your early deadline day
 
 Your app will be tested by `Checkpoint4Test`. Understanding the details of how the tests work
 is not necessary, but reading what checks it makes may help you understand what your code
@@ -627,7 +704,7 @@ is supposed to do.
 
 [.alert.alert-warning]
 --
-After submitting, always check that your commit appeared on the
+After submitting, **always check** that your commit appeared on the
 link:/m/grades/MPs[official MP grades page] with the score you expected. Investigate and/or
 get help _immediately_ if something seems to be wrong.
 --
