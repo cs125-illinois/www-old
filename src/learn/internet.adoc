@@ -1,0 +1,305 @@
+---
+title: Internet Introduction
+date: 2019-11-15
+description:
+  Introduction to the internet.
+spelling_exceptions:
+  - DNS
+  - IPv4
+  - IPv6
+  - SMTP
+  - YNP
+  - Gmail
+  - MetaWeather
+  - Bob Kahn
+  - Vint Cerf
+  - frisbees
+  - transformative
+  - mockup
+---
+
+[[VjfKKABkUbOgOjTipLjwTRiUVnkCprlC]]
+[.oneword]
+== Web
+
+Some examples for today are available here:
+//
+https://github.com/cs125-illinois/lecture-webapis-examples[`https://github.com/cs125-illinois/lecture-webapis-examples`]
+//
+Feel free to fork!
+
+[[fOVWTBFXNSzvlEBiRYhIfJeCWSwoBDvk]]
+== [.line-through]#Web APIs# [.line-through]#Web# Internet
+
+[.s]
+//
+* Before we can talk about web APIs, we first have to talk about the web...
+//
+* ...and before we can talk about the web, we have to talk about the internet.
+//
+* Which is great, because I _love_ the internet!
+
+[[RsFWMIglXzfTcqicpZvmSkkWYggVifYy]]
+== !internet-class.org
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://www.internet-class.org/"></iframe>
+</div>
+++++
+
+[[gmdcWgeadGehqFYtVsPeFbEGsjHHWYik]]
+[.oneword]
+== What is the internet?
+
+[[DDvXuHrweAWYMhTgXZMOxVgECWBGVKuz]]
+== !The Physical Internet
+
+image::https://news.wisc.edu/content/uploads/2017/04/Internet-Atlas-map.jpg[role="mx-auto meme",width=640]
+
+[[QardDPrKdZtGcNPEOnwnRsvgrufbQpLW]]
+== !The Physical Internet
+
+image::https://media.kasperskydaily.com/wp-content/uploads/sites/92/2015/11/06023820/internet-maps-submarine-cables.png[role="mx-auto meme",width=640]
+
+[[NRcGjhlNXgHpQIgYYEegOMIYbesBIxzL]]
+== !Fiber-Optic Cable
+
+image::https://5.imimg.com/data5/DD/CO/MY-25392387/fiber-wire-500x500.png[role="mx-auto meme",width=640]
+
+[[OqVEhYhUdUtMoqvECMSNTtOazAuQLHLc]]
+== Internet As Wired Infrastructure
+
+[.lead]
+//
+The internet comprises an enormous amount of physical infrastructure.
+
+[.s]
+//
+* *Most of it is _wired_, not wireless.* Wireless is mainly used for the first
+hop.
+//
+* *Most of it is _fiber_ (glass), not copper.* Signals degrade quickly in copper
+but travel faster and with less attenuation in glass footnote:[This is why
+https://www.dow.com/en-us/electrical/markets/telecommunications/fiber-optic-cable[Dow
+Corning] has such a nice visitor center!]. Copper is only used for the last 100
+meters.
+//
+* *The internet wouldn't exist without fiber optic cable.* It's one of the
+wonders of the modern world. It's not just glass, it's _really clear_ glass.
+
+[[irzgNYhDTHtFdqPnRuPUowMuGUVnwAYa]]
+== An Internet Journey
+
+[.lead]
+If you want to learn more, you can join me as we follow a cable from my former
+office to the edge of our campus network.
+
+* https://youtu.be/KHvHCnRCWYc[First hop out of my office]
+//
+* https://youtu.be/uPyWqblKuYs[Next hop to the network closet on my floor].
+//
+Here copper gives way to fiber.
+//
+* https://youtu.be/2DC1fYjURag[My next hop in the basement networking closet]
+//
+* https://youtu.be/5p6DdQCPh7Q[My last hop on campus].
+//
+At this point all of the campus network traffic leaves on only a few slim fiber
+optic cable.
+
+[[kZpUPdirOGgFNmrGHmebeAdikLHgySDY]]
+== !Short-Range Wireless
+
+image::https://images-na.ssl-images-amazon.com/images/I/51iNAXMFhnL._SL1000_.jpg[role="mx-auto meme",width=640]
+
+[[cSVtMGJyTQXnLCcWLdlvWQUTuovDZSBv]]
+== !Long-Range Wireless
+
+image::http://www.celltowerinfo.com/wp-content/uploads/2015/08/Cell-Tower-Location-Map-Illinois.jpg[role="mx-auto meme",width=640]
+
+[[WrmRwkHPuwbbBkBAgPeYFbjVrWQdasZx]]
+== !Long-Range Wireless
+
+image::https://westfaironline.com/wp-content/uploads/2017/10/Celltower.jpg[role="mx-auto meme",width=640]
+
+[[VyJifRGLFEMtdXNDRLPLzxDZOMyDcAYa]]
+== Internet As Wireless Infrastructure
+
+[.lead]
+//
+In recent years we've also built out a huge amount of _wireless_ internet
+infrastructure.
+
+[.s]
+//
+* *Short range wireless* is dominated by
+//
+https://en.wikipedia.org/wiki/Wi-Fi[WiFi]
+//
+and what you use when you're on campus, at home, or at a coffee shop
+//
+* *Medium-range wireless* is used to provide connectivity to mobile devices like
+smartphones over longer distances.
+//
+You usually buy this from a cellular provider like Verizon or Sprint.
+
+[[snRiqQaQKbLMhBYxLbXaLCHemMTXfeKH]]
+== !The Result
+
+image::https://media.kasperskydaily.com/wp-content/uploads/sites/92/2015/11/06023801/internet-map-illegal.gif[role="mx-auto meme",width=640]
+
+[[CkjdIfoTgcqkpmGqJTAKkBeNopyvqhng]]
+== Internet As Connectivity
+
+[.lead]
+//
+The result is that by connecting a computer to the internet, you are now
+connected to _4 billion_ other computers.
+
+[.s]
+//
+* Many times the first connection is _wireless_
+//
+* But after that point there is literally a wire that you can follow from your
+computer to the other computer
+
+[[LmXnCXdQNKjkGrLddkQdwsvErCkGMxcZ]]
+[.oneword]
+//
+== But How Do Internet-Connected Devices _Communicate_?
+
+[[vSSOuKbyIqAWctgXJtLTttcpHdPKrTmO]]
+== Internet As Agreement
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Communication_protocol[A communication protocol]
+//
+is a system of rules that allow two or more entities of a communications system
+to transmit information.
+//
+____
+
+[[uABWjaBQLWAHnUzqcZzSwSopLIVGbKpW]]
+== The Internet Protocol (IP)
+
+[.lead]
+//
+The
+//
+https://en.wikipedia.org/wiki/Internet_Protocol[Internet Protocol (IP)]
+//
+consists of a series of agreements that allow internet-connected devices to
+communicate.
+
+[.s]
+//
+* *What do we call each other?*
+//
+IP specifies the format of internet protocol addresses, also called IP
+addresses.
+** Here's one: `192.17.96.8` (IPv4)
+** Here's a new one: `2607:f8b0:4009:807::2004` (IPv6)
+//
+* *How are our message structured?*
+//
+IP specifies a _format_ for each message (or datagram) exchanged across the
+internet.
+
+[[BUIGCdHmhvQVaZSHYPiPElLYZIdqMjKy]]
+== IP Datagram Format
+
+image::http://www.danzig.jct.ac.il/tcp-ip-lab/ibm-tutorial/3376f11.gif[role="mx-auto,meme", width=600]
+
+[[QCUlXgkXuVapMAnTaygazZZwdKmjkKIl]]
+[.ss]
+== The Miraculous Internet
+
+image::https://www.internethalloffame.org/sites/default/files/inductees/Cerf_Vint.jpg[role="mx-auto",width=150]
+
+image::https://www.eyerys.com/sites/default/files/bob_kahn4.jpg[role="mx-auto",width=150]
+
+<<<
+
+The core internet protocols were invented by a bunch of graduate students,
+including Vint Cerf and Bob Kahn.
+//
+*They changed the world.*
+
+[.small]
+--
+Vint Cert has said "we kept wondering when the adults were going to show up."
+--
+
+[[ndudfAZJrCuGyqeSYOMfiiFIXJriLpdu]]
+== ! Circuit Switching
+
+image::https://www.northcountrypublicradio.org/news/images/20170531-OldForge-28edited.jpg[role="mx-auto meme",width=640]
+
+[[fDadnxxTGAaixGWumzJapUMbUczdIBid]]
+== Packet Switching
+
+[.lead]
+//
+Data is transferred over the internet in small units called _packets_.
+
+[.s.small]
+//
+* Each packet may travel a different route between the source and destination
+//
+* The internet protocol (IP) provides _best effort_ packet transmission&mdash;but
+delivery is not guaranteed!
+//
+* Internet _routers_ are responsible for transferring packets one hop closer to
+their destination
+//
+* Packet switching was revolutionary when it was proposed&mdash;but now even
+traditional voice traffic is moving to packet-based networks
+
+[[gelNdxTsixktusQKnpNJEKChAeqDqkCS]]
+== !Internet Routing
+
+image::https://news.wisc.edu/content/uploads/2017/04/Internet-Atlas-map.jpg[role="mx-auto meme",width=640]
+
+[[XAIXXwMRSThffUnNzkCdDDuLTjUjxQLT]]
+== Internet Protocol Stack
+
+[.lead]
+//
+One of the beautiful things about IP is that it supports many other protocols.
+
+[.table.small,cols="2*^.^",options='header']
+|===
+
+| Protocol(s)
+| Service
+
+| [.s]#*https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP]*#
+| [.s]#The World Wide Web#
+
+| [.s]#*https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol[SMTP]*#
+| [.s]#Email#
+
+| [.s]#*https://en.wikipedia.org/wiki/Domain_Name_System[DNS]*#
+| [.s]#Translating names (`cs125.cs.illinois.edu`) to IP addresses (`192.17.96.8`)#
+
+| [.s]#*YNP*#
+| [.s]#Your New Protocol, which does something cool and useful!#
+
+|===
+
+[[xehUSxrjbjVcIwmVbtmcKWGtdSveGImN]]
+[.oneword]
+== So The Web _Is Not_ The Internet
+
+The web is just _one of many_ services running over the internet.
+
+[[oApTeMfnuZvIlKHitawrVCWwZsdsdjoD]]
+== Announcements
+
+* Good luck finishing up link:/MP/4/[MP4]!
+//
+* I have office hours today from 1&ndash;3PM. Please come by and say hi!
+
+// vim: ts=2:sw=2:et
