@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js" data-dtconfig="rid=RID_-2018356100|rpid=-621336856|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1573164235792|dtVersion=10177191024092634|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27QSVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|lastModification=1573164235792|dtVersion=10177191024092634|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27QSVfhjqrx_10177191024092634.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=1450585465|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10179191030165738.js" data-dtconfig="rid=RID_-2018356100|rpid=-110347370|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1573794614619|dtVersion=10179191030165738|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10179191030165738.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10179191030165738.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1573794614619|dtVersion=10179191030165738|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10179191030165738.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=2082633475|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -75,6 +75,7 @@
         
 
 </meta>
+
 
 
 <link rel="shortcut icon" href="/content/dam/dcc/images/icons/favicon.ico"/>
@@ -163,7 +164,7 @@
         
         	
     
-<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.24163f3a4a7026ca366af71cd030230d.css" type="text/css">
+<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.3547a93c35999a685471f16d54cb53bf.css" type="text/css">
 
 
 
@@ -6703,13 +6704,13 @@
 <div><script id="deliveryModel-template" type="text/x-handlebars-template">
     {{#if deliveryAddressNoSelected }}
     <p class="deliveryNoSelected"><strong>Welcome to Dow. Please select a delivery address for your orders. This address will control your pricing, products you see, etc.</strong></p><br>
-    <p>Can't find an address? <a href="/en-us/who-we-are/contact-customer-service.html">Contact Customer Service for help.</a></p>
+    <p>Can't find an address? <a href="/en-us/contact-us.html">Contact Customer Service for help.</a></p>
     {{else}}
     <p><strong>Delivery Address Determines pricing and availability</strong></p>
     {{#if itemsInCart }}
     <P>Changing the delivery address will require revalidation of your cart.</P>
     {{/if}}
-    <br><p>Can't find an address? <a href="/en-us/who-we-are/contact-customer-service.html">Contact Customer Service for help.</a></p>
+    <br><p>Can't find an address? <a href="/en-us/contact-us.html">Contact Customer Service for help.</a></p>
     {{/if}}
 </script></div>
 
@@ -7163,7 +7164,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade dccModal hidden" id="cookie-notification" role="dialog" data-backdrop="static">
+			<div class="modal fade dccModal hidden" data-dccmodal="modal" id="cookie-notification" role="dialog" data-backdrop="static">
 			
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
@@ -7581,7 +7582,7 @@
 
     <!-- Modal start, Generic Login Form -->
     <!-- Added new class 'newLoginModal' for new dow.com-->
-    <div class="modal fade dccModal loginFormModal newLoginModal" id="loginFormModal" role="dialog" data-backdrop="static">
+    <div class="modal fade dccModal loginFormModal newLoginModal" data-dccmodal="modal" id="loginFormModal" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -7862,7 +7863,7 @@
     
         <meta/>
     
-<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.a533ab38a180ed9b88313c2fd42ff005.js"></script>
+<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.78a62baf5c6fc04b0571a1e023d8c691.js"></script>
 
 
 
@@ -7948,7 +7949,7 @@
 
 
     <div><!-- delivery address modal start -->
-<div class="modal fade pdpModal deliveryModal" id="deliveryModal" role="dialog" data-backdrop="static">
+<div class="modal fade pdpModal deliveryModal" data-dccmodal="modal" id="deliveryModal" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -7989,7 +7990,7 @@
     </div>
 </div>
 <!-- delivery address modal end -->
-<div class="modal fade warning-modal warningModal" id="warningModal" role="dialog" data-backdrop="static">
+<div class="modal fade warning-modal warningModal" data-dccmodal="modal" id="warningModal" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
