@@ -251,9 +251,9 @@ metalsmith(__dirname)
     /*
     .use(msif(config.check,
       beautify({'indent_size': 2, 'css': false, 'js': false})))
-    */
     .use(msif(config.check && config.checkFormat !== 'false',
       formatcheck({ verbose: !quiet , failWithoutNetwork: false, failErrors: false })))
+    */
     .use(msif(config.check,
       linkcheck({ verbose: !quiet , failWithoutNetwork: false })))
   )
