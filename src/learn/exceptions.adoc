@@ -1,0 +1,861 @@
+---
+title: Exceptions and Errors
+date: 2019-11-20
+description:
+  Discussion of Java errors and error handling.
+spelling_exceptions:
+  - dereferenced
+  - incentivize
+  - recursed
+  - rethrow
+  - Rethrowing
+---
+:imagesdir: /learn/images
+
+[[TtJisSLNUcaxKLyWZHfTUBNaEvfKPpGU]]
+== !
+
+[.janini.smaller]
+--
+++++
+<div class="message">Exceptions and Errors</div>
+++++
+....
+static void throwError() throws Exception {
+  throw new Exception("Exceptions and Errors");
+}
+
+try {
+  throwError();
+} catch (Exception e) {
+  System.out.println(e);
+}
+....
+--
+
+[[wfdQvQZAipVkTZPRnQrNavedMEtHXFyO]]
+[.oneword]
+//
+== Review: So What's a Web _API_?
+
+[[yyuJpkncwjTgIiTBmtNZIUHdZFQnXSGU]]
+== What's An API?
+
+[quote]
+____
+//
+https://en.wikipedia.org/wiki/Application_programming_interface[In computer
+programming, an application programming interface (API)]
+//
+is a set of subroutine definitions, protocols, and tools for building
+application software.
+____
+
+In English, an _API_ is a set of functions that perform a set of related and
+useful tasks.
+
+[[VhKcyDdXgMnfeOXUFUtqYTEIXFRxBmua]]
+== Example API
+
+[.lead]
+//
+Let's say we wanted to find out the weather at a particular location:
+
+[source,java]
+----
+// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+
+// Get the current weather a particular location and a particular time
+static WeatherInfo getAtLocation(WeatherLocation location, Date date)
+
+// Get a list of possible WeatherInfo objects for a given location string
+static WeatherLocation[] searchLocations(String query)
+----
+
+[[JLNFoBPiCoEGSAeKEmLVCEayqKYizNUm]]
+== Web APIs
+
+[.lead]
+//
+A _web API_ is just an API that you access over the web. Consider that:
+
+[.s]
+//
+* We can send data to a web server using `POST` and also using URL parameters in
+a `GET` request
+//
+* The web server can run code in response
+//
+* And return a response, [.s]#_which does not have to be an HTML document_#
+//
+* And in many cases custom internet protocols are blocked by firewalls, making
+it attractive to run APIs over HTTP
+
+[[sQoshKdkerQbElGQyoWmkEymnLkzrZKF]]
+== Web APIs: Sending Arguments
+
+[source,java,role="small"]
+----
+// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+----
+
+To send the `location` argument to the `getAtLocation` function over the web we
+have several options:
+
+[.s.small]
+//
+* Stick it the URL: `/api/getAtLocation/(location)/`, which can be mapped to a
+function call
+//
+* Add it as a query parameter: `/api/getAtLocation?location=(location)`
+//
+* Use a `POST` request and put it in the body, possibly as JSON:
+
+[source,role="small s"]
+----
+POST /api/getAtLocation/
+
+{
+  "location": (location)
+}
+----
+
+[[ijoYpJSPQQLblMzMSckYOpVMqASJepju]]
+== Web APIs: Returning Results
+
+[source,java,role="small"]
+----
+// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+----
+
+In many cases web APIs return results using _JSON_ (JavaScript Object Notation):
+
+[source,json,role='small']
+----
+{
+  "consolidated_weather": [
+  {
+    "id": 6511056423747584,
+      "weather_state_name": "Thunder",
+      "weather_state_abbr": "t",
+      "wind_direction_compass": "E",
+      "created": "2018-04-09T02:37:19.655990Z",
+      "applicable_date": "2018-04-08",
+      "min_temp": -2.6099999999999999,
+      "max_temp": 2.2149999999999999,
+      "the_temp": 2.4950000000000001,
+      "wind_speed": 2.8707529204565336,
+      ...
+----
+
+[[ZsOQNCeyFRLfYMLCfmRDxwhgFYiBXBXm]]
+[.oneword]
+== What's Awesome...
+
+Is that there are
+//
+https://github.com/toddmotto/public-apis[a gazillion]
+//
+public APIs out there.
+//
+So go have fun!
+
+[[JnbDWRLxHyezxdypdCAdLwXGseAepanB]]
+[.oneword]
+//
+== Questions about the Internet, Web, and Web APIs?
+
+[[cfNxpyuNplVjZOGkrvUuWTtPHBfHbdhI]]
+[.oneword]
+//
+== Exceptions
+//
+Because things go wrong...
+
+[[OzQfgiJWbHOderTtUClGAngECYmlpaNU]]
+== Why Exceptions?
+
+[.lead]
+//
+What do you do when you can't go on?
+
+[source,java]
+----
+class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize <= 0) {
+      // what now?
+    }
+  }
+}
+----
+
+[[wkaxBLzVUsfkoRJnKKGGsmhKRjfPqcfS]]
+== Why Exceptions?
+
+[.lead]
+//
+What do you do when you can't go on?
+
+[source,java]
+----
+/**
+ * Read an integer from a passed string
+ * and then do something with it.
+ */
+static int readInteger(final String intAsString) {
+  int value = Integer.parseInt(intAsString);
+  // But what if intAsString was "foo"?
+}
+----
+
+[[GnIneJYyrmknSwxawxFLrkfgLTkrkCvS]]
+== `try-catch`
+
+[.lead]
+//
+Java's exception handling control structure is called a `try-catch` block:
+
+[source,java]
+----
+try {
+  // Do something that could cause an exception
+} catch (Exception e) {
+  // Handle all exceptions that inherit from Exception
+}
+// Go on if things proceeded normally
+----
+
+[[qvlOjZWdEtCQbonLgPsQfGssTFvZwvne]]
+== `catch` Matching
+
+[.lead]
+//
+A `catch` block will match any exceptions that inherit from the one provided.
+And they are tried in order.
+
+[[FCwSppBUbsdntJPLYVWUmKhTjmwczUgt]]
+== `try-catch` with Multiple `catch`
+
+[.lead]
+//
+Sometimes you want to handle errors differently depending on what caused them:
+
+[source,java]
+----
+try {
+  // Do something that could cause an exception
+} catch (NullPointerException e) {
+  // Handle null pointer exceptions
+} catch (ArrayIndexOutOfBoundsException e) {
+  // Handle array out of bounds exceptions
+}
+// Go on if things proceeded normally
+----
+
+[[qBUvchHqwhTYgXirWtbHjrdzfSozLyed]]
+== `try-catch` with Multiple `catch`
+
+[.lead]
+//
+You can also merge multiple exception types together like this:
+
+[source,java,role='smaller']
+----
+try {
+  // Do something that could cause an exception
+} catch (NullPointerException|IllegalArgumentException e) {
+  // Handle null pointer and illegal argument exceptions
+}
+// Go on if things proceeded normally
+----
+
+[[chdyOkkmYaXUaZhNnJDZSFXtlEZeXIKv]]
+== `try-catch` in Python
+
+[.lead]
+//
+Many other languages have similar error handling constructs. In Python:
+
+[source,python]
+----
+try:
+  // do something
+except ValueError:
+  // handle
+except Another Error:
+  // handle
+else:
+  // Run if no error is thrown. No analog in Java
+finally:
+  // Always run
+----
+
+[[pLfyzBdmMcJIAnddNqNwBBxPFISVkkIz]]
+== `try-catch` in JavaScript
+
+[.lead]
+//
+Many other languages have similar error handling constructs. In JavaScript:
+
+[source,javascript]
+----
+try {
+  // do something
+} catch (err) {
+  // handle the err
+} finally {
+  // Always run
+}
+----
+
+[[kwZARxJnTlrBuFmKcUMufYbTUVEQzwNm]]
+== ! `try-catch` Example
+
+[.janini.smaller]
+....
+import java.util.Random;
+
+static int throwRandomError() throws Exception {
+  Random random = new Random();
+  if (random.nextBoolean()) {
+    Object it = null;
+    return it.hashCode();
+  } else {
+    int[] array = new int[] {};
+    return array[4];
+  }
+}
+
+// Handle both errors thrown by the function above
+throwRandomError();
+....
+
+[[jxVCByewgzqbjYjfWzfiuRCWBfuPrfYs]]
+== Exceptional Control Flow
+
+[.lead]
+//
+When an error is thrown control flow _immediately_ jumps to an
+enclosing `catch` statement, if one exists.
+
+The `catch` may be in the caller or multiple levels up.
+
+[source,java,role='smallest']
+----
+static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}
+----
+
+[[YAUdXnxjOpdzBcNRJLgXVKzarNSWNagr]]
+== ! `try-catch` with Functions Example
+
+
+[.janini.smaller]
+....
+static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}
+foo4();
+....
+
+
+[[YVOVNHgIXQcGbotRhnTLjlRxlloFSLng]]
+== Types of Exceptions
+
+[.lead]
+//
+Java exceptions are broken into three distinct categories:
+
+[.s]
+//
+* *Checked exceptions*: these are for places where you _know_ something might go
+wrong and it's out of your control
+//
+* *Unchecked exceptions* (or runtime errors): these are unanticipated errors
+usually caused by something dumb that you (the programmer) did wrong
+//
+* *Errors*: these are reserved for serious system problems that are probably not
+recoverable
+
+[[AglZaxPbaQdMAUyURkopiDaKCMrueDWb]]
+== Checked Exceptions: Examples
+
+[.lead]
+//
+Checked exceptions are for cases where an failure *external to your program* can
+cause an exception to occur
+
+[.s]
+//
+* https://docs.oracle.com/javase/7/docs/api/java/io/FileNotFoundException.html[`FileNotFoundException`]:
+//
+your program tried to open a file that you expected to exist but it did not
+//
+* https://docs.oracle.com/javase/7/docs/api/java/net/URISyntaxException.html[`URISyntaxException`]:
+//
+your program tried to parse a universal resource identifier (URI) but it was
+invalid
+
+[[WCoZXcWMWrPzctmXYbUERwsqWmxbhsGH]]
+== ! Example Checked Exception
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/net/URISyntaxException.html"></iframe>
+</div>
+++++
+
+[[JvELdFMCwSnXRmghdAhhglEfbojSOHJI]]
+== Checked Exceptions: Handling
+
+[.lead]
+//
+If you use a function that may generate a checked exception, you must either
+wrap it in a `try-catch` block or declare that you may throw it.
+
+[source,role='s smaller']
+----
+static URI createURI(final String input) {
+  // Example where we handle URISyntaxExceptions
+  try {
+    return new URI(input);
+  } catch (URISyntaxException e) {
+    System.out.println(input + " is not a valid URI");
+  }
+}
+----
+
+[source,role='s smaller mt-2']
+----
+// Example where we throw URISyntaxExceptions
+static URI createURI(final String input) throws URISyntaxException {
+  return new URI(input);
+}
+----
+
+[[lTSokCKduCxcHhdvMeDXSCDpGcryAMul]]
+== ! Checked Exceptions: Handling Example
+
+[.janini.smaller]
+....
+import java.net.URI;
+static URI createURI(final String input) {
+  return new URI(input);
+}
+System.out.println(createURI("https://cs125.cs.illinois.edu/"));
+....
+
+[[OfiMUvDfLqHrmsHHbwRRrxkkLLWCItZx]]
+== Unchecked Exceptions
+
+[.lead]
+//
+Unchecked examples are usually the result of _programmer error_.
+
+(They are fundamentally unanticipated, since if you had anticipated them you
+would have fixed them.)
+
+You've probably made many of these mistakes by now...
+
+[.s.small]
+//
+* https://docs.oracle.com/javase/7/docs/api/java/lang/ArrayIndexOutOfBoundsException.html[`ArrayIndexOutOfBoundsException`]:
+//
+[.s]#you walked off the end of an array#
+//
+* https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html[`NullPointerException`]:
+//
+[.s]#you dereferenced a `null` reference#
+//
+* https://docs.oracle.com/javase/7/docs/api/java/lang/ClassCastException.html[`ClassCastException`]:
+//
+[.s]#you tried to cast something to a subclass of which it is not an instance#
+//
+* https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html[`IllegalArgumentException`]:
+//
+[.s]#you passed incorrect arguments to a function or constructor#
+
+[[VMuWJTdntTpmuJdxJlPdqeenuKjuKEoo]]
+== ! Unchecked Exceptions: Examples
+
+[.janini.smaller]
+....
+import java.util.Arrays;
+
+static void faulter() {
+}
+try {
+  faulter();
+} catch (ArrayIndexOutOfBoundsException e) {
+  System.out.println("Whoops!");
+} catch (NullPointerException e) {
+  System.out.println("Oh, no!");
+} catch (ClassCastException e) {
+  System.out.println("That's too bad...");
+} catch (IllegalArgumentException e) {
+  System.out.println("Don't do that!");
+}
+....
+
+[[KXOYoGDTpyttOUMGgFJomhMqvznzGXoE]]
+== Unchecked Exceptions: Handling
+
+[.lead]
+//
+Unlike checked exceptions, you do not need to declare or handle unchecked
+exceptions.
+
+However, you _can_ handle them:
+
+[source,java,role='s smaller']
+----
+try {
+  String s = callMyPartnersDodgyCode();
+  if (s.length() == 0) {
+    return;
+  }
+} catch (NullPointerException e) {
+  return;
+}
+----
+
+[[kQbOfdZFwWMQsOQmhbBQogCUGHympVWJ]]
+== Errors: Examples
+
+[.lead]
+//
+Java errors indicate serious conditions that are usually not recoverable:
+
+[.s]
+//
+* https://docs.oracle.com/javase/7/docs/api/java/lang/OutOfMemoryError.html[`OutOfMemoryError`]:
+//
+Java ran out of memory and is going to crash
+//
+* https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html[`StackOverflowError`]:
+//
+You recursed too deeply and Java is going to crash
+//
+* Note that sometimes _these are still your fault_: you used too much memory or
+forgot your base case
+
+[[ajpSqxeufhVlXQkgrigFcjuJqXwzCANS]]
+== Exception Handling Strategies
+
+[.lead]
+//
+Here are reasonable strategies for handling each kind of exception:
+
+[.s]
+//
+* *Errors*: _don't_ try to handle these, just go bye-bye
+//
+* *Unchecked exceptions*: try to _avoid_ these by improving your code
+//
+* *Checked exceptions*: try to handle these and have your program
+continue running, or exit gracefully...
+//
+* but don't go on unless you can.
+
+[[RoxnUIFqZCBrBZnusOrpzbLuksmJMpdG]]
+== Working with Exceptions
+
+[.lead]
+//
+Java exceptions are just another kind of Java object&mdash;and they have some
+useful features, particularly when debugging:
+
+[.s]
+//
+* `toString`: like every other Java `Object`, exceptions can be printed
+//
+* `getMessage`: retrieves just the message associated with this exception
+//
+* `printStackTrace`: print a _stack trace_ for the error showing what caused it
+and what other functions were involved
+
+[[wIAiKctczCEQFknYPSiRbruXLqBIGBMy]]
+== !Throwable Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html"></iframe>
+</div>
+++++
+
+[[zzlPSnhuaDjSgoGIAkpIjUQZeiuerNQe]]
+== !Working with Exceptions Examples
+
+[.janini.smaller]
+....
+static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}
+foo4();
+....
+
+[[CTsKSqiFCfFyikLMwtUmDbmSXijFayAL]]
+== Rethrowing Exceptions
+
+[.lead]
+//
+Sometimes you may want to just record what happened but not know what to do with
+an error.
+
+In that case you may want to rethrow it out of the catch block:
+
+[source,role='smaller']
+----
+static URI createURI(final String input) {
+  // Example where we handle URISyntaxExceptions
+  try {
+    return new URI(input);
+  } catch (URISyntaxException e) {
+    // Log that something went wrong
+    Log.e(TAG, input + " is not a valid URI");
+    // Rethrow the exception
+    throw(e);
+  }
+}
+----
+
+[[diIiwLksuhFzuaiuxOuRIZnfIpgBPFnP]]
+== Throwing Your Own Exceptions
+
+[.lead]
+//
+So how do we handle a case like this?
+
+[source,java]
+----
+class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize <= 0) {
+      // what now?
+    }
+  }
+}
+----
+
+[[tZEORkretvixoGRTiPQxDkXOhkrgdAUE]]
+== ! Throwing Your Own Exceptions
+
+[.janini.smaller.compiler]
+....
+public class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize <= 0) {
+      // what now?
+    }
+  }
+}
+public class Example {
+  public static void main(final String[] unused) {
+    StringStorage stringStorage = new StringStorage(-1);
+  }
+}
+....
+
+[[TyzTkvyjvmKDPkZwmxwufvXMjajIlrHV]]
+== `throw`
+
+[.lead]
+//
+To throw an exception in Java we use the `throw` keyword:
+
+[source,java]
+----
+Exception e = new Exception("you did something awful");
+throw(e);
+----
+
+[[qoTmuDmRuBRgiUxPONZaOVhCRmlElcLw]]
+== `throw` Well
+
+[.lead]
+//
+If you need to throw an exception:
+
+[.s]
+//
+* Look for an existing `Exception` class that's a good fit
+//
+* Or, create your own:
+
+[source,java,role='s smaller']
+----
+public class MyException extends Exception {
+}
+throw(new MyException("bad bad"));
+----
+
+[[SRZEFPcrGpKfBdzGREcjDZALhTbKaIsC]]
+== `finally`
+
+[.lead]
+//
+Java's `try-catch` also supports a `finally` block. It is _always_ executed after
+_either_ the `try` or the `catch` completes:
+
+[source,java,role='smaller']
+----
+try {
+  System.out.println("start");
+  couldError();
+  System.out.println("done");
+} catch (Exception e) {
+  System.out.println("catch");
+} finally {
+  System.out.println("finally");
+}
+----
+
+[[mhmYjmPPucLHcPEFfhzCtQfFbnqfuYjZ]]
+== ! `finally` Example
+
+[.janini.smaller]
+....
+import java.util.Random;
+
+static void couldError() {
+  Random random = new Random();
+  if (random.nextBoolean()) {
+    Object it = null;
+    it.hashCode();
+  }
+}
+
+try {
+  System.out.println("start");
+  couldError();
+  System.out.println("done");
+} catch (Exception e) {
+  System.out.println("catch");
+} finally {
+  System.out.println("finally");
+}
+....
+
+[[eZOQBRhCvuQhjkIrABjfwolqygMADAfE]]
+== Intelligent `try` Usage
+
+[.lead]
+//
+You can make intelligent use of `try-catch` blocks to avoid repetitive sanity
+checking:
+
+[source,java,role='smaller']
+----
+JsonParser parser = new JsonParser();
+JsonObject info = parser.parse(json).getAsJsonObject();
+if (!info.has("metadata")) {
+  return 0;
+}
+JsonObject metadata = info.getAsJsonObject("metadata");
+if (!metadata.has("width")) {
+  return 0;
+}
+JsonElement width = metadata.getAsJsonElement("width");
+return width.getAsInt();
+----
+
+[[PTcgGbrBNJAzQGjhIpXKlPnMXeUoxUmP]]
+== Intelligent `try` Usage
+
+[.lead]
+//
+You can make intelligent use of `try-catch` blocks to avoid repetitive sanity
+checking:
+
+(This is particularly nice when you can chain calls together.)
+
+[source,java,role='smaller']
+----
+try {
+  JsonParser parser = new JsonParser();
+  return parser.parse(json)
+    .getAsJsonObject()
+    .getAsJsonObject("metadata")
+    .get("width")
+    .getAsInt();
+} catch (Exception e) {
+  return 0;
+}
+----
+
+[[wPTGIacnajnLigKsnSOrFdDtdgnMXQbn]]
+[.oneword]
+//
+== Questions About Exceptions?
+
+[[oApTeMfnuZvIlKHitawrVCWwZsdsdjoD]]
+== Announcements
+
+* The link:/MP/2019/spring/5/[final project description] has been posted. Please get
+started!
+//
+* I have office hours today from 1&ndash;3PM. Please come by to say hi!
+
+// vim: ts=2:sw=2:et
