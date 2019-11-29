@@ -35,7 +35,7 @@ public class Example {
     System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
   }
   public static void main(String[] unused) {
-    countStrings(new String[] { "a", "b", "aa", "bb", "a" });
+    countStrings(new String[] {"a", "b", "aa", "bb", "a"});
   }
 }
 ....
@@ -338,7 +338,7 @@ But the best is yet to come!
 
 [source,java]
 ----
-int[] numbers = new int[] { 5, 6, 7 };
+int[] numbers = new int[] {5, 6, 7};
 System.out.println(numbers[0]);
 numbers[1] = 8;
 ----
@@ -444,9 +444,7 @@ public class WordCounter {
 
 public class Example {
   public static void main(String[] unused) {
-    String[] corpus = new String[] {
-      "here", "here", "there"
-    };
+    String[] corpus = new String[] {"here", "here", "there"};
     WordCounter wordCounter = new WordCounter(corpus);
     System.out.println(wordCounter.getWordCount("here"));
     System.out.println(wordCounter.getWordCount("there"));
