@@ -12,7 +12,7 @@ const expect = require('chai').expect
 const mongo = require('mongodb').MongoClient
 
 const argv = require('minimist')(process.argv.slice(2))
-mongo.connect(process.env.MONGO, { useNewUrlParser: true }).then(async client => {
+mongo.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => {
   let projectGradesCollection = client.db(argv._[0]).collection('projectFair')
   let query = {
     fair: true

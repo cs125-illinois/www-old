@@ -1,24 +1,26 @@
 ---
-title: "CS 125 Fall 2019 Project Fair"
+title: "CS 125 Spring 2019 Project Fair"
 description:
-  CS 125 final projects for the Fall 2019 semester.
+  CS 125 final projects for the Spring 2019 semester.
 priority: 0.9
 ---
 
 <p class="lead">
-  The Fourth Biannual CS 125 Project Fair will take place Thursday 12/12/2019
+  The Third Biannual CS 125 Project Fair will take place Thursday 5/2/2019
   <span class="badge badge-illinois-orange"
     data-toggle="popover" data-placement="top" data-html="true"
     data-content="We are aware that this is Reading Day&mdash;participation in the fair is optional">1</span>
-  from 4&ndash;6PM in
+  from 1&ndash;3PM in
   <a href="https://goo.gl/6Hq7zK">Siebel</a>.
-  <strong>{{ sum fair.Fall2019.impressive.length fair.Fall2019.other.length }}
+  <strong>{{ sum fair.Spring2019.impressive.length fair.Spring2019.other.length }}
     groups</strong>
   will exhibit their Android apps.
+  An award ceremony will follow on <em>Friday</em> 5/3/2019 at 1:30PM in
+  <a href="https://tinyurl.com/y3nckymw">Lincoln Hall Auditorium</a>.
 </p>
 
 <p>
-  {{ multiply 2 (sum fair.Fall2019.impressive.length fair.Fall2019.other.length)
+  {{ multiply 2 (sum fair.Spring2019.impressive.length fair.Spring2019.other.length)
   }} CS 125 students will be demoing lots of cool Android projects, so please
   come by to check them out!
 </p>
@@ -29,12 +31,48 @@ priority: 0.9
 
 <ul>
   <li><strong>What:</strong> CS 125 Final Project Fair</li>
-  <li><strong>When:</strong> Thursday 12/12/2019, judging from 4&ndash;6PM in
+  <li><strong>When:</strong> Thursday 5/2/2019, judging from 1&ndash;3PM in
     <a href="https://goo.gl/6Hq7zK">Siebel</a>
-  <li><strong>Where:</strong> Demos throughout <a href="https://goo.gl/6Hq7zK">Siebel</a>
+    and awards on Friday 5/3/2019 at 1:30PM in <a href="https://tinyurl.com/y3nckymw">Lincoln Hall Auditorium</a></li>
+  <li><strong>Where:</strong> Demos throughout <a href="https://goo.gl/6Hq7zK">Siebel</a>,
+    awards on Friday at 1:30PM in <a href="https://tinyurl.com/y3nckymw">Lincoln</a></li>
 </ul>
 
-<!--
+<div class="mt-3">
+  <h2 id="sponsors" class="text-primary">Corporate Sponsors</h2>
+  <p class="lead">
+    The Spring 2019 CS 125 Final Project fair is extremely grateful to our
+    corporate sponsors for their support of this semesters event.
+  </p>
+  <p>
+    In order of contribution:
+  </p>
+  <div class="row">
+    <div class="col-12 col-sm-6 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img style="max-height: 120px; width: auto; margin: 0 auto"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Capital_One_logo.svg/1280px-Capital_One_logo.svg.png"
+          alt="Capital One Logo" />
+        <div class="card-body text-center">
+          <h5><a href="https://capitalone.com">Capital One</a></h5>
+          Supported pizza for 500 attendees and prizes for the winning teams.
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img style="max-height: 200px; width: auto; margin: 0 auto"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/F_icon.svg/1024px-F_icon.svg.png"
+          alt="Facebook Logo" />
+        <div class="card-body text-center">
+          <h5><a href="https://facebook.com">Facebook</a></h5>
+          Supported prizes for the winning teams.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="mt-3 spelling_exception">
   <h2 id="winners" class="text-primary">Competition Winners</h2>
   <p class="lead">
@@ -85,17 +123,16 @@ priority: 0.9
     </div>
   </div>
 </div>
-!-->
 
 <div class="mt-3 spelling_exception">
-  <h2 id="featured" class="text-primary">Featured Projects ({{ fair.Fall2019.impressive.length }})</h2>
+  <h2 id="featured" class="text-primary">Featured Projects ({{ fair.Spring2019.impressive.length }})</h2>
   <p class="lead">
     We think that these are particularly cool.
     Half are by students that were beginners when they started CS 125!
     <a href="https://www.youtube.com/playlist?list=TLGG5kmhDv1hU2swMjA1MjAxOQ">Here's a link to a playlist with all the impressive projects.</a>
   </p>
   <div class="row">
-    {{#each fair.Fall2019.impressive }}
+    {{#each fair.Spring2019.impressive }}
     <div class="col-12 col-sm-6 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <div class="embed-responsive embed-responsive-19b9">
@@ -116,13 +153,13 @@ priority: 0.9
 </div>
 
 <div class="mt-3 spelling_exception">
-  <h2 id="other" class="text-primary">All Projects ({{ fair.Fall2019.other.length }})</h2>
+  <h2 id="other" class="text-primary">All Projects ({{ fair.Spring2019.other.length }})</h2>
   <p>
     We <em>also</em> think that these are cool. Destroy all weather apps and
     calorie counters!
   </p>
   <div class="row">
-    {{#each fair.Fall2019.other }}
+    {{#each fair.Spring2019.other }}
     <div class="col-12 col-sm-6 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <div class="embed-responsive embed-responsive-19b9">
