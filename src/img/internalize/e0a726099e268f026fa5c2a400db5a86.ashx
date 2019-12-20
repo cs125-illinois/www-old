@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10179191120132458.js" data-dtconfig="rid=RID_-2018356100|rpid=-1859704838|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1574269822460|dtVersion=10179191120132458|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10179191120132458.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10179191120132458.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1574269822460|dtVersion=10179191120132458|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10179191120132458.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-1863978884|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10181191119154660.js" data-dtconfig="rid=RID_-2018356100|rpid=461913679|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1576516240326|dtVersion=10181191119154660|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10181191119154660.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10181191119154660.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1576516240326|dtVersion=10181191119154660|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10181191119154660.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=1396056857|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -131,6 +131,7 @@
     <meta name="sp_sellableCountry" content="public"/></meta>
 
 	<meta name="sp_searchAllowed" content="no"/></meta>
+	<meta name="sp_marketingStatus" content="2"/></meta>
 	
 	
 		<meta name="robots" content="noindex"/>
@@ -164,7 +165,7 @@
         
         	
     
-<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.3547a93c35999a685471f16d54cb53bf.css" type="text/css">
+<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.0f47ab31d8029e1bcacbb45d497e221d.css" type="text/css">
 
 
 
@@ -7020,7 +7021,7 @@
 </div>
 
         
-            <div id="languageListJson" class="hide language-json">[{&#34;values&#34;:[{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;JP&#34;,&#34;default&#34;:&#34;ja-jp&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;CN&#34;,&#34;default&#34;:&#34;zh-cn&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;US&#34;,&#34;default&#34;:&#34;en-us&#34;}]</div>
+            <div id="languageListJson" class="hide language-json">[{&#34;values&#34;:[{&#34;value&#34;:&#34;Português do Brasil-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;BR&#34;,&#34;default&#34;:&#34;pt-br&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português do Brasil-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;JP&#34;,&#34;default&#34;:&#34;ja-jp&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português do Brasil-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;CN&#34;,&#34;default&#34;:&#34;zh-cn&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português do Brasil-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;US&#34;,&#34;default&#34;:&#34;en-us&#34;}]</div>
         
     </header>
     <div><div class="container hide" id="credit-blocking-banner">
@@ -7733,8 +7734,8 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     
                                         <div class="form-group">
-                                            <label class="form-control-label sr-only" for="j_username">Email</label>
-                                            <input type="text" data-parsley-trigger="change" data-parsley-required="true" data-parsley-minlength="5" class="form-control form-input" id="j_username" name="j_username" placeholder="Email" required autofocus="true" tabindex="2"/>
+                                            <label class="form-control-label sr-only" for="j_username">Username</label>
+                                            <input type="text" data-parsley-trigger="change" data-parsley-required="true" data-parsley-minlength="5" class="form-control form-input" id="j_username" name="j_username" placeholder="Username" required autofocus="true" tabindex="2"/>
                                         </div>
                                     </div>
                                     
@@ -7899,7 +7900,7 @@
     
         <meta/>
     
-<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.78a62baf5c6fc04b0571a1e023d8c691.js"></script>
+<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.5ff15c078cbdcb663116c8ddcbec3ff9.js"></script>
 
 
 
