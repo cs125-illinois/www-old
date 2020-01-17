@@ -58,6 +58,7 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: tr
       { role: 'head' },
       { role: 'captain' },
       { role: 'TA' },
+      { role: 'associate' },
       { role: 'assistant', active: true },
       { role: 'developer' },
       { role: 'dataanalyst' },

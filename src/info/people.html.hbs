@@ -20,27 +20,71 @@ internalize: false
         </div>
       </div>
     </div>
-    {{#each course.Fall2019.staffByRole.head }}
+  </div>
+</div>
+
+<div class="mt-3 spelling_exception">
+  <h2 id="heads" class="text-primary">{{ course.Spring2020.staffByRole.head.length }} Head CAs</h2>
+  <p class="lead">
+    Head CAs are responsible for major course components and help lead the rest
+    of the course staff.
+  </p>
+  <div class="row">
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
-      <h2 id="headca" class="text-primary">Head CA</h2>
       <div class="card pt-2 pl-2 pr-2">
-        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/b0f6b584efd2aafbe6fc1376e88befaf?s=200" alt="Photo of Ben Nordick">
         <div class="card-body">
-          <h4 class="card-title text-center">{{{ this.name }}}</h4>
+          <h4 class="card-title text-center">Ben Nordick</h4>
           <p class="card-text">
             Second in command.
           </p>
         </div>
       </div>
     </div>
-    {{/each}}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/056c5ce6f51d6e8a8cf1e2a3132c1d6f?s=200" alt="Photo of Amirtha Sureshbabu">
+        <div class="card-body">
+          <h4 class="card-title text-center">Amirtha Sureshbabu</h4>
+          <p class="card-text">
+            Developing future MPs.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/602611e8b74b2507c74641ed5f57827e?s=200" alt="Photo of Daniel Gleason">
+        <div class="card-body">
+          <h4 class="card-title text-center">Daniel Gleason</h4>
+          <p class="card-text">
+            Running the course forum.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="//gravatar.com/avatar/52d5b18b29171a6453b9ce0119b38f5b?s=200" alt="Photo of Max Kopinsky">
+        <div class="card-body">
+          <h4 class="card-title text-center">Max Kopinsky</h4>
+          <p class="card-text">
+            Head course developer.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="mt-3 spelling_exception">
-  <h2 id="tas" class="text-primary">{{ course.Fall2019.staffByRole.TA.length }} Teaching Assistants</h2>
+  <h2 id="tas" class="text-primary">{{ course.Spring2020.staffByRole.TA.length }} Teaching Assistants</h2>
+  <p class="lead">
+    We have a fantastic set of teaching assistants (TAs) who you'll find leading
+    labs and running office hours.
+  </p>
   <div class="row">
-    {{#each course.Fall2019.staffByRole.TA }}
+    {{#each course.Spring2020.staffByRole.TA }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -70,9 +114,12 @@ internalize: false
 </div>
 
 <div class="mt-3 spelling_exception">
-  <h2 id="captains" class="text-primary">{{ course.Fall2019.staffByRole.captain.length }} Office Hour Captains</h2>
+  <h2 id="captains" class="text-primary">{{ course.Spring2020.staffByRole.captain.length }} Office Hour Captains</h2>
+  <p class="lead">
+    Office Hour Captains are in charge of making sure office hours run smoothly.
+  </p>
   <div class="row">
-    {{#each course.Fall2019.staffByRole.captain }}
+    {{#each course.Spring2020.staffByRole.captain }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -88,16 +135,52 @@ internalize: false
   </div>
 </div>
 
-{{#if course.Fall2019.staffByRole.assistant.length }}
+{{#if course.Spring2020.staffByRole.associate.length }}
 <div class="mt-3 spelling_exception">
-  <h2 id="cas" class="text-primary">{{ course.Fall2019.staffByRole.assistant.length }} Course Assistants</h2>
+  <h2 id="associates" class="text-primary">{{ course.Spring2020.staffByRole.associate.length }} Course Associate</h2>
   <p class="lead">
-    Our course assistants are so excited about computer science that they are
-    helping you to learn more! Please treat them accordingly&mdash;with a lot of
-    appreciation!
+    Course associates are experienced CAs who you'll meet frequently at office hours.
   </p>
   <div class="row">
-    {{#each course.Fall2019.staffByRole.assistant }}
+    {{#each course.Spring2020.staffByRole.associate }}
+    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+      <div class="card pt-2 pl-2 pr-2">
+        <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
+        <div class="card-body">
+          <div class="person card-title text-center">{{{ this.name }}}</div>
+          {{#if this.labs }}
+          <p class="email text-center">
+            <a href="mailto:{{{ this.email }}}"><code>{{{ this.email }}}</code></a>
+          </p>
+          <p class="small card-text">
+          Assisting with {{ inflect this.labs.length "section" "sections" }}
+          {{#and_list this.labs }}{{ this }}{{/and_list}}
+          {{#if this.officeHours }}
+          and holding office hours
+          {{/if}}
+          </p>
+          {{else}}
+          {{#if this.officeHours }}
+          Holding office hours
+          {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{/each }}
+  </div>
+</div>
+{{/if}}
+
+{{#if course.Spring2020.staffByRole.assistant.length }}
+<div class="mt-3 spelling_exception">
+  <h2 id="assistants" class="text-primary">{{ course.Spring2020.staffByRole.assistant.length }} Course Assistants</h2>
+  <p class="lead">
+    Our course assistants are so excited about computer science that they decided to learn how to teach you!
+    Please treat them accordingly&mdash;with a lot of appreciation!
+  </p>
+  <div class="row">
+    {{#each course.Spring2020.staffByRole.assistant }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
@@ -128,14 +211,14 @@ internalize: false
 {{/if}}
 
 <div class="mt-3 spelling_exception">
-  <h2 id="developers" class="text-primary">{{ course.Fall2019.staffByRole.developer.length }} Course Developers</h2>
+  <h2 id="developers" class="text-primary">{{ course.Spring2020.staffByRole.developer.length }} Course Developers</h2>
   <p class="lead">
     Our course developers do not hold office hours or help with labs. But they
     are working hard behind the scenes to make CS 125 better this semester and
     in the future.
   </p>
   <div class="row">
-    {{#each course.Fall2019.staffByRole.developer }}
+    {{#each course.Spring2020.staffByRole.developer }}
     <div class="col-12 col-sm-6 col-lg-4 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
