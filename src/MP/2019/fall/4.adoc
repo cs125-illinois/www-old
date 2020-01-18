@@ -16,18 +16,21 @@ spelling_exceptions:
 - uncaptured
 - Changelist
 - ownerships
+outdated:
+  name: MP
+  current: /mp/
 ---
 :sectnums:
 :linkattrs:
-:imagesdir: /MP/images/MP4
+:imagesdir: /MP/2019/fall/images/MP4
 
 :forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp4[forum,role='noexternal']]
 
 [.lead]
-In link:/MP/3[MP3] you made it possible to create multiplayer games.
+In link:/MP/2019/fall/3[MP3] you made it possible to create multiplayer games.
 In this final checkpoint you'll finish the app by connecting gameplay to the server.
 
-In link:/MP/0[MP0] and link:/MP/1[MP1] you implemented singleplayer, local gameplay for target
+In link:/MP/2019/fall/0[MP0] and link:/MP/2019/fall/1[MP1] you implemented singleplayer, local gameplay for target
 mode and area mode by writing code directly in the game activity. Now it's time to expand
 that logic to work with multiplayer games, where data about other players is coming in from
 the server and data about the user needs to be sent to the server.
@@ -61,7 +64,7 @@ As usual, deadlines vary based on your deadline group. MP4 is due at:
 
 Additionally, 10% of your grade is for submitting code that earns at least _40 points_
 by 8 PM on **Sunday 11/10/2019 (Blue)** or **Monday 11/11/2019 (Orange)**.
-Late submissions are subject to the link:/info/syllabus/#regrading[MP late submission policy].
+Late submissions are subject to the link:/info/2019/fall/syllabus/#regrading[MP late submission policy].
 
 == Learning Objectives
 
@@ -89,7 +92,7 @@ To apply the patch, follow these steps:
 
 1. Ensure that all your work is committed, so that none of your files' names appear green or blue
 in the Project pane.
-2. Download link:/MP/patches/MP4.patch[the MP4 patch file, download=true].
+2. Download link:/MP/2019/fall/patches/MP4.patch[the MP4 patch file, download=true].
 3. In Android Studio, select the _VCS | Apply Patch_ menu item.
 4. Select the downloaded patch.
 5. Change the Name dropdown to **Default Changelist**. footnote:[This makes Android Studio
@@ -137,7 +140,7 @@ This section provides background and documentation you will need to achieve
 [[maps]]
 === Maps
 
-You learned about one of the most common data structures in MP3: the link:/MP/3/#lists[_list_],
+You learned about one of the most common data structures in MP3: the link:/MP/2019/fall/3/#lists[_list_],
 which stores an ordered variable-length collection of items.
 Another extremely useful data structure is the _map_. Maps store associations between
 two kinds of things, allowing a _value_ to be looked up by a _key_. For example:
@@ -217,7 +220,7 @@ The websocket protocol allows any kind of data to be transferred. We will contin
 objects to represent the messages/updates in the game. So when you need to send an update to
 the server, you will build a Gson `JsonObject` and pass it to our function that sends the JSON
 to the server. When the server sends an update to your app, a handler in your code will be called
-and passed the `JsonObject`, which you can link:/MP/2/#_using_gson[read data from]
+and passed the `JsonObject`, which you can link:/MP/2019/fall/2/#_using_gson[read data from]
 like you did in Checkpoint 2.
 
 [[servermessages]]
@@ -275,8 +278,8 @@ with these properties:
 - `email` (string) is the email of the player who captured the cell
 - `team` (integer) is the `TeamID` code of the team that captured the cell
 
-You may find this **link:/MP/files/MP4/full_target.json[example target mode update]** and
-**link:/MP/files/MP4/full_area.json[example area mode update]** helpful.
+You may find this **link:/MP/2019/fall/files/MP4/full_target.json[example target mode update]** and
+**link:/MP/2019/fall/files/MP4/full_area.json[example area mode update]** helpful.
 
 [[update_gamestate]]
 ==== `gameState`
@@ -286,7 +289,7 @@ update is sent with this property:
 
 * `state` (integer) is the `GameStateID` code for the new game state
 
-An **link:/MP/files/MP4/gameState.json[example update]** is available.
+An **link:/MP/2019/fall/files/MP4/gameState.json[example update]** is available.
 
 [[update_playerlocation]]
 ==== `playerLocation`
@@ -315,7 +318,7 @@ update is sent, which has these properties:
 * `team` (integer) is the `TeamID` code for the capturing player's team
 * `targetId` (string) is the unique ID of the captured target
 
-You may find this **link:/MP/files/MP4/playerTargetVisit.json[example update]** helpful.
+You may find this **link:/MP/2019/fall/files/MP4/playerTargetVisit.json[example update]** helpful.
 
 [[update_playercellcapture]]
 ==== `playerCellCapture`
@@ -327,7 +330,7 @@ update is sent, which has these properties:
 * `team` (integer) is the `TeamID` code for the capturing player's team
 * `x` and `y` (integers) are the `AreaDivider`-style indexes of the captured cell
 
-You may find this **link:/MP/files/MP4/playerCellCapture.json[example update]** helpful.
+You may find this **link:/MP/2019/fall/files/MP4/playerCellCapture.json[example update]** helpful.
 
 [[clientmessages]]
 === Messages You Send
@@ -347,7 +350,7 @@ users can see the updated location on their map. The update should also have the
 
 * `latitude` and `longitude` (doubles) are the phone's current location
 
-You may find this **link:/MP/files/MP4/locationUpdate.json[example update]** helpful.
+You may find this **link:/MP/2019/fall/files/MP4/locationUpdate.json[example update]** helpful.
 
 [[update_targetvisit]]
 ==== `targetVisit`
@@ -357,7 +360,7 @@ sent to the server with this property:
 
 * `targetId` (string) is the unique ID of the captured target
 
-An **link:/MP/files/MP4/targetVisit.json[example update]** is available.
+An **link:/MP/2019/fall/files/MP4/targetVisit.json[example update]** is available.
 
 [[update_cellcapture]]
 ==== `cellCapture`
@@ -367,7 +370,7 @@ to the server with these properties:
 
 * `x` and `y` (integers) are the `AreaDivider`-style indexes of the captured cell
 
-An **link:/MP/files/MP4/cellCapture.json[example update]** is available.
+An **link:/MP/2019/fall/files/MP4/cellCapture.json[example update]** is available.
 
 [[goal]]
 == Your Goal
@@ -395,10 +398,10 @@ To start getting the user in the multiplayer game, the activity will need to con
 websocket for the game. We have provided the `connectWebSocket` function to start that process,
 but it relies on the game ID being stored in the `gameId` instance variable.
 
-Recall from link:/MP/2/#_invitationgame_buttons[MP2's `MainActivity` Enter buttons] that the game ID
+Recall from link:/MP/2019/fall/2/#_invitationgame_buttons[MP2's `MainActivity` Enter buttons] that the game ID
 is passed to the game activity in the `game` extra of the intent.
 **You need to fill in** ``GameActivity``'s `onCreate` to store the game ID,
-link:/MP/1/#_multiple_activities[retrieved from the intent], in the `gameId` instance variable
+link:/MP/2019/fall/1/#_multiple_activities[retrieved from the intent], in the `gameId` instance variable
 then call the `connectWebSocket` function to connect to the websocket.
 
 After completing this task, `testWebSocket` will pass. When the server sends an update via
@@ -536,7 +539,7 @@ stored as a `List<String>` as a value of the `playerPaths` map variable.
 The data loading is correct, but the drawing depends on the
 **`addLineSegment` helper function which you need to implement**.
 Getting the team colors array resource is very similar to how you
-link:/MP/2/#_accessing_resources[got the names resource] in MP2 except that colors are stored as
+link:/MP/2019/fall/2/#_accessing_resources[got the names resource] in MP2 except that colors are stored as
 ``int``s, so `team_colors` is an integer array resource accessible with `getIntArray`:
 
 [source,java]
@@ -610,7 +613,7 @@ color. footnote:[You'll want a helper function for this, since polygons will be
 added from other functions too.]
 * `locationUpdated` is responsible for detecting, displaying, and reporting area mode updates
 made by the player. If the user entered an uncaptured cell satisfying the
-link:/MP/1/#_area_mode_gameplay[area mode snake rule], it should:
+link:/MP/2019/fall/1/#_area_mode_gameplay[area mode snake rule], it should:
 a. record the change in your instance variables,
 b. add a polygon on the cell colored with the player's team color, and
 c. send a <<update_cellcapture, `cellCapture` update>> to the server.
@@ -662,7 +665,7 @@ That update is also sent when the game is ended by the owner. In that case,
 The winning team is the one with the most points as reported by the game object's `getTeamScore`
 function. Ties are not tested and you may do anything you think is reasonable in that case.
 You can look up a team name by team ID using the `team_choices`
-link:/MP/2/#_accessing_resources[resource].
+link:/MP/2019/fall/2/#_accessing_resources[resource].
 
 To show a popup, create and show an
 https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog[`AlertDialog`]
@@ -710,7 +713,7 @@ get help _immediately_ if something seems to be wrong.
 
 [[cheating]]
 == Cheating
-The link:/info/syllabus/#cheating[cheating policies] in the syllabus continue to apply.
+The link:/info/2019/fall/syllabus/#cheating[cheating policies] in the syllabus continue to apply.
 You may of course copy and use all the code we provided to you, but for the parts we expect
 you to complete, submitting work done by anyone else is unacceptable.
 **We will check _all_ submissions from _every_ checkpoint for plagiarism.**

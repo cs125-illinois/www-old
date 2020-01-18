@@ -7,16 +7,19 @@ spelling_exceptions:
   - AreaDivider
   - dropdown
   - uncaptured
+outdated:
+  name: MP
+  current: /mp/
 ---
 :sectnums:
 :linkattrs:
-:imagesdir: /MP/images/MP1
+:imagesdir: /MP/2019/fall/images/MP1
 
 :forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp1[forum,role='noexternal']]
 
 [.lead]
 //
-In the first Machine Project checkpoint, link:/MP/0[MP0], you started making a
+In the first Machine Project checkpoint, link:/MP/2019/fall/0[MP0], you started making a
 cool Android app
 //
 footnote:[Well, at least _we_ think it's cool...].
@@ -54,7 +57,7 @@ or **Monday 9/30/2019 (Orange)**.
 //
 Late submissions will be subject to the
 //
-link:/info/syllabus#regrading[MP late submission policy].
+link:/info/2019/fall/syllabus#regrading[MP late submission policy].
 
 [[learning]]
 //
@@ -118,7 +121,7 @@ It should apply cleanly, but you never know.
 //
 . **Next, download the
 //
-link:/MP/patches/MP1.patch[patch file]**.
+link:/MP/2019/fall/patches/MP1.patch[patch file]**.
 //
 Remember where you put it since you'll need it in the next step.
 //
@@ -199,7 +202,7 @@ codebase.
 
 === UI Designer
 
-Most Android resources are link:https://en.wikipedia.org/wiki/XML[XML] files.
+Most Android resources are https://en.wikipedia.org/wiki/XML[XML] files.
 //
 While it is possible footnote:[and necessary for advanced applications] to edit
 these directly, Android Studio provides a graphical interface that makes it much
@@ -426,7 +429,7 @@ double gpa = intent.getDoubleExtra("gpa", 0.0); // 0.0 is the default
 
 If you'd like more information, feel free to refer to Android's
 //
-link:https://developer.android.com/guide/components/intents-filters[official `Intent` documentation].
+https://developer.android.com/guide/components/intents-filters[official `Intent` documentation].
 
 == Your Goal
 
@@ -478,9 +481,9 @@ grading.
 
 **To see what you need to add to this class**, refer to our
 //
-link:https://cs125-illinois.github.io/Fall2019-MP-Writeups/1/edu/illinois/cs/cs125/fall2019/mp/AreaDivider.html[official Javadoc].
+https://cs125-illinois.github.io/Fall2019-MP-Writeups/1/edu/illinois/cs/cs125/fall2019/mp/AreaDivider.html[official Javadoc].
 //
-You may find our link:/MP/0/#_understanding_the_coordinate_system[coordinate system figure] helpful.
+You may find our link:/MP/2019/fall/0/#_understanding_the_coordinate_system[coordinate system figure] helpful.
 
 If you prefer to work on other parts of the checkpoint before _implementing_ these functions,
 you can&mdash;you just need the class and its members _declared_ so that the test suite can compile.
@@ -596,7 +599,7 @@ To get all of this information, you will need to call functions of the view
 objects.
 //
 ``RadioGroup``s have a
-link:https://developer.android.com/reference/android/widget/RadioGroup#getCheckedRadioButtonId()[`getCheckedRadioButtonId`]
+https://developer.android.com/reference/android/widget/RadioGroup#getCheckedRadioButtonId()[`getCheckedRadioButtonId`]
 function that returns the `R.id` constant of the selected option.
 //
 Interestingly, the `getText` method of text-containing views doesn't return just
@@ -615,7 +618,7 @@ int number = Integer.parseInt(text); // This will crash if text isn't a number
 Finally, Google Maps controls like `areaMap` have a function to get the visible
 region (for the area boundaries) as a
 //
-link:https://developers.google.com/android/reference/com/google/android/gms/maps/model/LatLngBounds[`LatLngBounds`]
+https://developers.google.com/android/reference/com/google/android/gms/maps/model/LatLngBounds[`LatLngBounds`]
 //
 object:
 
@@ -667,7 +670,7 @@ That's perfectly fine, but if you want to make them _translucent_ green the test
 suite can accept that.].
 //
 To add a polygon to a Google Maps control, pass a
-link:https://developers.google.com/android/reference/com/google/android/gms/maps/model/PolygonOptions[`PolygonOptions`]
+https://developers.google.com/android/reference/com/google/android/gms/maps/model/PolygonOptions[`PolygonOptions`]
 instance to the map's `addPolygon` method.
 //
 As you read the `PolygonOptions` method summary, look for two methods that
@@ -703,7 +706,7 @@ MP1 is worth 100 points total, broken down as follows:
 
 === Test Cases
 
-Just like link:/MP/0/#_test_cases[on MP0], we have provided a test suite that exhaustively
+Just like link:/MP/2019/fall/0/#_test_cases[on MP0], we have provided a test suite that exhaustively
 tests your code.
 //
 You should not modify the test suite, but feel free to examine it to see
@@ -725,11 +728,11 @@ will grade MP1 instead.
 
 Follow the instructions from the
 //
-link:/MP/setup/git#submitting[submitting portion]
+link:/MP/2019/fall/setup/git#submitting[submitting portion]
 //
 of the
 //
-link:/MP/setup/git#workflow[CS 125 workflow]
+link:/MP/2019/fall/setup/git#workflow[CS 125 workflow]
 //
 instructions.
 
@@ -770,5 +773,5 @@ All submissions on all CS 125 assignments will be checked for plagiarism.
 You may not submit work done by anyone else, nor may you share your assignment
 code with others.
 //
-Please review the link:/info/syllabus/#cheating[cheating policies] from the
+Please review the link:/info/2019/fall/syllabus/#cheating[cheating policies] from the
 syllabus.

@@ -69,11 +69,13 @@ const isSlides = (filename, file) => {
   return file.slides == true;
 }
 const MP_pattern = 'MP/**/*.adoc'
+const Fall2019_MP_pattern = 'MP/2019/fall/**/*.adoc'
 const Spring2019_MP_pattern = 'MP/2019/spring/**/*.adoc'
 const Fall2018_MP_pattern = 'MP/2018/fall/**/*.adoc'
 const Spring2018_MP_pattern = 'MP/2018/spring/**/*.adoc'
 const Fall2017_MP_pattern = 'MP/2017/fall/**/*.adoc'
 const lab_pattern = 'lab/**/*.adoc'
+const Fall2019_lab_pattern = 'lab/2019/fall/*.adoc'
 const Spring2019_lab_pattern = 'lab/2019/spring/*.adoc'
 const Fall2018_lab_pattern = 'lab/2018/fall/*.adoc'
 const Spring2018_lab_pattern = 'lab/2018/spring/*.adoc'
@@ -163,11 +165,13 @@ metalsmith(__dirname)
       },
       preserve: true
     },
+    { pattern: Fall2019_MP_pattern, metadata: { sidebar: 'Fall-2019-MP' }, preserve: true },
     { pattern: Spring2019_MP_pattern, metadata: { sidebar: 'Spring-2019-MP' }, preserve: true },
     { pattern: Fall2018_MP_pattern, metadata: { sidebar: 'Fall-2018-MP' }, preserve: true },
     { pattern: Spring2018_MP_pattern, metadata: { sidebar: 'Spring-2018-MP' }, preserve: true },
     { pattern: Fall2017_MP_pattern, metadata: { sidebar: 'Fall-2017-MP' }, preserve: true },
     { pattern: MP_pattern, metadata: { sidebar: 'MP' }, preserve: true },
+    { pattern: Fall2019_lab_pattern, metadata: { sidebar: 'Fall-2019-lab' }, preserve: true },
     { pattern: Spring2019_lab_pattern, metadata: { sidebar: 'Spring-2019-lab' }, preserve: true },
     { pattern: Fall2018_lab_pattern, metadata: { sidebar: 'Fall-2018-lab' }, preserve: true },
     { pattern: Spring2018_lab_pattern, metadata: { sidebar: 'Spring-2018-lab' }, preserve: true },

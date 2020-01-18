@@ -1,0 +1,265 @@
+---
+title: "Android Studio Setup"
+description:
+  Prepare your computer to complete the Android-based machine project (MP).
+---
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+To complete the Android CS 125 labs and machine project (MP) you'll write your
+Java code
+//
+footnote:[Note that you do not need to install Java separately&mdash;it comes
+bundled with Android Studio]
+//
+using the
+//
+https://developer.android.com/studio/index.html[Android Studio]
+//
+Integrated Development Environment (IDE) and test your apps using the
+//
+https://developer.android.com/studio/run/emulator.html[Android
+Emulator]&mdash;and on a real device, if you have one.
+//
+This guide will help you install and configure this important and powerful
+development tool.
+
+[[intellij]]
+== Android Studio
+
+[.lead]
+//
+https://developer.android.com/studio/index.html[Android Studio]
+//
+is _the_ integrated development environment (IDE) for Android development.
+//
+This semester all CS 125 lab programming assignments, the machine project, and
+your final project will all be done using Android Studio.
+
+Follow the instructions below that are appropriate for your machine.
+//
+But keep in mind that installing new software can be challenging, so don't be
+discouraged if you get stuck.
+//
+We're here to help!
+//
+Come to office hours or
+//
+https://cs125-forum.cs.illinois.edu/c/fall2019-mp/androidstudio[post on the
+forum in the Android Studio category].
+
+[[version]]
+=== Version
+
+For Fall 2019 we are using Android Studio version 3.5, which is the latest
+available as of September 2019.
+//
+Please install this version of Android Studio and continue using it throughout
+the semester.
+//
+Minor upgrades are probably safe to install.
+//
+If a major upgrade is released, the course staff will let you if it is safe to
+use.
+
+[[install]]
+=== Installation
+
+Begin by downloading the version of Android Studio appropriate for your machine
+using
+//
+https://developer.android.com/studio/index.html[this link].
+//
+Next, follow
+//
+https://developer.android.com/studio/install.html[these excellent installation
+instructions].
+//
+**Please follow them carefully**.
+
+[[plugins]]
+== Android Studio Plugins
+
+[.lead]
+//
+Once you have <<install, installed Android Studio>>, continue by installing two
+Android Studio plugins:
+
+. https://plugins.jetbrains.com/plugin/1065-checkstyle-idea[The `checkstyle` IntelliJ plugin]
+//
+. Our official link:/tech/intellijplugin/[CS 125 IntelliJ plugin]
+
+[[checkstyle]]
+=== `checkstyle` Plugin
+
+We use
+//
+http://checkstyle.sourceforge.net/[`checkstyle`]
+//
+to help you learn how to write beautiful and maintainable code by requiring you
+to adhere to a coding standard.
+//
+**There are `checkpoint` points on each MP checkpoint**, so you want to get the plugin
+installed so that you can check your style as you go.
+
+Installing this plugin is straightforward:
+
+. Open the Android Studio plugins menu
+//
+. Open the "Marketplace" menu
+//
+. Search for "checkstyle" and install the "Checkstyle-IDEA" plugin that appears
+//
+. Restart Android Studio to complete the installation
+
+You should install the latest version of the `checkstyle` plugin, currently
+`5.32.0`.
+//
+`checkstyle` plugin updates that are released during the semester should be safe
+to install.
+
+[[cs125plugin]]
+=== CS 125 IntelliJ Plugin
+
+Our official link:/tech/intellijplugin[CS 125 IntelliJ plugin]
+//
+will both simplify your MP development process and help us ensure that you are
+making satisfactory progress on each assignment.
+//
+You can read more about it
+//
+link:/tech/intellijplugin[here].
+
+Installing our plugin is straightforward and similar to <<checkstyle,
+installing the `checkstyle` plugin>>.
+
+. Open the Android Studio plugins menu
+//
+. Click on "Browse repositories..."
+//
+. Search for "CS 125" and install the "CS 125 @ Illinois" plugin that appears
+//
+. Restart Android Studio to complete the installation
+
+You should install the latest version of our plugin, currently `2019.9.3.191`, and
+any updates we release during the semester.
+
+[[emulator]]
+== Android Emulator
+
+An important part of Android development is to be able to test your work.
+//
+If you have an Android device, you can configure Android Studio to install your
+test app onto it.
+//
+However, if you don't have an Android device, or want to test on devices other
+than ones that you own, you'll need to utilize the
+//
+https://developer.android.com/studio/run/emulator.html[Android Emulator].
+
+The easiest way to get a virtual device set up is to
+//
+https://developer.android.com/training/basics/firstapp/[start a project, build it,
+and then try to run it].
+//
+That will launch a dialog allowing you to configure a virtual device.
+//
+Going through the
+//
+https://developer.android.com/training/basics/firstapp/[Android "Hello, World!"
+tutorial]
+//
+is also a great way to get started familiarizing yourself with app development.
+
+[[devices]]
+== Running on Real Devices
+
+If you have an Android phone you can also install and run your apps on your own
+device, which will be faster and more fun that using the emulator.
+//
+Follow
+//
+https://developer.android.com/training/basics/firstapp/running-app[this
+tutorial]
+//
+for instructions on how to configure your device properly to run your apps
+during development.
+
+[[hacking]]
+== You're a Hacker Now
+
+Note that we are definitely throwing you into the deep end with Android Studio.
+//
+As you work your way through the
+//
+https://developer.android.com/training/basics/firstapp/[Android "Hello, World!"
+tutorial]
+//
+you will _definitely_ encounter code and concepts that are new and unfamiliar to
+you.
+//
+That's normal.
+
+CS 125 is designed to introduce you to two sides of programming and computer
+science.
+//
+In lectures and on our homework problems and quizzes you'll be working on clean,
+simple, isolated problems.
+//
+Our goal is to prepare you to think and solve problems like a computer
+scientist.
+
+But building real things also requires a different set of skills and mindset,
+sometimes referred to as _hacking_.
+//
+Hacking involves learning how to work with large, complicated systems.
+//
+It means spending more time learning about how other things work than building
+your own things.
+//
+It requires that you get comfortable _not_ necessarily understanding how
+every part of your program works&mdash;at least not right away.
+
+You'll get lots of practice at this on our labs and MPs, starting today.
+//
+**Our advice: be brave and unafraid.**
+//
+Try things, experiment, and have fun.
+//
+You aren't going to break anything important, and even if you get a mess and get
+stuck we'll be able to help bail you out.
+//
+And the rewards are huge.
+//
+Once you can hack together Android apps, you can distribute them to billions of
+users all over the world.
+//
+When we said "change the world", we meant it.
+
+[[helloworld]]
+== Modifying "Hello, World"
+
+Once you have the
+//
+https://developer.android.com/training/basics/firstapp/["Hello, world!" app]
+//
+running, try to make the following modifications:
+
+* Change the text that is shown to "Hello, CS 125!"
+//
+* Change the size of the text
+//
+* Change the position of the text
+//
+* Add some other element to the user interface
+
+Your goal before we release MP0 should be to at least complete through the
+//
+https://developer.android.com/training/basics/firstapp/building-ui["Build a
+simple user interface"]
+//
+portion of the tutorial.
+//
+That will prepare your will to begin the machine project.

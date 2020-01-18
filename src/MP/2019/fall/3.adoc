@@ -14,15 +14,18 @@ spelling_exceptions:
 - resizable
 - stringify
 - LatLng
+outdated:
+  name: MP
+  current: /mp/
 ---
 :sectnums:
 :linkattrs:
-:imagesdir: /MP/images/MP3
+:imagesdir: /MP/2019/fall/images/MP3
 
 :forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp3[forum,role='noexternal']]
 
 [.lead]
-In link:/MP/2[MP2], you connected the app to our game server to get and respond to invitations.
+In link:/MP/2019/fall/2[MP2], you connected the app to our game server to get and respond to invitations.
 In Checkpoint 3, you'll make it possible to invite people to new multiplayer games and _refactor_
 some of your old code to improve it.
 
@@ -41,7 +44,7 @@ Deadlines for Checkpoint 3 vary by your deadline group. MP3 is due at:
 
 Additionally, 10% of your grade is for submitting code that earns at least _40 points_
 by 8 PM on **Sunday 10/27/2019 (Blue)** or **Monday 10/28/2019 (Orange)**.
-Late submissions are subject to the link:/info/syllabus/#regrading[MP late submission policy].
+Late submissions are subject to the link:/info/2019/fall/syllabus/#regrading[MP late submission policy].
 
 == Learning Objectives
 
@@ -67,7 +70,7 @@ refer to our
 To start working on Checkpoint 3, follow these steps:
 
 1. Commit your work just in case you run into any problems applying the patch.
-2. Download link:/MP/patches/MP3.patch[the MP3 patch file, download=true].
+2. Download link:/MP/2019/fall/patches/MP3.patch[the MP3 patch file, download=true].
 3. In Android Studio, do _VCS | Apply Patch_.
 4. Select the downloaded patch file and press OK to apply it.
 5. Change the `checkpoint` setting in `grade.yaml` to `3`.
@@ -211,13 +214,13 @@ https://developer.android.com/guide/topics/ui/controls/spinner[Android's guide t
 [[gson]]
 === Writing JSON with Gson
 
-In Checkpoint 2, you link:/MP/2/#_using_gson[used Gson to read data] from parsed JSON.
+In Checkpoint 2, you link:/MP/2019/fall/2/#_using_gson[used Gson to read data] from parsed JSON.
 In this checkpoint, you'll need to create JSON objects to send to the server.
 
 Gson can help with this too. To create a new JSON object, use `new JsonObject()`.
 To add a single, simple value like a string or number as a property on an object, call the object's
 `addProperty`  function, passing the property name and value. For example, this code builds
-a `JsonObject` corresponding to link:/MP/2/#_what_is_json[the first MP2 JSON example]:
+a `JsonObject` corresponding to link:/MP/2019/fall/2/#_what_is_json[the first MP2 JSON example]:
 
 [source,java]
 ----
@@ -281,8 +284,8 @@ each object should have these properties:
 * _For area mode only_, `areaNorth`, `areaEast`, `areaSouth`, and `areaWest` (all doubles)
 are the latitude/longitude bounds of the area
 
-You may find the **link:/MP/files/MP3/target.json[example target mode body]** and
-**link:/MP/files/MP3/area.json[example area mode body]** helpful.
+You may find the **link:/MP/2019/fall/files/MP3/target.json[example target mode body]** and
+**link:/MP/2019/fall/files/MP3/area.json[example area mode body]** helpful.
 
 If the game is created successfully, the server's response will be a JSON object with a single
 `game` property whose value is the (string) game ID.
@@ -305,7 +308,7 @@ properties:
 ** `latitude` (double) is the target's latitude
 ** `longitude` (double) is the target's longitude
 
-You may find **link:/MP/files/MP3/presets.json[this example response]** helpful.
+You may find **link:/MP/2019/fall/files/MP3/presets.json[this example response]** helpful.
 Do not assume that the `note` property will always be present on target objects,
 but feel free to do anything you like with it if it's there. You can always ignore it completely.
 
@@ -420,7 +423,7 @@ footnote:[In fact, ``checkstyle``'s default configuration forbids functions with
 than seven parameters; we had to change that to allow our original version of this function.]
 
 Download
-link:/MP/patches/MP3-LineCrossDetector.patch[the `LineCrossDetector` patch, download=true]
+link:/MP/2019/fall/patches/MP3-LineCrossDetector.patch[the `LineCrossDetector` patch, download=true]
 and apply it with _VCS | Apply Patch_ like you do with the checkpoint patches.
 This will introduce compilation errors in your functions that use `linesCross`!
 You need to adjust those to use the
@@ -569,7 +572,7 @@ stored in the players list instance variable.
 
 First it should `removeAllViews` from the players `LinearLayout`.
 Then, much like in Checkpoint 2, it should go through the list variable and
-link:/MP/2/#_inflating_layouts[add a chunk] to the `LinearLayout`
+link:/MP/2019/fall/2/#_inflating_layouts[add a chunk] to the `LinearLayout`
 for each player. We provided three views in that chunk:
 
 * `inviteeEmail` is a `TextView` whose text should be set to the player's email.
@@ -650,7 +653,7 @@ Refer to Android's
 https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog[`AlertDialog` guide]
 for details.
 
-link:/MP/patches/MP3-Chunk.patch[This patch]
+link:/MP/2019/fall/patches/MP3-Chunk.patch[This patch]
 provides a `chunk_presets_list.xml` layout resource which you can inflate _with a null parent_
 footnote:[Android Studio will warn about that, but it's OK&mdash;this is the one
 place in Android where it's acceptable and necessary to pass a null root.]
@@ -706,6 +709,6 @@ to the server!
 
 == Cheating
 
-By now you should be familiar with the link:/info/syllabus/#cheating[cheating policies] from
+By now you should be familiar with the link:/info/2019/fall/syllabus/#cheating[cheating policies] from
 the syllabus. Collaborating in a human language about how to approach the problems is encouraged,
 but sharing your code with anyone not currently on the course staff constitutes cheating.

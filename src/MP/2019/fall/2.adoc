@@ -10,15 +10,18 @@ spelling_exceptions:
   - gson
   - gameplay
   - equest
+outdated:
+  name: MP
+  current: /mp/
 ---
 :sectnums:
 :linkattrs:
-:imagesdir: /MP/images/MP2
+:imagesdir: /MP/2019/fall/images/MP2
 
 :forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp2[forum,role='noexternal']]
 
 [.lead]
-In link:/MP/0[MP0] and link:/MP/1[MP1], you implemented both game modes for a singleplayer version
+In link:/MP/2019/fall/0[MP0] and link:/MP/2019/fall/1[MP1], you implemented both game modes for a singleplayer version
 of the Campus Snake 125 game. This checkpoint starts making the app multiplayer by connecting it
 to an authentication service and our central game server.
 
@@ -31,9 +34,9 @@ receive structured information.
 Now that you know how to create and use objects, you can take advantage of an incredible
 number of existing pieces of software, often referred to as _libraries_),
 to easily add features to your program.
-This checkpoint uses Google's link:https://firebase.google.com/docs/auth[Firebase Authentication],
-link:https://sites.google.com/site/gson/gson-user-guide[Gson],
-and (indirectly) link:https://developer.android.com/training/volley/index.html[Volley] libraries
+This checkpoint uses Google's https://firebase.google.com/docs/auth[Firebase Authentication],
+https://sites.google.com/site/gson/gson-user-guide[Gson],
+and (indirectly) https://developer.android.com/training/volley/index.html[Volley] libraries
 to let the user log in and respond to game invitations.
 
 As usual, **deadlines for each checkpoint vary by your deadline group**.
@@ -45,7 +48,7 @@ MP2 is due at:
 Since MP2 is another multi-week checkpoint, 10% of your grade on it is for submitting code that
 earns at least _40 points_ by **Sunday 10/13/2019 (Blue)** or **Monday 10/14/2019 (Orange)**.
 Late submissions will be subject to the
-link:/info/syllabus#regrading[MP late submission policy].
+link:/info/2019/fall/syllabus#regrading[MP late submission policy].
 
 == Learning Objectives
 
@@ -66,11 +69,11 @@ relevant parts of the folder structure. You just need the test suite for Checkpo
 
 === Obtaining MP2
 
-Like link:/MP/1/#mp1[for MP1], we distribute the new MP2 files in a _patch_.
+Like link:/MP/2019/fall/1/#mp1[for MP1], we distribute the new MP2 files in a _patch_.
 To apply it and begin working on the checkpoint, follow these steps:
 
 . Commit your work just in case you run into any problems applying the patch.
-. Download link:/MP/patches/MP2.patch[the patch file, download=true].
+. Download link:/MP/2019/fall/patches/MP2.patch[the patch file, download=true].
 . In Android Studio, do _VCS | Apply Patch_.
 . Select the downloaded patch file and press OK to apply it.
 . Change the `checkpoint` setting in `grade.yaml` to `2`.
@@ -243,13 +246,13 @@ String[] teamNames = getResources().getStringArray(R.array.team_choices);
 ----
 
 If you're curious, you can see Android's official
-link:https://developer.android.com/reference/android/content/res/Resources[`Resources` documentation]
+https://developer.android.com/reference/android/content/res/Resources[`Resources` documentation]
 for more information.
 
 == Web API
 
 [.lead]
-link:https://en.wikipedia.org/wiki/Application_programming_interface[_API_] stands for
+https://en.wikipedia.org/wiki/Application_programming_interface[_API_] stands for
 Application Programming Interface. An API specifies the structure or _contract_ for communication
 between applications.
 When using an API you don't need to be concerned about how the service is implemented.
@@ -258,7 +261,7 @@ You just need to properly submit a request and understand the response.
 Here and for your final project we are most interested in _web APIs_, which are accessed
 over the Internet using standardized web protocols.
 The most common Internet protocol is
-link:https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP],
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP],
 Hypertext Transfer Protocol.
 Each HTTP request specifies a document, method, and sometimes a body.
 When browsing the web, the document specifies which page you'd like to look at.
@@ -277,7 +280,7 @@ conceptions of how data should be laid out, so for the response data to be trans
 between them, it must be written in (_serialized_ into) a mutually understandable format
 that correctly conveys the structure of the information.
 
-link:https://en.wikipedia.org/wiki/JSON[JSON] has become an extremely common format
+https://en.wikipedia.org/wiki/JSON[JSON] has become an extremely common format
 for exchanging data on the web. JSON is text that describes a hierarchy of objects and their
 properties. A Google Maps `LatLng` object might be represented like this in JSON:
 
@@ -330,10 +333,10 @@ For the MP we'll be using Google's Gson library to work with JSON.
 We have added it to the project for you and provided helper functions that automatically
 parse JSON received from our server into instances of Gson classes.
 The classes you'll be working with most are
-link:https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonElement.html[`JsonElement`],
-link:https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonObject.html[`JsonObject`],
+https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonElement.html[`JsonElement`],
+https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonObject.html[`JsonObject`],
 and
-link:https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonArray.html[`JsonArray`].
+https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonArray.html[`JsonArray`].
 
 [.alert.alert-warning]
 --
@@ -433,7 +436,7 @@ which is an array. Each element of that array is an object with at least these p
   - `state` (integer) is the `PlayerStateID` code for the player's current status in the game.
   - `team` (integer) is the `TeamID` code for the player's team/role in the game.
 
-You may find this link:/MP/files/MP2/games.json[**example JSON response**] helpful.
+You may find this link:/MP/2019/fall/files/MP2/games.json[**example JSON response**] helpful.
 
 Some of the values mentioned are numeric codes: integers that indicate different states,
 like Android's `View.VISIBLE` or `View.GONE`. Constants for game-relevant codes are provided
@@ -460,7 +463,7 @@ and allow the user to accept or decline them.
 It will also list ongoing games (accepted invitations) and provide UI to enter the game
 or withdraw from it.
 
-image::/MP/images/MP2/gameslists.png[completed games lists UI]
+image::gameslists.png[completed games lists UI]
 
 While there may be slightly more lines of code necessary for MP2 than previous checkpoints,
 it should be more straightforward than MP1 if you **read the above sections** and refer to them
@@ -496,10 +499,10 @@ We planned for you to move the `<intent-filter>` section from ``MainActivity``'s
 ``LaunchActivity``'s yourself, but due to an error in the Checkpoint 0 distribution process
 we accidentally gave the Checkpoint 2 solution version of the manifest to _some_ of you.
 So in the interest of fairness,
-link:https://gist.github.com/Fleex255/390bb22a54c2054c2e5150223e489cdb[here is the solution manifest]
+https://gist.github.com/Fleex255/390bb22a54c2054c2e5150223e489cdb[here is the solution manifest]
 which you may simply copy-paste over the version in your repository.
 If you're curious, you can read
-link:https://developer.android.com/guide/topics/manifest/manifest-intro[Android's official manifest documentation].
+https://developer.android.com/guide/topics/manifest/manifest-intro[Android's official manifest documentation].
 
 We will be using Google's Firebase Authentication service to display a login flow and
 manage credentials.
@@ -524,7 +527,7 @@ identifier in the game.
 
 If you've determined that the user needs to log in, you can start the Firebase Authentication UI
 flow according to
-link:https://firebase.google.com/docs/auth/android/firebaseui#sign_in[this Google example]
+https://firebase.google.com/docs/auth/android/firebaseui#sign_in[this Google example]
 but with only email authentication enabled.
 The example code assumes an `RC_SIGN_IN` constant ("__r__equest __c__ode for _sign_-_in_"),
 which you may define as an integer of your choice or pick a different name for.
@@ -608,7 +611,7 @@ We will also accept an optional `chunk_historical_game.xml` layout for holding r
 historical game UI.
 
 **To test your games list UI** in the emulator even though it's not possible to create invitations,
-we have set up link:https://misc.rigeltechnical.com/campussnake/invitetest.html[a web site]
+we have set up https://misc.rigeltechnical.com/campussnake/invitetest.html[a web site]
 where you can sign in to the game service (with the same credentials you use for the app)
 and make virtual players invite you to games with a random mode and role.
 
@@ -626,7 +629,7 @@ Once that request completes, the games list should be fetched again and the UI s
 so that the user sees that their decision took effect.
 
 **To confirm that these buttons and web requests are working**, you can use
-link:https://misc.rigeltechnical.com/campussnake/invitetest.html[the invitation testing site].
+https://misc.rigeltechnical.com/campussnake/invitetest.html[the invitation testing site].
 The "invitation status" column will update immediately when you respond to an invitation
 or leave a game created by a virtual player.
 
@@ -670,7 +673,7 @@ to remove them without Android Studio trying to put them back.
 === Submitting Your Work
 
 As before, submitting your work requires committing **and pushing** the files you modified/added.
-You can review the link:/MP/setup/git/#committing[submitting portion] of our Git workflow.
+You can review the link:/MP/2019/fall/setup/git/#committing[submitting portion] of our Git workflow.
 
 == Cliffhanger
 
@@ -682,5 +685,5 @@ Checkpoint 3 will make it possible to configure multiplayer games and send invit
 
 == Cheating
 
-The link:/info/syllabus/#cheating[cheating policies] in the syllabus continue to apply.
+The link:/info/2019/fall/syllabus/#cheating[cheating policies] in the syllabus continue to apply.
 Do not submit work done by anyone else or share your MP code with others.
