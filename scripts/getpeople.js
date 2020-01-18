@@ -12,9 +12,7 @@ const expect = require('chai').expect
 const mongo = require('mongodb').MongoClient
 
 const argv = require('minimist')(process.argv.slice(2))
-let topClient
 mongo.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => {
-  topClient = client
   let peopleCollection = client.db('cs125').collection('people')
   let sectionCollection = client.db('cs125').collection('state')
 
@@ -98,10 +96,11 @@ mongo.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: tr
 
   client.close()
 }).catch(err => {
-  topClient.close()
   console.log(err)
+  process.exit(-1)
 })
 
 process.on('unhandledRejection', (reason, promise) => {
   console.log(reason.stack || reason)
+  process.exit(-1)
 })

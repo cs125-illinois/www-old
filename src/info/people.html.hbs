@@ -181,15 +181,12 @@ internalize: false
   </p>
   <div class="row">
     {{#each course.Spring2020.staffByRole.assistant }}
-    <div class="col-12 col-sm-6 col-lg-4 mt-2">
+    <div class="col-12 col-sm-6 col-lg-3 mt-2">
       <div class="card pt-2 pl-2 pr-2">
         <img class="card-img-top ie-img-fix" src="{{{ this.photo }}}" alt="Photo of {{{ this.name }}}">
         <div class="card-body">
           <div class="person card-title text-center">{{{ this.name }}}</div>
           {{#if this.labs }}
-          <p class="email text-center">
-            <a href="mailto:{{{ this.email }}}"><code>{{{ this.email }}}</code></a>
-          </p>
           <p class="small card-text">
           Assisting with {{ inflect this.labs.length "section" "sections" }}
           {{#and_list this.labs }}{{ this }}{{/and_list}}
