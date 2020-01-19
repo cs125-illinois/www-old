@@ -261,7 +261,7 @@ metalsmith(__dirname)
       formatcheck({ verbose: !quiet , failWithoutNetwork: false, failErrors: false })))
     */
     .use(msif(config.check,
-      linkcheck({ verbose: !quiet , failWithoutNetwork: false })))
+      linkcheck({ verbose: !quiet , failWithoutNetwork: false, timeout: 2 })))
   )
   .build(err => {
     if (err) {
