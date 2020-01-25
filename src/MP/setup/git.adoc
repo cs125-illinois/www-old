@@ -164,10 +164,12 @@ tool itself.
 //
 We suggest you follow
 //
-https://medium.com/code-yoga/how-to-link-android-studio-with-github-312037a13b99[the
-first two steps of this tutorial]
+https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[these instructions]
 //
-to install Git and integrate it with Android Studio.
+to install Git.
+//
+Once you complete the installation, Android Studio should automatically detect
+Git and allow you to use it to manage your Android projects.
 
 Note that you do _not_ need to install a GUI for Git&mdash;or the
 //
@@ -249,7 +251,7 @@ page for your project.
 //
 It should look like
 //
-link:https://github.com/cs125-illinois-students/MP-Fall2019-username.git[https://github.com/cs125-illinois-students/MP-Fall2019-username.git, role="noclick link_exception"],
+link:https://github.com/cs125-illinois-students/MP-Spring2020-username.git[https://github.com/cs125-illinois-students/MP-Spring2020-username.git, role="noclick link_exception"],
 //
 where `username` is your GitHub username.
 
@@ -259,10 +261,16 @@ you to do that.
 At that point Android Studio will download the code from GitHub to your local
 machine and allow you to begin making and testing your changes.
 
+[.alert.alert-warning]
+--
+//
 **Note that you should never use the "Download ZIP" or "Open in Desktop" options
 on GitHub.**
 //
-These will result in an incorrect project setup that is hard to fix.
+These will result in an incorrect project setup that is impossible to fix, and
+you will need to start over at that point.
+//
+--
 
 [[identifying]]
 === Identifying Yourself
@@ -365,6 +373,16 @@ Android Studio has a convenient interface for committing changes, adding commit
 messages, pushing to GitHub, and generally tracking the state of your
 repository.
 
+[.alert.alert-warning]
+//
+--
+//
+**Please keep in mind that committing _does not submit_ your work.
+//
+That is a separate step that you need to complete as described below.
+//
+--
+
 [[submitting]]
 === Pushing and Submitting Your Work
 
@@ -372,6 +390,16 @@ For CS 125 you submit your work by _pushing_ it to GitHub.
 //
 We will grade each version of your MP that you push and provide you with the
 best score modulo penalties and other score calculations.
+
+**You must push to GitHub for us to grade your work on the MP.**
+//
+Don't consider yourself done with a checkpoint until you see the score that you
+think that you have earned on the
+//
+link:/m/grades/MPs[grades page].
+//
+If more than 15 minutes go by after you push and you still don't see your grade
+on the grades page, begin the troubleshooting steps described below.
 
 [[troubleshooting]]
 === Troubleshooting the Submission Process
@@ -391,6 +419,18 @@ Note that there is no need to reload the page: it will update automatically.
 
 If you don't find your commit there here are some common problems:
 
+. **You forgot to push your work.**
+//
+This is a common mistake.
+//
+You committed your work, but didn't push it to GitHub.
+//
+Try pushing again by selecting push under the "VCS &rarr; Git" Android Studio
+menu.
+//
+If you have already pushed your work this will do nothing, but if you have not
+it will actually submit your changes for grading.
+//
 . **Your submission isn't graded yet.**
 //
 If you submitted right before a deadline, you may need to wait several hours for
