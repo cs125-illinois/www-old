@@ -132,7 +132,7 @@ metalsmith(__dirname)
     return done()
   })
   .use(buildDate())
-  .use(drafts())
+  .use(msif(process.env.ENV !== "development", drafts()))
   .use(discoverPartials({
     directory: 'layouts/partials',
     pattern: /\.hbs$/

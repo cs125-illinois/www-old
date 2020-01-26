@@ -1,0 +1,503 @@
+---
+title: Conditional Expressions
+date: 2020-01-27
+description:
+  Introduction to comparisons and conditional expressions, the basis for
+  programmatic decision making.
+draft: true
+---
+:imagesdir: /learn/images
+:!sectids:
+
+[[kHoCSCXzvsIAFbIrBWoBZmaPCNVOOCdM]]
+== !
+
+[role='janini']
+--
+++++
+<div class="message">Comparisons and conditional expressions</div>
+++++
+....
+boolean todayIsMonday = true;
+boolean weAreHavingClass = true;
+if (todayIsMonday && weAreHavingClass) {
+  System.out.println("Let's learn CS");
+} else if (todayIsMonday) {
+  System.out.println("We're celebrated MLK Day...");
+}
+....
+--
+
+[[RTEKAAWDBTRSMXEAOVWANGHYBZFYMWPW]]
+== Review: Variable Types
+
+[.lead]
+//
+Java has _eight_
+//
+http://cs.fit.edu/~ryan/java/language/java-data.html[primitive data types].
+
+All other data in Java is represented by _combinations_ of these building blocks.
+//
+You can break them into four categories:
+
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+//
+. *Character*: `char`
+//
+. *True or false*: `boolean`
+
+[[IffEzqifWagrJAUVhbtbZpBeXbJOthRh]]
+== Why Are There Multiple Numeric Types?
+
+[.lead]
+//
+. *Integers*: `byte`, `short`, `int`, `long`
+//
+. *Floating point numbers*: `float`, `double`
+
+[.s]
+--
+Different types take up different amounts of _computer memory_ and so can store
+different values.
+--
+
+[.s]
+--
+*Don't worry too much about how things are stored yet.* But the limits are
+important to understand.
+--
+
+[[pTpMZAKphudHMkrjPpLsyJkayPzKtKhG]]
+== Type Limitations
+
+[.janini]
+....
+byte smallest = 10;
+smallest += 256;
+System.out.println(smallest);
+....
+
+[[jWVQatsSaYPEkUmTBXBmHDqOvukSqwsa]]
+== !Don't Memorize: Look Up
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html"></iframe>
+</div>
+++++
+
+[[jCkFZoKCBKjtJmyLFfIlxyNqxWopKADh]]
+== Why Types
+
+[.s.lead]
+//
+* Types force you to specify how much space you need to store your data. That
+can make your program more efficient
+//
+* Types also help catch many common programming errors
+
+[[thNGNuVJZgpjeuixrcjzWZgDtmmWCvwM]]
+== Our Types
+
+[.lead]
+//
+In CS 125 we'll primarily be dealing with just a few of Java's primitive types:
+
+[.s]
+//
+* `int` for storing integers
+//
+* `double` for storing floating point values
+//
+* `boolean` for storing truth values
+
+[[BOWngHncunytquMaQrLQnEBSLSwCARUu]]
+[.oneword]
+== Questions About Variables or Types?
+
+[[PVdesknoTzodrebNUEmVdNDGvCYmidfd]]
+[.oneword]
+//
+== I Want You Here Until May
+
+All of you. **Especially the beginners.**
+
+[[POtIiKbRQNuZuYwSwdCgAeuyZhpQbmsv]]
+== What Are Computers Good At?
+
+. [.line-through]#Basic math#
+//
+. *Simple decision making*
+//
+. Doing things over and over again very, very fast
+//
+. [.line-through]#Storing data#
+//
+. And communicating
+
+[[bAuWhpDPmVGgDaepoowJukwlfVQsJPdR]]
+== Comparisons
+
+[.lead]
+//
+Java also allows me to compare variables: either against literal values, or
+against other variables.
+
+This is basis for _simple decision making_.
+
+[[EuddnTejTlEZaIAttmJUDwqxLAWdYNQd]]
+== Simple Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+....
+
+[[kfjlldprRQUOtUaTuYveJPZEbFCgHlCU]]
+== A Common Mistake
+
+[.lead]
+//
+* `a = 10` means *set a to 10*
+//
+* `a == 10` means *test if a is equal to 10*
+
+[[uOanIxfYhyBAYDDSDumbwovkhBiwNNcg]]
+== Don't Get Confused
+
+[role='janini']
+....
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+// This is not
+System.out.println(tester = 5);
+System.out.println(tester);
+....
+
+[[NZRZqEBsBPejsjEIMEUExRtpUZwnPHvN]]
+== Variable Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first > first);
+....
+
+[[JXtQIUEitmTgnNBVMLHYYnkyMeHylXzT]]
+== More Complex Comparisons
+
+[role='janini']
+....
+// Let's try out ==, !=, <, <=, >, and >=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+System.out.println(first - second <= 10);
+....
+
+[[GieGtJaHsXZBBBMvZqGAdPacxybqOQxP]]
+[.oneword]
+== Questions About Simple Comparisons?
+
+[[BueiLwuNKbnJPZVcrKBddwHYcdYQyvjx]]
+== Compound Comparisons
+
+[.lead]
+//
+We can combine multiple comparisons together using logical and (`&&`) and or
+(`||`) operators.
+
+[[vDROZOQyBuCsHvUlGCATsKriCrZxCmeK]]
+== ! Combining Comparisons
+
+[role='janini']
+....
+int first = 10;
+System.out.println(first > 5 && first < 10);
+System.out.println(first < 10 && first > 5);
+System.out.println(first > 10 || first > 5);
+System.out.println(first > 10 || false);
+....
+
+[[FBXXgCFgySnrwZHYfSoUHPKWaxwklwjZ]]
+== Evaluation Order and Grouping
+
+[.lead]
+//
+There are a few more rules that Java applies when evaluating conditionals
+expressions:
+
+[.s]
+//
+* Conditionals are always evaluated from left to right, and evaluation stops as
+soon as the result is known.
+//
+* Comparisons can be grouped using parentheses (`(` and `)`)
+//
+* But we'll try and keep our comparisons simple for now&mdash;and you should
+too!
+
+[[OHLyesdredLunhwymnQglBoPznFWnGEv]]
+== ! Grouping Comparisons
+
+[.janini.smallest]
+....
+int first = 10;
+System.out.println((first > 0 && first < 10) || (first == 10));
+System.out.println((first > 0 && first < 10) && (first == 10));
+System.out.println(first < 10 && (first == 0 || first == 10));
+....
+
+[[kTKjdTjMotZBlcgraocBlOSIGadWncvF]]
+== Comparisons Enable Decisions
+
+[role='janini']
+....
+// Comparisons enable decisions
+int first = 10;
+if (first > 20) {
+  System.out.println("First is greater than 20");
+} else {
+  System.out.println("First is not greater than 20");
+}
+....
+
+[[ZVszIucHlwfpNThvCPzvAuGXDQoXGDJm]]
+== `if-else`
+
+[.lead]
+//
+`if-else` statements are the building block for programmatic decision making:
+
+[.s]
+//
+* _if_ something is true, do one thing;
+//
+* _otherwise_, if something else is true, do some other thing;
+//
+* _otherwise_, if something else is true, do some other thing;
+//
+* etc.
+
+[[mKZSZKIqiozOhiBMXfrUaxnAYmcEWiNU]]
+== `if-elseif-elseif-else`
+
+[.lead]
+`if` statements can have multiple clauses:
+
+[source,java]
+----
+if (firstThing) {
+  // do one thing
+} else if (secondThing) {
+  // do another thing
+} else if (thirdThing) {
+  // another thing
+} else {
+  // run if firstThing, secondThing, and thirdThing are all false
+}
+----
+
+`else` statements are run if no if statement matches.
+
+[[CDpGeuKlxKgJwOfLsqWUIfCazJSauLSt]]
+== ! Only One Statement Runs
+
+[role='janini']
+....
+// Only the first matching branch of if is executed
+int comparison = 10;
+if (comparison > 5) {
+  System.out.println("I'll be executed");
+} else if (comparison > 3) {
+  System.out.println("I won't be executed");
+} else {
+  System.out.println("I definitely won't be executed");
+}
+....
+
+[[ulsvDseRWSMaJGiZXigRkKHBdYgQEGwm]]
+== Remember: At Most One Statement Runs
+
+[.lead]
+//
+*In any if statement, at most one statement is executed.*
+
+[.s]
+//
+* If there is an `else` statement _exactly_ one statement runs
+//
+* If there is _not_ an `else` statement _at most_ one statement runs, but it's
+possible than no statement runs
+
+[[sCTwbrbupLHdZwRvBbUQlfGFoutbJTfB]]
+== Somewhat Useful Example
+
+[role='janini']
+....
+// Create an int called numSuperBowls, and then add 1 to it
+// if sanFranciscoWinsAgain is true
+....
+
+[[fcnIiRcbbDBZyWPgBSCPEDBMiSUCxLEy]]
+== Nested Conditionals
+
+[.lead]
+`if` statements can be nested inside other `if` statements
+
+[source,java]
+----
+if (testMe) {
+  if (testMeAgain) {
+    // I am well tested
+  } else {
+    // I'm only moderated well-tested
+  }
+} else {
+  // You need to write better tests
+}
+----
+
+[[ySgvSxVBLXrmJCUTffzlhLYXqdWCKBeX]]
+== !Practice With Nested Conditionals
+[role='janini']
+....
+// What should we decide today?
+....
+
+[[PgMLuXcxwdrkzLNqnpFFWLNAsIHpiYTB]]
+== Variable Scope
+
+[.lead]
+//
+`if` statements provide our first example of a _block_ of code.
+
+[source,java]
+----
+if (...) {
+  // I'm a block of code
+}
+----
+
+[.s]
+//
+* Blocks are enclosed by braces and can have multiple statements
+//
+* Variables declared _inside_ a block are not visible _outside_ it...
+//
+* But variables declared outside (and prior to) a block _are_ visible _inside_ it
+
+[[ECKCAOoavGvvNXrOtQqqIZMxNKnbmBAj]]
+== !Practice With Scope
+[role='janini']
+....
+int outside = 5;
+if (true) {
+  int inside = 10;
+  System.out.println(outside);
+}
+System.out.println(inside);
+....
+
+[[uyjfRCHsbnKWGDOzAwWeAPodEDLQbWjP]]
+== Indentation Hints
+
+[.lead]
+//
+Assuming you are indenting your code properly, a general rule of thumb about
+scope:
+
+[.s]
+//
+* You *can* access variables "to the left"
+//
+* You *cannot* access variables "to the right"
+
+(Where directions are defined relative to the start of the line of code you are
+writing.)
+
+[[eUWkVtCUwaoLWfYANZKlTLvlRthqeEIz]]
+== !Practice With Scope
+[role='janini']
+....
+int outside = 5;
+if (true) {
+  int inside = 10;
+  // outside is to my left, so OK
+  System.out.println(outside);
+}
+// inside is to my right, so bad
+System.out.println(inside);
+....
+
+[[SJSRWJEKJTEENRTVYEBXXQBLIVDQKYVB]]
+== Homework Progress
+
+*Please don't get behind already!*
+
+[.s]
+//
+* HW0: 862
+//
+* HW1: 844
+//
+* HW2: 803
+//
+* HW3: _675_
+
+[[BktXnudeogGZUmOmuiDvjUHIvfkvtGud]]
+== Preparing for Quizzes
+
+[.lead]
+//
+Your first real CS 125 quiz starts next week in the CBTF.
+//
+Here's how to prepare.
+
+[.s]
+//
+* Multiple-choice questions will test content covered in class&mdash;so
+review the slides
+//
+* Also read the assigned chapter in
+//
+https://www.amazon.com/Coders-Making-Tribe-Remaking-World/dp/0735220565["Coders"].
+//
+* Programming questions will be quite similar to the homework problems&mdash;so
+review them too
+//
+* You have _unlimited_ attempts on the programming questions but limited
+attempts on the multiple-choice questions
+
+[[bAMIDJtTOruAKgjPWiRdBcIJIwClvpMV]]
+== Announcements
+
+[.small]
+//
+* I have office hours _today_ from 1&ndash;3PM in Siebel 2227.
+//
+*Please come by and say hi!*
+//
+* Homework continues _today_.
+//
+* Your first real quiz starts today in the CBTF and covers variables
+and conditionals&mdash;material up through today.
+//
+* We have link:/info/resources/#hours[office hours]
+//
+from 1&ndash;4PM today in Siebel 0403.
+//
+* Please fill out the https://forms.gle/WDf8bniubhSeoKM77[initial student
+* survey].
+//
+1% extra credit for anyone who does by *Sunday 2/2/2020.*
