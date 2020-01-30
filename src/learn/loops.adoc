@@ -3,6 +3,7 @@ title: Arrays and Loops
 date: 2020-01-29
 description:
   An introduction to arrays of data and the loops that we use to process them.
+youtube: https://youtu.be/Sd0zU0q5_o8
 ---
 :imagesdir: /learn/images
 :!sectids:
@@ -481,79 +482,6 @@ If you get confused by a `for` loop, try rewriting it as a `while` loop.
 
 That may help clear things up.
 
-[[ybLhqjistDkCNAkTrdsqlOrkmzRlQpOp]]
-== Controlling Loop Execution
-
-[.lead]
-//
-There are two important _control statements_ that we can use with loops:
-
-* `break`: immediately exit the loop. Maybe I found data I was looking for?
-//
-* `continue`: return to the top of the loop, perform the update, and continue if
-the condition is still true. Maybe this piece of data isn't interesting?
-
-[[HKgDlCjYPlNepNOrEnTNoEsbVhhFnUKx]]
-== ! `break` Example
-
-[.janini]
-....
-int search = 8;
-for (int i = 0; i < 64; i++) {
-  if (i == search) {
-    System.out.println("Found");
-    break;
-  }
-  System.out.println("Not found...");
-}
-....
-
-[[VEAvuqSKWDzdowmSNwpZTiuKbMuZXlUh]]
-== `break`
-
-[.lead]
-//
-`break` is commonly used when you are looking for something using a loop and
-want to exit when you find it.
-
-(We'll talk about arrays in a few slides and this will make more sense.)
-
-[[yeJMpUzucBnvisKCBFeQuPFAKyJDDhxS]]
-== ! `continue` Example
-
-[.janini]
-....
-for (int i = 0; i < 4; i++) {
-  System.out.println("Going... " + i);
-  if (i >= 2) {
-    continue;
-  }
-  System.out.println("Here");
-}
-....
-
-[[avEsVhcoWVOBCcUOxOCEmUPdSBkghzNK]]
-== `continue`
-
-[.lead]
-//
-`continue` is commonly used when you only want to execute the loop for some
-values.
-
-What would be another way to accomplish this?
-
-[[lYWJpDhDlaBAhRNoglwuiNEqjZnTvPfj]]
-== ! `continue` As `if`
-
-[.janini]
-....
-for (int i = 0; i < 4; i++) {
-  System.out.println("Going... " + i);
-  if (i < 2) {
-    System.out.println("Here");
-  }
-}
-....
 
 [[aNalGdMeFFVkKJOavDZgsGFRnDnEXkin]]
 [.oneword]
