@@ -46,11 +46,24 @@ We'll refer to them like this: MP0 for the first checkpoint, or MP4 for the
 fifth checkpoint
 //
 footnote:[You're a computer scientist now&mdash;and we start numbering at
-zero.].
+
+[[gettingstarted]]
+//
+== Getting Started with MP0
+
+[.lead]
+//
+In MP0 you'll begin transforming the <<app, Spring 2020 CS 125 App>> into a fun
+and fully-working game.
+
+For MP0 you'll turn the starter code into a single player version of a target
+mode game on some targets we've selected with a constant proximity threshold.
+//
+A complete description of the <<app, CS 125 Spring 2020 App>> follows below.
 
 [[deadline]]
 //
-== MP0 Deadline and Deadline Groups
+=== MP0 Deadline and Deadline Groups
 
 **Deadlines for each checkpoint vary based on your deadline group.**
 //
@@ -70,9 +83,200 @@ Late submissions will be subject to the MP
 //
 link:/info/syllabus#regrading[late submission policy].
 
+
+=== Learning Objectives
+
+The core objectives of MP0 are both to keep you practicing writing
+simple functions *and* to get you started working with Android.
+//
+Specifically, this checkpoint trains you to:
+
+. work with variables and arrays of appropriate types
+//
+. perform simple operations on numeric values
+//
+. use simple loops and conditional statements to process data in arrays
+//
+. translate specifications into working code, and
+//
+. work with test suites as part of your development process.
+
+=== Assignment Structure
+
+The machine project is a single Android app that you will continuously improve
+throughout the semester.
+//
+Like all Android apps, it consists of Java code plus Android-specific resources.
+
+Moderate-to-large software projects organize their code into multiple Java code files.
+//
+You'll typically only work with a few to complete each checkpoint.
+//
+Some you won't need to modify at all.
+
+Most of the points on MP0 come from implementing well-defined Java functions
+like you're starting to do on the homework.
+
+Connecting those to the game to make the app start to work takes less code, but
+you will need to spend some time looking over the code we've provided as you get
+oriented.
+//
+We've included some helpful comments to summarize what's going on and point you
+in the right direction.
+
+While the comments in the files you need to work with should explain everything
+you need to know, you can also examine our official
+//
+https://cs125-illinois.github.io/Spring2020-MP-Writeups/0/overview-summary.html[online documentation]
+//
+if you're curious what each function and class does.
+
+=== Android Studio Setup
+
+Before starting the MP you must complete
+//
+link:/MP/setup/android-studio[setting up Android Studio]
+//
+and have either an emulator or real device that you can run Android apps on.
+//
+If you are struggling with this, please come to office hours for help&mdash;or
+post on the forum
+//
+https://cs125-forum.cs.illinois.edu/c/spring2020-mp/androidstudio/91[in the Android
+Studio category].
+
+=== Obtaining and Submitting MP0
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/CEhkfU-SilE" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+
+You'll obtain the MP using GitHub&mdash;a very popular site that computer
+scientists use to share their work.
+//
+So, first, if you don't have one already,
+//
+https://github.com/join/[sign up for a GitHub account].
+//
+Note that if you sign up with your `@illinois.edu` email address there are some
+free goodies thrown in.
+
+Next, use
+//
+https://classroom.github.com/a/zWBlzSA-[this GitHub Classroom link]
+//
+to create a copy of the repository containing the MP starter code.
+//
+Once your repository has been created import it into Android Studio following
+our
+//
+link:/MP/setup/git#workflow[Git workflow guide].
+
+At this point cool your jets for a minute while Android Studio finishes
+synchronizing and indexing your new project.
+//
+Once that's finished, double-check that everything is ready to go by opening the
+*File* menu and choosing *Sync Project with Gradle Files*.
+
+[.alert.alert-warning]
+--
+//
+Note that when you open the project in Android Studio you may receive a warning
+about "Gradle KTS Build Files."
+//
+This is normal, and you can safely ignore this warning.
+//
+--
+
+For a complete description of how to submit your work for CS 125, please consult
+//
+link:/MP/setup/git#workflow[the workflow section of our Git guide].
+//
+The screencast above also provides an overview of the process.
+
+First make sure you've identified yourself in your repository by entering your Illinois
+email address into the `email.txt` file in the outermost folder of the project.
+
+Whenever you make progress you want to save, you should be making a Git commit (*VCS | Commit*).
+//
+Commits only exist on your computer until you *push* them (*VCS | Git | Push*).
+//
+Every time you push your MP, we grade the checkpoint you're currently working on.
+//
+Official autograding takes just a few minutes, then you'll be able to see results on the
+//
+https://cs125.cs.illinois.edu/m/grades/MPs/[MP grade page].
+
+=== MP0 File Structure
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/vEM4pBrXmyo" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+You can visually access the Android Studio project structure by pressing the
+**Project** button (with the Android Studio icon) on the left side of your
+screen, which opens the file ribbon on the left side of your screen.
+
+By default, Android Studio will open Android files on the ribbon.
+//
+To see all of the `.java` files for the MP (the ones you will be writing in), go
+to the top of the ribbon, click on the **Android** dropdown, and select
+**Project**.
+//
+Now you're in project view mode, where you can see all of the `main` and `test`
+files!
+
+You'll also notice a `logic` directory while in project view mode; this folder
+contains a number of Java files that define and determine the app's game logic
+and functionality.
+//
+The Java files outside of this `logic` are primarily Android activity files that
+pertain to the design of the app.
+
+**You will need to edit `logic/TargetVisitChecker.java`, as well as
+`GameActivity.java` in order to complete Checkpoint 0.**
+
+[[app]]
+== The Spring 2020 MP App
+
+[.lead]
+//
+The app we're building this semester is a game inspired by
+//
+https://en.wikipedia.org/wiki/Ingress_(video_game)[Ingress],
+//
+and represents a fusion of the virtual and real worlds enabled by ubiquitous
+powerful mobile computing devices&mdash;also known as smartphones.
+
+In the screencast below Amirtha provides a great overview of the app, including
+an introduction into its structure.
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/XSzg6OfsR3M" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
 [[android]]
 //
-== Intro to Android
+=== Intro to Android
 
 Android is a Java-based framework for building smartphone apps that run on the
 Android platform.
@@ -112,29 +316,6 @@ final project**, so put in some time to familiarize yourself with it now.
 It's simply the best way to build exciting things&mdash;programs that you can
 share with your friends and family, and that might just change the world.
 
-== The Spring 2020 MP App
-
-[.lead]
-//
-The app we're building this semester is a game inspired by
-//
-https://en.wikipedia.org/wiki/Ingress_(video_game)[Ingress],
-//
-and represents a fusion of the virtual and real worlds enabled by ubiquitous
-powerful mobile computing devices&mdash;also known as smartphones.
-
-In the screencast below Amirtha provides a great overview of the app, including
-an introduction into its structure.
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/XSzg6OfsR3M" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
 
 === Understanding the Coordinate System
 
@@ -199,151 +380,7 @@ depicting claims and players' locations.
 A game creation screen will allow specifying the objectives and inviting
 participants.
 
-[[gettingstarted]]
-//
-== Getting Started with MP0
-
-[.lead]
-//
-For MP0 you'll turn the starter code into a single player version of a target
-mode game on some targets we've selected with a constant proximity threshold.
-
-=== Learning Objectives
-
-The core objectives of MP0 are both to keep you practicing writing
-simple functions *and* to get you started working with Android.
-//
-Specifically, this checkpoint trains you to:
-
-. work with variables and arrays of appropriate types
-//
-. perform simple operations on numeric values
-//
-. use simple loops and conditional statements to process data in arrays
-//
-. translate specifications into working code, and
-//
-. work with test suites as part of your development process.
-
-=== Assignment Structure
-
-The machine project is a single Android app that you will continuously improve
-throughout the semester.
-//
-Like all Android apps, it consists of Java code plus Android-specific resources.
-
-Moderate-to-large software projects organize their code into multiple Java code files.
-//
-You'll typically only work with a few to complete each checkpoint.
-//
-Some you won't need to modify at all.
-
-Most of the points on MP0 come from implementing well-defined Java functions
-like you're starting to do on the homework.
-
-Connecting those to the game to make the app start to work takes less code, but
-you will need to spend some time looking over the code we've provided as you get
-oriented.
-//
-We've included some helpful comments to summarize what's going on and point you
-in the right direction.
-
-While the comments in the files you need to work with should explain everything
-you need to know, you can also examine our official
-//
-https://cs125-illinois.github.io/Spring2020-MP-Writeups/0/overview-summary.html[online documentation]
-//
-if you're curious what each function and class does.
-
-=== Android Studio Setup
-
-Before starting the MP you must complete
-//
-link:/MP/setup/android-studio[setting up Android Studio]
-//
-and have either an emulator or real device that you can run Android apps on.
-//
-If you are struggling with this, please come to office hours for help&mdash;or
-post on the forum
-//
-https://cs125-forum.cs.illinois.edu/c/spring2020-mp/androidstudio/91[in the Android
-Studio category].
-
-=== Obtaining the MP
-
-You'll obtain the MP using GitHub&mdash;a very popular site that computer
-scientists use to share their work.
-//
-So, first, if you don't have one already,
-//
-https://github.com/join/[sign up for a GitHub account].
-//
-Note that if you sign up with your `@illinois.edu` email address there are some
-free goodies thrown in.
-
-Next, use
-//
-https://classroom.github.com/a/zWBlzSA-[this GitHub Classroom link]
-//
-to create a copy of the repository containing the MP starter code.
-//
-Once your repository has been created import it into Android Studio following
-our
-//
-link:/MP/setup/git#workflow[Git workflow guide].
-
-At this point cool your jets for a minute while Android Studio finishes
-synchronizing and indexing your new project.
-//
-Once that's finished, double-check that everything is ready to go by opening the
-*File* menu and choosing *Sync Project with Gradle Files*.
-
-[.alert.alert-warning]
---
-//
-Note that when you open the project in Android Studio you may receive a warning
-about "Gradle KTS Build Files."
-//
-This is normal, and you can safely ignore this warning.
-//
---
-
-=== MP0 File Structure
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/vEM4pBrXmyo" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-You can visually access the Android Studio project structure by pressing the
-**Project** button (with the Android Studio icon) on the left side of your
-screen, which opens the file ribbon on the left side of your screen.
-
-By default, Android Studio will open Android files on the ribbon.
-//
-To see all of the `.java` files for the MP (the ones you will be writing in), go
-to the top of the ribbon, click on the **Android** dropdown, and select
-**Project**.
-//
-Now you're in project view mode, where you can see all of the `main` and `test`
-files!
-
-You'll also notice a `logic` directory while in project view mode; this folder
-contains a number of Java files that define and determine the app's game logic
-and functionality.
-//
-The Java files outside of this `logic` are primarily Android activity files that
-pertain to the design of the app.
-
-**You will need to edit `logic/TargetVisitChecker.java`, as well as
-`GameActivity.java` in order to complete Checkpoint 0.**
-
-== How to Approach MP0
+== Completing Checkpoint 0
 
 [.lead]
 //
@@ -368,7 +405,6 @@ emulator:
   </div>
 </div>
 ++++
-
 
 === Your Tasks
 
@@ -420,13 +456,6 @@ whether two lines cross, *BUT* it has some `checkstyle` issues that need to be
 corrected.
 //
 See the section on style later in this writeup.
-
-== Completing Checkpoint 0
-
-[.lead]
-//
-Below we'll provide some tips and hints for you to review as you begin
-checkpoint 0.
 
 === Test-driven Development
 
@@ -687,7 +716,9 @@ on your own machine as often as you want.
 Your Android Studio project contains a run configuration
 called "Grade" that will run the autograder for the current checkpoint.
 //
-You can also run the grader by installing <<plugin, our plugin>>
+You can also run the grader by installing
+//
+link:/MP/setup/android-studio#cs125plugin[our plugin]
 //
 and then pressing the button that looks like the CS 125 shield.
 
@@ -715,37 +746,6 @@ the autograding output should approximate the score that you will earn when you 
 If you modify our test cases or the autograding configuration, *all bets are off*.
 //
 You may also lose points if your solution runs too slowly and exceeds the testing timeouts.
-
-=== Submitting Your Work
-
-++++
-<div class="row justify-content-center mt-3 mb-3">
-  <div class="col-12 col-lg-8">
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/CEhkfU-SilE" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-++++
-
-For a complete description of how to submit your work for CS 125, please consult
-//
-link:/MP/setup/git#workflow[the workflow section of our Git guide].
-//
-The screencast above also provides an overview of the process.
-
-First make sure you've identified yourself in your repository by entering your Illinois
-email address into the `email.txt` file in the outermost folder of the project.
-
-Whenever you make progress you want to save, you should be making a Git commit (*VCS | Commit*).
-//
-Commits only exist on your computer until you *push* them (*VCS | Git | Push*).
-//
-Every time you push your MP, we grade the checkpoint you're currently working on.
-//
-Official autograding takes just a few minutes, then you'll be able to see results on the
-//
-https://cs125.cs.illinois.edu/m/grades/MPs/[MP grade page].
 
 === Style Points
 
