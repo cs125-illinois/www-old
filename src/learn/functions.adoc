@@ -20,7 +20,7 @@ youtube: https://youtu.be/AlSli5L9cBg
 <div class="message">Functions</div>
 ++++
 ....
-static int maximum(int[] numbers) {
+int maximum(int[] numbers) {
   int currentMaximum = numbers[0];
   for (int i = 1; i < numbers.length; i++) {
     if (numbers[i] > currentMaximum) {
@@ -218,8 +218,7 @@ add(6, 7); // This is dumb code but will compile and run
 
 [.janini.small]
 ....
-// Ignore the extra static for now in our examples...
-static int add(int firstNumber, int secondNumber) {
+int add(int firstNumber, int secondNumber) {
   return firstNumber + secondNumber;
 }
 int result = add(3, 4);
@@ -285,8 +284,7 @@ int result = add(3, 4);
 
 [.janini.small]
 ....
-// Ignore the extra static for now in our examples...
-static int add(int firstNumber, int secondNumber) {
+int add(int firstNumber, int secondNumber) {
   System.out.println(firstNumber);
   System.out.println(secondNumber);
   return firstNumber + secondNumber;
