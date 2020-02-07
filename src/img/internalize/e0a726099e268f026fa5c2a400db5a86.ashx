@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js" data-dtconfig="rid=RID_-2018356100|rpid=-1763548206|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1580231438766|dtVersion=10183200114120852|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1580231438766|dtVersion=10183200114120852|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-1731053485|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -48,7 +48,8 @@
 			digitalData = {
 				page: {
 					name: "Error Page 404",
-					lastUpdated: "Nov 26, 2019"
+					lastUpdated: "Nov 26, 2019",
+					businessAlignment:""
 				},
 				lang: {
 					lang: "en",
@@ -165,7 +166,7 @@
         
         	
     
-<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.b8e3a9f20dc53d1625bb4b27718cf11b.css" type="text/css">
+<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.1b5fc458798d48889d403f57733efa5f.css" type="text/css">
 
 
 
@@ -175,6 +176,7 @@
 </div><div class="iparys_inherited"><div class="headeriParsys iparsys parsys"><div class="globalHeader base parbase section">
 
 <div data-aem-component-type="Global Header"></div>
+
 
 
 
@@ -207,11 +209,26 @@
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#header_search"></use>
                         </svg>
                     </button>
-                    <ul v-show="searchSuggestions.length" class="mega__autocomplete" id="mega__autocomplete" role="listbox" v-cloak>
-                        <li v-for="(suggestion, i) in searchSuggestions" role="option" :aria-selected="(searchSuggestion == i).toString()" :id="'mega__search__suggestion' + i" @mouseover="searchSuggestion = i">
-                            <a :href="suggestion.displayUrl" :title="suggestion.title" v-html="suggestion.titleHighlighted"></a>
-                        </li>
-                    </ul>
+                    <div class="mega__autocompleteWrapper" v-show="searchSuggestions.length" v-cloak>
+                        <ul v-show="searchSuggestions.length" class="mega__autocomplete" id="mega__autocomplete" role="listbox">
+                            <template v-for="(suggestion, i) in searchSuggestions">
+								<li role="option" class="supporting-text" v-if="suggestion.category === 'products' && i == 0">
+                                    <strong>Products In Catalog</strong>
+                                </li>
+								<li role="option" class="supporting-text" v-if="(suggestion.category === 'assets' || suggestion.category === 'pages') && suggestion.assetSearch">
+                                    <strong>Technical Content</strong>
+                                </li>
+                                <li role="option" :aria-selected="(searchSuggestion == i).toString()" :id="'mega__search__suggestion' + i" @mouseover="searchSuggestion = i">
+								    <a :href="suggestion.displayUrl" :title="suggestion.title" v-html="suggestion.titleHighlighted"></a>
+								</li>
+							</template>
+                        </ul>
+                        <div class="view-all-productsContent">
+                            <a href="javascript:void(0)" @click="formSubmit">
+                                <strong>View All Products and Content</strong>
+                            </a>
+                        </div>
+                    </div>
                 </form>
             </div>
 
@@ -3040,7 +3057,7 @@
             
     
     
-    <a href="/en-us/product-technology/pt-lubricants.html">Lubricants and Fluids</a>
+    <a href="/en-us/product-technology/pt-lubricants.html">Lubricants, Heat Transfer and Deicing Fluids</a>
     
 
         </li>
@@ -3208,6 +3225,14 @@
         </li>
     </ul>
 </li>
+                <li v-if="user && user.accountDropDownLinks">
+                    <a href="#account" title="Account" aria-controls="mega__account" aria-expanded="false" @click="toggle">Account</a>
+                    <ul class="mega__menu" id="mega__account">
+                        <li v-for="(link, title) in user.accountDropDownLinks" :key="link">
+                            <a :href="link">{{ title }}</a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="javascript:void(0);" id="loggedin-text" class="loggedin-text hidden" @click.prevent="logout(true)">Logout</a>
                     <a href="#login" class="button--account loggedout" data-toggle="modal" data-target="#loginFormModal">Login</a>
@@ -4389,7 +4414,7 @@
     
         <meta/>
     
-<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.c40bc4f5103fccd530a220794c3928f7.js"></script>
+<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.9aabff247df0ac55fb5839249b0c7755.js"></script>
 
 
 
