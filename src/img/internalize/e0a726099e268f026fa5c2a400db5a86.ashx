@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1580231438766|dtVersion=10183200114120852|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-1731053485|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js" data-dtconfig="rid=RID_-2018356100|rpid=612200995|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1581269208282|dtVersion=10183200114120852|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1581269208282|dtVersion=10183200114120852|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10183200114120852.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=1952055398|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -176,7 +176,6 @@
 </div><div class="iparys_inherited"><div class="headeriParsys iparsys parsys"><div class="globalHeader base parbase section">
 
 <div data-aem-component-type="Global Header"></div>
-
 
 
 
@@ -1719,7 +1718,7 @@
             
     
     
-    <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-rubber-fabrication.html">Rubber Fabrication</a>
+    <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-rubber-fabrication.html">Silicone Rubber Fabrication</a>
     
 
         </li>
@@ -3527,7 +3526,7 @@
 </div>
 
         
-            <div id="languageListJson" class="hide language-json">[{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;BR&#34;,&#34;default&#34;:&#34;pt-br&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;JP&#34;,&#34;default&#34;:&#34;ja-jp&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;CN&#34;,&#34;default&#34;:&#34;zh-cn&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Chinese Simplified&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;US&#34;,&#34;default&#34;:&#34;en-us&#34;}]</div>
+            <div id="languageListJson" class="hide language-json">[{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Simplified Chinese&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;BR&#34;,&#34;default&#34;:&#34;pt-br&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Simplified Chinese&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;JP&#34;,&#34;default&#34;:&#34;ja-jp&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Simplified Chinese&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;CN&#34;,&#34;default&#34;:&#34;zh-cn&#34;},{&#34;values&#34;:[{&#34;value&#34;:&#34;Português-Portuguese&#34;,&#34;languageCode&#34;:&#34;pt-br&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;日本語-Japanese&#34;,&#34;languageCode&#34;:&#34;ja-jp&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;中文-Simplified Chinese&#34;,&#34;languageCode&#34;:&#34;zh-cn&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;},{&#34;value&#34;:&#34;English&#34;,&#34;languageCode&#34;:&#34;en-us&#34;,&#34;link&#34;:&#34;javascript:void(0);&#34;}],&#34;label&#34;:&#34;US&#34;,&#34;default&#34;:&#34;en-us&#34;}]</div>
         
     </header>
     <div><div class="container hide" id="credit-blocking-banner">
@@ -4101,7 +4100,7 @@
 </div><div class="iparys_inherited"><div class="footeriParsys iparsys parsys"><div class="globalFooterdow base parbase section"><div class="footer__bottom-rail" style="background-image:url('/content/dam/dcc/images/footer/bg_md.jpg')">
                     <div class="bottom-rail__column">
                         <div class="bottom-rail__copy">
-<p><span class="text-extrasmall">Copyright © Dow (1995-2019). All Rights Reserved.<br />
+<p><span class="text-extrasmall">Copyright © Dow (1995-2020). All Rights Reserved.<br />
  ®™ Trademark of Dow or an affiliated company of Dow</span></p>
 </meta></div>
                     </div>
