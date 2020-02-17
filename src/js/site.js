@@ -75,6 +75,9 @@ $(() => {
       event.preventDefault()
       const url = $(elem).attr('href')
       const openURL = () => {
+        if ($(elem).hasClass('noclick')) {
+          return
+        }
         if ($(elem).hasClass('external')) {
           window.open(url, '_blank')
         } else {
