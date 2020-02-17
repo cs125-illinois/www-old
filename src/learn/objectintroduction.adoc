@@ -17,12 +17,17 @@ description:
 ....
 class Course {
   String name;
+  String semester;
   int enrollment;
 }
 Course cs125 = new Course();
 cs125.name = "CS 125";
-cs125.enrollment = 800;
-System.out.println(cs125.name + " has " + cs125.enrollment + " students.");
+cs125.semester = "Spring2020";
+cs125.enrollment = 500;
+System.out.println(cs125.name + " has "
+                   + cs125.enrollment + " students in "
+                   + cs125.semester
+);
 ....
 --
 
