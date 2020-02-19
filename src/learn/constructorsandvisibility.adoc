@@ -18,10 +18,10 @@ description:
 public class Course {
   private String name;
   public Course(String setName) {
-    this.name = setName;
+    name = setName;
   }
   public void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 public class Example {
@@ -46,7 +46,7 @@ class Person {
 
   // Any code has to go inside functions
   void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
   void birthday() {
     age++;
@@ -64,7 +64,7 @@ class Dimensions {
   int height;
 
   int area() {
-    return this.width * this.height;
+    return width * height;
   }
 }
 ----
@@ -141,7 +141,7 @@ class Course {
   String name;
   // This is a constructor.
   Course(String setName) {
-    this.name = setName;
+    name = setName;
   }
 }
 ----
@@ -165,7 +165,7 @@ public class Course {
   // The constructor must be named Course
   // It's not declared to return anything...
   Course(String setName) {
-    this.name = setName;
+    name = setName;
     // And doesn't explicitly return anything, but always returns a new Course
   }
 }
@@ -190,11 +190,11 @@ public class Course {
   String name;
   // This constructor sets the name
   Course(String setName) {
-    this.name = setName;
+    name = setName;
   }
   // This constructor initializes the name to a blank string
   Course() {
-    this.name = "";
+    name = "";
   }
 }
 ----
@@ -212,7 +212,7 @@ public class Course {
   String name;
   // This constructor sets the name
   Course(String setName) {
-    this.name = setName;
+    name = setName;
   }
   // This constructor initializes the name to a blank string
   // by calling the other constructor
@@ -256,7 +256,7 @@ class Course {
   String name;
   Course(String setName) {
     // What do I do if the name is invalid?
-    this.name = setName;
+    name = setName;
   }
 }
 ----
@@ -301,10 +301,10 @@ public class Person {
   private int age;
 
   private void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
   public int getAge() {
-    return this.age;
+    return age;
   }
 }
 ----
@@ -418,10 +418,10 @@ don't make sense quite yet...)
 public class Person {
   private int age;
   public void setAge(int setAge) {
-    this.age = setAge;
+    age = setAge;
   }
   public int getAge() {
-    return this.age;
+    return age;
   }
 }
 ----
@@ -442,18 +442,18 @@ public class Person {
   private int lastName;
   public void setName(String setName) {
     String[] nameParts = setName.split(" ");
-    this.name = setName;
-    this.firstName = nameParts[0];
-    this.lastName = nameParts[1];
+    name = setName;
+    firstName = nameParts[0];
+    lastName = nameParts[1];
   }
   public int getName() {
-    return this.name;
+    return name;
   }
   public int getFirstName() {
-    return this.firstName;
+    return firstName;
   }
   public int getLastName() {
-    return this.lastName;
+    return lastName;
   }
 }
 ----

@@ -141,7 +141,7 @@ class Person {
   String name;
   int age;
   void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 ----
@@ -162,7 +162,7 @@ class Person {
   String name;
   int age;
   void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 ----
@@ -186,7 +186,7 @@ class Person {
   String name;
   int age;
   void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 ----
@@ -211,7 +211,7 @@ class Person {
   String name;
   int age;
   void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 Person geoffrey = new Person();
@@ -237,7 +237,7 @@ class Person {
   String name;
   int age;
   void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 Person geoffrey = new Person();
@@ -258,7 +258,7 @@ class Person {
   String name;
   int age;
   void printName() {
-    System.out.println(this.name);
+    System.out.println(name);
   }
 }
 Person geoffrey = new Person();
@@ -397,7 +397,7 @@ class Dimensions {
   int height;
 
   int area() {
-    return this.width * this.height;
+    return width * height;
   }
 }
 Dimensions example = new Dimensions();
@@ -420,7 +420,7 @@ class Dimensions {
   int height;
 
   int area() {
-    return this.width * this.height;
+    return width * height;
   }
 }
 Dimensions example = new Dimensions();
@@ -446,7 +446,7 @@ class Dimensions {
 
 [.lead]
 //
-Instance methods can refer to _their_ instance variables using the `this`
+Instance methods _can_ refer to _their_ instance variables using the `this`
 keyword.
 
 `this` refers to the instance that is executing the method.
@@ -474,15 +474,48 @@ second.height = 8;
 System.out.println(second.area());
 ....
 
-[[UhRoujqXVElCPEtqYlumSfVTjAukGgHP]]
-== Object Modeling
+[[uigiOIeJXemeUNqqICjGZgiOdNDeFKxe]]
+== Or Not `this`
+
+[source,java]
+----
+class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return width * height;
+  }
+}
+----
 
 [.lead]
 //
-We frequently use Java objects to model real objects or entities.
+But instance methods _can also_ refer to _their_ instance variables _without_
+using the `this` keyword.
 
-Objects allow us to _design_ software that deals with things in realistic and
-natural ways.
+[[freAdczfjCduMgvVUzcqxhGHwNeIUfZn]]
+== ! Not `this`
+
+[.janini.smaller]
+....
+class Dimensions {
+  int width;
+  int height;
+  int area() {
+    return width * height;
+  }
+}
+Dimensions first = new Dimensions();
+first.width = 10;
+first.height = 20;
+System.out.println(first.area());
+
+Dimensions second = new Dimensions();
+second.width = 5;
+second.height = 8;
+System.out.println(second.area());
+....
 
 [[hUbnAOHkHUJzepcHaieybiJeiGiMjusi]]
 == Midterm Reminder
