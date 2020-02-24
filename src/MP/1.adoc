@@ -319,7 +319,7 @@ This should be very easy because all the work is done by the `AreaDivider` objec
 //
 If the game is target mode, markers should still be placed at target positions like in MP0.
 
-Similarly, add a branch to `updateLocation` with area mode gameplay logic:
+Similarly, add a branch to `onLocationUpdate` with area mode gameplay logic:
 detect cell capture and show the user's progress on the map.
 //
 Initially any cell in the area can be captured.
@@ -346,7 +346,7 @@ you'll need: one to add vertices to the polygon and one to set the polygon's
 fill color.
 
 To make the custom proximity threshold take effect, tweak your MP0 target mode logic in
-`updateLocation` to use your proximity threshold variable instead of a constant.
+`onLocationUpdate` to use your proximity threshold variable instead of a constant.
 
 == Grading
 

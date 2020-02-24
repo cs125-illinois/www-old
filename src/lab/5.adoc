@@ -1,0 +1,137 @@
+---
+title: Reverse Engineering
+description:
+  Today we'll sharpen your debugging skills with a series of reverse
+  engineering challenges. They'll force you to use compiler and testing errors
+  to determine how to write a short function or design a small class.
+spelling_exceptions:
+  - PrairieLearn
+---
+
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.lead]
+//
+In today's lab we return to debugging as a central topic and important
+programming-related skill.
+//
+We'll sharpen your debugging skills by forcing you to _reverse engineer_
+functions and classes, mimicking the behavior of a hidden function or class by
+interpreting compiler and testing errors.
+//
+In any remaining time please continue working on link:/MP/1/[MP1].
+
+[[reverseengineering]]
+== Reverse Engineering [.text-muted]#(50 Minutes Total)#
+
+[.lead]
+//
+Today's lab activity returns to a central topic and skill in computer
+programming&mdash; _debugging_.
+//
+Great programmers don't stop making mistakes&mdash;they just get better at
+quickly finding and fixing them.
+
+To give you some focused practice with debugging we're going to challenge you a
+bit today by having you _reverse engineer_ the solution to several homework
+problems.
+//
+What does that mean?
+//
+Up until this point we've provided a detailed specification for each homework
+problem.
+//
+That description of what the snippet, function, or class is supposed to do
+allows you to write code to solve the problem, which we then test.
+
+Today's lab homework problems are different: **there is no specification
+provided!**
+//
+So how on Earth do you solve them?
+//
+Well, we _do_ provide a test suite that includes inputs and expected outputs.
+//
+That test suite will fail to compile initially, since we aren't providing any
+starter code.
+//
+But even those compiler error messages will be critical to helping lead you in
+the right direction.
+
+What you are really doing today is a well-known technique called
+//
+https://en.wikipedia.org/wiki/Reverse_engineering[_reverse engineering_].
+//
+Reverse engineering consists of extracting knowledge from something by examining
+how it responds to inputs, without access to the specification, source code, or
+manual that describes how it was designed or made.
+//
+There is a long and proud tradition of computer scientists reverse engineering
+closed-source software and hardware.
+
+=== Example Approach
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/jGYGwz159a8" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+In the screencast above I'll get you started on today's first lab homework
+problem.
+//
+But a general approach to reconstructing the solution functions or classes goes
+something like this:
+
+* Submit something, anything, and **examine the compiler errors**. These will help
+you determine the names of functions or classes and their signatures and return
+types.
+//
+* Once your code is compiling and running begin to examine the inputs that are
+being provided to your code and the outputs expected by the test suite.
+//
+You can and should add print statements to functions that are run by the test
+suites to help figure out what inputs are being provided, since the test suites
+will only print the expecting and actual _outputs_ when they fail.
+//
+You may find it helpful to start to make a small table recording what inputs
+were provided and what was required when a test fails.
+//
+* Next begin writing your function or method to produce the correct output. For
+example, if the inputs were 2 and 4 and the output was 8, you might hypothesize
+that the function was returning its inputs multiplied together.
+//
+So try that and see if it works.
+//
+If it does, great! If not, examine the failing input and decide how to adjust
+your code appropriately.
+
+=== Get Started!
+
+Today's lab homework may take you a while, so go ahead and get stared!
+//
+Have fun with this one, and please work together with the rest of your lab.
+//
+Don't give away any solutions to the easier ones, but feel free to work together
+on the last challenge problem.
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've completed a few of the reverse engineering homework problems!
+//
+. And so has everyone else in your lab!
+
+If you need more help completing the tasks above please come to
+//
+link:/info/syllabus/#calendar[office hours]
+//
+or post on the {forum}.
