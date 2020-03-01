@@ -1,0 +1,897 @@
+---
+title: "MP2: Web APIs"
+description:
+  The MP2 checkpoint starts connecting your app to our web service and continues building its UI.
+spelling_exceptions:
+  - Firebase
+  - hardcoding
+  - multiplayer
+  - singleplayer
+  - gson
+  - gameplay
+  - equest
+  - GameSummary
+  - JsonObject
+secret: 93Qaly6f
+---
+:sectnums:
+:linkattrs:
+:imagesdir: /MP/images/MP2
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/spring2020-mp/mp2/100[forum,role='noexternal']]
+
+[.lead]
+//
+In link:/MP/0/[MP0] and link:/MP/1/[MP1], you implemented both game modes for a
+singleplayer version to an authentication service and our central game server.
+
+To make the multiplayer game work, users will need to be able to identify
+themselves to the app and to a central server that relays information between
+users.
+//
+Displaying data from the server first requires fetching it.
+//
+Services designed to make information accessible to other machines, like our
+central server, expose a _web API_ that programs can contact in a structured
+manner to receive structured information.
+
+Now that you know how to create and use objects, you can take advantage of an
+incredible number of existing pieces of software, often referred to as
+_libraries_, to easily add features to your program.
+//
+This checkpoint uses Google's
+//
+https://firebase.google.com/docs/auth[Firebase Authentication],
+//
+https://sites.google.com/site/gson/gson-user-guide[Gson],
+//
+and (indirectly)
+https://developer.android.com/training/volley/index.html[Volley]
+//
+libraries to let the user log in and respond to game invitations.
+
+As usual, **deadlines for each checkpoint vary by your deadline group**.
+MP2 is due at:
+
+* **8 PM on _Wednesday_ 3/11/2020 for the Blue Group**: all labs starting at 2 PM or earlier
+//
+* **8 PM on _Thursday_ 3/12/2020 for the Orange Group**: all labs starting at 3 PM or later
+
+Note that because MP2 ends right before spring break, it is due on a Wednesday
+and Thursday rather than a Sunday and Monday.
+//
+We _will_ hold office hours on Wednesday 3/11/2020 to support the blue group
+finishing.
+//
+
+Even on this shorter MP we want you to get started.
+//
+So 10% of your grade on it is for submitting code that earns at least _40
+points_ by 11:59PM on **Sunday 3/8/2020 (Blue)** or **Monday 3/9/2020
+(Orange)**.
+//
+And as always, late submissions will be subject to the
+//
+link:/info/syllabus/#regrading[MP late submission policy].
+
+== Learning Objectives
+
+MP2 introduces several major skills that will be extremely useful for your final project
+and in software development in general.
+//
+You will:
+
+* Integrate existing libraries into your application to provide functionality to
+your users without needing to implement all those features yourself
+//
+* Access data from a web service according to a web API specification
+//
+* Design an Android UI
+
+We'll also keep making use of your imperative programming, object-oriented
+programming skills.
+
+== Assignment Structure
+
+You already have the one MP repository you'll be working on and are familiar with the
+relevant parts of the folder structure.
+//
+You just need the test suite for Checkpoint 2.
+
+=== Obtaining MP2
+
+To update your project with the remote and get started on MP2, follow these instructions:
+
+. **Get the remote code.**
+//
+Select _VCS | Git | Fetch_ from the menu to download the remote commit.
+However, it still needs to be merged with your work.
+//
+. **Merge the changes!**
+//
+Now we need to merge the changes from your computer with our remote repository,
+so go back to the menu and choose _VCS | Git | Merge Changes_.
+//
+Check the `remotes/release/mp2` branch you just fetched and press Merge!
+The Version Control pane will appear to inform you of items updated from the server.
+
+=== Late MP1 Submissions
+
+If you didn't finish MP1 or even MP0, you can still do MP2.
+//
+Setting `useProvided` in `grade.yaml` to `true` will make the app use our
+`AreaDivider` class, `GameActivity` logic, and singleplayer game setup UI.
+
+== Android
+
+Here we introduce some Android activities and UI designer logic that will allow
+you even more flexibility in building apps.
+
+=== Manipulating UI from Java
+
+[.lead]
+//
+Usually at least part of a user interface is dynamic, changing at runtime when the user
+does something or when data is fetched.
+//
+To make this happen, your Java code needs to be able to manipulate the UI elements.
+
+Android exposes views to Java as objects with functions that allow you to get
+information about the view or modify its attributes.
+//
+If a view has an ID set in the Attributes pane of the UI designer, you can get
+an object representing it from the `findViewById` function.
+//
+For example, this code gets a `TextView` object corresponding to the `TextView`
+with ID `greeting`:
+
+[source,java]
+----
+TextView label = findViewById(R.id.greeting);
+----
+
+The variable type (e.g. `TextView`) must match the type of view from the UI designer.
+//
+The variable name (e.g. `label`) can be anything of your choosing.
+//
+The field name after `R.id.` is the view ID from the UI designer.
+
+[.alert.alert-warning]
+//
+--
+//
+Since the view classes are defined in Android rather than your project, they
+have to be _imported_ before you can use them from your code.
+//
+Android Studio can help with this: if you tab-complete the class name as you're
+typing it, the needed import statement will be automatically added to the top of
+the file.
+//
+--
+
+Once you have a view object, you can use dot notation to call its functions and
+do something with it.
+//
+For example, all views have a `setVisibility` method to change whether the view
+can be seen.
+//
+If the greeting label was invisible or gone, this code would make it visible
+again:
+
+[source,java]
+----
+label.setVisibility(View.VISIBLE);
+// or pass View.INVISIBLE to make it invisible
+// or View.GONE to make it gone (invisible and taking up no space)
+----
+
+Views that display text have a `setText` method to change the text:
+
+[source,java]
+----
+label.setText("Hello!");
+----
+
+Member functions can also be used to set handlers&mdash;code that will be run
+when something happens to the view, like a button being clicked.
+//
+The syntax for handlers is a little messy, but Android Studio's tab completion
+can help you with it, as can the examples in our starter code or in lab.
+//
+For example, this attaches a click handler to a `Button` variable named
+`goodbye`:
+
+[source,java]
+----
+goodbye.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(final View v) {
+        // Change the label's text
+        label.setText("Goodbye.");
+    }
+});
+----
+
+Or more concisely:
+
+[source,java]
+----
+goodbye.setOnClickListener(v -> {
+    // Change the label's text
+    label.setText("Goodbye.");
+});
+----
+
+=== Android Manifest
+
+Every Android Studio project has a file called `AndroidManifest.xml`.
+//
+Let's look at a deprecated example of the Android manifest for our Campus Snake 125 app.
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="edu.illinois.cs.cs125.spring2020.mp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name="edu.illinois.cs.cs125.spring2020.mp.NewGameActivity" />
+        <activity android:name="edu.illinois.cs.cs125.spring2020.mp.GameActivity" />
+        <activity android:name="edu.illinois.cs.cs125.spring2020.mp.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
+```
+
+As you can see, our `AndroidManifest` file first declares some system
+permissions that the app's user must grant in order for the app.
+//
+In our case, the app needs internet and location services access from the user,
+as our game uses location-tracking and a web API to store information about
+games.
+
+In the `<application/>` component we list the different Android activities for
+the app, such as `GameActivity`.
+//
+The `<intent-filter/>` component within the `Main Activity` indicates that `Main
+Activity` is launched when the app is opened by the user.
+
+You can read more about the Android Manifest file on the official
+//
+https://developer.android.com/guide/topics/manifest/manifest-intro[Android
+website].
+//
+That documentation will come in handy when working on the first part of this MP!
+
+=== Getting Results from Activities
+
+You previously launched other activities by passing an `Intent` to the
+`startActivity` function.
+//
+Sometimes the activity you launched needs to return the user to your activity
+once some data has been produced.
+//
+For example, when you go to attach a picture to a text message, your phone takes
+you to a camera or gallery screen.
+//
+Once you take or select a picture, you're taken back to the texting screen which
+received the chosen picture.
+
+To start an activity that you need to get a result from, use the
+`startActivityForResult` function.
+//
+It takes the intent specifying the activity to launch and a numeric _request
+code_ of your choice that is useful in case your activity issues multiple
+different requests.
+//
+For example:
+
+[source,java]
+----
+// Suppose intent is an Intent variable and MY_REQUEST_CODE is an int constant
+startActivityForResult(intent, MY_REQUEST_CODE);
+----
+
+When the activity finishes and produces its result, the Android system calls the
+original activity's `onActivityResult` function to deliver the result.
+//
+To act on that notification, you need to override `onActivityResult` (similar to
+how all activities override `onCreate` to do something when they are created):
+
+[source,java]
+----
+/**
+ * Invoked by the Android system when a request launched by startActivityForResult completes.
+ * @param requestCode the request code passed by to startActivityForResult
+ * @param resultCode a value indicating how the request finished (e.g. completed or canceled)
+ * @param data an Intent containing results (e.g. as a URI or in extras)
+ */
+@Override
+protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == MY_REQUEST_CODE) {
+        // Do something that depends on the result of that request
+    }
+}
+----
+
+== Web API
+
+[.lead]
+//
+In computer science the term
+//
+https://en.wikipedia.org/wiki/Application_programming_interface[_API_]
+//
+stands for Application Programming Interface.
+//
+An API specifies the structure or _contract_ for communication between
+applications.
+//
+When using an API you don't need to be concerned about _how_ the service is
+implemented.
+//
+You just need to properly submit a request and understand the response.
+
+Here and for your final project we are most interested in _web APIs_, which are accessed
+over the Internet using standardized web protocols.
+//
+The most common Internet protocol is
+//
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol[HTTP],
+the Hypertext Transfer Protocol.
+//
+Each HTTP request specifies a document, method, and sometimes a body.
+//
+When browsing the web, the document specifies which page you'd like to look at.
+//
+When using an API, the document is often referred to as the _endpoint_ and specifies
+what function you would like the service to do for you.
+//
+The most common HTTP methods are `GET` and `POST`.
+//
+`GET` requests access data; `POST` requests make a submission, change something, or generally
+take an action.
+
+[[json]]
+=== What is JSON?
+
+In object-oriented languages, structured data can be modeled with classes.
+//
+But servers and clients can be written in many different languages with wildly
+varying conceptions of how data should be laid out
+//
+So for the response data to be transferred between them, it must be written in
+(_serialized_ into) a mutually understandable format that correctly conveys the
+structure of the information.
+
+https://en.wikipedia.org/wiki/JSON[JSON] has become an extremely common format
+for exchanging data on the web.
+//
+JSON is text that describes a hierarchy of objects and their properties.
+//
+A Google Maps `LatLng` object might be represented like this in JSON:
+
+[source,json]
+----
+{
+  "latitude": 40.109187,
+  "longitude": -88.227213
+}
+----
+
+Curly braces surround the contents of a JSON object.
+//
+Each _property_ (which corresponds to a variable in Java) has a quoted name
+before the colon and a value after.
+//
+Values can be numbers, strings, booleans, objects, or arrays
+//
+footnote:[or even null].
+
+Here's a more complicated JSON object partially representing a class:
+
+[source,json]
+----
+{
+  "name": "CS 125",
+  "enrollment": 500,
+  "location": {
+    "name": "Lincoln Hall Theater",
+    "allows_food": false,
+    "latitude": 40.105952,
+    "longitude": -88.227204
+  },
+  "lecture_days": [
+    "Monday",
+    "Wednesday",
+    "Friday"
+  ]
+}
+----
+
+There, the value of the `location` property on the root object is another
+object, which has four properties of its own.
+//
+`lecture_days` on the root object is an array of the three strings `Monday`,
+`Wednesday`, and `Friday`.
+//
+Arrays may contain any kind of value including objects or other arrays.
+
+=== Using Gson
+
+Virtually all languages in common use today have JSON libraries available, so you don't
+have to parse the JSON text yourself.
+
+For the MP we'll be using Google's Gson library to work with JSON.
+//
+We have added it to the project for you and provided helper functions that
+automatically parse JSON received from our server into instances of Gson
+classes.
+//
+The classes you'll be working with most are
+//
+https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonElement.html[`JsonElement`],
+//
+https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonObject.html[`JsonObject`],
+//
+and
+//
+https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonArray.html[`JsonArray`].
+
+[.alert.alert-warning]
+//
+--
+//
+The Android SDK includes very similarly named classes like
+`JSONObject`&mdash;note the difference in capitalization.
+//
+You must use Gson; attempting to use other JSON libraries will fail during
+grading.
+//
+--
+
+A `JsonObject` represents a curly-braced JSON object.
+//
+Its `get` method returns the value of a specified property as a `JsonElement`
+(or null if the requested property was absent).
+//
+``JsonElement``s have several methods to get the value as a specific type: for
+example, `getAsInt` interprets the value as an integer and returns a Java `int`.
+//
+For example, this snippet gets the class name and enrollment from the second
+example object in the previous section:
+
+[source,java]
+----
+// Suppose cs125 is a JsonObject variable
+String className = cs125.get("name").getAsString();
+int enrollment = cs125.get("enrollment").getAsInt();
+----
+
+Accessing values from nested objects requires getting a `JsonObject` for those
+nested objects first.
+//
+Trying to get the `allows_food` property on the root object would fail because
+it doesn't exist there, but this works:
+
+[source,java]
+----
+JsonObject venue = cs125.get("location").getAsJsonObject();
+boolean allowsFoodInClass = venue.get("allows_food").getAsBoolean();
+----
+
+``JsonArray``s have a `get` method to get the value at the specified index,
+but they are also iterable with the enhanced for loop like a normal array:
+
+[source,java]
+----
+JsonArray lectureDays = cs125.get("lecture_days").getAsJsonArray();
+for (JsonElement d : lectureDays) {
+    String day = d.getAsString();
+    // Do something with day?
+}
+----
+
+=== Making Web Requests
+
+We have provided a `WebApi` class with some functions that issue web requests by
+using Google's Volley library.
+//
+Web requests take a while, so rather than stalling the execution of your app,
+Volley waits for the request's completion in the background and runs a handler
+when the response comes back.
+//
+If the request failed for some reason (maybe the phone isn't connected to the
+Internet), Volley notifies a different handler of the error.
+//
+You can make a `GET` request from activity code like this:
+
+==== Example GET Request
+
+[source,java]
+----
+WebApi.startRequest(this, WebApi.API_BASE + "/some/endpoint", response -> {
+    // Code in this handler will run when the request completes successfully
+    // Do something with the response?
+}, error -> {
+    // Code in this handler will run if the request fails
+    // Maybe notify the user of the error?
+    Toast.makeText(this, "Oh no!", Toast.LENGTH_LONG).show();
+});
+----
+
+The first parameter is the Android context, which can just be the current
+activity instance.
+//
+The second is the URL to contact.
+//
+In the MP, it should always be `WebApi.API_BASE` concatenated with the endpoint
+you'd like to access.
+//
+In the success handler, the `response` object will contain the response data as
+a `JsonObject` if the endpoint returns a result, otherwise it will be null.
+//
+We don't test for any specific error-related behavior, so your error handler can
+do anything you think is reasonable.
+
+Note that the `GET Request` required for this checkpoint is already provided to
+you, but it is helpful to note for when you do work with making other web API
+requests.
+
+==== Example POST Request
+
+To make a `POST` request, use the more complex overload of `startRequest` that
+allows specifying the method and including a body.
+//
+The method parameter can be either `Request.Method.POST` or `Request.Method.GET`
+(imported from Volley).
+//
+For this checkpoint, the body parameter can always be null, since no data needs
+to be uploaded.
+
+[source,java]
+----
+WebApi.startRequest(this, WebApi.API_BASE + "/some/endpoint", Request.Method.POST, null, response -> {
+    // response code handler similar to a GET request
+}, error -> {
+    Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
+});
+----
+
+=== Our API Documentation
+
+[.lead]
+//
+To use an API, you need to know what requests are valid and what format of data you get back.
+//
+This section tells you the endpoints you need to contact and the structure of the JSON response.
+
+The `/games` endpoint accepts `GET` requests and returns information on the
+games the user is involved in or invited to.
+//
+The resulting object has a single property called `games`, which is an array.
+//
+Each element of that array is an object with at least these properties:
+
+* `id` (string) is the game's unique ID for use in other requests about that
+* game specifically.
+//
+* `owner` (string) is the email address of the game's owner/creator.
+//
+* `state` (integer) is the `GameStateID` code for the game's current status.
+//
+* `mode` (string) is the game mode, either "area" or "target".
+//
+* `players` is the array of all players, including the current user, invited to
+or involved in the game.
+//
+Each object has at least these properties:
+//
+  - `email` (string) is the player's email.
+  //
+  - `state` (integer) is the `PlayerStateID` code for the player's current
+    status in the game.
+  //
+  - `team` (integer) is the `TeamID` code for the player's team/role in the
+    game.
+
+You may find this link:/MP/files/MP2/games.json[**example JSON response**] helpful.
+
+Some of the values mentioned are numeric codes: integers that indicate different
+states, like Android's `View.VISIBLE` or `View.GONE`.
+//
+Constants for game-relevant codes are provided in the three classes in
+`Constants.java`.
+///
+So rather than comparing against the magic number 2 to see if the game is over,
+compare against `GameStateID.ENDED`.
+
+The following three endpoints accept `POST` requests regarding the user's participation in
+a specific game and return no information.
+//
+Replace `GAME_ID` in the endpoint with the game's unique ID from the above results.
+//
+All will fail with an HTTP 404 error if the specific game does not exist.
+
+* `/games/GAME_ID/accept` accepts the invitation to the game.
+//
+Will fail if the user does not have a pending invitation to it.
+//
+* `/games/GAME_ID/decline` declines the invitation to the game.
+//
+Will fail if the user does not have a pending invitation to it.
+//
+* `/games/GAME_ID/leave` leaves an ongoing game that the user previously
+accepted an invitation to.
+//
+Will fail if the user already left or was never invited.
+
+== Your Goal
+
+Once you finish Checkpoint 2, the app will start by requiring the user to log in.
+//
+The main activity will show a list of invitations fetched from our central game server
+and allow the user to accept or decline them.
+//
+It will also list ongoing games (accepted invitations) and provide UI to enter the game or withdraw from it.
+
+image::gameslists.png[completed games lists UI]
+
+While there may be slightly more lines of code necessary for MP2 than previous
+checkpoints, it should be more straightforward than MP1 if you **read the above
+sections** and refer to them as you apply their concepts to the project.
+//
+As always, **starting early** and making steady progress is the best strategy to
+succeed on the MP.
+
+=== GameSummary
+
+For Checkpoint 2 you will need to create a `GameSummary` class in the logic
+sub-folder of our directory.
+//
+You can check out the
+//
+https://cs125-illinois.github.io/Spring2020-MP-Writeups/2/edu/illinois/cs/cs125/spring2020/mp/logic/GameSummary.html[official Javadoc]
+//
+for reference.
+//
+One GameSummary instance corresponds to one object from the games array in the
+response from the server's `/games` endpoint.
+
+You should be creating game classification logic to parse the JsonObject passed
+into your GameSummary to determine the type of the game, as well as its owner
+and other details.
+
+=== Login Setup
+
+Like when you first started Checkpoint 1, the test suites will not be able to
+compile immediately after acquiring the new Checkpoint 2 files.
+//
+You need to create the `LaunchActivity` activity, which will become the app's
+new initial/startup activity, as well as create the `GameSummary` class in your
+`logic` sub-directory.
+
+Right-click our package that contains all the Java files you've been working
+with and select _New | Activity | Empty Activity_.
+//
+Enter `LaunchActivity` in the Activity Name box, which should automatically set
+the Layout Name to `activity_launch`.
+//
+Make sure the Source Language is set to Java, then press Finish to create the
+activity.
+//
+If prompted to add the new files to Git, do so.
+
+==== Android Manifest
+
+To change the app's startup activity, we need to change the _manifest_, an XML
+file that contains various registration and metadata about the app.
+//
+It is named `AndroidManifest.xml`, located directly inside the `main` folder.
+//
+Your objective here is to move the `<intent-filter>` section from
+``MainActivity``'s registration to ``LaunchActivity``'s so that the app launches
+`LaunchActivity` instead of `MainActivity`.
+//
+You can refer to
+//
+https://developer.android.com/guide/topics/manifest/manifest-intro[Android's official manifest documentation]
+//
+for reference.
+
+==== Launch Activity
+
+We will be using Google's Firebase Authentication service to display a login
+flow and manage credentials.
+//
+We want the user to be sent directly to the main app if they're already logged
+in, but if not we will start the login process.
+//
+So the `onCreate` logic will have this structure:
+
+[source,java]
+----
+if (/* the user is logged in */) { // see below discussion
+    // launch MainActivity
+    finish();
+} else {
+    // start login activity for result - see below discussion
+}
+----
+
+`FirebaseAuth.getInstance().getCurrentUser()` returns an object representing the
+authenticated user or null if the user has not logged in.
+//
+Checking it for null allows you to determine whether the user needs to sign in.
+//
+Later in this checkpoint you'll find this object's `getEmail()` function useful
+for getting the current user's email, which serves as their identifier in the
+game.
+
+If you've determined that the user needs to log in, you can start the Firebase Authentication UI flow according to
+//
+https://github.com/firebase/snippets-android/blob/21f7bda3ac075e6c75d49955e37330044c95dfbe/auth/app/src/main/java/com/google/firebase/quickstart/auth/FirebaseUIActivity.java#L50-L68[this Google example]
+//
+(specifically the functions `createSignInIntent` and `onActivityResult`) but with only email authentication enabled.
+//
+The example code assumes an `RC_SIGN_IN` constant ("__r__equest __c__ode for _sign_-_in_"),
+which you may define as an integer of your choice or pick a different name for.
+//
+Either way, the value you pass to `startActivityForResult` will be passed as the request code to
+`onActivityResult` when the login flow completes.
+
+`onActivityResult`, as described in the Getting Results from Activities section,
+will be called when the login flow is over whether or not the user actually
+signed in.
+//
+So `onActivityResult` will need logic to check that before proceeding to the
+main activity:
+
+[source,java]
+----
+if (/* the result is from the login request */) {
+    if (/* the user successfully logged in */) { // see below discussion
+        // launch MainActivity
+        finish();
+    }
+}
+----
+
+To see if the login flow was successful, you can either check the result code against
+`RESULT_OK` like Google's example does, or repeat the logic you used to determine whether
+the user was signed in in the first place.
+
+If the user canceled the login flow, they'll see the `LaunchActivity` UI.
+//
+Use the UI designer to add a button with ID `goLogin`.
+//
+Feel free to caption this whatever you like and add any explanatory labels about
+needing to log in to use the app.
+//
+Pushing the button should start the login process again.
+
+[.alert.alert-warning]
+--
+When testing your app in the emulator, you'll be prompted to create an account with email
+and password.
+//
+Even if you use your university email address, your account with the game service
+will not be linked to Shibboleth.
+//
+For your security, do not reuse your Active Directory (NetID)
+password here.
+--
+
+=== Invitation/Game Buttons
+
+To allow the user to respond to invitations or leave games, we will need to make
+it possible to interact with the game information chunks.
+
+Pressing Accept, Decline, or Leave should send the appropriate web request to
+inform the server of the user's decision.
+//
+Once that request completes, the games list should be fetched again and the UI
+should be updated so that the user sees that their decision took effect.
+
+Your job is to add handlers to these buttons (already fetched in
+`MainActivity.java`) so that they launch the appropriate activities and make
+requests or finish activities, as appropriate.
+
+**To confirm that these buttons and web requests are working**, you can use
+https://misc.rigeltechnical.com/campussnake/invitetest.html[the invitation testing site].
+//
+The "invitation status" column will update immediately when you respond to an invitation
+or leave a game created by a virtual player.
+
+When the app is done, pressing the Enter button on an ongoing game will enter
+that game, showing the map and putting the user into active gameplay.
+//
+Multiplayer games aren't implemented yet, but we can set up the intent in
+advance.
+//
+Make clicking an Enter button launch `GameActivity` with that game's unique ID
+(a string) in the `game` extra.
+
+== Grading
+
+MP2 is worth 100 points total, broken down as follows:
+
+* **5 points** for making `LaunchActivity` the startup activity
+* **20 points** for the login flow
+* **10 points** for correctly summarizing game information
+* **10 points** for correctly summarizing player and team roles
+* **10 points** for correctly classifying games
+* **15 points** for the invitation response buttons
+* **10 points** for the enter-game intent
+* **10 points** for having no `checkstyle` violations
+* **10 points** for submitting code that earns at least _40 points_
+  by 8 PM on your early deadline day
+
+=== Test Cases
+
+Because this checkpoint involves creating Android activities and building more
+backend logic to your app, the Checkpoint 2 test suite will directly test your
+`GameSummary` class, as well as interact with your app in a simulated Android
+environment.
+//
+While fully understanding how `Checkpoint2Test` works is not expected, reading
+the assertions it makes may help you understand what exactly the tests are
+looking for.
+
+=== Style Points
+
+Proper style continues to constitute 10% of your grade.
+//
+Android Studio and `checkstyle` may have different opinions on how much handlers
+should be indented when passed as parameters to functions like
+`WebApi.startRequest`.
+//
+If the default indentation level does not satisfy `checkstyle`, you can select a
+chunk of code and use Shift+Tab to remove one level of indentation or Tab to add
+one level.
+//
+Alternatively, you can select some of the spaces at the beginning of the line
+and press Delete to remove them without Android Studio trying to put them back.
+
+=== Submitting Your Work
+
+As before, submitting your work requires committing **and pushing** the files
+you modified or added.
+//
+You can review the link:/MP/setup/git/#submitting[submitting portion] of our Git
+workflow.
+
+== Cliffhanger
+
+It is somewhat common in larger projects for a feature to not be very useful to
+the application overall until several pieces of functionality are in place.
+//
+While the app can show and respond to invitations after you complete Checkpoint
+2, there is no way to actually create or invite anyone to a multiplayer game.
+//
+Checkpoint 3 will make it possible to configure multiplayer games and send
+invitations.
+
+== Cheating
+
+The link:/info/syllabus/#cheating[cheating policies] in the syllabus continue to
+apply.
+//
+Do not submit work done by anyone else or share your MP code with others.

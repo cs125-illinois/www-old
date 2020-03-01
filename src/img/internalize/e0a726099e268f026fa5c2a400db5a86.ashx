@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="rid=RID_-2018356100|rpid=-1295847763|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1582218611360|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1582218611360|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-260309133|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="rid=RID_-2018356100|rpid=-168232100|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1582967247577|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1582967247577|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=1465832743|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -48,7 +48,7 @@
 			digitalData = {
 				page: {
 					name: "Error Page 404",
-					lastUpdated: "Feb 20, 2020",
+					lastUpdated: "Feb 25, 2020",
 					businessAlignment:""
 				},
 				lang: {
@@ -166,7 +166,7 @@
         
         	
     
-<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.1b5fc458798d48889d403f57733efa5f.css" type="text/css">
+<link rel="stylesheet" href="/etc/designs/dcc/clientlibs/global-v2.min.410bcf6a2298c7d380480ba00d2c011f.css" type="text/css">
 
 
 
@@ -231,7 +231,10 @@
                 </form>
             </div>
 
-            
+            <div class="mega__countries hidden-sm hidden-xs ">
+                
+            </div>
+
             <!-- ,shipTo='2445995',address='DOW INC, 2211 H H DOW WAY',city='MIDLAND',state='Michigan',zip='48642-4815' -->
 
             <ul class="mega__settings">					
@@ -1616,7 +1619,7 @@
             
     
     
-    <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-consumer-goods/app-consumer-cg-bedding-furntiture.html">Bedding and Furniture</a>
+    <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-consumer-goods/app-consumer-cg-bedding-pillows.html">Bedding and Pillows</a>
     
 
         </li>
@@ -1643,25 +1646,16 @@
             
     
     
+    <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-consumer-goods/app-consumer-cg-furniture.html">Furniture</a>
+    
+
+        </li>
+    
+        <li>
+            
+    
+    
     <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-consumer-goods/app-consumer-cg-infant-care.html">Infant Care</a>
-    
-
-        </li>
-    
-        <li>
-            
-    
-    
-    <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-consumer-goods/app-consumer-cg-integral-skin.html">Integral Skin</a>
-    
-
-        </li>
-    
-        <li>
-            
-    
-    
-    <a href="/en-us/market/mkt-consumer-goods-appliances/sub-consumer-consumer-goods/app-consumer-cg-pillows.html">Pillows</a>
     
 
         </li>
@@ -3237,7 +3231,7 @@
                     <a href="#login" class="button--account loggedout" data-toggle="modal" data-target="#loginFormModal">Login</a>
                 </li>
                 <li>
-                    <a href="https://corporate.dow.com/en-us/locations.html" title="locationstext.title">Locations</a>
+                    <a href="https://corporate.dow.com/en-us/locations.html.html" title="locationstext.title">Global Locations</a>
                 </li>
                 <li>
                     <a href="#language" aria-controls="mega__languages" aria-expanded="false" @click="toggle">Select Language</a>
@@ -3246,6 +3240,9 @@
                             <a :href="language.link">{{ language.value }}</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    
                 </li>
             </ul>
         </nav>
@@ -3286,7 +3283,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Confirmation</h3>
+                <p class="modal-title">Confirmation</p>
                 <button class="close" data-dismiss="modal">
 
                     <svg class="svg-nav_close_x">
@@ -3373,7 +3370,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Confirmation</h3>
+                <p class="modal-title">Confirmation</p>
                 <button class="close" data-dismiss="modal">
 
                     <svg class="svg-nav_close_x">
@@ -3427,7 +3424,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Confirmation</h3>
+                <p class="modal-title">Confirmation</p>
                 <button class="close" data-dismiss="modal">
 
                     <svg class="svg-nav_close_x">
@@ -3470,7 +3467,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Verify your E-mail address</h3>
+                <p class="modal-title">Verify your E-mail address</p>
                 <button class="close" data-dismiss="modal">
 
                     <svg class="svg-nav_close_x">
@@ -3671,8 +3668,8 @@
     <script>
 
         window.isNewDowEnvironment = true;
-        window.locationsHref = "\/content\/corp\/en\u002Dus\/locations";
-        window.locationsText = "Locations";
+        window.locationsHref = "https:\/\/corporate.dow.com\/en\u002Dus\/locations.html";
+        window.locationsText = "Global Locations";
 
     </script>
     <script type="dcc/template" id="locations-html">
@@ -3854,13 +3851,13 @@ had its name changed, or is temporarily unavailable.</span></h1>
 
     
     
-    <div class="image parbase"><div id="cq-image-jsp-/content/dcc/en-us/errors/404/jcr:content/utilityParsys/embedcolumn_copy/columnOne/embedcolumn/columnTwo/image"><img src="/content/dcc/en-us/errors/404/_jcr_content/utilityParsys/embedcolumn_copy/columnOne/embedcolumn/columnTwo/image.img.jpg/1581619827170.jpg" alt="Red barrels" title="as_215485478-content-barrels-156x194" class="cq-dd-image"></div>
+    <div class="image parbase"><div id="cq-image-jsp-/content/dcc/en-us/errors/404/jcr:content/utilityParsys/embedcolumn_copy/columnOne/embedcolumn/columnTwo/image"><a href="/en-us.html"><img src="/content/dcc/en-us/errors/404/_jcr_content/utilityParsys/embedcolumn_copy/columnOne/embedcolumn/columnTwo/image.img.jpg/1582557095537.jpg" alt="Red barrels" title="as_215485478-content-barrels-156x194" class="cq-dd-image"></a></div>
     
     
 <script type="text/javascript">
     (function() {
         var imageDiv = document.getElementById("cq\u002Dimage\u002Djsp\u002D\/content\/dcc\/en\u002Dus\/errors\/404\/jcr:content\/utilityParsys\/embedcolumn_copy\/columnOne\/embedcolumn\/columnTwo\/image");
-        var imageEvars = '{ imageLink: "", imageAsset: "/content/dam/dcc/images/ads/global/global-1/as_215485478-content-barrels-156x194.jpg", imageTitle: "as_215485478\u002Dcontent\u002Dbarrels\u002D156x194" }';
+        var imageEvars = '{ imageLink: "/content/dcc/en-us.html", imageAsset: "/content/dam/dcc/images/ads/global/global-1/as_215485478-content-barrels-156x194.jpg", imageTitle: "as_215485478\u002Dcontent\u002Dbarrels\u002D156x194" }';
         var tagNodes = imageDiv.getElementsByTagName('A');
         for (var i = 0; i < tagNodes.length; i++) {
             var link = tagNodes.item(i); 
@@ -3927,13 +3924,13 @@ had its name changed, or is temporarily unavailable.</span></h1>
 
     
     
-    <div class="image parbase"><div id="cq-image-jsp-/content/dcc/en-us/errors/404/jcr:content/utilityParsys/embedcolumn_copy/columnTwo/embedcolumn_copy/columnTwo/image_copy"><img src="/content/dcc/en-us/errors/404/_jcr_content/utilityParsys/embedcolumn_copy/columnTwo/embedcolumn_copy/columnTwo/image_copy.img.jpg/1581619885113.jpg" alt="Hands on a laptop" title="as_236629968-content-computer-156x194" class="cq-dd-image"></div>
+    <div class="image parbase"><div id="cq-image-jsp-/content/dcc/en-us/errors/404/jcr:content/utilityParsys/embedcolumn_copy/columnTwo/embedcolumn_copy/columnTwo/image_copy"><a href="/en-us/search.html?x11=category&q11=products&tab=products"><img src="/content/dcc/en-us/errors/404/_jcr_content/utilityParsys/embedcolumn_copy/columnTwo/embedcolumn_copy/columnTwo/image_copy.img.jpg/1582557113192.jpg" alt="Hands on a laptop" title="as_236629968-content-computer-156x194" class="cq-dd-image"></a></div>
     
     
 <script type="text/javascript">
     (function() {
         var imageDiv = document.getElementById("cq\u002Dimage\u002Djsp\u002D\/content\/dcc\/en\u002Dus\/errors\/404\/jcr:content\/utilityParsys\/embedcolumn_copy\/columnTwo\/embedcolumn_copy\/columnTwo\/image_copy");
-        var imageEvars = '{ imageLink: "", imageAsset: "/content/dam/dcc/images/ads/global/global-1/as_236629968-content-computer-156x194.jpg", imageTitle: "as_236629968\u002Dcontent\u002Dcomputer\u002D156x194" }';
+        var imageEvars = '{ imageLink: "/content/dcc/en-us/search.html?x11=category&q11=products&tab=products", imageAsset: "/content/dam/dcc/images/ads/global/global-1/as_236629968-content-computer-156x194.jpg", imageTitle: "as_236629968\u002Dcontent\u002Dcomputer\u002D156x194" }';
         var tagNodes = imageDiv.getElementsByTagName('A');
         for (var i = 0; i < tagNodes.length; i++) {
             var link = tagNodes.item(i); 
@@ -3999,13 +3996,13 @@ had its name changed, or is temporarily unavailable.</span></h1>
 
     
     
-    <div class="image parbase"><div id="cq-image-jsp-/content/dcc/en-us/errors/404/jcr:content/utilityParsys/embedcolumn_copy/columnThree/embedcolumn_copy/columnTwo/image_copy"><img src="/content/dcc/en-us/errors/404/_jcr_content/utilityParsys/embedcolumn_copy/columnThree/embedcolumn_copy/columnTwo/image_copy.img.jpg/1581621681461.jpg" alt="Tech support man" title="Handsome young male customer support executive working in office." class="cq-dd-image"></div>
+    <div class="image parbase"><div id="cq-image-jsp-/content/dcc/en-us/errors/404/jcr:content/utilityParsys/embedcolumn_copy/columnThree/embedcolumn_copy/columnTwo/image_copy"><a href="/en-us/support.html"><img src="/content/dcc/en-us/errors/404/_jcr_content/utilityParsys/embedcolumn_copy/columnThree/embedcolumn_copy/columnTwo/image_copy.img.jpg/1582636747121.jpg" alt="Man in support center wearing headset" title="Handsome young male customer support executive working in office." class="cq-dd-image"></a></div>
     
     
 <script type="text/javascript">
     (function() {
         var imageDiv = document.getElementById("cq\u002Dimage\u002Djsp\u002D\/content\/dcc\/en\u002Dus\/errors\/404\/jcr:content\/utilityParsys\/embedcolumn_copy\/columnThree\/embedcolumn_copy\/columnTwo\/image_copy");
-        var imageEvars = '{ imageLink: "", imageAsset: "/content/dam/dcc/images/ContentImages/global/global-1/dow_54434976660-support-home-156x194.jpg", imageTitle: "Handsome young male customer support executive working in office." }';
+        var imageEvars = '{ imageLink: "/content/dcc/en-us/support.html", imageAsset: "/content/dam/dcc/images/ContentImages/global/global-1/dow_54434976660-support-home-156x194.jpg", imageTitle: "Handsome young male customer support executive working in office." }';
         var tagNodes = imageDiv.getElementsByTagName('A');
         for (var i = 0; i < tagNodes.length; i++) {
             var link = tagNodes.item(i); 
@@ -4055,7 +4052,7 @@ had its name changed, or is temporarily unavailable.</span></h1>
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header {{type}}">
-                        <h3 class="modal-title">{{title}}</h3>
+                        <p class="modal-title">{{title}}</p>
                         <button class="close" data-dismiss="modal">
 
                             <svg class="svg-nav_close_x">
@@ -4087,8 +4084,8 @@ had its name changed, or is temporarily unavailable.</span></h1>
         </div>
     </script>
     
-    <!-- Activation Date: Feb 20, 2020 -->
-    <input type="hidden" id="publishDate" value="Feb 20, 2020"/>
+    <!-- Activation Date: Feb 25, 2020 -->
+    <input type="hidden" id="publishDate" value="Feb 25, 2020"/>
     <!-- Locale -->
     
 	    <input type="hidden" id="sp_locale" name="sp_locale" value="en_US"/>
@@ -4307,10 +4304,7 @@ had its name changed, or is temporarily unavailable.</span></h1>
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!--Commented for new layout-->
-                    <!-- <h3 class="modal-title">LOG IN</h3> -->
                     <button class="close" data-dismiss="modal">
-
                         <svg class="svg-nav-close">
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#nav-close"></use>
                         </svg>
@@ -4337,14 +4331,14 @@ had its name changed, or is temporarily unavailable.</span></h1>
         <div class="login_holder">
 
             
-                <h2 class="login-message">Log in to your Account at Dow </h2>
+                <p class="login-message">Log in to your Account at Dow </p>
                 <div class="help-text-modal">
                     Login with your account details to get access to our exclusive content.
                 </div>
             
 
             
-            <h3 class="account-found-message sample-request-user-exits hidden">We have found an existing account with credentials. Please login or reset your password.</h3>
+            <p class="account-found-message sample-request-user-exits hidden">We have found an existing account with credentials. Please login or reset your password.</p>
             <script type="dcc/template" id="dcc-notification">
                 <div class="component-notification danger">
                     <div class="notification_icon">
@@ -4504,7 +4498,7 @@ had its name changed, or is temporarily unavailable.</span></h1>
     
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="register-wrapper">
-                <h2 class="register-heading">Why Register?</h2>
+                <p class="register-heading">Why Register?</p>
                 <div class="register-content">
 
                     <div class="register-info product-info">
@@ -4584,7 +4578,7 @@ had its name changed, or is temporarily unavailable.</span></h1>
     
         <meta/>
     
-<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.9aabff247df0ac55fb5839249b0c7755.js"></script>
+<script type="text/javascript" src="/etc/designs/dcc/clientlibs/global.min.1429fa710f494764148a446223000a03.js"></script>
 
 
 
@@ -4600,7 +4594,7 @@ had its name changed, or is temporarily unavailable.</span></h1>
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header {{type}}">
-                            <h3 class="modal-title">{{title}}</h3>
+                            <p class="modal-title">{{title}}</p>
                             <button class="close" data-dismiss="modal">
 
                                 <svg class="svg-nav_close_x">
@@ -4674,17 +4668,17 @@ had its name changed, or is temporarily unavailable.</span></h1>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title firstLoginMessage hidden">
+                <p class="modal-title firstLoginMessage hidden">
                     Welcome to Dow
-                </h3>
-                <h3 class="modal-title notFirstLoginMessage hidden">
+                </p>
+                <p class="modal-title notFirstLoginMessage hidden">
                     Delivery Address
                     <span class="icon-nav_delivery">
                         <svg class="svg-nav_delivery">
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#nav_delivery"></use>
                         </svg>
                     </span>
-                </h3>
+                </p>
                 <button class="close">
                     <svg class="svg-nav-close">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#nav-close"></use>
@@ -4715,7 +4709,7 @@ had its name changed, or is temporarily unavailable.</span></h1>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Items in your cart might be affected by address change</h3>
+                <p class="modal-title">Items in your cart might be affected by address change</p>
                 <button class="close" data-dismiss="modal">
                     <svg class="svg-nav_close_x">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#nav_close_x"></use>
