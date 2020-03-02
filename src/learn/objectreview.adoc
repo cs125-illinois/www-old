@@ -366,107 +366,14 @@ class
 //
 * Generics (discussed later)
 
-[[nqWbDnGJqKLMIaHvSuYCGMtSXNjuiFnu]]
-== Review: `Flip`
+[[jiSCXBdAuOnhpItuaduAEfKpwsGqyKYz]]
+== Worked Examples
 
-Define a public `class` named `Flip` with a single public instance method
-called `flop` that takes no parameters and returns a `boolean`.
-
-Calling `flop` changes the state from `false` to `true` or `true` to `false` and
-returns the _new_ (not the old) state.
-
-It should also provide a single constructor that takes a `boolean` argument that
-sets the initial state of the `Flip` instance.
-
-[[MzdAMfAlwfmcvOdDvOFNujLpGqUqxaIi]]
-== ! `Flip`
-
-[.janini.small.compiler]
-....
-public class Example {
-  public static void main(String[] unused) {
-    Flip flip = new Flip(true);
-    Flip flop = new Flip(false);
-    for (int i = 0; i < 8; i++) {
-      System.out.println(i + " " + flip.flop());
-      System.out.println(i + " " + flop.flop());
-    }
-  }
-}
-....
-
-[[orYebYemmWfwiIkouECEpHwzgUmvHngq]]
-== Review: `LastTen`
-
-Complete the implementation of a class called `LastTen`.
+Please refer to
 //
-Your class should implement two public methods as described below:
-
-. `void add(int newValue)`: add a new integer to the values that we are
-remembering
+https://youtu.be/XgDbzmHQh_w?t=1998[last semester's video]
 //
-. `int[] getLastTen()`: return the last ten values that were added using add, in
-any order.
-//
-If fewer than ten values were added, you should return zeros in their place.
-
-Your class should also provide a constructor that takes no arguments.
-//
-It should not expose any of its state publicly.
-
-[[PuCamSKgLSZBtxPcnrGgUvIqvsJQfhtr]]
-== ! `LastTen` Attempt 1
-
-[.janini.small.compiler]
-....
-import java.util.Arrays;
-
-public class Example {
-  public static void main(String[] unused) {
-    LastTen lastTen = new LastTen();
-    for (int i = 0; i < 32; i++) {
-      lastTen.add(i);
-    }
-    System.out.println(Arrays.toString(lastTen.getLastTen()));
-  }
-}
-....
-
-[[gGQSTGJEsdIRfuiEeTMNdLglNFSDhBZV]]
-== ! `LastTen` Attempt 2
-
-[.janini.small.compiler]
-....
-import java.util.Arrays;
-
-public class Example {
-  public static void main(String[] unused) {
-    LastTen lastTen = new LastTen();
-    for (int i = 0; i < 32; i++) {
-      lastTen.add(i);
-    }
-    System.out.println(Arrays.toString(lastTen.getLastTen()));
-  }
-}
-....
-
-[[DUBdpEaAvnXiNefdsOofrRFDZTBMnApM]]
-== ! `LastTen` Attempt 3
-
-[.janini.small.compiler]
-....
-import java.util.Arrays;
-
-public class Example {
-  public static void main(String[] unused) {
-    LastTen lastTen = new LastTen();
-    for (int i = 0; i < 32; i++) {
-      lastTen.add(i);
-    }
-    System.out.println(Arrays.toString(lastTen.getLastTen()));
-  }
-}
-....
+for a walkthrough of how to complete one of the recent homework problems.
 
 [[aeVJuVbnHSUwndHSELusYguefZbWovbn]]
 [.oneword]
