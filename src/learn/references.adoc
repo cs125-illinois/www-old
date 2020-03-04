@@ -1,0 +1,833 @@
+---
+title: Object References
+date: 2020-03-04
+description:
+  An introduction to object references and their implications for Java
+  programming.
+---
+:imagesdir: /learn/images
+
+[[XvVPGwaRhahvjdxCblIifRgJogEUVwFu]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Object References</div>
+++++
+....
+public class Person {
+  public String name;
+  Person(String setName) {
+    name = setName;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    int first = 0;
+    int second = first;
+    second = 8;
+    System.out.println(first + " " + second);
+
+    Person me = new Person("Geoff");
+    Person you = me;
+    you.name = "Student";
+    System.out.println(me + " " + you);
+  }
+}
+....
+--
+
+[[XiqkZBdXKdvFJZFSiXkdtBYoZpdsEdoz]]
+== Next Few Classes
+
+[.s]
+//
+* Today: object references
+//
+* Friday: return to polymorphism, which will make a bit more sense after we talk
+about references, and a bit of additional class design
+
+[[NVPEimfpaQntXbilINxWLYbiTQfqJrmy]]
+== ! Another Puzzle
+
+[.janini.smaller.compiler]
+----
+public class Person {
+  public String name;
+  Person(String setName) {
+    name = setName;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works one way...
+    int first = 0;
+    int second = first;
+    second = 8;
+    System.out.println(first + " " + second);
+
+    // But this works another way?
+    Person me = new Person("Geoff");
+    Person you = me;
+    you.name = "Student";
+    System.out.println(me + " " + you);
+  }
+}
+----
+
+[[XxGahOwmXfZrBFQuELVZOxrslVpDJEnC]]
+== References
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Reference_(computer_science)[Reference:]
+//
+a value that enables a program to _indirectly_ access a particular datum, such
+as a variable's value or a record, in the computer's memory or in some other
+storage device.
+//
+The reference is said to refer to the datum, and accessing the datum is called
+dereferencing the reference.
+____
+
+[[jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge]]
+== Java Reference Variables
+
+[source,java,role='smallest']
+----
+class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me); // The variables store the same reference
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);
+----
+
+[.lead]
+//
+We can (and will) refer to a Java variable that refers to an object as a _reference
+variable_.
+
+[[ePzrrhanajpSQIFiEmThxkYyCQtBUDrR]]
+== ! Java Reference Variables
+
+[.janini.smaller]
+....
+class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me); // The variables store the same reference
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);
+....
+
+[[dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv]]
+== References Are Not Objects
+
+[.lead]
+//
+References _are not_ the thing the refer to.
+
+What are some real-world examples of references?
+
+[.s]
+//
+* *A phone number*: which refers to a phone
+//
+* *A street address*: which refers to a physical location
+//
+* *A social security number*: which refers to a person
+
+[[itfuafekfLjAzwwbVrkStPQVIGyxObCF]]
+== Copying References
+
+[.lead]
+//
+Copying a reference _does not_ copy the object it refers to.
+
+[.s]
+//
+* *Copying a phone number doesn't copy the phone.*
+//
+Anyone with the number can call the same person.
+//
+* *Copying a street address doesn't copy the location.*
+//
+Anyone with the address can navigate to the same spot.
+//
+* *Copying a social security number doesn't copy the person* footnote:[Is that
+even possible?].
+//
+Anyone with social security number may be able to impersonate that person.
+
+[[mgDxtWzOVhgiyiPrSUQKCwwUKOAeHLuC]]
+== ! Copying References
+
+[.janini]
+....
+class Person {
+  public int age;
+}
+Person me;
+me = new Person();
+Person you = me;
+me.age = 40;
+System.out.println(you.age);
+....
+
+[[mIzaMkJisKMhTtGuDJdBQQQLzmaeZvUp]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  me
+</div>
+++++
+
+[[oTxeeptDAAbhPoFfhrUmlbRqOGBifBCI]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
+</div>
+++++
+
+[[HRLZQYDutqYyuRJLAfRTUKWsHAAnIsXh]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 0" ]
+  me -> Person [ label = "refers to" ]
+  you -> Person [ label = "refers to" ]
+</div>
+++++
+
+[[BNDFZUWJXXyorFCxmkBrigvGUpbPKsEb]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 40;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 40" ]
+  me -> Person [ label = "set age" ]
+  you -> Person
+</div>
+++++
+
+[[EbMSAXuEuSUQYYKcghZAlJXEgDAazCWh]]
+[.ss]
+== Copying References
+
+[source,java]
+----
+class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 40;
+System.out.println(you.age);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 40" ]
+  me -> Person
+  you -> Person [ label = "get age" ]
+</div>
+++++
+
+[[OmTSjTmYpHwjYoPLKPiqfxoTUMMjNKUl]]
+== ! Copying References
+
+[.janini]
+....
+class Person {
+  public int age;
+}
+Person me;
+me = new Person();
+Person you = me;
+me.age = 40;
+System.out.println(you.age);
+....
+
+[[eQpiyhXFcqMSmIAgOndHFzSGcIJfkOSR]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+Person me = new Person(40);
+Person you = new Person(18);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P2 [ label = "Person|age = 18" ]
+  P1 [ label = "Person|age = 40" ]
+  me -> P1
+  you -> P2
+</div>
+++++
+
+[[lkfWvkqKjRjIjJZWJvPzqfFkFyphDUFO]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+Person me = new Person(40);
+Person you = new Person(18);
+Person tmp = me;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 40" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P1
+  you -> P2
+  tmp -> P1
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+++++
+
+[[pWMfaKXkBZCrwPFnsQKKsUWcnCsVJBzf]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+Person me = new Person(40);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 40" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  me -> P1 [style=invis]
+  you -> P2
+  you -> P1 [style=invis]
+  tmp -> P1
+  tmp -> P2 [style=invis]
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+++++
+
+[[UywGpTsMtxFOHkCUrvxZmOYaZYzFqZMv]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+Person me = new Person(40);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 40" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  me -> P1 [style=invis]
+  you -> P1
+  you -> P2 [style=invis]
+  tmp -> P1
+  tmp -> P2 [style=invis]
+  me -> you [style=invis]
+  you -> tmp [style=invis]
+  {rank=same; me you tmp}
+</div>
+++++
+
+[[ZlSlVntakQfPDbkrVfimWKcshUXdksDO]]
+[.ss]
+== Swapping References
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+Person me = new Person(40);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;
+// Now we can discard tmp
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  P1 [ label = "Person|age = 40" ]
+  P2 [ label = "Person|age = 18" ]
+  me -> P2
+  you -> P1
+  me -> P1 [style=invis]
+  you -> P2 [style=invis]
+</div>
+++++
+
+[[uzNQUXEArykYdhVIfncXFOqBYnBNVOol]]
+== ! Swapping References
+
+[.janini.smaller]
+....
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+Person me = new Person(40);
+Person you = new Person(18);
+Person tmp = me;
+me = you;
+you = tmp;
+System.out.println("You're now " + you.age);
+....
+
+[[MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB]]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(39);
+System.out.println(birthday(me));
+System.out.println(me.age);
+----
+
+[.lead]
+//
+In Java methods receive _a copy_ of a reference to the passed object.
+
+So they *can* modify the object the reference refers to.
+
+[[TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO]]
+[.ss]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(39);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person
+</div>
+++++
+
+[[QeoegaQWqRCqwRWjFgcHecPcBnblAsuu]]
+[.ss]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(39);
+System.out.println(birthday(me));
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 39" ]
+  me -> Person
+  toSet -> Person [ label = "age++" ]
+</div>
+++++
+
+[[LCApeGyQtFkuQzuHRiWVCZeNpdydfeht]]
+[.ss]
+== Pass By Reference
+
+[source,java,role='smaller']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(39);
+System.out.println(birthday(me));
+System.out.println(me.age);
+----
+
+<<<
+
+++++
+<div class="digraph default">
+  Person [ label = "Person|age = 40" ]
+  me -> Person [ label = "get age" ]
+</div>
+++++
+
+[[llBQyrlpKOvNiAoKQdVqESgkRxfeasaU]]
+== ! Pass By Reference
+
+[.janini.smaller.compiler]
+....
+public class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+public class Example {
+  public static int birthday(Person toSet) {
+    toSet.age++;
+    return toSet.age;
+  }
+  public static void main(String[] unused) {
+    Person me = new Person(39);
+    System.out.println(birthday(me));
+    System.out.println(me.age);
+  }
+}
+....
+
+[[XpvjEiHxEGbjtWPgOzaxnwavoTjYJuUk]]
+== Arrays Store Object References
+
+[source,java,role='smallest']
+----
+class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+Person[] people = new Person[4];
+for (int i = 0; i < people.length; i++) {
+  people[i] = new Person(18 + i);
+}
+Person[] samePeople = new Person[4];
+for (int i = 0; i < people.length; i++) {
+  samePeople[i] = people[i];
+}
+for (int i = 0; i < people.length; i++) {
+  people[i].age++;
+}
+for (int i = 0; i < samePeople.length; i++) {
+  System.out.println(samePeople[i].age);
+}
+----
+
+[.lead]
+//
+So copying an array as above only copies the object references, not the objects
+themselves.
+
+[[vBVVoNbvCRZapCtVZOalDGPPOGiDqYTV]]
+== ! Arrays Store Object References
+
+[.janini.smallest.compiler]
+....
+public class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person[] people = new Person[4];
+    for (int i = 0; i < people.length; i++) {
+      people[i] = new Person(18 + i);
+    }
+    Person[] samePeople = new Person[4];
+    for (int i = 0; i < people.length; i++) {
+      samePeople[i] = people[i];
+    }
+    for (int i = 0; i < people.length; i++) {
+      people[i].age += 10;
+    }
+    for (int i = 0; i < samePeople.length; i++) {
+      System.out.println(samePeople[i].age);
+    }
+  }
+}
+....
+
+[[wLKMXRVWDTOLVmKPzLGUzkHWsYXfjKhd]]
+== How To Copy Objects
+
+[source,java]
+----
+public class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+  Person(Person other) {
+    age = other.age;
+  }
+}
+----
+
+[.lead]
+//
+If we want to copy an object, we have a few options:
+
+[.s]
+//
+* `Object` provides a `clone` method
+//
+* You can implement a _copy_ constructor as shown above
+
+[[vtWsenPfOnNERusCedHhIXeYjZEfNHim]]
+== Objects v. References
+
+This can be confusing at first, but here's a cheat sheet that may be helpful:
+
+[.s]
+//
+* Objects are _only_ created when you see `new`.
+//
+* The variables that store objects _actually_ store object _references_.
+
+[[ldcfNgEurcrfamfycWeGTznjSnnlRDxg]]
+== More Class Design: `final`
+
+Marking a class as `final` means that it _cannot be extended_:
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public final class Dog extends Pet { }
+public class BigDog extends Dog { } // This won't work
+----
+
+[[HnJdeVEnORRMnVBOCLYWyfkMPZKSzEZu]]
+== ! More Class Design: `final`
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public final class Dog extends Pet { }
+public class BigDog extends Dog { } // This won't work
+public class Example {
+  public static void main(String[] unused) {
+    BigDog dog = new BigDog();
+  }
+}
+....
+
+
+[[oLATvvAeEFBWOjyXpJJNniARcDofIONK]]
+== ! Another Puzzle
+
+[.janini.smaller.compiler]
+----
+public class Person {
+  public String name;
+  Person(String setName) {
+    name = setName;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works one way...
+    int first = 0;
+    int second = first;
+    second = 8;
+    System.out.println(first + " " + second);
+
+    // But this works another way?
+    Person me = new Person("Geoff");
+    Person you = me;
+    you.name = "Student";
+    System.out.println(me + " " + you);
+  }
+}
+----
+
+[[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
+== Announcements
+
+* I have office hours as usual today, 4&ndash;5PM, Siebel 2227.
+//
+Please come by and say hi!
+//
+* We have a
+//
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+
+// vim: ts=2:sw=2:et
