@@ -1,0 +1,813 @@
+---
+title: Polymorphism and References
+date: 2020-03-06
+description:
+  A continued discussion of polymorphism in light of what we now know about
+  object references.
+youtube: https://youtu.be/I0rs5T840jA
+---
+
+[[yvPGyAzjIWxppDwhCkgPugvxiKuRyxUi]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Polymorphism and References</div>
+++++
+....
+public abstract class Pet {
+  public String getOwner() {
+    return "My owner is ...";
+  }
+}
+public class Dog extends Pet {
+  public String bark() {
+    return "Woof";
+  }
+}
+public class Cat extends Pet {
+  public String meow() {
+    return "Meow...";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    System.out.println(chuchu.bark());
+    System.out.println(chuchu.getOwner());
+    System.out.println(chuchu);
+
+    Pet chuchuAsPet = chuchu;
+    // System.out.println(chuchuAsPet.bark()); // Doesn't work
+    System.out.println(chuchuAsPet.getOwner());
+    System.out.println(chuchuAsPet);
+
+    Object chuchuAsObject = chuchu;
+    // System.out.println(chuchuAsObject.bark()); // Doesn't work
+    // System.out.println(chuchuAsObject.getOwner()); // Doesn't work
+    System.out.println(chuchuAsObject);
+  }
+}
+....
+--
+
+[[PnibedMlQLqeiYounxGGGDxsmuwChEFl]]
+[.oneword]
+//
+== Today's Goal
+
+[.lead]
+//
+Connect _polymorphism_ (Monday) and _references_ (Wednesday)
+
+[[RLvwFWZxPUMlEjaBhKQYkihiRaBXyfVY]]
+== Review: The Tree Of (Java) Life
+
+image::https://staff.fnwi.uva.nl/a.j.p.heck/Courses/JAVAcourse/ch3/lettertree.gif[role='mx-auto',width=240]
+
+[.lead]
+//
+In Java, each class has a single parent, meaning that classes are organized into
+a _tree_.
+
+If we follow each node to its parent, we eventually get to the top, or root...
+
+[[chcUpUfLDMseiHLxSlASXEYJEaTVeNjg]]
+== The Root Object: `Object`
+
+[source,java]
+----
+public class Dog { }
+// is equivalent to
+public class Dog extends Object { }
+----
+
+[.lead]
+//
+If a Java `class` does not explicitly `extend` another class, it implicitly
+extends `Object`.
+
+[[PBFsjLWvxmDzvQAhAIJrHBKYZYcJOdLu]]
+== Review: Inherited from `Object`
+
+[source,java,role='small']
+----
+public class Dog {
+  private String name;
+  Dog(String setName) {
+    name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}
+----
+
+[.lead]
+//
+All Java objects inherit a small number of _important_ methods from `Object`.
+
+As a result, _all_ Java objects implement these methods!
+
+[[bvfhqvDEaqQWMvndBAgPFeBJZqsCfood]]
+== Review: Methods Inherited from `Object`
+
+[.lead]
+//
+For our purposes, the following methods inherited from `Object` are important:
+
+[.s]
+//
+* `String toString()`: return a `String` representing the instance. Frequently used for
+debugging.
+//
+* `boolean equals(Object other)`: return a `boolean` indicating whether this
+object is the same as another object
+//
+* `int hashCode()`: return an `int` uniquely representing an object's contents.
+We'll talk more about hashing later&mdash;it's incredibly important and useful.
+
+[[VcAngWrEfIXxLHOWDgZRMlkZaSDSlBFd]]
+== Review: Method Overriding
+
+[source,java,role='smaller']
+----
+public class Dog {
+  private String name;
+  Dog(String setName) {
+    name = setName;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog("Chuchu");
+    System.out.println(chuchu.toString());
+  }
+}
+----
+
+[.lead]
+//
+The default `Object` methods are rarely useful.
+
+So classes usually _override_ them and provide their own.
+
+[[utODlYJfUqsTWlZolzOmbJQfoeybEMtO]]
+== Hierarchical Name and Method Resolution
+
+[.lead]
+//
+The Java type hierarchy is used when resolving the names of variables and
+methods:
+
+[.s]
+//
+. Does the class have a variable or method with the given name? If so, use it.
+//
+. If not, search the parent class&mdash;but limited by `public` and `protected`
+//
+. Continue up the tree until the name is found or the search fails
+
+[[EFtrqgaiRBTgcQdTnJRPbWjgrNlnxZhF]]
+== ! Method Overriding
+
+[.janini.smallest.compiler]
+....
+public class Animal {
+  public String toString() {
+    return "I'm an animal!";
+  }
+}
+public class Pet extends Animal { }
+public class Dog extends Pet { }
+public class OldDog extends Dog { }
+public class SweetOldDog extends OldDog { }
+public class Example {
+  public static void main(String[] unused) {
+    SweetOldDog chuchu = new SweetOldDog();
+    System.out.println(chuchu.toString());
+  }
+}
+....
+
+[[tJAEhRBaxOdrIAfHFqeluBfFBFVZEkZI]]
+== Polymorphism
+
+[quote]
+____
+https://en.wikipedia.org/wiki/Polymorphism_(computer_science)[Polymorphism]:
+//
+the provision of a single interface to entities of different types.
+____
+
+We'll discuss interfaces in more detail next week.
+//
+For now, let's identify two kinds of Java polymorphism using examples.
+
+[[xejQOFdnYNedKmENRxJOESdlitSRXvBw]]
+== Subtype Polymorphism
+
+[source,java,role='small']
+----
+public class Pet {
+  public void printMe() {
+    System.out.println("I'm a pet");
+  }
+}
+public class Dog extends Pet {
+  public void printMe() {
+    System.out.println("I'm a dog");
+  }
+}
+----
+
+[.lead]
+//
+In Java, _every_ object _can be referred to_ as at least _two_ types:
+
+[.s]
+//
+* Each `Pet` can also be referred to as an `Object`
+//
+* Each `Dog` can be referred to as a `Pet` and also as an `Object`
+
+[[zAfgNaUvOdTRoYcImWOGArtsyjxiCuXW]]
+== Reference Conversion: Upcasting
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}
+----
+
+[.lead]
+//
+Java will _upcast_ object references automatically.
+
+
+[[CibxAzCMpvrFpjbBUcHRBnCoPdroMZDc]]
+== ! Reference Conversion: Upcasting
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}
+....
+
+[[YHYXBIyexgSczCgXpNsrgcVZtiCWeifQ]]
+== But Instances Retain Their Types
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}
+----
+
+[[faLGlVEpJnzuilavUdSpPJnjoRNXqcsn]]
+== ! But Instances Retain Their Types
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}
+....
+
+[[sdlBDsmJxGzipqJCuKbCXcwbxKBRbrno]]
+== Reference Conversion: Downcasting
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    Example.printAnything(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    Example.printAnything(chuchuAsPet);
+  }
+}
+----
+
+[.lead]
+//
+We can also cast references _down_ but only if the instance is
+actually the appropriate subtype.
+
+Java checks the cast at runtime to make sure that it is appropriate.
+
+[[GJrYLdzWnTewfJWDGEyNqVxQyxjMmJCk]]
+== ! Reference Conversion: Downcasting
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return "Still a Dog";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    System.out.println(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    System.out.println(chuchuAsPet);
+    Dog chuchuAsDog = (Dog) chuchu; // chuchu is also a Dog, so this works
+    System.out.println(chuchuAsDog);
+  }
+}
+....
+
+[[CpZeQftzcOFsQCDCxiBqCcyBJtoOHNvI]]
+== Type Testing: `instanceof`
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}
+----
+
+The Java `instanceof` operator allows you to test whether an object is an
+instance of _or_ a descendant of a particular class.
+
+[[OefedXVUqXZifDYrxutlCilKEnwfvnij]]
+== ! Type Testing: `instanceof`
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}
+....
+
+[[jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge]]
+== Review: Reference Variables
+
+[source,java,role='smallest']
+----
+class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me); // The variables store the same reference
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);
+----
+
+[.lead]
+//
+We can (and will) refer to a Java variable that refers to an object as a _reference
+variable_.
+
+[[dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv]]
+== Review: References Are Not Objects
+
+[.lead]
+//
+References _are not_ the thing the refer to.
+
+What are some real-world examples of references?
+
+[.s]
+//
+* *A phone number*: which refers to a phone
+//
+* *A street address*: which refers to a physical location
+//
+* *A social security number*: which refers to a person
+
+[[wLKMXRVWDTOLVmKPzLGUzkHWsYXfjKhd]]
+== How To Copy Objects
+
+[source,java]
+----
+public class Person {
+  public int age;
+  Person(int setAge) {
+    age = setAge;
+  }
+  Person(Person other) {
+    age = other.age;
+  }
+}
+----
+
+[.lead]
+//
+If we want to copy an object, we have a few options:
+
+[.s]
+//
+* `Object` provides a `clone` method
+//
+* You can implement a _copy_ constructor as shown above
+
+[[vtWsenPfOnNERusCedHhIXeYjZEfNHim]]
+== Objects v. References
+
+This can be confusing at first, but here's a cheat sheet that may be helpful:
+
+[.s]
+//
+* Objects are _only_ created when you see `new`.
+//
+* The variables that store objects _actually_ store object _references_.
+
+[[FveseaiiYjpDdFnrARWToOKPGwkirajm]]
+== Instance v. Reference Types
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog(); // Reference type Dog, instance type Dog
+    Object chuchuAsObject = new Dog(); // Reference type Object, instance type Dog
+    Pet chuchuAsPet = chuchu; // Reference type Pet upcast from Dog reference
+    chuchu = (Dog) chuchuAsObject; // Reference type Dog downcast from Object
+    reference
+  }
+}
+----
+
+[.s]
+//
+* **Instance type**: whatever is to the right of `new`, the actual type of the object, never changes
+//
+* **Reference type**: the type of the reference that we use to refer to an
+object, can be the instance type or any of its ancestors
+
+[[pJVfnZPQCzlJUoFgWVfPudeHoJFdbXnP]]
+== Reference Types
+
+[source,java,role='smallest']
+----
+public class Pet { }
+public class Dog extends Pet {
+  public void woof() {
+    System.out.println("Bark");
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    chuchu.woof(); // I can call woof on a Dog reference
+    Object chuchuAsObject = chuchu;
+    chuchuAsObject.woof(); // I can't call woof on an Object reference...
+    Object stringObject = new String("String");
+    stringObject.woof(); // ...because not every object implements woof()!
+    System.out.println(stringObject.toString()); // But I can call toString
+  }
+}
+----
+
+[.lead]
+//
+In Java the _reference_ type controls what instance methods and variables we can
+access.
+
+[[HUgPdXIvnrdstaIpRwnjOImMVdnudXqT]]
+== !Reference Type Example
+
+[.janini.smallest.compiler]
+//
+----
+public abstract class Pet {
+  public String getOwner() {
+    return "My owner is ...";
+  }
+}
+public class Dog extends Pet {
+  public String bark() {
+    return "Woof";
+  }
+}
+public class Cat extends Pet {
+  public String meow() {
+    return "Meow...";
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    System.out.println(chuchu.bark());
+    System.out.println(chuchu.getOwner());
+    System.out.println(chuchu);
+
+    Pet chuchuAsPet = chuchu;
+    // System.out.println(chuchuAsPet.bark()); // Doesn't work
+    System.out.println(chuchuAsPet.getOwner());
+    System.out.println(chuchuAsPet);
+
+    Object chuchuAsObject = chuchu;
+    // System.out.println(chuchuAsObject.bark()); // Doesn't work
+    // System.out.println(chuchuAsObject.getOwner()); // Doesn't work
+    System.out.println(chuchuAsObject);
+  }
+}
+----
+
+[[ufJmZnSeceinndtXZprPsVdWxQYnEceY]]
+== Why Polymorphism?
+
+[.lead]
+//
+This really gets to the purpose behind Java's entire type system.
+
+[.s]
+//
+* Descendant classes can implement or override ancestor behavior while retaining
+desirable ancestor properties
+//
+* Polymorphism makes it possible to write methods that work for any descendant
+class&mdash;even ones that you may not have created
+
+[[UrXbXVjItLWsQbiVhoeLQbuFuiAMhWgj]]
+== Generality v. Capability
+
+[.lead]
+//
+Polymorphism presents one of many _tradeoffs_ in computer program and system
+design:
+
+[.s]
+//
+* *Higher* on the object hierarchy: more general, but can use fewer capabilities
+//
+* *Lower* on the object hierarchy: less general, but can use more capabilities
+
+
+[[xlVMFPUwSGyDaeWeYnNKGdpxuAyPdphf]]
+== Generality v. Capability: A Metaphor
+
+[.lead]
+//
+You meet someone on a plane.
+
+[.s]
+//
+* They're a _person_, so you can talk about...
+//
+* Then you find out they're a _student_, so you can talk about...
+//
+* Then you find out they're an _Illinois student_, so you can talk about...
+//
+* Then you find out they're a _CS 125 student_, so you can talk about...
+
+[[WntsfyfctNExAnIlgDdzfqdylondybee]]
+== ! Generality v. Capability
+
+[.janini.smallest.compiler]
+....
+public class Animal {
+  public String animalInfo() {
+    return "I'm an animal!";
+  }
+}
+public class Pet extends Animal {
+  public String petInfo() {
+    return "I'm an animal!";
+  }
+}
+public class Dog extends Pet { }
+public class OldDog extends Dog { }
+public class SweetOldDog extends OldDog { }
+public class Example {
+  public static void main(String[] unused) {
+    SweetOldDog chuchu = new SweetOldDog();
+    System.out.println(chuchu.toString());
+  }
+}
+....
+
+[[ldcfNgEurcrfamfycWeGTznjSnnlRDxg]]
+== More Class Design: `final`
+
+Marking a class as `final` means that it _cannot be extended_:
+
+[source,java,role='smaller']
+----
+public class Pet { }
+public final class Dog extends Pet { }
+public class BigDog extends Dog { } // This won't work
+----
+
+[[HnJdeVEnORRMnVBOCLYWyfkMPZKSzEZu]]
+== ! More Class Design: `final`
+
+[.janini.smaller.compiler]
+....
+public class Pet { }
+public final class Dog extends Pet { }
+public class BigDog extends Dog { } // This won't work
+public class Example {
+  public static void main(String[] unused) {
+    BigDog dog = new BigDog();
+  }
+}
+....
+
+[[oxneXnudEfLeetbindVexPiHFUqeQhVJ]]
+== More Class Design: `abstract`
+
+Marking a class as `abstract` means that it _can only be extended_ and _cannot
+be instantiated_:
+
+[source,java,role='smaller']
+----
+public abstract class Pet { }
+public class Dog extends Pet { }
+Pet pet = new Pet(); // This will not work
+Dog dog = new Dog(); // This will work
+----
+
+[[mPgOhpzijdaaWFEBrnjAnQeqUrOKMNvb]]
+== ! More Class Design: `abstract`
+
+[.janini.smaller.compiler]
+....
+public abstract class Pet { }
+public class Dog extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet pet = new Pet(); // This will not work
+    Dog dog = new Dog(); // This will work
+  }
+}
+....
+
+[[gVGzonJjIkKuDwLXeTvSUBCOgdUByLLr]]
+== `private` Classes?
+
+In Java classes _cannot_ be marked as `private`: that would make little sense,
+since nobody could use them.
+
+[.s]
+//
+* To use it you have to create one
+//
+* To create one you have to call one of it's methods (the constructor)
+//
+* But you can't call it's methods because the entire class is `private`
+
+[[krwmMCuJfoHbfwoARnmoCXnaTxgqSuxh]]
+== Inner Classes
+
+But we can achieve something similar using so-called _inner classes_:
+
+[source,java,role='smaller']
+----
+public class Dog {
+  class DogFood {
+    public String toString() {
+      return "kibble";
+    }
+  }
+  private DogFood myFood;
+  Dog() {
+    myFood = new DogFood();
+  }
+}
+----
+
+[[efZeGATxjdlcLLprxQpOsdnoLrZxoxiD]]
+== ! Inner Classes
+
+[.janini.smallest.compiler]
+....
+public class Dog {
+  class DogFood {
+    public String toString() {
+      return "kibble";
+    }
+  }
+  private DogFood myFood;
+  Dog() {
+    myFood = new DogFood();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog dog = new Dog();
+  }
+}
+....
+
+[[llSwhDiJhDVPeyiCsBwpfdfEdrSUupdC]]
+[.oneword]
+//
+== Questions About Polymorphism, References, or Class Design?
+
+[[IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw]]
+== Announcements
+
+* **Wednesday 5&ndash;8PM office hours have been canceled.**
+//
+We will now hold office hours on _Fridays_ (today) from 5&ndash;8PM.
+//
+* We have a
+//
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+
+// vim: ts=2:sw=2:et

@@ -587,6 +587,9 @@ games the user is involved in or invited to.
 //
 The resulting object has a single property called `games`, which is an array.
 //
+Our provided code will iterate over the games array for you, so code you write
+will only need to consider one game entry object at a time.
+//
 Each element of that array is an object with at least these properties:
 
 * `id` (string) is the game's unique ID for use in other requests about that
@@ -613,9 +616,9 @@ You may find this link:/MP/files/MP2/games.json[**example JSON response**] helpf
 Some of the values mentioned are numeric codes: integers that indicate different
 states, like Android's `View.VISIBLE` or `View.GONE`.
 //
-Constants for game-relevant codes are provided in the three classes in
-`Constants.java`.
-///
+Constants for game-relevant codes are provided in the `GameStateID`,
+`PlayerStateID`, and `TeamID` classes.
+//
 So rather than comparing against the magic number 2 to see if the game is over,
 compare against `GameStateID.ENDED`.
 
