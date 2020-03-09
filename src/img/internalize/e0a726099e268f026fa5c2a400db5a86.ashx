@@ -12,7 +12,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="rid=RID_-2018356100|rpid=-168232100|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1582967247577|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1582967247577|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=1465832743|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="rid=RID_-2018356100|rpid=392915114|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1583630874831|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=1|uxrgce=1|bp=3|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|dpvc=1|md=1=cemail|srad=0|lastModification=1583630874831|dtVersion=10185200219132536|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10185200219132536.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-1305955315|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -279,7 +279,7 @@
                     <ul class="dropdown-menu">
                         <li>
                             <p>
-                                <a href="javascript:void(0);" data-languagecode="#">Select Language</a>
+                                <a href="javascript:void(0);" data-languagecode="#">Language</a>
                             </p>
                         </li>
                         <li role="separator" class="divider"></li>
@@ -3234,7 +3234,7 @@
                     <a href="https://corporate.dow.com/en-us/locations.html.html" title="locationstext.title">Global Locations</a>
                 </li>
                 <li>
-                    <a href="#language" aria-controls="mega__languages" aria-expanded="false" @click="toggle">Select Language</a>
+                    <a href="#language" aria-controls="mega__languages" aria-expanded="false" @click="toggle">Language</a>
                     <ul class="mega__menu" id="mega__languages">
                         <li v-for="language in languages" :key="language.value">
                             <a :href="language.link">{{ language.value }}</a>
