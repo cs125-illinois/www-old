@@ -1,0 +1,800 @@
+---
+title: "MP3: Refactoring and More JSON"
+description:
+  The MP3 checkpoint introduces refactoring and makes it possible to configure
+  multiplayer games.
+spelling_exceptions:
+  - multiplayer
+  - gson
+  - gameplay
+  - autocomplete
+  - Campustown
+  - Gson
+  - formatter
+  - resizable
+  - stringify
+  - LatLng
+  - GameSetup
+  - subpackage
+secret: 23uBVsxy
+---
+:sectnums:
+:linkattrs:
+:imagesdir: /MP/images/MP3
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/spring2020-mp/mp3/102[forum,role='noexternal']]
+
+[.lead]
+//
+In link:/MP/2/[MP2], you connected the app to our game server to get and respond
+to invitations.
+//
+In Checkpoint 3, you'll make it possible to create multiplayer games of the two
+game modes and _refactor_ some of your old code to improve it.
+
+When you first started working on the MP, we hadn't covered object-oriented
+programming yet, so the target mode functionality had to be implemented using
+only arrays and imperative programming.
+//
+As you discovered, that was not ideal.
+//
+Programmers often learn or realize better approaches to problems already solved
+and revisit old code to improve it.
+//
+This process is called _refactoring_.
+//
+In this checkpoint we'll refactor some of the code you wrote in MP0 and organize
+some relevant logic into a class that can more easily be used in the next
+checkpoint.
+
+**Checkpoint 3 is a one week MP, so you only have one deadline**, which varies
+by your deadline group. MP3 is due at:
+
+* **11:59 PM on Sunday, 03/29/2020 for the Blue Group**: all labs starting at 3 PM or earlier
+//
+* **11:59 PM on Monday, 03/30/2020 for the Orange Group**: all labs starting at 4 PM or later
+
+Late submissions are subject to the
+//
+link:/info/syllabus/#regrading[MP late submission policy].
+
+[.alert.alert-warning]
+//
+--
+//
+**However, note that we will adjust the deadline as needed depending on the
+success of our efforts to provide virtual support.**
+//
+--
+
+== Learning Objectives
+
+On MP3 you will:
+
+* Work with and improve older code
+//
+* Build JSON objects to deliver additional information to the web API
+
+We will continue to exercise your class design like in previous checkpoints.
+
+== Assignment Structure
+
+For information on all classes present after the completion of Checkpoint 3,
+refer to our
+//
+https://cs125-illinois.github.io/Spring2020-MP-Writeups/3/overview-summary.html[official
+Javadoc].
+
+=== Obtaining MP3
+
+To update your project with the remote and get started on MP3, follow these instructions:
+
+. **Get the remote code.**
+//
+Select _VCS | Git | Fetch_ from the menu to download the remote commit.
+//
+However, it still needs to be merged with your work.
+//
+. **Merge the changes!**
+//
+Now we need to merge the changes from your computer with our remote repository,
+so go back to the menu and choose _VCS | Git | Merge Changes_.
+//
+Check the `remotes/release/mp3` branch you just fetched and press Merge!
+//
+The Version Control pane will appear to inform you of items updated from the
+server.
+//
+. **Update `grade.yaml`.**
+//
+Open the file in the root of the project, change the `checkpoint` setting to
+`3`, and do _File | Sync Project with Gradle Files_.
+
+=== Late Submissions
+
+Like in previous checkpoints, setting `useProvided` in `grade.yaml` to `true`
+causes the app to use our provided components rather than your implementations.
+//
+For Checkpoint 3, we provide `TargetVisitChecker` (with both MP0-style and
+refactored signatures), `AreaDivider`, the launch activity, the main activity,
+and the gameplay logic in `GameActivity`.
+
+As usual, you can always go back and make submissions to previous checkpoints by
+changing `checkpoint` in `grade.yaml`.
+//
+However, merging MP3 will produce compilation errors until you add the classes
+expected by the new test suite.
+
+== Tools and Resources
+
+This section provides you with tools and information that you will need to complete the
+features in <<goal, Your Goal>>.
+
+[[lists]]
+//
+=== Lists
+
+Java arrays are useful for storing multiple values of the same type, but an
+array's length cannot be changed after its creation.
+//
+Often it's not known in advance how many entries a collection will have, or the
+collection has items added to or removed from it.
+//
+In those situations, arrays are inconvenient.
+
+Fortunately, Java provides _lists_: objects that hold dynamically resizable
+lists of things.
+//
+All lists are instances of
+//
+https://docs.oracle.com/javase/8/docs/api/java/util/List.html[`List`],
+//
+but `List` is an interface rather than a concrete type.
+//
+To create a list you create an instance of a `List` implementation, the most
+common of which is
+//
+https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html[`ArrayList`].
+//
+This is an example of _polymorphism_.
+
+When you declared arrays, you put the element type before square brackets, like
+`String[]` for an array of strings.
+//
+List variables are declared like `List<String>`, with the element type in angle
+brackets.
+//
+To declare a list-of-strings variable and initialize it to an empty `ArrayList`,
+you would use code like this:
+
+[source,java]
+----
+List<String> names = new ArrayList<>();
+----
+
+The angle brackets on the right side of the assignment can be empty, which means
+that the actual list object created holds the same type of values as the
+variable is declared to contain.
+
+The `List` type defines many functions that are usable on all lists.
+//
+The most useful ones are:
+
+* `add`, which adds one element to the end of the list (increasing its size by
+one)
+//
+* `size`, which returns the current length of the list
+//
+* `get`, which gets the element at the specified position in the list
+//
+* `remove`, which removes an element from the list (decreasing its size by one)
+
+For example:
+
+[source,java]
+----
+System.out.println(names.size()); // Prints 0 - the list is empty initially
+names.add("Chuchu");
+System.out.println(names.size()); // Prints 1 - now the list has one element
+names.add("Xyz");
+System.out.println(names.size()); // Prints 2 - now the list has two elements
+System.out.println(names.get(0)); // Prints "Chuchu", the first element in the list
+names.remove("Chuchu");
+System.out.println(names.get(0)); // Prints "Xyz", the first element now that Chuchu was removed
+System.out.println(names.size()); // Prints 1 - the list has one element anymore
+----
+
+Lists can be iterated over with the enhanced for loop:
+
+[source,java]
+----
+for (String name : names) {
+    // Do something with name?
+}
+----
+
+Types like `List` and `ArrayList` will need to be imported before you can use
+them.
+//
+Android Studio can help with this.
+//
+If you press Tab to autocomplete a type name, any needed import statement will
+automatically be added at the top of the file.
+
+[[gson]]
+//
+=== Writing JSON with Gson
+
+In Checkpoint 2, you
+//
+link:/MP/2/#_using_gson[used Gson to read data]
+//
+from parsed JSON.
+//
+In this checkpoint, you'll need to create JSON objects to send to the server.
+
+Gson can help with this too.
+//
+To create a new JSON object, use `new JsonObject()`.
+//
+To add a single, simple value like a string or number as a property on an
+object, call the object's `addProperty` function, passing the property name and
+value.
+//
+For example, this code builds a `JsonObject` corresponding to
+//
+link:/MP/2/#_what_is_json[the first MP2 JSON example]:
+
+[source,java]
+----
+JsonObject point = new JsonObject();
+point.addProperty("latitude", 40.109187);
+point.addProperty("longitude", -88.227213);
+----
+
+To add a more complicated value like an array or other object as a property of
+an object, use `add` instead.
+
+Likewise, to create a JSON array, use `new JsonArray()`.
+//
+Its `add` function will add an entry to the end of the array.
+
+This code reconstitutes the more complicated JSON object from the MP2 writeup:
+
+[source,java]
+----
+JsonObject cs125 = new JsonObject();
+cs125.addProperty("name", "CS 125");
+cs125.addProperty("enrollment", 800);
+
+JsonObject location = new JsonObject();
+location.addProperty("name", "Foellinger Auditorium");
+location.addProperty("allows_food", false);
+location.addProperty("latitude", 40.105952);
+location.addProperty("longitude", -88.227204);
+cs125.add("location", location);
+
+JsonArray lectureDays = new JsonArray();
+lectureDays.add("Monday");
+lectureDays.add("Wednesday");
+lectureDays.add("Friday");
+cs125.add("lecture_days", lectureDays);
+----
+
+Gson objects stringify to the JSON text they represent, so you can pass them to
+`System.out.println` to see what JSON you've built.
+//
+It will be condensed onto one line and difficult to read, so you may find it
+helpful to paste that into
+//
+https://jsonformatter.org/json-pretty-print[a JSON formatter]
+//
+to see its structure more easily.
+
+[[api]]
+//
+=== Our API Documentation
+
+To create a multiplayer game, the app makes a POST request to our
+`/games/create` endpoint.
+//
+Since there is a lot of game information rather than just a game ID, the game
+configuration will need to be uploaded to the server as the body (_payload_) of
+the request.
+//
+The body will be a JSON object (Gson `JsonObject` instance) with these
+properties:
+
+* `mode` (string) is the game mode, either "target" or "area"
+//
+* `invitees` (array of objects) is the list of players invited to the game,
+including the user. Each object should have these properties:
+//
+- `email` (string) is the invitee's email address
+//
+- `team` (integer) is the `TeamID` code for the role/team the user is invited to
+//
+* _For target mode only_, `proximityThreshold` (integer) is the proximity
+threshold in meters
+//
+* _For target mode only_, `targets` (array of objects) is the list of targets in
+the game. Each object should have these properties:
+//
+- `latitude` (double) is the latitude of the target
+//
+- `longitude` (double) is the longitude of the target
+//
+* _For area mode only_, `cellSize` (integer) is the cell size in meters
+//
+* _For area mode only_, `areaNorth`, `areaEast`, `areaSouth`, and `areaWest`
+(all doubles) are the latitude/longitude bounds of the area
+
+You may find the
+//
+**link:/MP/files/MP3/target.json[example target mode body]** and
+//
+**link:/MP/files/MP3/area.json[example area mode body]** helpful.
+
+If the game is created successfully, the server's response will be a JSON object
+with a single `game` property whose value is the (string) game ID.
+//
+Our provided code uses this to launch `GameActivity`.
+
+[[presets_api]]
+//
+=== Extra Credit API Documentation
+
+If you are attempting the extra credit feature to allow the user to load a
+predefined set of targets, your app will need to be able to fetch the preset
+targets lists from the server.
+//
+Those are accessible by a GET request to the `/presets` endpoint.
+//
+The server's response will be a JSON object containing this property:
+
+* `presets` (array of objects) is the list of preset options. Each object has
+these properties:
+//
+- `name` (string) is the human-readable name of the preset
+//
+- `targets` (array of objects) is the list of targets in the preset. Each has at
+  least these properties:
+//
+** `latitude` (double) is the target's latitude
+//
+** `longitude` (double) is the target's longitude
+
+You may find
+//
+link:/MP/files/MP3/presets.json[this example response]
+//
+helpful.
+//
+Do not assume that the `note` property will always be present on target objects,
+but feel free to do anything you like with it if it's there.
+//
+You can always ignore it completely.
+
+[[git_revert]]
+//
+=== Reverting Changes with Git
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/FQBTwwFX0I8" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+Version control systems like Git make it possible to retrieve older versions of
+your code, which is very useful if you accidentally damage a file.
+//
+Android Studio integrates with Git to allow you to undo (_revert_) changes with
+its UI.
+
+If you would like to put a file back to how it was at the last commit,
+right-click it in the Project pane and choose _Git | Revert_.
+//
+This brings up the Revert Changes dialog, where you can select any additional
+files you would like to revert.
+//
+Reverting a file throws away all changes to it since the last commit and **is
+usually not reversible**.
+
+For a more surgical approach, Android Studio highlights changed regions of files
+with colored bars or gray triangles in the left margin of the code editor.
+//
+Clicking one of these decorations produces a toolbar with a back arrow (Rollback
+Lines) button that reverts just the highlighted lines to how they were in the
+last commit.
+//
+This rollback method may sometimes be reversible with Ctrl+Z, but you should
+still be certain that you want to throw away your changes.
+
+[[goal]]
+//
+== Your Goal
+
+When you're done with Checkpoint 3, creating a game will upload its
+configuration to the server and make it visible to the invitees, who can then
+accept or decline the invitation using their app.
+//
+The game setup activity will show only the settings for the selected game mode.
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/5ktxAUwjVpM" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+[[target]]
+//
+=== The `Target` Class
+
+The new test suite, `Checkpoint3Test`, is initially unable to compile because it
+refers to a `Target` class in the `logic` subdirectory that does not _yet_
+exist, so this must be fixed first.
+//
+We will be using the `Target` class primarily in the next checkpoint to help
+manage a target marker on the map, since the Checkpoint 0 approach of passing
+coordinates to a `changeMarkerColor` function is unwieldy
+//
+footnote:[and somewhat error-prone, as some noticed during MP0].
+
+Create the class by right-clicking the `logic` subfolder within the package,
+choosing _New | Java Class_, entering `Target` in the Name field, and clicking
+OK.
+//
+We also expect a `GameSetup` logic class, described in the next section, that
+you will need to similarly create before your code can compile.
+//
+You don't need to _implement_ all the functionality at once, but you should
+create functions to match the Javadoc so you can get the tests running.
+
+[.alert.alert-warning]
+//
+--
+//
+Be sure that the files were created inside the `logic` subpackage and that they
+were added to Git.
+//
+If they are not, your code may not be seen during official grading.
+//
+--
+
+**To see the needed public members of this class**, refer to
+//
+https://cs125-illinois.github.io/Spring2020-MP-Writeups/3/edu/illinois/cs/cs125/spring2020/mp/logic/Target.html[our official Javadoc].
+//
+You will need to store a Google Maps
+//
+https://developers.google.com/android/reference/com/google/android/gms/maps/model/Marker.html[`Marker`]
+//
+object in a private instance variable.
+
+To place a marker on a Google map, use the map's `addMarker` function
+//
+footnote:[like the provided `placeMarker` function in `GameActivity` does]:
+
+[source,java]
+----
+// Suppose position is a LatLng variable
+MarkerOptions options = new MarkerOptions().position(position);
+// Set any other options you like?
+Marker marker = map.addMarker(options);
+----
+
+To change the color of a marker after it has been created, use its `setIcon`
+function
+//
+footnote:[like `changeMarkerColor` in `GameActivity` does]:
+
+[source,java]
+----
+// Suppose hue is a hue value like the constants defined on BitmapDescriptorFactory
+BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(hue);
+marker.setIcon(icon);
+----
+
+You can refer to
+//
+https://developers.google.com/android/reference/com/google/android/gms/maps/model/BitmapDescriptorFactory[this Android article]
+//
+to check out the different `HUE_` constants to use in `Target.java`.
+
+After completing this task, `testTargetClass` will pass.
+//
+You may _optionally_ rework your target mode logic in `GameActivity` to take
+advantage of this new class, but otherwise you will not need it again in this
+checkpoint.
+
+[[latlng]]
+//
+=== `LatLng` Refactor
+
+Functions that take eight parameters, especially all of the same type, can be
+difficult to use.
+//
+This is even more unfortunate when some of the parameters really belong
+together, packaged up into objects.
+//
+Now that you know how to use objects like the Google Maps SDK's `LatLng`, we've
+rewritten `LinesCrossDetector.linesCross` to accept the lines' endpoints as
+`LatLng` objects
+//
+footnote:[In fact, ``checkstyle``'s default configuration forbids functions with
+more than seven parameters.
+//
+We had to change that to allow our original version of this function.].
+
+You need to copy the new version from
+//
+https://gist.github.com/Fleex255/d11e2d1344b5a7a52ec8dd6941d0e2f5[this GitHub
+Gist]
+//
+over your current `LineCrossDetector` so that `linesCross` can be called with
+four ``LatLng`` positions.
+//
+You will also need to update the places in your code that call it to match.
+
+Similarly refactor the `addLine` function in `GameActivity` to take two `LatLng`
+endpoints rather than four `double` coordinates.
+//
+You will need to update the function's callers to be compatible with its new
+signature.
+//
+Once you complete these tasks, `testLatLngRefactor` will pass.
+
+If you make a mistake while refactoring and want to put a file back to how it was
+at the last commit, see the section on <<git_revert, reverting changes>>.
+
+==== Optional: Refactoring `TargetVisitChecker`
+
+If you would like to, you may refactor your `TargetVisitChecker` methods to take
+a `LatLng[]` in place of the two ``double[]``s.
+//
+https://cs125-illinois.github.io/Spring2020-MP-Writeups/3/edu/illinois/cs/cs125/spring2020/mp/logic/TargetVisitChecker.html[Updated Javadoc] is available.
+//
+The Checkpoint 0 tests are forward-compatible with this change.
+//
+After doing that, you'll probably want to use the `getPositions` function of
+`DefaultTargets` rather than `getLatitudes` and `getLongitudes` in your
+`GameActivity` target mode setup.
+
+Better yet, you may take advantage of your new list skills to keep track of the
+target mode game state entirely inside `GameActivity`.
+//
+If `TargetVisitChecker` is removed, the Checkpoint 0 test results will be
+all-or-nothing based on the result of `testTargetModeGameplay`.
+
+`TargetVisitChecker` will be removed entirely in the next checkpoint and
+`GameActivity` will be significantly remodeled then, so don't get too attached
+to either.
+
+This section of refactoring is **not required and will not be graded**, but it
+is encouraged to practice changing your code, as it is a necessary real-world
+skill!
+
+[[game_setup]]
+//
+=== The `GameSetup` Class
+
+You will need to create a `GameSetup` class in the `logic` subfolder.
+//
+This class will contain two static helper methods that take the app's current
+game information and convert all the data into a JSON payload that can be sent
+in a POST request.
+
+Remember to follow the documentation for <<Our API Documentation, our API>> so
+that when you write properties and values into your `JsonObject`, they match the
+naming and type conventions that we've specified.
+//
+Some of the parameters passed to your functions are ``List``s.
+//
+You will need to read from them according to <<lists, our list introduction>>
+but should not need to modify them or create new lists here.
+
+You can refer to the Javadoc for the class
+//
+https://cs125-illinois.github.io/Spring2020-MP-Writeups/3/edu/illinois/cs/cs125/spring2020/mp/logic/GameSetup.html[here].
+//
+Be sure to implement both listed functions, but you are encouraged to add helper
+functions as you design your logic.
+
+Once the functions are fully implemented, `GameSetup` will be able to create
+JSON objects representing the configuration of a multiplayer target game or area
+game.
+//
+`testJsonTargetMode` and `testJsonAreaMode` respectively will then pass.
+
+=== Game Setup UI
+
+The game configuration screen allows the user to select their desired game mode
+(area or target) and set other parameters like the cell size or proximity
+threshold.
+//
+This screen's layout is `activity_new_game.xml` and its Java class is
+`NewGameActivity`.
+
+Our layout contains a `RadioGroup` with ID `gameModeGroup`.
+//
+Inside this `RadioGroup` are two ``RadioButton``s.
+//
+One has ID `targetModeOption` and the other has ID `areaModeOption`.
+//
+The user will use these to pick the game mode.
+
+Some settings only make sense for one game mode, so they shouldn't be shown all
+the time.
+//
+For example, the user shouldn't see a setting for proximity threshold when
+setting up an area mode game.
+//
+To allow showing and hiding the different game-mode-specific settings as a unit,
+we've organized the views into containers.
+//
+There is a `LinearLayout` with the ID `areaSettings`.
+//
+If the user chooses to play a game in target mode, this `LinearLayout` should
+disappear.
+//
+Otherwise, the user will use this settings container to configure their game.
+//
+For target mode settings, we've added another container with ID
+`targetSettings`.
+
+To make the radio buttons change the containers' visibility, we need to add code
+to `NewGameActivity`.
+//
+In `onCreate`, attach a handler that will be run when the selected radio button
+in the `RadioGroup` is changed:
+
+[source,java]
+----
+// Suppose modeGroup is a RadioGroup variable (maybe an instance variable?)
+modeGroup = findViewById(R.id.gameModeGroup);
+modeGroup.setOnCheckedChangeListener((unused, checkedId) -> {
+    // checkedId is the R.id constant of the currently checked RadioButton
+    // Your code here: make only the selected mode's settings group visible
+});
+----
+
+Each mode's settings group should be shown only when its option is selected.
+//
+Each settings group should be `View.GONE` initially and when its mode is not
+selected.
+//
+After you make this so, `testSettingsGroupVisibility` will pass.
+
+[[presets]]
+=== Extra Credit: Target Presets
+
+**Challenge problem!**
+//
+This is extra credit because it takes a bit more work and tinkering.
+//
+It can be done before the game creation API request and before you complete the
+`RadioGroup` visibility modifications, so feel free to tackle this early on!
+
+Many users won't want to spend a lot of time picking out enough targets for an
+interesting target mode game.
+//
+To make it easier to add a set of targets, the app could have several suggested
+lists of targets and allow the user to add an entire suggested list at once.
+
+Inside the target mode settings group, we have added a "Load Preset" with ID
+`loadPresetTargets`.
+//
+When it is clicked, you need to fetch the <<presets_api, list of presets from
+the server>>.
+//
+When the request completes, create and show an `AlertDialog` to list the
+options.
+//
+Refer to Android's
+//
+https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog[`AlertDialog`
+guide]
+//
+for details.
+
+We have provided a `chunk_presets_list.xml` layout resource which you can inflate
+//
+footnote:[like the provided code in Checkpoint 2 did with the game information chunks]
+//
+_with a null parent_
+//
+footnote:[Android Studio will warn about that, but it's OK&mdash;this is the one
+place in Android where it's acceptable and necessary to pass a null root.]
+//
+and pass to the dialog builder's `setView` function.
+//
+For each preset option, add a `RadioButton`
+inside the provided `RadioGroup` (ID `presetOptions`), with the radio button's text set to the
+preset's name.
+//
+This is the one place in the MP where you should create an individual view
+dynamically using `new`.
+//
+The constructors for most Android views take a context, which can be
+the activity: `this` footnote:[or `NewGameActivity.this` if inside a non-concise handler].
+
+The alert dialog's positive button should be labeled "Load".
+//
+Its negative button should be labeled "Cancel."
+//
+The dialog might look like this:
+
+image::LoadPreset.png[a list of preset options]
+
+If the positive button (Load) is pressed with a preset selected, all existing
+targets should be removed and all the targets from the selected preset should be
+added.
+//
+There are multiple ways to associate a preset with a radio button&mdash;you may
+find `getTag` and `setTag` helpful.
+//
+If the user presses Cancel or presses Load without selecting a preset, do
+nothing and the dialog will be dismissed by default.
+
+If you complete this task, `testTargetPresets_extraCredit` will pass and you'll
+have earned 20% extra credit!
+
+[[grading]]
+//
+== Grading
+
+As always, 100 points is full credit on the checkpoint.
+//
+But on MP3 there are **120** points available, broken down as follows:
+
+* **15 points** for the `Target` class
+//
+* **15 points** for refactoring `addLine` and `LineCrossDetector`
+//
+* **10 points** for making the radio buttons in `NewGameActivity` control
+settings group visibility
+//
+* **25 points** for `areaMode` in `GameSetup`
+//
+* **25 points** for `targetMode` in `GameSetup`
+//
+* **20 points** of _extra credit_ for the _optional_ Load Preset feature
+//
+* **10 points** for passing `checkstyle` inspection
+
+If you missed a deadline in a previous checkpoint, doing the extra credit here
+is a great way to earn some of those points back!
+
+Your app will be tested by `Checkpoint3Test`.
+//
+Feel free to look through that class's code to see what the test suite tries to
+do with your app.
+//
+Post on the {forum} for clarifications about what exactly is expected.
+
+== Cliffhanger
+
+Because the game setup screen submits the game configuration to the server
+instead of passing it to the game activity, gameplay is probably pretty broken
+at the moment.
+//
+In the next and final checkpoint, we'll finish the app by connecting the game
+activity to the server!
+
+== Cheating
+
+By now you should be familiar with the
+https://cs125.cs.illinois.edu/info/syllabus/#cheating[cheating policies] from
+the syllabus.
+//
+Collaborating in a human language about how to approach the problems is
+encouraged, but sharing your code with anyone not currently on the course staff
+constitutes cheating.
