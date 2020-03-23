@@ -1,0 +1,319 @@
+---
+title: Introduction to Algorithms (and the Rest of the Semester)
+date: 2020-03-23
+description:
+  Introduction to algorithms, algorithm runtime analysis, and how CS 125 will
+  work for the rest of the semester.
+spelling_exceptions:
+  - GCD
+  - livin
+---
+
+[[ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Introduction to Algorithms</div>
+++++
+....
+public final class Math {
+  public static int gcd(int first, int second) {
+    return 0;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Math.gcd(10, 20));
+  }
+}
+....
+--
+
+[[eXvglHotByneDsypepTfKUPRExHflzZy]]
+== Algorithms
+
+[quote]
+//
+----
+Algorithm:
+//
+a set of steps taken to achieve some desired result.
+//
+----
+
+[[NpBBkOeTzZhmGmhePZdPdDxBiPtJmvQk]]
+[.oneword]
+== This is About the Future
+
+Our goal is to help you succeed in later courses, while also taking care of you
+this semester.
+
+[[aUxsyjhTqYgprQGAtYgCJCpFInIbEnMP]]
+== Algorithms
+
+[quote]
+//
+____
+https://en.wikipedia.org/wiki/Algorithm[Algorithm]:
+//
+a process or set of rules to be followed in calculations or other
+problem-solving operations, especially by a computer.
+//
+____
+
+As computer scientists, we implement algorithms by having computers:
+
+[.s]
+//
+* Perform simple calculations
+//
+* Store the results
+//
+* Make simple decisions
+//
+* Do things over and over again as fast as possible
+
+[[JGTmnbkHwboAihJynfxUiXyvQBMcEFus]]
+== Data Structures
+
+[quote]
+//
+____
+https://en.wikipedia.org/wiki/Data_structure[Data structure]:
+//
+a collection of data values, the relationships among them, and the functions or
+operations that can be applied to the data.
+//
+____
+
+As Java programmers we implement more complicated data structures using a mix
+of:
+
+[.s]
+//
+* Primitive types and objects to _store_ and organize data values
+//
+* Existing data structures like arrays
+//
+* References to reflect relationships among objects
+
+[[YumtfuKBaLhokozilRqGVVRzrwypGfOd]]
+== Algorithms and Data Structures
+
+[.lead]
+//
+Algorithms and data structures are _highly complementary_:
+
+[.s]
+//
+* We will implement algorithms that utilize specific features of data structures
+//
+* We will implement data structures to support specific algorithms
+//
+* We will use our existing imperative and object-oriented ideas along the way
+//
+* And we'll introduce a few more important ideas along the way
+
+[[BzRRFIMstyqbRXhqEywqvIoQJUgYebbD]]
+== Example: Greatest Common Denominator
+
+[quote]
+//
+____
+//
+In mathematics, the
+//
+https://en.wikipedia.org/wiki/Greatest_common_divisor[greatest common divisor
+(GCD)]
+//
+of two or more integers, which are not all zero, is the largest positive integer
+that divides each of the integers.
+//
+____
+
+[[pjDljAIzRjELOcfeobkDQFRinIBUMrhD]]
+== ! GCD Algorithms
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="full embed-responsive-item" src="https://en.wikipedia.org/wiki/Greatest_common_divisor#Calculation"></iframe>
+</div>
+++++
+
+[[tDXMsVMWQaICoZpNjRwvYQvYvpkBVCKA]]
+[.oneword]
+== But If We're In A Hurry...
+What's a simpler approach?
+
+[[JssrqejyvIyvwsXyrCkspJKxdKDMQLRk]]
+== Brute Force Solution
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Brute-force_search[Brute force solution]:
+//
+a very general problem-solving technique that consists of systematically
+enumerating all possible candidates for the solution and checking whether each
+candidate satisfies the problem's statement.
+//
+____
+
+[.s]
+//
+* Computers today are very, _very_ fast
+//
+* So try the simple thing first
+//
+* If it's too slow, try something a bit more sophisticated
+
+[[qMuYttxuubacRODFMWhjihipuaPhWYqH]]
+== ! GCD Implementation
+
+[.janini.smallest.compiler]
+....
+public class SimpleMath {
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(SimpleMath.GCD(10, 8));
+    System.out.println(SimpleMath.GCD(100, 50));
+    System.out.println(SimpleMath.GCD(94677, 65270));
+  }
+}
+....
+
+[[qdXwzQeEINKOPgbceNliwLWeLNyqnSVo]]
+== ! Bring the Brute
+
+image::https://cdn.vox-cdn.com/thumbor/wgMcgj6LStdjW-qlLkaHUBsdQzY=/0x0:2048x858/1200x800/filters:focal(834x251:1160x577)/cdn.vox-cdn.com/uploads/chorus_image/image/57442421/hulk_agnarok.0.jpg[role='mx-auto meme',width=640]
+
+[[SAkZunVquojxGluWfhHFkLljmuDEmoNB]]
+[.oneword]
+== You Don't Need the Fastest Algorithm to Change the World
+
+That's a good thing!
+
+[[KTGrHQJiStmgrdjVjvLJBvdHTokGvbGK]]
+== But Speed Eventually Matters
+
+[.lead]
+//
+Even if you don't at the beginning, you will eventually start to care about how
+fast your code runs.
+//
+For any number of the following reasons:
+
+[.s]
+//
+* You start to have larger problems to solve.
+//
+* You're embarrassed that your algorithm makes your incredibly fast computer
+seem slow
+//
+* You have to start paying for machines
+//
+* Your customer tells you that your program is too slow
+//
+* You're in a job interview
+
+[[XIAanwdDVyALfCEgZLNQljuMKfylgtld]]
+== So How Long Will It Take?
+
+[.lead]
+//
+How long will our brute force GCD algorithm take?
+
+[.s]
+//
+* To compute the GCD of 4 and 6
+//
+* To compute the GCD of 185 and 2045
+//
+* To compute the GCD of M and N
+
+[[UgJrBAbxmpaEtUFaigwcjbLnlTfcIOoF]]
+== Algorithm Analysis
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Analysis_of_algorithms[Algorithm analysis]:
+//
+the determination of the computational complexity of algorithms, that is the
+amount of time, storage and/or other resources necessary to execute them.
+//
+____
+
+[[bzGJKlpimKGIHSRpMdozAZQHDQCfHegP]]
+== At The Limit
+
+[.lead]
+//
+We're usually want to analyze an algorithm in the general case, rather than for
+a specific set of inputs.
+
+[.s]
+//
+* How does the algorithm perform on arbitrarily difficult or large inputs?
+//
+* What are the best, average, and worst-case running times?
+//
+* *How is the algorithm's performance related to its inputs?*
+
+[[wZpYuIQdhBkDdYLdffvSWUUvbhDCqzoG]]
+== Big-O Notation
+
+[quote]
+//
+____
+//
+https://en.wikipedia.org/wiki/Big_O_notation#Product[Big-O notation]
+//
+is a mathematical notation that describes the limiting behavior of a function
+when the argument tends towards a particular value or infinity.
+//
+____
+
+[.lead]
+//
+Put another way: we want to _estimate_ what happens as the problem gets really,
+really hard.
+
+(At this point non-critical components of the algorithm's performance also cease
+to matter.)
+
+[[efsgaXBTFHpEdxGrToSwqgJExyuqqvqN]]
+== Dumb Algorithm, Clever Algorithm
+
+[.s.lead]
+//
+A *dumb* algorithm can move a problem _up_ in the runtime categorization: for
+example, from O(n) to O(n^2). (Our sort test is dumb. The problem is O(n).)
+
+[.s.lead]
+//
+A *smart* algorithm can move a problem _down_ in the runtime categorization: for
+example, from O(n^2) to O(n log n). (Euclid's Method GCD is smart. The problem
+is O(log(N)).)
+
+[[UEdnOCyLeWUOPArKwujWZkLnYfldCjkc]]
+== Announcements
+
+* I have office hours _Wednesday_ this week from 1&ndash;3PM.
+//
+Please come by!
+//
+* We have a
+//
+link:/info/feedback/[anonymous feedback form]
+//
+to the course website. Use it to give us feedback!
+
+// vim: ts=2:sw=2:et
+
+// vim: ts=2:sw=2:et
