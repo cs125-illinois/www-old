@@ -1,0 +1,312 @@
+---
+title: Escape the Maze
+description:
+  Begin learning about algorithms, and implement one to escape a maze.
+spelling_exceptions:
+  - mazemaker
+  - Roomba
+  - Add Ons
+---
+
+:sectnums:
+:linkattrs:
+
+[.lead]
+//
+In this lab we begin our exploration of _algorithms_, the conceptual heart of
+computer science.
+//
+You'll develop a simple algorithm to escape a maze and implement it in Java.
+
+[.alert.alert-warning]
+//
+--
+//
+If you need help with today's lab, please join
+//
+https://illinois.zoom.us/j/672785499[this Zoom meeting].
+//
+It will be staffed during normal lab hours: 9AM&ndash;9PM CST.
+//
+--
+
+[[algorithms]]
+== Algorithm Design and Implementation [.text-muted]#(50 Minutes)#
+
+[.lead]
+//
+Let's learn more about algorithms&mdash;systematic ways that we and computers
+use to solve problems.
+
+=== Escape Plans
+
+Open and make a copy of
+//
+https://goo.gl/Qn8Wwg[this maze spreadsheet].  Click "Add Ons -> Maze Creator ->
+Redraw Maze” to generate a random maze.
+//
+Note that you may have to wait a minute for the "Maze Creator" menu to appear.
+//
+Click through any scary warnings and the script should run.
+//
+Feel free to change the number of rows and columns to create a larger or smaller
+example.
+
+Working online with a partner (or multiple), develop an algorithm to escape from
+mazes like the ones drawn on the spreadsheet above.
+//
+You should limit yourself to the following actions:
+
+* `canMove()`: returns `true` if you can move forward, `false` otherwise (if you
+are blocked by a wall)
+//
+* `move()`: moves one square forward if possible; otherwise does nothing
+//
+* `turnRight()`: turns right, does not change your position
+//
+* `turnLeft()`: turns left, does not change your position
+//
+* `isFinished()`: returns `true` when you have reached the end position
+
+=== Evaluating Algorithms
+
+As you begin implementing your maze escape algorithm, think about the different
+ways that computer scientists evaluate algorithms.
+//
+Here are some of the components of a good algorithm:
+
+. *It works.*
+//
+It should definitely solve the problem you are trying to solve, or at least have
+a good probability of solving it in most cases.
+//
+. *It should perform well.*
+//
+It should not require a huge amount of resources to solve the
+problem&mdash;whether those resources are time, computational horsepower,
+computer memory, or disk space.
+//
+. *It should be understandable.*
+//
+Good algorithms are easy to understand and reason about.
+//
+The best ones are simple, and sometimes we even call them elegant.
+//
+Complex algorithms are hard to understand, making it difficult to think about
+what they will do in certain cases.
+//
+. *The implementation should be clear and understandable.*
+//
+Many times we encounter algorithms while reading computer code.
+//
+So just as the algorithm must be clear, the implementation in computer code must
+also be clear.
+//
+We will have a lot more to say about code quality throughout the
+semester&mdash;particularly on the MPs.
+
+These are not non-contradictory goals.
+//
+Frequently the desire for simplicity clashes with attempts to improve
+performance, or handle all inputs correctly.
+//
+But particularly when you are starting off as a computer science, err on the
+side of simplicity.
+//
+*Remember: computation is (increasingly) cheap, humans are expensive.*
+//
+If it takes me 10 times longer to understand or modify your algorithm, it is not
+worth a only minor improvement in performance.
+//
+Let your algorithms waste a bit of computer time, but never human time.
+
+=== Analyzing Your Algorithm
+
+Once you have developed your algorithm, consider the following questions before
+proceeding:
+
+. *What are the limitations of your algorithm?*
+//
+Will it _always_ find its way out of _any_ maze, or just mazes with certain
+properties?
+//
+. *How could you improve your algorithm?*
+//
+Would it help to keep track of other state, or have other operations (like
+`moveRight()`) available to you?
+
+[[maze]]
+=== Implementing Your Algorithm
+
+[.lead]
+//
+Now let's _implement_ the maze solving algorithm that you designed in the first
+half in Java.
+
+Move over to the lab homework problem at this point.
+//
+Today's homework uses the CS 125 mazemaker Java library, which uses a
+//
+https://rosettacode.org/wiki/Maze_generation[well-known algorithm]
+//
+to automatically generate mazes.
+//
+You can find the
+//
+https://github.com/cs125-illinois/mazemaker[mazemaker source code]
+//
+and
+//
+https://cs125-illinois.github.io/mazemaker/[documentation]
+//
+on https://github.com/[GitHub]
+//
+footnote:[For the adventurous, there is also a
+https://github.com/cs125-illinois/mazemaker.js[JavaScript] implementation that
+we used for the Google Sheet maze.]
+//
+Note that the version used on the homework problem is bit different than what is
+posted online, but largely the same.
+
+==== Your algorithm's performance
+
+Once you have a working algorithm, spend some time understanding its
+performance.
+//
+Answer the following questions footnote:[You may want to start a new Google Doc
+for this portion]:
+
+. How many steps&mdash;each consisting of moving one square&mdash;does it take
+to finish the maze?
+//
+Because the maze generation is random, you might want to run multiple trials and
+average the results.
+//
+. For a maze with dimensions N by M, what is the _minimum_ number of steps
+required to complete the maze, assuming you start at the bottom left and exit at
+the top right?
+//
+. How much worse does your algorithm do? Why?
+//
+. Can you come up with ways to improve your algorithm?
+
+==== Your algorithm's limitations
+
+Now spend some time thinking about the _limitations_ of your algorithm.
+//
+In particular, the mazes that are generated by our maze creator all have
+something in common: They have no loops!
+//
+This is due to the operation of the maze generation algorithm, which uses a
+simple depth-first search over the two-dimensional space.
+//
+To make things more interesting, we could have inserted some holes at the
+end&mdash;but we didn't.
+
+But suppose you ran your algorithm on a maze with loops.
+//
+Think up one way it could get stuck.
+//
+So it's possible that your algorithm may not work!
+//
+But, assuming that the start and end point are always on the exterior wall of
+the maze, try to convince your partner that your algorithm will still work.
+
+=== A Randomized Algorithm
+
+The maze-solving algorithm you implemented above is _deterministic_.
+//
+Provided the same maze, it will always navigate through it in the same way.
+//
+You may want to rerun your algorithm on the same maze a few times to convince
+yourself of this.
+
+Deterministic algorithms are great&mdash;easy to understand and reason about.
+//
+But there is a different class of algorithms called
+https://en.wikipedia.org/wiki/Randomized_algorithm[_randomized algorithms_].
+//
+As their name implies, these algorithms use randomness as part of their logic.
+//
+In some cases, this allows them to dramatically outperform the best known
+deterministic algorithm.
+
+image::https://upload.wikimedia.org/wikipedia/commons/c/c6/IRobot_Roomba_780.jpg[float="right", 300]
+
+One randomized algorithm that you may have seen in action is a space-filling
+algorithm called a _random walk_.
+//
+If you've ever watched a Roomba footnote:[Or heard
+http://www.theonion.com/article/roomba-violates-all-three-laws-of-roombotics-2184[its
+horrible brushes at night...]], you've seen a random walk in action.
+//
+It turns out that mapping is a hard problem for robots to solve.
+//
+So, rather than trying to map an area, early robotic vacuums
+//
+footnote:[I think that some new ones
+https://arstechnica.com/gadgets/2016/01/neato-botvac-connected-review-a-lidar-powered-robot-vacuum-is-my-maid-now/[are
+more sophisticated], although the cheap ones still work this way.]
+//
+just implemented a random walk:
+
+. Go straight until you hit something
+//
+. Turn a random amount but sufficient to not continue into the obstacle
+//
+. Repeat
+
+To a human observer this looks crazy&mdash;how is it ever going to get every
+spot?
+//
+But it turns out that there is some fairly sophisticated mathematics that shows
+that, given a certain number of passes, your random robot maid will get every
+spot with very high probability.
+//
+Or at least chase a duck:
+
+++++
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/Of2HU3LGdbo" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+++++
+
+==== Implement a random walk
+
+Inspired by your vacuum, try re-implementing your maze-solving algorithm using a
+random walk.
+//
+More or less, here's how that works:
+
+. Go forward until you are facing a wall
+//
+. Randomly turn right or left
+//
+. Repeat
+
+Once you are done, compare the running time of your randomized algorithm with
+the deterministic algorithm you implemented above.
+//
+Are you surprised?
+//
+With your partner, try to develop an explanation for the difference in
+performance.
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've escape the maze!
+//
+. And so has everyone else in your lab!
+
+If you need more help completing the tasks above please come to
+//
+link:/info/syllabus/#calendar[online office hours]
+//
+or post on the {forum}.
