@@ -1,0 +1,291 @@
+---
+title: Data Modeling
+description:
+  Today we'll show you how to work with data by modeling it using Java classes.
+  You'll learn just a bit about CSV-formatted data, and then design a class and
+  some functions to process an existing data set.
+spelling_exceptions:
+  - PrairieLearn
+outdated:
+  name: lab
+  current: /lab/
+---
+
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu[forum,role='noexternal']]
+
+[.lead]
+//
+We've frequently pointed out that Java classes can help you work with _data_.
+//
+By creating your own Java types you can model real-world entities, allowing you
+to both create new data and work with existing data sets.
+//
+But we haven't given you any change to actually do that yet&mdash;until now.
+
+Today's lab gives you a chance to work with data in the way that you are likely
+to find it in the wild&mdash;stored as text in a file.
+//
+You'll write code to load the data into a Java class that you define, and write
+some methods to process it the same way you would if you were performing an
+actual data analysis or investigation.
+
+[[csv]]
+== CSV [.text-muted]#(60 Minutes Total)#
+
+Both today's lab and link:/MP/2019/fall/2/[MP2] introduce you to different ways of
+representing Java objects as text&mdash;one instance of a broader set of
+techniques known as
+//
+https://en.wikipedia.org/wiki/Serialization[_serialization_].
+//
+link:/MP/2019/fall/2/[MP2] introduces you to
+//
+link:/MP/2019/fall/2/#json[JSON], a powerful way to convert Java objects
+//
+footnote:[along with objects in other object-oriented programming languages]
+//
+to strings while preserving much of the object's structure.
+
+But in lab today you'll work with the CSV (comma-separated value) format.
+//
+While it is far more limited than JSON, it is fairly ubiquitous, and many of the
+interesting data sets that you can find online you can access in CSV format.
+
+What is the CSV format?
+//
+Imagine that I have data about pets stored in our usual `Pet` class:
+
+[source,java]
+----
+public class Pet {
+  public String name;
+  public int age;
+  public String type;
+  public Pet(setName, setAge, setType) {
+    name = setName;
+    age = setAge;
+    type = setType;
+  }
+}
+----
+
+Now let's say that I want to save that data to a file.
+//
+Maybe I want to make sure it is saved so that the next time my program runs I
+still have it.
+//
+Or maybe I need to send it to a friend, or want to work with it using a
+spreadsheet tool like Google Sheets.
+//
+Or maybe I want to do some work in another programming language&mdash;like
+Python, or JavaScript, or Go.
+//
+Regardless: I need some way to _save_ my data about pets so that I can read it
+back in later.
+
+CSV is one way to do that.
+//
+A CSV file consists of a series of _records_, one on each line.
+//
+Each record contains multiple _fields_, separated by commas.
+//
+To save a `Pet` record I need to convert each of its fields to a `String` and
+write them to a file as a single line, with the fields separated by commas.
+
+So, for example, imagine that I had the following three ``Pet``s in my program:
+
+[source,java]
+----
+Pet chuchu = new Pet("Chuchu", 14, "dog");
+Pet xyz = new Pet("Xyz", 4, "cat");
+Pet balou = new Pet("Balou", 15, "dog");
+----
+
+Converted to CSV format, those three objects could look like this:
+
+[source,csv]
+----
+Chuchu,14,dog
+Xyz,4,cat
+Balou,15,dog
+----
+
+However, they could also look like this:
+
+[source,csv]
+----
+dog,Chuchu,14
+cat,Xyz,4
+dog,Balou,15
+----
+
+Same fields, different order&mdash;confusing!
+//
+As a result, we usually add a header specifying the name for each field, to
+eliminate ambiguity and make sure that we don't forget how we saved our data:
+
+[source,csv]
+----
+Name,Age,Type
+Chuchu,14,dog
+Xyz,4,cat
+Balou,15,dog
+----
+
+=== Data Modeling Using CSV Data
+
+So now you've seen how CSV files are generated using a simple Java class.
+//
+But how would we do the reverse?
+//
+Imagine we had a file containing some CSV data and we wanted to load and work
+with it in Java.
+//
+How would we do that?
+
+Imagine that we have a CSV of geocache locations as part of a game we're
+playing.
+//
+Each location is worth a certain amount of points.
+//
+Here's the CSV header and a few example records:
+
+[source,csv]
+----
+Latitude,Longitude,Points
+40.482979,-88.993390,100
+40.197184,-88.366315,-100
+----
+
+To design a Java class to model this data requires making a few decisions.
+
+* *What should we call the class?*
+//
+Usually this requires some information about what it is being used for.
+//
+* *What should the names of the instance variables be?*
+//
+Just using the same names as the header is a pretty good convention, although
+we'll want to use
+//
+https://en.wikipedia.org/wiki/Camel_case[camel case]
+//
+to avoid variables that start with an uppercase letter.
+//
+* *What should the types of the instance variables be?*
+//
+Here we want to examine a bit of the data itself.
+
+Here's an example class based on the CSV shown above:
+
+[source,java]
+----
+public class GeocacheLocation {
+  private double latitude;
+  private double longitude;
+  private int points;
+  // Getters and setters not shown
+}
+----
+
+When modeling data these decisions are yours to make.
+//
+But adhering to a few simple conventions will help make your code easier to read
+and maintain.
+
+=== Converting Records to Objects
+
+Next we have to figure out how, given a line of text like:
+
+[source,csv]
+----
+40.482979,-88.993390,100
+----
+
+We end up with a `GeocacheLocation` object with `latitude == 40.482979`,
+`longitude == -88.993390`, and `points == 100`.
+//
+There are libraries that can do this for you&mdash;but it's not hard to do
+yourself.
+//
+Remember `String.split` and `String.trim`?
+//
+Those functions come in handy here
+//
+footnote:[nice time for some review!].
+//
+And as an additional reminder, `Integer.valueOf` and `Double.valueOf` will
+convert a trimmed `String` into an `int` or `double`, respectively.
+//
+That's a good bit of what you need to know to get started!
+
+=== Loading Entire Files
+
+Once you can convert a single line containing a record to an object of the
+appropriate type it's easy to extend this idea to load an entire file containing
+multiple records.
+//
+You end up with an array of objects.
+//
+So if we loaded:
+
+[source,csv]
+----
+40.482979,-88.993390,100
+40.197184,-88.366315,-100
+----
+
+We'd end up with a `GeocacheLocation` array of size 2.
+
+=== Data Processing
+
+Once we have an array of `GeocacheLocation` objects we can work with them like
+any other Java objects.
+//
+For example, if we knew current location we could use it to determine which
+`GeocacheLocation` object was closest to us.
+//
+Or we could find the one worth the most points.
+//
+At this point we're just writing Java code: the CSV parts are behind us!
+
+=== Practice With CSVs and Data Processing
+
+Today's lab homework gives you practice working with data in the same way as
+described above.
+//
+You don't actually get to read the data from the file&mdash;but you get to do
+everything else.
+//
+This is great practice with object design, and some review of `String`
+processing and basic algorithm review as we prepare to begin talking about
+algorithms and data structures next week.
+
+Good luck, and, as always, have fun!
+//
+Hopefully this will help demystify the process of working with data in Java.
+
+[[mp2]]
+== MP2 [.text-muted]#(Any Remaining Time)#
+
+If you have some time left use it to continue work on
+//
+link:/MP/2019/fall/2/[MP2], which is due next weekend.
+
+[[done]]
+== Before You Leave
+
+**Don't leave lab until**:
+
+. You've completed our in-lab testing homework problems.
+//
+. And so has everyone else in your lab!
+
+If you need more help completing the tasks above please come to
+//
+link:/info/2019/fall/syllabus/#calendar[office hours]
+//
+or post on the {forum}.
