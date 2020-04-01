@@ -16,7 +16,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10187200224105626.js" data-dtconfig="rid=RID_-2018356100|rpid=430926439|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=2|uxrgce=1|bp=3|cuc=8oltqtu2|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|md=1=cemail|srad=0|lastModification=1584736831336|dtVersion=10187200224105626|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10187200224105626.js"></script><script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10187200224105626.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=2|uxrgce=1|bp=3|cuc=8oltqtu2|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|md=1=cemail|srad=0|lastModification=1584736831336|dtVersion=10187200224105626|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10187200224105626.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=12765905|domain=dow.com"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10187200323152418.js" data-dtconfig="rid=RID_-2018356100|rpid=-444682834|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=2|uxrgce=1|bp=3|cuc=8oltqtu2|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|md=1=cemail|srad=0|lastModification=1585699725334|dtVersion=10187200323152418|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10187200323152418.js"></script><link rel="stylesheet" href="/etc/clientlibs/foundation/main.min.78b998ae96775bdf296e2d12096d9ac0.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.9b44ee9bd63f1ac7c706ab9b5ef1a583.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.b09e67739aad739f61ec0f0e17c9870b.js"></script>
@@ -3341,7 +3341,7 @@
             
     
     
-    <a href="/en-us/market/mkt-paints-inks-coatings/sub-paints-architectural-coatings/app-paints-archcoat-exterior-wall-facade-paints.html">Exterior Wall - Facade Paint</a>
+    <a href="/en-us/market/mkt-paints-inks-coatings/sub-paints-architectural-coatings/app-paints-archcoat-exterior-wall-facade-paints.html">Exterior Wall - Façade Paint</a>
 
     
     
@@ -3354,6 +3354,18 @@
     
     
     <a href="/en-us/market/mkt-paints-inks-coatings/sub-paints-architectural-coatings/app-paints-archcoat-high-gloss-trim.html">High Gloss and Trim</a>
+
+    
+    
+    
+
+        </li>
+    
+        <li>
+            
+    
+    
+    <a href="/en-us/market/mkt-paints-inks-coatings/sub-paints-architectural-coatings/app-paints-archcoat-interior-wall-paints.html">Interior Wall Paint</a>
 
     
     
@@ -4043,7 +4055,7 @@
             
     
     
-    <a href="/en-us/product-technology/pt-plastic-additives.html">Plastics Additives</a>
+    <a href="/en-us/product-technology/pt-plastic-additives.html">Plastic Additives</a>
 
     
     
@@ -4079,7 +4091,7 @@
             
     
     
-    <a href="/en-us/product-technology/pt-release-coating-systems.html">Release Coating Systems and Agents</a>
+    <a href="/en-us/product-technology/pt-release-coating-systems.html">Release Coatings and Agents</a>
 
     
     
