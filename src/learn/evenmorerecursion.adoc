@@ -1,0 +1,544 @@
+---
+title: More Practice with Recursion
+date: 2020-04-06
+description:
+  More practice with recursion, including on non-tree structures.
+youtube: https://youtu.be/aQJPWQoKO3o
+---
+
+[[pnmtWnAJZlnuaDisItFReZPtifJcuezH]]
+[.spelling_exception]
+== Today's Musical Selections
+
+[.lead]
+//
+https://www.youtube.com/watch?v=yHuhABPbOaE["Can't do much"]
+//
+seems like an appropriate song for our current situation.
+
+This is off of
+//
+https://www.waxahatchee.com/[Waxahatchee's]
+//
+latest record "Saint Cloud".
+//
+I was so excited when this came out a few weeks ago!
+//
+I loved
+//
+https://pitchfork.com/reviews/albums/waxahatchee-out-in-the-storm/["Out in the
+Storm"],
+//
+and although "Saint Cloud" is very different, it's also wonderful.
+
+[[jrRQIGHYmPhPUoMLkIWzHUsgoPNdbBOn]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">More Practice with Recursion</div>
+++++
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  public Item start;
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+    }
+  }
+  public void reverse() {
+    return;
+  }
+  public String toString() {
+    String toReturn = "";
+    for (Item current = start; current != null; current = current.next) {
+      toReturn += current.value;
+    }
+    return toReturn;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleLinkedList = new SimpleLinkedList(new Integer[] {1, 2, 5});
+    System.out.println(simpleLinkedList);
+    simpleLinkedList.reverse();
+    System.out.println(simpleLinkedList);
+  }
+}
+....
+--
+
+[[AddzJUOGGAEvClilSsefpmpcNddIUiAX]]
+[.oneword]
+//
+== Welcome Back!
+
+I hope you all had a safe and restful weekend.
+
+[[zoEdUfAzYDVrvVxMJUVxXDDBSXIfNPTZ]]
+== Recursive Strategies
+
+[.lead]
+//
+Recursion can be _hard_ to wrap your mind around at first.
+//
+But these three strategies will help.
+
+[.s]
+//
+. *Know when to stop.* When you identify the smallest subproblem, you must
+return. Otherwise your program will not terminate. This is also called the _base
+case_.
+//
+. *Make the problem smaller in each step.* If the problem doesn't get smaller,
+you will never reach the base case. This is also called the _recursive step_.
+//
+. *Combine results from your recursive calls properly.*
+
+[[mGvjixNfIHVZAwNDVEFaFOMDLWcLAYfs]]
+== Recursive Factorial
+
+[source,java]
+----
+int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}
+----
+
+[.s]
+//
+* *Base case:* [.s]#`n == 1`#
+//
+* *Recursive step:* [.s]#decrement n towards 1#
+//
+* *Combine results:* [.s]#multiply current n with the result of the next
+subproblem#
+
+[[oQzICQCZvbKbVVPncvtWmbECnoljnYsn]]
+== Reaching Base Camp
+
+[source,java]
+----
+int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}
+----
+
+[.lead]
+*You must reach the base case.*
+//
+Otherwise your problem will never stop, run out of memory, and crash.
+
+How can the code above fail to reach the base case?
+
+[[wOwqnkFpRKhhMPsjpiOdySSGfHefvzYg]]
+== ! Recursive Factorial
+
+[.janini.smaller]
+....
+static int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+System.out.println(factorial(-4));
+....
+
+[[kyRSSVsLqAaTMiACrlVQcdeywUZSBGZW]]
+== Recursion v. Iteration
+
+[.lead]
+//
+Recursive solutions can be difficult to understand.
+
+[.s]
+//
+* The goal is to write _clear_ code, not use a particular solution technique.
+//
+* If an iterative solution is more clear, use that.
+//
+* Sometimes a recursive solution is much more clear.
+//
+* Don't use recursion just to be cool.
+//
+* Don't use recursion because it is fewer lines of code. Who cares? Clarity is
+the goal, not brevity.
+
+[[moNyvsomOKHFqNeMxcUopkGdOyHclORB]]
+== ! Iterative Factorial
+
+[.janini.smaller]
+....
+// Don't get too cute...
+static int factorial(int n) {
+  int result = 1;
+  for (int i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+System.out.println(factorial(4));
+....
+
+[[WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV]]
+== Recursive Tree Print Leaves
+
+[.lead]
+//
+Let's print _only_ leaf nodes: those that have neither a left nor a right child.
+
+[[wFkePtuoPHtjiQgMUaRMxqrXubVNPQoY]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[nBBvXLuotvVfrtrnfEEjpVKYJqQqZZYK]]
+== Recursive Tree Print Leaves
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a tree with no left or right node. It's also a
+a leaf node, so print our value.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Nothing to do here, just continue down the tree.#
+
+[[ApTsFupsyGxTnQxQNOutQbJTYqctEttB]]
+== !Recursive Tree Print Leaves
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return "";
+    }
+    return "[" + current.value.toString() + "]"
+      + toString(current.right) + toString(current.left);
+  }
+  public void printLeaves() {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] {1, 2, 3, 4});
+    binaryTree.printLeaves();
+  }
+}
+....
+
+[[hEQFCftiCbUeeqhYNCdtcAliBQFMeBsE]]
+== Writing Perfect Code
+
+[.lead]
+//
+Starting today we'll be assigning a _small_ amount of credit on each homework
+problem for writing "perfect" code.
+
+Obviously we can't tell whether your code is _really_ perfect footnote:[Yet!]&mdash;meaning
+correct, beautiful, minimal, concise, readable.
+//
+But for the purposes of automated checking we will consider your code not to be
+perfect if:
+
+[.s]
+//
+* It contains dead or _unreachable_ code.
+//
+* It is overly complex compared to our solution.
+
+[[PGfdgeecFutSuJehIurfApSaupuZUKsG]]
+== Dead Code
+
+[source,java,role='smaller']
+----
+public class YourBinaryTree extends BinaryTree {
+  public int size() {
+    return size(root);
+  }
+  private int size(Node current) {
+    if (current == null) {
+      return 0;
+    }
+    if (current != null) {
+      return 1 + size(current.left) + size(current.right);
+    } else {
+      return 0;
+    }
+  }
+}
+----
+
+[.s]
+//
+* The last `return 0` will never be reached!
+
+[[hGTaVDLvuRWYmaMiiHTDeKSXtDlYMefO]]
+== High Complexity
+
+[source,java,role='smaller']
+----
+public class YourBinaryTree extends BinaryTree {
+  public int size() {
+    return size(root);
+  }
+  private int size(Node current) {
+    if (current == null) {
+      return 0;
+    }
+    if (current.left == null) {
+      return 1 + size(current.right);
+    } else if (current.right == null) {
+      return 1 + size(current.left);
+    } else {
+      return 1 + size(current.right) + size(current.left);
+    }
+  }
+}
+----
+
+[.s]
+//
+* There are _4_ paths through `size(Node current)`
+//
+* For the solution there are only _2_.
+
+[[iGeDDuAGheLcsDveIlxakkRpOcIWeEbQ]]
+[.oneword]
+//
+== Questions About Perfection?
+
+[[MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb]]
+== Recursive Tree Search
+
+[.lead]
+//
+Let's determine whether a tree contains a certain value.
+
+[[ngirvffoqoVGBWAiUDJsvyNkZwEiGOey]]
+[.oneword]
+//
+== What's Our (Recursive) Algorithm?
+
+[[ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD]]
+== Recursive Tree Search
+
+[.s]
+//
+* *Base case*: [.s]#We've reached a node with no descendants. Return true if
+its value matches, zero otherwise.#
+//
+* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+//
+* *Combine results*: [.s]#Return true if either we or our right or left subtree
+contain the search value.#
+
+[[LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm]]
+== !Recursive Tree Search
+
+[.janini.compiler.smallest]
+....
+import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return "";
+    }
+    return "[" + current.value.toString() + "]"
+      + toString(current.right) + toString(current.left);
+  }
+  public boolean search(Object value) {
+    return false;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] {1, 2, 3, 4});
+		System.out.println(binaryTree.search(4));
+  }
+}
+....
+
+[[DdYpDyJIvrmHWCutyOgMifXNhGVyLsyp]]
+[.oneword]
+== How Could We Make This Search More Efficient?
+
+[[ikMBvyRKzYemTuEmWrBWnouucgybiufG]]
+== ! Binary Search
+
+[.janini.compiler.smallest]
+....
+public class BinarySearchTree {
+  private class Node {
+    private Comparable value;
+    private Node right;
+    private Node left;
+    Node(Comparable setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinarySearchTree(Comparable[] values) {
+    for (Comparable value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Comparable value) {
+    add(root, value);
+  }
+  private void add(Node current, Comparable value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (current.value.compareTo(value) >= 0) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return "";
+    }
+    return "[" + current.value.toString() + "]"
+      + toString(current.right) + toString(current.left);
+  }
+  public boolean search(Object value) {
+    return false;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinarySearchTree binarySearchTree = new BinarySearchTree(new Integer[] {1, 2, 3, 4});
+    System.out.println(binarySearchTree.search(3));
+  }
+}
+....
+
+[[oApTeMfnuZvIlKHitawrVCWwZsdsdjoD]]
+== Announcements
+
+* Coders Chapters 8 for _next week's_ quiz. (Chapter 7 for this week's quiz.)
+
+// vim: ts=2:sw=2:et
