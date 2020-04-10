@@ -1,10 +1,26 @@
 ---
 title: Insertion and Merge Sort
-date: 2019-11-08
+date: 2020-04-10
 description:
   Discussion of insertion sort and merge sort.
-youtube: https://youtu.be/MciDqfc4TiU
+spelling_exception:
+  - Covid
 ---
+
+[[nyVAgxeLnXRniGKwisiSxiPosoeADhee]]
+[.spelling_exception]
+== Today's Musical Selections
+
+[.lead]
+//
+Our second video with a self-driving car as a metaphor?
+//
+https://www.youtube.com/watch?v=BXC80ZXQhvQ["Call it Dreaming"]
+//
+by
+http://ironandwine.com/[Iron and Wine].
+
+I hope you all have a bit of time for dreaming during these dark days.
 
 [[bzZohpujfVOvrNRhXHxXdNvabGaupZxy]]
 == !
@@ -12,7 +28,7 @@ youtube: https://youtu.be/MciDqfc4TiU
 [.janini]
 --
 ++++
-<div class="message">Merge Sort</div>
+<div class="message">Insertion and Merge Sort</div>
 ++++
 ....
 import java.util.Arrays;
@@ -25,139 +41,62 @@ System.out.println(Arrays.toString(sort(testArray)));
 ....
 --
 
-[[pxteXKKdyCZGTrkOnzndCdGiiVhhiIWW]]
-== Review: Recursive Tree Traversal
+[[sAPnGAwOXnBnpsaxiKHFBzvTRHFdvvHd]]
+== Sorting Algorithms
 
 [.lead]
 //
-Let's find all nodes in the tree and add them to a list.
-
-[[AFRvWZfeQQeGdVMvXnMzPEVICMgonSdu]]
-[.oneword]
-//
-== What's Our (Recursive) Algorithm?
-
-[[WoTyiduwYKpDJQqjEQouvluMZvMMMVtx]]
-== Recursive Tree Traversal
+Sorting algorithms bring together several of the things that we have discussed
+recently:
 
 [.s]
 //
-* *Base case*: [.s]#We've reached a `null` node, at which point we can stop.#
+* Imperative programming
 //
-* *Recursive step*: [.s]#Consider our right tree and left tree separately.#
+* Big-O algorithm runtime analysis
 //
-* *Combine results*: [.s]#Add ourselves to the list of nodes.#
+* Recursion
 
-[[ngyjededPiWzJRbJEefcJndHYEAaanwn]]
-== Java ``ArrayList``s
+[[iGCyTSiKXNfsaBVeoPLKYPWvrUCgRsPc]]
+== Sorting Matters
 
 [.lead]
 //
-Lists are one of the two data structures you meet in heaven.
+Sorting is often a building block for many other algorithms.
 
-We've studied them in class together.
+[.s]
 //
-But you'll usually use Java`s built-in implementations.
+* _Searching_ is more efficient if the data is sorted first
+//
+* Sorting can be used to _detect duplicates_
+//
+* Sorting is often used to produce a canonical representation of data or for
+presentation to human users
 
-[source,java]
-----
-import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
+[[UzdywHbjMcMOrUOmWfhFtSuqvxQroXyl]]
+[.nologo]
+== ! Sorting Matters
 
-List list = new ArrayList();
-List anotherList = new LinkedList();
-----
-
-[[HYqlNDapesPenEQfkFhuOjHcdeaozZnd]]
-== ! Java List Interface
 ++++
 <div class="embed-responsive embed-responsive-4by3">
-  <iframe class="full embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/List.html"></iframe>
+  <iframe class="embed-responsive-item" src="https://sortbenchmark.org/"></iframe>
 </div>
 ++++
 
-[[PvTLWdfnSyZiVbCqNAoJVZumecHuRfTP]]
-== ! Java ``ArrayList``s
+[[sHTXsaPnEYBhYRsqvojNwHmdfjslfdOD]]
+[.ss]
+== In Memory of Jim Gray, Turing Award Winner
 
-[.janini]
-....
-import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
+https://en.wikipedia.org/wiki/Jim_Gray_(computer_scientist)[Jim Gray]
+//
+was a pioneer in the fields of databases and data processing.
 
-List list = new ArrayList();
-List anotherList = new LinkedList();
-....
+He vanished at seat in 2007 and, despite a worldwide crowdsourced effort to
+locate his boat, was never found.
 
-[[uVJpYoHLxekeOagIBhsAKNLEUXnddLlp]]
-== !Recursive Traversal Example
+<<<
 
-[.janini.compiler.smallest]
-....
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
-
-public class BinaryTree {
-  private static Random random = new Random();
-  private class Node {
-    private Object value;
-    private Node right;
-    private Node left;
-    Node(Object setValue) {
-      value = setValue;
-    }
-  }
-  private Node root;
-  BinaryTree(Object[] values) {
-    for (Object value : values) {
-      add(root, value);
-    }
-  }
-  public void add(Object value) {
-    add(root, value);
-  }
-  private void add(Node current, Object value) {
-    if (current == null) {
-      root = new Node(value);
-      return;
-    }
-    if (random.nextBoolean()) {
-      if (current.right == null) {
-        current.right = new Node(value);
-      } else {
-        add(current.right, value);
-      }
-    } else {
-      if (current.left == null) {
-        current.left = new Node(value);
-      } else {
-        add(current.left, value);
-      }
-    }
-  }
-  public String toString() {
-    return toString(root);
-  }
-  private String toString(Node current) {
-    if (current == null) {
-      return "";
-    }
-    return "[" + current.value.toString() + "]"
-      + toString(current.right) + toString(current.left);
-  }
-  public List allValues() {
-  }
-}
-
-public class Example {
-  public static void main(String[] unused) {
-    BinaryTree binaryTree = new BinaryTree(new Integer[] {1, 2, 3, 4});
-    System.out.println(binaryTree.allValues());
-  }
-}
-....
+image::http://jimgray.azurewebsites.net/Photos/Portrait1.jpg[link='http://jimgray.azurewebsites.net/jimgrayvita.htm',width=240]
 
 [[eDDHyzrDGfZevMjyCYUAGvUCUqlSKbkk]]
 == There Are Many Sorting Algorithms
@@ -939,84 +878,9 @@ And talk about how to use them in your own classes.
 //
 But that's all for today.
 
-
-[[ZGDTqnPOgciiJsxAnBmXHKBQXPPdKhAn]]
-== Merge Runtime
-
-*Time complexity*:
-//
-[.s]
-//
-* *Worst case*: [.s]#O(n)#
-//
-* *Best case*: [.s]#O(n)#
-//
-* *Average case*: [.s]#O(n)#
-
-[[iBEibjgrsUjidKlUanILdeVbCctzwKIe]]
+[[LeHjSfSurqBPpmfdRgthdGntDXkfBvrQ]]
 [.oneword]
-//
-== CS 125 Project Fair
-
-[[iFJXhHSwmyelvbyequhRjdneNfenakHm]]
-== Fair Overview
-
-[.lead]
-//
-This will be our fourth CS 125 Final Project Fair: bigger and better than ever.
-
-[.s]
-//
-* *Date:* Thursday 12/12/2019, time TBD.
-//
-* *Participation:* _Optional_ but worth *1% extra credit*
-//
-* *Location*: TBD, but probably in and around Siebel.
-
-[[nOYsfksqNFeDtLWnedcWSkMnRDDuZqff]]
-== How to Not Get a Great CS Job
-
-[.lead]
-//
-All of you will get a job.
-//
-Not all of you will get a _great_
-//
-footnote:[Change the world kind of]
-//
-job.
-
-Here's a good strategy for not getting a good job:
-
-[.s]
-//
-* Take CS classes.
-//
-* Do the projects.
-//
-* Get good grades.
-//
-* Don't do any side projects: focus on grades instead.
-
-[[edrfAnHBTbCoURGLfVRZneuxOnwMuivs]]
-== How to Get a Great CS Job
-
-[.lead]
-//
-**Show your passion for technology.**
-
-[.s]
-//
-* The CS 125 Project Fair is intended to get you started doing that.
-
-[[iBsnBqtjtIRjZDKVzDvCInanmDdoxhNH]]
-== Example Spring 2019 Fair Projects
-
-++++
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe class="embed-responsive-item" src="https://cs125.cs.illinois.edu/info/fair"></iframe>
-</div>
-++++
+== Spring 2020 CS 125 Grading Changes
 
 [[oApTeMfnuZvIlKHitawrVCWwZsdsdjoD]]
 == Announcements
