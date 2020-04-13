@@ -1,0 +1,397 @@
+---
+title: "MP5: Final Project"
+description:
+  MP5 gives you a chance to show what you've learned this semester by planning
+  and executing a project of your own choosing.
+spelling_exceptions:
+  - GitLab
+  - buildscript
+  - Logcat
+  - Gson
+---
+:sectnums:
+:linkattrs:
+
+:forum: pass:normal[https://cs125-forum.cs.illinois.edu/c/spring2020-mp/mp5/[forum,role='noexternal']]
+
+[.lead]
+//
+You've learned a lot this semester.
+//
+Now it's time to try out your newly-acquired super powers.
+//
+MP5 is not about us giving you something to do&mdash;it's about you
+accomplishing something _you want_ to do using computer science.
+
+MP5 is different than previous MPs.
+//
+It is done in pairs with a partner.
+//
+And it's due on lab day during the last week of class: so **Tuesday 5/5/2020**
+//
+footnote:[Cinco de Mayo!].
+
+Also the best projects as rated by the class will earn <<extra, 1% extra credit>>.
+
+[[objectives]]
+== Learning Objectives
+
+If the Machine Project had you execute a carefully-planned route from point A
+to point B, the Final Project takes you on a journey off the map.
+//
+You'll learn how to plan and execute a small Android project of your own design.
+//
+You'll also learn how to work with a partner.
+//
+All the skills you learned in the MP checkpoints will continue to be useful.
+
+In many ways, the Machine Project has been designed to prepare you for this
+moment.
+//
+The Final Project brings everything together and starts you out on a career as
+an independent software developer&mdash;working on your own projects and
+learning things that interest you.
+
+[[rules]]
+== Rules
+
+Our goal in MP5 is to give you as much flexibility as possible, so there are few
+rules about what you can and can't do.
+//
+But those that we do have are important:
+
+You _must_ do something new for MP5.
+//
+Do not submit something from another class, or something you've done previously.
+//
+You may want to work on something that you've started on previously, but given
+that you'll be working with a partner that's not fair to them.
+//
+So you should pick something new to do for MP5.
+//
+It doesn't have to be a huge project&mdash;you only have a few weeks.
+//
+But it should be original work.
+
+Here are the rest of the rules:
+
+* You need to build an Android app.
+//
+* You need to design a simple UI. We'll provide help with that in lab.
+//
+* You need to finish a UI mockup by the week before the final due date and show it in lab.
+//
+* You need to use a new web API, software library, or Android feature.
+//
+* You need to commit your work to version control&mdash;to either a public or private repository.
+//
+* You need to work with someone in your lab section.
+//
+* **You cannot build a weather app or a calorie counter.** We've seen too many of those recently.
+//
+* *Other than that, what to do is up to you.*
+
+Note that we did _not_ say that your Android app has to be written in Java.
+//
+The adventurous among you may want to try out
+//
+https://developer.android.com/kotlin[Kotlin],
+//
+which is now Google's preferred language for Android development.
+//
+And the even more adventurous among you may want to give cross-platform app
+development a try using a framework like
+//
+https://facebook.github.io/react-native/[React Native].
+//
+The goal here is to learn something new, so these kinds of adventures are not
+discouraged.
+//
+However, keep in mind that on a whole the course staff will be less helpful if
+you choose to use a language or framework they are less familiar with.
+
+You turn in the Final Project by recording a YouTube presentation which will be
+shown in lab during the last week of class.
+//
+You and your partner should plan that together.
+//
+**You _do_ have to publish your work on GitHub (or GitLab, or something
+similar)&mdash;privately if you want.**
+//
+So you should set up your project using Git and be able to show that you have
+committed and pushed your code to GitHub as part of your turn-in presentation.
+
+[[partnering]]
+=== Partner Rules
+
+The Final Project is done in *groups of two*.
+//
+Obviously you want to find someone to work with that you enjoy working with and
+think that you can do an awesome project with&mdash;since we will be giving
+extra credit for some of the best projects.
+//
+You will also want to make sure that at least one of you has a laptop that can
+smoothly run Android Studio and the emulator, or an Android phone for demoing
+your new application.
+//
+This semester you'll also need to consider finding a partner that you can
+regularly meet with remotely, meaning that they are in a similar time zone or at
+least there is enough overlap so that you can communicate when needed.
+
+You should start looking for a partner today (4/14/2020) and select one over the
+next few days.
+//
+Feel free to reach out to friends, or use the forum to find a partner.
+//
+There is a UI checkpoint two weeks from now, so you will start losing credit
+quickly if you don't have a partner.
+
+[.alert.alert-warning]
+--
+We expect you to work in pairs. Projects completed by larger groups will not be
+graded.
+--
+
+[[ui]]
+//
+=== UI Checkpoint
+
+The second-to-last lab, on Tuesday 4/28/2020, will be dedicated to you showing
+your TA the progress you've made so far.
+//
+By then, you should have at least a mockup of your app's user interface.
+
+The app's functionality doesn't need to work yet, but you should have set up
+much of the UI in your layout resource(s).
+//
+Pressing buttons should trigger _something_, even if that's just writing to the
+Logcat to show that you've attached handler stubs that will be implemented
+later.
+
+This means that your app must have an interface that the user can interact with.
+//
+Apps that only run in the background or exit immediately do not qualify.
+
+[[help]]
+//
+== Help and Tips
+
+While the Final Project is self-driven, please feel free to approach the course
+staff for help.
+//
+Post on the {forum}, or come to office hours and discuss your project idea and
+implementation with the course staff.
+
+[[libraries]]
+//
+=== Using Libraries
+
+To use features and classes provided by a software library, you need to add it
+to your project.
+//
+Many Java libraries are published to repositories that Gradle&mdash;the most
+common Android build system&mdash;can access.
+//
+You can have Gradle install a library into your project by adding the library's
+_dependency coordinate_ to the `dependencies` section of your Gradle
+buildscript, the `build.gradle` file inside the `app` folder of your project.
+//
+The library's web page will probably include the line you can add to your
+buildscript.
+//
+It will usually look something like this:
+
+[source,groovy]
+----
+implementation 'com.android.volley:volley:1.1.1'
+----
+
+The `implementation` directive means that the library is used by your app, as
+opposed to used only by tests or only needed at compile time.
+//
+The string inside the quotes is the dependency coordinate.  Here,
+`com.android.volley` is the _group_, `volley` is the _artifact_, and `1.1.1` is
+the _version_.
+//
+Gradle accepts multiple ways of identifying a dependency, so you might see other
+formats too.
+
+Some libraries' web sites might also provide instructions for downloading the
+library code and manually adding it as a module to your project.
+//
+This is usually _not_ what you want.
+//
+If possible, find a dependency coordinate and install the library using Gradle.
+
+(If the library isn't published in a way that allows you to import it using
+Gradle, then we might advise you to steer clear anyway.
+//
+This is a sign of an old or poorly-maintained library.)
+
+To learn how to use a specific library, refer to its documentation or search the
+Internet for examples.
+//
+While the course staff are happy to help you look for resources, they have not
+used every possible library.
+
+[[webrequests]]
+=== Making Web Requests
+
+If you are using a web API for your app, you will need some way to make web
+requests.
+//
+While there are several HTTP libraries for Android, we recommend the
+https://developer.android.com/training/volley/index.html[Volley] library.
+//
+It is very similar to the `WebApi` component we provided with the Machine
+Project footnote:[In fact, the HTTP parts of `WebApi` are a wrapper around
+Volley with a little extra work for integration with Firebase Authentication and
+Gson.].
+//
+Android provides https://developer.android.com/training/volley/simple.html[an
+introduction to using it].
+
+All Volley requests are processed by a `RequestQueue`.
+//
+You can make just one queue per activity footnote:[or per app, though be careful
+with `static` in Android] and use it for multiple requests.
+//
+To make a request, first instantiate a request object like a `StringRequest`.
+//
+The request object specifies the HTTP method, URL, response handler, error
+handler, and possibly POST data depending on the request class.
+//
+Start the request by passing it to a queue's `add` method. Some time in the
+future, your response or error handler will be called.
+
+``StringRequest``s give you raw string responses, but many web APIs return JSON.
+//
+You can use https://github.com/google/gson[Gson]'s `JsonParser` to turn the
+string into a Gson object footnote:[Gson even has ways to parse JSON into
+instances of your custom Java classes.].
+//
+You could alternatively use Volley's
+https://javadoc.io/static/com.android.volley/volley/1.1.1/com/android/volley/toolbox/JsonObjectRequest.html[`JsonObjectRequest`]
+or
+https://javadoc.io/static/com.android.volley/volley/1.1.1/com/android/volley/toolbox/JsonArrayRequest.html[`JsonArrayRequest`]
+to have the text parsed for you, albeit into a different kind of Java object
+than you used for the Machine Project.
+
+[[github]]
+=== Publishing to GitHub
+
+Android Studio can help you put your project on GitHub.
+//
+The _VCS | Import into Version Control | Share Project on GitHub_ menu command
+will start a process to create a GitHub repository and upload the contents of
+your project.
+
+To give your partner write access to the repository, add them as a collaborator
+by opening the repository on the GitHub web site, going to the Settings tab,
+selecting the Collaborators section, and adding them.
+//
+Your partner can clone the repository onto their computer, make changes, and
+push just like you can.
+//
+You will want to pull (_VCS | Git | Pull_) before starting a work session so
+that you can get any changes made by your partner.
+
+[[grading]]
+== Grading
+
+Final Project grading is quite generous.
+//
+We care that you tried something new, not that you succeeded fully your first time.
+//
+It is worth 100 points total, broken down as follows:
+
+. *20 points* for building an original _and working_ Android app
+//
+. *20 points* for the first UI checkpoint, shown in lab on 4/28/2020
+//
+. *20 points* for using a new web API, software library, or Android feature
+//
+. *10 points* for ensuring that all team members have roles in the project
+//
+. *20 points* for recording your YouTube video
+//
+. *10 points* for properly publishing your work to a version control site like GitHub
+
+Unlike the Machine Project, there is no autograding or online testing for the
+Final Project.
+//
+Grades are entirely at the discretion of the course staff.
+
+*Also note that the Final Project cannot be dropped.*
+//
+It's too important&mdash;this is your chance to do something cool, creative, and
+to show us everything you've learned this semester.
+
+[[extra]]
+//
+=== Final Project Extra Credit
+
+MP5 also provides an opportunity to earn extra credit by creating a very
+impressive final project.
+//
+We will provide a form allowing staff to vote on which projects they found the
+most impressive.
+//
+Each lab staff member will vote on all the projects from their lab.
+//
+The top rated projects _across the entire class_ will receive a *1%* increase
+_in your final CS 125 grade_.
+
+Note that _we will take into account your level of ability when you started CS
+125_ when determining how impressive your project is.
+//
+So this is open to students of all ability levels.
+//
+This extra credit is also independent from any previous extra credit that you
+might have earned earlier this semester.
+
+[[submitting]]
+== Submitting Your Work
+
+You and your partner must prepare a presentation of at most _4 minutes_ before
+the last lab section during the final week of class.
+//
+Prerecord your presentation and upload it to YouTube.
+//
+Lab staff will evaluate your video and project by viewing your video on Tuesday
+5/5/2020, meaning that your videos must be uploaded by then if you want to
+receive credit for the final project.
+
+Your presentation should cover what you did, why you did it, who did what, and
+any other interesting details: interesting technical problems you encountered,
+how you collaborated, or ideas for future work.
+//
+You should also confirm that this was an original project and that it was
+published under one or both of the project partners' accounts.
+//
+Don't use more than 4 minutes, but if you can demo your project and discuss it
+sufficiently in less time, that's great!
+
+We will post a form in a few weeks that you can use to submit details about your
+final project.
+
+[[cheating]]
+=== Academic Integrity
+
+Any attempt to turn in non-original work will be treated as an academic integrity violation.
+//
+Having someone else do your project for you or copying an existing codebase are forbidden.
+
+However, in the real world it is very common to get _some_ help with projects
+from other people or online sources.
+//
+You are free to show some code from your final project on the public {forum} or
+copy-paste snippets of code from programming web sites.
+//
+If you use substantial snippets from outside sources, it can be good practice to
+include the URL in a comment above the code that you borrowed.
+//
+This serves both to acknowledge the source and to remind you where it came from
+in case you or your partner is trying to debug or understand it.
+//
+If in doubt, ask the course staff.
