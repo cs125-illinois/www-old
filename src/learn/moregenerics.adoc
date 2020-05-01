@@ -1,0 +1,696 @@
+---
+title: More Generics
+date: 2020-05-01
+description:
+  How to program with Java generics.
+spelling_exceptions:
+  - i7
+  - Googler
+  - Generifying
+  - MTDash
+youtube: https://youtu.be/VL62G5TN8cg
+---
+:imagesdir: /learn/images
+
+[[dCpHsyaBAaBpgNerMebmXnqvbeSuiedh]]
+== !
+
+[.janini.jdk.compiler.smaller]
+--
+++++
+<div class="message">Generics</div>
+++++
+....
+import java.util.List;
+import java.util.ArrayList;
+
+public class LastTen<T> {
+  private List<T> values = new ArrayList<>(10);
+  private int currentIndex = 0;
+  LastTen() {
+    for (int i = 0; i < 10; i++) {
+      values.add(i, null);
+    }
+  }
+  public void add(T newValue) {
+    values.set(currentIndex, newValue);
+    currentIndex = (currentIndex + 1) % 10;
+  }
+  public List<T> get() {
+    return values;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LastTen<String> lastTen = new LastTen<>();
+    for (int i = 0; i < 30; i++) {
+      lastTen.add("foo" + i);
+    }
+    System.out.println(lastTen.get());
+  }
+}
+....
+--
+
+[[aPkedSJgDzeujqwbdAasRSTZJjBMUVbF]]
+== Java Generics
+
+[.lead]
+//
+Lists and maps are the two data structures you meet in heaven.
+//
+Together you can use them to solve almost any problem.
+
+But you'll usually use Java`s built-in implementations.
+
+[source,java,role='smaller']
+----
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();
+Map map = new HashMap();
+Map anotherMap = new TreeMap();
+----
+
+[[VazQjvfefhYtQVZbbAfnIinPqkOhFcuL]]
+== ! Bare ``ArrayList``s and ``HashMap``s
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List list = new ArrayList();
+    // What goes in is a string...
+    list.add("string");
+    // But what comes out is an Object
+    String s = list.get(0);
+    // We can downcast this, but that's not safe
+
+    Map map = new HashMap();
+    // Keys and values can be any Java object...
+    map.put("key", 8);
+    // But what comes out is an Object
+    Integer i = map.get("key");
+    // We can downcast this, but that's (still) not safe
+  }
+}
+....
+
+[[CfhXqjfTVWkvvUQsiviIgULshCtvBoql]]
+== Compiler Errors v. Runtime Errors
+
+[.lead]
+//
+Java and many languages that followed it have tried to transform _runtime_
+errors into _compiler_ errors.
+//
+*Why?*
+
+[.s]
+//
+* You compile your code _before_ it runs: and so before you have to demo it to a
+client, or before you deploy it to hundreds of users.
+//
+* Catching errors at this stage is _critical_.
+
+[[CAmWlXhrXPgQfqJnzxuEyMbiMZcmBlDK]]
+== Generics
+
+[.lead]
+//
+Java generics allow us to create reusable classes while allowing the compiler to
+check our code for correctness.
+
+Type parameters tell the compiler what we are going to do with each data
+structure.
+
+[source,java,role='smaller']
+----
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+List<Integer> integerlist = new ArrayList<>(); // This is list of Integers
+Map<Integer, String> = new HashMap<>(); // This maps Integers to Strings
+----
+
+[[HsFQlSwEtyfFNiuOFdOsVftCdsCHdLrh]]
+== Generic Rationale
+
+[.lead]
+//
+Java generics allow to combine two desirable features of the language:
+
+[.s]
+//
+* **Polymorphism**: because every object inherits from `Object` it is easy to
+build general purpose data structures that can operate on every Java object
+//
+* **Type Checking**: however, upcasting everything to `Object` makes it
+impossible for the compiler to perform compile-time type checking
+//
+* Generics are intended to allow us to have the best of both worlds
+
+[[icfvQmfITTojvuLTENxWELDeeUJPWeWO]]
+== ! Generic ``ArrayList``s
+
+[.janini.jdk.compiler.smaller]
+....
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List<String> list = new ArrayList<>();
+    // What goes in is a string...
+    list.add("string");
+    // What comes out is a string
+    String s = list.get(0);
+    // I can't add Objects that aren't Strings or don't descend from String
+    list.add(new Integer(10));
+
+    Map<String, Integer> map = new HashMap<>();
+    // The compiler can check my mappings...
+    map.put("key", 8);
+    // And cast what comes out safely for me
+    Integer i = map.get("key");
+    // I can't add invalid mappings
+    map.put(8, 10);
+  }
+}
+....
+
+[[xeDYzlBEYAuWmiyunissqSphJYPGdfRN]]
+== ! Generics In Documentation
+
+++++
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://docs.oracle.com/javase/10/docs/api/java/util/Map.html"></iframe>
+</div>
+++++
+
+[[ufnapiBBDPHnqhSKjaQWNGdfyDcOWJVS]]
+[.oneword]
+//
+== Generifying Your Classes
+
+[.lead]
+//
+So we know how to use existing generic class.
+//
+But how do we provide our own?
+
+[[gshanQpcjpeifKipeXsEwdwgrcRXdvee]]
+== Class Type Parameters
+
+[.lead]
+//
+First, we have to declare our class to accept _type parameters_:
+
+[source,java]
+----
+// T is a type parameter that can be used throughout our class
+public class SimpleLinkedList<E> {
+  // get returns a reference of type E
+  public E get(int index) {
+  }
+  // set takes a reference of type T as its second argument
+  public void set(int index, E value) {
+  }
+}
+----
+
+[[PmTBHbqtdzEwfOnTUNQqNLKNbdNtCnsc]]
+== Parameters Are Not Variables
+
+[.lead]
+//
+Class parameters _are not_ variables.
+
+I can use them where I would normally provide a type, but I can't get or set
+their values.
+
+[source,java]
+----
+public class SimpleLinkedList<E> {
+  // I can use the parameter here as a return type...
+  public E get(int index) {
+    E = String; // But I can't do something like this
+  }
+}
+----
+
+[[yFUOEpPuuncaCyOreneyqcdTWzAeDgTn]]
+== Compiling Generic Classes
+
+[.lead]
+//
+To help understand how generics work you can imagine the compiler rewriting them
+when it compiles your code.
+
+[[nIOLajpCRkeiqzqdfVGABscHwBcJsFPJ]]
+[.ss]
+//
+== Original and Rewritten List
+
+[source,java,role='smallest']
+----
+public class List<E> {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List<String> list = new List<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class List {
+  public String get(int i) {
+  }
+  public void set(int i, String value) {
+  }
+}
+List list = new List<>();
+----
+
+[[rjGEMqeTIbLcWeCtNxiOeLLUdiZedeEI]]
+[.ss]
+//
+== Original and Rewritten List
+
+[source,java,role='smallest']
+----
+public class List<E> {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List<Integer> list = new List<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class List {
+  public Integer get(int i) {
+  }
+  public void set(int i, Integer value) {
+  }
+}
+List list = new List<>();
+----
+
+[[PIyilhvdeQiJwljjSFmLVauXiVUleFhn]]
+== Type Erasure
+
+[.lead]
+//
+**Note that this is not actually what happens.**
+
+[.s]
+//
+* The compiler only creates _one_ instance of each generic class
+//
+* Type information is used during compilation to check access but then
+_erased_
+//
+* But this isn't a bad mental model of how generics work in practice
+
+[[OrueWINOdsdAZvLfddaaMKJoRgIuUxJS]]
+== Multiple Type Parameters
+
+[.lead]
+//
+Classes can use one or several type parameters:
+
+[source,java]
+----
+// This is a generic list storing elements of type T
+public class SimpleLinkedList<T> { }
+
+// This is a generic map mapping elements of type K to type V
+public class SimpleMap<K,V> { }
+----
+
+[[drYDduyVUSIMCAtgQvtfToxfemixBIsy]]
+== Parameter Naming Conventions
+
+[.lead]
+//
+To avoid confusing type parameters with variable names or other keywords, Java
+has established conventions for naming them.
+
+[.s.small]
+//
+* **By convention** type names are single uppercase letters: `T`, `K`, `V`, `E`,
+etc.
+//
+* Note that this is just a convention: it's not enforced by the compiler
+//
+* Certain type parameters have conventional meanings:
+//
+** `E` for element (which we'll use for our lists)
+//
+** `K` for key and `V` for value, (which we'll use for our maps)
+//
+** `N` for a number
+
+[[axHmNRJzTadAmepLanZWLuHzdffndwnf]]
+[.ss]
+//
+== Original and Rewritten Map
+
+[source,java,role='smallest']
+----
+public class Map<K, V> {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map<String, Double> map = new Map<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class Map {
+  public Double get(String key) {
+  }
+  public void put(String key, Double val) {
+  }
+}
+Map map = new Map();
+----
+
+[[eYOiAiRGjSSJrWYBWRwbfOwipdpennhD]]
+[.ss]
+//
+== Original and Rewritten Map
+
+[source,java,role='smallest']
+----
+public class Map<K, V> {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map<Integer, String> map = new Map<>();
+----
+
+<<<
+
+[source,java,role='smallest s']
+----
+public class Map {
+  public String get(Integer key) {
+  }
+  public void put(Integer key, String val) {
+  }
+}
+Map map = new Map();
+----
+
+
+[[uAusintTCqeDSeGJzQzEfhxebKxeSdZk]]
+== ! Generifying SimpleLinkedList
+
+[.janini.jdk.smallest.compiler]
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private int currentSize;
+
+  public SimpleLinkedList() { }
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+      currentSize++;
+      return;
+    }
+    Item previousItem = getItem(index - 1);
+    if (previousItem == null) {
+      return;
+    }
+    Item newItem = new Item(toAdd, previousItem.next);
+    previousItem.next = newItem;
+    currentSize++;
+  }
+
+  public Object remove(int index) {
+    Object toReturn;
+    if (index == 0) {
+      toReturn = start;
+      start = start.next;
+      return toReturn;
+    }
+    Item previousItem = getItem(index - 1);
+    toReturn = previousItem.next;
+    previousItem.next = previousItem.next.next;
+    return toReturn;
+  }
+
+  public Object get(int index) {
+    Item item = getItem(index);
+    if (item == null) {
+      return null;
+    } else {
+      return item.value;
+    }
+  }
+
+  public void set(int index, Object toSet) {
+    Item item = getItem(index);
+    if (item != null) {
+      item.value = toSet;
+    }
+  }
+
+  public int size() {
+    return currentSize;
+  }
+
+  protected Item getItem(int index) {
+    if (index < 0 || index >= currentSize) {
+      return null;
+    }
+    int currentIndex = 0;
+    for (Item current = start; current != null; current = current.next) {
+      if (currentIndex == index) {
+        return current;
+      }
+      currentIndex++;
+    }
+    return null;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleList = new SimpleLinkedList();
+    for (int i = 0; i < 10; i++) {
+      simpleList.add(0, i);
+    }
+    System.out.println(simpleList.size());
+    for (int i = 0; i < 5; i++) {
+      simpleList.remove(i);
+    }
+    System.out.println(simpleList.get(0));
+  }
+}
+....
+
+[[qexqAkkifuIXasHnUyVKnZUKPHXMJDhs]]
+[.oneword]
+//
+== Questions So Far?
+
+Because it's about to get more interesting...
+
+[[AjzHJAjSLdiqNLruXOGHOnHrnxuAuDeW]]
+== ! Max Example
+
+[.janini.jdk.compiler.smaller]
+....
+public class Max {
+  private Integer[] values;
+  Max(Integer[] setValues) {
+    values = setValues;
+  }
+  public Integer max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    Integer currentMax = values[0];
+    for (int i = 1; i < values.length; i++) {
+      if (values[i] > currentMax) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max max = new Max(new Integer[] {1, 2, 5});
+    System.out.println(max.max());
+  }
+}
+....
+
+[[CNStHcEuMtLuLZNrRDHnHTfWoQKLaFOc]]
+== Bounded Type Parameters
+
+[.lead]
+//
+The compiler knows all about the relationship between different types, and so it
+can help us ensure that our generic classes receive appropriate type parameters.
+
+[.s]
+//
+* `<T extends S>`: type `T` extends class `S` _or_ implements interface `S`
+//
+* `<T extends S & U & V>`: type `T` extends _or_ implements `S`, `U`, and `V`
+
+[[NBwNwCLFtuvIOmBTFniwQfGjqxGIilgM]]
+== ! Max Example
+
+[.janini.jdk.compiler.smaller]
+....
+public class Max<T> {
+  private T[] values;
+  Max(T[] setValues) {
+    values = setValues;
+  }
+  public T max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    T currentMax = values[0];
+    for (int i = 1; i < values.length; i++) {
+      if (values[i].compareTo(currentMax) > 0) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max<Integer> max = new Max<>(new Integer[] {1, 2, 5});
+    System.out.println(max.max());
+  }
+}
+....
+
+[[acJMdhJiXZbEnbTuUrdAXwOliHuicqON]]
+== Generic Interfaces
+
+[.lead]
+//
+Just like classes, interface definitions can use type parameters:
+
+[source,java]
+----
+public interface SimpleList<E> {
+  public E get(int index);
+  public void set(int index, E element);
+  public void add(int index, E element);
+  public E remove(int index);
+  public int size();
+}
+----
+
+[[eGnIkyHdLiXKxjLLaJTeZnUzetkwHOfn]]
+== Generic Gotchas
+
+I've elided many of the details of working with generics.
+//
+Review
+//
+https://docs.oracle.com/javase/tutorial/java/generics/index.html[the official
+documentation]
+//
+to learn more.
+
+But here's one of the more obvious things that doesn't work the way you'd want:
+
+[source,java,role='smaller']
+----
+public class LastTen<T> {
+  private T[] values;
+  private List<T> listOfValues;
+  LastTen() {
+    value = new T[10]; // You can't create an array of a generic type
+    // As a solution you can use a collection type like a list
+    listOfValues = new ArrayList<T>(); // This works
+  }
+}
+----
+
+[[uMnbIPzTufFEHnvuXezGuoQWziZdYXxm]]
+[.oneword]
+//
+== Questions About Generics?
+
+[[jmNDeZXUdennBYdbVPnnJdeHyiRSidrS]]
+== Next Few Classes
+
+[.s]
+//
+* **Monday**: midterm exam (no class).
+//
+* **Wednesday**: wrap up.
+
+[[sZCduqMyvtxtchSAdLdnetLdLLklSieQ]]
+== Announcements
+
+* **There is no final exam for CS 125.**
+//
+* The third and final midterm is _Monday_. Good luck!
+//
+* Lab next week will be final project evaluations and choosing the best projects
+to receive extra credit.
+//
+Good luck wrapping up your cool projects!
+//
+I'm very excited to see what you all built...
+
+// vim: ts=2:sw=2:et
