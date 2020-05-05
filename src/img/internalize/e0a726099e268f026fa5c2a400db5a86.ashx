@@ -16,7 +16,7 @@
     
     
     
-<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10189200420175514.js" data-dtconfig="rid=RID_-2018356100|rpid=160224850|domain=dow.com|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=2|uxrgce=1|bp=3|cuc=8oltqtu2|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|md=1=cemail|srad=0|lastModification=1587728543009|dtVersion=10189200420175514|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10189200420175514.js"></script><link rel="stylesheet" href="/etc.clientlibs/foundation/clientlibs/main.min.cd338c6cc648fa4aec397b735c0c33a7.css" type="text/css">
+<script type="text/javascript" src="/ruxitagentjs_ICA27SVfhjqrx_10189200420175514.js" data-dtconfig="app=0a12260aed971158|featureHash=ICA27SVfhjqrx|msl=153600|rdnt=2|uxrgce=1|bp=3|cuc=8oltqtu2|srms=1,0,,,|uxrgcm=100,25,300,3;100,25,300,3|md=1=cemail|srad=0|lastModification=1588406699973|dtVersion=10189200420175514|tp=500,50,0,1|uxdcw=1500|agentUri=/ruxitagentjs_ICA27SVfhjqrx_10189200420175514.js|reportUrl=/dynaTraceMonitor/rb_fac30b52-64cc-453f-838f-f97dd5b27625|rid=RID_-836072903|rpid=-821076135|domain=dow.com"></script><link rel="stylesheet" href="/etc.clientlibs/foundation/clientlibs/main.min.cd338c6cc648fa4aec397b735c0c33a7.css" type="text/css">
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery.min.1494c0abbe501301e2ab9daecc6082a8.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/utils.min.4a192b590a2c2926fb000264370c0588.js"></script>
 <script type="text/javascript" src="/etc.clientlibs/clientlibs/granite/jquery/granite.min.543d214c88dfa6f4a3233b630c82d875.js"></script>
@@ -164,12 +164,15 @@
     
     
     
+    <div>
+        <div id="old_search"></div>
+    </div>
     
         
         
         	
     
-<link rel="stylesheet" href="/apps/settings/wcm/designs/dcc/clientlibs/global-v2.min.3ce33adec4c56a41c28f45b3e8a91137.css" type="text/css">
+<link rel="stylesheet" href="/apps/settings/wcm/designs/dcc/clientlibs/global-v2.min.2d8c76e9b2c36012ec64ce31019c6f73.css" type="text/css">
 
 
 
@@ -2911,6 +2914,30 @@
     </ul>
 
         </li>
+    
+        <li>
+            
+    
+    
+    <a href="/en-us/market/mkt-home-care-ind-inst-cleaning/sub-hcii-surface-care.html" aria-controls="mega__markets__10__5" aria-expanded="false" v-on:click="toggle">Surface Care</a>
+
+    
+    
+    <ul class="mega__menu" id="mega__markets__10__5" :class="selectedParent == 'mega__markets__10__5' && 'mega__menu--secondary'">
+        <li>
+            
+    
+    
+    <a href="/en-us/market/mkt-home-care-ind-inst-cleaning/sub-hcii-surface-care/app-hcii-surface-care-multipurpose.html">Multipurpose Cleaners</a>
+
+    
+    
+    
+
+        </li>
+    </ul>
+
+        </li>
     </ul>
 
         </li>
@@ -3412,6 +3439,18 @@
     
     
     <a href="/en-us/market/mkt-paints-inks-coatings/sub-paints-industrial-coatings/app-paints-indcoat-general-industrial-finishing.html">General Industrial Finishing</a>
+
+    
+    
+    
+
+        </li>
+    
+        <li>
+            
+    
+    
+    <a href="/en-us/market/mkt-paints-inks-coatings/sub-paints-industrial-coatings/app-paints-indcoat-marine-coatings.html">Marine Coatings</a>
 
     
     
@@ -6127,7 +6166,7 @@
     
         <meta/>
     
-<script type="text/javascript" src="/apps/settings/wcm/designs/dcc/clientlibs/global.min.37659aa8f456ab9d2255956de8aa541b.js"></script>
+<script type="text/javascript" src="/apps/settings/wcm/designs/dcc/clientlibs/global.min.d61c56778f6a373986cde5000ade18d4.js"></script>
 
 
 
