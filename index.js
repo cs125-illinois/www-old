@@ -142,7 +142,7 @@ metalsmith(__dirname)
     pattern: /\.js$/
   }))
   .use(course({
-    Spring2020: 'info/course.json',
+    Spring2020: 'info/2020/spring/course.json',
     Fall2019: 'info/2019/fall/course.json',
     Spring2019: 'info/2019/spring/course.json',
     Fall2018: 'info/2018/fall/course.json',
