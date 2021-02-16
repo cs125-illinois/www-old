@@ -13,19 +13,37 @@ spelling_exceptions:
 
 [.lead]
 //
-The CS 125 App is a new feature of the course for Fall 2018.
+The CS 125 App has been redesigned for the Fall 2019 semester.
 //
 It tracks the proximity of course staff and students to known course locations:
 including office hours and Geoff's office.
 //
 Our app allows us to both understand how students use office hours and ensure
-that have staff available in office hours when needed.
+that we have staff available in office hours when needed.
 
-**Note that the CS 125 App does not continuously track your location.**
+**Note that the CS 125 App does not track your location without your consent.**
 //
-We only know when you arrive and leave office hours, or Geoff's office.
+Our app uses BLE scanning to detect if you are in range of certain course locations,
+such as office hours, or Geoff's office.
+//
+On Android, this BLE scanning causes a persistent notification to appear in your 
+notification tray.
+//
+Since this persistent notification can be annoying, we provide an option to 
+disable it footnote:[along with our BLE scanning].
+//
+If you choose to enable this option, we will periodically check your location to see
+if you are within a certain distance to Siebel Center.
+//
+If you are outside of this distance, the app will disable BLE scanning and
+the persistent notification will go away.
+//
+If you choose not to enable this option, we will not query your location and 
+we will only know when you arrive and leave office hours, or Geoff's office.
 //
 We do not know footnote:[or care about] your location at other times.
+//
+Note that permission to perform this location checking can be granted or revoked at any time.
 
 Read on to find out more about the CS 125 App.
 
@@ -103,7 +121,7 @@ that you arrived at that location.
 //
 When it stops hearing that signal, it reports that you left.
 //
-**When it doesn't hear a signal from a beacon, we don't know where you are.**
+**When it doesn't hear a signal from a beacon, and location checking is disabled, we don't know where you are.**
 
 Estimote Bluetooth proximity beacons have
 //
@@ -179,7 +197,7 @@ Getting space on campus for office hours is not always easy.
 If we can show that they are effective, it will help us lobby for additional
 space in the future.
 //
-We _suspect_ that students that come to office ours regularly&mdash;particularly
+We _suspect_ that students that come to office hours regularly&mdash;particularly
 beginners&mdash;do better in CS 125.
 //
 Collecting this data will allow us to know for sure.
@@ -206,11 +224,12 @@ campus at the University of Illinois.
 All data transfer back and forth between the app is done over encrypted
 connections.
 //
-The app does not cache your location history locally, and only ever known your
-current location.
+The app does not store your exact location, only if you are within a certain distance of Siebel Center.
+//
+The app only ever knows your current location.
 //
 The app also does not track your location when you are not logged in, so you are
-welcome to only log on when you attend office ours and log off when you leave.
+welcome to only log on when you attend office hours and log off when you leave.
 
 
 // vim: ts=2:sw=2:et:ft=asciidoc
