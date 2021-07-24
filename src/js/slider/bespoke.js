@@ -2,8 +2,6 @@
 
 const $ = require('jquery')
 
-const GOOGLE_ID = '948918026196-p399ooibc7pr0ci7ida63jb5a6n4vsik.apps.googleusercontent.com'
-
 module.exports.from = (opts, plugins) => {
   const parent = (opts.parent || opts).nodeType === 1
     ? (opts.parent || opts)

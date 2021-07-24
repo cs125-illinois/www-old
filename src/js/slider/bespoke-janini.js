@@ -96,21 +96,15 @@ module.exports = () => {
         }
       }
       job.tasks = _.keys(tasks)
-      console.debug(job)
-      if (token) {
-        job.authToken = token
-      }
 
       $.ajax({
-        url: process.env.JEED,
+        url: "https://cs125-cloud.cs.illinois.edu/jeed/",
         type: 'POST',
         data: JSON.stringify(job),
         contentType: 'application/json; charset=utf-8',
-        xhrFields: { withCredentials: true },
         crossDomain: true,
         dataType: 'json'
       }).done(result => {
-        console.debug(result)
         let resultOutput = ''
         if (result.failed.snippet) {
           const { errors } = result.failed.snippet

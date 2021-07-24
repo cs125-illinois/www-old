@@ -31,6 +31,7 @@ module.exports = function (env, argv) {
       ],
       slider: [
         './src/js/slider.js',
+        './src/css/slider.css',
       ],
       slides: [
         './src/css/slides.scss',
