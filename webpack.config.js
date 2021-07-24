@@ -29,6 +29,9 @@ module.exports = function (env, argv) {
       highlight: [
         './src/js/highlight.js',
       ],
+      slider: [
+        './src/js/slider.js',
+      ],
       slides: [
         './src/css/slides.scss',
         './src/fonts/fonts.css',

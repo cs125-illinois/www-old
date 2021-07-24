@@ -10,7 +10,7 @@
   <meta name="slider-semester" content="{{ semester }}">
 
   <link rel="stylesheet" href="{{ lookup webpack.assets 'slides.css' }}">
-  <link rel="stylesheet" href="{{ env.SLIDER }}slider.css">
+  <link rel="stylesheet" href="{{ lookup webpack.assets 'slider.css' }}>
 
   <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -29,12 +29,6 @@
 <body>
   <header>
     <nav>
-      <a id="login" title="Login with Google" class="noexternal" data-toggle="tooltip" data-placement="bottom" title="Please log in">
-        <i class="fa fa-google" aria-hidden="true"></i>
-      </a>
-      <a id="logout" title="You're logged in!" class="noexternal">
-        <i class="fa fa-check-circle" aria-hidden="true"></i>
-      </a>
       <a class="helpToggle" title="Keyboard shortcut help" class="noexternal">
         <i class="fa fa-question-circle" aria-hidden="true"></i>
       </a>
@@ -44,23 +38,10 @@
     </nav>
   </header>
   <div id="section">
-    <article id="content"
-      data-width={{ width }} data-height={{ height }} data-slider="{{ env.SLIDER }}">
+    <article id="content" data-width={{ width }} data-height={{ height }}>
       {{{ contents }}}
     </article>
   </div>
-	<div class="modal fade" id="badEmailModal" tabindex="-1" role="dialog" aria-labelledby="badBrowserModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="badBrowserModalLabel">Bad Email Address</h5>
-				</div>
-				<div class="modal-body">
-					<p>Please log in with your @illinois.edu email address.</p>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -95,7 +76,7 @@
 		</div>
 	</div>
   <script src="https://apis.google.com/js/api:client.js"></script>
-  <script src="{{ env.SLIDER }}slider.js"></script>
+  <script src="{{ lookup webpack.assets 'slider.js' }}"></script>
   <script>
     $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
       $(elem).click(function (event) {
