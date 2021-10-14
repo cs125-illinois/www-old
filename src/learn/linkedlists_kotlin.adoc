@@ -1,0 +1,776 @@
+---
+title: Linked Lists (Kotlin)
+date: 2020-03-30
+description:
+  Completion of a discussion of linked lists and midterm exam review.
+spelling_exceptions:
+  - 3n
+  - lookups
+---
+
+[[piLZzuPirfmjbVdAfgfCeDmsTvFZnveu]]
+[.spelling_exception]
+== Today's Musical Selections
+
+[.lead]
+//
+https://www.youtube.com/watch?v=mwgg1Pu6cNg["Gypsy"]
+//
+by
+//
+https://www.fleetwoodmac.com/[Fleetwood Mac].
+
+https://en.wikipedia.org/wiki/Stevie_Nicks[Stevie Nicks]
+//
+has such a wonderfully distinct voice.
+//
+One of my favorite samples of all time is Bon Iver inserting a bit of
+//
+https://www.youtube.com/watch?v=S2rOh6dCwao[this off camera Stevie Nicks gem]
+//
+into
+//
+https://www.youtube.com/watch?v=S07LIKZbf9o[10 d e a t h b r e a s t ⚄ ⚄].
+
+This song buries some of its nicest bits at the end
+//
+footnote:[https://genius.com/18267778["I still see your bright eyes"]].
+
+
+[[ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci]]
+== !
+
+[.janini.smallest.compiler]
+--
+++++
+<div class="message">Linked Lists</div>
+++++
+....
+public interface SimpleList {
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleList simpleList = new SimpleArrayList(new Integer[] {1, 2});
+    simpleList.add(2, (Integer) 5);
+    for (int i = 0; i < simpleList.size(); i++) {
+      System.out.println(simpleList.get(i));
+    }
+  }
+}
+....
+--
+
+[[FLrMUeaPPdghfXdVtAoFhyJeHBGeBJfV]]
+== Review: Lists
+
+[.lead]
+//
+What you have been building on the last few homework problems is a more general
+data structure called a _list_.
+
+Lists are an _ordered_ footnote:[We'll talk about unordered soon...] data structure that allow us to:
+
+[.s]
+//
+* Get and set values at any index (like an array)
+//
+* Add or remove values at any index (this is new)
+//
+* Lists are one of the two data structures you meet in heaven&mdash;maps are the
+other and we'll get to them in a few weeks
+
+[[ZNOikwniBxwwdnfIrXpGZeDunUmkcdRQ]]
+== Review: Data Structure Tradeoffs
+
+[.lead]
+//
+Depending on how we structure data different implementations of the _same_
+interface can have different performance characteristics.
+
+[.s]
+//
+* We'll start by looking at this with _lists_
+//
+* Lists that store items using arrays have *fast* (O(1)) lookups but _slow_
+(O(n)) modifications
+//
+* Lists that store items using linked lists have _slow_ lookups (O(n)) but some
+insertions are *fast* (O(1))
+//
+* Both also present different memory usage tradeoffs
+
+[[GgjDBubcXoMJtfILfeFlevdxnkSdDZFc]]
+== Our List Interface
+
+[source,kotlin]
+----
+interface SimpleList {
+  /** Get the object at this index. */
+  fun get(index: Int): Any?
+  /** Set the object at this index to the passed element. */
+  fun set(index: Int, value: Any?)
+  /** Add the object at the specified location in the list. */
+  fun add(index: Int, value: Any?)
+  /** Remove and return the object at the specified location in the list. */
+  fun remove(index: Int): Any?
+  /** Return the number of elements in the list. */
+  fun size(): Int
+}
+----
+
+(The official interface contains a bunch of convenience methods that we don't
+want.)
+
+[[jjuOzugQvkSIeJBnLlfaTmqivAFVUVZa]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,kotlin,role='smallest']
+----
+inner class Item(
+  var value: Any?, var next: Item?
+)
+----
+
+<<<
+
+[[bvukTzGvgbKQdWJiVcbVkzvCLveVTLcR]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,kotlin,role='smallest']
+----
+inner class Item(
+  var value: Any?, var next: Item?
+)
+
+var items = Item(0, null)
+----
+
+<<<
+
+++++
+<div class="digraph small TB">
+  Item [ label = "Item|0" ]
+  items -> Item
+</div>
+++++
+
+[[LNBNtXZglNoDtVpnSUNLBXxXDxLZRmDE]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,kotlin,role='smallest']
+----
+inner class Item(
+  var value: Any?, var next: Item?
+)
+
+var items = Item(0, null)
+items = Item(8, items)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  items -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[WAdJPunuCYPRWbuZQvICJKkHNiUoiBsw]]
+[.ss]
+== Another Option: Linked Lists
+
+[source,kotlin,role='smallest']
+----
+inner class Item(
+  var value: Any?, var next: Item?
+)
+
+var items = Item(0, null)
+items = Item(8, items)
+items = Item(5, items)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item [ label = "Item|0" ]
+  Item8 [ label = "Item|8" ]
+  Item5 [ label = "Item|5" ]
+  items -> Item5
+  Item5 -> Item8
+  Item8 -> Item
+</div>
+++++
+
+[[pFfMfaklggDxABUyHIoUOomlxdhJNmAX]]
+== Review: `LinkedList` `addToFront`
+
+[source,kotlin]
+----
+class SimpleLinkedList {
+  private var start: Item? = null
+  fun addToFront(value: Any?) {
+    start = Item(value, start)
+  }
+}
+----
+
+[.s]
+//
+* *What is n&mdash;or what feature drives performance?*
+//
+[.s]#The length of the list.#
+//
+* What is the performance of `addToFront`?
+//
+[.s]#O(1): constant time!#
+
+[[eRuvOPCigAcMMwCpOUhtUcBMNSiRoBFb]]
+[.oneword]
+//
+== Wow! What's the catch?
+//
+(There's always a catch.)
+
+[[uxETPHKiReXjnLMwmpdVNZwTsvFshNbf]]
+== `LinkedList`: `get`
+
+[source,kotlin]
+----
+class SimpleLinkedList {
+  private inner class Item(var value: Any?, var next: Item?)
+  private var start: Item? = null
+  fun add(index: Int, value: Any?) {
+    require(index == 0) { "No support for non-zero add yet" }
+    start = Item(value, start)
+  }
+  fun get(index: Int): Any? {
+    TODO("Should be easy...")
+  }
+}
+----
+
+[[HIFRUbegMElyTCRryTvdWMzsnTFvAaJp]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  start -> Item1
+</div>
+++++
+
+[[huaxLPNSoVSkxUbFnCUWqRwuDZQqgJMw]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+list.add(0, 2)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  start -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[MtSJPhEljoKufnnBjwnMhJzpMuTmWMFr]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+list.add(0, 2)
+list.add(0, 3)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[OQXWCIblWobBKVCXOmUNWFOkQhCKuFkj]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+list.add(0, 2)
+list.add(0, 3)
+list.get(2)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item0 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item0
+</div>
+++++
+
+[[uTCRqFIioaWUbZXxmfyHvXYrSAEEPpnH]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+list.add(0, 2)
+list.add(0, 3)
+list.get(2)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3", fillcolor="lightblue", style="filled" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[IEKNGKZOSoQTcaAWJVuwbUBrlUaleLHp]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+list.add(0, 2)
+list.add(0, 3)
+list.get(2)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1" ]
+  Item2 [ label = "Item|2", fillcolor="lightblue", style="filled" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[bcglIwAIsYtwxwTorcPMDROVbXnqTSvu]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+list.add(0, 2)
+list.add(0, 3)
+list.get(2)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1", fillcolor="lightblue", style="filled" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[wOcKkEBJTHkkCcDKpEwCCNYvCSUinhUY]]
+[.ss]
+== `LinkedList`: `get`
+
+[source,kotlin,role='smaller']
+----
+class SimpleLinkedList {
+  // Other methods omitted
+  fun get(index: Int): Any? {
+    // until I get to the index
+    // follow each Item to the next
+  }
+}
+val list = SimpleLinkedList()
+list.add(0, 1)
+list.add(0, 2)
+list.add(0, 3)
+list.get(2)
+----
+
+<<<
+
+++++
+<div class="digraph small TB mx-auto">
+  Item1 [ label = "Item|1", fillcolor="green", style="filled" ]
+  Item2 [ label = "Item|2" ]
+  Item3 [ label = "Item|3" ]
+  start -> Item3
+  Item3 -> Item2
+  Item2 -> Item1
+</div>
+++++
+
+[[pxuXZdXDaFvnXeerjuOzfTjYXWOCvOan]]
+== Linked Lists: Iteration
+
+[source,java,role='smaller']
+----
+public class SimpleLinkedList {
+  private Item start;
+}
+public class Item {
+  public int value;
+  public Item next;
+}
+----
+
+[.lead]
+//
+We can iterate through our `LinkedList` using a `for` loop.
+
+[[nlYljBaffrrPZfYjSwRRokqjNFrUqSkm]]
+== ! `LinkedList` `for`
+
+[.janini.smallest.compiler]
+....
+public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i >= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(Object value) {
+    start = new Item(value, start);
+  }
+  public void printList() {
+    // Write a for loop iterating over this list
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList myList = new SimpleLinkedList(new Integer[] {1, 2, 3});
+    myList.printList();
+  }
+}
+....
+
+[[pEPepnOKrIPDRHLzgWbgWtoumQcPZCrp]]
+[.oneword]
+== But How Do We Insert?
+
+[[nerIYzgfjYucqloclntPXXXuoxWPoXyu]]
+== `LinkedList` Insertion Algorithm
+
+[.s]
+//
+. Find the right spot.
+//
+. Set the reference on the preceding item to point to the new item.
+//
+. Set the reference on the new item to point to the former next item.
+
+[[aJqVtwosxLpEzEELSiDrluCkDftdVFsM]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[zOwLRABNObeVBCMMXUXervMeZsDHHIaj]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8", fillcolor="green" style="filled" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[.s]#But wait, now we can't change the _preceding_ reference.#
+
+[[PjJcvbtgFhhtTivglyVutpdqdHgRlGee]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[XWkIZquMkCyhpMAfyVuKtmPLZpMmLTWC]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item8
+  Item8 -> Item1
+  Item1 -> Item7 [style=invis]
+</div>
+++++
+
+[[axthZIrmKjSLSVsfRpziruJdWPWSsGeO]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5", fillcolor="green" style="filled" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8 [style=invis]
+  Item8 -> Item1
+</div>
+++++
+
+[[wDhvwOPZturUQaSVCGHRmtTqwKddqKyI]]
+== Insertion Example
+
+Let's insert value 7 at index 1.
+
+++++
+<div class="digraph smaller">
+  Item5 [ label = "Item|5" ]
+  Item8 [ label = "Item|8" ]
+  Item1 [ label = "Item|1" ]
+  Item7 [ label = "Item|7" ]
+  start -> Item5
+  Item5 -> Item7
+  Item7 -> Item8
+  Item8 -> Item1
+</div>
+++++
+
+[[lJcCMyeWhddIzcdhiLSDPvylMQZYwVRV]]
+[.oneword]
+== Questions About Lists?
+
+[[vQhgISVnpMnpYRuBdNGKGbVuwCTbdeeR]]
+== Midterm Overview and Review
+
+Midterm format:
+
+* *40 points*: 10 4-point multiple-choice questions drawn from previous quizzes
+//
+* *60 points*: 3 20-point programming questions, all including partial
+credit
+
+[[LfURaMrvaiZqQnWfdznVZWMjBnOSveWE]]
+== Midterm Topic Coverage
+
+[.lead]
+//
+Everything up through _last week's quiz_.
+
+* Classes starting
+//
+https://cs125.cs.illinois.edu/learn/2020_02_17_introduction_to_objects[2/17/2020]
+//
+through
+//
+https://cs125.cs.illinois.edu/learn/2020_03_13_more_about_interfaces[3/13/2020].
+//
+* No coverage of algorithms, algorithm runtime, or lists.
+
+[[MCMAQBboSAumferwaBRUuTdFlxHDnbnj]]
+[.oneword]
+//
+== Midterm Questions?
+
+[[YhvejdJGeMIIinhqLpJedosmdUPKTMdb]]
+== ! Midterm Questions
+
+[.janini.smallest.compiler]
+....
+public class Example {
+  public static void main(String[] unused) {
+  }
+}
+....
+
+[[OreWdRNvfsGvebeLexINvWzuEzAMBFLX]]
+== Reminders
+
+[.s.lead]
+//
+* You're all doing great! Particularly given the circumstances.
+//
+* The point of the exams (and quizzes) is to get you to do the homework
+problems.
+
+[[dkUedCXTkbzomcxzXJPfPNdTvDcmufpi]]
+== How to Get Help
+
+. The https://cs125-forum.cs.illinois.edu/[forum]
+//
+. https://cs125-help.cs.illinois.edu/[CS 125 Help]
+//
+. https://illinois.zoom.us/j/240316712[Video chat]
+
+We're still finalizing a new office hour schedule intended to accommodate
+students in different time zones. Stay tuned.
+
+[[nGsigkJsZbIIiuBueedkjOHenoatcePu]]
+== Announcements
+
+* Midterm 1 will be run on Wednesday at your assigned quiz time.
+//
+It's worth the same amount as a quiz **but cannot be dropped.**
+//
+* **No labs tomorrow.**
+//
+* We'll have drop-in office hours online all day for midterm
+help.
+* Today's homework isn't due until _Wednesday_, to give you a bit more time to
+prepare for the midterm. Daily homework resumes on Thursday.
+//
+* Coders Chapter #7 for _next_ week's quiz.
+//
+* I have virtual office hours _today_ from 4&ndash;5PM. Please stop by!
+
+// vim: ts=2:sw=2:et
