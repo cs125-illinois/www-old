@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Constructors and Visibility</title>
+  <meta name="description" lang="en-us" content="A continued discussion of Java objects, introducing constructors and visibility.">
+
+  <meta name="slider-id" content="73c3dce6-a44f-4280-8678-41c1ce99b9d0">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini compiler small nozoom bespoke-active bespoke-slide" data-slideid="TzChbqJCgkFihBhsGKSsxQCgNgfcontb">
+
+<textarea class="janini spelling_exception">public class Course {
+  private String name;
+  public Course(String setName) {
+    this.name = setName;
+  }
+  public void printName() {
+    System.out.println(this.name);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course(&quot;CS 125&quot;);
+    CS125.printName();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Constructors and Visibility&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Constructors and Visibility<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="YpWHDHsQBfzJfRdjByfBAIEShCbkuEEe">
+<div class="header" data-title="Happy Valentine&#x2019;s Day"><h2>Happy Valentine&#x2019;s Day</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(Don&#x2019;t expect your human relationships to be like your computer relationship.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="hILNWXNSfbqfDScSdZSMElhrHxPqZyhA">
+<div class="header" data-title="Q3 Review: Functions"><h2>Q3 Review: Functions</h2></div>
+<textarea class="janini spelling_exception">// What would be a small improvement to the function shown below?
+static boolean a(int[] b) {
+  for (int i = 0; i &lt; b.length; i++) {
+    for (int j = i; j &lt; b.length; j++) {
+      if (b[j] &lt; b[i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+System.out.println(a(new int[] { 5, 4, 3 }));
+System.out.println(a(new int[] { 1, 2, 3 }));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="TsQKxaztMSiasPjQKmCcTyCpnXyzrHYN">
+<div class="header" data-title="Q3 Review: Functions"><h2>Q3 Review: Functions</h2></div>
+<textarea class="janini spelling_exception">// What is one problem with the function shown below?
+static int s(int[][] a) {
+  int count = 0;
+  for (int i = 0; i &lt; a.length; i++) {
+    for (int j = 0; j &lt; a[0].length; j++) {
+      count += a[i][j];
+    }
+  }
+  return count;
+}
+System.out.println(s(new int[][] { { 0, 1 }, { 4, 5 } }));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hlfdiGKWEOhWSIhHoigkHyjWUtqNOqaK">
+<div class="header" data-title="Q3 Review: Function Terminology"><h2>Q3 Review: Function Terminology</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>What do we call the combination of the function name and list of argument types
+that is used by Java to determine which function to call?</p>
+</div>
+<div class="paragraph">
+<p>(Everyone got credit for this because it wasn&#x2019;t <em>written</em> on a slide, although
+it is now.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="cBvAQSUjOeMftzBoERafEeauVrkncSqx">
+<div class="header" data-title="Review: this"><h2>Review: <code>this</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Instance methods can refer to <em>their</em> instance variables using the <code>this</code>
+keyword.</p>
+</div>
+<div class="paragraph">
+<p><code>this</code> refers to the instance that is executing the method.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler small nozoom bespoke-inactive bespoke-slide" data-slideid="GQkSDDzyEwCVgBrPzzUIFXVBlGQVXknp">
+<div class="header" data-title="New Examples"><h2>New Examples</h2></div>
+<textarea class="janini spelling_exception">// Just a warning that some examples now work differently
+// When run the main method of the Example class below is executed
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(&quot;Hello, world!&quot;);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ajeIIqKVvQLniMORsJidtAJimqtKNpee">
+<div class="header" data-title="Constructors"><h2>Constructors</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Course {
+  String name;
+  // This is a constructor.
+  Course(String setName) {
+    this.name = setName;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>When we create a <code>new</code> object, a special method called a <em>constructor</em> is run.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="buNTLZGlGhEWCuYdcziosJgrosQvbMTz">
+<div class="header" data-title="Constructors: Syntax"><h2>Constructors: Syntax</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  String name;
+  // The constructor must be named Course
+  // It&apos;s not declared to return anything...
+  Course(String setName) {
+    this.name = setName;
+    // And doesn&apos;t explicitly return anything, but always returns a new Course
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Constructors can and do perform class-specific initialization.</p>
+</li>
+<li class="bullet">
+<p>Constructors always shared the same same name as the class they create:
+<code>Course</code> in the example above.</p>
+</li>
+<li class="bullet">
+<p>Constructors don&#x2019;t declare or explicitly return anything&#x2014;but always
+return a new instance of their class.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FTdOVkxrUPztoaVrEEgbYkZrQlZTFKrq">
+<div class="header" data-title="Constructors: Overloading"><h2>Constructors: Overloading</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  String name;
+  // This constructor sets the name
+  Course(String setName) {
+    this.name = setName;
+  }
+  // This constructor initializes the name to a blank string
+  Course() {
+    this.name = &quot;&quot;;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Like other functions, constructors can be overloaded.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dNRMfdwEtepowaaciBuymTvAxgvQLMHB">
+<div class="header" data-title="The Default Constructor"><h2>The Default Constructor</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Course {
+  String name;
+}
+// This is the same as
+class Course {
+  String name;
+  Course() {
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>If you don&#x2019;t define a constructor, it&#x2019;s equivalent of an empty constructor that
+doesn&#x2019;t set any fields.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RjGBTtWoaOclLyIPbQKbwFJrRvndpSPP">
+<div class="header" data-title="Constructors Can&#x2019;t Fail"><h2>Constructors Can&#x2019;t Fail</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Course {
+  String name;
+  Course(String setName) {
+    // What do I do if the name is invalid?
+    this.name = setName;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead small">
+<p>Constructors <em>must</em> return a new instance of their class.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>So we don&#x2019;t have a good way to reject invalid inputs in constructors&#x2014;yet.</p>
+</li>
+<li class="bullet">
+<p>We&#x2019;ll come back to this when we talk about static methods&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>and when we discuss exceptions.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler small nozoom bespoke-inactive bespoke-slide" data-slideid="xerFaeehMgBcfwprdjQAKZoTzUWVPATK">
+<div data-title=" Constructors: Example"></div>
+<textarea class="janini spelling_exception">public class Person {
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person you = new Person();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="JlVmEinaPtCRqpZOnlTolvogFyPHVKXB">
+<div class="header" data-title="Questions about Constructors?"><h2>Questions about Constructors?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vXjpdpUWinRcWjZxTCJyJbaYabbcApBO">
+<div class="header" data-title="Access Modifiers"><h2>Access Modifiers</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  public String name;
+  private int age;
+
+  private void printName() {
+    System.out.println(this.name);
+  }
+  public int getAge() {
+    return this.age;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java provides ways to <em>protect</em> instance variables and methods.
+We refer to these as <em>access modifiers</em>:</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FuxctosbVUCwtkyRnvjrreGXOytKKWew">
+<div class="header" data-title="Variable Access Modifiers"><h2>Variable Access Modifiers</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  // Anybody can modify name
+  public String name;
+  // age can only be changed by this class&apos;s methods
+  private int age;
+}
+Person me = new Person();
+me.name = &quot;Geoffrey&quot;; // This works
+System.out.println(me.age); // This does not work</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the variable can be read or written by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler small nozoom bespoke-inactive bespoke-slide" data-slideid="WGWQeZbaZmTWwTjOaQbZPLFULqrrDnwK">
+<div data-title=" Variable Access Modifiers"></div>
+<textarea class="janini spelling_exception">public class Person {
+  public String name;
+  private int age;
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.name = &quot;Geoffrey&quot;; // This works
+    System.out.println(me.age); // This does not work
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DDjYznJEOUsOqlfygxWWNizNjStwFhQc">
+<div class="header" data-title="Function Access Modifiers"><h2>Function Access Modifiers</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  public void printIt() {
+    System.out.println(&quot;It&quot;);
+  }
+  private void printYou() {
+    System.out.println(&quot;You&quot;);
+  }
+}
+Person me = new Person();
+me.printIt(); // This works
+me.printYou(); // This does not work</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the method can be called by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the method can only be called by other methods <em>on that class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler small nozoom bespoke-inactive bespoke-slide" data-slideid="iToiPLbiLPmoAciwPXgzIFUtaobXWyHu">
+<div data-title=" Function Access Modifiers"></div>
+<textarea class="janini spelling_exception">public class Person {
+  public void printIt() {
+    System.out.println(&quot;It&quot;);
+  }
+  private void printYou() {
+    System.out.println(&quot;You&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.printIt(); // This works
+    me.printYou(); // This does not work
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ovZdMlIOhNIIOlRVEavjfSwIYcseibaW">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>TC 8 will be out today and due <strong>Sunday</strong> by midnight.
+It&#x2019;s the first set of object-related Turing&#x2019;s Craft exercises.</p>
+</li>
+<li>
+<p><a href="/MP/2018/spring/3/">MP3</a> is out and due a week from Friday.
+It&#x2019;s your introduction to object-oriented programming, so you&#x2019;ll be learning
+what you need to complete it in lecture and lab this week.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

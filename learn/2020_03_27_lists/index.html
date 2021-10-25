@@ -1,0 +1,823 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Lists</title>
+  <meta name="description" lang="en-us" content="Practice with big-O notation and analysis of two different list implementations.">
+
+  <meta name="slider-id" content="2ef7fa45-d73e-433e-976e-edbb9bc2d9f9">
+  <meta name="slider-semester" content="Spring2020">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 logo bespoke-active bespoke-slide" data-slideid="eGnfsXouZmelOXnlnMRfrfXjGrKFRiJj">
+<div class="header" data-title="Today&#x2019;s Musical Selections"><h2>Today&#x2019;s Musical Selections</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="https://www.youtube.com/watch?v=y6oMt6TYVqg" target="_blank" class="external">&quot;Never Giving In&quot;</a>
+by
+<a href="https://www.jennchampion.com/" target="_blank" class="external">Jenn Champion</a>.</p>
+</div>
+<div class="paragraph">
+<p>This song seems fairly appropriate given what&#x2019;s going on around us.
+<a href="https://www.jennchampion.com/" target="_blank" class="external">Jenn Champion</a> is a badass.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci">
+
+<textarea class="janini spelling_exception">public interface SimpleList {
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
+}
+public class SimpleArrayList implements SimpleList {
+  private Object[] array;
+
+  SimpleArrayList(Object[] originalArray) {
+    if (originalArray != null) {
+      array = new Object[originalArray.length];
+      for (int i = 0; i &lt; originalArray.length; i++) {
+        array[i] = originalArray[i];
+      }
+    }
+  }
+  public Object get(int index) {
+    if (index &lt; 0 || index &gt;= array.length) {
+      return null;
+    }
+    return array[index];
+  }
+  public void set(int index, Object element) {
+    if (index &lt; 0 || index &gt;= array.length) {
+      return;
+    }
+    array[index] = element;
+  }
+  public int size() {
+    return array.length;
+  }
+  public Object remove(int removeIndex) {
+    if (removeIndex &lt; 0 || removeIndex &gt;= array.length) {
+      return null;
+    }
+
+    Object toReturn = array[removeIndex];
+
+    Object[] newArray = new Object[array.length - 1];
+    int originalIndex = 0;
+    for (int newIndex = 0; newIndex &lt; newArray.length; newIndex++) {
+      if (newIndex == removeIndex) {
+        originalIndex++;
+      }
+      newArray[newIndex] = array[originalIndex];
+      originalIndex++;
+    }
+    array = newArray;
+    return toReturn;
+  }
+  public void add(int addIndex, Object toAdd) {
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleList simpleList = new SimpleArrayList(new Integer[] {1, 2});
+    simpleList.add(2, (Integer) 5);
+    for (int i = 0; i &lt; simpleList.size(); i++) {
+      System.out.println(simpleList.get(i));
+    }
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Lists&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Lists<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UgJrBAbxmpaEtUFaigwcjbLnlTfcIOoF">
+<div class="header" data-title="Review: Algorithm Analysis"><h2>Review: Algorithm Analysis</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Analysis_of_algorithms" target="_blank" class="external">Algorithm analysis</a>:
+the determination of the computational complexity of algorithms, that is the
+amount of time, storage and/or other resources necessary to execute them.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bzGJKlpimKGIHSRpMdozAZQHDQCfHegP">
+<div class="header" data-title="Review: At The Limit"><h2>Review: At The Limit</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#x2019;re usually want to analyze an algorithm in the general case, rather than for
+a specific set of input.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>How does the algorithm perform on arbitrarily difficult or large inputs?</p>
+</li>
+<li class="bullet">
+<p>What are the best, average, and worst-case running times?</p>
+</li>
+<li class="bullet">
+<p><strong>How is the algorithm&#x2019;s performance related to its inputs?</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wZpYuIQdhBkDdYLdffvSWUUvbhDCqzoG">
+<div class="header" data-title="Review: Big-O Notation"><h2>Review: Big-O Notation</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Big_O_notation#Product" target="_blank" class="external">Big-O notation</a>
+is a mathematical notation that describes the limiting behavior of a function
+when the argument tends towards a particular value or infinity.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Put another way: we want to <em>estimate</em> what happens as the problem gets really,
+really hard.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EQRiDkxGqVDXvndIjCapEccitPnbvEGQ">
+<div class="header" data-title="Review: Big-O Notation"><h2>Review: Big-O Notation</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FLrMUeaPPdghfXdVtAoFhyJeHBGeBJfV">
+<div class="header" data-title="Lists"><h2>Lists</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>What you have been building on the last few homework problems is a more general
+data structure called a <em>list</em>.</p>
+</div>
+<div class="paragraph">
+<p>Lists are an <em>ordered</em> <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;We&amp;#x2019;ll talk about unordered soon&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">1</span> data structure that allow us to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Get and set values at any index (like an array)</p>
+</li>
+<li class="bullet">
+<p>Add or remove values at any index (this is new)</p>
+</li>
+<li class="bullet">
+<p>Lists are one of the two data structures you meet in heaven&#x2014;maps are the
+other and we&#x2019;ll get to them in a few weeks</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZNOikwniBxwwdnfIrXpGZeDunUmkcdRQ">
+<div class="header" data-title="Data Structure Tradeoffs"><h2>Data Structure Tradeoffs</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Depending on how we structure data different implementations of the <em>same</em>
+interface can have different performance characteristics.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We&#x2019;ll start by looking at this with <em>lists</em></p>
+</li>
+<li class="bullet">
+<p>Lists that store items using arrays have <strong>fast</strong> (O(1)) lookups but <em>slow</em>
+(O(n)) modifications</p>
+</li>
+<li class="bullet">
+<p>Lists that store items using linked lists have <em>slow</em> lookups (O(n)) but some
+insertions are <strong>fast</strong> (O(1))</p>
+</li>
+<li class="bullet">
+<p>Both also present different memory usage tradeoffs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="DPNiZdCroOfieMLMAdqnxFLqxcwBNdOU">
+<div data-title=" Java List Interface"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/util/List.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GgjDBubcXoMJtfILfeFlevdxnkSdDZFc">
+<div class="header" data-title="Our List Interface"><h2>Our List Interface</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">interface SimpleList {
+  /** Get the object at this index. */
+  Object get(int index);
+  /** Set the object at this index to the passed element. */
+  void set(int index, Object element);
+  /** Add the object at the specified location in the list. */
+  void add(int index, Object element);
+  /** Remove and return the object at the specified location in the list. */
+  Object remove(int index);
+  /** Return the number of elements in the list. */
+  int size();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(The official Java one contains a bunch of convenience methods that we don&#x2019;t
+want.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="xgwNeDXDUnbIHYdVeBQSnMWUgdQZRKeO">
+<div data-title=" SimpleArrayList"></div>
+<textarea class="janini spelling_exception">public interface SimpleList {
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
+}
+public class SimpleArrayList implements SimpleList {
+  private Object[] array;
+
+  SimpleArrayList(Object[] originalArray) {
+    if (originalArray != null) {
+      array = new Object[originalArray.length];
+      for (int i = 0; i &lt; originalArray.length; i++) {
+        array[i] = originalArray[i];
+      }
+    }
+  }
+  public Object get(int index) {
+    if (index &lt; 0 || index &gt;= array.length) {
+      return null;
+    }
+    return array[index];
+  }
+  public void set(int index, Object element) {
+    if (index &lt; 0 || index &gt;= array.length) {
+      return;
+    }
+    array[index] = element;
+  }
+  public int size() {
+    return array.length;
+  }
+  public Object remove(int removeIndex) {
+    if (removeIndex &lt; 0 || removeIndex &gt;= array.length) {
+      return null;
+    }
+
+    Object toReturn = array[removeIndex];
+
+    Object[] newArray = new Object[array.length - 1];
+    int originalIndex = 0;
+    for (int newIndex = 0; newIndex &lt; newArray.length; newIndex++) {
+      if (newIndex == removeIndex) {
+        originalIndex++;
+      }
+      newArray[newIndex] = array[originalIndex];
+      originalIndex++;
+    }
+    array = newArray;
+    return toReturn;
+  }
+  public void add(int addIndex, Object toAdd) {
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleList simpleList = new SimpleArrayList(new Integer[] {1, 2});
+    for (int i = 0; i &lt; simpleList.size(); i++) {
+      System.out.println(simpleList.get(i));
+    }
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RKeTiKpLgZNqFXyffdEDXFaatidoieeo">
+<div class="header" data-title="ArrayList Operation Performance"><h2><code>ArrayList</code> Operation Performance</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all fit-content spread notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-top text-center">Operation</th>
+<th class="tableblock valign-top text-center"><code>ArrayList</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-top text-center"><p class="tableblock"><code>get</code> and <code>set</code></p></td>
+<td class="tableblock valign-top text-center"><p class="tableblock"><span class="bullet">O(1)</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-top text-center"><p class="tableblock"><code>add</code> and <code>remove</code></p></td>
+<td class="tableblock valign-top text-center"><p class="tableblock"><span class="bullet">O(n)</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iYDfkVqmHieSaJNonMeGPIeNnWnusNGC">
+<div class="header" data-title="ArrayList Time v. Space Tradeoffs"><h2><code>ArrayList</code> Time v. Space Tradeoffs</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can make our insertions and removals a <em>bit</em> faster but not copying the
+entire array each time. How?</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Maintain an array that is <em>larger</em> than we need</p>
+</li>
+<li class="bullet">
+<p>When we need more space, get a lot more at once</p>
+</li>
+<li class="bullet">
+<p>To add or remove just shift items around within the existing array</p>
+</li>
+<li class="bullet">
+<p>Note that add and removals are still O(n/2), so O(n)&#x2014;but not having to
+allocate memory every time will help</p>
+</li>
+<li class="bullet">
+<p>The tradeoff: we will usually have <em>wasted space</em> within our array</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="zDbuPddEzgvnUyJrSSXnFDtoaezednIJ">
+<div class="header" data-title="Questions About Array Lists?"><h2>Questions About Array Lists?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="jjuOzugQvkSIeJBnLlfaTmqivAFVUVZa">
+<div class="header" data-title="Another Option: Linked Lists"><h2>Another Option: Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  private Object value;
+  private Item next;
+  Item(Object setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="bvukTzGvgbKQdWJiVcbVkzvCLveVTLcR">
+<div class="header" data-title="Another Option: Linked Lists"><h2>Another Option: Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  private Object value;
+  private Item next;
+  Item(Object setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+Item items = new Item((Integer) 0, null);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="118pt" viewBox="0.00 0.00 93.00 118.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="dRhaDqdiIeFcuSmZ">
+<g id="graph0_dRhaDqdiIeFcuSmZ" class="graph" transform="scale(1 1) rotate(0) translate(4 114)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-114 89,-114 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_dRhaDqdiIeFcuSmZ" class="node">
+<title>Item</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- items -->
+<g id="node2_dRhaDqdiIeFcuSmZ" class="node">
+<title>items</title>
+<polygon fill="none" stroke="#e84a27" points="12,-73.5 12,-109.5 73,-109.5 73,-73.5 12,-73.5"/>
+<text text-anchor="middle" x="42.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">items</text>
+</g>
+<!-- items&#45;&gt;Item -->
+<g id="edge1_dRhaDqdiIeFcuSmZ" class="edge">
+<title>items-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="LNBNtXZglNoDtVpnSUNLBXxXDxLZRmDE">
+<div class="header" data-title="Another Option: Linked Lists"><h2>Another Option: Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  private Object value;
+  private Item next;
+  Item(Object setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+Item items = new Item((Integer) 0, null);
+items = new Item((Integer) 8, items);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="191pt" viewBox="0.00 0.00 93.00 191.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="tyupoynLFITjAvfT">
+<g id="graph0_tyupoynLFITjAvfT" class="graph" transform="scale(1 1) rotate(0) translate(4 187)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-187 89,-187 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_tyupoynLFITjAvfT" class="node">
+<title>Item</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_tyupoynLFITjAvfT" class="node">
+<title>Item8</title>
+<polygon fill="none" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge2_tyupoynLFITjAvfT" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- items -->
+<g id="node3_tyupoynLFITjAvfT" class="node">
+<title>items</title>
+<polygon fill="none" stroke="#e84a27" points="12,-146.5 12,-182.5 73,-182.5 73,-146.5 12,-146.5"/>
+<text text-anchor="middle" x="42.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">items</text>
+</g>
+<!-- items&#45;&gt;Item8 -->
+<g id="edge1_tyupoynLFITjAvfT" class="edge">
+<title>items-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="WAdJPunuCYPRWbuZQvICJKkHNiUoiBsw">
+<div class="header" data-title="Another Option: Linked Lists"><h2>Another Option: Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  private Object value;
+  private Item next;
+  Item(Object setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}
+Item items = new Item((Integer) 0, null);
+items = new Item((Integer) 8, items);
+items = new Item((Integer) 5, items);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="264pt" viewBox="0.00 0.00 93.00 264.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="qnnPkjnSaBhxqdPB">
+<g id="graph0_qnnPkjnSaBhxqdPB" class="graph" transform="scale(1 1) rotate(0) translate(4 260)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-260 89,-260 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_qnnPkjnSaBhxqdPB" class="node">
+<title>Item</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_qnnPkjnSaBhxqdPB" class="node">
+<title>Item8</title>
+<polygon fill="none" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge3_qnnPkjnSaBhxqdPB" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- Item5 -->
+<g id="node3_qnnPkjnSaBhxqdPB" class="node">
+<title>Item5</title>
+<polygon fill="none" stroke="#e84a27" points="0,-146.5 0,-182.5 85,-182.5 85,-146.5 0,-146.5"/>
+<text text-anchor="middle" x="27" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-146.5 54,-182.5 "/>
+<text text-anchor="middle" x="69.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- Item5&#45;&gt;Item8 -->
+<g id="edge2_qnnPkjnSaBhxqdPB" class="edge">
+<title>Item5-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+<!-- items -->
+<g id="node4_qnnPkjnSaBhxqdPB" class="node">
+<title>items</title>
+<polygon fill="none" stroke="#e84a27" points="12,-219.5 12,-255.5 73,-255.5 73,-219.5 12,-219.5"/>
+<text text-anchor="middle" x="42.5" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">items</text>
+</g>
+<!-- items&#45;&gt;Item5 -->
+<g id="edge1_qnnPkjnSaBhxqdPB" class="edge">
+<title>items-&gt;Item5</title>
+<path fill="none" stroke="#13294b" d="M42.5,-219.4551C42.5,-211.3828 42.5,-201.6764 42.5,-192.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-192.5903 42.5,-182.5904 39.0001,-192.5904 46.0001,-192.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uvyuFIghbYXbXzMNglHaMMhbqqXqKGYL">
+<div class="header" data-title="Another Option: Linked Lists"><h2>Another Option: Linked Lists</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">interface SimpleList {
+  Object get(int index);
+  void set(int index, Object element);
+  void add(int index, Object element);
+  Object remove(int index);
+  int size();
+}
+public class SimpleLinkedList implements SimpleList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZSZxhdvunjhnZOfkQHuywHedjLhfiZqi">
+<div class="header" data-title="Java Inner Classes"><h2>Java Inner Classes</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java we can define a class <em>inside</em> another class.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>The example above is known as a <em>nested</em> inner class.</p>
+</li>
+<li class="bullet">
+<p>Unlike outer classes, inner classes <em>can</em> be private.</p>
+</li>
+<li class="bullet">
+<p>Inner class methods have access to methods and variables in their enclosing
+class <em>even</em> if they are marked private.</p>
+</li>
+<li class="bullet">
+<p>Here we&#x2019;re using an inner class because the <code>Item</code> class should not be visible
+outside of the <code>SimpleLinkedList</code> class.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="xsaqFUCXGdWBcvgSrwKjsLHWsYrNDLlh">
+<div data-title=" LinkedList Example"></div>
+<textarea class="janini spelling_exception">public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pFfMfaklggDxABUyHIoUOomlxdhJNmAX">
+<div class="header" data-title="LinkedList: addToFront"><h2><code>LinkedList</code>: <code>addToFront</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class SimpleLinkedList {
+  private Item start;
+  public void addToFront(Object value) {
+    start = new Item(value, start);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>What is n&#x2014;or what feature drives performance?</strong>
+<span class="bullet">The length of the list.</span></p>
+</li>
+<li class="bullet">
+<p>What is the performance of <code>addToFront</code>?
+<span class="bullet">O(1): constant time!</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="lJcCMyeWhddIzcdhiLSDPvylMQZYwVRV">
+<div class="header" data-title="Questions About Lists?"><h2>Questions About Lists?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eIckgXdnIdgffbixHBegqMdeOgzdPHnn">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Please provide feedback on how things are going on the forum.
+How did the quiz go? Is the new office hours system working?
+Are you staying sane?</p>
+</li>
+<li>
+<p>The <a href="/MP/3/">MP3</a> deadline is this weekend on your deadline day.
+Good luck finishing up!</p>
+</li>
+<li>
+<p>Have a great weekend&#x2026;&#x200B;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

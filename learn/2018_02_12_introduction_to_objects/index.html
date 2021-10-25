@@ -1,0 +1,575 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Introduction to Objects</title>
+  <meta name="description" lang="en-us" content="An introduction to Java objects, including terminology, instance variables, and data modeling.">
+
+  <meta name="slider-id" content="ed7986e7-1fa4-4b07-bd10-6aafe8c52a05">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini small nozoom bespoke-active bespoke-slide" data-slideid="RANtLZkptzDUZcEbfOWEKFBiveKSMUOd">
+
+<textarea class="janini spelling_exception">class Course {
+  String name;
+  int enrollment;
+}
+Course CS125 = new Course();
+CS125.name = &quot;CS 125&quot;;
+CS125.enrollment = 600;
+System.out.println(CS125.name + &quot; has &quot; + CS125.enrollment + &quot; students.&quot;);</textarea><!-- beautify ignore:start --><div class="output" data-blank="Introduction to Objects&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Introduction to Objects<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jJGoolxDMgvAEUjsadDYIQIZvLyYMOFI">
+<div class="header" data-title="Onward"><h2>Onward</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>These are the three main challenges that will occupy us for the remainder of the
+semester:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Algorithms</strong>: How do we use computers to solve problems?</p>
+</li>
+<li class="bullet">
+<p><strong>Data structures</strong>: How do we structure information to enable efficient
+algorithms?</p>
+</li>
+<li class="bullet">
+<p><strong>Software development</strong>: How do we write, debug, test, and publish <em>good</em>
+computer software?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IfCMnfvQFZMKzUSSMrKqMWTlqPawFCRu">
+<div class="header" data-title="How Do We Structure Good Computer Programs?"><h2>How Do We Structure Good Computer Programs?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p><strong>Break our code into reusable, testable, and understandable pieces</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Combine state and behavior</strong></p>
+</li>
+<li class="bullet">
+<p>Document our code appropriately</p>
+</li>
+<li class="bullet">
+<p>Reuse preexisting solutions as much as possible</p>
+</li>
+<li class="bullet">
+<p>Share our code with others!</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dCfjRMSIHXwmlzKmMIjqyPIHmgoaRVNo">
+<div class="header" data-title="Design"><h2>Design</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Programming is an intensely creative activity.</p>
+</div>
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="http://static.wixstatic.com/media/e11370_5402a709373248db8b871ca105e926ae.gif" alt="e11370 5402a709373248db8b871ca105e926ae" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uGZBdulxROgjhRfpsMmeuOslBrdyOvGn">
+<div class="header" data-title="Design and Modeling"><h2>Design and Modeling</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java objects begin to expose you to the design aspects of computer science.</p>
+</div>
+<div class="paragraph">
+<p>Ahead of us there are no right answers, just</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>creativity</p>
+</li>
+<li class="bullet">
+<p>imagination</p>
+</li>
+<li class="bullet">
+<p>holistic thinking</p>
+</li>
+<li class="bullet">
+<p>intuition</p>
+</li>
+<li class="bullet">
+<p>visualization</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="NiBbvuqsxVzDnuSKKFCJBTfCUGkTKpUA">
+<div class="header" data-title="Objects"><h2>Objects</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Objects combine <em>state</em> (like variables) and <em>behavior</em> (like functions).</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>What does it <em>store</em>?</strong>
+Objects allow us to structure data in more varied ways
+than we can achieve with primitive types alone.</p>
+</li>
+<li class="bullet">
+<p><strong>What does it <em>do</em>?</strong>
+Objects allow us to place methods with the data that they naturally belong with.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tQzXuQadDuhOSqlvqGEdvOGYkDybMBds">
+<div class="header" data-title="Object Definition"><h2>Object Definition</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Object_(computer_science)" target="_blank" class="external">Object</a>:
+In the class-based object-oriented programming paradigm, &quot;object&quot; refers to a
+particular instance of a class where the object can be a combination of
+variables, functions, and data structures.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eeunehhPDVbMrqRabHaarshVFJwGmLpT">
+<div class="header" data-title="Object Terminology: Class"><h2>Object Terminology: Class</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  String name;
+  int age;
+  void printName() {
+    System.out.println(this.name);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>A <em>class</em> determines how a particular <em>type</em> of object will behave.</p>
+</div>
+<div class="paragraph">
+<p>You can think of the class as a <em>blueprint</em> that is used to create objects of a
+particular type.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XpZUnDPxPRqhKMvOCuiJVQwvwsKwCQeI">
+<div class="header" data-title="Object Terminology: Class"><h2>Object Terminology: Class</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  String name;
+  int age;
+  void printName() {
+    System.out.println(this.name);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Objects of type <code>Person</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Have a variable <code>name</code> of type <code>String</code></p>
+</li>
+<li class="bullet">
+<p>Have a variable <code>age</code> of type <code>int</code></p>
+</li>
+<li class="bullet">
+<p>Have a method <code>printName</code> that takes no arguments and returns nothing</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pCBPWpoFIqqQjraBlWBFWrSuktNHnAoi">
+<div class="header" data-title="Object Terminology: Class"><h2>Object Terminology: Class</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  String name;
+  int age;
+  void printName() {
+    System.out.println(this.name);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Unlike other languages, Java classes <em>cannot</em> be modified as the program runs.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>This is frustrating when writing small programs</p>
+</li>
+<li class="bullet">
+<p>This is sometimes essential when developing large programs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JPDxwADprFfhbkojkBllrvphhwIwETzV">
+<div class="header" data-title="Object Terminology: Instance"><h2>Object Terminology: Instance</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  String name;
+  int age;
+  void printName() {
+    System.out.println(this.name);
+  }
+}
+Person geoffrey = new Person();</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>An <em>instance</em> of a class is an object of that type. We create an instance using
+the <code>new</code> keyword.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>Person</code> is a class&#x2014;a type of object</p>
+</li>
+<li class="bullet">
+<p><code>geoffrey</code> is an <em>instance</em> of type <code>Person</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MQNjuuWdQKvlPOfcjrFlyCQPKBzgvZzY">
+<div class="header" data-title="Dot Notation"><h2>Dot Notation</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  String name;
+  int age;
+  void printName() {
+    System.out.println(this.name);
+  }
+}
+Person geoffrey = new Person();
+geoffrey.age = 38;
+System.out.println(geoffrey.age);</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We access an object&#x2019;s state and methods using <em>dot notation</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="nRBlVUqXADqMLBYXBOvoWuGtlbtehRCs">
+<div data-title=" Dot Notation"></div>
+<textarea class="janini spelling_exception">class Person {
+  String name;
+  int age;
+  void printName() {
+    System.out.println(this.name);
+  }
+}
+Person geoffrey = new Person();
+geoffrey.age = 38;
+System.out.println(geoffrey.age);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YJFtUlNOVwOLzvEaErsBvMozqhrMfjZF">
+<div class="header" data-title="Instance Variables"><h2>Instance Variables</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Dimensions {
+  int width; // I&apos;m a primitive type
+  int height;
+}
+class Room {
+  String name; // I&apos;m another object
+  Dimensions dimensions; // I&apos;m defined above
+}
+Room diningRoom = new Room();
+diningRoom.dimensions = new Dimensions();
+diningRoom.dimensions.width = 10;</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Instance variables can be both <em>primitive</em> types or <em>other objects</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="BtTabNVDrpmrkWydxVoePkOuGAYPdDPr">
+<div data-title=" Instance Variables"></div>
+<textarea class="janini spelling_exception">class Dimensions {
+  int width;
+  int height;
+}
+class Room {
+  String name;
+  Dimensions dimensions;
+}
+Room diningRoom = new Room();
+diningRoom.dimensions = new Dimensions();
+diningRoom.dimensions.width = 10;</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="QKoelNsUekcMuVBvjHhyiYidAywzNuuZ">
+<div class="header" data-title="Objects as Data Structures"><h2>Objects as Data Structures</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes known as
+<a href="https://en.wikipedia.org/wiki/Record_(computer_science)" target="_blank" class="external">records</a>&#x2014;but
+objects are much more than that&#x2026;&#x200B;</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FSUYlrfygwJYgAGbGByoHcgFerXgMevA">
+<div class="header" data-title="Instance Methods"><h2>Instance Methods</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}
+Dimensions example = new Dimensions();
+example.width = 10;
+example.height = 20;
+System.out.println(example.area());</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Classes can also define <em>methods</em> that can be called on each instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="UxypbwOQeusYmUxzaebjabnlldPPHPpW">
+<div data-title=" Instance Methods"></div>
+<textarea class="janini spelling_exception">class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}
+Dimensions example = new Dimensions();
+example.width = 10;
+example.height = 20;
+System.out.println(example.area());</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RMaYcanoUrSLGdCNmceJWPufMKLREDfe">
+<div class="header" data-title="this"><h2><code>this</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Dimensions {
+  int width;
+  int height;
+
+  int area() {
+    return this.width * this.height;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Instance methods can refer to <em>their</em> instance variables using the <code>this</code>
+keyword.</p>
+</div>
+<div class="paragraph">
+<p><code>this</code> refers to the instance that is executing the method.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="yTJJsqMvhSnqjEWSwVajTRJXLjxzKApB">
+<div data-title=" this"></div>
+<textarea class="janini spelling_exception">class Dimensions {
+  int width;
+  int height;
+  int area() {
+    return this.width * this.height;
+  }
+}
+Dimensions first = new Dimensions();
+first.width = 10;
+first.height = 20;
+System.out.println(first.area());
+
+Dimensions second = new Dimensions();
+second.width = 5;
+second.height = 8;
+System.out.println(second.area());</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UhRoujqXVElCPEtqYlumSfVTjAukGgHP">
+<div class="header" data-title="Object Modeling"><h2>Object Modeling</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We frequently use Java objects to model real objects or entities.</p>
+</div>
+<div class="paragraph">
+<p>Objects allow us to <em>design</em> software that deals with things in realistic and
+natural ways.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uUWeERVdFCTRYAuCBLisHWEWmTOLgGVW">
+<div data-title="MP Stats"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125.cs.illinois.edu/m/grades/MPs/#stats%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nEQlRVuljvYOsTAjPOSHdcMXKrCxkfWr">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/3/">MP3</a> is out and due a week from Friday.
+It&#x2019;s your introduction to object-oriented programming, so you&#x2019;ll be learning
+what you need to complete it in lecture and lab this week.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

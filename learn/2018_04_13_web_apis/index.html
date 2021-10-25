@@ -1,0 +1,622 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Web APIs</title>
+  <meta name="description" lang="en-us" content="Discussion of how web APIs work and how you can use them in your own projects.">
+
+  <meta name="slider-id" content="a02aafa6-d2bd-41df-890c-21dc4ac4747c">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 oneword logo bespoke-active bespoke-slide" data-slideid="akBdVGIbdUuOBCWPJUJACrtqtiiiMWsS">
+<div class="header" data-title="Web APIs"><h2>Web APIs</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QKeUzlHTSNNsJbgNcbqjGUeTHlTFsjFq">
+<div class="header" data-title="Object Modeling"><h2>Object Modeling</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We frequently use Java objects to model real objects or entities.</p>
+</div>
+<div class="paragraph">
+<p>Objects allow us to <em>design</em> software that deals with things in realistic and
+natural ways.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="kHQpiaadgbluVBAnvMmcBasKpkzNVIdg">
+<div data-title=" Class Example"></div>
+<textarea class="janini spelling_exception">public class Example {
+  public static void main(String[] unused) {
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="etVihciFCCPNmctHHSVytxymXTZQgwbc">
+<div class="header" data-title="What Did You Model?"><h2>What Did You Model?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note that one of the free response questions on the exam might be an object
+modeling question.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ektVXgCnvbMbQYRWmoUJmAGlqQMqPAFC">
+<div class="header" data-title="HTTP: GET and POST"><h2>HTTP: <code>GET</code> and <code>POST</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP defines many other types of requests, but <code>GET</code> and <code>POST</code> are by far the
+most common.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Every time you load a web page</strong> it starts with a <code>GET</code>, and usually that&#x2019;s
+followed by many other <code>GET</code> requests to fetch others parts of the page: style
+sheets, images, JavaScript code.</p>
+</li>
+<li class="bullet">
+<p><strong>Every time you submit a form</strong> it uses a <code>POST</code> to send data to the server, at
+which point your Facebook comment is recorded, or your credit card is charged
+and an package starts its way toward your house</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WgscvlWONzCiyMGTuqghXquyomqPzcUg">
+<div class="header" data-title="Web Evolution"><h2>Web Evolution</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The web has gone through many design changes over the years.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Static Sites</strong>: the web server returns a <em>file</em> from the disk that contains a
+complete web document</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Example: most of <code>cs125.cs.illinois.edu</code> is a static website</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>Dynamic Sites</strong>: the web server <em>runs code</em> to produce an HTML document and
+respond to <code>POST</code> requests created by forms</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Example: sites like <code>my.cs.illinois.edu</code> are dynamic sites</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>Web Apps</strong>: most of the site is <em>generated by JavaScript</em> that runs in the
+user&#x2019;s browser, with the server providing data as needed</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Examples: <code>cs125.cs.illinois.edu/m/grades</code>, Discourse, Gmail, Google Docs</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zcwjOHKsxMVbvuMTokNgtNLaHJdOTkBP">
+<div class="header" data-title="What is the World Wide Web?"><h2>What is the World Wide Web?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>A protocol</strong>: the Hypertext Transfer Protocol
+<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" class="external">(HTTP)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A markup language</strong>: the Hypertext Markup Language
+<a href="https://en.wikipedia.org/wiki/HTML" target="_blank" class="external">(HTML)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A styling language</strong>: Cascading Style Sheets
+<a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets" target="_blank" class="external">(CSS)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A programming language</strong>:
+<a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" class="external">JavaScript</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="wfdQvQZAipVkTZPRnQrNavedMEtHXFyO">
+<div class="header" data-title="So What&#x2019;s a Web API?"><h2>So What&#x2019;s a Web <em>API</em>?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yyuJpkncwjTgIiTBmtNZIUHdZFQnXSGU">
+<div class="header" data-title="What&#x2019;s An API?"><h2>What&#x2019;s An API?</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank" class="external">In computer
+programming, an application programming interface (API)</a>
+is a set of subroutine definitions, protocols, and tools for building
+application software.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>In English, an <em>API</em> is a set of functions that perform a set of related and
+useful tasks.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="VhKcyDdXgMnfeOXUFUtqYTEIXFRxBmua">
+<div class="header" data-title="Example API"><h2>Example API</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s say we wanted to find out the weather at a particular location:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+
+// Get the current weather a particular location and a particular time
+static WeatherInfo getAtLocation(WeatherLocation location, Date date)
+
+// Get a list of possible WeatherInfo objects for a given location string
+static WeatherLocation[] searchLocations(String query)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JLNFoBPiCoEGSAeKEmLVCEayqKYizNUm">
+<div class="header" data-title="Web APIs"><h2>Web APIs</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A <em>web API</em> is just an API that you access over the web. Consider that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We can send data to a web server using <code>POST</code> and also using URL parameters in
+a <code>GET</code> request</p>
+</li>
+<li class="bullet">
+<p>The web server can run code in response</p>
+</li>
+<li class="bullet">
+<p>And return a response, <span class="bullet"><em>which does not have to be an HTML document</em></span></p>
+</li>
+<li class="bullet">
+<p>And in many cases custom internet protocols are blocked by firewalls, making
+it attractive to run APIs over HTTP</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sQoshKdkerQbElGQyoWmkEymnLkzrZKF">
+<div class="header" data-title="Web APIs: Sending Arguments"><h2>Web APIs: Sending Arguments</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To send the <code>location</code> argument to the <code>getAtLocation</code> function over the web we
+have several options:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Stick it the URL: <code>/api/getAtLocation/(location)/</code>, which can be mapped to a
+function call</p>
+</li>
+<li class="bullet">
+<p>Add it as a query parameter: <code>/api/getAtLocation?location=(location)</code></p>
+</li>
+<li class="bullet">
+<p>Use a <code>POST</code> request and put it in the body, possibly as JSON:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock small bullet">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">POST /api/getAtLocation/
+
+{
+  &quot;location&quot;: (location)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ijoYpJSPQQLblMzMSckYOpVMqASJepju">
+<div class="header" data-title="Web APIs: Returning Results"><h2>Web APIs: Returning Results</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In many cases web APIs return results using <em>JSON</em> (JavaScript Object Notation):</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;consolidated_weather&quot;: [
+  {
+    &quot;id&quot;: 6511056423747584,
+      &quot;weather_state_name&quot;: &quot;Thunder&quot;,
+      &quot;weather_state_abbr&quot;: &quot;t&quot;,
+      &quot;wind_direction_compass&quot;: &quot;E&quot;,
+      &quot;created&quot;: &quot;2018-04-09T02:37:19.655990Z&quot;,
+      &quot;applicable_date&quot;: &quot;2018-04-08&quot;,
+      &quot;min_temp&quot;: -2.6099999999999999,
+      &quot;max_temp&quot;: 2.2149999999999999,
+      &quot;the_temp&quot;: 2.4950000000000001,
+      &quot;wind_speed&quot;: 2.8707529204565336,
+      ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ovMOptnsNzzKKfODatpgqmCEDEelFDYN">
+<div class="header" data-title="Let&#x2019;s Do An Example"><h2>Let&#x2019;s Do An Example</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#x2019;ll continue our weather example using the
+<a href="https://www.metaweather.com/api/" target="_blank" class="external">free MetaWeather API</a>
+and
+<a href="https://www.getpostman.com/" target="_blank" class="external">PostMan</a></p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="ZsOQNCeyFRLfYMLCfmRDxwhgFYiBXBXm">
+<div class="header" data-title="What&#x2019;s Awesome&#x2026;&#x200B;"><h2>What&#x2019;s Awesome&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Is that there are
+<a href="https://github.com/toddmotto/public-apis" target="_blank" class="external">a gazillion</a>
+public APIs out there.
+So go have fun!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ehlqzEhyBDazbIHaqTjpObNLXLubhqWa">
+<div class="header" data-title="What is REST?"><h2>What is REST?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You&#x2019;ll often hear of REST or RESTful web APIs.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>REST is a <em>design pattern</em> for creating web APIs.</p>
+</li>
+<li class="bullet">
+<p>URLs map to resources: so <code>GET</code> <code>/products</code> returns a list of all products,
+while <code>GET</code> <code>/products/10</code> get information about product with ID 10</p>
+</li>
+<li class="bullet">
+<p>HTTP verbs are meaningful: <code>GET</code> gets something, <code>POST</code> creates a new entity,
+<code>DELETE</code> removes one, etc.</p>
+</li>
+<li class="bullet">
+<p>HTTP response codes are meaningful: 200 is <code>OK</code>, 405 is not authorized, etc.</p>
+</li>
+<li class="bullet">
+<p>The bodies of requests and responses are in <code>JSON</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SpcgsfLVgvldZzAVoUJHsBiUOxSPvLEE">
+<div class="header" data-title="REST Examples"><h2>REST Examples</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Request</th>
+<th class="tableblock valign-middle text-center">Meaning</th>
+<th class="tableblock valign-middle text-center">Java-Like Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>GET /items</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Retrieve a list of all items</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static Item[] getItems()</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>GET /items/81</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Retrieve information about item 81</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static Item[] getItems(int id)</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>GET /items?type=frisbee</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Retrieve a list of all items that are frisbees</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static Item[] getItems(String type)</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>POST /items</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Create a new item</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static boolean createItem(Item newItem)</code></span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FKPZGlamLRDVEJHjjxFnDjkqMxooAsMH">
+<div class="header" data-title="More REST Examples"><h2>More REST Examples</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With two additional useful HTTP verbs: <code>PUT</code> and <code>DELETE</code></p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Request</th>
+<th class="tableblock valign-middle text-center">Meaning</th>
+<th class="tableblock valign-middle text-center">Java-Like Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>PUT /items/81</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Update information about item 81</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static boolean updateItem(Item updateTime, int id)</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>DELETE /items/81</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Delete item 81</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static boolean deleteItem(int id)</code></span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="JuTQULKcDJyYbpOvzZuoVHSBBAMPJKQI">
+<div class="header" data-title="Questions About Internet, Web, or Web APIs?"><h2>Questions About Internet, Web, or Web APIs?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HtKEWqTEwzEPzDSjqfIvDwiIWZWSzXqQ">
+<div class="header" data-title="Internet Design Principles"><h2>Internet Design Principles</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The internet established many powerful and important <em>design principles</em>.
+One of the most important is the <em>end-to-end principle</em>:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In networks designed according to the
+<a href="https://en.wikipedia.org/wiki/End-to-end_principle" target="_blank" class="external">end-to-end principle</a>,
+application-specific features reside in the communicating end nodes of the
+network, rather than in intermediary nodes, such as gateways and routers, that
+exist to establish the network.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="lTVxOqKIJeqpxtlWpxSuzjPINWGWZOwK">
+<div class="header" data-title="End-to-End Example: Reliable Delivery"><h2>End-to-End Example: Reliable Delivery</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Reliable delivery is <em>not guaranteed</em> by the core Internet Protocol.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Not every application needs it!</p>
+</li>
+<li class="bullet">
+<p>Moved to the <em>endpoints</em>: that is, implemented on your device and whatever
+computer you want to communicate with reliably.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GiuISzhloTQxbzcjHBBhFhJAzWSOnGUx">
+<div class="header" data-title="End-to-End Principle: Consequences"><h2>End-to-End Principle: Consequences</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The end-to-end principles has had powerful implications for internet design and
+evolution.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The core network stays simple</p>
+</li>
+<li class="bullet">
+<p>The core network <em>doesn&#x2019;t choose winners and losers</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WsnIIRchesWsJjxchaCCShmRJuhiaGML">
+<div class="header" data-title="Net Neutrality"><h2>Net Neutrality</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Net neutrality is essentially enshrining the end-to-end principle in law.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Internet service providers should not discriminate against traffic based on
+where it comes from, where it is going, or other features</p>
+</li>
+<li class="bullet">
+<p><strong>This keeps the internet available for the kinds of transformative innovation
+it has supported since its creation.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="PCmWKojKEZEbGdSLJwQxcCBCHMeHVXBk">
+<div class="header" data-title="This Will Be Your Problem Soon"><h2>This Will Be Your Problem Soon</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Please do the right thing.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SqGkgcTkdQVjvOobbhObNLIevzXsYvdI">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>We&#x2019;ve posted some
+<a href="/MP/2018/spring/6/#errata">MP6 errata</a>.
+Please follow these screencasts if you are having a hard time getting your
+environment set up.</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

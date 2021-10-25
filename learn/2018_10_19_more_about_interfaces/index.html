@@ -1,0 +1,665 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>More About Interfaces</title>
+  <meta name="description" lang="en-us" content="A continuation of discussion of interfaces.">
+
+  <meta name="slider-id" content="d422f341-ff9d-4d20-8836-da3f8bd50e88">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="XvVPGwaRhahvjdxCblIifRgJogEUVwFu">
+
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Add add = new Adder();
+    System.out.println(add.add(10, 12));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="More About Interfaces&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">More About Interfaces<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="onbDKixndTKnWddwSghDWjneiqYQCpcu">
+<div class="header" data-title="Midterm Grades"><h2>Midterm Grades</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Midterm grades are up on our
+<a href="https://cs125.cs.illinois.edu/m/grades/overview" target="_blank" class="external">grading page</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We do not assign midterm letter grades</p>
+</li>
+<li class="bullet">
+<p>But you should be able to estimate how you are doing using this information</p>
+</li>
+<li class="bullet">
+<p><strong>Please be careful if your scores with and without drops are quite different.</strong>
+This indicates that you have some bad scores waiting to &quot;pop out&quot; if you do
+poorly again in the future.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="eCWIquLeMzUOlJrjvHlkIAlkLoIZmspY">
+<div class="header" data-title="Midterm Grade Questions"><h2>Midterm Grade Questions</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nRANkNJSPjdGATReHMsdJtMowgfdvacN">
+<div class="header" data-title="Review: What Is An Interface?"><h2>Review: What Is An Interface?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Interface_(computing)" target="_blank" class="external">Interface:</a>
+a shared boundary across which two or more separate components of a computer
+system exchange information.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Interfaces can be between two pieces of software, between software and
+hardware, between computers and their users, or between various permutation of
+these components.</p>
+</li>
+<li class="bullet">
+<p>Interfaces enable different parts of a system to interact in a structured way.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="urfTHuaUJiLxdlIRadfUXiTfXyeBnveI">
+<div class="header" data-title="Java Interfaces"><h2>Java Interfaces</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Java interfaces look like <em>empty</em> objects: just method signatures with no
+implementation.</p>
+</li>
+<li class="bullet">
+<p>Interfaces can declare both <em>methods</em> and <em>variables</em>.</p>
+</li>
+<li class="bullet">
+<p>However, interfaces variables are <code>public static final</code> by default, meaning
+that they are only useful for declaring constants.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="unVKWfJBnPHKkzFZdbdIGmJoJBHCnMOc">
+<div class="header" data-title="Implementing Interfaces"><h2>Implementing Interfaces</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Interfaces don&#x2019;t do anything useful by themselves. Instead, they have to be
+implemented by specific classes.</p>
+</li>
+<li class="bullet">
+<p>To declare that a class implements an interface you use the <code>implements</code>
+keyword as shown above.</p>
+</li>
+<li class="bullet">
+<p>To implement an interface you must implement all of the methods that it
+declares.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler nozoom bespoke-inactive bespoke-slide" data-slideid="BdnXbduyfQHxbenhlWdAhSfPFdqJGKna">
+<div data-title=" Implementing Interfaces"></div>
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public class Adder { }
+public class Example {
+  public static void main(String[] unused) {
+    Add add = new Adder();
+    System.out.println(add.add(10, 12));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QeBikhKGCCQHedOcUpNgVegJocjqdrHd">
+<div class="header" data-title="Interface Casting"><h2>Interface Casting</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int multiply(int first, int second) {
+    return first * second;
+  }
+}
+Add add = new Adder();
+System.out.println(add.add(10, 20));
+// But this doesn&apos;t work because multiply is not part of the add interface
+System.out.println(add.multiply(10, 20));</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Similar to inheritance I can automatically cast an object reference to any
+interface that it implements.</p>
+</li>
+<li class="bullet">
+<p>However, if I do that I can no longer access methods that are not part of the
+interface.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="mVcBIAzpuSsnLeDGUdeJcEiHouyCvdWA">
+<div data-title=" Interface Casting"></div>
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int multiply(int first, int second) {
+    return first * second;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Add add = new Adder();
+    System.out.println(add.add(10, 20));
+    // But this doesn&apos;t work because multiply is not part of the add interface
+    System.out.println(add.multiply(10, 20));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AjPdceiZEPcnzdphcoCNberJfMTRQNle">
+<div class="header" data-title="Interfaces v. Inheritance"><h2>Interfaces v. Inheritance</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So far this seems very similar to inheritance and overloading.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The interface is like the parent class</p>
+</li>
+<li class="bullet">
+<p><code>implement</code> is like <code>extends</code></p>
+</li>
+<li class="bullet">
+<p>Providing your own implementation is like overriding a parent&#x2019;s method</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rEXiyfgutbqfnnJnxneeVZDEdCdHnLqu">
+<div class="header" data-title="abstract Methods"><h2><code>abstract</code> Methods</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>It&#x2019;s actually even more similar than it seems.
+Remember <code>abstract</code> classes?
+<code>abstract</code> classes can also have <code>abstract</code> methods:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public abstract class Add {
+  public abtract int add(int first, int second);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="cgqGfQnuLznNbTnHhTcGnSPLtdtnLnNY">
+<div class="header" data-title="So Why Interfaces?"><h2>So Why Interfaces?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SIRVlqjiefQqAEiHiMgrnuxdiXzHkHKH">
+<div class="header" data-title="Added Flexibility"><h2>Added Flexibility</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://staff.fnwi.uva.nl/a.j.p.heck/Courses/JAVAcourse/ch3/lettertree.gif" alt="lettertree" width="240" class="mx-auto" style="display: block;">
+</div>
+</div>
+<div class="paragraph lead">
+<p>Sometimes we want to mix capabilities from different branches of the tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JehncmFFCYjfTcxTEnEdObdfAnKGGpeH">
+<div class="header" data-title="Multiple Inheritance"><h2>Multiple Inheritance</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}
+public interface Subtract {
+  int subtract(int first, int second);
+}
+public class Mathy implements Add, Subtract {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int subtract(int first, int second) {
+    return first - second;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unlike inheritance, classes can implement <em>multiple</em> interfaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="XPzikFARbfcneuJoHBxZfaMQEiddCkef">
+<div data-title=" Multiple Inheritance"></div>
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public interface Subtract {
+  int subtract(int first, int second);
+}
+public class Mathy implements Add, Subtract {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int subtract(int first, int second) {
+    return first - second;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Add adder = new Mathy();
+    System.out.println(adder.add(10, 20));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TgyvkReesVRJvuBmvfrivqzSsgxxivvd">
+<div class="header" data-title="Interface as Contract"><h2>Interface as Contract</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+ * Compares this object with the specified object for order.
+ *
+ * Returns a negative integer, zero, or a positive integer as this object is
+ * less than, equal to, or greater than the specified object.
+ */
+public interface Comparable {
+  int compareTo(Object other);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Interfaces represent a <em>contract</em> between the interface <em>provider</em> and the
+interface <em>user</em>.</p>
+</div>
+<div class="paragraph">
+<p>The interface represents all that the two components on either side need to
+agree on for things to work correctly.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sVdXyCWBTTprmCBMuEpRIDdytnfdFSVk">
+<div class="header" data-title="Interface as Contract"><h2>Interface as Contract</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Comparable {
+  int compareTo(Object other);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By implementing
+<a href="https://docs.oracle.com/javase/10/docs/api/java/lang/Comparable.html" target="_blank" class="external"><code>Comparable</code></a>
+you commit to being able to compare two instances of your class.</p>
+</div>
+<div class="paragraph">
+<p>Using this ability I can implement code that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><em>sorts</em> an array containing instances of your class</p>
+</li>
+<li class="bullet">
+<p>finds the <em>maximum</em> or <em>minimum</em> value of multiple instances of your class</p>
+</li>
+<li class="bullet">
+<p>arranges instances of your class into a <em>binary tree</em> <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;which we&amp;#x2019;ll learn more about soon&lt;/body&gt;&lt;/html&gt;">1</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iktVwdkWdFSXEKZXMEdRNettxaVZflWn">
+<div class="header" data-title="Interface as Abstraction Barrier"><h2>Interface as Abstraction Barrier</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Comparable {
+  int compareTo(Object other);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Good interfaces also represent a <em>barrier</em> between two unrelated parts of a
+computer program or system.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If I <em>implement</em> <code>Comparable</code> I don&#x2019;t need to worry about how my
+implementation is <em>used</em>, but suddenly my class will have many new desirable
+features</p>
+</li>
+<li>
+<p>If I <em>use</em> <code>Comparable</code> I don&#x2019;t need to worry about how the interface is
+<em>implemented</em> but I know that I can correctly compare two objects</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yPdDeAdLGrhcjXhpHLwhrZKtYvleUnVU">
+<div class="header" data-title="Review: HW35"><h2>Review: HW35</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">interface Comparable {
+    int compareTo(Object other);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create a class called <code>StringLength</code> that implements a version of the Java
+<a href="https://docs.oracle.com/javase/10/docs/api/java/lang/Comparable.html" target="_blank" class="external"><code>Comparable</code></a>
+interface as shown above.
+<code>StringLength</code> wraps a <code>String</code> and should provide a constructor that takes a
+<code>String</code> as a single parameter, which is stored internally by each instance of
+<code>StringLength</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SfrXcQrodGfnCdekvBiZODRQcbgeQslk">
+<div class="header" data-title="Review: Comparable"><h2>Review: <code>Comparable</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>Comparable</code> allows objects to be put <em>in order</em>.
+In this case, you should order <code>StringLength</code> objects based on the <em>length</em> of
+their <code>String</code> instance variable.
+Specifically <code>compareTo</code> should return:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>-1 if <code>other</code> is less than the specified object, <code>null</code>, or not an instance of
+<code>StringLength</code></p>
+</li>
+<li>
+<p>0 if <code>other</code> is equal to the specified object</p>
+</li>
+<li>
+<p>1 if <code>other</code> is greater than the specified object</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="iJeOmiztFvnnugqBLVFXcnUvqwuBfrWq">
+<div data-title=" Review: HW 35"></div>
+<textarea class="janini spelling_exception">public interface Comparable {
+  int compareTo(Object other);
+}
+public class StringLength {
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nffLXHWaLxLnEnaehpdpLKHlUViCHDYN">
+<div class="header" data-title="It&#x2019;s Good to Comparable"><h2>It&#x2019;s Good to <code>Comparable</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>This small function is surprisingly powerful.
+It allows <em>existing</em> Java code to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>sort</strong> instances of your class</p>
+</li>
+<li class="bullet">
+<p>efficiently <strong>search</strong> for instances of your class</p>
+</li>
+<li class="bullet">
+<p>We&#x2019;ll discuss both data structures and algorithms that utilize <code>Comparable</code>
+over the next few months</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MnCJNXfHfcHfJtoZeVxoVvufdqodlCVC">
+<div class="header" data-title=".equals v. compareTo"><h2><code>.equals</code> v. <code>compareTo</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In Java <em>every</em> object must provide <code>.equals</code>, but only those that implement
+<code>Comparable</code> must provide <code>.compareTo</code>.
+<strong>Why?</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Java decided that every class must have some notion of <em>equality</em>: at minimum,
+an object instance should be equal to itself!</p>
+</li>
+<li class="bullet">
+<p>In contrast, not every class supports meaningful comparisons</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="MlpiPlhpiUyuStpvicLkRAfntNuSvftd">
+<div class="header" data-title="Comparable or Not"><h2><code>Comparable</code> or Not</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What are some examples of classes that <em>can</em> or <em>cannot</em> be compared?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="hAIYbXvZIbCeHuFcdefAdTFdKMeLZzcV">
+<div data-title=" Another Comparable Example"></div>
+<textarea class="janini spelling_exception">public interface Comparable {
+  int compareTo(Object other);
+}
+public class Value {
+}
+public class Example {
+  public static void main(String[] unused) {
+    Value[] values = new Value[] { new Value(10), new Value(12), new Value(13) };
+    System.out.println(maximum(values));
+  }
+  public static Object maximum(Comparable[] values) {
+    return null;
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>MP4 is out and due in a week and a half.</p>
+</li>
+<li>
+<p>I have office hours today from 10AM&#x2013;12PM.</p>
+</li>
+<li>
+<p>Please provide feedback on the course using our
+<a href="/info/feedback/">anonymous feedback form</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

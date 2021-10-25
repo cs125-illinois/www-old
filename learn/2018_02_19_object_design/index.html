@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Object Design</title>
+  <meta name="description" lang="en-us" content="A discussion of how to use Java objects to model various simple entities.">
+
+  <meta name="slider-id" content="c56fbcb7-af47-43c7-b3de-5fc7a8d9deed">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini small compiler nozoom bespoke-active bespoke-slide" data-slideid="teuMuxnTjenjpISxjJeHzdTtgakAgzYm">
+
+<textarea class="janini spelling_exception">public class Example {
+  public static final String YOUR_CONSTANT = &quot;Hello, world!&quot;;
+
+  public static void main(String[] unused) {
+    System.out.println(&quot;Hello, world!&quot;);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Object Design&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Object Design<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nEqwhFuCTtwKRAOKaNirHHlnXWnAIZLr">
+<div class="header" data-title="Scope and Name Resolution"><h2>Scope and Name Resolution</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  // Both class and instance variables can be initialized
+  public static int classNum = 8;
+  public int objectNum = 4;
+
+  // objectNum shadows this.objectNum... I&apos;d pick a better name
+  public void incrementObject(int objectNum) {
+    this.objectNum += objectNum;
+    classNum += objectNum;
+  }
+  // classNum shadows Example.classNum... I&apos;d pick a better name
+  public static void incrementClass(int classNum) {
+    Example.classNum += classNum;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Let&#x2019;s review our scoping rules.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Work to the left.</p>
+</li>
+<li class="bullet">
+<p>Remember that method parameters <em>can</em> shadow (or conflict with) class or
+instance variables.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 listingblock janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="NLIaRhwxmoAkaqrcRQxtghMwNaAyaLaD">
+<div data-title=" Scope and Name Resolution"></div>
+<textarea class="janini spelling_exception">public class Example {
+  public static int classNum = 8;
+  public int objectNum = 4;
+
+  public void incrementObject(int objectNum) {
+    this.objectNum += objectNum;
+    classNum += objectNum;
+  }
+  public static void incrementClass(int classNum) {
+    Example.classNum += classNum;
+  }
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.classNum);
+    System.out.println(example.objectNum);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;" class="spelling_exception">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mlqtMBxERmbmWOjsDoKPXMdagktpcoHC">
+<div class="header" data-title="final and Constants"><h2><code>final</code> and Constants</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Example {
+  /** The number of hours of sleep you should get per night. */
+  public static final int HOURS_PER_NIGHT = 8;
+  ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java a <code>final</code> variable <em>cannot be modified</em>.</p>
+</div>
+<div class="paragraph">
+<p>You usually see this done to establish useful constant values&#x2014;which can be
+either <code>public</code> or <code>private</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small compiler nozoom bespoke-inactive bespoke-slide" data-slideid="aRzsozxWPRNaTyegwrsSvYWsqtLGDtIE">
+<div data-title=" Example of final"></div>
+<textarea class="janini spelling_exception">public class Example {
+  public static final int HOURS_PER_NIGHT = 8;
+
+  public static void main(String[] unused) {
+    HOURS_PER_NIGHT = 4;
+    System.out.println(HOURS_PER_NIGHT);
+    HOURS_PER_NIGHT = 2;
+    System.out.println(HOURS_PER_NIGHT);
+    // I will never change!
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WqRJLyEMGzDnROsHBdlzMUbDckIilcNd">
+<div class="header" data-title="Let&#x2019;s Talk main"><h2>Let&#x2019;s Talk <code>main</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  public static void main(String[] unused) {
+    System.out.println(&quot;How did I get here?&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>You&#x2019;ve been using and even writing <code>main</code> methods?
+But <em>what is it</em>?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PMvcyTJMxlQGwACGdChxIxqgfkfNHdhZ">
+<div class="header" data-title="Everything Has To Start Somewhere"><h2>Everything Has To Start Somewhere</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  public static void main(String[] unused) {
+    System.out.println(&quot;And this is it!&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>When Java runs your program, execution has to start <em>somewhere</em>.</p>
+</li>
+<li class="bullet">
+<p>If a class has a <code>main</code> method Java can execute that class and begin the
+process of running a program.</p>
+</li>
+<li class="bullet">
+<p>So <em>every</em> Java application starts in <code>main</code> somewhere.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rHYJXgpSsZBecBvjSvwYlEpsQEnYnqEu">
+<div class="header" data-title="But What About unused?"><h2>But What About <code>unused</code>?</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  public static void main(String[] unused) {
+    System.out.println(&quot;And this is it!&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>But why is <code>main</code> passed an array of <code>Strings</code>s (that we usually ignore)?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DanbTceiYfVtGkwOPYEGQbXcOfDJTBLE">
+<div class="header" data-title="(Short Demo)"><h2>(Short Demo)</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pYZKGvMxxScvhIAxiYzivbknbPBREIai">
+<div class="header" data-title="Object Modeling"><h2>Object Modeling</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We frequently use Java objects to model real objects or entities.</p>
+</div>
+<div class="paragraph">
+<p>Objects allow us to <em>design</em> software that deals with things in realistic and
+natural ways.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="WxKyPnXRwYtwcYEpgBXNwBlwGoPfKEdq">
+<div data-title=" Let&#x2019;s Model Something"></div>
+<textarea class="janini spelling_exception">// Let&apos;s model something</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="XbvazhAtrSvzILsKXZArjvthYiwDAuZA">
+<div data-title=" Let&#x2019;s Model Something Else"></div>
+<textarea class="janini spelling_exception">// Let&apos;s model something else!</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZEBVxWPQrcOuaYysYnTxExqnIIgKWTIs">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/3/">MP3</a> is due Friday.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+I&#x2019;ll need to leave a bit early today.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

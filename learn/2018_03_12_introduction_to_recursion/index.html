@@ -1,0 +1,3851 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Introduction to Recursion</title>
+  <meta name="description" lang="en-us" content="Introduction to recursion on binary trees">
+
+  <meta name="slider-id" content="adf74ab8-6802-417e-b5e6-6b18eeb3579d">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="NAttUAUHnbhXVjtmWaEFsWvihwLdXzaR">
+
+<textarea class="janini spelling_exception">import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public String toString() {
+    String returnString = &quot;&quot; + value;
+    if (left != null) {
+      returnString += &quot; &quot; + left.toString();
+    }
+    if (right != null) {
+      returnString += &quot; &quot; + right.toString();
+    }
+    return returnString;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(tree);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Introduction to Recursion&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Introduction to Recursion<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GTUjKBIcByzXwNCjFhjIVSPCZtRNnxMA">
+<div class="header" data-title="Binary Trees"><h2>Binary Trees</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Binary_tree" target="_blank" class="external">A binary tree</a>
+is a tree data structure in which each node has <em>at most two children</em>, which are
+referred to as the left child and the right child.</p>
+</div>
+</blockquote>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Tree {
+  Object value;
+  Tree right;
+  Tree left;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We are rarely interested in trees <em>only</em> for their structure.
+<strong>Usually we use them to structure <em>data</em>.</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="xduFGwmqFjHugOllcDUMiGwrQVMnvlpT">
+<div class="header" data-title="Not Every Binary Tree Is A Search Tree"><h2>Not Every Binary Tree Is A Search Tree</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#x2019;ll be working with binary <em>search</em> trees in MP5.
+They have rules about where elements get added.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="VIGRDurFjDKrtJHWXoOItBZzfjNmhuyW">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="yeenGOeyhexSOdbC">
+<g id="graph0_yeenGOeyhexSOdbC" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_yeenGOeyhexSOdbC" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_yeenGOeyhexSOdbC" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_yeenGOeyhexSOdbC" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_yeenGOeyhexSOdbC" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_yeenGOeyhexSOdbC" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_yeenGOeyhexSOdbC" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_yeenGOeyhexSOdbC" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_yeenGOeyhexSOdbC" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_yeenGOeyhexSOdbC" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_yeenGOeyhexSOdbC" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_yeenGOeyhexSOdbC" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_yeenGOeyhexSOdbC" class="node">
+<title>6</title>
+<ellipse fill="none" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_yeenGOeyhexSOdbC" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_yeenGOeyhexSOdbC" class="node">
+<title>8</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_yeenGOeyhexSOdbC" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_yeenGOeyhexSOdbC" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_yeenGOeyhexSOdbC" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wAcPTwFgxzPKqUSbvoMgLlMzHdhIvURD">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="dMKByHvbuUSMXifX">
+<g id="graph0_dMKByHvbuUSMXifX" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_dMKByHvbuUSMXifX" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_dMKByHvbuUSMXifX" class="node">
+<title>3</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_dMKByHvbuUSMXifX" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_dMKByHvbuUSMXifX" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_dMKByHvbuUSMXifX" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_dMKByHvbuUSMXifX" class="node">
+<title>4</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_dMKByHvbuUSMXifX" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_dMKByHvbuUSMXifX" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_dMKByHvbuUSMXifX" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_dMKByHvbuUSMXifX" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_dMKByHvbuUSMXifX" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_dMKByHvbuUSMXifX" class="node">
+<title>6</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_dMKByHvbuUSMXifX" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_dMKByHvbuUSMXifX" class="node">
+<title>8</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_dMKByHvbuUSMXifX" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_dMKByHvbuUSMXifX" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_dMKByHvbuUSMXifX" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="geSkNfwohNjVoDKbFeuCVWYOKyLjSeBf">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="vSqwJnjeiDryxEin">
+<g id="graph0_vSqwJnjeiDryxEin" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_vSqwJnjeiDryxEin" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_vSqwJnjeiDryxEin" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_vSqwJnjeiDryxEin" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_vSqwJnjeiDryxEin" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_vSqwJnjeiDryxEin" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_vSqwJnjeiDryxEin" class="node">
+<title>4</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_vSqwJnjeiDryxEin" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_vSqwJnjeiDryxEin" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_vSqwJnjeiDryxEin" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_vSqwJnjeiDryxEin" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_vSqwJnjeiDryxEin" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_vSqwJnjeiDryxEin" class="node">
+<title>6</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_vSqwJnjeiDryxEin" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_vSqwJnjeiDryxEin" class="node">
+<title>8</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_vSqwJnjeiDryxEin" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_vSqwJnjeiDryxEin" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_vSqwJnjeiDryxEin" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yZlKteePmvdIFKCujzsReLBuKqurwAMF">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="RsrdwownpqBVtiKG">
+<g id="graph0_RsrdwownpqBVtiKG" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_RsrdwownpqBVtiKG" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_RsrdwownpqBVtiKG" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_RsrdwownpqBVtiKG" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_RsrdwownpqBVtiKG" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_RsrdwownpqBVtiKG" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_RsrdwownpqBVtiKG" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_RsrdwownpqBVtiKG" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_RsrdwownpqBVtiKG" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_RsrdwownpqBVtiKG" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_RsrdwownpqBVtiKG" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_RsrdwownpqBVtiKG" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_RsrdwownpqBVtiKG" class="node">
+<title>6</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_RsrdwownpqBVtiKG" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_RsrdwownpqBVtiKG" class="node">
+<title>8</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_RsrdwownpqBVtiKG" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_RsrdwownpqBVtiKG" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_RsrdwownpqBVtiKG" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IKrnrlKfANGKvLtfVmJfyUCYljkWeZIM">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="eQfxzuwinJjejcBr">
+<g id="graph0_eQfxzuwinJjejcBr" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_eQfxzuwinJjejcBr" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_eQfxzuwinJjejcBr" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_eQfxzuwinJjejcBr" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_eQfxzuwinJjejcBr" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_eQfxzuwinJjejcBr" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_eQfxzuwinJjejcBr" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_eQfxzuwinJjejcBr" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_eQfxzuwinJjejcBr" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_eQfxzuwinJjejcBr" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_eQfxzuwinJjejcBr" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_eQfxzuwinJjejcBr" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_eQfxzuwinJjejcBr" class="node">
+<title>6</title>
+<ellipse fill="none" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_eQfxzuwinJjejcBr" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_eQfxzuwinJjejcBr" class="node">
+<title>8</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_eQfxzuwinJjejcBr" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_eQfxzuwinJjejcBr" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_eQfxzuwinJjejcBr" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XClsBqbZyhgQixIkbdRePZWxGYZAcMSR">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="dwxCoivYnEHqGZRj">
+<g id="graph0_dwxCoivYnEHqGZRj" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_dwxCoivYnEHqGZRj" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_dwxCoivYnEHqGZRj" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_dwxCoivYnEHqGZRj" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_dwxCoivYnEHqGZRj" class="node">
+<title>5</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_dwxCoivYnEHqGZRj" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_dwxCoivYnEHqGZRj" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_dwxCoivYnEHqGZRj" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_dwxCoivYnEHqGZRj" class="node">
+<title>7</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_dwxCoivYnEHqGZRj" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_dwxCoivYnEHqGZRj" class="node">
+<title>9</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_dwxCoivYnEHqGZRj" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_dwxCoivYnEHqGZRj" class="node">
+<title>6</title>
+<ellipse fill="none" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_dwxCoivYnEHqGZRj" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_dwxCoivYnEHqGZRj" class="node">
+<title>8</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_dwxCoivYnEHqGZRj" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_dwxCoivYnEHqGZRj" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_dwxCoivYnEHqGZRj" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QbskpUtiCqiJOPXrGhjqyPvraOEBBTec">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="drtJlfgWmmzSWhey">
+<g id="graph0_drtJlfgWmmzSWhey" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_drtJlfgWmmzSWhey" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_drtJlfgWmmzSWhey" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_drtJlfgWmmzSWhey" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_drtJlfgWmmzSWhey" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_drtJlfgWmmzSWhey" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_drtJlfgWmmzSWhey" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_drtJlfgWmmzSWhey" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_drtJlfgWmmzSWhey" class="node">
+<title>7</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_drtJlfgWmmzSWhey" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_drtJlfgWmmzSWhey" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_drtJlfgWmmzSWhey" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_drtJlfgWmmzSWhey" class="node">
+<title>6</title>
+<ellipse fill="none" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_drtJlfgWmmzSWhey" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_drtJlfgWmmzSWhey" class="node">
+<title>8</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_drtJlfgWmmzSWhey" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_drtJlfgWmmzSWhey" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_drtJlfgWmmzSWhey" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bWmehvUlWmUINYMFUkPLyLsGvlGhliuW">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="UdAbZzvkqnusUQiI">
+<g id="graph0_UdAbZzvkqnusUQiI" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_UdAbZzvkqnusUQiI" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_UdAbZzvkqnusUQiI" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_UdAbZzvkqnusUQiI" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_UdAbZzvkqnusUQiI" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_UdAbZzvkqnusUQiI" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_UdAbZzvkqnusUQiI" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_UdAbZzvkqnusUQiI" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_UdAbZzvkqnusUQiI" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_UdAbZzvkqnusUQiI" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_UdAbZzvkqnusUQiI" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_UdAbZzvkqnusUQiI" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_UdAbZzvkqnusUQiI" class="node">
+<title>6</title>
+<ellipse fill="none" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_UdAbZzvkqnusUQiI" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_UdAbZzvkqnusUQiI" class="node">
+<title>8</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_UdAbZzvkqnusUQiI" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_UdAbZzvkqnusUQiI" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_UdAbZzvkqnusUQiI" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TqusdXRCAUluECOoNJecZeGYsscPPyuN">
+<div class="header" data-title="Subtrees As Trees"><h2>Subtrees As Trees</h2></div>
+<div class="sectionbody">
+<div class="digraph smaller tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="185pt" viewBox="0.00 0.00 206.00 185.00" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="heIuvUinGzwcwqeh">
+<g id="graph0_heIuvUinGzwcwqeh" class="graph" transform="scale(1 1) rotate(0) translate(4 181)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-181 202,-181 202,4 -4,4"/>
+<!-- 1 -->
+<g id="node1_heIuvUinGzwcwqeh" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="99" cy="-159" rx="18" ry="18"/>
+<text text-anchor="middle" x="99" y="-155.9" font-family="Open Sans" font-size="12.00" fill="#000000">1</text>
+</g>
+<!-- 3 -->
+<g id="node2_heIuvUinGzwcwqeh" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge1_heIuvUinGzwcwqeh" class="edge">
+<title>1-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M90.0094,-143.3497C88.7476,-141.1533 87.4265,-138.8536 86.0976,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="89.0596,-134.6698 81.0434,-127.7422 82.9898,-138.1567 89.0596,-134.6698"/>
+</g>
+<!-- 5 -->
+<g id="node3_heIuvUinGzwcwqeh" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-112" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-108.9" font-family="Open Sans" font-size="12.00" fill="#000000">5</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2_heIuvUinGzwcwqeh" class="edge">
+<title>1-&gt;5</title>
+<path fill="none" stroke="#13294b" d="M107.9906,-143.3497C109.2524,-141.1533 110.5735,-138.8536 111.9024,-136.5403"/>
+<polygon fill="#13294b" stroke="#13294b" points="115.0102,-138.1567 116.9566,-127.7422 108.9404,-134.6698 115.0102,-138.1567"/>
+</g>
+<!-- 4 -->
+<g id="node4_heIuvUinGzwcwqeh" class="node">
+<title>4</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge3_heIuvUinGzwcwqeh" class="edge">
+<title>3-&gt;4</title>
+<path fill="none" stroke="#13294b" d="M72,-93.963C72,-93.7429 72,-93.5222 72,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-93.2218 72,-83.2219 68.5001,-93.2219 75.5001,-93.2218"/>
+</g>
+<!-- 7 -->
+<g id="node7_heIuvUinGzwcwqeh" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">7</text>
+</g>
+<!-- 5&#45;&gt;7 -->
+<g id="edge6_heIuvUinGzwcwqeh" class="edge">
+<title>5-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M126,-93.963C126,-93.7429 126,-93.5222 126,-93.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-93.2218 126,-83.2219 122.5001,-93.2219 129.5001,-93.2218"/>
+</g>
+<!-- 9 -->
+<g id="node8_heIuvUinGzwcwqeh" class="node">
+<title>9</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="180" cy="-65" rx="18" ry="18"/>
+<text text-anchor="middle" x="180" y="-61.9" font-family="Open Sans" font-size="12.00" fill="#000000">9</text>
+</g>
+<!-- 5&#45;&gt;9 -->
+<g id="edge7_heIuvUinGzwcwqeh" class="edge">
+<title>5-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M139.6265,-100.1399C145.3383,-95.1685 152.1184,-89.2673 158.4758,-83.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="160.9448,-86.2251 166.19,-77.0198 156.3491,-80.945 160.9448,-86.2251"/>
+</g>
+<!-- 6 -->
+<g id="node5_heIuvUinGzwcwqeh" class="node">
+<title>6</title>
+<ellipse fill="none" stroke="#e84a27" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">6</text>
+</g>
+<!-- 4&#45;&gt;6 -->
+<g id="edge4_heIuvUinGzwcwqeh" class="edge">
+<title>4-&gt;6</title>
+<path fill="none" stroke="#13294b" d="M58.3735,-53.1399C52.6617,-48.1685 45.8816,-42.2673 39.5242,-36.734"/>
+<polygon fill="#13294b" stroke="#13294b" points="41.6509,-33.945 31.81,-30.0198 37.0552,-39.2251 41.6509,-33.945"/>
+</g>
+<!-- 8 -->
+<g id="node6_heIuvUinGzwcwqeh" class="node">
+<title>8</title>
+<ellipse fill="none" stroke="#e84a27" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">8</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge5_heIuvUinGzwcwqeh" class="edge">
+<title>4-&gt;8</title>
+<path fill="none" stroke="#13294b" d="M72,-46.963C72,-46.7429 72,-46.5222 72,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.5001,-46.2218 72,-36.2219 68.5001,-46.2219 75.5001,-46.2218"/>
+</g>
+<!-- 10 -->
+<g id="node9_heIuvUinGzwcwqeh" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="126" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="126" y="-14.9" font-family="Open Sans" font-size="12.00" fill="#000000">10</text>
+</g>
+<!-- 7&#45;&gt;10 -->
+<g id="edge8_heIuvUinGzwcwqeh" class="edge">
+<title>7-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M126,-46.963C126,-46.7429 126,-46.5222 126,-46.3009"/>
+<polygon fill="#13294b" stroke="#13294b" points="129.5001,-46.2218 126,-36.2219 122.5001,-46.2219 129.5001,-46.2218"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Every subtree of a tree is, itself, a tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BvxhRQHsxiezJFxeeABqzcAkFpaevnJW">
+<div class="header" data-title="Recursion"><h2>Recursion</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Recursion" target="_blank" class="external">Recursion</a>
+occurs when a thing is defined in terms of itself or of its type.</p>
+</div>
+</blockquote>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Tree {
+  Object value;
+  Tree right;
+  Tree left;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xAmoVUmvVpneZytZMbEjYcxLZuqkJQXA">
+<div class="header" data-title="Recursion in Computer Science"><h2>Recursion in Computer Science</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)" target="_blank" class="external">Recursion in computer science</a>
+is a method where the solution to a problem depends on solutions to smaller
+instances of the same problem.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FoxnoMFQAppSUACkfdnkWWRSscgqYOas">
+<div class="header" data-title="Recursion v. Iteration"><h2>Recursion v. Iteration</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So far we&#x2019;ve pursued <em>iterative</em> algorithms in this course.
+Recursion provides us with a new way to approach problems.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Iteration</strong>: repeat the same set of steps over and over again</p>
+</li>
+<li class="bullet">
+<p><strong>Recursion</strong>: break a larger problem into smaller problems until they are
+small enough to solve easily</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CXbapepAVwklaMDmuoiPqFbSVAJeUebp">
+<div class="header" data-title="Tree Node Counting"><h2>Tree Node Counting</h2></div>
+<div class="sectionbody">
+<div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="228pt" viewBox="0.00 0.00 241.96 228.49" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="IdxnHnalCMPegXya">
+<g id="graph0_IdxnHnalCMPegXya" class="graph" transform="scale(1 1) rotate(0) translate(4 224.4924)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-224.4924 237.9619,-224.4924 237.9619,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_IdxnHnalCMPegXya" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="83.9203" cy="-198.5721" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="83.9203" y="-194.7721" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_IdxnHnalCMPegXya" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="49.9203" cy="-112.3675" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="49.9203" y="-108.5675" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_IdxnHnalCMPegXya" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M75.8628,-178.1428C71.6592,-167.4849 66.4358,-154.2414 61.7802,-142.4374"/>
+<polygon fill="#13294b" stroke="#13294b" points="64.9628,-140.9673 58.0378,-132.9489 58.451,-143.5357 64.9628,-140.9673"/>
+</g>
+<!-- 10 -->
+<g id="node3_IdxnHnalCMPegXya" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="131.9203" cy="-112.3675" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="131.9203" y="-108.5675" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_IdxnHnalCMPegXya" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M94.8123,-179.011C100.2687,-169.2116 107.029,-157.0706 113.2785,-145.8468"/>
+<polygon fill="#13294b" stroke="#13294b" points="116.3394,-147.5442 118.1464,-137.1046 110.2235,-144.1388 116.3394,-147.5442"/>
+</g>
+<!-- 7 -->
+<g id="node4_IdxnHnalCMPegXya" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-24.0416" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-20.2416" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_IdxnHnalCMPegXya" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M43.2847,-91.4355C39.8229,-80.5153 35.5213,-66.946 31.6873,-54.8515"/>
+<polygon fill="#13294b" stroke="#13294b" points="34.9636,-53.6043 28.6053,-45.1295 28.2909,-55.7197 34.9636,-53.6043"/>
+</g>
+<!-- 9 -->
+<g id="node5_IdxnHnalCMPegXya" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="83.9203" cy="-24.0416" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="83.9203" y="-20.2416" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_IdxnHnalCMPegXya" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M118.2938,-87.2931C112.4041,-76.4552 105.4822,-63.7181 99.3994,-52.5251"/>
+<polygon fill="#13294b" stroke="#13294b" points="102.3786,-50.677 94.5284,-43.5618 96.2281,-54.0195 102.3786,-50.677"/>
+</g>
+<!-- 1 -->
+<g id="node6_IdxnHnalCMPegXya" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="145.9203" cy="-24.0416" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="145.9203" y="-20.2416" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_IdxnHnalCMPegXya" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M136.35,-84.4207C137.7818,-75.3873 139.3802,-65.3029 140.8545,-56.002"/>
+<polygon fill="#13294b" stroke="#13294b" points="144.3419,-56.3564 142.4506,-45.9317 137.4282,-55.2605 144.3419,-56.3564"/>
+</g>
+<!-- H -->
+<!-- 10&#45;&gt;H -->
+</g>
+</svg>
+</div>
+<div class="paragraph lead">
+<p>Let&#x2019;s say that we wanted to <em>count</em> the number of nodes in the tree above.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="OvCoXnknGtkaDBejTEyLgMZJExLiflgm">
+<div class="header" data-title="Iterative Node Counting"><h2>Iterative Node Counting</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="dgtqrSOzxxmkHedS">
+<g id="graph0_dgtqrSOzxxmkHedS" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_dgtqrSOzxxmkHedS" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_dgtqrSOzxxmkHedS" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_dgtqrSOzxxmkHedS" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M47.8628,-173.9002C43.6592,-163.2423 38.4358,-149.9988 33.7802,-138.1948"/>
+<polygon fill="#13294b" stroke="#13294b" points="36.9628,-136.7247 30.0378,-128.7063 30.451,-139.2931 36.9628,-136.7247"/>
+</g>
+<!-- 10 -->
+<g id="node3_dgtqrSOzxxmkHedS" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_dgtqrSOzxxmkHedS" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.9778,-173.9002C67.4898,-164.9958 71.7136,-154.2866 75.7235,-144.1199"/>
+<polygon fill="#13294b" stroke="#13294b" points="79.059,-145.2021 79.4722,-134.6153 72.5472,-142.6338 79.059,-145.2021"/>
+</g>
+<!-- 7 -->
+<g id="node4_dgtqrSOzxxmkHedS" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_dgtqrSOzxxmkHedS" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M21.9203,-85.9251C21.9203,-76.2721 21.9203,-64.7735 21.9203,-54.2031"/>
+<polygon fill="#13294b" stroke="#13294b" points="25.4204,-54.0449 21.9203,-44.0449 18.4204,-54.0449 25.4204,-54.0449"/>
+</g>
+<!-- 9 -->
+<g id="node5_dgtqrSOzxxmkHedS" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_dgtqrSOzxxmkHedS" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M88.9214,-79.42C88.6385,-71.2927 88.3288,-62.3937 88.0394,-54.077"/>
+<polygon fill="#13294b" stroke="#13294b" points="91.5329,-53.828 87.6872,-43.9558 84.5372,-54.0715 91.5329,-53.828"/>
+</g>
+<!-- 1 -->
+<g id="node6_dgtqrSOzxxmkHedS" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_dgtqrSOzxxmkHedS" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.0423,-84.5691C113.6551,-73.4462 122.7758,-60.1199 130.6444,-48.6231"/>
+<polygon fill="#13294b" stroke="#13294b" points="133.6121,-50.4839 136.3718,-40.2548 127.8355,-46.5303 133.6121,-50.4839"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>iteratively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li class="bullet">
+<p>Visit every node in the tree</p>
+</li>
+<li class="bullet">
+<p>Increment a counter by 1 each time</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="nnWxqgHwUEExSGEDmqadbfPbTWcNcBhZ">
+<div class="header" data-title="Iterative Node Counting"><h2>Iterative Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="QrdwFVCpyNmguhPa">
+<g id="graph0_QrdwFVCpyNmguhPa" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_QrdwFVCpyNmguhPa" class="node">
+<title>5</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_QrdwFVCpyNmguhPa" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_QrdwFVCpyNmguhPa" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M47.8628,-173.9002C43.6592,-163.2423 38.4358,-149.9988 33.7802,-138.1948"/>
+<polygon fill="#13294b" stroke="#13294b" points="36.9628,-136.7247 30.0378,-128.7063 30.451,-139.2931 36.9628,-136.7247"/>
+</g>
+<!-- 10 -->
+<g id="node3_QrdwFVCpyNmguhPa" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_QrdwFVCpyNmguhPa" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.9778,-173.9002C67.4898,-164.9958 71.7136,-154.2866 75.7235,-144.1199"/>
+<polygon fill="#13294b" stroke="#13294b" points="79.059,-145.2021 79.4722,-134.6153 72.5472,-142.6338 79.059,-145.2021"/>
+</g>
+<!-- 7 -->
+<g id="node4_QrdwFVCpyNmguhPa" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_QrdwFVCpyNmguhPa" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M21.9203,-85.9251C21.9203,-76.2721 21.9203,-64.7735 21.9203,-54.2031"/>
+<polygon fill="#13294b" stroke="#13294b" points="25.4204,-54.0449 21.9203,-44.0449 18.4204,-54.0449 25.4204,-54.0449"/>
+</g>
+<!-- 9 -->
+<g id="node5_QrdwFVCpyNmguhPa" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_QrdwFVCpyNmguhPa" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M88.9214,-79.42C88.6385,-71.2927 88.3288,-62.3937 88.0394,-54.077"/>
+<polygon fill="#13294b" stroke="#13294b" points="91.5329,-53.828 87.6872,-43.9558 84.5372,-54.0715 91.5329,-53.828"/>
+</g>
+<!-- 1 -->
+<g id="node6_QrdwFVCpyNmguhPa" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_QrdwFVCpyNmguhPa" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.0423,-84.5691C113.6551,-73.4462 122.7758,-60.1199 130.6444,-48.6231"/>
+<polygon fill="#13294b" stroke="#13294b" points="133.6121,-50.4839 136.3718,-40.2548 127.8355,-46.5303 133.6121,-50.4839"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>iteratively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Visit every node in the tree</p>
+</li>
+<li>
+<p>Increment a counter by 1 each time</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="IhRxUhptCPaGjHniiQxTlGqCapbBjZNh">
+<div class="header" data-title="Iterative Node Counting"><h2>Iterative Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="fnGFIfqKwdutdaen">
+<g id="graph0_fnGFIfqKwdutdaen" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_fnGFIfqKwdutdaen" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_fnGFIfqKwdutdaen" class="node">
+<title>3</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_fnGFIfqKwdutdaen" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M47.8628,-173.9002C43.6592,-163.2423 38.4358,-149.9988 33.7802,-138.1948"/>
+<polygon fill="#13294b" stroke="#13294b" points="36.9628,-136.7247 30.0378,-128.7063 30.451,-139.2931 36.9628,-136.7247"/>
+</g>
+<!-- 10 -->
+<g id="node3_fnGFIfqKwdutdaen" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_fnGFIfqKwdutdaen" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.9778,-173.9002C67.4898,-164.9958 71.7136,-154.2866 75.7235,-144.1199"/>
+<polygon fill="#13294b" stroke="#13294b" points="79.059,-145.2021 79.4722,-134.6153 72.5472,-142.6338 79.059,-145.2021"/>
+</g>
+<!-- 7 -->
+<g id="node4_fnGFIfqKwdutdaen" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_fnGFIfqKwdutdaen" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M21.9203,-85.9251C21.9203,-76.2721 21.9203,-64.7735 21.9203,-54.2031"/>
+<polygon fill="#13294b" stroke="#13294b" points="25.4204,-54.0449 21.9203,-44.0449 18.4204,-54.0449 25.4204,-54.0449"/>
+</g>
+<!-- 9 -->
+<g id="node5_fnGFIfqKwdutdaen" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_fnGFIfqKwdutdaen" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M88.9214,-79.42C88.6385,-71.2927 88.3288,-62.3937 88.0394,-54.077"/>
+<polygon fill="#13294b" stroke="#13294b" points="91.5329,-53.828 87.6872,-43.9558 84.5372,-54.0715 91.5329,-53.828"/>
+</g>
+<!-- 1 -->
+<g id="node6_fnGFIfqKwdutdaen" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_fnGFIfqKwdutdaen" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.0423,-84.5691C113.6551,-73.4462 122.7758,-60.1199 130.6444,-48.6231"/>
+<polygon fill="#13294b" stroke="#13294b" points="133.6121,-50.4839 136.3718,-40.2548 127.8355,-46.5303 133.6121,-50.4839"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>iteratively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Visit every node in the tree</p>
+</li>
+<li>
+<p>Increment a counter by 1 each time</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="GQJzNrdbVFFUYEyuzfKPunDgHPVoGtfl">
+<div class="header" data-title="Iterative Node Counting"><h2>Iterative Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="QEuiIoevScOiheQt">
+<g id="graph0_QEuiIoevScOiheQt" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_QEuiIoevScOiheQt" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_QEuiIoevScOiheQt" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_QEuiIoevScOiheQt" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M47.8628,-173.9002C43.6592,-163.2423 38.4358,-149.9988 33.7802,-138.1948"/>
+<polygon fill="#13294b" stroke="#13294b" points="36.9628,-136.7247 30.0378,-128.7063 30.451,-139.2931 36.9628,-136.7247"/>
+</g>
+<!-- 10 -->
+<g id="node3_QEuiIoevScOiheQt" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_QEuiIoevScOiheQt" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.9778,-173.9002C67.4898,-164.9958 71.7136,-154.2866 75.7235,-144.1199"/>
+<polygon fill="#13294b" stroke="#13294b" points="79.059,-145.2021 79.4722,-134.6153 72.5472,-142.6338 79.059,-145.2021"/>
+</g>
+<!-- 7 -->
+<g id="node4_QEuiIoevScOiheQt" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_QEuiIoevScOiheQt" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M21.9203,-85.9251C21.9203,-76.2721 21.9203,-64.7735 21.9203,-54.2031"/>
+<polygon fill="#13294b" stroke="#13294b" points="25.4204,-54.0449 21.9203,-44.0449 18.4204,-54.0449 25.4204,-54.0449"/>
+</g>
+<!-- 9 -->
+<g id="node5_QEuiIoevScOiheQt" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_QEuiIoevScOiheQt" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M88.9214,-79.42C88.6385,-71.2927 88.3288,-62.3937 88.0394,-54.077"/>
+<polygon fill="#13294b" stroke="#13294b" points="91.5329,-53.828 87.6872,-43.9558 84.5372,-54.0715 91.5329,-53.828"/>
+</g>
+<!-- 1 -->
+<g id="node6_QEuiIoevScOiheQt" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_QEuiIoevScOiheQt" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.0423,-84.5691C113.6551,-73.4462 122.7758,-60.1199 130.6444,-48.6231"/>
+<polygon fill="#13294b" stroke="#13294b" points="133.6121,-50.4839 136.3718,-40.2548 127.8355,-46.5303 133.6121,-50.4839"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>iteratively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Visit every node in the tree</p>
+</li>
+<li>
+<p>Increment a counter by 1 each time</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ANryorqJSjIVSApinwCZypMGNHfvfNCb">
+<div class="header" data-title="Iterative Node Counting"><h2>Iterative Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="GCOjhlSsRhJdfeou">
+<g id="graph0_GCOjhlSsRhJdfeou" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_GCOjhlSsRhJdfeou" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_GCOjhlSsRhJdfeou" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_GCOjhlSsRhJdfeou" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M47.8628,-173.9002C43.6592,-163.2423 38.4358,-149.9988 33.7802,-138.1948"/>
+<polygon fill="#13294b" stroke="#13294b" points="36.9628,-136.7247 30.0378,-128.7063 30.451,-139.2931 36.9628,-136.7247"/>
+</g>
+<!-- 10 -->
+<g id="node3_GCOjhlSsRhJdfeou" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_GCOjhlSsRhJdfeou" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.9778,-173.9002C67.4898,-164.9958 71.7136,-154.2866 75.7235,-144.1199"/>
+<polygon fill="#13294b" stroke="#13294b" points="79.059,-145.2021 79.4722,-134.6153 72.5472,-142.6338 79.059,-145.2021"/>
+</g>
+<!-- 7 -->
+<g id="node4_GCOjhlSsRhJdfeou" class="node">
+<title>7</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_GCOjhlSsRhJdfeou" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M21.9203,-85.9251C21.9203,-76.2721 21.9203,-64.7735 21.9203,-54.2031"/>
+<polygon fill="#13294b" stroke="#13294b" points="25.4204,-54.0449 21.9203,-44.0449 18.4204,-54.0449 25.4204,-54.0449"/>
+</g>
+<!-- 9 -->
+<g id="node5_GCOjhlSsRhJdfeou" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_GCOjhlSsRhJdfeou" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M88.9214,-79.42C88.6385,-71.2927 88.3288,-62.3937 88.0394,-54.077"/>
+<polygon fill="#13294b" stroke="#13294b" points="91.5329,-53.828 87.6872,-43.9558 84.5372,-54.0715 91.5329,-53.828"/>
+</g>
+<!-- 1 -->
+<g id="node6_GCOjhlSsRhJdfeou" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_GCOjhlSsRhJdfeou" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.0423,-84.5691C113.6551,-73.4462 122.7758,-60.1199 130.6444,-48.6231"/>
+<polygon fill="#13294b" stroke="#13294b" points="133.6121,-50.4839 136.3718,-40.2548 127.8355,-46.5303 133.6121,-50.4839"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>iteratively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Visit every node in the tree</p>
+</li>
+<li>
+<p>Increment a counter by 1 each time</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="gNuClmdGVhlHDhGaQKWfIivtSDaRtIZX">
+<div class="header" data-title="Iterative Node Counting"><h2>Iterative Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="fZUVviGqDVeMidef">
+<g id="graph0_fZUVviGqDVeMidef" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_fZUVviGqDVeMidef" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_fZUVviGqDVeMidef" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_fZUVviGqDVeMidef" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M47.8628,-173.9002C43.6592,-163.2423 38.4358,-149.9988 33.7802,-138.1948"/>
+<polygon fill="#13294b" stroke="#13294b" points="36.9628,-136.7247 30.0378,-128.7063 30.451,-139.2931 36.9628,-136.7247"/>
+</g>
+<!-- 10 -->
+<g id="node3_fZUVviGqDVeMidef" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_fZUVviGqDVeMidef" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.9778,-173.9002C67.4898,-164.9958 71.7136,-154.2866 75.7235,-144.1199"/>
+<polygon fill="#13294b" stroke="#13294b" points="79.059,-145.2021 79.4722,-134.6153 72.5472,-142.6338 79.059,-145.2021"/>
+</g>
+<!-- 7 -->
+<g id="node4_fZUVviGqDVeMidef" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_fZUVviGqDVeMidef" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M21.9203,-85.9251C21.9203,-76.2721 21.9203,-64.7735 21.9203,-54.2031"/>
+<polygon fill="#13294b" stroke="#13294b" points="25.4204,-54.0449 21.9203,-44.0449 18.4204,-54.0449 25.4204,-54.0449"/>
+</g>
+<!-- 9 -->
+<g id="node5_fZUVviGqDVeMidef" class="node">
+<title>9</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_fZUVviGqDVeMidef" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M88.9214,-79.42C88.6385,-71.2927 88.3288,-62.3937 88.0394,-54.077"/>
+<polygon fill="#13294b" stroke="#13294b" points="91.5329,-53.828 87.6872,-43.9558 84.5372,-54.0715 91.5329,-53.828"/>
+</g>
+<!-- 1 -->
+<g id="node6_fZUVviGqDVeMidef" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_fZUVviGqDVeMidef" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.0423,-84.5691C113.6551,-73.4462 122.7758,-60.1199 130.6444,-48.6231"/>
+<polygon fill="#13294b" stroke="#13294b" points="133.6121,-50.4839 136.3718,-40.2548 127.8355,-46.5303 133.6121,-50.4839"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>iteratively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Visit every node in the tree</p>
+</li>
+<li>
+<p>Increment a counter by 1 each time</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QbhSbkoPKXHJVLEyeDnGHUeOhqwwQSje">
+<div class="header" data-title="Iterative Node Counting"><h2>Iterative Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="PWUDeoqwEvfYtEZT">
+<g id="graph0_PWUDeoqwEvfYtEZT" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_PWUDeoqwEvfYtEZT" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_PWUDeoqwEvfYtEZT" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_PWUDeoqwEvfYtEZT" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M47.8628,-173.9002C43.6592,-163.2423 38.4358,-149.9988 33.7802,-138.1948"/>
+<polygon fill="#13294b" stroke="#13294b" points="36.9628,-136.7247 30.0378,-128.7063 30.451,-139.2931 36.9628,-136.7247"/>
+</g>
+<!-- 10 -->
+<g id="node3_PWUDeoqwEvfYtEZT" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_PWUDeoqwEvfYtEZT" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.9778,-173.9002C67.4898,-164.9958 71.7136,-154.2866 75.7235,-144.1199"/>
+<polygon fill="#13294b" stroke="#13294b" points="79.059,-145.2021 79.4722,-134.6153 72.5472,-142.6338 79.059,-145.2021"/>
+</g>
+<!-- 7 -->
+<g id="node4_PWUDeoqwEvfYtEZT" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_PWUDeoqwEvfYtEZT" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M21.9203,-85.9251C21.9203,-76.2721 21.9203,-64.7735 21.9203,-54.2031"/>
+<polygon fill="#13294b" stroke="#13294b" points="25.4204,-54.0449 21.9203,-44.0449 18.4204,-54.0449 25.4204,-54.0449"/>
+</g>
+<!-- 9 -->
+<g id="node5_PWUDeoqwEvfYtEZT" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_PWUDeoqwEvfYtEZT" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M88.9214,-79.42C88.6385,-71.2927 88.3288,-62.3937 88.0394,-54.077"/>
+<polygon fill="#13294b" stroke="#13294b" points="91.5329,-53.828 87.6872,-43.9558 84.5372,-54.0715 91.5329,-53.828"/>
+</g>
+<!-- 1 -->
+<g id="node6_PWUDeoqwEvfYtEZT" class="node">
+<title>1</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_PWUDeoqwEvfYtEZT" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.0423,-84.5691C113.6551,-73.4462 122.7758,-60.1199 130.6444,-48.6231"/>
+<polygon fill="#13294b" stroke="#13294b" points="133.6121,-50.4839 136.3718,-40.2548 127.8355,-46.5303 133.6121,-50.4839"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>iteratively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Visit every node in the tree</p>
+</li>
+<li>
+<p>Increment a counter by 1 each time</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="vdtElvzcPJwpCGXMJtODWOeUgVECbBuF">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="icefAbvxKTcdXNdd">
+<g id="graph0_icefAbvxKTcdXNdd" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_icefAbvxKTcdXNdd" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_icefAbvxKTcdXNdd" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_icefAbvxKTcdXNdd" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_icefAbvxKTcdXNdd" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_icefAbvxKTcdXNdd" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_icefAbvxKTcdXNdd" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_icefAbvxKTcdXNdd" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_icefAbvxKTcdXNdd" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_icefAbvxKTcdXNdd" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_icefAbvxKTcdXNdd" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_icefAbvxKTcdXNdd" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li class="bullet">
+<p>Break the problem into smaller subproblems</p>
+</li>
+<li class="bullet">
+<p>Solve the smallest subproblem</p>
+</li>
+<li class="bullet">
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="CbTvRBPInPdxlJwpxionzxrJNIIyazmo">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="wTOikpnFBReObYIC">
+<g id="graph0_wTOikpnFBReObYIC" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_wTOikpnFBReObYIC" class="node">
+<title>5</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_wTOikpnFBReObYIC" class="node">
+<title>3</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_wTOikpnFBReObYIC" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_wTOikpnFBReObYIC" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_wTOikpnFBReObYIC" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_wTOikpnFBReObYIC" class="node">
+<title>7</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_wTOikpnFBReObYIC" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_wTOikpnFBReObYIC" class="node">
+<title>9</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_wTOikpnFBReObYIC" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_wTOikpnFBReObYIC" class="node">
+<title>1</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_wTOikpnFBReObYIC" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="RIUErvzlAkHFLcMMFwJAoTnspgDjTDrg">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="dOTVoNxhdIzGNeoA">
+<g id="graph0_dOTVoNxhdIzGNeoA" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_dOTVoNxhdIzGNeoA" class="node">
+<title>5</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_dOTVoNxhdIzGNeoA" class="node">
+<title>3</title>
+<ellipse fill="#ffb6c1" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_dOTVoNxhdIzGNeoA" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_dOTVoNxhdIzGNeoA" class="node">
+<title>10</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_dOTVoNxhdIzGNeoA" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_dOTVoNxhdIzGNeoA" class="node">
+<title>7</title>
+<ellipse fill="#ffb6c1" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_dOTVoNxhdIzGNeoA" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_dOTVoNxhdIzGNeoA" class="node">
+<title>9</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_dOTVoNxhdIzGNeoA" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_dOTVoNxhdIzGNeoA" class="node">
+<title>1</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_dOTVoNxhdIzGNeoA" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="DrHSsZyIiciVxgxLsjNoScXnmrRtssSr">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="MYfqDypcwaLPnFIZ">
+<g id="graph0_MYfqDypcwaLPnFIZ" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_MYfqDypcwaLPnFIZ" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_MYfqDypcwaLPnFIZ" class="node">
+<title>3</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_MYfqDypcwaLPnFIZ" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_MYfqDypcwaLPnFIZ" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_MYfqDypcwaLPnFIZ" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_MYfqDypcwaLPnFIZ" class="node">
+<title>7</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_MYfqDypcwaLPnFIZ" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_MYfqDypcwaLPnFIZ" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_MYfqDypcwaLPnFIZ" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_MYfqDypcwaLPnFIZ" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_MYfqDypcwaLPnFIZ" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="fFKGFHmCzJUmgoGKKlmrmBFuLhkzLbxi">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="FrSpBVYwUUvclMRO">
+<g id="graph0_FrSpBVYwUUvclMRO" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_FrSpBVYwUUvclMRO" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_FrSpBVYwUUvclMRO" class="node">
+<title>3</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_FrSpBVYwUUvclMRO" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_FrSpBVYwUUvclMRO" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_FrSpBVYwUUvclMRO" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_FrSpBVYwUUvclMRO" class="node">
+<title>7</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_FrSpBVYwUUvclMRO" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_FrSpBVYwUUvclMRO" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_FrSpBVYwUUvclMRO" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_FrSpBVYwUUvclMRO" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_FrSpBVYwUUvclMRO" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="WatZeziNDFbWPXpQjJrFkUhDKRhdoQDT">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="niajbJndVnyxYven">
+<g id="graph0_niajbJndVnyxYven" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_niajbJndVnyxYven" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_niajbJndVnyxYven" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_niajbJndVnyxYven" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_niajbJndVnyxYven" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_niajbJndVnyxYven" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_niajbJndVnyxYven" class="node">
+<title>7</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_niajbJndVnyxYven" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_niajbJndVnyxYven" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_niajbJndVnyxYven" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_niajbJndVnyxYven" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_niajbJndVnyxYven" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="EbgWaQISLIIevTZIFjkhOyuCnMXyIGvc">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="wfFmGuiprVfyiYgO">
+<g id="graph0_wfFmGuiprVfyiYgO" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_wfFmGuiprVfyiYgO" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_wfFmGuiprVfyiYgO" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_wfFmGuiprVfyiYgO" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_wfFmGuiprVfyiYgO" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_wfFmGuiprVfyiYgO" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_wfFmGuiprVfyiYgO" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_wfFmGuiprVfyiYgO" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_wfFmGuiprVfyiYgO" class="node">
+<title>9</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_wfFmGuiprVfyiYgO" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_wfFmGuiprVfyiYgO" class="node">
+<title>1</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_wfFmGuiprVfyiYgO" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="rMrKsHgwNNSViSKdMLJiBEISbNhWJEvO">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="kXnzOJeQEcSDMhLr">
+<g id="graph0_kXnzOJeQEcSDMhLr" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_kXnzOJeQEcSDMhLr" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_kXnzOJeQEcSDMhLr" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_kXnzOJeQEcSDMhLr" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_kXnzOJeQEcSDMhLr" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_kXnzOJeQEcSDMhLr" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_kXnzOJeQEcSDMhLr" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_kXnzOJeQEcSDMhLr" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_kXnzOJeQEcSDMhLr" class="node">
+<title>9</title>
+<ellipse fill="#ffb6c1" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_kXnzOJeQEcSDMhLr" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_kXnzOJeQEcSDMhLr" class="node">
+<title>1</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_kXnzOJeQEcSDMhLr" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="rUUmwFSgtMJaUUMWAauAbbIOBCDgSuIF">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="ANMRwgmJieAnzhfV">
+<g id="graph0_ANMRwgmJieAnzhfV" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_ANMRwgmJieAnzhfV" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_ANMRwgmJieAnzhfV" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_ANMRwgmJieAnzhfV" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_ANMRwgmJieAnzhfV" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_ANMRwgmJieAnzhfV" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_ANMRwgmJieAnzhfV" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_ANMRwgmJieAnzhfV" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_ANMRwgmJieAnzhfV" class="node">
+<title>9</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_ANMRwgmJieAnzhfV" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_ANMRwgmJieAnzhfV" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_ANMRwgmJieAnzhfV" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="yFLwGCQrdZNlnKnfZLFoKzLEhxKfdxvM">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="224pt" viewBox="0.00 0.00 178.84 224.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="UMLXtitowVyBfZFK">
+<g id="graph0_UMLXtitowVyBfZFK" class="graph" transform="scale(1 1) rotate(0) translate(4 220.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-220.2498 174.8406,-220.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_UMLXtitowVyBfZFK" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="55.9203" cy="-194.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="55.9203" y="-190.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_UMLXtitowVyBfZFK" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-108.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_UMLXtitowVyBfZFK" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M40.5516,-178.5415C29.9714,-166.7683 26.4093,-158.7663 24.3352,-140.5139"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.7978,-139.9494 23.3847,-130.3174 20.8281,-140.5991 27.7978,-139.9494"/>
+</g>
+<!-- 10 -->
+<g id="node3_UMLXtitowVyBfZFK" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-108.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-104.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_UMLXtitowVyBfZFK" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M65.1318,-174.1278C68.2667,-166.8072 71.333,-158.8839 76.6061,-144.5886"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.0342,-145.4063 80.1949,-134.8127 73.463,-142.9939 80.0342,-145.4063"/>
+</g>
+<!-- 7 -->
+<g id="node4_UMLXtitowVyBfZFK" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge3_UMLXtitowVyBfZFK" class="edge">
+<title>3-&gt;7</title>
+<path fill="none" stroke="#13294b" d="M16.2784,-86.9191C12.053,-70.3775 10.4756,-61.1336 11.5461,-52.2935"/>
+<polygon fill="#13294b" stroke="#13294b" points="14.9614,-53.0583 13.7468,-42.5333 8.1328,-51.5185 14.9614,-53.0583"/>
+</g>
+<!-- 9 -->
+<g id="node5_UMLXtitowVyBfZFK" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_UMLXtitowVyBfZFK" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.759,-79.5169C89.6759,-68.1969 89.5714,-60.3197 89.3795,-53.9863"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8692,-53.6768 88.9253,-43.8435 85.8762,-53.9901 92.8692,-53.6768"/>
+</g>
+<!-- 1 -->
+<g id="node6_UMLXtitowVyBfZFK" class="node">
+<title>1</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_UMLXtitowVyBfZFK" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M106.3888,-85.022C119.0855,-67.1873 126.1547,-57.1555 131.6465,-49.0087"/>
+<polygon fill="#13294b" stroke="#13294b" points="134.5903,-50.9024 137.1783,-40.6285 128.7483,-47.046 134.5903,-50.9024"/>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p><strong>Break the problem into smaller subproblems</strong></p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="nUKAQdSZtGAdlUMjsjLmQtXqSJxqNAWv">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="240pt" viewBox="0.00 0.00 178.84 240.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="xtNniKtwUKnLuUhe">
+<g id="graph0_xtNniKtwUKnLuUhe" class="graph" transform="scale(1 1) rotate(0) translate(4 236.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-236.2498 174.8406,-236.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_xtNniKtwUKnLuUhe" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="54.9203" cy="-210.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="54.9203" y="-206.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_xtNniKtwUKnLuUhe" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-123.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_xtNniKtwUKnLuUhe" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M39.6089,-194.0672C29.7933,-182.6075 26.5122,-174.3785 24.4134,-155.2367"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.897,-154.8968 23.484,-145.2648 20.9272,-155.5465 27.897,-154.8968"/>
+</g>
+<!-- 10 -->
+<g id="node3_xtNniKtwUKnLuUhe" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-123.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_xtNniKtwUKnLuUhe" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M64.6381,-190.4497C68.0644,-182.8565 71.2555,-174.6991 76.7867,-159.5607"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.2105,-160.3863 80.3333,-149.7922 73.6307,-157.9974 80.2105,-160.3863"/>
+</g>
+<!-- 9 -->
+<g id="node5_xtNniKtwUKnLuUhe" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_xtNniKtwUKnLuUhe" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.8654,-94.7352C89.8075,-74.8636 89.6955,-63.2922 89.3535,-54.0864"/>
+<polygon fill="#13294b" stroke="#13294b" points="92.8444,-53.8178 88.8357,-44.0106 85.8536,-54.1771 92.8444,-53.8178"/>
+</g>
+<!-- 1 -->
+<g id="node6_xtNniKtwUKnLuUhe" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_xtNniKtwUKnLuUhe" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M105.2294,-99.0198C120.9265,-74.2541 128.6012,-61.8623 134.4418,-51.2295"/>
+<polygon fill="#13294b" stroke="#13294b" points="137.7011,-52.5515 139.2578,-42.0716 131.5055,-49.2933 137.7011,-52.5515"/>
+</g>
+<!-- 7 -->
+<g id="node4_xtNniKtwUKnLuUhe" class="node">
+<title>7</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 7&#45;&gt;3 -->
+<g id="edge3_xtNniKtwUKnLuUhe" class="edge">
+<title>7-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M13.7865,-92.0115C8.0124,-68.0683 7.9464,-58.2864 13.5885,-42.4163"/>
+<polygon fill="#13294b" stroke="#13294b" points="10.4459,-93.079 16.2789,-101.9235 17.2345,-91.3719 10.4459,-93.079"/>
+<text text-anchor="middle" x="25.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Break the problem into smaller subproblems</p>
+</li>
+<li>
+<p><strong>Solve the smallest subproblem</strong></p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="pGahsFTTuJwQFvjajZItceokGcAJUAGj">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="240pt" viewBox="0.00 0.00 178.84 240.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="zYWeedjidnSRYMfQ">
+<g id="graph0_zYWeedjidnSRYMfQ" class="graph" transform="scale(1 1) rotate(0) translate(4 236.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-236.2498 174.8406,-236.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_zYWeedjidnSRYMfQ" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="54.9203" cy="-210.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="54.9203" y="-206.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_zYWeedjidnSRYMfQ" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-123.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_zYWeedjidnSRYMfQ" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M39.6089,-194.0672C29.7933,-182.6075 26.5122,-174.3785 24.4134,-155.2367"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.897,-154.8968 23.484,-145.2648 20.9272,-155.5465 27.897,-154.8968"/>
+</g>
+<!-- 10 -->
+<g id="node3_zYWeedjidnSRYMfQ" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-123.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_zYWeedjidnSRYMfQ" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M64.6381,-190.4497C68.0644,-182.8565 71.2555,-174.6991 76.7867,-159.5607"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.2105,-160.3863 80.3333,-149.7922 73.6307,-157.9974 80.2105,-160.3863"/>
+</g>
+<!-- 9 -->
+<g id="node5_zYWeedjidnSRYMfQ" class="node">
+<title>9</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_zYWeedjidnSRYMfQ" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.8266,-84.5322C89.7255,-64.0132 89.4981,-53.9804 88.8357,-44.0106"/>
+<polygon fill="#13294b" stroke="#13294b" points="86.3273,-84.7485 89.8654,-94.7352 93.3273,-84.7219 86.3273,-84.7485"/>
+<text text-anchor="middle" x="90.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 1 -->
+<g id="node6_zYWeedjidnSRYMfQ" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_zYWeedjidnSRYMfQ" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M105.2294,-99.0198C120.9265,-74.2541 128.6012,-61.8623 134.4418,-51.2295"/>
+<polygon fill="#13294b" stroke="#13294b" points="137.7011,-52.5515 139.2578,-42.0716 131.5055,-49.2933 137.7011,-52.5515"/>
+</g>
+<!-- 7 -->
+<g id="node4_zYWeedjidnSRYMfQ" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 7&#45;&gt;3 -->
+<g id="edge3_zYWeedjidnSRYMfQ" class="edge">
+<title>7-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M13.7865,-92.0115C8.0124,-68.0683 7.9464,-58.2864 13.5885,-42.4163"/>
+<polygon fill="#13294b" stroke="#13294b" points="10.4459,-93.079 16.2789,-101.9235 17.2345,-91.3719 10.4459,-93.079"/>
+<text text-anchor="middle" x="25.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Break the problem into smaller subproblems</p>
+</li>
+<li>
+<p><strong>Solve the smallest subproblem</strong></p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="fWmHFyIxkYtifLOMLqUyFbrBhcWhrxpf">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="240pt" viewBox="0.00 0.00 178.84 240.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="PqwyfFKsZdAfueeR">
+<g id="graph0_PqwyfFKsZdAfueeR" class="graph" transform="scale(1 1) rotate(0) translate(4 236.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-236.2498 174.8406,-236.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_PqwyfFKsZdAfueeR" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="54.9203" cy="-210.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="54.9203" y="-206.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_PqwyfFKsZdAfueeR" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-123.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_PqwyfFKsZdAfueeR" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M39.6089,-194.0672C29.7933,-182.6075 26.5122,-174.3785 24.4134,-155.2367"/>
+<polygon fill="#13294b" stroke="#13294b" points="27.897,-154.8968 23.484,-145.2648 20.9272,-155.5465 27.897,-154.8968"/>
+</g>
+<!-- 10 -->
+<g id="node3_PqwyfFKsZdAfueeR" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-123.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_PqwyfFKsZdAfueeR" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M64.6381,-190.4497C68.0644,-182.8565 71.2555,-174.6991 76.7867,-159.5607"/>
+<polygon fill="#13294b" stroke="#13294b" points="80.2105,-160.3863 80.3333,-149.7922 73.6307,-157.9974 80.2105,-160.3863"/>
+</g>
+<!-- 9 -->
+<g id="node5_PqwyfFKsZdAfueeR" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_PqwyfFKsZdAfueeR" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.8266,-84.5322C89.7255,-64.0132 89.4981,-53.9804 88.8357,-44.0106"/>
+<polygon fill="#13294b" stroke="#13294b" points="86.3273,-84.7485 89.8654,-94.7352 93.3273,-84.7219 86.3273,-84.7485"/>
+<text text-anchor="middle" x="90.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 1 -->
+<g id="node6_PqwyfFKsZdAfueeR" class="node">
+<title>1</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_PqwyfFKsZdAfueeR" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M110.5948,-90.5406C126.8152,-64.8543 133.0512,-54.3899 139.2578,-42.0716"/>
+<polygon fill="#13294b" stroke="#13294b" points="107.619,-88.698 105.2294,-99.0198 113.5342,-92.441 107.619,-88.698"/>
+<text text-anchor="middle" x="152.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 7 -->
+<g id="node4_PqwyfFKsZdAfueeR" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 7&#45;&gt;3 -->
+<g id="edge3_PqwyfFKsZdAfueeR" class="edge">
+<title>7-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M13.7865,-92.0115C8.0124,-68.0683 7.9464,-58.2864 13.5885,-42.4163"/>
+<polygon fill="#13294b" stroke="#13294b" points="10.4459,-93.079 16.2789,-101.9235 17.2345,-91.3719 10.4459,-93.079"/>
+<text text-anchor="middle" x="25.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Break the problem into smaller subproblems</p>
+</li>
+<li>
+<p><strong>Solve the smallest subproblem</strong></p>
+</li>
+<li>
+<p>Combine the results</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="DgXwUOGHMeBGCQpcMwKpZCMlvUrPoRxj">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="254pt" viewBox="0.00 0.00 178.84 254.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="owHGUoTydZhbepue">
+<g id="graph0_owHGUoTydZhbepue" class="graph" transform="scale(1 1) rotate(0) translate(4 250.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-250.2498 174.8406,-250.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_owHGUoTydZhbepue" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="54.9203" cy="-224.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="54.9203" y="-220.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_owHGUoTydZhbepue" class="node">
+<title>3</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="21.9203" cy="-123.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_owHGUoTydZhbepue" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M34.5077,-199.5469C25.7015,-186.3032 23.8214,-174.5848 22.6566,-145.3445"/>
+<polygon fill="#13294b" stroke="#13294b" points="31.7663,-201.7258 40.54,-207.6648 37.3849,-197.5507 31.7663,-201.7258"/>
+<text text-anchor="middle" x="47.9203" y="-173.2092" font-family="Open Sans" font-size="14.00" fill="#000000">2</text>
+</g>
+<!-- 10 -->
+<g id="node3_owHGUoTydZhbepue" class="node">
+<title>10</title>
+<ellipse fill="none" stroke="#e84a27" cx="89.9203" cy="-123.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_owHGUoTydZhbepue" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M63.0799,-203.9703C67.1903,-193.2701 70.7004,-182.9297 78.1952,-159.6917"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.5417,-160.7177 81.2723,-150.1263 74.878,-158.574 81.5417,-160.7177"/>
+</g>
+<!-- 9 -->
+<g id="node5_owHGUoTydZhbepue" class="node">
+<title>9</title>
+<ellipse fill="none" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_owHGUoTydZhbepue" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.7255,-84.5257C89.5755,-64.0036 89.3414,-53.9703 88.7143,-44.0028"/>
+<polygon fill="#13294b" stroke="#13294b" points="86.2267,-84.7525 89.7896,-94.7303 93.2266,-84.7085 86.2267,-84.7525"/>
+<text text-anchor="middle" x="90.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 1 -->
+<g id="node6_owHGUoTydZhbepue" class="node">
+<title>1</title>
+<ellipse fill="none" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_owHGUoTydZhbepue" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M109.976,-90.0923C125.737,-64.0732 131.9231,-53.5726 138.489,-41.5147"/>
+<polygon fill="#13294b" stroke="#13294b" points="106.9583,-88.3187 104.7662,-98.6843 112.9439,-91.9481 106.9583,-88.3187"/>
+<text text-anchor="middle" x="152.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 7 -->
+<g id="node4_owHGUoTydZhbepue" class="node">
+<title>7</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 7&#45;&gt;3 -->
+<g id="edge3_owHGUoTydZhbepue" class="edge">
+<title>7-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M14.261,-91.7005C8.8004,-67.4981 8.6483,-57.6346 13.8046,-42.4559"/>
+<polygon fill="#13294b" stroke="#13294b" points="10.9202,-92.7843 16.6137,-101.7193 17.7348,-91.184 10.9202,-92.7843"/>
+<text text-anchor="middle" x="25.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Break the problem into smaller subproblems</p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p><strong>Combine the results</strong></p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="UDMqLNaCnbtRcGbFzpfnnBQraujrkSVt">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="254pt" viewBox="0.00 0.00 178.84 254.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="JhuXGdjepAVZORnT">
+<g id="graph0_JhuXGdjepAVZORnT" class="graph" transform="scale(1 1) rotate(0) translate(4 250.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-250.2498 174.8406,-250.2498 174.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_JhuXGdjepAVZORnT" class="node">
+<title>5</title>
+<ellipse fill="none" stroke="#e84a27" cx="54.9203" cy="-224.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="54.9203" y="-220.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 3 -->
+<g id="node2_JhuXGdjepAVZORnT" class="node">
+<title>3</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-123.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge1_JhuXGdjepAVZORnT" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M34.5077,-199.5469C25.7015,-186.3032 23.8214,-174.5848 22.6566,-145.3445"/>
+<polygon fill="#13294b" stroke="#13294b" points="31.7663,-201.7258 40.54,-207.6648 37.3849,-197.5507 31.7663,-201.7258"/>
+<text text-anchor="middle" x="43.9203" y="-173.2092" font-family="Open Sans" font-size="14.00" fill="#000000">2</text>
+</g>
+<!-- 10 -->
+<g id="node3_JhuXGdjepAVZORnT" class="node">
+<title>10</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="89.9203" cy="-123.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="89.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge2_JhuXGdjepAVZORnT" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M66.6256,-194.4025C70.0983,-184.6835 74.0843,-172.5161 81.2723,-150.1263"/>
+<polygon fill="#13294b" stroke="#13294b" points="63.2731,-193.3772 63.0799,-203.9703 69.8368,-195.8097 63.2731,-193.3772"/>
+<text text-anchor="middle" x="83.9203" y="-173.2092" font-family="Open Sans" font-size="14.00" fill="#000000">3</text>
+</g>
+<!-- 9 -->
+<g id="node5_JhuXGdjepAVZORnT" class="node">
+<title>9</title>
+<ellipse fill="#ffb6c1" stroke="#e84a27" cx="86.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="86.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge4_JhuXGdjepAVZORnT" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M89.7255,-84.5257C89.5755,-64.0036 89.3414,-53.9703 88.7143,-44.0028"/>
+<polygon fill="#13294b" stroke="#13294b" points="86.2267,-84.7525 89.7896,-94.7303 93.2266,-84.7085 86.2267,-84.7525"/>
+<text text-anchor="middle" x="90.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 1 -->
+<g id="node6_JhuXGdjepAVZORnT" class="node">
+<title>1</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge5_JhuXGdjepAVZORnT" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M109.976,-90.0923C125.737,-64.0732 131.9231,-53.5726 138.489,-41.5147"/>
+<polygon fill="#13294b" stroke="#13294b" points="106.9583,-88.3187 104.7662,-98.6843 112.9439,-91.9481 106.9583,-88.3187"/>
+<text text-anchor="middle" x="152.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 7 -->
+<g id="node4_JhuXGdjepAVZORnT" class="node">
+<title>7</title>
+<ellipse fill="none" stroke="#e84a27" cx="21.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="21.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 7&#45;&gt;3 -->
+<g id="edge3_JhuXGdjepAVZORnT" class="edge">
+<title>7-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M14.261,-91.7005C8.8004,-67.4981 8.6483,-57.6346 13.8046,-42.4559"/>
+<polygon fill="#13294b" stroke="#13294b" points="10.9202,-92.7843 16.6137,-101.7193 17.7348,-91.184 10.9202,-92.7843"/>
+<text text-anchor="middle" x="25.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Break the problem into smaller subproblems</p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p><strong>Combine the results</strong></p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="nfnNfjwCCoUcNidOkoTGFmWWydKARGtz">
+<div class="header" data-title="Recursive Node Counting"><h2>Recursive Node Counting</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="digraph small tree TB center"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="254pt" viewBox="0.00 0.00 240.84 254.25" xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto; display: block;" class="spelling_exception" id="NnhEYXPiiquvdLqe">
+<g id="graph0_NnhEYXPiiquvdLqe" class="graph" transform="scale(1 1) rotate(0) translate(4 250.2498)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-250.2498 236.8406,-250.2498 236.8406,4 -4,4"/>
+<!-- 5 -->
+<g id="node1_NnhEYXPiiquvdLqe" class="node">
+<title>5</title>
+<ellipse fill="#add8e6" stroke="#e84a27" cx="83.9203" cy="-224.3295" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="83.9203" y="-220.5295" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- 0 -->
+<!-- 5&#45;&gt;0 -->
+<g id="edge1_NnhEYXPiiquvdLqe" class="edge">
+<title>5-&gt;0</title>
+<path fill="none" stroke="#13294b" d="M66.2123,-211.3916C41.3353,-192.7126 34.8624,-183.8758 28.2069,-154.5412"/>
+<polygon fill="#13294b" stroke="#13294b" points="31.6264,-153.7942 26.115,-144.7457 24.7808,-155.2562 31.6264,-153.7942"/>
+<text text-anchor="middle" x="25.9203" y="-173.2092" font-family="Open Sans" font-size="14.00" fill="#000000">6</text>
+</g>
+<!-- 3 -->
+<g id="node3_NnhEYXPiiquvdLqe" class="node">
+<title>3</title>
+<ellipse fill="#ffb6c1" stroke="#e84a27" cx="83.9203" cy="-123.1249" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="83.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- 5&#45;&gt;3 -->
+<g id="edge2_NnhEYXPiiquvdLqe" class="edge">
+<title>5-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M75.9939,-193.1249C75.0484,-182.2993 76.5208,-169.7655 80.4111,-145.0053"/>
+<polygon fill="#13294b" stroke="#13294b" points="72.5915,-194.0101 77.6414,-203.324 79.5019,-192.8938 72.5915,-194.0101"/>
+<text text-anchor="middle" x="87.9203" y="-173.2092" font-family="Open Sans" font-size="14.00" fill="#000000">2</text>
+</g>
+<!-- 10 -->
+<g id="node4_NnhEYXPiiquvdLqe" class="node">
+<title>10</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="151.9203" cy="-123.1249" rx="28.0702" ry="28.0702"/>
+<text text-anchor="middle" x="151.9203" y="-119.3249" font-family="Open Sans" font-size="16.00" fill="#000000">10</text>
+</g>
+<!-- 5&#45;&gt;10 -->
+<g id="edge3_NnhEYXPiiquvdLqe" class="edge">
+<title>5-&gt;10</title>
+<path fill="none" stroke="#13294b" d="M108.9636,-203.7408C119.5386,-192.9262 126.3125,-180.2051 140.3029,-149.1796"/>
+<polygon fill="#13294b" stroke="#13294b" points="106.3401,-201.3985 101.3513,-210.7453 111.08,-206.5496 106.3401,-201.3985"/>
+<text text-anchor="middle" x="136.9203" y="-173.2092" font-family="Open Sans" font-size="14.00" fill="#000000">3</text>
+</g>
+<!-- 9 -->
+<g id="node6_NnhEYXPiiquvdLqe" class="node">
+<title>9</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="148.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="148.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">9</text>
+</g>
+<!-- 10&#45;&gt;9 -->
+<g id="edge5_NnhEYXPiiquvdLqe" class="edge">
+<title>10-&gt;9</title>
+<path fill="none" stroke="#13294b" d="M157.2229,-84.9632C159.7246,-64.2194 159.5319,-54.5562 156.2555,-42.8377"/>
+<polygon fill="#13294b" stroke="#13294b" points="153.7437,-84.5774 155.9365,-94.9428 160.6863,-85.4723 153.7437,-84.5774"/>
+<text text-anchor="middle" x="152.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 1 -->
+<g id="node7_NnhEYXPiiquvdLqe" class="node">
+<title>1</title>
+<ellipse fill="#ffa07a" stroke="#e84a27" cx="210.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="210.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- 10&#45;&gt;1 -->
+<g id="edge6_NnhEYXPiiquvdLqe" class="edge">
+<title>10-&gt;1</title>
+<path fill="none" stroke="#13294b" d="M174.8334,-91.9365C192.8424,-67.0898 198.9853,-56.9757 204.172,-42.8805"/>
+<polygon fill="#13294b" stroke="#13294b" points="171.9146,-89.9989 168.8513,-100.1413 177.5708,-94.1229 171.9146,-89.9989"/>
+<text text-anchor="middle" x="214.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+<!-- 7 -->
+<g id="node5_NnhEYXPiiquvdLqe" class="node">
+<title>7</title>
+<ellipse fill="#ffb6c1" stroke="#e84a27" cx="83.9203" cy="-21.9203" rx="21.8409" ry="21.8409"/>
+<text text-anchor="middle" x="83.9203" y="-18.1203" font-family="Open Sans" font-size="16.00" fill="#000000">7</text>
+</g>
+<!-- 7&#45;&gt;3 -->
+<g id="edge4_NnhEYXPiiquvdLqe" class="edge">
+<title>7-&gt;3</title>
+<path fill="none" stroke="#13294b" d="M78.8778,-91.256C75.1259,-66.0467 74.7137,-55.6281 77.6414,-42.9258"/>
+<polygon fill="#13294b" stroke="#13294b" points="75.4342,-91.8914 80.4111,-101.2445 82.3532,-90.8291 75.4342,-91.8914"/>
+<text text-anchor="middle" x="87.9203" y="-65.6406" font-family="Open Sans" font-size="14.00" fill="#000000">1</text>
+</g>
+</g>
+</svg>
+</div></div><div style="width:48%;"><div class="paragraph">
+<p>We can count <em>recursively</em>:</p>
+</div><div class="ulist">
+<ul>
+<li>
+<p>Break the problem into smaller subproblems</p>
+</li>
+<li>
+<p>Solve the smallest subproblem</p>
+</li>
+<li>
+<p><strong>Combine the results</strong></p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="EsCqPUejkjQMBKMESdysCrJtPzzGjPAA">
+<div data-title="Recursive Node Counting Example"></div>
+<textarea class="janini spelling_exception">import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public int nodeCount() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4 });
+    System.out.println(tree.nodeCount());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SkEchyJagFqdaTrXhQdmsxlSpEYqPLFL">
+<div class="header" data-title="Recursive Implementation"><h2>Recursive Implementation</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We refer to a function that calls itself as a <em>recursive function</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="IdXQXruptJpAnhOJVkFnLBgrlzoQCoHp">
+<div data-title=" Recursive Factorial"></div>
+<textarea class="janini spelling_exception">static int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+System.out.println(factorial(4));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zoEdUfAzYDVrvVxMJUVxXDDBSXIfNPTZ">
+<div class="header" data-title="Recursive Strategies"><h2>Recursive Strategies</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Recursion can be <em>hard</em> to wrap your mind around at first.
+But these three strategies will help.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p><strong>Know when to stop.</strong> When you identify the smallest subproblem, you must
+return. Otherwise your program will not terminate. This is also called the <em>base
+case</em>.</p>
+</li>
+<li class="bullet">
+<p><strong>Make the problem smaller in each step.</strong> If the problem doesn&#x2019;t get smaller,
+you will never reach the base case. This is also called the <em>recursive step</em>.</p>
+</li>
+<li class="bullet">
+<p><strong>Combine results from your recursive calls properly.</strong></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mGvjixNfIHVZAwNDVEFaFOMDLWcLAYfs">
+<div class="header" data-title="Recursive Factorial"><h2>Recursive Factorial</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Base case:</strong> <span class="bullet"><code>n == 1</code></span></p>
+</li>
+<li class="bullet">
+<p><strong>Recursive step:</strong> <span class="bullet">decrement n towards 1</span></p>
+</li>
+<li class="bullet">
+<p><strong>Combine results:</strong> <span class="bullet">multiply current n with the result of the next
+subproblem</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oQzICQCZvbKbVVPncvtWmbECnoljnYsn">
+<div class="header" data-title="Reaching Base Camp"><h2>Reaching Base Camp</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1); // I called myself!
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><strong>You must reach the base case.</strong>
+Otherwise your problem will never stop, run out of memory, and crash.</p>
+</div>
+<div class="paragraph">
+<p>How can the code above fail to reach the base case?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="wOwqnkFpRKhhMPsjpiOdySSGfHefvzYg">
+<div data-title=" Recursive Factorial"></div>
+<textarea class="janini spelling_exception">static int factorial(int n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+System.out.println(factorial(-4));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kyRSSVsLqAaTMiACrlVQcdeywUZSBGZW">
+<div class="header" data-title="Recursion v. Iteration"><h2>Recursion v. Iteration</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Recursive solutions can be difficult to understand.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The goal is to write <em>clear</em> code, not use a particular solution technique.</p>
+</li>
+<li class="bullet">
+<p>If an iterative solution is more clear, use that.</p>
+</li>
+<li class="bullet">
+<p>Sometimes a recursive solution is much more clear.</p>
+</li>
+<li class="bullet">
+<p>Don&#x2019;t use recursion just to be cool.</p>
+</li>
+<li class="bullet">
+<p>Don&#x2019;t use recursion because it is fewer lines of code. Who cares? Clarity is
+the goal, not brevity.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="moNyvsomOKHFqNeMxcUopkGdOyHclORB">
+<div data-title=" Iterative Factorial"></div>
+<textarea class="janini spelling_exception">// Don&apos;t get too cute...
+static int factorial(int n) {
+  int result = 1;
+  for (int i = 2; i &lt;= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+System.out.println(factorial(4));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IOOCxXrcOvEnrMjoNsixcoECGwxRdHzd">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/4/">MP4</a> is due <em>today</em> at 5PM.</p>
+</li>
+<li>
+<p>MP5 will be released today at 5PM.</p>
+</li>
+<li>
+<p>We&#x2019;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.
+I&#x2019;ll need to leave at 11:30AM.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

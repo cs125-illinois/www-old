@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Imperative Finale</title>
+  <meta name="description" lang="en-us" content="More imperative constructs and practice.">
+
+  <meta name="slider-id" content="69e78f4e-417b-454e-a96e-4eec25b84164">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini small nozoom bespoke-active bespoke-slide" data-slideid="MSYQNbhtaxlUcSzvjwiMRMJJAmyQZsnd">
+
+<textarea class="janini spelling_exception">System.out.println(&quot;We&apos;re almost done with imperative programming...&quot;);</textarea><!-- beautify ignore:start --><div class="output" data-blank="Imperative Finale&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Imperative Finale<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HltJmohVAiSOVkbDyMDvVSxVeYTnaQmt">
+<div class="header" data-title="Casting"><h2>Casting</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If you want to <em>force</em> Java to convert a variable from one type to another you
+can try applying a <em>cast</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int i = 10;
+double d = i; // This works since no information is lost
+i = d; // This does not work since we&apos;d have to throw out the fraction
+i = (int) d; // But we can force Java to do it</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="bcsEuCBErjgIjQHaKvcOzsFASZdTIemI">
+<div data-title=" Casting"></div>
+<textarea class="janini spelling_exception">int i = 10;
+double d = i; // This works since no information is lost
+i = d; // This does not work...
+i = (int) d; // ...but we can force Java to do it</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dfZDbioIVRPdrUKNnAedFUWRYIlHwlEC">
+<div class="header" data-title="Most Common Character"><h2>Most Common Character</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Imagine I have a string and want to determine which character appears most.</p>
+</div>
+<div class="paragraph">
+<p>Write a function that returns the most common character.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="uWCVIWQvecQoNrgNOqxXnNtOmCmoulca">
+<div class="header" data-title="What&#x2019;s Our Algorithm?"><h2>What&#x2019;s Our Algorithm?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="pRLEGNuhmEEyRNHwlewxDuXIzisgMUyc">
+<div data-title=" Here&#x2019;s Some Help"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="uvJzvrVwHpAMAfBsvuyPBxlKvTBfRAEo">
+<div class="header" data-title="Searching is OK"><h2>Searching is OK</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(Just don&#x2019;t search for or use &quot;Solution to CS 125 MP2&quot;.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="VLnTwXzQJUKZxItXbvYRWiGOGLcURNsq">
+<div data-title=" Most Common Character"></div>
+<textarea class="janini spelling_exception">// Determine the most common character
+static char mostCommon(String input) {
+}
+System.out.println(mostCommon(&quot;AAAbcd&quot;));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bXcdkAWxGuwdeFZyXiMBWFXvvRNmKLtZ">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Quiz 3 starts today in the CBTF. It covers multi-dimensional arrays and more
+about functions.</p>
+</li>
+<li>
+<p>TC 7 will be out shortly and due <strong>Sunday</strong> by midnight.</p>
+</li>
+<li>
+<p><a href="/MP/2018/spring/1/">MP2</a> is due today!
+<a href="https://cs125.cs.illinois.edu/info/resources/#hours" target="_blank" class="external">Office hours</a>
+until 5PM today.</p>
+</li>
+<li>
+<p>MP3 will be out today and due in <em>two weeks</em>.
+It&#x2019;s your introduction to object-oriented programming, so don&#x2019;t expect to begin
+it until next Monday when we start talking about objects.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

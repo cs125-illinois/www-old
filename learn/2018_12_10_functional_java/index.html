@@ -1,0 +1,1169 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Functional Java</title>
+  <meta name="description" lang="en-us" content="A brief introduction to functional programming and functional programming in Java.">
+
+  <meta name="slider-id" content="bbebdb78-75bd-452f-9b06-75dce3de820e">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini jdk compiler smaller nozoom bespoke-active bespoke-slide" data-slideid="cVYJkioOndXzyGmpBiGYyhNUfVqtkfNB">
+
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  Dog(int setAge) {
+    age = setAge;
+  }
+  int getAge() {
+    return age;
+  }
+}
+interface DogAge {
+  Integer apply(Dog dog);
+}
+public class Example {
+  public static List&lt;Integer&gt; getAges(List&lt;Dog&gt; dogs, DogAge f) {
+    List&lt;Integer&gt; ages = new ArrayList&lt;&gt;();
+    for (Dog dog : dogs) {
+      ages.add(f.apply(dog));
+    }
+    return ages;
+  }
+  public static void main(String[] unused) {
+    List&lt;Dog&gt; dogs = new ArrayList&lt;&gt;(Arrays.asList(new Dog[] { new Dog(10), new Dog (12) }));
+    System.out.println(getAges(dogs, dog -&gt; dog.getAge()));
+    System.out.println(getAges(dogs, dog -&gt; dog.getAge() * 8));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Functional Java&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Functional Java<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="VKisjrMZzEZSwdqvHynQvDniBHAlYKDk">
+<div class="header" data-title="Programming Styles"><h2>Programming Styles</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>This semester we&#x2019;ve introduced you to three different programming styles using
+Java:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Imperative programming:</strong> using a series of statements to show the computer
+how to solve a problem</p>
+</li>
+<li class="bullet">
+<p><strong>Object-oriented programming:</strong> using objects to combine program state (data)
+and behavior (algorithms)</p>
+</li>
+<li class="bullet">
+<p><strong>Recursive programming:</strong> solving problems by breaking them into smaller
+pieces</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="fVNFQKVAPMtQWECbhsQAlJXTdnbGpZed">
+<div class="header" data-title="Beyond Java"><h2>Beyond Java</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>But there&#x2019;s a lot more to learn about <em>both</em> computer science <em>and</em> programming</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Most working programmers know multiple different languages</p>
+</li>
+<li class="bullet">
+<p>Frequently those multiple languages will enable programming in multiple
+<em>environments</em> and in different <em>styles</em></p>
+</li>
+<li class="bullet">
+<p>Solving a problem then starts by choosing the right language</p>
+</li>
+<li class="bullet">
+<p>Many of today&#x2019;s languages (Java, Python, JavaScript, C++) also support multiple programming styles or
+<em>paradigms</em></p>
+</li>
+<li class="bullet">
+<p>You can find lots of advice online about which to use</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="efLqznupjFgZOnVBCLbqgejjeWnZyyGn">
+<div class="header" data-title="Powerful Programming"><h2>Powerful Programming</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The following argument is a reprise of part of
+<a href="http://www.paulgraham.com/avg.html" target="_blank" class="external">an article</a>
+by
+<a href="http://www.paulgraham.com" target="_blank" class="external">Paul Graham</a>, famous Silicon Valley entrepreneur.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Programming styles vary in power</p>
+</li>
+<li class="bullet">
+<p>In general you want to choose the most powerful style available</p>
+</li>
+<li class="bullet">
+<p>(There are many exceptions to this rule. Sometimes your choice is
+constrained by what you want to do, or by needing to use a particular library or
+language.)</p>
+</li>
+<li class="bullet">
+<p>Programmers typically find less-powerful styles familiar but limited</p>
+</li>
+<li class="bullet">
+<p><strong>Programmers typically find more-powerful styles unfamiliar and
+bewildering</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qXnIdMRIZdbSdMRcMwqeOxmTIgjJbnnR">
+<div class="header" data-title="Looking Up"><h2>Looking Up</h2></div>
+<div class="sectionbody">
+<div class="quoteblock small">
+<blockquote>
+<div class="paragraph">
+<p>As long as our hypothetical programmer is looking down the power continuum,
+she knows she&#x2019;s looking down.
+Styles less powerful than the one she uses are obviously less powerful,
+because they&#x2019;re missing some feature she&#x2019;s used to.
+But when our hypothetical programmer looks in the other direction, up the
+power continuum, she doesn&#x2019;t realize she&#x2019;s looking up.
+What she sees are merely weird styles.
+She probably considers them about equivalent in power to what she&#x2019;s used to, but
+with all this other hairy stuff thrown in as well.
+How she programs is good enough for her, because it&#x2019;s how she thinks.</p>
+</div>
+<div class="paragraph">
+<p>(Paraphrased from
+<a href="http://www.paulgraham.com/avg.html" target="_blank" class="external">this article</a>.)</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#x2014; Paraphrased from Paul Graham
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RsvbXBXnvRRrpixpwAYMrdPIgcjAXJgW">
+<div class="header" data-title="Our Progression"><h2>Our Progression</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s think about how we arrived at today:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Purely imperative:</strong> you <em>can</em> solve every problem by just writing one class,
+but you wouldn&#x2019;t want to because you&#x2019;d rather&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p><strong>Object-oriented</strong>: &#x2026;&#x200B;use objects to combine state and behavior and allow you to
+model real-world entities. Like trees, which you could walk iteratively
+except&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p><strong>Recursive</strong>: &#x2026;&#x200B;that recursion provides a much cleaner and more powerful way to
+program using trees.</p>
+</li>
+<li class="bullet">
+<p>For many of you one or several of these concepts was new and unfamiliar at
+first, but then became more natural with practice</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="BCDdfxKZedptbIOeMTwfdBweRuazOWwT">
+<div class="header" data-title="But There&#x2019;s More Ahead&#x2014;Or Above"><h2>But There&#x2019;s More Ahead&#x2014;Or Above</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TpVpuinPzuJJaCPBVRfCzlvuHUgerwCn">
+<div class="header" data-title="Motivating Example"><h2>Motivating Example</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s imagine we have a group of dogs with ages and birthdays stored in a <code>Dog</code>
+class.</p>
+</div>
+<div class="paragraph">
+<p>Say we want to write a function that, given a list of <code>Dog</code> objects, finds ones
+matching some criteria.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="eFfSpXdKFTPekWfcuaGadqeOnZjRcDen">
+<div data-title=" Motivating Example"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    List&lt;Dog&gt; dogs = new ArrayList&lt;&gt;(Arrays.asList(new Dog[] {
+      new Dog(14, 100, &quot;Chuchu&quot;),
+      new Dog(15, 88, &quot;Balou&quot;),
+      new Dog(3, 88, &quot;Lulu&quot;)
+    }));
+    int today = 100;
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DHNheBYnGsfqRtwXNjLdANOJeZKvUIXv">
+<div class="header" data-title="Imperative Programming"><h2>Imperative Programming</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Writing <em>imperative</em> code forces you to tell the computer exactly <em>how</em> to do
+everything:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">List&lt;Dog&gt; birthdayDogs = new ArrayList&lt;&gt;();
+for (Dog dog : dogs) {
+  if (dog.getBirthday() == today) {
+    birthdayDogs.add(dog);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gikCbdfUjaWWUemfVNEuvddbDLHdJOAD">
+<div class="header" data-title="Declarative Programming"><h2>Declarative Programming</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Writing <em>declarative</em> code allows you to tell the computer <em>what</em> you want and
+let it figure out how to accomplish it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Give me only the items in dogs where dog.getBirthday() == today
+// How do we do that?</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tIkjJxiyaeloZPqBuRyKrgPzRKpqCiqV">
+<div class="header" data-title="Dog Filtering"><h2>Dog Filtering</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, // filter specification...?) {
+  List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+  for (Dog dog : dogs) {
+    // if dog should be in the list, add it
+  }
+  return filteredDogs;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We need to pass <em>something</em> to <code>filterDogs</code> that allows the caller to specify
+which dogs should be included in as general a way as possible.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CugmZjnredCTmEzxbrxDFeChqsxlxsAx">
+<div class="header" data-title="First-Class Functions"><h2>First-Class Functions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Many programming languages support so-called <em>first class functions</em>, meaning
+that functions can be stored as variables and passed to other functions:</p>
+</div>
+<div class="listingblock smaller bullet">
+<div class="content">
+<pre class="highlight"><code class="language-javascript spelling_exception lang-javascript" data-lang="javascript">function filterDogs(dogs, filter) {
+  filteredDogs = []
+  for (dog of dogs) {
+    if (filter(dog)) {
+      filteredDogs.push(dog)
+    }
+  }
+  return filteredDogs;
+}
+const filteredDogs = filterDogs(dogs, dog =&gt; { return dog.age &gt; 10 })</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>But why am I showing you <em>JavaScript</em> code above, rather than Java code?</p>
+</li>
+<li class="bullet">
+<p><strong>Because Java doesn&#x2019;t support first-class functions.</strong> Doh!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RGGuufmzfEDMmYQgZQfedhhMhNubKfcQ">
+<div class="header" data-title="Let&#x2019;s Regroup"><h2>Let&#x2019;s Regroup</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, // filter specification...?) {
+  List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+  for (Dog dog : dogs) {
+    // if dog should be in the list, add it
+  }
+  return filteredDogs;
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>filterDogs</code> needs guarantees about what it can do with it&#x2019;s second
+argument&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but the goal is still to provide a flexible filtering function.</p>
+</li>
+<li class="bullet">
+<p>We&#x2019;ve seen something like this before.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sezobeeHyKfOiflNRuZgdWyfrrDmiLoQ">
+<div class="header" data-title="Interfaces to the Rescue"><h2>Interfaces to the Rescue</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">interface DogFilter {
+  boolean include(Dog dog);
+}
+List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, DogFilter dogFilter) {
+  List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+  for (Dog dog : dogs) {
+    if (dogFilter.include(dog)) {
+      filteredDogs.add(dog);
+    }
+  }
+  return filteredDogs;
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>filterDogs</code> knows that it can call <code>include</code> on <code>dogFilter</code> and get a
+<code>boolean</code></p>
+</li>
+<li class="bullet">
+<p>But the caller can <em>implement</em> <code>dogFilter</code> any way it wants!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="ORjogVzdVIjqnCesUpfdznGILnAhuJGn">
+<div data-title=" With Interfaces"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+interface DogFilter {
+  boolean include(Dog dog);
+}
+public class Example {
+  public static List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, DogFilter dogFilter) {
+    List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+    for (Dog dog : dogs) {
+      if (dogFilter.include(dog)) {
+        filteredDogs.add(dog);
+      }
+    }
+    return filteredDogs;
+  }
+  public static void main(String[] unused) {
+    List&lt;Dog&gt; dogs = new ArrayList&lt;&gt;(Arrays.asList(new Dog[] {
+      new Dog(14, 100, &quot;Chuchu&quot;),
+      new Dog(15, 88, &quot;Balou&quot;),
+      new Dog(3, 88, &quot;Lulu&quot;)
+    }));
+    int today = 100;
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dSLSCnetSvrWojALwFbhezSrwSDfubpB">
+<div class="header" data-title="Anonymous Classes"><h2>Anonymous Classes</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We can make this a bit cleaner with the help of some new Java syntax: <em>anonymous
+classes</em>.</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface DogFilter {
+  boolean include(Dog dog);
+}
+// Use new on the interface type...
+DogFilter birthdayFilter = new DogFilter() {
+  // And immediately provide an implementation
+  public boolean include(Dog dog) {
+    return dog.getBirthday() == 100;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>That implementation of <code>DogFilter</code> is now stored in reference variable
+<code>birthdayFilter</code></p>
+</li>
+<li class="bullet">
+<p>But otherwise has no name, hence it being an <em>anonymous</em> class</p>
+</li>
+<li class="bullet">
+<p>Anonymous classes are convenient when you only use a class once</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qurGzdAAfheiNehiOnUckiBMbuyOJDek">
+<div class="header" data-title="Anonymous Classes: Extension"><h2>Anonymous Classes: Extension</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Anonymous classes can also be used to extend an existing class and override its
+methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Dog {
+  String toString() {
+    return &quot;Dog&quot;;
+  }
+}
+Dog sweetOldDog = new Dog() {
+  String toString() {
+    return &quot;SweetOldDog&quot;;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="zRYHbXyGnsFrbveAhnAkxcwbTJERIxGX">
+<div data-title=" With Anonymous Classes"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+interface DogFilter {
+  boolean include(Dog dog);
+}
+public class Example {
+  public static List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, DogFilter dogFilter) {
+    List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+    for (Dog dog : dogs) {
+      if (dogFilter.include(dog)) {
+        filteredDogs.add(dog);
+      }
+    }
+    return filteredDogs;
+  }
+  public static void main(String[] unused) {
+    List&lt;Dog&gt; dogs = new ArrayList&lt;&gt;(Arrays.asList(new Dog[] {
+      new Dog(14, 100, &quot;Chuchu&quot;),
+      new Dog(15, 88, &quot;Balou&quot;),
+      new Dog(3, 88, &quot;Lulu&quot;)
+    }));
+    int today = 100;
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RRIYKLVLZdmbTBpkakTeKMGjwYxjFaZP">
+<div class="header" data-title="And Cleaner Still With Lambda Expressions"><h2>And Cleaner Still With Lambda Expressions</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We can make this even cleaner yet with the help of some new Java syntax: <em>lambda
+expressions</em>.</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface DogFilter {
+  boolean include(Dog dog);
+}
+DogFilter birthdayFilter = new DogFilter() {
+  public boolean include(Dog dog) {
+    return dog.getBirthday() == 100;
+  }
+}
+// Is the same as
+DogFilter birthdayFilter = (dog) -&gt; { return dog.getBirthday() == 100; };
+// Or, even cleaner
+DogFilter birthdayFilter = (dog) -&gt; dog.getBirthday() == 100;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BddtxfJnBqJRnfbQEVGuRHsrTVLWsTdD">
+<div class="header" data-title="Lambda Functions"><h2>Lambda Functions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Anonymous_function" target="_blank" class="external">An anonymous function</a>
+(function literal, lambda abstraction, or lambda expression) is a function
+definition that is not bound to an identifier.
+Anonymous functions are often arguments being passed to higher-order functions,
+or used for constructing the result of a higher-order function that needs to
+return a function.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The name lambda comes from the work of Alonzo Church on the
+<a href="https://en.wikipedia.org/wiki/Lambda_calculus" target="_blank" class="external">&#x3BB;-calculus</a>:
+a formal system for expression computation mathematically</p>
+</li>
+<li class="bullet">
+<p>Many programming languages have lambda functions. (Python actually uses the
+<code>lambda</code> keyword to declare one.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tkfYVlZCkMNGdasDCFmqVKnBeMumdnez">
+<div class="header" data-title="First-Class Functions in Java"><h2>First-Class Functions in Java</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface DogFilter {
+  boolean include(Dog dog);
+}
+DogFilter birthdayFilter = (dog) -&gt; dog.getBirthday() == 100;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So while Java does not have first-class functions, but we can approximate them
+using:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Functional interfaces</strong>: interfaces that only require implementing a single
+method</p>
+</li>
+<li class="bullet">
+<p><strong>Lambda expressions</strong>: by using the arrow syntax we can cleanly provide an
+anonymous class that implements the single function of a functional interface</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="mXbkaddxadUCeUPuMElVZgSaTdyaFLjz">
+<div data-title=" With Lambdas"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+interface DogFilter {
+  boolean include(Dog dog);
+}
+public class Example {
+  public static List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, DogFilter dogFilter) {
+    List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+    for (Dog dog : dogs) {
+      if (dogFilter.include(dog)) {
+        filteredDogs.add(dog);
+      }
+    }
+    return filteredDogs;
+  }
+  public static void main(String[] unused) {
+    List&lt;Dog&gt; dogs = new ArrayList&lt;&gt;(Arrays.asList(new Dog[] {
+      new Dog(14, 100, &quot;Chuchu&quot;),
+      new Dog(15, 88, &quot;Balou&quot;),
+      new Dog(3, 88, &quot;Lulu&quot;)
+    }));
+    System.out.println(filterDogs(dogs, (dog) -&gt; dog.getBirthday() == 100));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zBHUfbeFPSDSudeevtdBLSLeiBgajiUe">
+<div class="header" data-title="Higher-Order Functions"><h2>Higher-Order Functions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public static List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, DogFilter dogFilter) {
+  List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+  for (Dog dog : dogs) {
+    if (dogFilter.include(dog)) {
+      filteredDogs.add(dog);
+    }
+  }
+  return filteredDogs;
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>A <em>higher-order function</em> is a function that operates on or uses another
+function</p>
+</li>
+<li class="bullet">
+<p><code>filterDogs</code> above is really a higher-order function, since <code>DogFilter</code> is a
+functional interface</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JWxPzbzQTyiBdyFqdSsVZBxZSiyfknur">
+<div class="header" data-title="Common Higher-Order Functions"><h2>Common Higher-Order Functions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>When operating on collections of items (like lists) certain higher-order
+operations are common:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>filter</code>: retain only items that pass some test</p>
+</li>
+<li class="bullet">
+<p><code>map</code>: apply some transformation to each item that produces a new list</p>
+</li>
+<li class="bullet">
+<p><code>forEach</code>: perform some operation for each item that does <em>not</em> produce a new
+list</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pfZvwNEddlRvxwBZxAPhsRNqXOBqcenr">
+<div class="header" data-title="Additional Generality"><h2>Additional Generality</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">interface DogFilter {
+  boolean include(Dog dog);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Do we really need to provide a special filter interface just for <code>Dog</code>s?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FfGZXRnbWEQXlJYeaRinesPMqDuKbnhd">
+<div data-title=" Java Predicate"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/util/function/Predicate.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qqxOOOpXPSlHSUdrCddhnCEMsNNdEkAD">
+<div class="header" data-title="Even More Generality"><h2>Even More Generality</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public static List&lt;Dog&gt; filterDogs(List&lt;Dog&gt; dogs, DogFilter dogFilter) {
+  List&lt;Dog&gt; filteredDogs = new ArrayList&lt;&gt;();
+  for (Dog dog : dogs) {
+    if (dogFilter.include(dog)) {
+      filteredDogs.add(dog);
+    }
+  }
+  return filteredDogs;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And do we really need a <code>Dog</code>-specific filter function?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="czmOiNChnfbSCVusnHKDVLdiUcGEqBeB">
+<div class="header" data-title="Java Collection removeIf"><h2>Java Collection <code>removeIf</code></h2></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/util/Collection.html#removeIf(java.util.function.Predicate)%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="laKpwIBiynhpkBBtGfwynOWfdmwtweWp">
+<div data-title=" With removeIf"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    List&lt;Dog&gt; dogs = new ArrayList&lt;&gt;(Arrays.asList(new Dog[] {
+      new Dog(14, 100, &quot;Chuchu&quot;),
+      new Dog(15, 88, &quot;Balou&quot;),
+      new Dog(3, 88, &quot;Lulu&quot;)
+    }));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nxbzTSbfcxdaPlzTcLpMLjYjDFdIBqWa">
+<div class="header" data-title="Functional Programming"><h2>Functional Programming</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>What we&#x2019;ve been doing today is exploring Java&#x2019;s support for <em>functional
+programming</em>.</p>
+</div>
+<div class="paragraph">
+<p>As a style, functional programming emphasizes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Solving problems by composing functions rather than writing loops</p>
+</li>
+<li class="bullet">
+<p>Which leads to declarative rather than imperative code</p>
+</li>
+<li class="bullet">
+<p>Reusable higher-order functions like <code>removeIf</code>, <code>map</code>, and <code>filter</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wdZkTDBemdbsChECpCGIlPXjyFGZBCoi">
+<div class="header" data-title="Functional Java"><h2>Functional Java</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>While Java supports some aspects of functional programming, it&#x2019;s a worse fit for
+others:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Pure functions and immutable data fly in the face of object-oriented
+programming</p>
+</li>
+<li class="bullet">
+<p>So if you want to really learn functional programming, learn a more strict
+functional language like
+<a href="https://www.haskell.org/" target="_blank" class="external">Haskell</a>
+or
+<a href="https://ocaml.org/" target="_blank" class="external">OCaml</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ahmBnZjeEYfgCPIhzScNmkhCAznAjKgV">
+<div class="header" data-title="Java Streams"><h2>Java Streams</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java streams allow us to compactly represent a series of operations on a
+collection as a sequence of functional transformations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">dogs.stream()
+  .filter(dog -&gt; dog.getAge() &lt;= 10)
+  .map(dog -&gt; dog.getName())
+  .map(String::toUpperCase)
+  .sorted()
+  .forEach(System.out::println);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(There are a few other new ideas in this example, including function references.
+Use the internet to find out more!)</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="WdZLiTMXuOJkwHLHGcGgIfecxmxGrXui">
+<div data-title=" With Streams"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Dog {
+  private int age;
+  private int birthday;
+  private String name;
+  Dog(int setAge, int setBirthday, String setName) {
+    age = setAge;
+    birthday = setBirthday;
+    name = setName;
+  }
+  void incrementAge() {
+    age++;
+  }
+  public int getAge() {
+    return age;
+  }
+  public int getBirthday() {
+    return birthday;
+  }
+  public String getName() {
+    return name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    List&lt;Dog&gt; dogs = new ArrayList&lt;&gt;(Arrays.asList(new Dog[] {
+      new Dog(14, 100, &quot;Chuchu&quot;),
+      new Dog(15, 88, &quot;Balou&quot;),
+      new Dog(3, 88, &quot;Lulu&quot;)
+    }));
+    dogs.stream()
+      .filter(dog -&gt; dog.getAge() &lt;= 10)
+      .map(dog -&gt; dog.getName())
+      .map(String::toUpperCase)
+      .sorted()
+      .forEach(System.out::println);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hueQKnLtlmeGSirHufELcdNoaRoGFxei">
+<div class="header" data-title="Declarative Programming"><h2>Declarative Programming</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Writing <em>declarative</em> code allows you to tell the computer <em>what</em> you want and
+let it figure out how to accomplish it:</p>
+</div>
+<div class="listingblock bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Give me only the items in dogs where dog.getBirthday() == today
+.filter(dog -&gt; dog.getBirthday() == today)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="MmdfnOVnOppMdMoCrfoXFKzlnhLHcBee">
+<div class="header" data-title="There Is Always More"><h2>There Is Always More</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Go forth and have fun, but always remember: if something seems confusing, it
+might actually be more powerful.
+<strong>So don&#x2019;t get scared off!</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="KzIIfnSJHseUrCsCBZQBHiMvnXIeTcew">
+<div class="header" data-title="Questions About Functional Java?"><h2>Questions About Functional Java?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DhdBPtMBcilVmdfiEmTtogvnnsmnLxeb">
+<div class="header" data-title="Final Project Fair Details"><h2>Final Project Fair Details</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Thursday AM</strong>: you&#x2019;ll receive an email telling you what room to demo in.</p>
+</li>
+<li class="bullet">
+<p><strong>4:45PM</strong>: setup throughout Siebel.</p>
+</li>
+<li class="bullet">
+<p><strong>5&#x2013;7:45PM</strong>: demos and judging.</p>
+</li>
+<li class="bullet">
+<p><strong>8PM</strong>: awards and wrap-up <em>in Foellinger</em>. (Yes, you have to walk. No, it&#x2019;s
+not far.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="fuCuDxNwQXYLNjUMwlntfgtEkSifuFdd">
+<div class="header" data-title="Wednesday"><h2>Wednesday</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>CS 125 by numbers. (Anyone want to guess how many times you looked at the
+slides this semester?)</p>
+</li>
+<li class="bullet">
+<p><strong>ICES forms</strong>: these matter and we take your feedback extremely serious.
+Please come.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="KneqveyMmSXhRZTYjQfJHddwcUySFMiH">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Please double-check your grades this week to make sure they look correct.</p>
+</li>
+<li>
+<p>My office hours continue today from 10AM&#x2013;12PM in Siebel 2227.
+Please stop by! It&#x2019;s not too late. I&#x2019;d still love to meet you if we haven&#x2019;t already.</p>
+</li>
+<li>
+<p>We&#x2019;re grading your final project in lab this week and selecting the best to
+feature in this week&#x2019;s final project fair.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

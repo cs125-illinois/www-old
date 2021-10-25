@@ -1,0 +1,824 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>More Generics</title>
+  <meta name="description" lang="en-us" content="How to program with Java generics.">
+
+  <meta name="slider-id" content="9d5c0616-cf29-4c5b-b191-e560709fe39b">
+  <meta name="slider-semester" content="Spring2020">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini jdk compiler smaller nozoom bespoke-active bespoke-slide" data-slideid="dCpHsyaBAaBpgNerMebmXnqvbeSuiedh">
+
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+
+public class LastTen&lt;T&gt; {
+  private List&lt;T&gt; values = new ArrayList&lt;&gt;(10);
+  private int currentIndex = 0;
+  LastTen() {
+    for (int i = 0; i &lt; 10; i++) {
+      values.add(i, null);
+    }
+  }
+  public void add(T newValue) {
+    values.set(currentIndex, newValue);
+    currentIndex = (currentIndex + 1) % 10;
+  }
+  public List&lt;T&gt; get() {
+    return values;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LastTen&lt;String&gt; lastTen = new LastTen&lt;&gt;();
+    for (int i = 0; i &lt; 30; i++) {
+      lastTen.add(&quot;foo&quot; + i);
+    }
+    System.out.println(lastTen.get());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Generics&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Generics<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aPkedSJgDzeujqwbdAasRSTZJjBMUVbF">
+<div class="header" data-title="Java Generics"><h2>Java Generics</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Lists and maps are the two data structures you meet in heaven.
+Together you can use them to solve almost any problem.</p>
+</div>
+<div class="paragraph">
+<p>But you&#x2019;ll usually use Java`s built-in implementations.</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();
+Map map = new HashMap();
+Map anotherMap = new TreeMap();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="VazQjvfefhYtQVZbbAfnIinPqkOhFcuL">
+<div data-title=" Bare ArrayLists and HashMaps"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List list = new ArrayList();
+    // What goes in is a string...
+    list.add(&quot;string&quot;);
+    // But what comes out is an Object
+    String s = list.get(0);
+    // We can downcast this, but that&apos;s not safe
+
+    Map map = new HashMap();
+    // Keys and values can be any Java object...
+    map.put(&quot;key&quot;, 8);
+    // But what comes out is an Object
+    Integer i = map.get(&quot;key&quot;);
+    // We can downcast this, but that&apos;s (still) not safe
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CfhXqjfTVWkvvUQsiviIgULshCtvBoql">
+<div class="header" data-title="Compiler Errors v. Runtime Errors"><h2>Compiler Errors v. Runtime Errors</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java and many languages that followed it have tried to transform <em>runtime</em>
+errors into <em>compiler</em> errors.
+<strong>Why?</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You compile your code <em>before</em> it runs: and so before you have to demo it to a
+client, or before you deploy it to hundreds of users.</p>
+</li>
+<li class="bullet">
+<p>Catching errors at this stage is <em>critical</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CAmWlXhrXPgQfqJnzxuEyMbiMZcmBlDK">
+<div class="header" data-title="Generics"><h2>Generics</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java generics allow us to create reusable classes while allowing the compiler to
+check our code for correctness.</p>
+</div>
+<div class="paragraph">
+<p>Type parameters tell the compiler what we are going to do with each data
+structure.</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+List&lt;Integer&gt; integerlist = new ArrayList&lt;&gt;(); // This is list of Integers
+Map&lt;Integer, String&gt; = new HashMap&lt;&gt;(); // This maps Integers to Strings</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HsFQlSwEtyfFNiuOFdOsVftCdsCHdLrh">
+<div class="header" data-title="Generic Rationale"><h2>Generic Rationale</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java generics allow to combine two desirable features of the language:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Polymorphism</strong>: because every object inherits from <code>Object</code> it is easy to
+build general purpose data structures that can operate on every Java object</p>
+</li>
+<li class="bullet">
+<p><strong>Type Checking</strong>: however, upcasting everything to <code>Object</code> makes it
+impossible for the compiler to perform compile-time type checking</p>
+</li>
+<li class="bullet">
+<p>Generics are intended to allow us to have the best of both worlds</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="icfvQmfITTojvuLTENxWELDeeUJPWeWO">
+<div data-title=" Generic ArrayLists"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    // What goes in is a string...
+    list.add(&quot;string&quot;);
+    // What comes out is a string
+    String s = list.get(0);
+    // I can&apos;t add Objects that aren&apos;t Strings or don&apos;t descend from String
+    list.add(new Integer(10));
+
+    Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+    // The compiler can check my mappings...
+    map.put(&quot;key&quot;, 8);
+    // And cast what comes out safely for me
+    Integer i = map.get(&quot;key&quot;);
+    // I can&apos;t add invalid mappings
+    map.put(8, 10);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xeDYzlBEYAuWmiyunissqSphJYPGdfRN">
+<div data-title=" Generics In Documentation"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/util/Map.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="ufnapiBBDPHnqhSKjaQWNGdfyDcOWJVS">
+<div class="header" data-title="Generifying Your Classes"><h2>Generifying Your Classes</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So we know how to use existing generic class.
+But how do we provide our own?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gshanQpcjpeifKipeXsEwdwgrcRXdvee">
+<div class="header" data-title="Class Type Parameters"><h2>Class Type Parameters</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>First, we have to declare our class to accept <em>type parameters</em>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// T is a type parameter that can be used throughout our class
+public class SimpleLinkedList&lt;E&gt; {
+  // get returns a reference of type E
+  public E get(int index) {
+  }
+  // set takes a reference of type T as its second argument
+  public void set(int index, E value) {
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PmTBHbqtdzEwfOnTUNQqNLKNbdNtCnsc">
+<div class="header" data-title="Parameters Are Not Variables"><h2>Parameters Are Not Variables</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Class parameters <em>are not</em> variables.</p>
+</div>
+<div class="paragraph">
+<p>I can use them where I would normally provide a type, but I can&#x2019;t get or set
+their values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class SimpleLinkedList&lt;E&gt; {
+  // I can use the parameter here as a return type...
+  public E get(int index) {
+    E = String; // But I can&apos;t do something like this
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yFUOEpPuuncaCyOreneyqcdTWzAeDgTn">
+<div class="header" data-title="Compiling Generic Classes"><h2>Compiling Generic Classes</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To help understand how generics work you can imagine the compiler rewriting them
+when it compiles your code.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="nIOLajpCRkeiqzqdfVGABscHwBcJsFPJ">
+<div class="header" data-title="Original and Rewritten List"><h2>Original and Rewritten List</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List&lt;E&gt; {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List&lt;String&gt; list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List {
+  public String get(int i) {
+  }
+  public void set(int i, String value) {
+  }
+}
+List list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="rjGEMqeTIbLcWeCtNxiOeLLUdiZedeEI">
+<div class="header" data-title="Original and Rewritten List"><h2>Original and Rewritten List</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List&lt;E&gt; {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List&lt;Integer&gt; list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List {
+  public Integer get(int i) {
+  }
+  public void set(int i, Integer value) {
+  }
+}
+List list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PIyilhvdeQiJwljjSFmLVauXiVUleFhn">
+<div class="header" data-title="Type Erasure"><h2>Type Erasure</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>Note that this is not actually what happens.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The compiler only creates <em>one</em> instance of each generic class</p>
+</li>
+<li class="bullet">
+<p>Type information is used during compilation to check access but then
+<em>erased</em></p>
+</li>
+<li class="bullet">
+<p>But this isn&#x2019;t a bad mental model of how generics work in practice</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OrueWINOdsdAZvLfddaaMKJoRgIuUxJS">
+<div class="header" data-title="Multiple Type Parameters"><h2>Multiple Type Parameters</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Classes can use one or several type parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// This is a generic list storing elements of type T
+public class SimpleLinkedList&lt;T&gt; { }
+
+// This is a generic map mapping elements of type K to type V
+public class SimpleMap&lt;K,V&gt; { }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="drYDduyVUSIMCAtgQvtfToxfemixBIsy">
+<div class="header" data-title="Parameter Naming Conventions"><h2>Parameter Naming Conventions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To avoid confusing type parameters with variable names or other keywords, Java
+has established conventions for naming them.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>By convention</strong> type names are single uppercase letters: <code>T</code>, <code>K</code>, <code>V</code>, <code>E</code>,
+etc.</p>
+</li>
+<li class="bullet">
+<p>Note that this is just a convention: it&#x2019;s not enforced by the compiler</p>
+</li>
+<li class="bullet">
+<p>Certain type parameters have conventional meanings:</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>E</code> for element (which we&#x2019;ll use for our lists)</p>
+</li>
+<li class="bullet">
+<p><code>K</code> for key and <code>V</code> for value, (which we&#x2019;ll use for our maps)</p>
+</li>
+<li class="bullet">
+<p><code>N</code> for a number</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="axHmNRJzTadAmepLanZWLuHzdffndwnf">
+<div class="header" data-title="Original and Rewritten Map"><h2>Original and Rewritten Map</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map&lt;K, V&gt; {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map&lt;String, Double&gt; map = new Map&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map {
+  public Double get(String key) {
+  }
+  public void put(String key, Double val) {
+  }
+}
+Map map = new Map();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="eYOiAiRGjSSJrWYBWRwbfOwipdpennhD">
+<div class="header" data-title="Original and Rewritten Map"><h2>Original and Rewritten Map</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map&lt;K, V&gt; {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map&lt;Integer, String&gt; map = new Map&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map {
+  public String get(Integer key) {
+  }
+  public void put(Integer key, String val) {
+  }
+}
+Map map = new Map();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 janini jdk smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="uAusintTCqeDSeGJzQzEfhxebKxeSdZk">
+<div data-title=" Generifying SimpleLinkedList"></div>
+<textarea class="janini spelling_exception">public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private int currentSize;
+
+  public SimpleLinkedList() { }
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i &gt;= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+      currentSize++;
+      return;
+    }
+    Item previousItem = getItem(index - 1);
+    if (previousItem == null) {
+      return;
+    }
+    Item newItem = new Item(toAdd, previousItem.next);
+    previousItem.next = newItem;
+    currentSize++;
+  }
+
+  public Object remove(int index) {
+    Object toReturn;
+    if (index == 0) {
+      toReturn = start;
+      start = start.next;
+      return toReturn;
+    }
+    Item previousItem = getItem(index - 1);
+    toReturn = previousItem.next;
+    previousItem.next = previousItem.next.next;
+    return toReturn;
+  }
+
+  public Object get(int index) {
+    Item item = getItem(index);
+    if (item == null) {
+      return null;
+    } else {
+      return item.value;
+    }
+  }
+
+  public void set(int index, Object toSet) {
+    Item item = getItem(index);
+    if (item != null) {
+      item.value = toSet;
+    }
+  }
+
+  public int size() {
+    return currentSize;
+  }
+
+  protected Item getItem(int index) {
+    if (index &lt; 0 || index &gt;= currentSize) {
+      return null;
+    }
+    int currentIndex = 0;
+    for (Item current = start; current != null; current = current.next) {
+      if (currentIndex == index) {
+        return current;
+      }
+      currentIndex++;
+    }
+    return null;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleList = new SimpleLinkedList();
+    for (int i = 0; i &lt; 10; i++) {
+      simpleList.add(0, i);
+    }
+    System.out.println(simpleList.size());
+    for (int i = 0; i &lt; 5; i++) {
+      simpleList.remove(i);
+    }
+    System.out.println(simpleList.get(0));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="qexqAkkifuIXasHnUyVKnZUKPHXMJDhs">
+<div class="header" data-title="Questions So Far?"><h2>Questions So Far?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because it&#x2019;s about to get more interesting&#x2026;&#x200B;</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="AjzHJAjSLdiqNLruXOGHOnHrnxuAuDeW">
+<div data-title=" Max Example"></div>
+<textarea class="janini spelling_exception">public class Max {
+  private Integer[] values;
+  Max(Integer[] setValues) {
+    values = setValues;
+  }
+  public Integer max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    Integer currentMax = values[0];
+    for (int i = 1; i &lt; values.length; i++) {
+      if (values[i] &gt; currentMax) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max max = new Max(new Integer[] {1, 2, 5});
+    System.out.println(max.max());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CNStHcEuMtLuLZNrRDHnHTfWoQKLaFOc">
+<div class="header" data-title="Bounded Type Parameters"><h2>Bounded Type Parameters</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The compiler knows all about the relationship between different types, and so it
+can help us ensure that our generic classes receive appropriate type parameters.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>&lt;T extends S&gt;</code>: type <code>T</code> extends class <code>S</code> <em>or</em> implements interface <code>S</code></p>
+</li>
+<li class="bullet">
+<p><code>&lt;T extends S &amp; U &amp; V&gt;</code>: type <code>T</code> extends <em>or</em> implements <code>S</code>, <code>U</code>, and <code>V</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="NBwNwCLFtuvIOmBTFniwQfGjqxGIilgM">
+<div data-title=" Max Example"></div>
+<textarea class="janini spelling_exception">public class Max&lt;T&gt; {
+  private T[] values;
+  Max(T[] setValues) {
+    values = setValues;
+  }
+  public T max() {
+    if (values == null || values.length == 0) {
+      return null;
+    }
+    T currentMax = values[0];
+    for (int i = 1; i &lt; values.length; i++) {
+      if (values[i].compareTo(currentMax) &gt; 0) {
+        currentMax = values[i];
+      }
+    }
+    return currentMax;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Max&lt;Integer&gt; max = new Max&lt;&gt;(new Integer[] {1, 2, 5});
+    System.out.println(max.max());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="acJMdhJiXZbEnbTuUrdAXwOliHuicqON">
+<div class="header" data-title="Generic Interfaces"><h2>Generic Interfaces</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like classes, interface definitions can use type parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface SimpleList&lt;E&gt; {
+  public E get(int index);
+  public void set(int index, E element);
+  public void add(int index, E element);
+  public E remove(int index);
+  public int size();
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eGnIkyHdLiXKxjLLaJTeZnUzetkwHOfn">
+<div class="header" data-title="Generic Gotchas"><h2>Generic Gotchas</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#x2019;ve elided many of the details of working with generics.
+Review
+<a href="https://docs.oracle.com/javase/tutorial/java/generics/index.html" target="_blank" class="external">the official
+documentation</a>
+to learn more.</p>
+</div>
+<div class="paragraph">
+<p>But here&#x2019;s one of the more obvious things that doesn&#x2019;t work the way you&#x2019;d want:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class LastTen&lt;T&gt; {
+  private T[] values;
+  private List&lt;T&gt; listOfValues;
+  LastTen() {
+    value = new T[10]; // You can&apos;t create an array of a generic type
+    // As a solution you can use a collection type like a list
+    listOfValues = new ArrayList&lt;T&gt;(); // This works
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="uMnbIPzTufFEHnvuXezGuoQWziZdYXxm">
+<div class="header" data-title="Questions About Generics?"><h2>Questions About Generics?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jmNDeZXUdennBYdbVPnnJdeHyiRSidrS">
+<div class="header" data-title="Next Few Classes"><h2>Next Few Classes</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Monday</strong>: midterm exam (no class).</p>
+</li>
+<li class="bullet">
+<p><strong>Wednesday</strong>: wrap up.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sZCduqMyvtxtchSAdLdnetLdLLklSieQ">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>There is no final exam for CS 125.</strong></p>
+</li>
+<li>
+<p>The third and final midterm is <em>Monday</em>. Good luck!</p>
+</li>
+<li>
+<p>Lab next week will be final project evaluations and choosing the best projects
+to receive extra credit.
+Good luck wrapping up your cool projects!
+I&#x2019;m very excited to see what you all built&#x2026;&#x200B;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

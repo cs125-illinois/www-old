@@ -1,0 +1,668 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Types and Variables</title>
+  <meta name="description" lang="en-us" content="Introduction to Java primitive types, variable initialization and declaration, and modifying variable values through a variety of expressions.">
+
+  <meta name="slider-id" content="25734ede-e298-4b39-a038-aff61bcd559e">
+  <meta name="slider-semester" content="Spring2020">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="ATBHkGXvFSWfEfPtxFTaGtPoeDEqqmKA">
+
+<textarea class="janini spelling_exception">float i;
+i = 0;
+i++;
+i /= 2;
+System.out.println(i);</textarea><!-- beautify ignore:start --><div class="output" data-blank="Primitive types, variables, and expressions&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Primitive types, variables, and expressions<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="dmICKmgxEaeFVDnRmoouGYPomfQjelVz">
+<div class="header" data-title="You&#x2019;re Learning a New Language"><h2>You&#x2019;re Learning a New Language</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>And your computer is a very eager but unforgiving conversant</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="LMSVWMDVRIRYONNUARUXPCWBXZRKTZDW">
+<div data-title="Small Mistakes"></div>
+<textarea class="janini spelling_exception">// And computers can communicate
+System.out.println(&quot;Hello, world!&apos;);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HzvMPOcXRBcxTiCawrMAPICZfbcnZyYW">
+<div class="header" data-title="Our Approach"><h2>Our Approach</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Start small: with just a few lines of code</p>
+</li>
+<li class="bullet">
+<p>Work up to slightly more complicated examples</p>
+</li>
+<li class="bullet">
+<p>Then to complete functions and algorithms</p>
+</li>
+<li class="bullet">
+<p>And eventually to understanding entire files of Java code</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aoBhdVncEOFFdpoLjiBnHnpnqGeUvndy">
+<div class="header" data-title="Quantity v. Quality"><h2>Quantity v. Quality</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock small">
+<blockquote>
+<div class="paragraph">
+<p>The ceramics teacher announced on opening day that he was dividing the class
+into two groups.
+All those on the left side of the studio, he said, would be graded solely on the
+quantity of work they produced, all those on the right solely on its quality.
+His procedure was simple: on the final day of class he would bring in his
+bathroom scales and weigh the work of the &quot;quantity&quot; group: fifty pound of pots
+rated an &quot;A&quot;, forty pounds a &quot;B&quot;, and so on.
+Those being graded on &quot;quality&quot;, however, needed to produce only one
+pot&#x2014;albeit a perfect one&#x2014;to get an &quot;A&quot;.</p>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>Well, come grading time and a curious fact emerged: the works of highest quality
+were all produced by the group being graded for quantity.</strong>
+It seems that while the &quot;quantity&quot; group was busily churning out piles of
+work&#x2014;and learning from their mistakes&#x2014;the &quot;quality&quot; group had sat
+theorizing about perfection, and in the end had little more to show for their
+efforts than grandiose theories and a pile of dead clay.</p>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="VBGzOzMUlIEziEhivMByHeyXbOzffNwX">
+<div class="header" data-title="What Are Computers Good At?"><h2>What Are Computers Good At?</h2></div>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Basic math</strong></p>
+</li>
+<li>
+<p>Simple decision making</p>
+</li>
+<li>
+<p>Doing things over and over again very, very fast</p>
+</li>
+<li>
+<p><strong>Storing data</strong></p>
+</li>
+<li>
+<p>And communicating</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AsbqATwBNKvdCYvjZAzsXqxQWdiLEquk">
+<div class="header" data-title="Variable Declaration"><h2>Variable Declaration</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// I declare a variable named c of type char
+char c;
+
+// I&apos;m going to use an int and call it first
+int first;
+
+// I hereby create a boolean and shall name it isSet
+boolean isSet;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>In Java every variable has a <em>name</em> and a <em>type</em></p>
+</li>
+<li class="bullet">
+<p>The name is for you, the programmer</p>
+</li>
+<li class="bullet">
+<p>The type is both for you and for Java</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pRyNruakCGYMibaQiXiRPYtFSICkIVgF">
+<div class="header" data-title="Variable Names Must Be Unique"><h2>Variable Names Must Be Unique</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// I declare a variable named c of type char
+char c;
+
+// This doesn&apos;t work. How will I tell them apart?
+int c;
+
+// Even this doesn&apos;t work if c has already been declared.
+char c;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There are rules allowing the same name to be used in multiple places in the
+same program</p>
+</li>
+<li>
+<p>We&#x2019;ll learn about them soon</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CsumONHCkuznIwwqbsOFPqYGzdhjQLYE">
+<div class="header" data-title="Good Variable Names"><h2>Good Variable Names</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Choosing good variable names will make your life a lot easier as a programmer.</p>
+</div>
+<div class="paragraph">
+<p>Good variable names are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Descriptive</p>
+</li>
+<li class="bullet">
+<p>Indicative of the variable&#x2019;s function</p>
+</li>
+<li class="bullet">
+<p>As succinct as possible&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>But see #2 above</p>
+</li>
+<li class="bullet">
+<p>This will make more sense as we go along</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EILFHOZETEGZEDCURSNNWICQQTXIHYDQ">
+<div class="header" data-title="Variable Naming Example"><h2>Variable Naming Example</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Just so that you know that I practice what I preach:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">for (int i = startingPoint; i &lt; doubles.length; i++) {
+    if (doubles[i] &gt; maximum || i == startingPoint) {
+        maximum = doubles[i];
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(This is code from the Spring 2018 MP0 solution set.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="cAdnFWhghzGDfXGbhMdutjduikIJITRV">
+<div class="header" data-title="Poetic Programming"><h2>Poetic Programming</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Code is speech; speech a human utters to silicon, which makes the machine come
+to life and do our will.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#x2014; Clive Thompson
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mYKcPepOrSkLsuLXBOmQMIUssNBBVQcW">
+<div class="header" data-title="Comments"><h2>Comments</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Also: this is a single-line comment.
+// It starts with a //
+
+/*
+ * Here is another one. Multiline comments start with /* and end with
+ */
+
+// Comments are ignored by the computer, but can be
+// some of the most important parts of your code
+// They&apos;re for you and other humans</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yTXvoDLkxPLfKdDEwqcbgcwbBjKliDkT">
+<div class="header" data-title="Variable Types"><h2>Variable Types</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java has <em>eight</em>
+<a href="http://cs.fit.edu/~ryan/java/language/java-data.html" target="_blank" class="external">primitive data types</a>.</p>
+</div>
+<div class="paragraph">
+<p>All other data in Java is represented by <em>combinations</em> of these building blocks.
+You can break them into four categories:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p><strong>Integers</strong>: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></p>
+</li>
+<li class="bullet">
+<p><strong>Floating point numbers</strong>: <code>float</code>, <code>double</code></p>
+</li>
+<li class="bullet">
+<p><strong>Character</strong>: <code>char</code></p>
+</li>
+<li class="bullet">
+<p><strong>True or false</strong>: <code>boolean</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="KAJCDCJDQBDSTGVXXRMUZFOIXTZZROHA">
+<div class="header" data-title="This is About Data"><h2>This is About Data</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>And how computers represent information.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eIhzSGdomQfxADXtZqDXzjXGEAqMmsWK">
+<div class="header" data-title="Variable Initialization"><h2>Variable Initialization</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// I declare a variable named mine of type float
+// and initialize it to 0.1
+float mine = 0.1;
+
+// Let there be a boolean called isItSnowing
+// and initialize it to false
+boolean isItSnowing = false;
+
+// Declare timeSince1979 of type long
+// and initially set it to 1204209
+long timeSince1979 = 1204209;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="PFgALdBwLvDVYkQRHZTIGjXoueZTccDF">
+<div class="header" data-title="Experimenting With Initialization"><h2>Experimenting With Initialization</h2></div>
+<textarea class="janini spelling_exception">// Let&apos;s create and initialize some variables of different types
+double x;
+System.out.println(x);
+// Try reinitializing the same variable to see what happens</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mnqvSopbyJJQZGqGLivHdtSjHypzpwxd">
+<div class="header" data-title="Literals"><h2>Literals</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <em>literal</em> is a number or other value that appears directly in the source
+code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// 1000 is a long literal. Note the L suffix.
+long big = 1000L;
+
+// &apos;g&apos; is a character literal.
+char one = &apos;g&apos;;
+
+// true and false are boolean literals.
+boolean itsEarly = true;
+boolean iSleptWell = false;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="xnWysQQnbfFCUmWTfBvEpvXdTqHDwXlL">
+<div class="header" data-title="Variables Can Be Modified"><h2>Variables Can Be Modified</h2></div>
+<textarea class="janini spelling_exception">// Let&apos;s modify some integers
+int changing = 10;
+changing = 20; // I can set them again
+changing = 20 + 10; // Math is OK on the right side
+changing += 1; // I have some special operators
+changing /= 2; // +, -, / and * all work with =</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="upWVceueDWDXMLtzpLzaAIKPyAJKeHTm">
+<div class="header" data-title="Variables Must Maintain the Same Type"><h2>Variables Must Maintain the Same Type</h2></div>
+<textarea class="janini spelling_exception">// Ruh-roh...
+int changing = 10;
+changing = 10.0;</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="wGIfxmUfDEWxDVwvbMGAIYmZqXltNoYR">
+<div class="header" data-title="Variables Can Be Modified Using Other Variables"><h2>Variables Can Be Modified Using Other Variables</h2></div>
+<textarea class="janini spelling_exception">double first = 10.0;
+double second = 5.0;
+first = second; // This is assignment, not equality
+second = 20.0;
+first = second + 10.0;
+double third = 2.0;
+first = second + third;</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="flxBJUbKdOinyRtOmdidhiOTCJGDeRMy">
+<div class="header" data-title="This is Not Algebra"><h2>This is Not Algebra</h2></div>
+<textarea class="janini spelling_exception">int z = 10;
+z = z + 1; // WTF?
+System.out.println(z);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="OMZMbfnYVaynkvZBlALgdedbZonRZyzm">
+<div class="header" data-title="This is Not English"><h2>This is Not English</h2></div>
+<textarea class="janini spelling_exception">// Read assignment from right to left
+double first = 10.0;
+double second = 5.0;
+first = first + second + 10.0;</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bMGnqDmfcpDxPXDytpJKpUzIBGbeHrwH">
+<div class="header" data-title="What Makes Primitive Types Primitive?"><h2>What Makes Primitive Types <em>Primitive</em>?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist lead">
+<div class="title">What makes the Java primitive types primitive?</div>
+<ul>
+<li class="bullet">
+<p>They can all be stored by the computer as a <em>single number</em>.</p>
+</li>
+</ul>
+</div>
+<div class="openblock lead bullet">
+<div class="content">
+<div class="paragraph">
+<p>But wait&#x2026;&#x200B; what about <code>char</code>?</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="iRHwdJsVVeIxycGCObkWHCstYYMLMPNs">
+<div data-title="What About Characters?"></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://www.pngitem.com/pimgs/m/197-1970436_ascii-table-black-ascii-table-black-and-white.png" alt="197 1970436 ascii table black ascii table black and white" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pPNGiUTPJIhsUrdVljKBdQvygNaaohAu">
+<div class="header" data-title="Our First Example of a Convention"><h2>Our First Example of a <em>Convention</em></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>There&#x2019;s no law of the universe that says that the number 97 should represent
+&apos;a&apos;.</p>
+</div>
+<div class="paragraph">
+<p>It&#x2019;s just what we&#x2019;ve all agreed on.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IffEzqifWagrJAUVhbtbZpBeXbJOthRh">
+<div class="header" data-title="Why Are There Multiple Numeric Types?"><h2>Why Are There Multiple Numeric Types?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="olist arabic lead">
+<ol class="arabic">
+<li>
+<p><strong>Integers</strong>: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></p>
+</li>
+<li>
+<p><strong>Floating point numbers</strong>: <code>float</code>, <code>double</code></p>
+</li>
+</ol>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p>Different types take up different amounts of <em>computer memory</em> and so can store
+different values.</p>
+</div>
+</div>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>Don&#x2019;t worry too much about how things are stored yet.</strong>
+But the limits are important to be aware of.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="pTpMZAKphudHMkrjPpLsyJkayPzKtKhG">
+<div class="header" data-title="Type Limitations"><h2>Type Limitations</h2></div>
+<textarea class="janini spelling_exception">byte smallest = 10;
+smallest += 256;
+System.out.println(smallest);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="jWVQatsSaYPEkUmTBXBmHDqOvukSqwsa">
+<div data-title="Don&#x2019;t Memorize: Look Up"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="geVtMXBAdnOPzUZylQwvKNdYIjinNTTp">
+<div class="header" data-title="An Analogy"><h2>An Analogy</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><em>Variables</em> are like a container that can hold data.
+<em>Types</em> are rules about what you can store in each container.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="BOWngHncunytquMaQrLQnEBSLSwCARUu">
+<div class="header" data-title="Questions About Variables or Types?"><h2>Questions About Variables or Types?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nkUXrGivKZLttoExOZkFgfFUZysQDKdt">
+<div class="header" data-title="Cheating"><h2>Cheating</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>I take academic integrity extremely seriously.
+Cheaters will be caught and punished.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pcTKTHTGiagufvkaflflGOLUKcZkDgkr">
+<div class="header" data-title="EMP"><h2>EMP</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="https://cs125.cs.illinois.edu/info/resources/#emp" target="_blank" class="external">CS 199 EMP (Even More
+Practice)</a>
+is a chance for you to get (even) more practice.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It&#x2019;s held Thursday nights from 5&#x2013;7PM in Everitt 2310.</p>
+</li>
+<li>
+<p>You can register for it for one credit. If you do you&#x2019;ll need to attend
+regularly.</p>
+</li>
+<li>
+<p>You can also not register and show up when you want. It&#x2019;s open to all.</p>
+</li>
+<li>
+<p>More details
+<a href="https://cs125.cs.illinois.edu/info/resources/#emp" target="_blank" class="external">on the website</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JMZWIRVIHJIFILUVTHJYPXQQVCQHZGKW">
+<div class="header" data-title="After Class"><h2>After Class</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Please don&#x2019;t bum rush the stage after class.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>I teach until 10:50, but that means I have to scoot immediately after class</p>
+</li>
+<li>
+<p>I&#x2019;ll meet anyone with questions during my office hours.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HRNDBAMSESSDCZESNZXBDXBLSNKSQVGZ">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist small">
+<ul>
+<li>
+<p>We&#x2019;ll start limited 12&#x2013;4PM office hours <em>next Monday</em>, and full
+12&#x2013;8 office hours on Monday 2/3/2020 <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;After we finish training the course staff!&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</li>
+<li>
+<p>Homework continues <em>today</em>.</p>
+</li>
+<li>
+<p>Monday we will continue with the basics of imperative programming, including
+conditionals and loops.</p>
+</li>
+<li>
+<p>Take our <a href="https://forms.gle/WDf8bniubhSeoKM77" target="_blank" class="external">intro survey</a>!
+1% extra credit for anyone who does by <strong>Sunday 2/2/2020</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

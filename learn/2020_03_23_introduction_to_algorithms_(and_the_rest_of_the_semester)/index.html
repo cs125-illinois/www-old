@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Introduction to Algorithms (and the Rest of the Semester)</title>
+  <meta name="description" lang="en-us" content="Introduction to algorithms, algorithm runtime analysis, and how CS 125 will work for the rest of the semester.">
+
+  <meta name="slider-id" content="01f1315c-17c7-489e-aa1c-628f87237449">
+  <meta name="slider-semester" content="Spring2020">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci">
+
+<textarea class="janini spelling_exception">public final class Math {
+  public static int gcd(int first, int second) {
+    return 0;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Math.gcd(10, 20));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Introduction to Algorithms&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Introduction to Algorithms<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eXvglHotByneDsypepTfKUPRExHflzZy">
+<div class="header" data-title="Algorithms"><h2>Algorithms</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Algorithm:
+a set of steps taken to achieve some desired result.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="NpBBkOeTzZhmGmhePZdPdDxBiPtJmvQk">
+<div class="header" data-title="This is About the Future"><h2>This is About the Future</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our goal is to help you succeed in later courses, while also taking care of you
+this semester.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="TDvUZfxqiZMnxQzLMjOmIdxnlAQdHQkb">
+<div class="header" data-title="Our Desired Result"><h2>Our Desired Result</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You learn computer science.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XNedTiRdyUEsejMBrQfOfJAwdGFkFOGl">
+<div class="header" data-title="Our (Modified) Algorithm"><h2>Our (Modified) Algorithm</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>When possible we&#x2019;re going to continue doing what we do.</p>
+</div>
+<div class="paragraph">
+<p>However, there are a few places where we rely on your proximity on campus.
+So we&#x2019;ll need to make a couple of adjustments to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Quizzes</p>
+</li>
+<li class="bullet">
+<p>Office Hours</p>
+</li>
+<li class="bullet">
+<p>Participation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eviGRafiVftPfSOFojOnRzKAldCkieCi">
+<div class="header" data-title="Course Meetings"><h2>Course Meetings</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Class</strong>: will be live streamed on Monday and Friday at 10AM CST.
+On Wednesday you will have a video lecture to watch asynchronously.</p>
+</li>
+<li class="bullet">
+<p><strong>Lab</strong>: the lab activity will be available for completion all day on
+Tuesdays, our usual lab day.</p>
+</li>
+<li class="bullet">
+<p><strong>Office Hours</strong>: we are working on several ways to hold virtual office hours,
+which we will run during normal office hour time slots and potentially at other
+times.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HqttneryACMJXMXFJonUqVvxbsmfUHmT">
+<div class="header" data-title="Assessments"><h2>Assessments</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Quizzes and Midterms</strong>: will be held online on Wednesday from
+10&#x2013;10:50AM CST.</p>
+</li>
+<li class="bullet">
+<p><strong>Participation</strong>: lab participation will remain frozen where it stands today.
+How to handle lecture participation is still being discussed.</p>
+</li>
+<li class="bullet">
+<p><strong>MP, Homework, Final Project</strong>: these will continue as planned.
+Obviously there will not be a final project fair, but final project grading will
+(somewhat) normally.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rufKqidxdKiTMxcfantEeaPpiduiiHzT">
+<div class="header" data-title="Exceptions and Special Cases"><h2>Exceptions and Special Cases</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>If you are significantly time-gapped we will make accommodations for quizzes
+and lecture participation.</strong></p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll have a form to fill out later today.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CFHAQOpaquCHIdduDgamuRlRmerdyeJR">
+<div class="header" data-title="Grading"><h2>Grading</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>If Pass-Fail grading is an option I will use it.</strong></p>
+</div>
+<div class="paragraph">
+<p>(It looks like it will be.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wRVezufcSRJoqCeeUmPueJHvfbmtoxEx">
+<div class="header" data-title="Cheating"><h2>Cheating</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>There is really not much we can do to stop you from cheating on the quizzes.</p>
+</div>
+<div class="paragraph">
+<p>But keep in mind&#x2014;at some point things <em>will</em> be normal again, and you will
+be in some other course or some other place and need to know this stuff.</p>
+</div>
+<div class="paragraph">
+<p>Particularly if we go pass-fail, please just do your own work. Let&#x2019;s all trust
+each other and get through this together.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="EeyQNzmuInixemQsWMprSGpfdobknfKE">
+<div class="header" data-title="Questions?"><h2>Questions?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aUxsyjhTqYgprQGAtYgCJCpFInIbEnMP">
+<div class="header" data-title="Algorithms"><h2>Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" class="external">Algorithm</a>:
+a process or set of rules to be followed in calculations or other
+problem-solving operations, especially by a computer.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>As computer scientists, we implement algorithms by having computers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Perform simple calculations</p>
+</li>
+<li class="bullet">
+<p>Store the results</p>
+</li>
+<li class="bullet">
+<p>Make simple decisions</p>
+</li>
+<li class="bullet">
+<p>Do things over and over again as fast as possible</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JGTmnbkHwboAihJynfxUiXyvQBMcEFus">
+<div class="header" data-title="Data Structures"><h2>Data Structures</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Data_structure" target="_blank" class="external">Data structure</a>:
+a collection of data values, the relationships among them, and the functions or
+operations that can be applied to the data.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>As Java programmers we implement more complicated data structures using a mix
+of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Primitive types and objects to <em>store</em> and organize data values</p>
+</li>
+<li class="bullet">
+<p>Existing data structures like arrays</p>
+</li>
+<li class="bullet">
+<p>References to reflect relationships among objects</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YumtfuKBaLhokozilRqGVVRzrwypGfOd">
+<div class="header" data-title="Algorithms and Data Structures"><h2>Algorithms and Data Structures</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Algorithms and data structures are <em>highly complementary</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We will implement algorithms that utilize specific features of data structures</p>
+</li>
+<li class="bullet">
+<p>We will implement data structures to support specific algorithms</p>
+</li>
+<li class="bullet">
+<p>We will use our existing imperative and object-oriented ideas along the way</p>
+</li>
+<li class="bullet">
+<p>And we&#x2019;ll introduce a few more important ideas along the way</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BzRRFIMstyqbRXhqEywqvIoQJUgYebbD">
+<div class="header" data-title="Example: Greatest Common Denominator"><h2>Example: Greatest Common Denominator</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In mathematics, the
+<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor" target="_blank" class="external">greatest common divisor
+(GCD)</a>
+of two or more integers, which are not all zero, is the largest positive integer
+that divides each of the integers.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="pjDljAIzRjELOcfeobkDQFRinIBUMrhD">
+<div data-title=" GCD Algorithms"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://en.wikipedia.org/wiki/Greatest_common_divisor#Calculation%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="tDXMsVMWQaICoZpNjRwvYQvYvpkBVCKA">
+<div class="header" data-title="But If We&#x2019;re In A Hurry&#x2026;&#x200B;"><h2>But If We&#x2019;re In A Hurry&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What&#x2019;s a simpler approach?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JssrqejyvIyvwsXyrCkspJKxdKDMQLRk">
+<div class="header" data-title="Brute Force Solution"><h2>Brute Force Solution</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Brute-force_search" target="_blank" class="external">Brute force solution</a>:
+a very general problem-solving technique that consists of systematically
+enumerating all possible candidates for the solution and checking whether each
+candidate satisfies the problem&#x2019;s statement.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Computers today are very, <em>very</em> fast</p>
+</li>
+<li class="bullet">
+<p>So try the simple thing first</p>
+</li>
+<li class="bullet">
+<p>If it&#x2019;s too slow, try something a bit more sophisticated</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="qMuYttxuubacRODFMWhjihipuaPhWYqH">
+<div data-title=" GCD Implementation"></div>
+<textarea class="janini spelling_exception">public class SimpleMath {
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(SimpleMath.GCD(10, 8));
+    System.out.println(SimpleMath.GCD(100, 50));
+    System.out.println(SimpleMath.GCD(94677, 65270));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UEdnOCyLeWUOPArKwujWZkLnYfldCjkc">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Discussions of how to make the best of this semester are continuing.
+Please participate.</p>
+</li>
+<li>
+<p>We have a
+<a href="/info/feedback/">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

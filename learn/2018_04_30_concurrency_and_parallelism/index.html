@@ -1,0 +1,996 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Concurrency and Parallelism</title>
+  <meta name="description" lang="en-us" content="Introduction to concurrency, parallelism, race conditions, and synchronization.">
+
+  <meta name="slider-id" content="89d740b9-3f6a-48a9-ba39-17949ea619ec">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="NtikiyotWDrabCFnPfWbSxHFEzASENVM">
+<div data-title=" Concurrency"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  public static int count = 0;
+  public void run() {
+    int myCount = count;
+    myCount += 1;
+    count = myCount;
+    System.out.println(&quot;Hello from &quot; + count);
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i &lt; 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i &lt; 10; i++) {
+      threads[i].join();
+    }
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Concurrency&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Concurrency<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kyJILreCSHtKEbjmLqwmwaaumOajSOhK">
+<div class="header" data-title="Originally: Single-Core Processors"><h2>Originally: Single-Core Processors</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://information2share.files.wordpress.com/2011/05/intel-pentium-4-northwood.jpg" alt="intel pentium 4 northwood" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="qSMkdBFINSclzXfQNlzzIjhpLnNtlBGg">
+<div class="header" data-title="But Then How Could You Use Multiple Applications At Once?"><h2>But Then How Could You Use Multiple Applications At Once?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mzCSiXrPehxXUQWYOpWxQViHCUYYmRIw">
+<div class="header" data-title="The Illusion"><h2>The Illusion</h2></div>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/learn/images/concurrency/concurrency.svg" alt="concurrency" width="640">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LbURTwnFvkkJbpEAGGdLChklHxYoJpVi">
+<div class="header" data-title="But Look Closer&#x2026;&#x200B;"><h2>But Look Closer&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/learn/images/concurrency/concurrency-1.svg" alt="concurrency 1" width="640">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GvUAcBZXdXwUoKhiMwLAUWpGSitTcnSE">
+<div class="header" data-title="And Even Closer&#x2026;&#x200B;"><h2>And Even Closer&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/learn/images/concurrency/concurrency-2.svg" alt="concurrency 2" width="640">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wrtGWgpftaLrDLCWbWZusLguUgCrHRaz">
+<div class="header" data-title="The Illusion of Parallelism"><h2>The Illusion of Parallelism</h2></div>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/learn/images/concurrency/concurrency-2.svg" alt="concurrency 2" width="640">
+</div>
+</div>
+<div class="paragraph lead">
+<p>All processors create the <em>illusion</em> of parallelism by rapidly switching between
+multiple programs.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="lzHEBVqXiNpNUtGBwYjDczStgPuwvANr">
+<div class="header" data-title="Human Perceptual Limitations"><h2>Human Perceptual Limitations</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Why does this work? <span class="bullet">Because <em>you are slow</em>.</span></p>
+</div>
+<div class="paragraph">
+<p>Assuming a 1 GHz processor:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>15 ms &quot;rule of thumb&quot;: <span class="bullet"><strong>15,000,000</strong> clock cycles!</span></p>
+</li>
+<li class="bullet">
+<p>40 ms based on 25 frames-per-second for &quot;smooth&quot; video: <span class="bullet"><strong>40,000,000</strong>
+clock cycles!</span></p>
+</li>
+<li class="bullet">
+<p>100 ms was the rule for old telephone systems, the delay point after
+which human conversation patterns start to break down: <span class="bullet"><strong>100,000,000</strong>
+clock cycles!</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xoRwvcVfWWhgVhCGDzvxZdrHjDnvzsOW">
+<div class="header" data-title="Today: Multicore Everywhere"><h2>Today: Multicore Everywhere</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/iG7o9.jpg" alt="iG7o9" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eXztgAnSiBfMWUadFLRFtTrkwUDCVzYf">
+<div class="header" data-title="Today&#x2019;s Reality: Both Real and Illusory Parallelism"><h2>Today&#x2019;s Reality: Both Real and Illusory Parallelism</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Today even your phone has multiple cores. So we have both:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Real</strong> parallelism: your phone is <em>actually</em> doing multiple things at once</p>
+</li>
+<li class="bullet">
+<p><strong>Illusory</strong> parallelism: each core is still rapidly switching between programs
+to create the illusion of <em>more</em> parallelism.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mfmyuxbtfEbMZLjgcMcjGmtmrrfDcotk">
+<div class="header" data-title="Single-Threaded"><h2>Single-Threaded</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  private static void process() {
+    for (int i = 0; i &lt; 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i &lt; 4; i++) {
+      process();
+    }
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>So far all of the code we&#x2019;ve written this semester only does <em>one thing</em> at a
+time.</p>
+</div>
+<div class="paragraph">
+<p>Sometimes we call this <em>single-threaded</em>, for reasons that will make sense
+shortly.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="JVmPyXcazfSIGMavSiStdRNzBPMpDXeV">
+<div data-title=" Single-Threaded Example"></div>
+<textarea class="janini spelling_exception">public class Example {
+  private static void process() {
+    for (int i = 0; i &lt; 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i &lt; 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="EOlaWWbCRSLYGtBPtTkeFCptwBiykAQs">
+<div class="header" data-title="But We Have Multiple Cores!"><h2>But We Have Multiple Cores!</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZDfZzTWFqbwRCAnpIbXPgKbfwpoqScER">
+<div class="header" data-title="Parallelism In Java"><h2>Parallelism In Java</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java allows us to create a separate <em>thread</em> of execution using the <code>Thread</code>
+class.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Each <code>Thread</code> executes separately, and threads may run in parallel on
+different cores if possible.</p>
+</li>
+<li class="bullet">
+<p>Each <code>Thread</code> can access the same program variables as other threads.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="yTiFNndxWuqnCbbxKXdaVoViKSKyLOAS">
+<div class="header" data-title="But What Is a Thread To Do?"><h2>But What Is a <code>Thread</code> To Do?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JsjPMjNefmUmdufHhmhkpcecpxoKKEjN">
+<div class="header" data-title="Runnables"><h2><code>Runnable</code>s</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example implements Runnable {
+  public void run() {
+    System.out.println(&quot;Hello!&quot;);
+  }
+  public static void main(final String[] unused) {
+    Thread t = new Thread(new Example());
+    t.start();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>When we create a <code>Thread</code> we need to give it something to do&#x2014;a function as
+an <em>entry point</em>. (Remember <code>main</code>?)</p>
+</div>
+<div class="paragraph">
+<p>We do this by having our class implement <code>Runnable</code> and provide a <code>public void
+run()</code> method.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RteOFhTDwNperQllWJLNWCbhceemNIbq">
+<div data-title=" Thread Interface"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="gvKoEAkoMowBvkchLItIzFLtbkqepyFz">
+<div data-title=" Threads: Broken"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  public void run() {
+    System.out.println(&quot;Hello!&quot;);
+  }
+  public static void main(final String[] unused) {
+    // Why doesn&apos;t this work?
+    Thread t = new Thread(new Example());
+    t.start();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="HdcyGgwHNYuHLaTzicStFAqjEsafteTU">
+<div data-title=" Threads: Less Broken"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  public void run() {
+    System.out.println(&quot;Hello!&quot;);
+  }
+  public static void main(final String[] unused) {
+    // This is better but inconsistent
+    Thread t = new Thread(new Example());
+    t.start();
+    System.out.println(&quot;World&quot;);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XeTIdUXxzzkgeMiLAbfsqSxBDwIehcgP">
+<div class="header" data-title="Controlling Threads"><h2>Controlling Threads</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java has multiple methods for controlling and communicating with <code>Thread</code>
+objects:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>thread.start()</code>: begin executing a <code>Thread</code></p>
+</li>
+<li class="bullet">
+<p><code>thread.join()</code>: wait for a <code>Thread</code> to complete</p>
+</li>
+<li class="bullet">
+<p><code>thread.interrupt()</code>: interrupt a <code>Thread</code>, causing an <code>InterruptedException</code>
+to be thrown</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="kcTKwyxSWcmiuKikSLoZugZutplnzJwz">
+<div data-title=" Threads: Fixed"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  public void run() {
+    System.out.println(&quot;Hello!&quot;);
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    // This is better but inconsistent
+    Thread t = new Thread(new Example());
+    t.start();
+    System.out.println(&quot;World&quot;);
+    t.join();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="BXEdotZhgaTxFCNVWIaMCMGMXTxgRsJb">
+<div data-title=" Single-Threaded Example"></div>
+<textarea class="janini spelling_exception">public class Example {
+  private static void process() {
+    for (int i = 0; i &lt; 20000000L; i++);
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i &lt; 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="NCTlWTlwVOJmcgRszSyclzECxrKoiJRW">
+<div data-title=" Multi-Threaded Example"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  public void run() {
+    for (int i = 0; i &lt; 20000000L; i++);
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i &lt; 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i &lt; 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="txxSufCibPcHnHnEoMdFeyJIqxiHcQmu">
+<div class="header" data-title="Concurrency v. Parallelism"><h2>Concurrency v. Parallelism</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You hear the terms <em>parallelism</em> and <em>concurrency</em> used together a lot, but each
+has a specific meaning:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Parallelism</strong>: multiple things <em>are</em> happening <strong>at the same time</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Concurrency</strong>: multiple parts of your program <em>can make progress</em> <strong>at the same
+time</strong></p>
+</li>
+<li class="bullet">
+<p>Watch
+<a href="https://blog.golang.org/concurrency-is-not-parallelism" target="_blank" class="external">this talk</a> by Googler Rob
+Pike if you want to clear up this distinction</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="utGepSzOyDoBRltAcayUiVLQdQffUePx">
+<div class="header" data-title="Why Concurrency Is Important"><h2>Why Concurrency Is Important</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Parallelism is important if your program spends a lot of time
+computing&#x2014;but most programs <em>don&#x2019;t</em>.</p>
+</div>
+<div class="paragraph">
+<p>They spend a lot of time waiting for other things to happen:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Waiting for the user to enter some input</p>
+</li>
+<li class="bullet">
+<p>Waiting for a read from the disk to complete</p>
+</li>
+<li class="bullet">
+<p>Waiting for some data from the network</p>
+</li>
+<li class="bullet">
+<p>Waiting for your web API call to complete</p>
+</li>
+</ul>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>If your program is concurrent, something useful can happen even while you&#x2019;re
+waiting for something else.</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eRTXNFcMorGOpEYygbyQPbvlJHOGMjAD">
+<div class="header" data-title="Android Aside"><h2>Android Aside</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>On Android there is a single user interface (UI) thread responsible for handling
+input like clicks.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If that thread get stuck waiting, the entire UI becomes unresponsive.</p>
+</li>
+<li class="bullet">
+<p>Which is why you need to do slow things using a background task&#x2014;or, in
+the case of Volley, using its queue.</p>
+</li>
+<li class="bullet">
+<p>This way the UI thread stays responsive even while slow operations like
+network requests are being completed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="TsJwmxPhJkSWvoGWaVydNidBWbPyRTiP">
+<div data-title=" Single-Threaded Example: Concurrency"></div>
+<textarea class="janini spelling_exception">public class Example {
+  private static void process() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public static void main(final String[] unused) {
+    long startTime = System.nanoTime();
+    for (int i = 0; i &lt; 4; i++) {
+      process();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="BmPnUnZajLxILhFKBUpWoZWUQXdqYYgF">
+<div data-title=" Multi-Threaded Example: Concurrency"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  public void run() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i &lt; 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i &lt; 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="kKVXScxCnFnrmwdtZebBwrgIqOBqdhzX">
+<div class="header" data-title="But Concurrency Can Create Problems&#x2026;&#x200B;"><h2>But Concurrency Can Create Problems&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="wQkgIwrPGLObAoJMOmospeGhcGuzKdpi">
+<div data-title=" Concurrency Creates Problems"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  private static int accountBalance = 10000;
+  public void run() {
+    int currentAccountBalance = accountBalance;
+    currentAccountBalance -= 10;
+    if (currentAccountBalance &lt; 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i &lt; 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i &lt; 10; i++) {
+      threads[i].join();
+    }
+    System.out.println(accountBalance);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="teCYbnUIEHPmjXEVAAADFHazUgAgSDtR">
+<div class="header" data-title="Race Condition"><h2>Race Condition</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>A
+<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" class="external">race condition</a>
+or race hazard is the behavior of an electronics, software, or other system
+where the output is <strong>dependent on the sequence or timing</strong> of other uncontrollable
+events.
+It becomes a bug when events do not happen in the order the programmer intended.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iVFSIkjLeqndstXEqlvzHVEOCfHuxSRD">
+<div class="header" data-title="Account Example: No Locking"><h2><span class="small">Account Example: No Locking</span></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Thread 1</th>
+<th class="tableblock valign-middle text-center">Thread 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance = 1000</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance = 1000</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance -= 10</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>accountBalance = 990</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance -= 10</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>accountBalance = 990</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UdtiOqmDuIfsbsdPIFqqGntGWMxKiFmi">
+<div class="header" data-title="Locks"><h2>Locks</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>One programming technique to avoid race conditions is to use a <em>lock</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Once one <code>Thread</code> grabs a lock no other threads can use the lock.</p>
+</li>
+<li class="bullet">
+<p>We then do our operation on the shared variable or resource.</p>
+</li>
+<li class="bullet">
+<p>And then drop the lock so that other threads can acquire it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yOKxVKQqNkcAUiwmnYEtgHhfLIKQZiwj">
+<div class="header" data-title="Account Example: Locking"><h2><span class="small">Account Example: Locking</span></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>// grab lock</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>// grab lock</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance = 1000</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance -= 10</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>accountBalance = 990</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>// release lock</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance = 990</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>currentAccountBalance -= 10</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>accountBalance = 980</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>// release lock</code></span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AFJpOaePBpApxVMAHJaOwVqLgrdtlNgt">
+<div class="header" data-title="Java synchronized Keyword"><h2>Java <code>synchronized</code> Keyword</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Only one `Thread` can run this method at once on each object
+public synchronized void withdraw() {
+    int currentAccountBalance = accountBalance;
+    System.out.println(currentAccountBalance);
+    currentAccountBalance -= 10;
+    if (currentAccountBalance &lt; 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java has a special keyword called <code>synchronized</code> that allows us to easily add a
+lock to any existing method.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HVCzgmsbdDtAVdKdqMJGHyXCOXalfEXo">
+<div class="header" data-title="Java synchronized Keyword"><h2>Java <code>synchronized</code> Keyword</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Only one `Thread` can run this method at once on the entire class
+public static synchronized void withdraw() {
+    int currentAccountBalance = accountBalance;
+    System.out.println(currentAccountBalance);
+    currentAccountBalance -= 10;
+    if (currentAccountBalance &lt; 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="quUytyricBobItBFNCdVMPPndZssDdxV">
+<div data-title=" Fixing Concurrency Problems"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  private static int accountBalance = 10000;
+  public void run() {
+    int currentAccountBalance = accountBalance;
+    currentAccountBalance -= 10;
+    if (currentAccountBalance &lt; 0) {
+      // throw Exception
+    }
+    accountBalance = currentAccountBalance;
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[10];
+    for (int i = 0; i &lt; 10; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i &lt; 10; i++) {
+      threads[i].join();
+    }
+    System.out.println(accountBalance);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="pawNOmlreGwAxlXIvFpgGjvhuOFwlMPK">
+<div class="header" data-title="However, Locking Degrades Concurrency"><h2>However, Locking Degrades Concurrency</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Concurrency encourages a <code>Thread</code> free for all, while locking makes them get in
+line.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="vJlXrBPXuYjIBEdNynUAdrCFsZKfCnlx">
+<div data-title=" Locking v. Concurrency"></div>
+<textarea class="janini spelling_exception">public class Example implements Runnable {
+  public static synchronized void slowDown() {
+    try {
+      Thread.sleep(10);
+    } catch (Exception e) { }
+  }
+  public void run() {
+    slowDown();
+  }
+  public static void main(final String[] unused) throws InterruptedException {
+    Thread[] threads = new Thread[4];
+    long startTime = System.nanoTime();
+    for (int i = 0; i &lt; 4; i++) {
+      Thread t = new Thread(new Example());
+      t.start();
+      threads[i] = t;
+    }
+    for (int i = 0; i &lt; 4; i++) {
+      threads[i].join();
+    }
+    long endTime = System.nanoTime();
+    System.out.println((System.nanoTime() - startTime) / 1000000.);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="jFhjQZLICyKhHtmneCbnNQCSBBnSOMwm">
+<div class="header" data-title="Questions About Concurrency or Parallelism?"><h2>Questions About Concurrency or Parallelism?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dKbHXSPMjiqRbjDTCFCoeoEkTGfUMwIq">
+<div class="header" data-title="Final Project Video"><h2>Final Project Video</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Before you attend this week&#x2019;s lab you need to upload your <strong>final project video</strong>
+to YouTube and submit the link using
+<a href="https://goo.gl/forms/0PmlPycCXmjDxhri2" target="_blank" class="external">this form</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#x2019;ll be showing these videos in class&#x2026;&#x200B;</p>
+</li>
+<li>
+<p>&#x2026;&#x200B;and at Thursday&#x2019;s Final Project Fair.</p>
+</li>
+<li>
+<p>Format is up to you, but you should definitely demo and discuss your final
+project.
+Both partners should be involved somehow.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="cOtlRqIjounwGToBJmYSjlEtUchpiMnv">
+<div class="header" data-title="Final Project Fair"><h2>Final Project Fair</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A reminder that our inaugural CS 125 Final Project Fair is <em>this Thursday</em>
+(5/3/2018) from 4&#x2013;6PM in Siebel.
+1% extra credit for participating.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Each lab section will choose two most impressive projects: one from a group of
+beginners, and a second in an open category.</p>
+</li>
+<li class="bullet">
+<p>Judging is from 4&#x2013;5:15PM, meaning that you should be set up and ready to
+go at 4PM.</p>
+</li>
+<li class="bullet">
+<p>There will be (good) food.</p>
+</li>
+<li class="bullet">
+<p>There will be awards at <strong>5:30PM</strong> in <em>Siebel 1404</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ysvJIHlvdTlnBHQeXSezhYYEeRFkDNWy">
+<div class="header" data-title="Wednesday: Review and ICES"><h2>Wednesday: Review and ICES</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Wednesday we&#x2019;ll discuss the final exam and I&#x2019;ll take questions.</p>
+</div>
+<div class="paragraph">
+<p>And, we&#x2019;ll do the ICES forms:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>If you get to 70% I&#x2019;ll release one of the short programming problems from the
+exam</p>
+</li>
+<li class="bullet">
+<p>If you get to 80% I&#x2019;ll release <em>another</em> programming problem from the
+exam</p>
+</li>
+<li class="bullet">
+<p>If you get to 90% I&#x2019;ll release <strong>a hard</strong> programming problem from the
+exam</p>
+</li>
+<li class="bullet">
+<p>Note that the TAs will be supervising the ICES forms so that I can trust the
+count. And the 8AM and 10AM classes are in this together.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OQTypSZRHchUUHbFdLIaQFjGiUWvIjZc">
+<div class="header" data-title="Tonight: ICES for EMP"><h2>Tonight: ICES for EMP</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Tonight is the last EMP session. We&#x2019;ll also do the ICES forms for EMP.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If you&#x2019;ve come at all this semester you&#x2019;ve probably realized that Liia and her
+team are super helpful.</p>
+</li>
+<li class="bullet">
+<p>Please show up tonight for some review and to leave her constructive ICES
+feedback.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oPmlAhLQXZHOyRTDLtxayLbzuEYIKtQF">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/7/">MP7 (the final project)</a> is out.
+Start wrapping up&#x2014;demos are this week and the fair is Thursday.</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

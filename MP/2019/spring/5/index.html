@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP5: Final Project</title>
+		<meta name="description" lang="en-us" content="MP5 gives you a chance to show what you&apos;ve learned this semester by planning and executing a project of your own choosing.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/5/" class="active" onclick="return false;">MP5<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/spring/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/spring/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/git/">Git</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/EWS/">EWS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#rules">2. Rules</a>
+            <ul>
+              <li><a class="nav-link" href="#partnering">2.1. Partner Rules</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#help">3. Getting Help</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">4. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#extra">4.1. Final Project Fair and Extra Credit</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">5. Submitting Your Work</a>
+            <ul>
+              <li><a class="nav-link" href="#cheating">5.1. Academic Integrity</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP5: Final Project</h1>
+      <div class="paragraph lead">
+<p>You&#x2019;ve learned a lot this semester.
+Now it&#x2019;s time to try out your newly-acquired super powers.
+MP5 is not about us giving you something to do&#x2014;it&#x2019;s about you
+accomplishing something <em>you want</em> to do using computer science.</p>
+</div>
+<div class="paragraph">
+<p>MP5 is different than previous MPs.
+It is done in pairs with a partner from your lab section.
+And it&#x2019;s due in your lab section during the last week of class: so during lab on
+either <strong>Tuesday 4/30/2019</strong> or <strong>Wednesday 5/1/2019</strong>.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;re also giving you a chance to earn <a href="#extra">extra credit</a> by doing a great
+project <em>and</em> participating in our third biannual Final Project Fair.
+The fair itself will be held from 1&#x2013;3PM on 5/2/2019 (Reading Day)
+throughout Siebel.
+But we&#x2019;ll also be doing awards the <em>next</em> day, Friday 5/3/2019, at 1:30PM in
+Lincoln Hall&#x2014;during our official exam time.
+You&#x2019;ll need to attend both events to receive extra credit!</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If the previous MPs have had you execute carefully-planned routes from point A
+to point B, MP5 takes you on a journey off the map.
+You&#x2019;ll learn how to plan and execute a small Android project of your own design.
+You&#x2019;ll also learn how to work with a partner.
+We&#x2019;ll also continue to reinforce the learning objectives from previous
+MPs&#x2014;<a href="/MP/2019/spring/1/">1</a>, <a href="/MP/2019/spring/2/">2</a>,
+<a href="/MP/2019/spring/3/">3</a>, and <a href="/MP/2019/spring/4/">4</a>.
+In many ways, all the previous MPs have been designed to prepare you for this
+moment.
+MP5 brings everything together and starts you out on a career as an independent
+software developer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="rules"></a><h2>2. Rules</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our goal in MP5 is to give you as much flexibility as possible, so there are few
+rules about what you can and can&#x2019;t do.
+But those that we do have are important:</p>
+</div>
+<div class="paragraph">
+<p>You <em>must</em> do something new for MP5.
+Do not submit something from another class, or something you&#x2019;ve done previously.
+You may want to work on something that you&#x2019;ve started on previously, but given
+that you&#x2019;ll be working with a partner that&#x2019;s not fair to them.
+So you should pick something new to do for MP5.
+It doesn&#x2019;t have to be a huge project&#x2014;you only have a few weeks.
+But it should be original work.</p>
+</div>
+<div class="paragraph">
+<p>Here are the rest of the rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You need to build an Android app.</p>
+</li>
+<li>
+<p>You need to design a simple UI. We&#x2019;ll provide help with that in lab.</p>
+</li>
+<li>
+<p>You&#x2019;ll need to finish your UI mockup in a week and demo it in lab.</p>
+</li>
+<li>
+<p>You need to use a new web API, software library, or Android feature.</p>
+</li>
+<li>
+<p>You need to commit your work to GitHub&#x2014;to either a public or private
+GitHub repository.</p>
+</li>
+<li>
+<p>You need to work with someone in your lab section.</p>
+</li>
+<li>
+<p><strong>You cannot build a weather app or a calorie counter.</strong>
+We&#x2019;ve seen too many of those recently.</p>
+</li>
+<li>
+<p><strong>Other than that, what to do is up to you.</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You turn in MP5 by recording a YouTube presentation which will be shown in lab
+during the last week of class.
+You and your partner should plan that together.
+<strong>You <em>do</em> have to publish your work on GitHub (or GitLab, or something
+similar)&#x2014;privately if you want.</strong>
+So you should set up your project using Git and be able to show that you have
+committed and pushed your code to GitHub as part of your turn-in presentation.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="partnering"></a><h3>2.1. Partner Rules</h3>
+<div class="paragraph">
+<p>(Largely copied from the <a href="/lab/2019/spring/11/">Lab 11 writeup</a>).</p>
+</div>
+<div class="paragraph">
+<p>The final project is done in <strong>groups of two</strong>
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;A single group of three is acceptable if your lab has an odd number of students&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">1</span>.
+Obviously you want to find someone to work with that you enjoy working with and
+think that you can do an awesome project with&#x2014;since we will be giving
+extra credit for some of the best projects.
+Another consideration is ensuring that at least one of you has a laptop that can
+smoothly run Android Studio and the emulator, or an Android phone for demoing
+your new application.</p>
+</div>
+<div class="paragraph">
+<p>If you would like to work with someone from another lab section, <em>you must both
+attend the same lab and work together for the remaining three labs</em>.
+This means that only one of you will receive participation credit for that lab.
+<strong>You will not receive credit for working in lab without your
+partner.</strong>
+If you want to work with someone from another lab, this is the tradeoff you will
+have to make.
+(Remember that you have three excused lab absences.)</p>
+</div>
+<div class="paragraph">
+<p>You need to find a partner by lab the week of 4/15/2019.
+There is a checkpoint in lab next week, and you will start losing credit quickly
+if you don&#x2019;t have a partner.
+Use the forum to find one if needed.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="help"></a><h2>3. Getting Help</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While MP5 is self-driven, please feel free to approach the course staff for
+help.
+Post on the <a href="https://cs125-forum.cs.illinois.edu/c/mps/spring2019-mp5" class="noexternal">forum</a>, or come to office hours and discuss your project idea and
+implementation with the course staff.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Grading for MP5 will be generous.
+It is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>20 points</strong> for building an original <em>and</em> working Android app</p>
+</li>
+<li>
+<p><strong>20 points</strong> for the first UI checkpoint&#x2014;in lab the week of 4/22/2019.</p>
+</li>
+<li>
+<p><strong>20 points</strong> for using a new web API, software library, or Android feature</p>
+</li>
+<li>
+<p><strong>10 points</strong> for ensuring that all team members have roles in the project</p>
+</li>
+<li>
+<p><strong>20 points</strong> for recording your YouTube video and showing it during your final lab section</p>
+</li>
+<li>
+<p><strong>10 points</strong> for properly publishing your work on GitHub</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>There is (obviously) no autograding or online testing for MP5.
+Grades are entirely at the discretion of the course staff.</p>
+</div>
+<div class="paragraph">
+<p><strong>Also note that, like previous MPs, MP5 cannot be dropped.</strong>
+It&#x2019;s too important&#x2014;this is your chance to do something cool, creative, and
+to show us everything you&#x2019;ve learned this semester.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="extra"></a><h3>4.1. Final Project Fair and Extra Credit</h3>
+<div class="paragraph">
+<p>MP5 also provides an opportunity to earn extra credit by participating in our CS
+125 Final Project Fair.
+We are providing extra credit as follows:</p>
+</div>
+<div class="ulist s">
+<ul>
+<li>
+<p><strong>1%</strong> increase in your final CS 125 grade for participating in <em>both</em> the final
+project fair, from 1&#x2013;3PM on Thursday 5/2/2019 in Siebel, and the awards
+ceremony, at 1:30PM on Friday 5/3/2019 in Lincoln Hall.</p>
+</li>
+<li>
+<p><strong>1%</strong> increase in your final CS 125 grade if your project is judged to be one
+of the most impressive.
+Note that <em>we will take into account your level of ability when you started CS
+125</em> when determining how impressive your project is.
+So this is open to students of all ability levels.</p>
+</li>
+<li>
+<p><strong>1%</strong> increase in your final CS 125 grade if one of the projects from <em>your
+lab</em> is judged to be most impressive.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that the maximum extra credit is 2%: if you participate in the fair and
+either have one of the most impressive projects or are in a lab that has one.
+Put another way, if you have one of the most impressive projects you don&#x2019;t get
+an extra 1% from the lab incentive.
+However, this extra credit is independent from any previous extra credit that
+you might have earned earlier this semester.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You and your partner should prepare a 5 minute presentation for the last lab
+section during the final week of class.
+<strong>You will not give the presentation live during your lab section.</strong>
+Instead, you should prerecord your presentation and upload it to YouTube.</p>
+</div>
+<div class="paragraph">
+<p>Your presentation should cover what you did, why you did it, who did what, and
+any other interesting details: interesting technical problems you encountered,
+how you collaborated, or ideas for future work.
+You should also confirm that this was an original project and that it was
+published to GitHub under one or both of the project partner&#x2019;s accounts.</p>
+</div>
+<div class="paragraph">
+<p>Once your video is done use
+<a href="https://forms.gle/LwPeeZnK68tqJXPo8" target="_blank" class="external">this form</a>
+to register your project video and GitHub (or GitLab) repository and sign up for
+the final project fair.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="cheating"></a><h3>5.1. Academic Integrity</h3>
+<div class="paragraph">
+<p>Please review the <a href="/MP/2019/spring/0#cheating">MP0 academic integrity guidelines</a>.
+In addition, for MP5 any attempt to turn in non-original work will be treated as
+an academic integrity violation.
+Consider yourself warned.</p>
+</div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/spring/5.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/spring/5.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

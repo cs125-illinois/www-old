@@ -1,0 +1,585 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP6: Recursion</title>
+		<meta name="description" lang="en-us" content="MP6 introduces you to recursion and continues to reinforce aspects of object-oriented design, including extension and generic types.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Fall 2017</strong>
+            </li>
+            <li><div class="dropdown-divider"></div></li>
+            <li>
+              <a href="/MP/2017/fall/7/">MP7</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/6/" class="active" onclick="return false;">MP6<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/1/">MP1</a>
+            </li>
+            <li>
+              <span data-active="^MP/2017/fall/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2017/fall/setup/subversion/">Subversion</a>
+                </li>
+                <li>
+                  <a href="/MP/2017/fall/setup/eclipse/">Eclipse</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#getting">2.1. Obtaining MP6</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#approach">3. Approaching MP6</a>
+            <ul>
+              <li><a class="nav-link" href="#_understand_the_requirements">3.1. Understand The Requirements</a></li>
+              <li><a class="nav-link" href="#_designing_recursive_functions">3.2. Designing Recursive Functions</a></li>
+              <li><a class="nav-link" href="#trees">3.3. Binary Trees</a></li>
+              <li><a class="nav-link" href="#_getting_help">3.4. Getting Help</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">4. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#testing">4.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#autograding">4.2. Autograding</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">5. Submitting Your Work</a>
+            <ul>
+              <li><a class="nav-link" href="#cheating">5.1. Academic Integrity</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP6: Recursion</h1>
+      <div class="paragraph lead">
+<p>Recursion is an important and powerful programming technique.
+Sometimes it is the best way to solve a problem, and sometimes it is almost <em>the
+only</em> way to solve a problem.
+Recursion can be tricky to wrap your head around at first, but as usual the best
+way to get comfortable with this technique is to practice.</p>
+</div>
+<div class="paragraph">
+<p>For MP6 you&#x2019;ll complete several programming tasks that encourage you to develop
+recursive solutions.
+<strong>It is due Friday, November 17th, 2017 @ 5PM. To receive full credit, you must
+submit by this deadline.</strong>
+In addition, 10% of your grade on MP6 is for committing code that earns at least
+<em>50 points</em> by <strong>Monday, November 13th, 2017 @ 5PM.</strong></p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP6 introduces the concept of recursive programming.
+You&#x2019;ll learn how to complete simple recursive methods to accomplish common
+programming tasks.
+We&#x2019;ll also introduce you to binary trees, an important computer science data
+structure and one very amenable to recursive approaches.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also continue to reinforce the learning objectives from previous MPs
+(<a href="/MP/2017/fall/1/">1</a>, <a href="/MP/2017/fall/2/">2</a>, <a href="/MP/2017/fall/3/">3</a>, <a href="/MP/2017/fall/4/">4</a>, and
+<a href="/MP/2017/fall/5/">5</a>).
+In particular, MP6 requires you to continue practicing object-oriented design,
+both through subclassing and the use of generic types.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP6 consists of three programming tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ReverseList.java</code>: here you must extend a generic parent class and provide a
+reversal method, either using recursion or iteratively.
+Consider this task a warm up.
+List reversal is straightforward, and the hardest part of this task is probably
+getting the generic subclassing right.</p>
+</li>
+<li>
+<p><code>Tree.java</code>: here you must complete a binary tree class, including adding
+constructors and insertion methods, along with methods that search and perform
+computations on your tree.
+This tasks contains the bulk of the points for the MP, so work on it once you&#x2019;ve
+finished <code>ReverseList.java</code>.</p>
+</li>
+<li>
+<p><code>DNA.java</code>: for the final task you must complete a class that stores a DNA
+sequence and a static method that computes the longest common subsequence of two
+DNA instances.
+Longest common subsequence is the hardest algorithmic challenge on this MP, so
+leave this for the end.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Like <a href="/MP/2017/fall/5/">MP5</a>, MP6 provides a bit less scaffolding than previous MPs.
+The official specification is our
+<a href="https://cs125-illinois.github.io/Fall-2017-MP6/" target="_blank" class="external">MP6 online documentation</a>.
+It should precisely define what each public method in each class should do.
+Private methods are left for you to design in any way that allows the tests to
+pass.
+If you believe that the documentation is unclear, please post on
+the <a href="https://cs125-forum.cs.illinois.edu" class="noexternal">forum</a> and we&#x2019;ll offer a clarification is needed.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="getting"></a><h3>2.1. Obtaining MP6</h3>
+<div class="paragraph">
+<p>Please follow the instructions from <a href="/MP/2017/fall/1/#getting">MP1</a>.
+You&#x2019;ll find MP6 in an <code>MP6</code> folder in your Subversion home directory.
+Unless you want to learn a lot more about Subversion, <strong>do not delete your MP6
+folder on the server.</strong>
+This is something that you cannot fix on your own using the Eclipse Subversive
+Subversion plugin, and will need to get course staff help with.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="approach"></a><h2>3. Approaching MP6</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Completing MP6 requires writing fewer lines of code than <a href="/MP/2017/fall/4">MP4</a> and
+<a href="/MP/2017/fall/5/">MP5</a>.
+But it is <em>recursive</em> code, so it will take you longer.
+Don&#x2019;t expect to make as much progress writing recursive code when you are
+getting started.
+It&#x2019;s tricky, and takes practice.
+Slow down and focus on applying the recursive design principles that we&#x2019;ve
+taught in lecture and in lab.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_understand_the_requirements"></a><h3>3.1. Understand The Requirements</h3>
+<div class="paragraph">
+<p>To complete MP6 you <em>must</em> understand the
+<a href="https://cs125-illinois.github.io/Fall-2017-MP6/" target="_blank" class="external">specification</a>.
+Read that first.
+And then read it again.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_designing_recursive_functions"></a><h3>3.2. Designing Recursive Functions</h3>
+<div class="paragraph">
+<p>Recall the guidelines for designing recursive functions that we presented in
+Lab 10:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Every recursive function must have a base case.</strong>
+If you don&#x2019;t stop recursing, you will eventually run out of memory and
+your program will crash.
+So there must be some case where you do not call yourself again.</p>
+</li>
+<li>
+<p><strong>The base case must be reached.</strong>
+As a corollary to the above, every set of recursive calls must eventually
+<em>reach</em> the base case, otherwise (again) your program will recurse infinitely,
+run out of memory and crash.</p>
+</li>
+<li>
+<p><strong>The problem should get smaller each time.</strong>
+Each recursive step should reduce the size of the problem somehow.
+This can happen in several ways.
+In Fibonacci, for example, we reduce the size of the problem by reduction toward
+known staring values.
+When processing trees, we reduce the size of the problem by splitting the tree
+into several subtrees which are considered separately.
+How this happens depends on the problem, but it does need to happen somehow.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>It can also be helpful to consider simple cases.
+How do you reverse a list with only one element?
+Now, extend that to a list with two elements, then three.
+You may begin to see a pattern emerge that helps you understand how to design
+your recursive approach.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="trees"></a><h3>3.3. Binary Trees</h3>
+<div class="paragraph lead">
+<p>MP6 also introduces you to
+<a href="https://en.wikipedia.org/wiki/Binary_tree" target="_blank" class="external"><em>binary trees</em></a>,
+an important computer science data structure.
+Binary trees are also recursive data structures, in that each tree node refers
+to other tree nodes, including a parent (moving up the tree) and two children
+(down the tree).</p>
+</div>
+<div class="paragraph">
+<p>Like other data structures, binary trees are useful because of the algorithms
+that we can run on them.
+Sorting and searching can be particularly efficient on binary trees due to the
+way that they structure data.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="insertion"></a><h4>3.3.1. Insertion algorithm</h4>
+<div class="paragraph">
+<p>There are many great online resources to help you learn about binary trees.
+But let&#x2019;s consider one of the more basic tree operations: insertion.
+Storing data in my tree requires that I be able to insert values.
+And being able to efficiently search for values later requires that I perform
+insertions in a particular way.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start at the root of the tree.</p>
+</li>
+<li>
+<p>Compare the value that is being inserted with the value of the current node.</p>
+</li>
+<li>
+<p>If it is larger, try to move to the right.</p>
+</li>
+<li>
+<p>If it is smaller, try to move to the left.</p>
+</li>
+<li>
+<p>If the current node has a left or right child (depending on the choice above),
+make that the current node and continue.</p>
+</li>
+<li>
+<p>Otherwise set the left or right child (depending on the choice above) of the
+current node to a new node with the new inserted value.</p>
+</li>
+<li>
+<p>Continue until the node is inserted.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note that your binary trees can reject duplicate values.
+So if you reach a node that has the <em>same</em> value as the one you are trying to
+insert, the insertion can fail.</p>
+</div>
+<div class="paragraph">
+<p>If you maintain the sorted structure during your insertions as described above,
+the other algorithms that we ask you to complete on trees will be
+straightforward.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_help"></a><h3>3.4. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/2017/fall/syllabus/#calendar">office hours</a>, or post (in the
+right place) on the <a href="https://cs125-forum.cs.illinois.edu" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP6 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>10 points</strong>: <code>ReverseList.java</code></p>
+</li>
+<li>
+<p><strong>50 points</strong>: <code>Tree.java</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for constructors and insertion</p>
+</li>
+<li>
+<p><strong>10 points</strong> for minimum and maximum</p>
+</li>
+<li>
+<p><strong>10 points</strong> for search</p>
+</li>
+<li>
+<p><strong>10 points</strong> for depth counting</p>
+</li>
+<li>
+<p><strong>10 points</strong> for descendant counting</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>20 points</strong>: <code>DNA.java</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for committing code that earns at least 50 points before
+Monday, November 13th, 2017 @ 5PM.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="testing"></a><h3>4.1. Test Cases</h3>
+<div class="paragraph">
+<p>As in previous MPs, we have provided exhaustive test cases
+for each part of MP6.
+Please review the <a href="/MP/2017/fall/1/#testing">MP1 testing instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>4.2. Autograding</h3>
+<div class="paragraph">
+<p>Like previous assignments, we provide you with an autograding script that you
+can use to estimate your current grade as often as you want.
+Note that, like previous MPs, the local autograder can only calculate 90 out of
+your 100 total points.</p>
+</div>
+<div class="paragraph">
+<p>Unless you have modified the test cases or autograder configuration files, the
+autograding output should equal the score that you will earn when you submit.
+<strong>If you modify our test cases or the autograding configuration, all bets are
+off.</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Overall you should refer to <a href="/MP/2017/fall/setup/subversion">our instructions for using
+Subversion</a>.
+Commit early and often!
+You only earn credit for the version of your code that is committed to your
+repository, so ensure that we have your best submission before the deadline.</p>
+</div>
+<div class="paragraph">
+<p>And remember, you must commit something that earns 50 points before <strong>Monday,
+November 13th, 2017 @ 5PM</strong> to earn 10 points on the assignment.
+This is a bit of a higher bar than in previous assignments, since fixing
+checkstyle errors will only get you 10 points and there are no points for just
+compiling.
+So you&#x2019;ll need to complete a few bits of class logic past this bar.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="cheating"></a><h3>5.1. Academic Integrity</h3>
+<div class="paragraph">
+<p>Please review the <a href="/MP/2017/fall/1/">MP1 academic integrity guidelines</a>.</p>
+</div>
+</div>
+</div>
+</div>
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2017/fall/6.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2017/fall/6.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

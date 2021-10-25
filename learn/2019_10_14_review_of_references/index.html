@@ -1,0 +1,1086 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Review of References</title>
+  <meta name="description" lang="en-us" content="A review of object references and an introduction to interfaces.">
+
+  <meta name="slider-id" content="175d29fd-c70d-4343-9c24-e6bfb4eb1c87">
+  <meta name="slider-semester" content="Fall2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="XvVPGwaRhahvjdxCblIifRgJogEUVwFu">
+
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Add add = new Adder();
+    System.out.println(add.add(10, 12));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Review of References&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Review of References<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="FGYdgTOISDkkODtssqfnpsFbxSkPbHkB">
+<div class="header" data-title="ACM Mental Health Awareness Night"><h2>ACM Mental Health Awareness Night</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>Tuesday</strong> (tomorrow) 10/15 from 8&#x2013;9PM in Siebel 2405.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EqKwDFinakbAdndbazGzcnYdaSteqzbn">
+<div class="header" data-title="Mental Health in Computer Science"><h2>Mental Health in Computer Science</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>Don&#x2019;t be a computer.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Computers are never wrong.</p>
+</li>
+<li class="bullet">
+<p>Computers incessantly point out human error.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WwXpSnJMPNyKcjfXjcoBEIsidpgMSQUI">
+<div class="header" data-title="Mental Health in Computer Science"><h2>Mental Health in Computer Science</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>Be <em>not</em> a computer.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If a computer can do it, it&#x2019;s not uniquely human.</p>
+</li>
+<li class="bullet">
+<p>Try to emphasize your human qualities when interacting with
+others&#x2014;especially with computer scientists.</p>
+</li>
+<li class="bullet">
+<p>Also join the Computer Support Group that meets daily in Siebel 0403&#x2026;&#x200B;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="DCjjzoWayWemShjeeEvuUguuRORBFmoa">
+<div class="header" data-title="Speaking of Being Wrong&#x2026;&#x200B;"><h2>Speaking of Being Wrong&#x2026;&#x200B;</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The machine project is intended to be confusing and frustrating at times&#x2026;&#x200B;
+<span class="bullet">but not <em>this</em> confusing and frustrating.</span></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gbmhhCeQihSnWTncaxVammGvmTimOWma">
+<div class="header" data-title="The Machine Project is Too Hard"><h2>The Machine Project is Too Hard</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>That&#x2019;s entirely my fault, and I apologize.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>When we try new things we sometimes have to make adjustments, and probably
+should have made this one sooner.</p>
+</li>
+<li class="bullet">
+<p>It&#x2019;s also been putting a huge amount of stress on the course staff, who have
+been handling things extremely well.</p>
+</li>
+<li class="bullet">
+<p>And you&#x2019;re also all doing quite well, despite the increased difficulty level.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sRduSZBCdgOdTaZTGFzJoFnsnGPvGcrM">
+<div class="header" data-title="Adjusting the MP Difficulty Level"><h2>Adjusting the MP Difficulty Level</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Here&#x2019;s what we&#x2019;re going to do.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>We&#x2019;re adjusting the length and difficulty level of the remaining parts of the
+MP</p>
+</li>
+<li class="bullet">
+<p><strong>We&#x2019;ve also provided everyone with 1 MP checkpoint drop.</strong> (The grades page
+is up-to-date as of this morning.)</p>
+</li>
+<li class="bullet">
+<p>The midterm grades that went out over the weekend <em>do not</em> include this
+change.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="RPklXieYiAOiKUpqaXyAyoedKIGNYyYH">
+<div class="header" data-title="Questions or Concerns?"><h2>Questions or Concerns?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I have office hours <em>today</em> from 1&#x2013;3PM if you want to come by and chat.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XxGahOwmXfZrBFQuELVZOxrslVpDJEnC">
+<div class="header" data-title="Review: References"><h2>Review: References</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Reference_(computer_science)" target="_blank" class="external">Reference:</a>
+a value that enables a program to <em>indirectly</em> access a particular datum, such
+as a variable&#x2019;s value or a record, in the computer&#x2019;s memory or in some other
+storage device.
+The reference is said to refer to the datum, and accessing the datum is called
+dereferencing the reference.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jhiIsrkMqrXqNBPNwaMQPVIGXpdHPnge">
+<div class="header" data-title="Review: Java Reference Variables"><h2>Review: Java Reference Variables</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person { }
+/*
+ * me is declared to hold a reference to an object of type Person,
+ * but currently refers to nothing.
+ */
+Person me;
+
+/*
+ * Initializing an instance to null is another way of indicating
+ * that it currently refers to nothing.
+ */
+Person you = null;
+
+me = new Person(); // Now me refers to a new Person object
+you = me; // Now me and you refer to the same Person object
+System.out.println(you == me);
+you = new Person(); // Now you refers to a new Person object
+System.out.println(you == me);</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We can refer to a Java variable that refers to an object as a <em>reference
+variable</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dKbotvmzkEPDwFtKDtWfbWLWtsQvtzUv">
+<div class="header" data-title="Review: References Are Not Objects"><h2>Review: References Are Not Objects</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>References <em>are not</em> the thing the refer to.</p>
+</div>
+<div class="paragraph">
+<p>Some real-world references include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>A phone number</strong>: which refers to a phone</p>
+</li>
+<li>
+<p><strong>A street address</strong>: which refers to a physical location</p>
+</li>
+<li>
+<p><strong>A social security number</strong>: which refers to a person</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="itfuafekfLjAzwwbVrkStPQVIGyxObCF">
+<div class="header" data-title="Review: Copying References"><h2>Review: Copying References</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Copying a reference <em>does not</em> copy the object it refers to.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Copying a phone number doesn&#x2019;t copy the phone.</strong>
+Anyone with the number can call the same person.</p>
+</li>
+<li class="bullet">
+<p><strong>Copying a street address doesn&#x2019;t copy the location.</strong>
+Anyone with the address can navigate to the same spot.</p>
+</li>
+<li class="bullet">
+<p><strong>Copying a social security number doesn&#x2019;t copy the person</strong> <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Is that even possible?&lt;/body&gt;&lt;/html&gt;">1</span>.
+Anyone with social security number may be able to impersonate that person.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="mIzaMkJisKMhTtGuDJdBQQQLzmaeZvUp">
+<div class="header" data-title="Copying References"><h2>Copying References</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+}
+Person me;</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="45pt" viewBox="0.00 0.00 64.00 45.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="FZcSkxIIjuIEcDHc">
+<g id="graph0_FZcSkxIIjuIEcDHc" class="graph" transform="scale(1 1) rotate(0) translate(4 41)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-41 60,-41 60,4 -4,4"/>
+<!-- me -->
+<g id="node1_FZcSkxIIjuIEcDHc" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 56,-36.5 56,-.5 0,-.5"/>
+<text text-anchor="middle" x="28" y="-13.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="oTxeeptDAAbhPoFfhrUmlbRqOGBifBCI">
+<div class="header" data-title="Copying References"><h2>Copying References</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="73pt" viewBox="0.00 0.00 255.00 73.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="bXIJLfCbzXWytfEr">
+<g id="graph0_bXIJLfCbzXWytfEr" class="graph" transform="scale(1 1) rotate(0) translate(4 69)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-69 251,-69 251,4 -4,4"/>
+<!-- Person -->
+<g id="node1_bXIJLfCbzXWytfEr" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="151,-.5 151,-64.5 247,-64.5 247,-.5 151,-.5"/>
+<text text-anchor="middle" x="199" y="-43.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="151,-32.5 247,-32.5 "/>
+<text text-anchor="middle" x="199" y="-11.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 0</text>
+</g>
+<!-- me -->
+<g id="node2_bXIJLfCbzXWytfEr" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="0,-14.5 0,-50.5 56,-50.5 56,-14.5 0,-14.5"/>
+<text text-anchor="middle" x="28" y="-27.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_bXIJLfCbzXWytfEr" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M56.2372,-32.5C79.1327,-32.5 112.1673,-32.5 140.6938,-32.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="140.9724,-36.0001 150.9724,-32.5 140.9724,-29.0001 140.9724,-36.0001"/>
+<text text-anchor="middle" x="103.5" y="-37.7" font-family="Open Sans" font-size="16.00" fill="#000000">refers to</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="HRLZQYDutqYyuRJLAfRTUKWsHAAnIsXh">
+<div class="header" data-title="Copying References"><h2>Copying References</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="100pt" viewBox="0.00 0.00 260.00 100.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="SehXWYOFXnBwWdlf">
+<g id="graph0_SehXWYOFXnBwWdlf" class="graph" transform="scale(1 1) rotate(0) translate(4 96)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-96 256,-96 256,4 -4,4"/>
+<!-- Person -->
+<g id="node1_SehXWYOFXnBwWdlf" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="156,-13.5 156,-77.5 252,-77.5 252,-13.5 156,-13.5"/>
+<text text-anchor="middle" x="204" y="-56.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="156,-45.5 252,-45.5 "/>
+<text text-anchor="middle" x="204" y="-24.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 0</text>
+</g>
+<!-- me -->
+<g id="node2_SehXWYOFXnBwWdlf" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="2.5,-55.5 2.5,-91.5 58.5,-91.5 58.5,-55.5 2.5,-55.5"/>
+<text text-anchor="middle" x="30.5" y="-68.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_SehXWYOFXnBwWdlf" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M58.7619,-68.939C82.2112,-65.1547 116.3327,-59.648 145.6112,-54.923"/>
+<polygon fill="#13294b" stroke="#13294b" points="146.4253,-58.337 155.7399,-53.2884 145.31,-51.4264 146.4253,-58.337"/>
+<text text-anchor="middle" x="108.5" y="-69.7" font-family="Open Sans" font-size="16.00" fill="#000000">refers to</text>
+</g>
+<!-- you -->
+<g id="node3_SehXWYOFXnBwWdlf" class="node">
+<title>you</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 61,-36.5 61,-.5 0,-.5"/>
+<text text-anchor="middle" x="30.5" y="-13.5" font-family="Open Sans" font-size="20.00" fill="#000000">you</text>
+</g>
+<!-- you&#45;&gt;Person -->
+<g id="edge2_SehXWYOFXnBwWdlf" class="edge">
+<title>you-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M61.1325,-22.4328C82.6681,-25.2812 112.1383,-29.3464 138,-33.5 140.5154,-33.904 143.0828,-34.3265 145.6749,-34.7616"/>
+<polygon fill="#13294b" stroke="#13294b" points="145.2904,-38.2466 155.7382,-36.4882 146.4742,-31.3475 145.2904,-38.2466"/>
+<text text-anchor="middle" x="108.5" y="-38.7" font-family="Open Sans" font-size="16.00" fill="#000000">refers to</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="BNDFZUWJXXyorFCxmkBrigvGUpbPKsEb">
+<div class="header" data-title="Copying References"><h2>Copying References</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="100pt" viewBox="0.00 0.00 265.00 100.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="JuLOTdsMnbrNBNTL">
+<g id="graph0_JuLOTdsMnbrNBNTL" class="graph" transform="scale(1 1) rotate(0) translate(4 96)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-96 261,-96 261,4 -4,4"/>
+<!-- Person -->
+<g id="node1_JuLOTdsMnbrNBNTL" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="150,-13.5 150,-77.5 257,-77.5 257,-13.5 150,-13.5"/>
+<text text-anchor="middle" x="203.5" y="-56.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="150,-45.5 257,-45.5 "/>
+<text text-anchor="middle" x="203.5" y="-24.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 10</text>
+</g>
+<!-- me -->
+<g id="node2_JuLOTdsMnbrNBNTL" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="2.5,-55.5 2.5,-91.5 58.5,-91.5 58.5,-55.5 2.5,-55.5"/>
+<text text-anchor="middle" x="30.5" y="-68.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_JuLOTdsMnbrNBNTL" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M58.6805,-68.939C80.5957,-65.392 111.8594,-60.332 139.7332,-55.8206"/>
+<polygon fill="#13294b" stroke="#13294b" points="140.5132,-59.24 149.8255,-54.1872 139.3948,-52.3299 140.5132,-59.24"/>
+<text text-anchor="middle" x="105.5" y="-69.7" font-family="Open Sans" font-size="16.00" fill="#000000">set age</text>
+</g>
+<!-- you -->
+<g id="node3_JuLOTdsMnbrNBNTL" class="node">
+<title>you</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 61,-36.5 61,-.5 0,-.5"/>
+<text text-anchor="middle" x="30.5" y="-13.5" font-family="Open Sans" font-size="20.00" fill="#000000">you</text>
+</g>
+<!-- you&#45;&gt;Person -->
+<g id="edge2_JuLOTdsMnbrNBNTL" class="edge">
+<title>you-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M61.0307,-23.2649C82.792,-26.6612 112.8356,-31.3501 139.7256,-35.5468"/>
+<polygon fill="#13294b" stroke="#13294b" points="139.4331,-39.0434 149.8532,-37.1274 140.5126,-32.1271 139.4331,-39.0434"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="EbMSAXuEuSUQYYKcghZAlJXEgDAazCWh">
+<div class="header" data-title="Copying References"><h2>Copying References</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+}
+Person me = new Person();
+Person you = me;
+me.age = 10;
+System.out.println(you.age);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="100pt" viewBox="0.00 0.00 266.00 100.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="mpmvYunNcfVuftnd">
+<g id="graph0_mpmvYunNcfVuftnd" class="graph" transform="scale(1 1) rotate(0) translate(4 96)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-96 262,-96 262,4 -4,4"/>
+<!-- Person -->
+<g id="node1_mpmvYunNcfVuftnd" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="151,-13.5 151,-77.5 258,-77.5 258,-13.5 151,-13.5"/>
+<text text-anchor="middle" x="204.5" y="-56.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="151,-45.5 258,-45.5 "/>
+<text text-anchor="middle" x="204.5" y="-24.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 10</text>
+</g>
+<!-- me -->
+<g id="node2_mpmvYunNcfVuftnd" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="2.5,-55.5 2.5,-91.5 58.5,-91.5 58.5,-55.5 2.5,-55.5"/>
+<text text-anchor="middle" x="30.5" y="-68.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_mpmvYunNcfVuftnd" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M58.8434,-68.939C80.971,-65.3782 112.5745,-60.2926 140.6917,-55.768"/>
+<polygon fill="#13294b" stroke="#13294b" points="141.552,-59.1747 150.8689,-54.1303 140.4398,-52.2636 141.552,-59.1747"/>
+</g>
+<!-- you -->
+<g id="node3_mpmvYunNcfVuftnd" class="node">
+<title>you</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 61,-36.5 61,-.5 0,-.5"/>
+<text text-anchor="middle" x="30.5" y="-13.5" font-family="Open Sans" font-size="20.00" fill="#000000">you</text>
+</g>
+<!-- you&#45;&gt;Person -->
+<g id="edge2_mpmvYunNcfVuftnd" class="edge">
+<title>you-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M61.2072,-23.2649C83.1808,-26.6746 113.5506,-31.3872 140.6775,-35.5965"/>
+<polygon fill="#13294b" stroke="#13294b" points="140.4727,-39.1065 150.8912,-37.1814 141.5461,-32.1893 140.4727,-39.1065"/>
+<text text-anchor="middle" x="106" y="-38.7" font-family="Open Sans" font-size="16.00" fill="#000000">get age</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB">
+<div class="header" data-title="Pass By (Copied) Reference"><h2>Pass By (Copied) Reference</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);
+System.out.println(birthday(me));
+System.out.println(me.age);</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java methods receive <em>a copy</em> of a reference to the passed object.</p>
+</div>
+<div class="paragraph">
+<p>So they <strong>can</strong> modify the object the reference refers to.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO">
+<div class="header" data-title="Pass By (Copied) Reference"><h2>Pass By (Copied) Reference</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="73pt" viewBox="0.00 0.00 207.00 73.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="DeBSdsMYSeDlEddD">
+<g id="graph0_DeBSdsMYSeDlEddD" class="graph" transform="scale(1 1) rotate(0) translate(4 69)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-69 203,-69 203,4 -4,4"/>
+<!-- Person -->
+<g id="node1_DeBSdsMYSeDlEddD" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="92,-.5 92,-64.5 199,-64.5 199,-.5 92,-.5"/>
+<text text-anchor="middle" x="145.5" y="-43.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="92,-32.5 199,-32.5 "/>
+<text text-anchor="middle" x="145.5" y="-11.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 40</text>
+</g>
+<!-- me -->
+<g id="node2_DeBSdsMYSeDlEddD" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="0,-14.5 0,-50.5 56,-50.5 56,-14.5 0,-14.5"/>
+<text text-anchor="middle" x="28" y="-27.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_DeBSdsMYSeDlEddD" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M56.1442,-32.5C63.9381,-32.5 72.7291,-32.5 81.6782,-32.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.8045,-36.0001 91.8045,-32.5 81.8044,-29.0001 81.8045,-36.0001"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QeoegaQWqRCqwRWjFgcHecPcBnblAsuu">
+<div class="header" data-title="Pass By (Copied) Reference"><h2>Pass By (Copied) Reference</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);
+System.out.println(birthday(me));</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="100pt" viewBox="0.00 0.00 272.00 100.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="DKkwYyGlgJDbyciS">
+<g id="graph0_DKkwYyGlgJDbyciS" class="graph" transform="scale(1 1) rotate(0) translate(4 96)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-96 268,-96 268,4 -4,4"/>
+<!-- Person -->
+<g id="node1_DKkwYyGlgJDbyciS" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="157,-13.5 157,-77.5 264,-77.5 264,-13.5 157,-13.5"/>
+<text text-anchor="middle" x="210.5" y="-56.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="157,-45.5 264,-45.5 "/>
+<text text-anchor="middle" x="210.5" y="-24.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 39</text>
+</g>
+<!-- me -->
+<g id="node2_DKkwYyGlgJDbyciS" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="9.5,-55.5 9.5,-91.5 65.5,-91.5 65.5,-55.5 9.5,-55.5"/>
+<text text-anchor="middle" x="37.5" y="-68.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_DKkwYyGlgJDbyciS" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M65.6805,-68.939C87.5957,-65.392 118.8594,-60.332 146.7332,-55.8206"/>
+<polygon fill="#13294b" stroke="#13294b" points="147.5132,-59.24 156.8255,-54.1872 146.3948,-52.3299 147.5132,-59.24"/>
+</g>
+<!-- toSet -->
+<g id="node3_DKkwYyGlgJDbyciS" class="node">
+<title>toSet</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 75,-36.5 75,-.5 0,-.5"/>
+<text text-anchor="middle" x="37.5" y="-13.5" font-family="Open Sans" font-size="20.00" fill="#000000">toSet</text>
+</g>
+<!-- toSet&#45;&gt;Person -->
+<g id="edge2_DKkwYyGlgJDbyciS" class="edge">
+<title>toSet-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M75.0384,-24.3586C95.9944,-27.6292 122.6671,-31.792 146.7926,-35.5572"/>
+<polygon fill="#13294b" stroke="#13294b" points="146.5319,-39.0588 156.952,-37.1428 147.6114,-32.1426 146.5319,-39.0588"/>
+<text text-anchor="middle" x="116" y="-38.7" font-family="Open Sans" font-size="16.00" fill="#000000">age++</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="LCApeGyQtFkuQzuHRiWVCZeNpdydfeht">
+<div class="header" data-title="Pass By (Copied) Reference"><h2>Pass By (Copied) Reference</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(40);
+System.out.println(birthday(me));
+System.out.println(me.age);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="73pt" viewBox="0.00 0.00 261.00 73.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="iUVdynvaACdhfImh">
+<g id="graph0_iUVdynvaACdhfImh" class="graph" transform="scale(1 1) rotate(0) translate(4 69)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-69 257,-69 257,4 -4,4"/>
+<!-- Person -->
+<g id="node1_iUVdynvaACdhfImh" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="146,-.5 146,-64.5 253,-64.5 253,-.5 146,-.5"/>
+<text text-anchor="middle" x="199.5" y="-43.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="146,-32.5 253,-32.5 "/>
+<text text-anchor="middle" x="199.5" y="-11.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 39</text>
+</g>
+<!-- me -->
+<g id="node2_iUVdynvaACdhfImh" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="0,-14.5 0,-50.5 56,-50.5 56,-14.5 0,-14.5"/>
+<text text-anchor="middle" x="28" y="-27.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_iUVdynvaACdhfImh" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M56.3197,-32.5C77.8318,-32.5 108.2683,-32.5 135.5512,-32.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="135.8281,-36.0001 145.828,-32.5 135.828,-29.0001 135.8281,-36.0001"/>
+<text text-anchor="middle" x="101" y="-37.7" font-family="Open Sans" font-size="16.00" fill="#000000">get age</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="vBVVoNbvCRZapCtVZOalDGPPOGiDqYTV">
+<div data-title=" Arrays Store Object References"></div>
+<textarea class="janini spelling_exception">public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person[] people = new Person[4];
+    for (int i = 0; i &lt; people.length; i++) {
+      people[i] = new Person(18 + i);
+    }
+    Person[] samePeople = new Person[4];
+    for (int i = 0; i &lt; people.length; i++) {
+      samePeople[i] = people[i];
+    }
+    for (int i = 0; i &lt; people.length; i++) {
+      people[i].age += 10;
+    }
+    for (int i = 0; i &lt; samePeople.length; i++) {
+      System.out.println(samePeople[i].age);
+    }
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wLKMXRVWDTOLVmKPzLGUzkHWsYXfjKhd">
+<div class="header" data-title="How To Copy Objects"><h2>How To Copy Objects</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  Person(Person other) {
+    this.age = other.age;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>If we want to copy an object, we have a few options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>Object</code> provides a <code>clone</code> method</p>
+</li>
+<li class="bullet">
+<p>You can implement a <em>copy</em> constructor as shown above</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yIuWQkMigaAVPvtEIROvoEbkHSwxdNBQ">
+<div class="header" data-title="Shallow v. Deep Copies"><h2>Shallow v. Deep Copies</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  public Pet pet;
+  Person(Person other) {
+    this.pet = other.pet;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What is a potential problem with the copy constructor shown above?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>It only copies the <em>reference</em> to the <code>Pet</code> object. So both the existing and
+the new object will share the same <code>Pet</code> object.</p>
+</li>
+<li class="bullet">
+<p>This is called a <em>shallow</em> copy. A <em>deep</em> copy copies all of the objects so
+the old and new object share nothing.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tTAXvrPmiXsApAXXqjpgJRjMksTFlnuv">
+<div class="header" data-title="Review: Reference v. Object Equality"><h2>Review: Reference v. Object Equality</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+  boolean equals(Person other) {
+    return this.age == other.age;
+  }
+}
+Person me = new Person(40);
+Person other = new Person(40);
+System.out.println(me == other);
+System.out.println(me.equals(other));</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If two <em>references</em> are equal then they refer to <em>the same</em> object, and
+<code>.equals</code> is almost always true.</p>
+</li>
+<li class="bullet">
+<p>If two references are not equal, the class may still define <code>.equals</code> to be
+true depending on the value of the instance variables.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vdVcDrcyfndBJrDOfJFeeeQnkBfjdelO">
+<div class="header" data-title="References and Method Overriding"><h2>References and Method Overriding</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Note that Java uses the <em>reference</em> type, <em>not</em> the object type when matching
+method signatures.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If the reference type doesn&#x2019;t match, Java will upcast until it finds a match
+or the call fails</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="zvUfGJunftTkpBMRNDeDwJnBggyXoXWB">
+<div data-title=" References v. Objects"></div>
+<textarea class="janini spelling_exception">public class Pet {
+  public String toString() {
+    return &quot;Object is a pet&quot;;
+  }
+}
+public class Example {
+  public static void what(Object o) {
+    System.out.println(&quot;Reference is an object&quot;);
+    System.out.println(o);
+  }
+  public static void what(Pet p) {
+    System.out.println(&quot;Reference is a pet&quot;);
+    System.out.println(p);
+  }
+  public static void main(String[] unused) {
+    Pet pet = new Pet();
+    what(pet);
+    Object object = pet;
+    what(object);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="bsXbUlKaQeGfqKCdyACmnTqmWQHfuiqE">
+<div class="header" data-title="Questions About Object References?"><h2>Questions About Object References?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This concept is critical once we start talking about data structures and
+algorithms next week.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="VPVMUWTAEgXSNueHburUmttCKeuhcdeZ">
+<div class="header" data-title="Interfaces"><h2>Interfaces</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Interfaces are an incredibly important idea when building computer programs and
+systems.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nRANkNJSPjdGATReHMsdJtMowgfdvacN">
+<div class="header" data-title="What Is An Interface?"><h2>What Is An Interface?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Interface_(computing)" target="_blank" class="external">Interface:</a>
+a shared boundary across which two or more separate components of a computer
+system exchange information.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Interfaces can be between two pieces of software, between software and
+hardware, between computers and their users, or between various permutation of
+these components.</p>
+</li>
+<li class="bullet">
+<p>Interfaces enable different parts of a system to interact in a structured way.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TIuSskfZFyHWIeJRkatzJACsXzKQOnCW">
+<div class="header" data-title="Examples of Computer Interfaces"><h2>Examples of Computer Interfaces</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Software-software:</strong> between the test cases that we write and the code that you
+complete for each MP or homework problem.</p>
+</li>
+<li class="bullet">
+<p><strong>Software-hardware:</strong> between my laptop and the Chromecast that is displaying
+today&#x2019;s lecture slides.</p>
+</li>
+<li class="bullet">
+<p><strong>Computer-user:</strong> computer displays, keyboards, pointing devices, and other
+peripherals.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kZihYTenzabHfhSeWrCxkpibegcwLXHX">
+<div class="header" data-title="Software Interfaces"><h2>Software Interfaces</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#x2019;re going to focus on software interfaces, and specifically on interfaces in
+Java.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>However, interfaces are <em>not</em> a Java- or language-specific idea.</p>
+</li>
+<li class="bullet">
+<p>Some languages&#x2014;like Java, Go, and others&#x2014;include a specific notion
+of interfaces as part of the language.</p>
+</li>
+<li class="bullet">
+<p>For other languages this is done by convention.</p>
+</li>
+<li class="bullet">
+<p><strong>But all software development involves interfaces, regardless of what language
+you are using.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ekCWZZfsdfEsUsXaLAiqefgmefuSoXyd">
+<div class="header" data-title="Note: Every Java Object Has An Interface"><h2>Note: Every Java Object Has An Interface</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Even Java classes that don&#x2019;t <code>implements</code> a Java interface provide an interface.
+<strong>The interface to a Java <code>class</code> is the the set of methods that it
+provides.</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dReSmHaciJqendBXUVzMVldfeiOVfSaB">
+<div class="header" data-title="Interface Documentation"><h2>Interface Documentation</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Interfaces are also a place where we need <em>excellent documentation</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>This facilitates communication between <em>users</em> of an interface and <em>providers</em>
+of an interface.</p>
+</li>
+<li class="bullet">
+<p>This is exactly what Javadoc is for.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xidutqLLsdvzSKnIoEfrmoibdeBcuDHb">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>No Coders</strong> on this week&#x2019;s quiz. Chapters 5 <em>and</em> 6 for <em>next</em> week.</p>
+</li>
+<li>
+<p>I have office hours <em>today</em> from 1&#x2013;3PM in Siebel 0403.</p>
+</li>
+<li>
+<p>We have a
+<a href="/info/feedback/">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

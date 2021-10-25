@@ -1,0 +1,1235 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP3: Refactoring and More JSON</title>
+		<meta name="description" lang="en-us" content="The MP3 checkpoint introduces refactoring and makes it possible to configure multiplayer games.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Fall 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/3/" class="active" onclick="return false;">MP3<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/fall/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/fall/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/fall/setup/git/">Git</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_assignment_structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#_obtaining_mp3">2.1. Obtaining MP3</a></li>
+              <li><a class="nav-link" href="#_late_submissions">2.2. Late Submissions</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_tools_and_resources">3. Tools and Resources</a>
+            <ul>
+              <li><a class="nav-link" href="#lists">3.1. Lists</a></li>
+              <li><a class="nav-link" href="#spinners">3.2. Spinners</a></li>
+              <li><a class="nav-link" href="#gson">3.3. Writing JSON with Gson</a></li>
+              <li><a class="nav-link" href="#api">3.4. Our API Documentation</a></li>
+              <li><a class="nav-link" href="#presets_api">3.5. Extra Credit API Documentation</a></li>
+              <li><a class="nav-link" href="#git_revert">3.6. Reverting Changes with Git</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#goal">4. Your Goal</a>
+            <ul>
+              <li><a class="nav-link" href="#target">4.1. Target Class</a></li>
+              <li><a class="nav-link" href="#latlng">4.2. LatLng Refactor</a></li>
+              <li><a class="nav-link" href="#target_map">4.3. Targets Map</a></li>
+              <li><a class="nav-link" href="#invitees">4.4. Invitees UI</a></li>
+              <li><a class="nav-link" href="#post_request">4.5. Game Creation API Request</a></li>
+              <li><a class="nav-link" href="#presets">4.6. Extra Credit: Target Presets</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">5. Grading</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cliffhanger">6. Cliffhanger</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cheating">7. Cheating</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP3: Refactoring and More JSON</h1>
+      <div class="paragraph lead">
+<p>In <a href="/MP/2019/fall/2">MP2</a>, you connected the app to our game server to get and respond to invitations.
+In Checkpoint 3, you&#x2019;ll make it possible to invite people to new multiplayer games and <em>refactor</em>
+some of your old code to improve it.</p>
+</div>
+<div class="paragraph">
+<p>When you first started working on the MP, we hadn&#x2019;t covered object-oriented programming yet,
+so the target mode functionality had to be implemented using only arrays and imperative programming.
+As you discovered, that was not ideal. Programmers often learn or realize better approaches
+to problems already solved and revisit old code to improve it.
+This process is called <em>refactoring</em>. In this checkpoint we&#x2019;ll refactor some of the code
+you wrote in MP0 and organize some relevant logic into a class that can more easily be
+used in the next checkpoint.</p>
+</div>
+<div class="paragraph">
+<p>Deadlines for Checkpoint 3 vary by your deadline group. MP3 is due at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>8 PM on Sunday, 11/3/2019 for the Blue Group</strong>: all labs starting at 2 PM or earlier</p>
+</li>
+<li>
+<p><strong>8 PM on Monday, 11/4/2019 for the Orange Group</strong>: all labs starting at 3 PM or later</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Additionally, 10% of your grade is for submitting code that earns at least <em>40 points</em>
+by 8 PM on <strong>Sunday 10/27/2019 (Blue)</strong> or <strong>Monday 10/28/2019 (Orange)</strong>.
+Late submissions are subject to the <a href="/info/2019/fall/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="_learning_objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On MP3 you will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Work with and improve older code</p>
+</li>
+<li>
+<p>Make web requests that deliver additional information to the web API</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We will continue to exercise your class design and Android UI skills (including repeatable UI)
+like in previous checkpoints.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_assignment_structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like in previous checkpoints, we distribute the new MP3 files in a <em>patch</em> to your existing
+repository.</p>
+</div>
+<div class="paragraph">
+<p>For information on all classes present after the completion of Checkpoint 3,
+refer to our
+<strong><a href="https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/package-summary.html" target="_blank" class="external">official Javadoc</a></strong>.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_obtaining_mp3"></a><h3>2.1. Obtaining MP3</h3>
+<div class="paragraph">
+<p>To start working on Checkpoint 3, follow these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Commit your work just in case you run into any problems applying the patch.</p>
+</li>
+<li>
+<p>Download <a href="/MP/2019/fall/patches/MP3.patch">the MP3 patch file</a>.</p>
+</li>
+<li>
+<p>In Android Studio, do <em>VCS | Apply Patch</em>.</p>
+</li>
+<li>
+<p>Select the downloaded patch file and press OK to apply it.</p>
+</li>
+<li>
+<p>Change the <code>checkpoint</code> setting in <code>grade.yaml</code> to <code>3</code>.</p>
+</li>
+<li>
+<p>Do <em>File | Sync Project with Gradle Files</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A new run configuration called Test Checkpoint 3 will run the Checkpoint 3 test suite.
+If you run into a problem obtaining MP3, please get help immediately.</p>
+</div>
+<div class="paragraph">
+<p>Because the new test suite refers to a class that you need to add, your project will not
+be able to compile immediately after applying the patch. This will be fixed as you start
+working on the checkpoint as described in <a href="#goal">Your Goal</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_late_submissions"></a><h3>2.2. Late Submissions</h3>
+<div class="paragraph">
+<p>Like in previous checkpoints, setting <code>useProvided</code> in <code>grade.yaml</code> to <code>true</code>
+causes the app to use our provided components rather than your implementations.
+For Checkpoint 3, we provide <code>TargetVisitChecker</code> (with both MP0-style and refactored signatures),
+<code>AreaDivider</code>, the launch activity, the main activity, the local game setup UI in <code>NewGameActivity</code>,
+and the gameplay logic in <code>GameActivity</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you didn&#x2019;t finish the game setup activity in MP1, you can still do MP3.
+Our provided components will try to fuse the game setup UI you have with our version of the missing
+parts. However, it would be ideal to get <code>testSetupUI</code> from MP1 done as soon as possible
+so that you can set <code>useProvided</code> back to <code>false</code>.
+If you&#x2019;re curious about how the installation of provided components works,
+you can post on the <a href="https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp3" class="noexternal">forum</a>.</p>
+</div>
+<div class="paragraph">
+<p>As usual, you can always go back and make submissions to previous checkpoints by changing
+<code>checkpoint</code> in <code>grade.yaml</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_tools_and_resources"></a><h2>3. Tools and Resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides you with tools and information that you will need to complete the
+features in <a href="#goal">Your Goal</a>.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="lists"></a><h3>3.1. Lists</h3>
+<div class="paragraph">
+<p>Java arrays are useful for storing multiple values of the same type, but an array&#x2019;s length
+cannot be changed after its creation. Often it&#x2019;s not known in advance how many entries a collection
+will have, or the collection has items added to or removed from it. In those situations, arrays
+are inconvenient.</p>
+</div>
+<div class="paragraph">
+<p>Fortunately, Java provides <em>lists</em>: objects that hold dynamically resizable lists of things.
+All lists are instances of
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html" target="_blank" class="external"><code>List</code></a>, but <code>List</code> is an
+interface rather than a concrete type.
+To create a list you create an instance of a <code>List</code> implementation, the most common of which is
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html" target="_blank" class="external"><code>ArrayList</code></a>.
+This is an example of <em>polymorphism</em>.</p>
+</div>
+<div class="paragraph">
+<p>When you declared arrays, you put the element type before square brackets, like <code>String[]</code> for
+an array of strings. List variables are declared like <code>List&lt;String&gt;</code>, with the element type
+in angle brackets. To declare a list-of-strings variable and initialize it to an empty
+<code>ArrayList</code>, you would use code like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">List&lt;String&gt; names = new ArrayList&lt;&gt;();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The angle brackets on the right side of the assignment can be empty, which means that
+the actual list object created holds the same type of values as the variable is declared to contain.</p>
+</div>
+<div class="paragraph">
+<p>The <code>List</code> type defines many functions that are usable on all lists. The most useful ones are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add</code>, which adds one element to the end of the list (increasing its size by one)</p>
+</li>
+<li>
+<p><code>size</code>, which returns the current length of the list</p>
+</li>
+<li>
+<p><code>get</code>, which gets the element at the specified position in the list</p>
+</li>
+<li>
+<p><code>remove</code>, which removes an element from the list (decreasing its size by one)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">System.out.println(names.size()); // Prints 0 - the list is empty initially
+names.add(&quot;Chuchu&quot;);
+System.out.println(names.size()); // Prints 1 - now the list has one element
+names.add(&quot;Xyz&quot;);
+System.out.println(names.size()); // Prints 2 - now the list has two elements
+System.out.println(names.get(0)); // Prints &quot;Chuchu&quot;, the first element in the list
+names.remove(&quot;Chuchu&quot;);
+System.out.println(names.get(0)); // Prints &quot;Xyz&quot;, the first element now that Chuchu was removed
+System.out.println(names.size()); // Prints 1 - the list has one element anymore</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lists can be iterated over with the enhanced for loop:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">for (String name : names) {
+    // Do something with name?
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Types like <code>List</code> and <code>ArrayList</code> will need to be imported before you can use them.
+Android Studio can help with this: if you press Tab to autocomplete a type name, any needed
+import statement will automatically be added at the top of the file.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="spinners"></a><h3>3.2. Spinners</h3>
+<div class="paragraph">
+<p>Dropdown lists are useful when the user has a handful of possible choices.
+Android provides a <code>Spinner</code> control in the Containers tab of the Palette that produces
+a dropdown list. It is possible to populate the dropdown dynamically at runtime, but it is much
+easier to set the <code>entries</code> attribute in the Attributes pane to a string array resource.
+Then each string in that array resource will be one entry in the dropdown.</p>
+</div>
+<div class="paragraph">
+<p>Some useful methods of <code>Spinner</code>s:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To get the current selection, you can call the <code>getSelectedItemPosition</code> function,
+which returns the index of the selected item. For example, 0 means that the user selected the
+first entry.</p>
+</li>
+<li>
+<p>To programmatically change which item is selected, use the <code>setSelection</code> function,
+which takes the index of the item to select.</p>
+</li>
+<li>
+<p>To register a handler that will be run when the user changes the selected item,
+use <code>setOnItemSelectedListener</code>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Suppose spinner is a Spinner variable
+spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    @Override
+    public void onItemSelected(final AdapterView&lt;?&gt; parent, final View view,
+                               final int position, final long id) {
+        // Called when the user selects a different item in the dropdown
+        // The position parameter is the selected index
+        // The other parameters can be ignored
+    }
+    @Override
+    public void onNothingSelected(final AdapterView&lt;?&gt; parent) {
+        // Called when the selection becomes empty
+        // Not relevant to the MP - can be left blank
+    }
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#x2019;d like more information, you can see
+<a href="https://developer.android.com/guide/topics/ui/controls/spinner" target="_blank" class="external">Android&#x2019;s guide to spinners</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="gson"></a><h3>3.3. Writing JSON with Gson</h3>
+<div class="paragraph">
+<p>In Checkpoint 2, you <a href="/MP/2019/fall/2/#_using_gson">used Gson to read data</a> from parsed JSON.
+In this checkpoint, you&#x2019;ll need to create JSON objects to send to the server.</p>
+</div>
+<div class="paragraph">
+<p>Gson can help with this too. To create a new JSON object, use <code>new JsonObject()</code>.
+To add a single, simple value like a string or number as a property on an object, call the object&#x2019;s
+<code>addProperty</code>  function, passing the property name and value. For example, this code builds
+a <code>JsonObject</code> corresponding to <a href="/MP/2019/fall/2/#_what_is_json">the first MP2 JSON example</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">JsonObject point = new JsonObject();
+point.addProperty(&quot;latitude&quot;, 40.109187);
+point.addProperty(&quot;longitude&quot;, -88.227213);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add a more complicated value like an array or other object as a property of an object, use
+<code>add</code> instead.</p>
+</div>
+<div class="paragraph">
+<p>Likewise, to create a JSON array, use <code>new JsonArray()</code>. Its <code>add</code> function will add an entry to the
+end of the array.</p>
+</div>
+<div class="paragraph">
+<p>This code reconstitutes the more complicated JSON object from the MP2 writeup:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">JsonObject cs125 = new JsonObject();
+cs125.addProperty(&quot;name&quot;, &quot;CS 125&quot;);
+cs125.addProperty(&quot;enrollment&quot;, 800);
+
+JsonObject location = new JsonObject();
+location.addProperty(&quot;name&quot;, &quot;Foellinger Auditorium&quot;);
+location.addProperty(&quot;allows_food&quot;, false);
+location.addProperty(&quot;latitude&quot;, 40.105952);
+location.addProperty(&quot;longitude&quot;, -88.227204);
+cs125.add(&quot;location&quot;, location);
+
+JsonArray lectureDays = new JsonArray();
+lectureDays.add(&quot;Monday&quot;);
+lectureDays.add(&quot;Wednesday&quot;);
+lectureDays.add(&quot;Friday&quot;);
+cs125.add(&quot;lecture_days&quot;, lectureDays);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gson objects stringify to the JSON text they represent, so you can pass them to
+<code>System.out.println</code> to see what JSON you&#x2019;ve built. It will be condensed onto one line and difficult
+to read, so you may find it helpful to paste that into
+<a href="https://jsonformatter.org/json-pretty-print" target="_blank" class="external">a JSON formatter</a> to see its structure more easily.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="api"></a><h3>3.4. Our API Documentation</h3>
+<div class="paragraph">
+<p>To create a multiplayer game, your app will need to make a POST request to the <code>/games/create</code>
+endpoint. Since there is a lot of game information rather than just a game ID, the game
+configuration will need to be uploaded to the server as the body (<em>payload</em>) of the request.
+The body should be a JSON object (Gson <code>JsonObject</code> instance) with these properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mode</code> (string) is the game mode, either &quot;target&quot; or &quot;area&quot;</p>
+</li>
+<li>
+<p><code>invitees</code> (array of objects) is the list of players invited to the game, including the user;
+each object should have these properties:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>email</code> (string) is the invitee&#x2019;s email address</p>
+</li>
+<li>
+<p><code>team</code> (integer) is the <code>TeamID</code> code for the role/team the user is invited to</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><em>For target mode only</em>, <code>proximityThreshold</code> (integer) is the proximity threshold in meters</p>
+</li>
+<li>
+<p><em>For target mode only</em>, <code>targets</code> (array of objects) is the list of targets in the game;
+each object should have these properties:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>latitude</code> (double) is the latitude of the target</p>
+</li>
+<li>
+<p><code>longitude</code> (double) is the longitude of the target</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><em>For area mode only</em>, <code>cellSize</code> (integer) is the cell size in meters</p>
+</li>
+<li>
+<p><em>For area mode only</em>, <code>areaNorth</code>, <code>areaEast</code>, <code>areaSouth</code>, and <code>areaWest</code> (all doubles)
+are the latitude/longitude bounds of the area</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You may find the <strong><a href="/MP/2019/fall/files/MP3/target.json">example target mode body</a></strong> and
+<strong><a href="/MP/2019/fall/files/MP3/area.json">example area mode body</a></strong> helpful.</p>
+</div>
+<div class="paragraph">
+<p>If the game is created successfully, the server&#x2019;s response will be a JSON object with a single
+<code>game</code> property whose value is the (string) game ID.</p>
+</div>
+<div class="paragraph">
+<p>If the game cannot be created, your error handler will be run. The <code>getMessage</code> function on
+the error object returns a human-readable string describing the problem.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="presets_api"></a><h3>3.5. Extra Credit API Documentation</h3>
+<div class="paragraph">
+<p>If you are attempting the extra credit feature to allow the user to load a predefined
+set of targets, your app will need to be able to fetch the preset
+targets lists from the server. Those are accessible by a GET request to the <code>/presets</code> endpoint.
+The server&#x2019;s response will be a JSON object containing this property:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>presets</code> (array of objects) is the list of preset options; each object has these properties:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> (string) is the human-readable name of the preset</p>
+</li>
+<li>
+<p><code>targets</code> (array of objects) is the list of targets in the preset; each has at least these
+properties:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>latitude</code> (double) is the target&#x2019;s latitude</p>
+</li>
+<li>
+<p><code>longitude</code> (double) is the target&#x2019;s longitude</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You may find <strong><a href="/MP/2019/fall/files/MP3/presets.json">this example response</a></strong> helpful.
+Do not assume that the <code>note</code> property will always be present on target objects,
+but feel free to do anything you like with it if it&#x2019;s there. You can always ignore it completely.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="git_revert"></a><h3>3.6. Reverting Changes with Git</h3>
+<div class="paragraph">
+<p>Version control systems like Git make it possible to retrieve older versions
+of your code, which is very useful if you accidentally damage a file.
+Android Studio integrates with Git to allow you to undo (<em>revert</em>) changes with its UI.</p>
+</div>
+<div class="paragraph">
+<p>If you would like to put a file back to how it was at the last commit, right-click
+it in the Project pane and choose <em>Git | Revert</em>. This brings up the Revert Changes
+dialog, where you can select any additional files you would like to revert.
+Reverting a file throws away all changes to it since the last commit and <strong>is usually not
+reversible</strong>.</p>
+</div>
+<div class="paragraph">
+<p>For a more surgical approach, Android Studio highlights changed regions of files
+with colored bars or gray triangles in the left margin of the code editor.
+Clicking one of these decorations produces a toolbar with a back arrow (Rollback Lines)
+button that reverts just the highlighted lines to how they were in the last commit.
+This rollback method may sometimes be reversible with Ctrl+Z, but you should still
+be certain that you want to throw away your changes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="goal"></a><h2>4. Your Goal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you&#x2019;re done with Checkpoint 3, the game setup activity will allow the user to
+invite other people and assign their roles/teams. The user will be able to press locations
+on a map to specify the targets of a target mode game. Creating a game will upload its
+configuration to the server and make it visible to the invitees, who can then accept or decline
+the invitation using their app.</p>
+</div>
+<div class="paragraph">
+<p>While setting up a target mode game, the user might see UI like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/MP/2019/fall/images/MP3/TargetGameSetup.png" alt="completed games lists UI">
+</div>
+</div>
+<div class="paragraph">
+<p>A video tour of MP3 created by the CA captains <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;narrated by Daniel&lt;/body&gt;&lt;/html&gt;">1</span>
+is available:</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/710HVIECocw%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Unless otherwise noted, you can do these sections in any order.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="target"></a><h3>4.1. <code>Target</code> Class</h3>
+<div class="paragraph">
+<p>The new test suite, <code>Checkpoint3Test</code>, is initially unable to compile because it refers to a
+<code>Target</code> class which does not exist, so this must be fixed first.
+We will be using the <code>Target</code> class primarily in the
+next checkpoint to help manage a target marker on the map,
+since the Checkpoint 0 approach of passing coordinates to a
+<code>changeMarkerColor</code> function is unwieldy <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;and somewhat error-prone, as some noticed during MP0&lt;/body&gt;&lt;/html&gt;">2</span>.</p>
+</div>
+<div class="paragraph">
+<p>Create the class by right-clicking the package containing all your other Java source files,
+choosing <em>New | Java Class</em>, entering <code>Target</code> in the Name field, and clicking OK.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p>Like in previous checkpoints, make sure that the file was created inside our package in the
+<code>main</code> source set and that it was added to Git.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>To see the needed public members of this class</strong>, refer to
+<a href="https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/Target.html" target="_blank" class="external">our official Javadoc</a>.
+You will need to store a Google Maps
+<a href="https://developers.google.com/android/reference/com/google/android/gms/maps/model/Marker.html" target="_blank" class="external"><code>Marker</code></a>
+object in a private instance variable.</p>
+</div>
+<div class="paragraph">
+<p>To place a marker on a Google map, use the map&#x2019;s <code>addMarker</code> function
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;like the provided &lt;code&gt;placeMarker&lt;/code&gt; function in &lt;code&gt;GameActivity&lt;/code&gt; does&lt;/body&gt;&lt;/html&gt;">3</span>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Suppose position is a LatLng variable
+MarkerOptions options = new MarkerOptions().position(position);
+// Set any other options you like?
+Marker marker = map.addMarker(options);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the color of a marker after it has been created, use its <code>setIcon</code>
+function <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;like &lt;code&gt;changeMarkerColor&lt;/code&gt; in &lt;code&gt;GameActivity&lt;/code&gt; does&lt;/body&gt;&lt;/html&gt;">4</span>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Suppose hue is a hue value like the constants defined on BitmapDescriptorFactory
+BitmapDescriptor icon = BitmapDescriptorFactory.defaultMarker(hue);
+marker.setIcon(icon);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After completing this task, <code>testTargetClass</code> will pass.
+You may <em>optionally</em> rework your target mode logic in <code>GameActivity</code> to take advantage of this
+new class, but otherwise you will not need it again in this checkpoint.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="latlng"></a><h3>4.2. <code>LatLng</code> Refactor</h3>
+<div class="paragraph">
+<p>Functions that take eight parameters, especially all of the same type, can be difficult to use.
+This is even more unfortunate when some of the parameters really belong together, packaged up
+into objects. Now that you know how to use objects like the Google Maps SDK&#x2019;s <code>LatLng</code>,
+we&#x2019;ve rewritten <code>LinesCrossDetector.linesCross</code> to accept the lines&apos; endpoints as <code>LatLng</code>
+objects.
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;In fact, &lt;code&gt;checkstyle&lt;/code&gt;&amp;apos;s default configuration forbids functions with more than seven parameters; we had to change that to allow our original version of this function.&lt;/body&gt;&lt;/html&gt;">5</span></p>
+</div>
+<div class="paragraph">
+<p>Download
+<a href="/MP/2019/fall/patches/MP3-LineCrossDetector.patch">the <code>LineCrossDetector</code> patch</a>
+and apply it with <em>VCS | Apply Patch</em> like you do with the checkpoint patches.
+This will introduce compilation errors in your functions that use <code>linesCross</code>!
+You need to adjust those to use the
+<a href="https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/LineCrossDetector.html#linesCross-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-" target="_blank" class="external">improved version&#x2019;s signature</a>,
+calling it with four <code>LatLng</code> positions.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p><strong>If Android Studio is unable to apply the patch</strong> due to how you fixed the <code>checkstyle</code>
+errors in Checkpoint 0, or if there are compilation errors <em>inside</em> <code>LineCrossDetector</code>,
+you can instead copy-paste the updated class from
+<a href="https://gist.github.com/Fleex255/f47ed822be5f0054cfc0e7827eb38d7e" target="_blank" class="external">this Gist</a>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly refactor the
+<a href="https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/GameActivity.html#addLine-com.google.android.gms.maps.model.LatLng-com.google.android.gms.maps.model.LatLng-int-" target="_blank" class="external"><code>addLine</code> function</a>
+in <code>GameActivity</code> to take two <code>LatLng</code> endpoints rather than four <code>double</code> coordinates.
+You will need to update the function&#x2019;s callers to be compatible with its new signature.</p>
+</div>
+<div class="paragraph">
+<p>If you make a mistake while refactoring and want to put a file back to how it was
+at the last commit, see the section on <a href="#git_revert">reverting changes</a>.</p>
+</div>
+<div class="paragraph">
+<p>After completing these tasks, <code>testLatLngRefactor</code> will pass.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="extra_refactoring"></a><h4>4.2.1. Extra Refactoring Practice</h4>
+<div class="paragraph">
+<p>You may <em>optionally</em> refactor your <code>TargetVisitChecker</code> methods to take a <code>LatLng[]</code> in place
+of the two <code>double[]</code>s.
+<a href="https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/TargetVisitChecker.html" target="_blank" class="external">Updated Javadoc</a>
+is available. The Checkpoint 0 tests are forward-compatible with this change.
+After doing that, you&#x2019;ll probably want to use the <code>getPositions</code> function of <code>DefaultTargets</code>
+rather than <code>getLatitudes</code> and <code>getLongitudes</code> in your <code>GameActivity</code> target mode setup.</p>
+</div>
+<div class="paragraph">
+<p>Better yet, you may take advantage of your new list skills to keep track of the target mode
+game state entirely inside <code>GameActivity</code>.
+If <code>TargetVisitChecker</code> is removed, the Checkpoint 0 test results will be all-or-nothing
+based on the result of <code>testTargetModeGameplay</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>TargetVisitChecker</code> will be removed entirely in the next checkpoint and <code>GameActivity</code> will be
+significantly remodeled then, so don&#x2019;t get too attached to either.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="target_map"></a><h3>4.3. Targets Map</h3>
+<div class="paragraph">
+<p>In Checkpoint 1 you made it possible for the user to select the area for area mode by panning
+and zooming a Google Maps control. Now you&#x2019;ll add a similar map control that allows the user
+to choose the targets for a target mode game by pressing to add a target and clicking a target
+to remove it.</p>
+</div>
+<div class="paragraph">
+<p>To add another map to the game setup activity, open <code>activity_new_game.xml</code> in the UI designer,
+copy the <code>areaSizeMap</code> fragment, paste it inside the target mode settings layout
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;the &lt;code&gt;LinearLayout&lt;/code&gt; with ID &lt;code&gt;targetSettings&lt;/code&gt;&lt;/body&gt;&lt;/html&gt;">6</span>, and change the
+copy&#x2019;s ID to <code>targetsMap</code>.</p>
+</div>
+<div class="paragraph">
+<p>In <code>NewGameActivity</code>&apos;s <code>onCreate</code> we provided this chunk of code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">SupportMapFragment areaMapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.areaSizeMap);
+areaMapFragment.getMapAsync(newMap -&gt; {
+    areaMap = newMap;
+    centerMap(areaMap);
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This gets a reference to the <code>areaSizeMap</code> fragment and registers a handler that will be run
+when Google Maps creates the map. When the map is available (in <code>getMapAsync</code>), it is stored
+in the instance variable <code>areaMap</code> and passed to our <code>centerMap</code> function for centering on
+Campustown.</p>
+</div>
+<div class="paragraph">
+<p>Declare another instance variable to store the targets map, then duplicate the above section of
+code to similarly prepare your <code>targetsMap</code> fragment. Make sure to change the <code>findFragmentById</code>
+parameter to operate on your new fragment. You&#x2019;ll then be able to see in the app that
+the map that appears for target mode setup is centered on Campustown just like the area mode setup
+one.</p>
+</div>
+<div class="paragraph">
+<p>To keep track of the targets added so far, declare an instance variable to hold a
+list of Google Maps markers: a <code>List&lt;Marker&gt;</code>. Initialize it to a new, empty <a href="#lists">list</a>.
+Add some code to your new <code>getMapAsync</code> handler to make the user&#x2019;s actions on the map
+add targets:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Register a long-press handler on the targets map by calling <code>setOnMapLongClickListener</code>.
+The handler receives a <code>LatLng</code> object specifying the point that was pressed. When that happens,
+create a marker at that position and add it to the list. Again see the implementation of the
+<code>placeMarker</code> function in <code>GameActivity</code> for how to place a marker on a map.</p>
+</li>
+<li>
+<p>Likewise register a <code>setOnMarkerClickListener</code> handler, which is passed a <code>Marker</code> that the user
+clicked. Remove that marker from the map by calling its <code>remove</code> function and remove it from the
+targets list you declared as an instance variable.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In summary, you&#x2019;ll want code like this inside the new <code>getMapAsync</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">targetMap.setOnMapLongClickListener(location -&gt; {
+    // Code here runs whenever the user presses on the map.
+    // location is the LatLng position where the user pressed.
+    // 1. Create a Google Maps Marker at the provided coordinates.
+    // 2. Add it to your targets list instance variable.
+});
+
+targetMap.setOnMarkerClickListener(clickedMarker -&gt; {
+    // Code here runs whenever the user taps a marker.
+    // clickedMarker is the Marker object the user clicked.
+    // 1. Remove the marker from the map with its remove function.
+    // 2. Remove it from your targets list.
+    return true; // This makes Google Maps not pan the map again
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After completing this task, <code>testTargetMap</code> will pass.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="invitees"></a><h3>4.4. Invitees UI</h3>
+<div class="paragraph">
+<p>When setting up a game, the user should be able to decide who is invited to the game
+and what roles they have. An invitee can be added by entering their email into a text box
+and pressing the Add button. All players (users involved in or invited to the game, including the
+app&#x2019;s user), should be shown in a list with a dropdown to set the role, which defaults to observer.
+It should be possible to remove an invitee&#x2014;but not the user&#x2014;by pressing the
+Remove button in their row.</p>
+</div>
+<div class="paragraph">
+<p>To make this possible, we will need three new UI elements in <code>activity_new_game.xml</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An email text box (from the Text tab) with ID <code>newInviteeEmail</code> to allow the user to
+enter an invitee&#x2019;s email</p>
+</li>
+<li>
+<p>A button with ID <code>addInvitee</code> to actually add the invitee to the list</p>
+</li>
+<li>
+<p>An initially <strong>empty</strong> vertical <code>LinearLayout</code> with ID <code>playersList</code> to hold the list of players</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To display one player entry, we have provided <code>chunk_invitee.xml</code> in the patch.
+You do not need to modify it, though you may customize it if you like.
+To store information about one player, we have provided the
+<a href="https://cs125-illinois.github.io/Fall2019-MP-Writeups/3/edu/illinois/cs/cs125/fall2019/mp/Invitee.html" target="_blank" class="external"><code>Invitee</code></a>
+class. These will be used in <code>NewGameActivity</code> to make the invitees UI work.</p>
+</div>
+<div class="paragraph">
+<p>Add an instance variable to <code>NewGameActivity</code> to store the list of players, that is,
+a <code>List&lt;Invitee&gt;</code>. <code>onCreate</code> should initialize it to an empty list and then add
+an <code>Invitee</code> representing the user with the role of observer.
+You should create two helper functions to make the players list UI work:</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_update_players_ui"></a><h4>4.4.1. Update Players UI</h4>
+<div class="paragraph">
+<p>This function is responsible for repopulating the players list in the UI with the information
+stored in the players list instance variable.</p>
+</div>
+<div class="paragraph">
+<p>First it should <code>removeAllViews</code> from the players <code>LinearLayout</code>.
+Then, much like in Checkpoint 2, it should go through the list variable and
+<a href="/MP/2019/fall/2/#_inflating_layouts">add a chunk</a> to the <code>LinearLayout</code>
+for each player. We provided three views in that chunk:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>inviteeEmail</code> is a <code>TextView</code> whose text should be set to the player&#x2019;s email.</p>
+</li>
+<li>
+<p><code>inviteeTeam</code> is a <code>Spinner</code> to let the user see and change the player&#x2019;s role.
+Its selection should be set to the player object&#x2019;s team ID. When its selection is changed by
+the user, the player object&#x2019;s team ID should be updated to match. See our <a href="#spinners">guide
+to the relevant spinner functions</a>.</p>
+</li>
+<li>
+<p><code>removeButton</code> is a <code>Button</code> that removes the invitee. It should be gone for the first entry
+in the list (the user, since the user shouldn&#x2019;t able to leave their own game). When clicked,
+it should remove the player object from the list variable and refresh the players UI list.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When accessing these views, make sure to call <code>findViewById</code> on the chunk you inflated
+inside your loop so that you get a reference to the view from the specific chunk you&#x2019;re
+currently building.</p>
+</div>
+<div class="paragraph">
+<p>This function should be called by <code>onCreate</code> after adding the user to the players list variable so that
+the initial UI is set up and the user can choose their own role.</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_add_invitee"></a><h4>4.4.2. Add Invitee</h4>
+<div class="paragraph">
+<p>This function should be called when the user presses the <code>addInvitee</code> button.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>newInviteeEmail</code> text box is not empty, a new invitee object with the entered email address
+and the role of observer should be added to the players list instance variable.
+The email text box should be made empty so that the user can enter the next invitee.
+Then the players UI should be updated by calling the other helper function so that the change is visible.</p>
+</div>
+<div class="paragraph">
+<p>After completing this task, <code>testInvitees</code> will pass.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="post_request"></a><h3>4.5. Game Creation API Request</h3>
+<div class="paragraph">
+<p>The targets map and invitees UI can be done in either order. Once they&#x2019;re both ready,
+the data they solicit from the user can be submitted to the server to create a multiplayer game.</p>
+</div>
+<div class="paragraph">
+<p>When the Create Game button is clicked, <a href="#gson">build a <code>JsonObject</code></a> according to
+<a href="#api">our API documentation</a> for the game creation endpoint. You will need to include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the configuration you made possible in Checkpoint 1, plus</p>
+</li>
+<li>
+<p>data from the targets map (if in target mode) and</p>
+</li>
+<li>
+<p>players/invitees list.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Much of your Checkpoint 1 logic can still be used; you&#x2019;re just putting the data
+in a JSON object rather than an intent.</p>
+</div>
+<div class="paragraph">
+<p>When your game JSON object is ready, POST it to the game creation endpoint.
+If the request succeeds, launch <code>GameActivity</code> passing the game ID from the response as the
+<code>game</code> extra of the intent, then finish <code>NewGameActivity</code>.
+If the request fails, show a
+<a href="https://developer.android.com/guide/topics/ui/notifiers/toasts" target="_blank" class="external">toast</a>
+(like in the <a href="https://cs125.cs.illinois.edu/MP/2019/fall/2/#_making_web_requests" target="_blank" class="external">example web request</a>&apos;s
+error &quot;handler&quot;) that displays the error&#x2019;s message <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;from the &lt;code&gt;getMessage&lt;/code&gt; function of the error object&lt;/body&gt;&lt;/html&gt;">7</span> so the user knows what went wrong.</p>
+</div>
+<div class="paragraph">
+<p>Note that <code>GameActivity</code> should only be launched once the request completes, not immediately
+when the user presses the button. The Checkpoint 1 data no longer needs to go in the intent,
+though you can put it there if you&#x2019;d like the game to keep working in the meantime before
+Checkpoint 4 fixes everything.</p>
+</div>
+<div class="paragraph">
+<p>After completing this task, <code>testApiRequest</code> will pass. Nice work!
+If you&#x2019;re up for a challenge, you can continue on to the extra credit section below.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="presets"></a><h3>4.6. Extra Credit: Target Presets</h3>
+<div class="paragraph">
+<p><strong>Challenge problem!</strong> This is extra credit because it takes a bit more work and tinkering.
+It can be done before the game creation API request, but you will need to have the targets
+map working first.</p>
+</div>
+<div class="paragraph">
+<p>Many users won&#x2019;t want to spend a lot of time picking out enough targets for an interesting
+target mode game. To make it easier to add a set of targets, the app could have several
+suggested lists of targets and allow the user to add an entire suggested list at once.</p>
+</div>
+<div class="paragraph">
+<p>Inside the target mode settings group, add a button with text &quot;Load Preset&quot; and ID
+<code>loadPresetTargets</code>. When it is clicked, fetch the <a href="#presets_api">list of presets from the server</a>.
+When the request completes, create and show an <code>AlertDialog</code> to list the options.
+Refer to Android&#x2019;s
+<a href="https://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog" target="_blank" class="external"><code>AlertDialog</code> guide</a>
+for details.</p>
+</div>
+<div class="paragraph">
+<p><a href="/MP/2019/fall/patches/MP3-Chunk.patch">This patch</a>
+provides a <code>chunk_presets_list.xml</code> layout resource which you can inflate <em>with a null parent</em>
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Android Studio will warn about that, but it&amp;#x2019;s OK&amp;#x2014;this is the one place in Android where it&amp;#x2019;s acceptable and necessary to pass a null root.&lt;/body&gt;&lt;/html&gt;">8</span>
+and pass to the dialog builder&#x2019;s <code>setView</code> function. For each preset option, add a <code>RadioButton</code>
+inside the provided <code>RadioGroup</code> (ID <code>presetOptions</code>), with the radio button&#x2019;s text set to the
+preset&#x2019;s name. This is the one place in the MP where you should create an individual view
+dynamically using <code>new</code>. The constructors for most Android views take a context, which can be
+the activity: <code>this</code>.</p>
+</div>
+<div class="paragraph">
+<p>The alert dialog&#x2019;s positive button should be labeled &quot;Load&quot;; its negative button should be labeled
+&quot;Cancel.&quot; The dialog might look like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/MP/2019/fall/images/MP3/LoadPreset.png" alt="a list of preset options">
+</div>
+</div>
+<div class="paragraph">
+<p>If the positive button (Load) is pressed with a preset selected, all existing targets
+should be removed and all the targets from the selected preset should be added.
+There are multiple ways to associate a preset with a radio button; you may find <code>getTag</code>
+and <code>setTag</code> helpful. If the user presses Cancel or presses Load without selecting a preset,
+do nothing and the dialog will be dismissed by default.</p>
+</div>
+<div class="paragraph">
+<p>If you complete this task, <code>testTargetPresets_extraCredit</code> will pass and you&#x2019;ll have earned
+20% extra credit!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>5. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As always, 100 points is full credit on the checkpoint.
+But on MP3 there are <strong>120</strong> points available, broken down as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>15 points</strong> for the <code>Target</code> class</p>
+</li>
+<li>
+<p><strong>10 points</strong> for refactoring <code>addLine</code> and the uses of <code>LineCrossDetector</code></p>
+</li>
+<li>
+<p><strong>15 points</strong> for the targets map</p>
+</li>
+<li>
+<p><strong>20 points</strong> for the invitees UI</p>
+</li>
+<li>
+<p><strong>20 points</strong> for the create-game web request</p>
+</li>
+<li>
+<p><strong>20 points</strong> of <em>extra credit</em> for the <em>optional</em> Load Preset feature</p>
+</li>
+<li>
+<p><strong>10 points</strong> for passing <code>checkstyle</code> inspection</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;by committing and pushing&lt;/body&gt;&lt;/html&gt;">9</span>
+code that earns 40 points by 8 PM on your early deadline day</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you missed a deadline in a previous checkpoint, doing the extra credit here is a great way
+to earn some of those points back!</p>
+</div>
+<div class="paragraph">
+<p>Your app will be tested by <code>Checkpoint3Test</code>. Feel free to look through that class&#x2019;s code
+to see what the test suite tries to do with your app. Post on the <a href="https://cs125-forum.cs.illinois.edu/c/fall2019-mp/mp3" class="noexternal">forum</a> for clarifications
+about what exactly is expected.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cliffhanger"></a><h2>6. Cliffhanger</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because the game setup screen submits the game configuration to the server instead of passing
+it to the game activity, gameplay is probably pretty broken at the moment.
+In the next and final checkpoint, we&#x2019;ll finish the app by connecting the game activity
+to the server!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cheating"></a><h2>7. Cheating</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By now you should be familiar with the <a href="/info/2019/fall/syllabus/#cheating">cheating policies</a> from
+the syllabus. Collaborating in a human language about how to approach the problems is encouraged,
+but sharing your code with anyone not currently on the course staff constitutes cheating.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/fall/3.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/fall/3.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

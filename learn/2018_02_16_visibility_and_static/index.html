@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Visibility and Static</title>
+  <meta name="description" lang="en-us" content="A continued discussion of Java objects, introducing visibility and static methods and variables.">
+
+  <meta name="slider-id" content="fc610989-f171-40f3-8d2c-2a749bd199ce">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini compiler small nozoom bespoke-active bespoke-slide" data-slideid="wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi">
+
+<textarea class="janini spelling_exception">public class Course {
+  public static void printName() {
+    System.out.println(&quot;CS 125&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course.printName();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Visibility and Static&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Visibility and Static<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="KdwtLLieHgPoCJOrTPiclQExiGvYpFwC">
+<div class="header" data-title="Access Modifiers"><h2>Access Modifiers</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  public String name;
+  private int age;
+
+  private void printName() {
+    System.out.println(this.name);
+  }
+  public int getAge() {
+    return this.age;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java provides ways to <em>protect</em> instance variables and methods.
+We refer to these as <em>access modifiers</em>:</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IIhjNpbdLiLFvTmpFrKZfyIOoGmAwidd">
+<div class="header" data-title="Variable Access Modifiers"><h2>Variable Access Modifiers</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  // Anybody can modify name
+  public String name;
+  // age can only be changed by this class&apos;s methods
+  private int age;
+}
+Person me = new Person();
+me.name = &quot;Geoffrey&quot;; // This works
+System.out.println(me.age); // This does not work</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the variable can be read or written by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler small nozoom bespoke-inactive bespoke-slide" data-slideid="pqgwnWlgZGMpRHMwUZsKhfyXhcpegJrj">
+<div data-title=" Variable Access Modifiers"></div>
+<textarea class="janini spelling_exception">public class Person {
+  public String name;
+  private int age;
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.name = &quot;Geoffrey&quot;; // This works
+    System.out.println(me.age); // This does not work
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JIAxfYHdgMdZbXUIzIxaJCXZyvhRxNuY">
+<div class="header" data-title="Function Access Modifiers"><h2>Function Access Modifiers</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  public void printIt() {
+    System.out.println(&quot;It&quot;);
+  }
+  private void printYou() {
+    System.out.println(&quot;You&quot;);
+  }
+}
+Person me = new Person();
+me.printIt(); // This works
+me.printYou(); // This does not work</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the method can be called by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the method can only be called by other methods <em>on that class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler small nozoom bespoke-inactive bespoke-slide" data-slideid="GGGGroNVPLAMISvAfEPryUJlJXrOwodH">
+<div data-title=" Function Access Modifiers"></div>
+<textarea class="janini spelling_exception">public class Person {
+  public void printIt() {
+    System.out.println(&quot;It&quot;);
+  }
+  private void printYou() {
+    System.out.println(&quot;You&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Person me = new Person();
+    me.printIt(); // This works
+    me.printYou(); // This does not work
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eElRbazMJbGpaHfrEAGOxqdhlEUjKpHJ">
+<div class="header" data-title="Other Access Modifiers"><h2>Other Access Modifiers</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>(Java also provides <code>protected</code> and package private modifiers&#x2014;but they
+don&#x2019;t make sense until we discuss packages.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uLPZroAsMblwalogMaPDbzszkcQeVlEo">
+<div class="header" data-title="Getters and Setters"><h2>Getters and Setters</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  private int age;
+  public void setAge(int setAge) {
+    this.age = setAge;
+  }
+  public int getAge() {
+    return this.age;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java it&#x2019;s common to have <em>private</em> instance variables with public methods
+that set or get their values: called <em>setters</em> and <em>getters</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oDKbLeOnKjNLLDaUpPxiFXRuDeUiVtUC">
+<div class="header" data-title="Getters and Setters: Why?"><h2>Getters and Setters: Why?</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Person {
+  private int name;
+  private int firstName;
+  private int lastName;
+  public void setName(int setName) {
+    String[] nameParts = setName.split(&quot; &quot;);
+    this.name = setName;
+    this.firstName = nameParts[0];
+    this.lastName = nameParts[1];
+  }
+  public int getName() {
+    return this.name;
+  }
+  public int getFirstName() {
+    return this.firstName;
+  }
+  public int getLastName() {
+    return this.lastName;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Getters and setters allow an object to react to changes to its variables.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="EPACuRwxtQOGiRMiwgPeUQhPfmNSJMyx">
+<div class="header" data-title="Access Modifiers: Questions?"><h2>Access Modifiers: Questions?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ">
+<div class="header" data-title="The static Keyword"><h2>The <code>static</code> Keyword</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public static void printName() {
+    System.out.println(&quot;Name&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // We can call printName without creating an instance
+    Course.printName();
+    // We can increment count without creating an instance
+    Course.count++;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods and variables belong to the <em>class</em>, not to a specific
+instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JcfeftoggWYEqmVcqHqWFWLVDrBYSrKv">
+<div class="header" data-title="static Methods"><h2><code>static</code> Methods</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static void printName() {
+    System.out.println(&quot;Name&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works
+    Course.printName();
+    // This also works
+    Course CS125 = new Course();
+    CS125.printName();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>static</code> methods are called directly on the class, rather than on an instance</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but they <em>can</em> be called on the instance as well.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GogDSWyLriatEwvWVbqNnpNScdTGsZnm">
+<div class="header" data-title="static Methods and this"><h2><code>static</code> Methods and <code>this</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public String name;
+  public static void printName() {
+    // This doesn&apos;t work
+    System.out.println(this.name);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods can be called without an instance, and so can&#x2019;t use <code>this</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AGXzadhOVsBxnfSsSKGKsHhYNePpixZD">
+<div class="header" data-title="static Variables"><h2><code>static</code> Variables</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.count);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course();
+    Course CS225 = new Course();
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> variables are shared by all instances of a given <code>class</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="aJrAPQCvltPcxpPVAvGrGqdLWEhKRlRK">
+<div data-title=" static Variables"></div>
+<textarea class="janini spelling_exception">public class Course {
+  private String name;
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.name + &quot; &quot; + this.count);
+  }
+  Course(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course(&quot;125&quot;);
+    Course CS225 = new Course(&quot;225&quot;);
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XHfGpqVIAFIKzUxynzGVJLgDpLnzNwON">
+<div class="header" data-title="static, public, and private"><h2><code>static</code>, <code>public</code>, and <code>private</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>public</code> and <code>private</code> also work on static variables and methods</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the (static) variable can be read or written by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the (static) variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li class="bullet">
+<p><code>public</code>: the (static) method can be called by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the (static) method can only be called by other methods <em>on that class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wonpBdFJRHThXEZuFNtsAJXwhHalvCdU">
+<div class="header" data-title="Object Modeling"><h2>Object Modeling</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We frequently use Java objects to model real objects or entities.</p>
+</div>
+<div class="paragraph">
+<p>Objects allow us to <em>design</em> software that deals with things in realistic and
+natural ways.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="QKbwvSUPNbeavWhkTsZyRZEGHEAuicDP">
+<div class="header" data-title="Let&#x2019;s Model Something"><h2>Let&#x2019;s Model Something</h2></div>
+<textarea class="janini spelling_exception"></textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>TC 8 is out and due <strong>Sunday</strong> by midnight.</p>
+</li>
+<li>
+<p><a href="/MP/2018/spring/3/">MP3</a> is out and due week from today.
+The early deadline is <em>today</em> at 5PM.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

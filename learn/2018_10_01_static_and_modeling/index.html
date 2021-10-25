@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Static and Modeling</title>
+  <meta name="description" lang="en-us" content="Midterm review followed by more about Java objects, including static methods and variables.">
+
+  <meta name="slider-id" content="44665776-4411-4ba1-9ab3-48b4d4c9bb7a">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini compiler small nozoom bespoke-active bespoke-slide" data-slideid="wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi">
+
+<textarea class="janini spelling_exception">public class Course {
+  public static void printName() {
+    System.out.println(&quot;CS 125&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course.printName();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Static and Modeling&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Static and Modeling<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="KcQRXpFXdmuAnxnLEHQTdJNVVXdUdWnY">
+<div class="header" data-title="Midterm Review: String Processing"><h2>Midterm Review: String Processing</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A common task when working with is extracting data from structured text.
+For example, consider that you are provided employee records in the following
+format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text spelling_exception lang-text" data-lang="text">Name:Position:Salary</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here are some examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text spelling_exception lang-text" data-lang="text">Chuchu Challen:Senior Challen Family Dog:10000
+Xyz Challen:Junior Challen Family Cat: 8000
+Little Helper:Challen Family Roomba</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sensjjnpmjGanDOqouJAcJgQyYSeRclX">
+<div class="header" data-title="Midterm Review: String Processing"><h2>Midterm Review: String Processing</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Note that not every record has all possible fields.</strong>
+(Little Helper works in exchange for free electricity.)
+In addition, some records may have whitespace around the values, as in the data
+for &quot;Xyz Challen&quot; above.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LGoieNVuJpiZFIdQNNyKZczeRRAliCCq">
+<div class="header" data-title="Midterm Review: String Processing"><h2>Midterm Review: String Processing</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Your job is to write a function called <code>getSalary</code> that, given a record in the
+format above passed as a <code>String</code>, returns that person&#x2019;s salary as an <code>int</code>.
+If the record does not contain a salary or if the record is <code>null</code> you should
+return <code>-1</code>.</p>
+</div>
+<div class="paragraph">
+<p>As a reminder we provided a copy of the Java <code>String</code> documentation on the quiz
+cover page.
+You may want to refer to that, and in particular to the <code>split</code> and <code>trim</code>
+functions.
+Note that you can pass a <code>String</code> to <code>split</code> rather than a regular expression,
+and it will split the string at each occurrence of the passed <code>String</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nuKMZnDsVysyNvedTiPlndMSnxfatCoA">
+<div class="header" data-title="Midterm Review: String Processing"><h2>Midterm Review: String Processing</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have also provided a copy of the Java <code>Integer</code> documentation on the quiz
+cover page.
+You should examine the <code>Integer.parseInt</code> function to convert a
+<code>String</code> into an <code>int</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int i = Integer.parseInt(&quot;10&quot;);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, note that this function <em>will not work</em> if there is whitespace
+surrounding the integer.
+So you&#x2019;ll need to remove it.
+See the <code>String</code> hints above.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="cgeZFZddFMuCmnKobNegrigntnmFyunf">
+<div data-title=" Midterm Review: String Processing"></div>
+<textarea class="janini spelling_exception">System.out.println(getSalary(&quot;Chuchu:Senior Challen Family Dog:10000&quot;));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YOWktApdylegwNvLtEfZmnDhvrNfilST">
+<div class="header" data-title="Midterm Review: GCD"><h2>Midterm Review: GCD</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Define and implement a function below called <code>gcd</code> that returns the greatest
+common denominator (GCD) as an <code>int</code> of an array of passed positive <code>int</code> values.
+The greatest common divisor (GCD) of two or more integers, which are not all
+zero, is the largest positive integer that divides each of the integers.
+The passed array may be <code>null</code>, empty, or contain only 0s&#x2014;in these cases return <code>-1</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qlBiCcBerzeaQluXldiNDWLzEQZPLjQb">
+<div class="header" data-title="Midterm Review: GCD"><h2>Midterm Review: GCD</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>You do not need to implement a sophisticated GCD algorithm.</strong>
+A simple iterative solution will work fine.
+Once you have dealt with the bad inputs (<code>null</code>, empty) you may want to try to
+implement the following algorithm:</p>
+</div>
+<div class="olist arabic small">
+<ol class="arabic">
+<li class="bullet">
+<p>First, find the maximum value over the passed array.
+This is also the place to see if you have been given all zeroes.</p>
+</li>
+<li class="bullet">
+<p>Now, start at that value and work downward.</p>
+</li>
+<li class="bullet">
+<p>For each potential GCD, find the remainder when you divide every element in
+the input array by the potential GCD.
+If they are all zero, you have found the GCD.
+If any is non-zero, move on to the next potential value.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="aCDuMymnEfOuZxePefWeeSXdTrmsDZSV">
+<div data-title=" Midterm Review: GCD"></div>
+<textarea class="janini spelling_exception">System.out.println(gcd(20, 10, 5));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="mBTUbPeFkfcconeufXXvCCNCiKViJepV">
+<div class="header" data-title="Midterm Questions?"><h2>Midterm Questions?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="fufaLBxVODEUnkLfFIwehGffqBnydFYV">
+<div class="header" data-title="Reminder: Quiz 4"><h2>Reminder: Quiz 4</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ">
+<div class="header" data-title="The static Keyword"><h2>The <code>static</code> Keyword</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public static void printName() {
+    System.out.println(&quot;Name&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // We can call printName without creating an instance
+    Course.printName();
+    // We can increment count without creating an instance
+    Course.count++;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods and variables belong to the <em>class</em>, not to a specific
+instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JcfeftoggWYEqmVcqHqWFWLVDrBYSrKv">
+<div class="header" data-title="static Methods"><h2><code>static</code> Methods</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static void printName() {
+    System.out.println(&quot;Name&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works
+    Course.printName();
+    // This also works
+    Course CS125 = new Course();
+    CS125.printName();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>static</code> methods are called directly on the class, rather than on an instance</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but they <em>can</em> be called on the instance as well.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GogDSWyLriatEwvWVbqNnpNScdTGsZnm">
+<div class="header" data-title="static Methods and this"><h2><code>static</code> Methods and <code>this</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public String name;
+  public static void printName() {
+    // This doesn&apos;t work
+    System.out.println(this.name);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods can be called without an instance, and so can&#x2019;t use <code>this</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AGXzadhOVsBxnfSsSKGKsHhYNePpixZD">
+<div class="header" data-title="static Variables"><h2><code>static</code> Variables</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(count);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course();
+    Course CS225 = new Course();
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> variables are shared by all instances of a given <code>class</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="aJrAPQCvltPcxpPVAvGrGqdLWEhKRlRK">
+<div data-title=" static Variables"></div>
+<textarea class="janini spelling_exception">public class Course {
+  private String name;
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(this.name + &quot; &quot; + this.count);
+  }
+  Course(String setName) {
+    this.name = setName;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course(&quot;125&quot;);
+    Course CS225 = new Course(&quot;225&quot;);
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XHfGpqVIAFIKzUxynzGVJLgDpLnzNwON">
+<div class="header" data-title="static, public, and private"><h2><code>static</code>, <code>public</code>, and <code>private</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>public</code> and <code>private</code> also work on static variables and methods</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the (static) variable can be read or written by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the (static) variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li class="bullet">
+<p><code>public</code>: the (static) method can be called by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the (static) method can only be called by other methods <em>on that class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="edyTnfheyncuqOGTqDCiVblPbDhDspnE">
+<div class="header" data-title="static Object Creation Method"><h2><code>static</code> Object Creation Method</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can also use a class method to be able to return <code>null</code> when creating a new
+object if invalid parameters are supplied.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="vYdcSSHUfxavYQtnRnYMNLTmZdeandOy">
+<div data-title=" static for Object Creation"></div>
+<textarea class="janini spelling_exception">public class Storage {
+  private int[] storage;
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/fall/3/">MP3</a> is out and due <em>two weeks</em> from <em>today</em>.</p>
+</li>
+<li>
+<p>I&#x2019;m holding office hours today from 10AM&#x2013;12PM.</p>
+</li>
+<li>
+<p>Regular Monday office hours today from 10AM&#x2013;5PM.
+<strong>Today is great day to come and get started on <a href="/MP/2018/fall/3/">MP3</a></strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

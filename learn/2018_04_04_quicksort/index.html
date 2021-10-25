@@ -1,0 +1,1923 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Quicksort</title>
+  <meta name="description" lang="en-us" content="Discussion of Quicksort and a overview of sorting algorithms and their tradeoffs.">
+
+  <meta name="slider-id" content="f3bcd39c-cf6e-4791-b04d-0a8d41426840">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="cSakTLcvLAxfSmNhHoBzIDmrBfcPYPlC">
+
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+static int[] sort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(sort(testArray)));</textarea><!-- beautify ignore:start --><div class="output" data-blank="Quicksort&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Quicksort<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bazaZCgsVytVtkBXFZYrRAxzCGKetQwx">
+<div class="header" data-title="Q8 Review: Recursion v. Iteration"><h2>Q8 Review: Recursion v. Iteration</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>True or false: iteration can solve problems that recursive solutions cannot.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kuHhBsddMkgowDUopptFBSLBBudSzpEP">
+<div class="header" data-title="Q8 Review: Iteration v. Recursion"><h2>Q8 Review: Iteration v. Recursion</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>True or false: recursion can solve problems that iterative solutions cannot.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rsUCEWexvvmmtwzDKVMdRlyaiawCWzSj">
+<div class="header" data-title="Q8 Review: Buggy Recursive Code"><h2>Q8 Review: Buggy Recursive Code</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public void z(int value) {
+  Tree current = left;
+  do {
+    current = current.left;
+  } while (current != null);
+  current.left = new Tree(value);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What is one problem with the function <code>z</code> shown above?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="lJoRHGUmLxdXdsjvQCdxYaPlUumqvJtB">
+<div class="header" data-title="Q8 Review: More Buggy Recursive Code"><h2><span class="small">Q8 Review: <em>More</em> Buggy Recursive Code</span></h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+  * Count nodes that only have a left child but no right child.
+  */
+public static int countLeftOnly(Tree tree) {
+  if (tree.right == null) {
+    if (tree.left == null) {
+      return 0;
+    } else {
+      return 1;
+    }
+  } else {
+    return countLeftOnly(tree.right);
+    if (tree.left != null) {
+      return countLeftOnly(tree.left);
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What is <em>not</em> one (of the many) problems with the function <code>countLeaves</code> shown
+above?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="hVwNTKkbDrdBwdUgqUfFiDCHyNMJHwBu">
+<div data-title=" Q8 Review: Counting Leaves"></div>
+<textarea class="janini spelling_exception">import java.util.Random;
+
+public class Tree {
+  Random random = new Random();
+  public int value;
+  public Tree right;
+  public Tree left;
+
+  Tree(int setValue) {
+    value = setValue;
+  }
+  Tree(int[] array) {
+    value = array[0];
+    for (int i = 1; i &lt; array.length; i++) {
+      add(array[i]);
+    }
+  }
+
+  public void add(int value) {
+    if (right == null) {
+      right = new Tree(value);
+    } else if (left == null) {
+      left = new Tree(value);
+    } else if (random.nextBoolean()) {
+      right.add(value);
+    } else {
+      left.add(value);
+    }
+  }
+
+  public int countLeaves() {
+    return 0;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    Tree tree = new Tree(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 });
+    System.out.println(tree.countLeaves());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="GOuCNiHkbqVBSfZesLPaZMtwyIJoqcAM">
+<div class="header" data-title="Questions About CBTF Programming?"><h2>Questions About CBTF Programming?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(We are working on the performance problems.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zwCrMpuOCXQhqTCbqFfCcEalUbPRGxHd">
+<div class="header" data-title="There Are Many Sorting Algorithms"><h2>There Are Many Sorting Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>And we won&#x2019;t discuss them all&#x2026;&#x200B;</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Insertion_sort" target="_blank" class="external">Insertion sort</a> (last Wednesday)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Selection_sort" target="_blank" class="external">Selection sort</a> (lab)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Merge_sort" target="_blank" class="external">Merge sort</a> (last Friday)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Heapsort" target="_blank" class="external">Heapsort</a></p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Quicksort" target="_blank" class="external">Quicksort</a> (today!)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Bubble_sort" target="_blank" class="external">Bubble sort</a> (lab)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Timsort" target="_blank" class="external">Timsort</a> (maybe today)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xBbkdeOpZhBravYxDkGWnYJnmJXbvAGK">
+<div data-title="There Are Many Sorting Algorithms"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HLEeCZxXGjJZLwAEkpuHhMdKZtOZmOfS">
+<div class="header" data-title="Divide and Conquer"><h2>Divide and Conquer</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm" target="_blank" class="external">Divide and conquer</a>
+is an algorithm design paradigm based on multi-branched recursion. A divide and
+conquer algorithm works by recursively breaking down a problem into two or more
+sub-problems of the same or related type, until these become simple enough to be
+solved directly. The solutions to the sub-problems are then combined to give a
+solution to the original problem.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="rPUPMphiZqzseOSzyEnDsVANPDfWXKqm">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li class="bullet">
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li class="bullet">
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="DqMQhWwEVABoQfoKGzQlSOIEJLtvgVjY">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="xgqsDGpZySczQOhmwZPtByiOXkVLpzMX">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QCsHelhfqlNcrdAwgnaxVyhfXbqhdcOa">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="OEMMgSyhXluPYUqeppKBWjvHMUimzCRa">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="rxWsgsJTdUCySjxyZLTkVvjsBYZplTiJ">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="szftBNrMqAOqqCWmLClNgURBILWkAFOX">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="pdooeVgoGrfpVYDIkTLkKxXGuBxenjvd">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="gFvZKbelvtUCVjyVRZMZnYhAxTDUZmnQ">
+<div class="header" data-title="Quicksort: Overview"><h2>Quicksort: Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step, Quicksort picks a value called the <em>pivot</em> and divides the array
+into two parts: values larger than the pivot and values smaller</p>
+</li>
+<li>
+<p>This continues until arrays of size 1 are reached, at which point the entire
+array is sorted</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="aEZtFCtipqujLLijeRsfmscWHexxgbTw">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest showfirst noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li class="bullet">
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li class="bullet">
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li class="bullet">
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="TqwHkVzJXxXXJBpWiYppNdHvjelXGDVs">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="CEzGorKSVCnqyENhFyNlpfegAEYDVNcR">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="IuZYAUZNUXJOjJfuRzvVobiIWWYkYczg">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="llGmZFkKnUbPDEStyyWBQxuJBONLaNyS">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="XDITtxynkNKwFvBqyZnTYHJnSHVTXzVa">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="zRgaMTOmjNPEKWXKHKxsjeICgFBGLVMj">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="pOsnANEKoYXbVaSEkLQbaCEzwZHQznSn">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">-1</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="WUhroVUjuTzqGqyJdYWjcpNdHlHLBKDl">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="vTfTsNGmWmFoAVbJAGFrEQFpbVzotnJF">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="geXYdaTdjiUQcBfpnctVLbofPGUTwEDw">
+<div class="header" data-title="Quicksort: Partition"><h2>Quicksort: Partition</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#x2191;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist small">
+<ul>
+<li>
+<p>We want to divide the array into smaller and larger parts and put the pivot in
+between them</p>
+</li>
+<li>
+<p>If we see a smaller value, increase the size of the smaller part and put the
+value in the smaller part</p>
+</li>
+<li>
+<p>When we&#x2019;re done, we&#x2019;ll know where to put the pivot</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 janini smallest nozoom bespoke-inactive bespoke-slide" data-slideid="ZiWwFfSAfdixLUTCMzmcMgYUfxPyXQxJ">
+<div data-title=" Implement Quicksort"></div>
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+static void partition(int[] inputArray, int start, int end) {
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(partition(testArray)));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qEdEMaiFvMBLzNSWmOZUykwUOErMvsiB">
+<div class="header" data-title="Quicksort Runtime: Best Case"><h2>Quicksort Runtime: Best Case</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#x2019;s consider an array of size 8. <strong>In the best case, the pivot divides the
+array evenly at each step.</strong> So the analysis is similar to Mergesort:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Partition 1:</strong> 1 O(n) partition where n = 8 into two arrays of size 4</p>
+</li>
+<li class="bullet">
+<p><strong>Partition 2:</strong> 2 O(n) partition where n = 4 into four arrays of size 2</p>
+</li>
+<li class="bullet">
+<p><strong>Partition 3:</strong> 4 O(n) partition where n = 2 into eight arrays of size 1</p>
+</li>
+<li class="bullet">
+<p><strong>So given n = 8, we have done 3 O(n) steps, or O(n log n).</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="bqohxByGqhWvlcMcuaLPwuMuCXiTDzaC">
+<div class="header" data-title="But Trouble Lurks&#x2026;&#x200B;"><h2>But Trouble Lurks&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZbUsFKSXdbMVfAOkBhxSvlccoffGsIhh">
+<div class="header" data-title="Quicksort Runtime: Worst Case"><h2>Quicksort Runtime: Worst Case</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#x2019;s consider an array of size 8. <strong>In the worst case, the pivot is the maximum
+or minimum value in each step.</strong></p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Partition 1:</strong> 1 O(n) partition where n = 8 into two arrays of size 7 and size 1</p>
+</li>
+<li class="bullet">
+<p><strong>Partition 2:</strong> 1 O(n) partition where n = 7 into two arrays of size 6 and size 1</p>
+</li>
+<li class="bullet">
+<p><strong>Partition 3:</strong> 1 O(n) partition where n = 6 into two arrays of size 5 and size 1</p>
+</li>
+<li class="bullet">
+<p><strong>Partition 4:</strong> 1 O(n) partition where n = 5 into two arrays of size 4 and size 1</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;etc&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p><strong>So given n = 8, we have done n O(n) steps, or O(n^2)!</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="pKxoPfMhWENyghZNLJRdodipbuNUYtIt">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="hSWNlCxuJxibbGaNoKvQiNNMkFzJVLtI">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="sRPuKiCSUyJlLIhrlDQYItusnfCoWucK">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="jXToTRMRkSdwYPgupSjCmYNafsFMjCmt">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="xXoUtRxCDMhVSSsctndUymPMJMMXZYke">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="UnHRPGKLJArhmcqEknegKoNxSKyZnmWh">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="eDdutANtjfMxoByGdJaITsEyaGftcHqV">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="WFfPnGrycYaKyNvCnGYenBRVFoUBPqOa">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="lfilMapcXaBTwGIEZNSIjLWmdqsoCBef">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="lBqxyNNNgZuJOHOvDzxlruNbXVGayhFj">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="pZSgAGZUULJUbOMmcuFVkbCyuZYZVOWj">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="HbtTknMqDJuEurziJAxITGUlHMGLXDGU">
+<div class="header" data-title="Quicksort: Worst Case Overview"><h2>Quicksort: Worst Case Overview</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">2</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In the worst case the problem only gets 1 unit smaller in each step!</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="buMbdAtBMbOxEmKPPYHRSUIcAqzKWmgc">
+<div class="header" data-title="Avoiding Bad Pivots"><h2>Avoiding Bad Pivots</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Good Quicksort implementations try to avoid picking bad <em>pivot</em> values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>First value</strong>: fails if the array is sorted in reverse order</p>
+</li>
+<li class="bullet">
+<p><strong>Last value</strong>: fails if the array in already sorted</p>
+</li>
+<li class="bullet">
+<p><strong>Better idea</strong>: choose a random value, or the median of several values</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JQFsAkokPfdphXipmzxbNWJohznTmnhb">
+<div class="header" data-title="Quicksort Runtime"><h2>Quicksort Runtime</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small showfirst notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Measure</th>
+<th class="tableblock valign-middle text-center">Best Case</th>
+<th class="tableblock valign-middle text-center">Worst Case</th>
+<th class="tableblock valign-middle text-center">Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock">Time</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(n log n)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(n^2)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(n log n)</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock">Space</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(log n)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(n)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(log n)</p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p><span class="bullet">One advantage of Quicksort over Mergesort is that it can be done in-place
+without requiring extra space.</span></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="NwpuFgwNcwmBQfCeSqKEVfIXIgooWzNo">
+<div class="header" data-title="Sorting Summary: Input Dependence"><h2>Sorting Summary: Input Dependence</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Algorithm</th>
+<th class="tableblock valign-middle text-center">Best Case</th>
+<th class="tableblock valign-middle text-center">Worst Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Insertion Sort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Already sorted</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Sorted backwards</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Merge Sort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Doesn&#x2019;t matter</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Doesn&#x2019;t matter</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Quicksort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Random</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Sorted <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Order depends on pivot choice&lt;/body&gt;&lt;/html&gt;">1</span></span></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>(Note that most of these are implementation dependent.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gsdiCzFsqSrDrLyWZqiwCIlzGoNUESsD">
+<div class="header" data-title="Sorting Summary: Runtime"><h2>Sorting Summary: Runtime</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Algorithm</th>
+<th class="tableblock valign-middle text-center">Best Case</th>
+<th class="tableblock valign-middle text-center">Worst Case</th>
+<th class="tableblock valign-middle text-center">Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Insertion Sort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n)</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n^2)</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n^2)</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Merge Sort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n log n)</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n log n)</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n log n)</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Quicksort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n log n)</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n^2)</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n log n)</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EBJRJZBqWVbksBPlguFGqFiodPSrYKkD">
+<div class="header" data-title="Sorting Summary: Space"><h2>Sorting Summary: Space</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Algorithm</th>
+<th class="tableblock valign-middle text-center">Extra Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Insertion Sort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(1)</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Merge Sort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(n)</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Quicksort</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">O(log n), due to the recursive calls</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RMMoEHJwGPhzNNlqWfwerFJwIfDOdIcB">
+<div class="header" data-title="There Be Tradeoffs"><h2>There Be Tradeoffs</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>If you have a very small array?</strong> <span class="bullet">Try <em>insertion sort</em>. It avoids the
+recursive calls made by merge sort and quick sort and is fastest on small
+arrays.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Do you want predictable performance?</strong> <span class="bullet">Try <em>merge sort</em>. It&#x2019;s performance
+doesn&#x2019;t vary based on its inputs, although it requires O(n) space.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Are you short on space?</strong> <span class="bullet">Try <em>Quicksort</em>. It&#x2019;s best-case
+performance is as good as merge sort but it can be done using much less memory.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ctXSCdeuRnmaipTMpLABIYtntfCrmwyy">
+<div class="header" data-title="Sorting Stability"><h2>Sorting Stability</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We also refer to sorts as being either <em>stable</em> or <em>unstable</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Stable sorts</strong>: two items with the same value cannot switch positions</p>
+</li>
+<li class="bullet">
+<p><strong>Unstable sorts</strong>: two items with the same value <em>may</em> switch positions</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dWtjgQRehCWFeoROhzjuOPsImeoxgzWp">
+<div class="header" data-title="Why Is Stability Important?"><h2>Why Is Stability Important?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  int age;
+  String name;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Let&#x2019;s say I wanted a list of all <code>Person</code>s, sorted first by age and then by
+name. How would I do that?</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Sort first using the <code>name</code> field</p>
+</li>
+<li class="bullet">
+<p>Then sort by the <code>age</code> field</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="bullet"><strong>If the sort is not stable I cannot do this, since the second sort will
+alter the results of the first.</strong></span></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BchZSolTgdrvJYMXystkpUMdmPkQxlBY">
+<div class="header" data-title="What About Timsort?"><h2>What About Timsort?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Timsort is the adaptive sorting algorithm used by Python and now Java.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>It&#x2019;s far more complex than any of the algorithms we&#x2019;ve discussed, but tries to
+take advantage of <em>runs</em> of already-sorted values in the data.</p>
+</li>
+<li class="bullet">
+<p>Internally it uses both merge sort and insertion sort to sort smaller arrays
+and combine them together.</p>
+</li>
+<li class="bullet">
+<p>It&#x2019;s an <em>adaptive</em> sort, meaning that it adjusts its behavior to features of
+the data.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="vbTiNsqHtTurckJbgEQHeWmTHEzRwAli">
+<div class="header" data-title="Questions About Sorting?"><h2>Questions About Sorting?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UyokaowWhYlJPTWNVWgdSxuazCwPTUKD">
+<div class="header" data-title="A Fun Visualization"><h2>A Fun Visualization</h2></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+<div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/kPRA0W1kECg%22,%22allowfullscreen%22:%22%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rlOtWjdeSgzzQeNZjBAvbgjJcQptGIJF">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>MP6 will be out tonight.</p>
+</li>
+<li>
+<p>Get your Android environment set up! Come to office hours if you need help.</p>
+</li>
+<li>
+<p>We&#x2019;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

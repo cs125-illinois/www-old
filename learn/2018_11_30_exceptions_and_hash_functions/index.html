@@ -1,0 +1,832 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Exceptions and Hash Functions</title>
+  <meta name="description" lang="en-us" content="Working with exceptions and an introduction to hash functions.">
+
+  <meta name="slider-id" content="3869afc6-1e9a-4193-9d90-0b9d9b9f5bbf">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini jdk compiler smaller nozoom bespoke-active bespoke-slide" data-slideid="axHCLhKQxzhwFHeqGvpZhWUIqRTRCEyt">
+
+<textarea class="janini spelling_exception">import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+
+public class Example {
+  static void countStrings(String[] inputArray) {
+    Map&lt;String, Integer&gt; stringCount = new HashMap&lt;&gt;();
+    for (String input: inputArray) {
+      stringCount.put(input, stringCount.getOrDefault(input, 0) + 1);
+    }
+    System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
+  }
+  public static void main(String[] unused) {
+    countStrings(new String[] { &quot;a&quot;, &quot;b&quot;, &quot;aa&quot;, &quot;bb&quot;, &quot;a&quot; });
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Exceptions and Hash Functions&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Exceptions and Hash Functions<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YVOVNHgIXQcGbotRhnTLjlRxlloFSLng">
+<div class="header" data-title="Review: Types of Exceptions"><h2>Review: Types of Exceptions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java exceptions are broken into three distinct categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Checked exceptions</strong>: these are for places where you <em>know</em> something might go
+wrong and it&#x2019;s out of your control</p>
+</li>
+<li class="bullet">
+<p><strong>Unchecked exceptions</strong> (or runtime errors): these are unanticipated errors
+usually caused by something dumb that you (the programmer) did wrong</p>
+</li>
+<li class="bullet">
+<p><strong>Errors</strong>: these are reserved for serious system problems that are probably not
+recoverable</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ajpSqxeufhVlXQkgrigFcjuJqXwzCANS">
+<div class="header" data-title="Exception Handling Strategies"><h2>Exception Handling Strategies</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Here are reasonable strategies for handling each kind of exception:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Errors</strong>: <em>don&#x2019;t</em> try to handle these, just go bye-bye</p>
+</li>
+<li class="bullet">
+<p><strong>Unchecked exceptions</strong>: try to <em>avoid</em> these by improving your code</p>
+</li>
+<li class="bullet">
+<p><strong>Checked exceptions</strong>: try to handle these and have your program
+continue running, or exit gracefully&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>but don&#x2019;t go on unless you can.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RoxnUIFqZCBrBZnusOrpzbLuksmJMpdG">
+<div class="header" data-title="Working with Exceptions"><h2>Working with Exceptions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java exceptions are just another kind of Java object&#x2014;and they have some
+useful features, particularly when debugging:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>toString</code>: like every other Java <code>Object</code>, exceptions can be printed</p>
+</li>
+<li class="bullet">
+<p><code>getMessage</code>: retrieves just the message associated with this exception</p>
+</li>
+<li class="bullet">
+<p><code>printStackTrace</code>: print a <em>stack trace</em> for the error showing what caused it
+and what other functions were involved</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="wIAiKctczCEQFknYPSiRbruXLqBIGBMy">
+<div data-title="Throwable Documentation"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="zzlPSnhuaDjSgoGIAkpIjUQZeiuerNQe">
+<div data-title="Working with Exceptions Examples"></div>
+<textarea class="janini spelling_exception">static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}
+foo4();</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CTsKSqiFCfFyikLMwtUmDbmSXijFayAL">
+<div class="header" data-title="Rethrowing Exceptions"><h2>Rethrowing Exceptions</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Sometimes you may want to just record what happened but not know what to do with
+an error.</p>
+</div>
+<div class="paragraph">
+<p>In that case you may want to rethrow it out of the catch block:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">static URI createURI(final String input) {
+  // Example where we handle URISyntaxExceptions
+  try {
+    return new URI(input);
+  } catch (URISyntaxException e) {
+    // Log that something went wrong
+    Log.e(TAG, input + &quot; is not a valid URI&quot;);
+    // Rethrow the exception
+    throw(e);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="diIiwLksuhFzuaiuxOuRIZnfIpgBPFnP">
+<div class="header" data-title="Throwing Your Own Exceptions"><h2>Throwing Your Own Exceptions</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So how do we handle a case like this?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize &lt;= 0) {
+      // what now?
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="tZEORkretvixoGRTiPQxDkXOhkrgdAUE">
+<div data-title=" Throwing Your Own Exceptions"></div>
+<textarea class="janini spelling_exception">public class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize &lt;= 0) {
+      // what now?
+    }
+  }
+}
+public class Example {
+  public static void main(final String[] unused) {
+    StringStorage stringStorage = new StringStorage(-1);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TyzTkvyjvmKDPkZwmxwufvXMjajIlrHV">
+<div class="header" data-title="throw"><h2><code>throw</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To throw an exception in Java we use the <code>throw</code> keyword:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">Exception e = new Exception(&quot;you did something awful&quot;);
+throw(e);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qoTmuDmRuBRgiUxPONZaOVhCRmlElcLw">
+<div class="header" data-title="throw Well"><h2><code>throw</code> Well</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If you need to throw an exception:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Look for an existing <code>Exception</code> class that&#x2019;s a good fit</p>
+</li>
+<li class="bullet">
+<p>Or, create your own:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock smaller bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class MyException extends Exception {
+}
+throw(new MyException(&quot;bad bad&quot;));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SRZEFPcrGpKfBdzGREcjDZALhTbKaIsC">
+<div class="header" data-title="finally"><h2><code>finally</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java&#x2019;s <code>try-catch</code> also supports a <code>finally</code> block. It is <em>always</em> executed after
+<em>either</em> the <code>try</code> or the <code>catch</code> completes:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">try {
+  System.out.println(&quot;start&quot;);
+  couldError();
+  System.out.println(&quot;done&quot;);
+} catch (Exception e) {
+  System.out.println(&quot;catch&quot;);
+} finally {
+  System.out.println(&quot;finally&quot;);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="mhmYjmPPucLHcPEFfhzCtQfFbnqfuYjZ">
+<div data-title=" finally Example"></div>
+<textarea class="janini spelling_exception">import java.util.Random;
+
+static void couldError() {
+  Random random = new Random();
+  if (random.nextBoolean()) {
+    Object it = null;
+    it.hashCode();
+  }
+}
+
+try {
+  System.out.println(&quot;start&quot;);
+  couldError();
+  System.out.println(&quot;done&quot;);
+} catch (Exception e) {
+  System.out.println(&quot;catch&quot;);
+} finally {
+  System.out.println(&quot;finally&quot;);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eZOQBRhCvuQhjkIrABjfwolqygMADAfE">
+<div class="header" data-title="Intelligent try Usage"><h2>Intelligent <code>try</code> Usage</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can make intelligent use of <code>try-catch</code> blocks to avoid repetitive sanity
+checking:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">JsonParser parser = new JsonParser();
+JsonObject info = parser.parse(json).getAsJsonObject();
+if (!info.has(&quot;metadata&quot;)) {
+  return 0;
+}
+JsonObject metadata = info.getAsJsonObject(&quot;metadata&quot;);
+if (!metadata.has(&quot;width&quot;)) {
+  return 0;
+}
+JsonElement width = metadata.getAsJsonElement(&quot;width&quot;);
+return width.getAsInt();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PTcgGbrBNJAzQGjhIpXKlPnMXeUoxUmP">
+<div class="header" data-title="Intelligent try Usage"><h2>Intelligent <code>try</code> Usage</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can make intelligent use of <code>try-catch</code> blocks to avoid repetitive sanity
+checking:</p>
+</div>
+<div class="paragraph">
+<p>(This is particularly nice when you can chain calls together.)</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">try {
+  JsonParser parser = new JsonParser();
+  return parser.parse(json)
+    .getAsJsonObject()
+    .getAsJsonObject(&quot;metadata&quot;)
+    .get(&quot;width&quot;)
+    .getAsInt();
+} catch (Exception e) {
+  return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="wPTGIacnajnLigKsnSOrFdDtdgnMXQbn">
+<div class="header" data-title="Questions About Exceptions?"><h2>Questions About Exceptions?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ksZcHuGafKhHDLRGxrFjALYMVpMJgcXc">
+<div class="header" data-title="Let&#x2019;s Imagine&#x2026;&#x200B;"><h2>Let&#x2019;s Imagine&#x2026;&#x200B;</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Imagine I told you that there was a function with the following
+properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Determinism</strong>: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.</p>
+</li>
+<li class="bullet">
+<p><strong>Uniformity</strong>: over many inputs, each output value is equally likely.</p>
+</li>
+<li class="bullet">
+<p><strong>Efficiency</strong>: it is efficient to compute.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest nozoom bespoke-inactive bespoke-slide" data-slideid="wzbgdJVtyahrQzZFvohwYXcHCbZXFXUa">
+<div data-title=" Example Hash Function"></div>
+<textarea class="janini spelling_exception">public static long hash(int[] input) {
+  return 0;
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bQxAYgagIHKxIGvBvBzRhiMkryOaxuBt">
+<div class="header" data-title="Hash Functions"><h2>Hash Functions</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Hash_function#Properties" target="_blank" class="external">A hash function</a>
+is any function that can be used to map data of arbitrary size to data of fixed
+size.
+The values returned by a hash function are called hash values, hash codes,
+digests, or simply hashes.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="TeyVyghMhqCClaJLJSUYCvQFyUignEXW">
+<div data-title=" Example Hash Functions"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://www.burtleburtle.net/bob/hash/doobs.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="KXloElbfqdIMcAPEnHOTqFsFGaPabBOJ">
+<div class="header" data-title="What Could We Do With Such A Function?"><h2>What Could We Do With Such A Function?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It may not seem obvious at first, but hash functions have many, many uses.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BobWolVzSbNjBtxTNpyhXPfCEsXmgkmo">
+<div class="header" data-title="Example: Download Verification"><h2>Example: Download Verification</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Imagine the following scenario:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You need to download a 120GB file to install a particular piece of software.</p>
+</li>
+<li class="bullet">
+<p>It&#x2019;s possible that, along the way, some data gets corrupted&#x2014;either by
+the network or by your disk, who knows.</p>
+</li>
+<li class="bullet">
+<p>So before you install the software you want to be sure that you downloaded the
+file correctly.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FrbDJChruSGDxWmEwdVklfGiANFpQizs">
+<div class="header" data-title="Without A Hash Function"><h2>Without A Hash Function</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><em>Without</em> a hash function, what do we have to do?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Download the 120GB file.</p>
+</li>
+<li class="bullet">
+<p>Download it again. (Slow.)</p>
+</li>
+<li class="bullet">
+<p>Compare the two to make sure that they are the same. (Also slow.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DEDOyPgoyBidbsMBQXDldzTprshoQAoO">
+<div class="header" data-title="But&#x2026;&#x200B;"><h2>But&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Remember, I have a function with the following properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Determinism</strong>: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.</p>
+</li>
+<li>
+<p><strong>Uniformity</strong>: over many inputs, each output value is equally likely.</p>
+</li>
+<li>
+<p><strong>Efficiency</strong>: it is efficient to compute.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bbLykpLPQpmMwPBvKIHdSpKEebcjFUCc">
+<div class="header" data-title="With A Hash Function"><h2>With A Hash Function</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><em>With</em> a hash function, what do we do?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You compute the hash of your copy of the file.</p>
+</li>
+<li class="bullet">
+<p>Download a <em>hash</em> of the file: maybe only a few bytes.</p>
+</li>
+<li class="bullet">
+<p>Compute the hash of the file locally and make sure that it matches.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="YoPlxhrMWDBtGHuommrErQnTEpPMttNN">
+<div data-title=" Example Download With md5sum"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://www.tug.org/mactex/mactex-download.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XihJKtnAxApjydpNBnasaUxLYEFcJFCE">
+<div class="header" data-title="Example Download With md5sum"><h2>Example Download With <code>md5sum</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>md5</code> is a popular
+<a href="https://en.wikipedia.org/wiki/MD5" target="_blank" class="external">hash function</a>
+that produces a 128-bit value.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;re expecting an <code>md5</code> hash value of <code>d95bacb4ccd59657a5ac2bf66b35ebcc</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash spelling_exception lang-bash" data-lang="bash">$ md5 mactex-20170524.pkg
+MD5 (mactex-20170524.pkg) = d95bacb4ccd59657a5ac2bf66b35ebcc
+$</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MiiWtddXjlyHUjiJaEAZmuwuyeMKvZtp">
+<div class="header" data-title="Example: Fingerprinting Content"><h2>Example: Fingerprinting Content</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Imagine the following scenario.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You sent me <code>foo.docx</code> at some point.</p>
+</li>
+<li class="bullet">
+<p>(I deleted it because it was a <code>.docx</code> file, so in reality scenario over.)</p>
+</li>
+<li class="bullet">
+<p>But let&#x2019;s pretend that you can&#x2019;t remember if you sent me the latest version.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DzLVhrOFXklAwrwtVUTxusCuXrEmvhWl">
+<div class="header" data-title="Without a Hash Function"><h2>Without a Hash Function</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><em>Without</em> a hash function, what do we do?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You send me the file again.</p>
+</li>
+<li class="bullet">
+<p>(And I delete it again.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DQhBmXmRtvQgllyTvXfsJaAAlKnwdYNy">
+<div class="header" data-title="But&#x2026;&#x200B;"><h2>But&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Remember, I have a function with the following properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Determinism</strong>: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.</p>
+</li>
+<li>
+<p><strong>Uniformity</strong>: over many inputs, each output value is equally likely.</p>
+</li>
+<li>
+<p><strong>Efficiency</strong>: it is efficient to compute.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UyWmZasprElgrTBiiMlmMIGqmgESlbYS">
+<div class="header" data-title="With a Hash Function"><h2>With a Hash Function</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><em>With</em> a hash function, what do we to do?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You compute the hash of your file.</p>
+</li>
+<li class="bullet">
+<p>I compute the hash of my file.</p>
+</li>
+<li class="bullet">
+<p>If they are the same, we&#x2019;re done.</p>
+</li>
+<li class="bullet">
+<p>Otherwise you send me your copy.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EnfeobCprFLJevsjLxHYgEosrfsFLxhN">
+<div class="header" data-title="Example Content Hash with git"><h2>Example Content Hash with <code>git</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>git</code> uses hashes (the
+<a href="https://en.wikipedia.org/wiki/SHA-1" target="_blank" class="external">SHA-1 algorithm</a>)
+to fingerprint files and commits:</p>
+</div>
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="/learn/images/github-example.png" alt="github example" width="600" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tLANhGeDIHsfTkDVLaULCrzubCOTPUaG">
+<div class="header" data-title="Example git push"><h2>Example <code>git push</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>More or less, here&#x2019;s what happens when you push to GitHub.com:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Your computer says: &quot;Hi GitHub.com, I have the following files:
+<code>a6efc501d57b88df337fe904483d25732bb3e45e</code>,
+<code>4e292499a1194d0493bd5350408fe3254d2335d3</code>,
+<code>20da0fbbf8e8c279bb1edbbe0ac5ae40349edceb</code>, &#x2026;&#x200B;&quot;</p>
+</li>
+<li class="bullet">
+<p>Server, &quot;OK, I&#x2019;ve got
+<code>4e292499a1194d0493bd5350408fe3254d2335d3</code> and
+<code>a6efc501d57b88df337fe904483d25732bb3e45e</code> but I need
+<code>20da0fbbf8e8c279bb1edbbe0ac5ae40349edceb</code> and &#x2026;&#x200B;&quot;.</p>
+</li>
+<li class="bullet">
+<p>Your computer: &quot;OK, sending those now&#x2026;&#x200B;&quot;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TpBEMwHpxtautSSBbbBkYnAlTRpvClcL">
+<div class="header" data-title="Hash Collisions"><h2>Hash Collisions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If a hash function produces the <em>same</em> hash for two <em>different</em> inputs this is
+called a <em>collision</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>In some cases, particularly if the size of the hash is small, collisions are
+expected and we plan to deal with them.</p>
+</li>
+<li class="bullet">
+<p>If the size of the hash is large enough and the hash function is uniform,
+collisions should <em>never happen</em> and the world will end if they do. (Or at least
+<code>git</code> will stop working and my world will end.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest nozoom bespoke-inactive bespoke-slide" data-slideid="cHacVvUBZzcwEmeEgKdgTPnsTLAGisUK">
+<div data-title=" Example Small Hash"></div>
+<textarea class="janini spelling_exception">public static byte hash(int[] input) {
+  return 0 % 16;
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CGYzkTirBBEMdBbcQGsUlgiZESQckfNw">
+<div class="header" data-title="The Birthday Paradox"><h2>The Birthday Paradox</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In a room with 100 students, what is the probability that <em>two</em> will share the
+same birthday <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Obviously birthdays are not uniformly distributed across the calendar, for, um, obvious reasons?&lt;/body&gt;&lt;/html&gt;">1</span>? <span class="bullet"><strong>99.9999%</strong></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Does anybody know how many you need to get a 50% chance? <span class="bullet">Only <em>23</em>!</span></p>
+</li>
+<li class="bullet">
+<p>This is bad for our hash functions&#x2026;&#x200B; collisions are more likely than we might
+think!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="NatQECjiehpGWjBTDhWNjopXkXVqFVZq">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="/MP/2018/fall/6/">final project description has been posted.</a>
+Please get started!</p>
+</li>
+<li>
+<p>I have office hours MWF from 10AM&#x2013;12PM in Siebel 2227.
+Please stop by!</p>
+</li>
+<li>
+<p>Remember to provide feedback on the course using the
+<a href="/info/feedback/">anonymous feedback form</a>.</p>
+</li>
+<li>
+<p>I&#x2019;ve started to respond to existing feedback
+<a href="https://cs125-forum.cs.illinois.edu/c/feedback" target="_blank" class="external">on the forum</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Introduction to Subversion</title>
+		<meta name="description" lang="en-us" content="Understand how to use the Subversion version control system.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Fall 2017</strong>
+            </li>
+            <li><div class="dropdown-divider"></div></li>
+            <li>
+              <a href="/MP/2017/fall/7/">MP7</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/6/">MP6</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/1/">MP1</a>
+            </li>
+            <li>
+              <span data-active="^MP/2017/fall/setup" class="option active">Setup<span class="sr-only">(current)</span></span>
+              <ul>
+                <li>
+                  <a href="/MP/2017/fall/setup/subversion/" class="active" onclick="return false;">Subversion<span class="sr-only">(current)</span></a>
+                </li>
+                <li>
+                  <a href="/MP/2017/fall/setup/eclipse/">Eclipse</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Why Use Source Version Control?</a>
+            <ul>
+              <li><a class="nav-link" href="#_versioning_entire_projects">1.1. Versioning Entire Projects</a></li>
+              <li><a class="nav-link" href="#_version_comments">1.2. Version Comments</a></li>
+              <li><a class="nav-link" href="#_merging_changes">1.3. Merging Changes</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#subversion">2. Introduction to Subversion</a>
+            <ul>
+              <li><a class="nav-link" href="#connecting">2.1. Connecting to Your Repository</a></li>
+              <li><a class="nav-link" href="#adding">2.2. Adding Projects to Your Repository</a></li>
+              <li><a class="nav-link" href="#checkout">2.3. svn checkout: Retrieving Projects from Your Repository</a></li>
+              <li><a class="nav-link" href="#commit">2.4. svn commit: Committing Changes to Your Repository</a></li>
+              <li><a class="nav-link" href="#update">2.5. svn update: Retrieving Changes to Your Repository</a></li>
+              <li><a class="nav-link" href="#checking">2.6. Checking for Changes</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_how_to_learn_more">3. How to Learn More</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This guide is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Introduction to Subversion</h1>
+      <div class="paragraph lead">
+<p><a href="http://subversion.apache.org/" target="_blank" class="external">Subversion</a> is a source code version control
+system (VCS), also known as <em>version control</em>.
+Version control systems are at the heart of how programmers manage and share
+source code.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="vcs"></a><h2>1. Why Use Source Version Control?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A source code repository is a bit like the shared folders that are provided by
+services like <a href="https://www.dropbox.com" target="_blank" class="external">Dropbox</a>, <a href="https://www.box.com" target="_blank" class="external">Box</a>, and
+<a href="https://drive.google.com" target="_blank" class="external">Google Drive</a>.
+You can save files and folders and share them with other users in various
+ways.
+Some of these tools even track allow you to undo and redo changes and see how
+files have changed over time.
+These are useful tools, and a great way to collaborate with others in a
+variety of different scenarios.
+So it&#x2019;s normal to wonder: what&#x2019;s different about source version control?</p>
+</div>
+<div class="paragraph">
+<p>Compared to tools like Dropbox, source version control provides programmers
+with several important advantages.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_versioning_entire_projects"></a><h3>1.1. Versioning Entire Projects</h3>
+<div class="paragraph">
+<p>First, version control systems track the version of <em>all the files in each repository</em>,
+rather than individual files separately.
+Programming frequently involves making a set of changes to a group of files
+that together accomplish something&#x2014;like fixing a bug or adding a new
+feature.
+So when you commit your work using Subversion, it remembers the state of all
+the files in your repository at that time.
+This allows you to compare what your project looked like at different times,
+and undo an entire set of changes that might have caused a problem.</p>
+</div>
+<div class="paragraph">
+<p>Note that this also means that Subversion <strong>does not</strong> track all the changes
+you save to a file.
+Unless you commit your changes, they are not saved to your repository.
+This may seem like an annoyance&#x2014;after all, systems like Dropbox will
+sync your files every time you save them.</p>
+</div>
+<div class="paragraph">
+<p>But when programming this turns out to be a <em>huge</em> advantage.
+Let&#x2019;s say you save a version of <code>Foo.java</code> to test&#x2014;but it contains
+errors.
+Now if you are using Dropbox, everyone has that broken version of the file.
+But if you are using Subversion, you can test your code, notice the errors,
+and fix them before committing.</p>
+</div>
+<div class="paragraph">
+<p>A Subversion <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;or Git&lt;/body&gt;&lt;/html&gt;">1</span> commit is really their equivalent of the save
+operation.
+Regardless of whether you save your files in Eclipse or any other way, you
+have to commit them to your repository before it will save and remember them.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_version_comments"></a><h3>1.2. Version Comments</h3>
+<div class="paragraph">
+<p>Version control systems also allow you to add your own notes to each commit.
+This is called a <em>comment</em>.
+Comments should summarize what changes are included in the new version of the
+project.
+Good comments are extremely helpful to other developers that are trying to
+understand how the code is evolving.
+All version control systems have ways to view the list of version with their
+comments.
+This can be useful when you want to see how things have changed, or back up
+and use an older version of a project where some feature was working that
+isn&#x2019;t any more.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_merging_changes"></a><h3>1.3. Merging Changes</h3>
+<div class="paragraph">
+<p>Second, version control systems help you merge changes made by different
+developers&#x2014;even to the same file.
+Say that <code>Foo.java</code> has 1000 lines.
+Alice makes a change at the top of the file.
+Concurrently, Bob makes a change to the bottom of the file.
+Systems like Dropbox will typically force you to address this conflict by
+choosing either Alice&#x2019;s version of the file or Bob&#x2019;s.
+But version control systems can frequently <em>automatically</em> merge
+non-overlapping changes to source code files&#x2014;allowing you to choose to
+combine the changes from Alice with the changes from Bob.
+When you are working in large teams on large software projects, this
+capability is extremely handy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="subversion"></a><h2>2. Introduction to Subversion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you agree that using version control is useful, let&#x2019;s go through
+the basics of how to use Subversion.</p>
+</div>
+<div class="paragraph">
+<p>Subversion organizes your files into a <em>repository</em>.
+A repository can contain any number of files organized any way you like.
+But a single repository usually contains all of the code used by a single
+project.
+For CS 125, you will use a single repository that holds all of the Java source
+code files that you will use this semester&#x2014;both in labs and during the
+machine problems <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Normally you&amp;#x2019;d split up each assignment into separate repositories, but this setup is easier for our purposes.&lt;/body&gt;&lt;/html&gt;">2</span>.</p>
+</div>
+<div class="paragraph">
+<p>For CS 125 your subversion repository is stored on a remote server:
+<a class="noexternal link_exception spelling_exception" href="https://subversion.ews.illinois.edu/" onclick="return false">https://subversion.ews.illinois.edu/</a>.
+So the steps required to use Subversion effectively&#x2014;your version control
+<em>workflow</em>&#x2014;consist of adding Eclipse projects to your repository,
+committing changes to your files, and adding new files to your repository.
+But first we have to configure Eclipse to use your CS 125 subversion
+repository.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="connecting"></a><h3>2.1. Connecting to Your Repository</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/Lyje5yMGFHE%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>All repositories for this semester are stored as subfolders under
+<a href="https://subversion.ews.illinois.edu/svn/fa17-cs125/" class="noclick link_exception spelling_exception" target="_blank">https://subversion.ews.illinois.edu/svn/fa17-cs125/</a>.
+To get the URL for your repository, simply add your Illinois NetID.
+Here are a few examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>I&#x2019;m NetID <code>challen</code>, so my repository is
+<a href="https://subversion.ews.illinois.edu/svn/fa17-cs125/challen" class="noclick link_exception spelling_exception" target="_blank">https://subversion.ews.illinois.edu/svn/fa17-cs125/challen</a>.</p>
+</li>
+<li>
+<p>If my dog Chuchu went to school here
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;We tried that once, but it &lt;a href=&quot;https://www.change.org/p/davis-hall-administrators-let-chuchu-come-back&quot; target=&quot;_blank&quot; class=&quot;external&quot;&gt;didn&amp;#x2019;t work out perfectly&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;">3</span>, his NetID would be <code>chuchu</code> and his repository would be
+<a href="https://subversion.ews.illinois.edu/svn/fa17-cs125/chuchu" class="noclick link_exception spelling_exception" target="_blank">https://subversion.ews.illinois.edu/svn/fa17-cs125/chuchu</a>.
+I&#x2019;m not sure what he&#x2019;d store in there though&#x2014;maybe bones?</p>
+</li>
+<li>
+<p>If my dog Xyz went to school here, her NetID would be <code>meowmeow</code>, and
+her repository would be
+<a href="https://subversion.ews.illinois.edu/svn/fa17-cs125/meowmeow" class="noclick link_exception spelling_exception" target="_blank">https://subversion.ews.illinois.edu/svn/fa17-cs125/meowmeow</a>.
+(Hopefully her NetID is not taken!)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Hopefully by now you get the pattern.
+Now that you have the link to your Subversion repository ready, let&#x2019;s set up
+Eclipse to use it:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start by opening the Eclipse SVN Repository Perspective: &quot;Window &#x2192;
+Perspective &#x2192; Open Perspective &#x2192; Other&#x2026;&#x200B; &#x2192; SVN Repository
+Explorer&quot;.</p>
+</li>
+<li>
+<p>Now select &quot;New &#x2192; Repository Location&quot;.</p>
+</li>
+<li>
+<p>Insert the link to your Subversion repository that you computed above.</p>
+</li>
+<li>
+<p>Eclipse will prompt you for your Illinois AD username (NetID) and password.
+Enter them. You may want to choose to save your credentials so that you are
+not repeatedly prompted for your username and password.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>At this point you can view your repository.
+To see what it currently contains, right click on it and click &quot;Refresh&quot;.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="adding"></a><h3>2.2. Adding Projects to Your Repository</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/cI7OtJQWFVY%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>When you start a new project in Eclipse, the files are initially stored
+locally and not synchronized with your remote repository.
+To add a project to your repository and begin tracking changes using
+Subversion, follow the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure that you are in the Java perspective: &quot;Window &#x2192; Perspective
+&#x2192; Open Perspective &#x2192; Java).</p>
+</li>
+<li>
+<p>Click on &quot;Team &#x2192; Share Project&quot;. Select the SVN option and click next.</p>
+</li>
+<li>
+<p>Your CS 125 repository that you have added previously should be listed under &quot;Use
+existing repository location&quot;. Select it.</p>
+</li>
+<li>
+<p>Choose a name for the new folder that will be created in your repository.</p>
+</li>
+<li>
+<p>At this point you should be able to browse to your repository using the &quot;SVN
+Repository Perspective&quot; and see that the new project has been added. Cool!
+Welcome to version control.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="checkout"></a><h3>2.3. <code>svn checkout</code>: Retrieving Projects from Your Repository</h3>
+<div class="paragraph">
+<p>Now you&#x2019;ve figured out how to add things to your repository.
+But how do you retrieve stuff that is already there?</p>
+</div>
+<div class="paragraph">
+<p>Subversion refers to this process as a <em>checkout</em>.
+To checkout a project in Eclipse, follow the following instructions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start by opening the Eclipse SVN Repository Perspective.
+(Refer to the instructions above if you&#x2019;ve forgotten how to do that.)</p>
+</li>
+<li>
+<p>Next we need to find the project that we want to open using the repository
+browser. Once you&#x2019;ve located it, right click on it and select &quot;Checkout&quot;.</p>
+</li>
+<li>
+<p>Select &quot;Check out as a project in the workspace&quot;. Subversion uses <code>HEAD</code> to
+refer to the latest version of a project, so you should check out that version
+unless you want an earlier one for some reason.</p>
+</li>
+<li>
+<p>Click &quot;Finish&quot;. The project should now appear in your workspace.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="commit"></a><h3>2.4. <code>svn commit</code>: Committing Changes to Your Repository</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/s62jNZ7LF2w%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="imageblock right">
+<div class="content">
+<img src="https://hikaruzone.files.wordpress.com/2015/10/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png?w=800&amp;h=559" alt="in case of fire 1 git commit 2 git push 3 leave building2" width="150">
+</div>
+</div>
+<div class="paragraph">
+<p>Remember: version control systems only save the change you have made when you
+tell them to.
+This is called a <em>commit</em>, and the process called <em>committing</em>.
+Given that committing is essentially saving your changes, this have given rise
+to memes like the one on the right&#x2014;although it refers to
+<a href="https://git-scm.com/" target="_blank" class="external">Git</a>, another popular version control system.</p>
+</div>
+<div class="paragraph">
+<p>Once you commit a version of a file, Subversion will remember its committed
+contents forever&#x2014;even if you change or delete it.
+So you should get into the habit of committing early and often.
+Here are some good times to commit your code:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You just started a project&#x2014;make sure to record it in its initial
+state!</p>
+</li>
+<li>
+<p>You just finished writing a function&#x2014;that way you can always get back
+to that version if you make changes later.</p>
+</li>
+<li>
+<p>You just passed one test case&#x2014;make sure that Subversion remembers what
+worked forever!</p>
+</li>
+<li>
+<p>You are about to take a break or go to bed.</p>
+</li>
+<li>
+<p>The MP deadline is in thirty minutes&#x2014;or in five minutes!</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Get in the habit now of committing your code regularly.</strong>
+Version control systems are very efficient at storing commits, and so the
+overhead of performing them is small.
+Better to have things saved than to want desperately to get back to a previous
+version or remember how you did something and not have it committed.</p>
+</div>
+<div class="paragraph">
+<p>Note that most version control systems will require you to tell them the first
+time you want to add a new file to a project.
+Once you do this once, that file will be tracked in the future&#x2014;but there
+is an initial step that you may sometimes miss.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s how to generate a Subversion commit using Eclipse:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You should have the Project Navigator view open&#x2014;the typical view that
+you use when writing, testing, and debugging your code.</p>
+</li>
+<li>
+<p>Right click on the Eclipse project you want to commit and select &quot;Team
+&#x2192; Commit&quot;.</p>
+</li>
+<li>
+<p>Add a comment to your commit! Comments are really important to helping
+others&#x2014;and you&#x2014;understand what changed from this commit to the
+last one. Get in the habit of writing good ones <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&amp;quot;New.&amp;quot; is not a good commit message.&lt;/body&gt;&lt;/html&gt;">4</span>.</p>
+</li>
+<li>
+<p>If your commit includes new files, select them or click &quot;Select All&quot; to add
+all new files at once.</p>
+</li>
+<li>
+<p>Click OK to finish your commit.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="update"></a><h3>2.5. <code>svn update</code>: Retrieving Changes to Your Repository</h3>
+<div class="paragraph">
+<p>Committing allows you to save your changes to the project in your repository.
+To retrieve updates made by others, you perform an <em>update</em>.</p>
+</div>
+<div class="paragraph">
+<p>Subversion, like other version control systems, provides you with control over
+when you receive updates.
+This is another big advantage when compared with systems like Dropbox that
+propagate changes immediately.
+If you are working with others, you may not want to see their changes
+immediately&#x2014;particularly if they might interfere with what you are
+working on.
+Having to update manually means that you get to choose a moment when you are
+ready to receive changes.</p>
+</div>
+<div class="paragraph">
+<p>In CS 125 you are working on assignments independently&#x2014;so you might ask,
+who else would be updating my repository?
+There are two possible answers to that question!
+First, we may use your Subversion repository to return grades and testing
+results to you.
+We do this by adding new files to your repository that you then retrieve the
+next time you update.
+It&#x2019;s also possible that you may choose to work on two different
+machines&#x2014;a laptop and a desktop at home.
+Assuming you have set up Eclipse and Subversion properly on both, you can use
+the update command on one machine to retrieve commits made on the other.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s how you perform an update in Eclipse:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right click on the project that you want to update.</p>
+</li>
+<li>
+<p>Click &quot;Team &#x2192; Update HEAD&quot;. This will get you the latest changes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>At this point it is possible that the changes made by others have conflicted
+with yours.
+If this happens, Eclipse will mark the files in your project for you to fix.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="checking"></a><h3>2.6. Checking for Changes</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/OiVH5bu8k2I%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Version control systems are designed to allow you to compare between your local
+files and the copies that are available in the repository.
+So you should never browse the contents of your remote repository to make sure
+that its contents are up-to-date.
+Not only is that tedious, but it doesn&#x2019;t work well once your repository has even
+just a few files.</p>
+</div>
+<div class="paragraph">
+<p>Instead, use Subversion to examine the differences between your local files and
+your remote repository.
+Here&#x2019;s how:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right click on your project and open the &quot;Compare With&quot; menu.</p>
+</li>
+<li>
+<p>Choose &quot;Latest from Repository&quot;</p>
+</li>
+<li>
+<p>At this point, one of two things will happen. Either the Subversion plugin
+will tell you that there are no changes, or it will open up a view where you can
+examine the differences between the files in your repository.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_how_to_learn_more"></a><h2>3. How to Learn More</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As usual the internet is the best way to find out more about anything related
+to technology.
+There are great Subversion tutorials out there that you can find on Google.
+Or ask a member of the course staff for help <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;although some of them will try to convince you to start learning Git&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">5</span>.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2017/fall/setup/subversion.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2017/fall/setup/subversion.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>More Dimensions</title>
+  <meta name="description" lang="en-us" content="Two-dimensional arrays, more imperative programming constructs, and more practice with algorithms.">
+
+  <meta name="slider-id" content="6a701c19-0434-494c-8191-fc30de0b79c7">
+  <meta name="slider-semester" content="Spring2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini small nozoom bespoke-active bespoke-slide" data-slideid="AvczmtcMxbAlkbXVcyXVfDZDLQyRMEtE">
+
+<textarea class="janini spelling_exception">char[][] currentBoard =
+{{&apos;X&apos;, &apos;O&apos;, &apos;.&apos;}, {&apos;O&apos;, &apos;X&apos;, &apos;.&apos;}, {&apos;O&apos;, &apos;.&apos;, &apos;X&apos;}};
+static void printBoard(char[][] board) {
+  for (int i = 0; i &lt; board.length; i++) {
+    for (int j = 0; j &lt; board[i].length; j++) {
+      System.out.print(board[i][j]);
+    }
+    System.out.println();
+  }
+}
+printBoard(currentBoard);</textarea><!-- beautify ignore:start --><div class="output" data-blank="More Dimensions&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">More Dimensions<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SACAUOBBYCMWEBUFWWOJOPWUGQIEEHVB">
+<div class="header" data-title="Next Few Weeks"><h2>Next Few Weeks</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>MP0 is due today at 5PM.</strong>
+Good luck finishing up!</p>
+</li>
+<li class="bullet">
+<p>MP1 comes out today, due <em>two</em> weeks from today.</p>
+</li>
+<li class="bullet">
+<p>Next week is our first midterm on imperative programming and concepts.</p>
+</li>
+<li class="bullet">
+<p>Working on MP1 will be <em>great</em> preparation for our first midterm.</p>
+</li>
+<li class="bullet">
+<p>We <em>will</em> continue homework during the midterm as we begin to talk about
+object-oriented programming.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="keggeShtyjmUnzbVLPFDHfedbDmzUDQs">
+<div class="header" data-title="Questions?"><h2>Questions?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LYBXTYBhNNOkfWDQWAHmmmAYePQENetu">
+<div class="header" data-title="Arrays Can Have Multiple Dimensions"><h2>Arrays Can Have Multiple Dimensions</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// This is a single-dimensional array of ints of size 4
+int[] samples = new int[4];
+
+// This is a two-dimensional array of of chars of
+// size 4 in the first dimension and 8 in the second
+char[][] board = new char[4][8];
+
+// This is a three-dimensional array of of doubles of
+// size 6 in the first dimension, 8 in the second,
+// and 10 in the third
+double[][][] temperature = new double[6][8][10];</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AYeaITTSBxWpPrEbXjyZmEongNkJVqiT">
+<div class="header" data-title="Understanding Multi-Dimensional Arrays"><h2>Understanding Multi-Dimensional Arrays</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// This is a two-dimensional array
+int[][] samples = new int[4][8];
+
+// This is a one-dimensional array
+int[] samplesSlice = samples[0];</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="OZTfWGqrMGPYGTRbiCLDBCeqOykWouWY">
+<div data-title=" Understanding Multi-Dimensional Arrays"></div>
+<textarea class="janini spelling_exception">// This is a two-dimensional array
+int[][] samples = new int[4][8];
+
+// This is a one-dimensional array
+int[] samplesSlice = samples[0];</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XbzmRUFINATfpfsYOZndYqBJbDJTDaCK">
+<div class="header" data-title="Multi-Dimensional Array Initialization"><h2>Multi-Dimensional Array Initialization</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can also initialize multi-dimensional arrays:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[][] measurements = {
+  { 1, 2 },
+  { 3, 4 }
+};
+// This is equivalent to
+int measurements = new int[2][2];
+measurements[0][0] = 1;
+measurements[0][1] = 2;
+measurements[1][0] = 3;
+measurements[1][1] = 4;</code></pre>
+</div>
+</div>
+<div class="openblock smaller">
+<div class="content">
+<div class="paragraph">
+<p>(The ordering can be confusing, but you won&#x2019;t see this often.)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="txMiehCfZKNUIQTrXUnNejdcmhuKoZsM">
+<div data-title=" Multi-Dimensional Array Initialization"></div>
+<textarea class="janini spelling_exception">int[][] measurements = {
+  { 1, 2 }
+  { 3, 4 }
+}
+System.out.println(measurements[0][0]);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="phqJItalkKdADBlZJGKGTkleiyYQQmtP">
+<div class="header" data-title="Forget About Rows and Columns"><h2>Forget About Rows and Columns</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(These aren&#x2019;t spreadsheets&#x2014;you&#x2019;re not in business school.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BMdFVVRUiVkQoIxKubbNdAGtimRATtKK">
+<div class="header" data-title="You&#x2019;re In Charge"><h2>You&#x2019;re In Charge</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The first, second, third, or Nth index of an array mean <em>whatever you want</em>.</p>
+</div>
+<div class="paragraph">
+<p>This is particularly important when representing certain kinds of data using
+multi-dimensional arrays.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MHcjRtzrWSmdWjhFoUgqyFYAlXrqeXcp">
+<div class="header" data-title="Multi-Dimensional Data"><h2>Multi-Dimensional Data</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>What kind of data would work well in a multi-dimensional array?</p>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="BepbCwECvQdCXlOVsuccxNgVREFBdMWj">
+<div data-title=" Photos"></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://picsum.photos/640/480/?random" alt="?random" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="yqULMeaCDCWwJgAsZkkMOWGIAWHMDsNd">
+<div data-title=" 3D Data"></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://www.originlab.com/doc/en/Tutorial/images/Stacked_3D_Surface_Plots/Stacked_3D_Surface_Plots_01.png" alt="Stacked 3D Surface Plots 01" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="FSxgyqZIpPctgwZqENSSmBulUgwXctPM">
+<div data-title=" Stereo Sound"></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://goo.gl/e5bxj9" alt="e5bxj9" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BzeZDeXBfKvOPIzPuCYaNsSPjgYOUBde">
+<div class="header" data-title="Multi-Dimensional Data"><h2>Multi-Dimensional Data</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>What kind of data would work well in a multi-dimensional array?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Pictures and images:</strong> each pixel is stored in a 2-dimensional grid</p>
+</li>
+<li class="bullet">
+<p><strong>Higher-dimensional data:</strong> our world is 3D&#x2014;4D, actually&#x2014;so our
+data should be as well.</p>
+</li>
+<li class="bullet">
+<p><strong>Sound:</strong> even data that might <em>seem</em> one dimensional often turns out to be
+more complicated than we expected</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dEZnUTMjzQsXtEmUYUGKcxIYUUsBwxfM">
+<div class="header" data-title="Multi-Level Loops"><h2>Multi-Level Loops</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A frequent use of nested <code>for</code> loops is to iterate over multi-dimensional
+arrays:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">for (int i = 0; i &lt; array.length; i++) {
+  for (int j = 0; j &lt; array[i].length; j++) {
+    System.out.println(array[i][j]);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 small janini nozoom bespoke-inactive bespoke-slide" data-slideid="OqmwyrjnsTqkhKVnmUFRqLQbIARBdzDS">
+<div data-title=" Checking A Tic-Tac-Toe Board"></div>
+<textarea class="janini spelling_exception">char[][] currentBoard =
+{{&apos;X&apos;, &apos;O&apos;, &apos;.&apos;}, {&apos;O&apos;, &apos;X&apos;, &apos;.&apos;}, {&apos;O&apos;, &apos;.&apos;, &apos;X&apos;}};
+
+// Return the winner if the game is over, &apos;.&apos; otherwise
+static char checkBoard(char[][] board) {
+}
+checkBoard(currentBoard);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="agRjmuPXNFgsskQjpuMryxBeLimsaExA">
+<div class="header" data-title="Testing"><h2>Testing</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Test cases are an indispensable part of modern software development.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>To perform a simple test, pick a input that you know the answer to and check
+that your function returns the expected value.</p>
+</li>
+<li class="bullet">
+<p>Try to pick cases that are hard and where you might not get the right
+answer&#x2014;we call these <em>corner cases</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JDBSSZFWWKMHOMENMWDYPTBBJVRGQKPE">
+<div class="header" data-title="String Search"><h2>String Search</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given a <code>String</code> containing multiple words, determine if it contains a
+particular word</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Split the input <code>String</code> into multiple words, which requires picking a
+<em>delimiter</em>.</p>
+</li>
+<li class="bullet">
+<p>Examine each word in the resulting array and see if it is equal to the word
+that we are searching for</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GEEIIXJOAUTKBKIZWJRYZQWLMPJZGLTE">
+<div class="header" data-title="String Equality"><h2>String Equality</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>How do we determine if two Strings are equal?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="GEPTREEJPWADYBAZNEPDMYZPUJJBYLOX">
+<div data-title=" String Equality"></div>
+<textarea class="janini spelling_exception">// Java is a bit confusing here
+String one = &quot;new&quot;;
+String two = &quot;new&quot;;
+System.out.println(one == two);
+String three = new String(&quot;new&quot;);
+String four = new String(&quot;new&quot;);
+System.out.println(three == four);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FXDTAFSPMWKHEJYHWWSUPDQADTGRBLXH">
+<div class="header" data-title="Object Equality"><h2>Object Equality</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Strings in Java are <em>objects</em>.
+<strong>Never test object equality using <code>==</code>!</strong></p>
+</div>
+<div class="paragraph">
+<p>Instead, using the <code>.equals</code> method.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="RPESPTVOTZVOXQQKKFJGKVBZHIMCNEPZ">
+<div data-title=" String Equality"></div>
+<textarea class="janini spelling_exception">// Java is a bit confusing here
+String one = &quot;new&quot;;
+String two = &quot;new&quot;;
+System.out.println(one.equals(two));
+String three = new String(&quot;new&quot;);
+String four = new String(&quot;new&quot;);
+System.out.println(three.equals(four));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RwYaPzUMIaBzQKFpfjLgSPvjSBjHcGIZ">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>checkstyle</code> is fully enabled for this week&#x2019;s quiz.</strong>
+You will receive no credit for incorrectly-formatted code.</p>
+</li>
+<li>
+<p><a href="/MP/2019/spring/0/">MP0</a> is due <em>today</em> at 5PM.
+Office hours all day today&#x2014;please come if you need help!</p>
+</li>
+<li>
+<p>MP1 will be out tonight and due <em>two</em> weeks from today.</p>
+</li>
+<li>
+<p>Then the first midterm, then MP2.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

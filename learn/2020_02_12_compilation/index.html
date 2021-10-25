@@ -1,0 +1,612 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Compilation</title>
+  <meta name="description" lang="en-us" content="A last review of imperative programming including a few more constructs and a behind-the-scenes look at what happens when your code is compiled and executed.">
+
+  <meta name="slider-id" content="2b373866-37e2-4b5b-9bca-803dafa5bcce">
+  <meta name="slider-semester" content="Spring2020">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smaller nozoom bespoke-active bespoke-slide" data-slideid="GfHTlawcMZRgXqXNhwcWsVHYtFCxBOvF">
+
+<textarea class="janini spelling_exception">char[][] currentBoard =
+    {{&apos;X&apos;, &apos;O&apos;, &apos;.&apos;}, {&apos;O&apos;, &apos;X&apos;, &apos;X&apos;}, {&apos;O&apos;, &apos;O&apos;, &apos;O&apos;}};
+static char checkBoard(char[][] board) {
+  for (int i = 0; i &lt; board.length; i++) {
+    if (board[i][0] != &apos;.&apos;
+        &amp;&amp; board[i][0] == board[i][1]
+        &amp;&amp; board[i][1] == board[i][2]) {
+      return board[i][0];
+    }
+  }
+  return &apos;.&apos;;
+}
+System.out.println(checkBoard(currentBoard));</textarea><!-- beautify ignore:start --><div class="output" data-blank="Constructs and Compilation&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Constructs and Compilation<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zqkWJGCYXfgOIAVqIEaVDzqdRRbYKglb">
+<div class="header" data-title="The do-while Loop"><h2>The do-while Loop</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Remember the <code>while</code> loop?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">while (condition) {
+  // do something
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It also has a friend:</p>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">do {
+  // do something
+} while (condition);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What&#x2019;s the difference?</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="SVAENFKQRVFRMLJNYZWCHROBJMRNADCG">
+<div data-title=" do-while Example"></div>
+<textarea class="janini spelling_exception">int i = 0;
+while (i &lt; 0) {
+  System.out.println(&quot;while &quot; + i);
+  i++;
+}
+i = 0;
+do {
+  System.out.println(&quot;do-while &quot; + i);
+  i++;
+} while (i &lt; 0);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AQXHCVSPBGXXSSKINXGOXBCLSOMCSRXG">
+<div class="header" data-title="Switch Statements"><h2>Switch Statements</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Remember the <code>if</code> statement?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (conditionA) {
+  // do something
+} else if (conditionB) {
+  // do something else
+} else if (conditionC) {
+  // ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It too has a friend:</p>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">switch (variable) {
+    case A:
+      // do something
+    case B:
+      // do something else...
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DMGXDWKRNOGYYYRKZPYNSKPCKVACBLHS">
+<div class="header" data-title="Switch Statements"><h2>Switch Statements</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>switch</code> is more limited than <code>if-else</code>, but also more flexible:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>It only works for testing primitive types and <code>String</code>s</p>
+</li>
+<li class="bullet">
+<p>But you can match multiple <code>case</code>s in a single <code>switch</code> statement</p>
+</li>
+<li class="bullet">
+<p>Execution <em>starts</em> at a matching <code>case</code> statement and continues until a
+<code>break</code> statement is reached</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="BNTWPZKfwWhfxfRAtLWKGjIEGdZoPTVZ">
+<div data-title=" Switch Statements"></div>
+<textarea class="janini spelling_exception">int test = 2;
+switch (test) {
+    case 0: System.out.print(&quot;A&quot;);
+    case 1: System.out.print(&quot;B&quot;);
+    case 2: System.out.print(&quot;C&quot;);
+    case 3: System.out.print(&quot;D&quot;);
+    default: System.out.println(&quot;E&quot;);
+}
+System.out.println();</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="OMPRZIJYPLWHLPUMMEUVLJGAZFHGJSJO">
+<div class="header" data-title="Questions on Imperative Programming?"><h2>Questions on Imperative Programming?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AAGGXWTTJZBRPTQGKWDVXWLPUPFYLOCL">
+<div class="header" data-title="Compilation and Execution"><h2>Compilation and Execution</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(And now, a small digression.)</p>
+</div>
+<div class="paragraph lead">
+<p>So far we&#x2019;ve been letting you admire the magic that happens when you execute
+Java code.
+<strong>But what is actually happening?</strong></p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>As a computer scientist, part of your job is to be curious about how things
+work!</p>
+</li>
+<li class="bullet">
+<p>This will also help clear up a few things that may have been confusing to you
+up until this point&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>It&#x2019;s also quite interesting&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but note that I am <em>not</em> going to go into detail here
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;The details can and do consume an entire other course!&lt;/body&gt;&lt;/html&gt;">1</span>.
+Ask on the forum if you want to know more!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OOKYUHMILFABUATCCUWQISGTWZOVLFST">
+<div class="header" data-title="When You Run Java Code"><h2>When You Run Java Code</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Roughly speaking, when you run your Java code&#x2014;on our playground, on
+PrairieLearn, or in Android Studio&#x2014;the process works like this:</p>
+</div>
+<div class="olist arabic small">
+<ol class="arabic">
+<li class="bullet">
+<p><strong>Compilation</strong>: your Java source code is <em>compiled</em> to a simpler representation
+called <em>Java bytecode</em> by the Java compiler (<code>javac</code>).</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Errors that occur at this stage are called <em>compilation errors</em>.</p>
+</li>
+<li class="bullet">
+<p><strong>If your code doesn&#x2019;t compile, it doesn&#x2019;t run.</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>Execution</strong>: the bytecode from Step 1 is then executed by a program called the
+<em>Java Virtual Machine (JVM)</em> (<code>java</code>).</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Errors that occur at this stage are called <em>runtime errors</em>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="ENFGHYDFYCARQXOUNXQMCKOGECQAPQOR">
+<div data-title=" Compilation Errors: Parsing"></div>
+<textarea class="janini spelling_exception">Dear Java, please complete MP2. Now!</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="KSILBBGPBRMXYVAZGFEIAXIRXBIPOSNE">
+<div data-title=" Compilation Errors: Type Safety"></div>
+<textarea class="janini spelling_exception">int instructions = &quot;Finish MP1... now!&quot;;</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="QKMQALZQXJPVHZDWRPPEZYWHLOMKBUMI">
+<div data-title=" Runtime Errors: null"></div>
+<textarea class="janini spelling_exception">String s = null;
+System.out.println(s.length());</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JCCTJPYQOUSCCQDZVZDLGAUZSKUWATHT">
+<div class="header" data-title="Compiler Errors v. Runtime Errors"><h2>Compiler Errors v. Runtime Errors</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java and many languages that followed it have tried to transform <em>runtime</em>
+errors into <em>compiler</em> errors.
+<strong>Why?</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You compile your code <em>before</em> it runs: and so before you have to demo it to a
+client, or before you deploy it to hundreds of users.</p>
+</li>
+<li class="bullet">
+<p>Catching errors at this stage is <em>critical</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="ZNYWLZYPAXRWNMBBJMXKGWTJHHRVRBUU">
+<div data-title=" Runtime Errors: null"></div>
+<textarea class="janini spelling_exception">// So why does Java let me do this?
+String s = null;
+System.out.println(s.length());</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LHLVEXWGCVWQGGJZMWCFBFDBIBNDSMIF">
+<div class="header" data-title="Java Compilation: javac"><h2>Java Compilation: <code>javac</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The Java compiler transforms Java source code into Java bytecode.
+On many machines it is a program called <code>javac</code>.</p>
+</div>
+<div class="paragraph">
+<p>(Quick demo.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QOIVVLJAVZSGCJKWBAFBLSINDNNGWKVG">
+<div class="header" data-title="Java Execution: java"><h2>Java Execution: <code>java</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The Java Virtual Machine executes Java bytecode.
+On many machines it is a program simply called <code>java</code>.</p>
+</div>
+<div class="paragraph">
+<p>(Quick demo.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BMJGEVQAZRRSCRAXFKBLJHQOZAHRQXIO">
+<div class="header" data-title="Bytecode v. Machine Code"><h2>Bytecode v. Machine Code</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Many compiled languages compile into instructions that an actual CPU or
+processor can execute&#x2014;we call this <em>machine code</em>.</p>
+</li>
+<li class="bullet">
+<p>Java does not&#x2014;it compiles into <em>bytecode</em> that is then run by the Java
+Virtual Machine (JVM), a piece of <em>software</em>.</p>
+</li>
+<li class="bullet">
+<p><strong>Why?</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FOQRONBLILYFXJEJXZOYVWKAIRVUJXZJ">
+<div class="header" data-title="Write Once, Run Anywhere &#x2122;"><h2>Write Once, Run Anywhere &#x2122;</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(I will do my best to avoid a truly Wallacian stem-winder of a digression here,
+since this is a truly fascinating story.)</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Different computer processors use different instructions&#x2014;this is still
+true today, but was even more true when Java was being designed</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>(This is kind of like them speaking different languages.)</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p>So if I take a program that was compiled for an <code>x86</code> processor and try to run
+it on an <code>ARM</code> processor, it won&#x2019;t work</p>
+</li>
+<li class="bullet">
+<p>But if I take a <em>Java</em> program that was compiled into Java bytecode I can run
+it anywhere&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;as long as that computer has the Java Virtual Machine (JVM).</p>
+</li>
+<li class="bullet">
+<p>(This is the difference between the Java Runtime Environment (JRE) and the
+Software Development Kit (SDK). The SDK includes <code>javac</code>, the JRE does
+not.)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QESZVMCOMCEYDDWNYSYKIKWXKBPVKBVJ">
+<div class="header" data-title="As Computers Get Faster&#x2026;&#x200B;"><h2>As Computers Get Faster&#x2026;&#x200B;</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><em>compilers</em> also get faster, leading to important and useful changes in language
+design.</p>
+</div>
+<div class="listingblock bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Wait, what black magic is this?
+var integerValue = 5;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Java 10 introduced
+<a href="https://developer.oracle.com/java/jdk-10-local-variable-type-inference.html" target="_blank" class="external">local
+variable type inference</a></p>
+</li>
+<li class="bullet">
+<p>Which means that you do not need to specify the type for local variables <em>if</em>
+the compiler can determine what it should be</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HOFUPTYNEVDDAXPNANVLZCQHDOUGCSWV">
+<div class="header" data-title="Java 10 Type Inference"><h2>Java 10 Type Inference</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can use this feature now using IntelliJ, on our PrairieLearn homework
+problems, and in the slide playground.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">var sum = 0;
+for (var i = 0; i &lt; array.length; i++) {
+  for (var j = 0; j &lt; array[i].length; j++) {
+    sum += array[i][j];
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk small nozoom bespoke-inactive bespoke-slide" data-slideid="ePUfnfQHeXHitZiwnijKRNupRsiATEri">
+<div data-title=" Local Variable Inference Example"></div>
+<textarea class="janini spelling_exception">var sum = 0;
+for (int i = 0; i &lt; 10; i++) {
+  sum += i;
+}
+System.out.println(sum);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WqRJLyEMGzDnROsHBdlzMUbDckIilcNd">
+<div class="header" data-title="Let&#x2019;s Talk main"><h2>Let&#x2019;s Talk <code>main</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  public static void main(String[] unused) {
+    System.out.println(&quot;How did I get here?&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We saw a <code>main</code> method in the demo and we&#x2019;ll start using it in upcoming in-class
+examples.
+But <em>what is it</em>?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PMvcyTJMxlQGwACGdChxIxqgfkfNHdhZ">
+<div class="header" data-title="Everything Has To Start Somewhere"><h2>Everything Has To Start Somewhere</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  public static void main(String[] unused) {
+    System.out.println(&quot;And this is it!&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>When Java runs your program, execution has to start <em>somewhere</em>.</p>
+</li>
+<li class="bullet">
+<p>If a class has a <code>main</code> method Java can execute that class and begin the
+process of running a program.</p>
+</li>
+<li class="bullet">
+<p>So <em>every</em> Java application starts in <code>main</code> somewhere.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rHYJXgpSsZBecBvjSvwYlEpsQEnYnqEu">
+<div class="header" data-title="But What About unused?"><h2>But What About <code>unused</code>?</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  public static void main(String[] unused) {
+    System.out.println(&quot;And this is it!&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>But why is <code>main</code> passed an array of <code>Strings</code>s (that we sometimes ignore)?</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="XYSumkbedLslVGwyAGffpwSOkRXunCdg">
+<div class="header" data-title="Questions on Compilation?"><h2>Questions on Compilation?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="eDaqhGgeyhqfXbMTgTkTfnYkyVBwuWLr">
+<div class="header" data-title="Hang In There"><h2>Hang In There</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>This is a tough week, but you can do it.
+Don&#x2019;t give up!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZLEGLKEIWPJYLVFCYIQISYLBUJLUDHKV">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>I have office hours today from 4&#x2013;5PM in Siebel 2227.</p>
+</li>
+<li>
+<p>Monday we will begin discussing <em>objects</em>, Friday will be
+midterm review</p>
+</li>
+<li>
+<p>Office hours for MP0 continue&#x2014;please get started, since it will help you
+prepare for the midterm exam next week</p>
+</li>
+<li>
+<p>Next week we will hold our first <strong>midterm exam</strong>: a one-hour quiz worth 2% of
+your grade that <em>cannot be dropped</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

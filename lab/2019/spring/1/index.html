@@ -1,0 +1,615 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Debugging and More Android Setup</title>
+		<meta name="description" lang="en-us" content="Today you&apos;ll complete some debugging homework problems and finish setting up your Android environment in preparation for MP0 which will be released next week.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/MP" href="/MP/5/">MPs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/lab" href="/lab/14/">Labs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav small">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/14/">14: Final Project Demos</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/13/">13: Final Project Checkpoint</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/12/">12: Final Project UI</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/11/">11: Sorting and Searching</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/10/">10: A Knight&apos;s Tour</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/8/">8: Escape the Maze</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/7/">7: Data Modeling</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/6/">6: Testing</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/5/">5: Reverse Engineering</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/3/">3: Strings</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/2/">2: Algorithms</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/1/" class="active" onclick="return false;">1: Debugging and More Android Setup<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/0/">0: Ready to Start</a>
+            </li>
+            <li>
+              <strong><a href="/lab/">Return to Current Labs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning How to Debug (60 Minutes Total)</a>
+            <ul>
+              <li><a class="nav-link" href="#_understanding_your_programs_output_20_minutes">1.1. Understanding Your Program&#x2019;s Output (20 Minutes)</a></li>
+              <li><a class="nav-link" href="#_practice_debugging_40_minutes">1.2. Practice Debugging (40 Minutes)</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#android">2. Building and Running Android Apps (Remaining Time)</a>
+            <ul>
+              <li><a class="nav-link" href="#_youre_a_hacker_now">2.1. You&#x2019;re a Hacker Now</a></li>
+              <li><a class="nav-link" href="#_modifying_hello_world">2.2. Modifying &quot;Hello, World&quot;</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#done">3. Before You Leave</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This lab is from a previous version of CS 125.
+          <a href="/lab/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Debugging and More Android Setup</h1>
+      <div class="paragraph lead">
+<p>Today&#x2019;s lab begins teaching you to debug and completes preparing you to work on
+this semester&#x2019;s Android-based MPs.
+You&#x2019;ll start by completing some in-lab homework problems that help you learn to
+debug problems with your code.
+Next you&#x2019;ll finish preparing your Android development environment by installing
+and using Android emulators to run and debug your Android code.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="debugging"></a><h2>1. Learning How to Debug <span class="text-muted">(60 Minutes Total)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Programmers never stop making mistakes.
+I&#x2019;ve been doing this for almost 20 years and I make many, many programming
+mistakes every day.
+What you <em>do</em> get better at is fixing them, quickly, so that they don&#x2019;t slow you
+down and you can get on with your business of changing the world.</p>
+</div>
+<div class="paragraph">
+<p>Our first lab homework assignment today is designed to help you learn to do
+that.
+This knowledge will come in handy in all of your future programming
+tasks&#x2014;but definitely during your CS 125 CBTF quizzes this semester, where
+you may small mistakes and be pressed for time.</p>
+</div>
+<div class="paragraph">
+<p>Oh, and in case you&#x2019;re wondering, programmers have long referred to fixing
+mistakes in their code as
+<a href="https://en.wikipedia.org/wiki/Debugging" target="_blank" class="external"><em>debugging</em></a>,
+a term attributed at least in part to
+<a href="https://en.wikipedia.org/wiki/Grace_Hopper" target="_blank" class="external">computer science pioneer Grace Hopper</a>
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Who was also &lt;a href=&quot;https://www.youtube.com/watch?v=1-vcErOPofQ&quot; target=&quot;_blank&quot; class=&quot;external&quot;&gt;great on Letterman&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_understanding_your_programs_output_20_minutes"></a><h3>1.1. Understanding Your Program&#x2019;s Output <span class="text-muted">(20 Minutes)</span></h3>
+<div class="paragraph">
+<p>A key part of learning to debug effectively is understanding the various kinds
+of output that your program produces.
+You <em>can</em> just stare at your code and try to figure out what&#x2019;s wrong&#x2014;that
+might work, eventually, maybe.
+But it&#x2019;s slow.
+<strong>Frequently a much faster route is to use the output that the computer provides
+when testing your code to help you fix it.</strong></p>
+</div>
+<div class="paragraph">
+<p>Note that this is not just an artifact of how we do things in CS 125.
+Every large tech company has sophisticated systems for testing their code before
+it is released to users or to the public.
+This is because mistakes can be both embarrassing and expensive, so it&#x2019;s better
+to test things first rather than try to clean up the mess later.
+Before modifications get made to widely-used pieces of software like, say, the
+Chrome browser, those changes go through extensive automated testing along with
+multiple rounds of review by other human developers.
+So increasingly one of the many things that computers are helping automate is
+the process of testing changes to their own code!</p>
+</div>
+<div class="paragraph">
+<p>When you submit your program for grading in CS 125 the following steps
+take place.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_code_format_checking"></a><h4>1.1.1. Code Format Checking</h4>
+<div class="paragraph">
+<p>First, we test the <em>format</em> of your code using
+<a href="http://checkstyle.sourceforge.net/" target="_blank" class="external"><code>checkstyle</code></a>,
+a program that checks it against a set of rules about how Java code should be
+formatted.
+We do this because writing <em>readable</em> code is as important as writing <em>correct</em>
+code.</p>
+</div>
+<div class="paragraph">
+<p>For example, the following code has a <code>checkstyle</code> error&#x2014;can you spot what
+it is?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (x&gt;0) {
+  System.out.println(&quot;x is positive&quot;);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>checkstyle</code> produces error messages that look like this (note that this is
+<em>not</em> for the snippet above):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">[ERROR] /base/src/main/java/Question.java:3:10: &apos;else&apos; is not preceded with whitespace.
+[ERROR] /base/src/main/java/Question.java:3:10: &apos;}&apos; is not followed by whitespace.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the error message identifies the line number (3) where the error
+occurs, along with a brief human-readable description of the problem.
+Given the error message above, can you come up with a snippet that could have
+produced this error?</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_compilation"></a><h4>1.1.2. Compilation</h4>
+<div class="paragraph">
+<p>Second, we try to <em>compile</em> your code using the
+<a href="https://en.wikipedia.org/wiki/Java_compiler" target="_blank" class="external">Java compiler</a>.
+This is step that we&#x2019;ll discuss more soon in class, but certain kinds of
+mistakes can be caught at this point.
+We sometimes refer to errors identified at this stage as <em>compiler errors</em> or
+<em>syntax errors</em>.
+<strong>Note that if the Java compiler can&#x2019;t compile your code we can&#x2019;t run it and
+continue with testing, so we stop at this point.</strong></p>
+</div>
+<div class="paragraph">
+<p>For example, the following code will produce a compiler error&#x2014;can you spot
+it?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">double latitude = 80.98274;
+if (latitute &gt; 0) {
+  System.out.println(&quot;You&apos;re in the northern hemisphere&quot;);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Java compiler can produce all kinds of error messages depending on what you
+did wrong.
+Understanding how to interpret them will <em>greatly</em> improve your ability to fix
+errors and perform well on the homework, quizzes, and MPs.
+Here are a few examples of common mistakes.
+Note that, like the <code>checkstyle</code> errors above, each identifies the line number
+where the error took place and provide some information about the problem that
+was encountered.
+For each, see if you can determine a piece of code that could produce that
+error.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/base/src/main/java/Question.java:2: error: cannot find symbol
+        if (currenttime &gt; 10000000) {
+            ^
+  symbol:   variable currenttime
+  location: class Question
+1 error</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/base/src/main/java/Question.java:4: error: reached end of file while parsing
+}
+ ^
+1 error</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/base/src/main/java/Question.java:2: error: &apos;;&apos; expected
+            System.out.println(&quot;Smaller&quot;)
+                                         ^
+1 error</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_testing"></a><h4>1.1.3. Testing</h4>
+<div class="paragraph">
+<p>Finally, we run your code using a <em>test suite</em>.
+At that point your program will run, but it might not be correct.
+For example, we may have asked you to add <code>x</code> and <code>y</code> but if your code instead
+computes <code>x * y</code>, then it doesn&#x2019;t match our specification.
+Our test suite will try and determine this and, if your code doesn&#x2019;t behave
+correctly, we&#x2019;ll provide some information about what went wrong.</p>
+</div>
+<div class="paragraph">
+<p>Usually how we do this is to compare the behavior of your program to what we had
+expected.
+For example, let&#x2019;s say that we instructed you to write a snippet of code that
+printed <code>North Pole</code> at the appropriate <code>latitude</code> and <code>longitude</code> and not print
+anything otherwise.
+You submitted the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (latitude == 0.0) {
+  System.out.println(&quot;North Pole&quot;);
+} else {
+  System.out.println(&quot;Not at North Pole&quot;);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What we would do is test your code with different values of <code>latitude</code>.
+First we&#x2019;d say, let&#x2019;s see if it&#x2019;s right if <code>latitude</code> is equal to <code>0.0</code>.
+In that case it does print <code>North Pole</code>, so that&#x2019;s good.
+OK, now what happens if we set <code>latitude</code> to <code>1.0</code>?
+We didn&#x2019;t tell you to not print anything otherwise, but you printed <code>Not at
+North Pole</code>.
+So you might get an error message something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">java.lang.AssertionError: expected [] but found [North Pole]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These error messages might look different depending on the problem you are
+working on.
+But in general they describe a mismatch between our <em>expectations</em> of how your
+code should behave based on our instructions and the <em>reality</em> of how it worked
+when we ran it.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_practice_debugging_40_minutes"></a><h3>1.2. Practice Debugging <span class="text-muted">(40 Minutes)</span></h3>
+<div class="paragraph">
+<p>Next, you should the next 40 minutes on our
+<a href="https://prairielearn.engr.illinois.edu/pl/course_instance/20716/assessment_instance/733789" target="_blank" class="external">in-lab homework</a>.
+<strong>You will only be able to access this homework beginning 20 minutes after your
+lab starts and ending 40 minutes later.</strong>
+So if your lab starts at 9AM, you can start the homework at 9:20AM and should
+complete it by 10AM sharp.
+And if you are in the wrong lab you will not be able to complete the lab
+homework assignment&#x2014;please attend the right lab next time.</p>
+</div>
+<div class="paragraph">
+<p>Please feel free to work with a partner or in a small group on the lab
+homework.
+<strong>But every student must submit their own answers to receive credit.</strong></p>
+</div>
+<div class="paragraph">
+<p>Note that the best way to approach these debugging problems is <em>not</em> to just
+resubmit your solution over and over again.
+In fact, we&#x2019;ve disable cut and paste on these problems to prevent you from doing
+that.
+Instead, first run the code, then use the output to identify the errors, and
+then fix them by modifying the code that is in front of you.
+<strong>All of these errors can be fixed with only a few keystrokes.</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="android"></a><h2>2. Building and Running Android Apps <span class="text-muted">(Remaining Time)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Next, let&#x2019;s return to the Android Studio tutorial and complete
+<a href="/MP/2019/spring/setup/android-studio#emulator">an additional portion</a>
+of the tutorial.
+To work on our CS 125 MPs, you will need either an Android device or a working
+emulator&#x2014;even if it runs a bit slowly.
+Again, work with the course staff to try and complete this portion of the lab.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note that if you have an Android device you should
+<a href="/MP/2019/spring/setup/android-studio/#devices">use it for Android development</a>.</strong>
+Even an old and slow Android device can provide a more enjoyable development
+environment than using the emulator.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_youre_a_hacker_now"></a><h3>2.1. You&#x2019;re a Hacker Now</h3>
+<div class="paragraph">
+<p>Note that we are definitely throwing you into the deep end today.
+As you work your way through the
+<a href="https://developer.android.com/training/basics/firstapp/" target="_blank" class="external">Android &quot;Hello, World!&quot;
+tutorial</a>
+you will <em>definitely</em> encounter code and concepts that are new and unfamiliar to
+you.
+That&#x2019;s normal.</p>
+</div>
+<div class="paragraph">
+<p>CS 125 is designed to introduce you to two sides of programming and computer
+science.
+In lectures and on our homework problems and quizzes you&#x2019;ll be working on clean,
+simple, isolated problems.
+Our goal is to prepare you to think and solve problems like a computer
+scientist.</p>
+</div>
+<div class="paragraph">
+<p>But building real things also requires a different set of skills and mindset,
+sometimes referred to as <em>hacking</em>.
+Hacking involves learning how to work with large, complicated systems.
+It means spending more time learning about how other things work than building
+your own things.
+It requires that you get comfortable <em>not</em> necessarily understanding how
+every part of your program works&#x2014;at least not right away.</p>
+</div>
+<div class="paragraph">
+<p>You&#x2019;ll get lots of practice at this on our labs and MPs, starting today.
+<strong>Our advice: be brave and unafraid.</strong>
+Try things, experiment, and have fun.
+You aren&#x2019;t going to break anything important, and even if you get a mess and get
+stuck we&#x2019;ll be able to help bail you out.
+And the rewards are huge.
+Once you can hack together Android apps, you can distribute them to billions of
+users all over the world.
+When we said &quot;change the world&quot;, we meant it.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_modifying_hello_world"></a><h3>2.2. Modifying &quot;Hello, World&quot;</h3>
+<div class="paragraph">
+<p>Once you have the
+<a href="https://developer.android.com/training/basics/firstapp/" target="_blank" class="external">&quot;Hello, world!&quot; app</a>
+running, try to make the following modifications:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Change the text that is shown to &quot;Hello, CS 125!&quot;</p>
+</li>
+<li>
+<p>Change the size of the text</p>
+</li>
+<li>
+<p>Change the position of the text</p>
+</li>
+<li>
+<p>Add some other element to the user interface</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Your goal today should be to get at least to the
+<a href="https://developer.android.com/training/basics/firstapp/building-ui" target="_blank" class="external">&quot;Build a
+simple user interface&quot;</a>
+portion of the tutorial.
+You don&#x2019;t need to get farther than that&#x2014;we&#x2019;ll continue with this tutorial
+in future labs.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="done"></a><h2>3. Before You Leave</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Don&#x2019;t leave lab until</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You&#x2019;ve reviewed our <a href="#debugging">debugging instructions</a> and completed our
+first
+<a href="https://prairielearn.engr.illinois.edu/pl/course_instance/20716/assessment_instance/733789" target="_blank" class="external">in-lab homework</a>.</p>
+</li>
+<li>
+<p>You&#x2019;ve built and run
+<a href="https://developer.android.com/training/basics/firstapp/" target="_blank" class="external">your first Android app</a>
+on either an emulated device or your own Android device.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you need more help completing the tasks above please come to
+<a href="/info/2019/spring/syllabus/#calendar">office hours</a>
+or post on the <a href="https://cs125-forum.cs.illinois.edu" class="noexternal">forum</a>.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/lab/2019/spring/1.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/lab/2019/spring/1.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

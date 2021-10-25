@@ -1,0 +1,515 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Object Review</title>
+  <meta name="description" lang="en-us" content="A chance to slow down and review Java objects, including instances, constructors, class design, inheritance, and polymorphism.">
+
+  <meta name="slider-id" content="2e5e959d-c8f5-493f-91f0-009a72ff9c84">
+  <meta name="slider-semester" content="Spring2020">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="yvPGyAzjIWxppDwhCkgPugvxiKuRyxUi">
+
+<textarea class="janini spelling_exception">public class Pet {
+  public void printMe() {
+    System.out.println(&quot;I&apos;m a pet&quot;);
+  }
+}
+public class Dog extends Pet {
+  public void printMe() {
+    System.out.println(&quot;I&apos;m a dog&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Pet();
+    chuchu.printMe();
+    xyz.printMe();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Object Review&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Object Review<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="euFmCPofTEKYzhHanuwnTAvSmxizieuF">
+<div class="header" data-title="Who&#x2019;s Frustrated?"><h2>Who&#x2019;s Frustrated?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Probably everyone.
+<span class="bullet">What do you do when you&#x2019;re frustrated?</span></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tJAEhRBaxOdrIAfHFqeluBfFBFVZEkZI">
+<div class="header" data-title="Review: Polymorphism"><h2>Review: Polymorphism</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)" target="_blank" class="external">Polymorphism</a>:
+the provision of a single interface to entities of different types.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xejQOFdnYNedKmENRxJOESdlitSRXvBw">
+<div class="header" data-title="Subtype Polymorphism"><h2>Subtype Polymorphism</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet {
+  public void printMe() {
+    System.out.println(&quot;I&apos;m a pet&quot;);
+  }
+}
+public class Dog extends Pet {
+  public void printMe() {
+    System.out.println(&quot;I&apos;m a dog&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java, <em>every</em> object is really an instance of at least <em>two</em> types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Each <code>Pet</code> is also an <code>Object</code></p>
+</li>
+<li class="bullet">
+<p>Each <code>Dog</code> is also a <code>Pet</code> and also an <code>Object</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zAfgNaUvOdTRoYcImWOGArtsyjxiCuXW">
+<div class="header" data-title="Object Upcasting"><h2>Object Upcasting</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return &quot;Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java will <em>upcast</em> object types automatically.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="CibxAzCMpvrFpjbBUcHRBnCoPdroMZDc">
+<div data-title=" Object Conversion: Upcasting"></div>
+<textarea class="janini spelling_exception">public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return &quot;Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YHYXBIyexgSczCgXpNsrgcVZtiCWeifQ">
+<div class="header" data-title="But Instances Retain Their Types"><h2>But Instances Retain Their Types</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return &quot;Still a Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="faLGlVEpJnzuilavUdSpPJnjoRNXqcsn">
+<div data-title=" But Instances Retain Their Types"></div>
+<textarea class="janini spelling_exception">public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return &quot;Still a Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Object chuchuAsObject = chuchu;
+    System.out.println(chuchuAsObject);
+    Pet chuchuAsPet = chuchu;
+    System.out.println(chuchuAsPet);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sdlBDsmJxGzipqJCuKbCXcwbxKBRbrno">
+<div class="header" data-title="Object Downcasting"><h2>Object Downcasting</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return &quot;Still a Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    Example.printAnything(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    Example.printAnything(chuchuAsPet);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We can also cast instances <em>down</em> but only if the instance is
+actually the appropriate subtype.</p>
+</div>
+<div class="paragraph">
+<p>Java checks the cast at runtime to make sure that it is appropriate.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="GJrYLdzWnTewfJWDGEyNqVxQyxjMmJCk">
+<div data-title=" Object Conversion: Downcasting"></div>
+<textarea class="janini spelling_exception">public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return &quot;Still a Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Object chuchu = new Dog();
+    System.out.println(chuchu);
+    Pet chuchuAsPet = (Pet) chuchu; // chuchu is a Pet, so this works
+    System.out.println(chuchuAsPet);
+    Dog chuchuAsDog = (Dog) chuchu; // chuchu is also a Dog, so this works
+    System.out.println(chuchuAsDog);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CpZeQftzcOFsQCDCxiBqCcyBJtoOHNvI">
+<div class="header" data-title="Type Testing: instanceof"><h2>Type Testing: <code>instanceof</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Java <code>instanceof</code> operator allows you to test whether an object is an
+instance of <em>or</em> a descendant of a particular class.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="OefedXVUqXZifDYrxutlCilKEnwfvnij">
+<div data-title=" Type Testing: instanceof"></div>
+<textarea class="janini spelling_exception">public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }
+public class Example {
+  public static void main(String[] unused) {
+    Pet chuchu = new Dog();
+    Pet xyz = new Cat();
+    System.out.println(chuchu instanceof Dog); // Prints true
+    System.out.println(chuchu instanceof Pet); // Prints true
+    System.out.println(chuchu instanceof Cat); // Prints false
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AtydbVpehoLTEsgqUCgcTyIHlnazMXPZ">
+<div class="header" data-title="Liskov Substitution Principle"><h2>Liskov Substitution Principle</h2></div>
+<div class="sectionbody">
+<div class="quoteblock spelling_exception">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle" target="_blank" class="external">Substitutability</a>
+is a principle in object-oriented programming stating that, in a computer
+program, if S is a subtype of T, then objects of type T may be replaced with
+objects of type S (i.e. an object of type T may be substituted with any object
+of a subtype S) without altering any of the desirable properties of T
+(correctness, task performed, etc.).</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nUWyBwYOCDtTXFYmxzjQBKdtSVcLLhjZ">
+<div class="header" data-title="Substitutability in Practice"><h2>Substitutability in Practice</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet { }
+public class Dog extends Pet {
+  public String toString() {
+    return &quot;Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog();
+    Pet xyz = new Pet();
+    Example.printAnything(chuchu);
+    Example.printAnything(xyz);
+  }
+  public static void printAnything(Object toPrint) {
+    System.out.println(toPrint.toString());
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since everything is an <code>Object</code>, any Java object inherits all of the desirable
+properties of <code>Object</code>: like <code>toString</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="VhyrHDhYiwsScmHUunmuvwgwbiWRJPqJ">
+<div class="header" data-title="Subtype Polymorphism"><h2>Subtype Polymorphism</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can always use <code>toString</code>, but every class can implement it
+differently.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="yvYtRfULCbIvhMMdEOcGHIreUrBynaXT">
+<div class="header" data-title="Same Names, Different Behavior"><h2>Same Names, Different Behavior</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Where else have we seen this before?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="vGwilOBrBAWUfzutpyvFACGGhIYzMNyQ">
+<div data-title=" Java Method Overloading"></div>
+<textarea class="janini spelling_exception">static int sum(int first, int second) {
+  return first + second;
+}
+static double sum(double first, double second) {
+  return first + second;
+}
+System.out.println(sum(10, 20));
+System.out.println(sum(10.0, 20.0));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CaeAiZMIixRpAkCxQeiqMdVeitvqdxFV">
+<div class="header" data-title="Polymorphism"><h2>Polymorphism</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)" target="_blank" class="external">Polymorphism</a>:
+the provision of a single interface to entities of different types.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Subtype polymorphism</strong>: a single method can act on all descendants of a given
+class</p>
+</li>
+<li class="bullet">
+<p><strong>Method overloading</strong>: a method can behave differently depending on its arguments</p>
+</li>
+<li class="bullet">
+<p>Generics (discussed later)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jiSCXBdAuOnhpItuaduAEfKpwsGqyKYz">
+<div class="header" data-title="Worked Examples"><h2>Worked Examples</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Please refer to
+<a href="https://youtu.be/XgDbzmHQh_w?t=1998" target="_blank" class="external">last semester&#x2019;s video</a>
+for a walkthrough of how to complete one of the recent homework problems.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="aeVJuVbnHSUwndHSELusYguefZbWovbn">
+<div class="header" data-title="Questions About Objects?"><h2>Questions About Objects?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HiLlpvxKziOlYYkRfdKZIjluYKLMNtQj">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Congrats to the Blue Team for finishing up MP1!
+Good luck to the Orange Team who have their deadline day today.</p>
+</li>
+<li>
+<p><a href="/MP/2/">MP2</a> will be released at 8PM tonight.</p>
+</li>
+<li>
+<p>We have a
+<a href="/info/feedback/">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>More Hashing and Maps</title>
+  <meta name="description" lang="en-us" content="Continuation of an introduction to hash functions, various uses of hashing, and hash tables and maps.">
+
+  <meta name="slider-id" content="9a03577d-f9ae-4c8c-b524-a51e2d5d6c36">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smaller nozoom bespoke-active bespoke-slide" data-slideid="YMwWktQRoxuRMXcHASYquVZYTbVkPkVb">
+
+<textarea class="janini spelling_exception">import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
+
+static void countStrings(String[] inputArray) {
+  Map stringCount = new HashMap();
+  for (String input: inputArray) {
+    stringCount.put(input, (Integer) stringCount.getOrDefault(input, 0) + 1);
+  }
+  System.out.println(Arrays.toString(stringCount.entrySet().toArray()));
+}
+countStrings(new String[] { &quot;a&quot;, &quot;b&quot;, &quot;aa&quot;, &quot;bb&quot;, &quot;a&quot; });</textarea><!-- beautify ignore:start --><div class="output" data-blank="More Hashing and Maps&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">More Hashing and Maps<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tmgPNiKLWnHUzErCRKzzZvBhQKQgmowP">
+<div class="header" data-title="Let&#x2019;s Imagine&#x2026;&#x200B;"><h2>Let&#x2019;s Imagine&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Imagine I told you that there was a function with the following
+properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Determinism</strong>: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.</p>
+</li>
+<li>
+<p><strong>Uniformity</strong>: over many inputs, each output value is equally likely.</p>
+</li>
+<li>
+<p><strong>Efficiency</strong>: it is efficient to compute.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hkmWrBhxcKDwRZLHltXbsKfQGVSAPCFU">
+<div class="header" data-title="Remember Arrays?"><h2>Remember Arrays?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] numbers = new int[] { 5, 6, 7 };
+System.out.println(numbers[0]);
+numbers[1] = 8;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Arrays map an <em>index</em> (0, 1, 2, <code>array.length</code> to a value).</p>
+</li>
+<li class="bullet">
+<p>The value can be anything, but the indices <em>had to be be integers</em>.</p>
+</li>
+<li class="bullet">
+<p><strong>No longer!</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="KMEWkSlvNYjqjVvbmAsKdltNRtMMCxaO">
+<div class="header" data-title="Java Maps"><h2>Java Maps</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A Java <code>Map</code> allows us to use <em>any object</em> like an array index.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import java.util.Map;
+import java.util.HashMap;
+
+Map stringValues = new HashMap();
+stringLengths.put(&quot;test&quot;, 5);
+System.out.println(stringLengths.get(&quot;test&quot;)); // Prints 5
+stringLengths.put(&quot;test&quot;, 7);
+System.out.println(stringLengths.get(&quot;test&quot;)); // Prints 7</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="cNrVzvwRIdEImFTXuRzaPYBaYhWmumkE">
+<div class="header" data-title="A Map By Any Other Name"><h2>A Map By Any Other Name</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Maps are one of the two data structures you meet in heaven. (Along with lists.)
+Every language has them:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Python calls them dictionaries: <code>dict[&quot;key&quot;] = &quot;value&quot;</code></p>
+</li>
+<li class="bullet">
+<p>JavaScript calls them anonymous objects <code>dict[&quot;key&quot;] = &quot;value&quot;</code></p>
+</li>
+<li class="bullet">
+<p>C++ calls them maps: <code>dict.insert(std::make_pair(&quot;key&quot;, &quot;value&quot;));</code></p>
+</li>
+<li class="bullet">
+<p>Go calls them maps: <code>dict[&quot;key&quot;] = &quot;value&quot;</code></p>
+</li>
+<li class="bullet">
+<p>Even Perl had them: <code>$dict{&apos;key&apos;} = &quot;value&quot;</code>!</p>
+</li>
+<li class="bullet">
+<p>Sometimes we call them <em>key-value stores</em>, since each key maps to a single value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="BjIWSGhbbdmcPskCXrkzLuMjQQIfOcIf">
+<div data-title=" Map Documentation"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/8/docs/api/java/util/Map.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="sgPpLMLvjafumVtoxHZbJCajGXxPFpiw">
+<div data-title=" Fun With Maps"></div>
+<textarea class="janini spelling_exception">import java.util.Map;
+import java.util.HashMap;
+
+Map mapExample = new HashMap();</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pIIpraLgqYnJqTIffhvreOUyxqceQMjW">
+<div class="header" data-title="And Why Does This Work in Java?"><h2>And Why Does This Work in Java?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Remember the functions defined by <code>Object</code> that are shared by <em>every</em> Java
+object?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>toString</code>: to display an object in human-readable format</p>
+</li>
+<li class="bullet">
+<p><code>equals</code>: test whether an object equals another</p>
+</li>
+<li class="bullet">
+<p><code>hashCode</code>: return a <strong>hash value</strong> for that object, which is used internally by
+<code>Map</code> implementations and other data structures</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oNSUQuIcudDNOreWJbMomWIAWVuDPRNI">
+<div class="header" data-title="Example hashCode"><h2>Example <code>hashCode</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Like <code>toString</code> and <code>equals</code>, IntelliJ will offer to generate <code>hashCode</code> for
+you:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Player {
+  // Other things omitted
+  private int id;
+
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + id;
+    return result;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YtqFBVnmuvRuJizUWcQMkvzrsdQDdrHI">
+<div class="header" data-title="Map Usage Example"><h2>Map Usage Example</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s say that I want to process a large corpus of text and then be able to
+quickly answer queries about how many times particular words appear.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="xqnWYaQSXvQfuaOBdwXXaRvCTiVjvCUT">
+<div data-title=" Map Usage Example"></div>
+<textarea class="janini spelling_exception">import java.util.Map;
+import java.util.HashMap;
+
+public class WordCounter {
+  private Map wordCount;
+  public WordCounter(String[] text) {
+    wordCount = new HashMap();
+  }
+  public int getWordCount(String word) {
+    return 0;
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    String[] corpus = new String[] {
+      &quot;here&quot;, &quot;here&quot;, &quot;there&quot;
+    };
+    WordCounter wordCounter = new WordCounter(corpus);
+    System.out.println(wordCounter.getWordCount(&quot;here&quot;));
+    System.out.println(wordCounter.getWordCount(&quot;there&quot;));
+    System.out.println(wordCounter.getWordCount(&quot;nowhere&quot;));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QAKIFghOvHabcdxPluXfMikknydltCHS">
+<div class="header" data-title="(An Annoying Aside on Java Primitive Object Wrappers)"><h2>(An Annoying Aside on Java Primitive Object Wrappers)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In Java, certain data structures (<code>Maps</code>, <code>ArrayLists</code>, etc.) only operate on
+<em>objects</em>. (Because <code>Object</code> provides <code>hashCode</code>.)</p>
+</div>
+<div class="paragraph">
+<p>But then how do we insert primitive types (<code>ints</code>, <code>longs</code>, etc.) into them?</p>
+</div>
+<div class="listingblock small bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">Integer imAnObject = new Integer(5);
+imAnObject = (Integer) 5; // You can cast primitives to object wrapper
+int imNotAnObject = (int) imAnObject; // And back</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AHrbOZYbmzWDmNwRgZKYCzjKUPHHEiUY">
+<div class="header" data-title="Primitive Object Wrappers"><h2>Primitive Object Wrappers</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small array notdatatables">
+
+<thead>
+<tr class="bullet">
+<th class="tableblock valign-middle text-center">Primitive Type</th>
+<th class="tableblock valign-middle text-center">Object Wrapper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>int</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Integer</code></p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>long</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Long</code></p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>boolean</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Boolean</code></p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>char</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Character</code></p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>double</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Double</code></p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>byte</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Byte</code></p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>short</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Short</code></p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>float</code></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><code>Float</code></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="HjFZsfxSQtueuUZIbecIPIGDhTzuyUrM">
+<div class="header" data-title="(Exciting Stuff&#x2026;&#x200B;)"><h2>(Exciting Stuff&#x2026;&#x200B;)</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pdwcMAZBmuwUFEWVSPCqjAbuKImRBdrd">
+<div class="header" data-title="Brief Map Implementation"><h2>Brief <code>Map</code> Implementation</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So how do we implement a <code>Map</code>?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Use a <code>hashCode</code> to retrieve a hash code for each object.</p>
+</li>
+<li class="bullet">
+<p>Use that value&#x2014;or a smaller part of it&#x2014;as an index into an array.</p>
+</li>
+<li class="bullet">
+<p>But what about collisions?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="NdtRQfCIlNeCIwFdPzhycUCjiduKpRFM">
+<div class="header" data-title="Map As Array + Linked List"><h2><code>Map</code> As Array + Linked List</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="http://math.hws.edu/javanotes/c10/hash-table.png" alt="hash table" width="500" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="UsChKXDXPGKVOeKYnxsHACKOOsKlhJYx">
+<div data-title=" HashMap Example"></div>
+<textarea class="janini spelling_exception">public class Item {
+  public Object key;
+  public Object value;
+  public Item next;
+  Item(Object setKey, Object setValue, Item setNext) {
+    this.key = setKey;
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class HashMap {
+  private Item[] items = new Item[16];
+  public int itemCount = 0;
+  private int hash(Object key) {
+    int hashValue = key.hashCode() % 16;
+    if (hashValue &lt; 0) {
+      hashValue += 16;
+    }
+    return hashValue;
+  }
+  public void put(Object key, Object value) {
+    int bucket = hash(key);
+    Item current = items[bucket];
+    for (; current != null; current = current.next) {
+      if (current.key.equals(key)) {
+        current.value = value;
+        return;
+      }
+    }
+    Item newItem = new Item(key, value, items[bucket]);
+    items[bucket] = newItem;
+    itemCount++;
+    return;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    HashMap ourHashMap = new HashMap();
+    ourHashMap.put(&quot;test&quot;, &quot;me&quot;);
+    System.out.println(ourHashMap.itemCount);
+    ourHashMap.put(&quot;test&quot;, &quot;another&quot;);
+    System.out.println(ourHashMap.itemCount);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XzzFwecpZcVPGyIzrraJqXHDwFRgolqO">
+<div class="header" data-title="HashMap Performance"><h2><code>HashMap</code> Performance</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s consider the performance of our simple <code>HashMap</code> in two cases. First, if
+the array is <strong>very small</strong> relative to the number of items:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong><code>put</code></strong>: <span class="bullet">O(n) with n being the number of items</span></p>
+</li>
+<li class="bullet">
+<p><strong><code>get</code></strong>: <span class="bullet">O(n) with n being the number of items</span></p>
+</li>
+<li class="bullet">
+<p>At this point the <code>HashMap</code> is acting <span class="bullet">like a <em>linked list</em>.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XbDnmqvDhMnqdLZVipXfTlOWbYnAIHhL">
+<div class="header" data-title="HashMap Performance"><h2><code>HashMap</code> Performance</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s consider the performance of our simple <code>HashMap</code> in two cases. Second, if
+the array is <strong>very large</strong> relative to the number of items:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong><code>put</code></strong>: <span class="bullet">O(1)</span></p>
+</li>
+<li class="bullet">
+<p><strong><code>get</code></strong>: <span class="bullet">O(1)</span></p>
+</li>
+<li class="bullet">
+<p>At this point the <code>HashMap</code> is acting <span class="bullet">like an <em>array</em>.</span></p>
+</li>
+<li class="bullet">
+<p>What&#x2019;s the problem? <span class="bullet">It requires <em>a lot</em> of space.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kteyvggYdbvCdQkBtRmnnvWPfabuQoeJ">
+<div class="header" data-title="Realistic HashMap Performance"><h2>Realistic <code>HashMap</code> Performance</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In reality we want our <code>HashMap</code> to blend the good features of an array and a
+linked list.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Usually implementations will <em>enlarge</em> the array part of a <code>HashMap</code> once it
+gets filled past a certain point (called the <em>load factor</em>).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="DKcMSEbCvHQXPWKflVuXMgBAvudmWZUH">
+<div class="header" data-title="Looking forward to CS 225 yet?"><h2>Looking forward to CS 225 yet?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is cool stuff!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OlLkUqBdqugqchaDKdWOFMJMRXdgmfyW">
+<div class="header" data-title="And cooler still&#x2026;&#x200B;"><h2>And cooler still&#x2026;&#x200B;</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hash functions already provide:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li>
+<p><strong>Determinism</strong>: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.</p>
+</li>
+<li>
+<p><strong>Uniformity</strong>: over many inputs, each output value is equally likely.</p>
+</li>
+<li>
+<p><span class="line-through"><strong>Efficiency</strong>: it is efficient to compute.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>But what if there were hash functions with the following <em>new</em> properties:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Given the hash, it is <em>infeasible</em> to determine the original input</p>
+</li>
+<li class="bullet">
+<p>A small change to the input produces a <em>large</em> change in the output</p>
+</li>
+<li class="bullet">
+<p>The function is <em>difficult</em> to compute, not easy</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ahHxfzfBcLQvvuWqeAEfuFsGFcjqWsMQ">
+<div class="header" data-title="Cryptographic Hash Functions"><h2>Cryptographic Hash Functions</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A hash function that satisfies these properties is known as a <em>cryptographic
+hash function</em>, largely because they are ubiquitous in modern cryptography.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PdxviDVjqwEyJNsBsEAQRzzhphhYRviR">
+<div class="header" data-title="A Simple Example"><h2>A Simple Example</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>I need to be able to check your password, but I don&#x2019;t want to save it.
+<strong>Is that possible?</strong></p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Yes!</strong></p>
+</li>
+<li class="bullet">
+<p>Save the cryptographic hash of your password, not the password itself.</p>
+</li>
+<li class="bullet">
+<p>When you submit your password, I hash it and compare it with the saved hash.</p>
+</li>
+<li class="bullet">
+<p>If someone steals my database, they can&#x2019;t recover the original passwords.</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Given the hashes, you can&#x2019;t recover the original passwords</p>
+</li>
+<li class="bullet">
+<p>Hash values reveal nothing about how close you are to the actual password</p>
+</li>
+<li class="bullet">
+<p>Hashing inputs to test them is expensive</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TBrLUXoSYNeiXBAytTdbidYEMrLAITEP">
+<div class="header" data-title="Small Input Change, Big Output Change"><h2>Small Input Change, Big Output Change</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash spelling_exception lang-bash" data-lang="bash">$ $ cat example.txt
+The quick brown fox jumps over the lazy dog
+$ md5 &lt; example.txt
+37c4b87edffc5d198ff5a185cee7ee09
+$ cat example.txt
+The quick brown fox jumps over the lazy doG
+$ md5 &lt; example.txt
+75559fc9857fe9bebf65f97760e3f67d</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sqifxqIMMsbqDxLiLedePYbVGYpYDhzx">
+<div class="header" data-title="A Modern Example"><h2>A Modern Example</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Heard of blockchain?</p>
+</div>
+<div class="paragraph">
+<p>Blocks are linked through <em>cryptographic hashes</em>.
+And the blockchain is secured through an old idea called
+<a href="https://en.wikipedia.org/wiki/Hashcash" target="_blank" class="external">Hashcash</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Given a hash value of a given size, I can estimate how much work you&#x2019;ll have
+to do to guess the input that produced that value</p>
+</li>
+<li class="bullet">
+<p>So I can force you to do that work and verify that you did it easily by
+hashing the value that you gave me</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gRZDKTXJypxDiTAoVSSwTfZOMUNyUxCG">
+<div class="header" data-title="Hashcash Example"><h2>Hashcash Example</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Alice: &quot;Here&#x2019;s a challenge for you Bob, find an input that produces hash
+<code>39c3aa4015e7964914c311915316a2f78157c946</code>.</p>
+</li>
+<li class="bullet">
+<p>Bob: &quot;Geez, that&#x2019;s hard. Give me a few minutes&#x2026;&#x200B; OK, got it.&quot;</p>
+</li>
+<li class="bullet">
+<p>Alice: &quot;Wow, you&#x2019;re right. I computed the hash and it&#x2019;s
+<code>39c3aa4015e7964914c311915316a2f78157c946</code> that must have been hard.&quot;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="qGSmwzyNQfEsKimoddEsPTmTCROlLAfV">
+<div class="header" data-title="Unintended Consequences"><h2>Unintended Consequences</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hashcash was intended to help fight spam. Now it&#x2019;s the reason that Bitcoin
+mining
+<a href="https://www.nytimes.com/2018/01/21/technology/bitcoin-mining-energy-consumption.html" target="_blank" class="external">is
+ruining the planet</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aGqRxSJOrbpxveHPtfUbwZvbJQMzOGnp">
+<div class="header" data-title="And, Beautiful Theory"><h2>And, Beautiful Theory</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In computer science, a
+<a href="https://en.wikipedia.org/wiki/One-way_function" target="_blank" class="external">one-way function</a>
+is a function that is easy to compute on every input, but hard to invert given
+the function&#x2019;s output for a random input.</p>
+</div>
+<div class="paragraph">
+<p><strong>The existence of such one-way functions is still an open conjecture.</strong>
+In fact, their existence would prove that the complexity classes P and NP are
+not equal, thus resolving the foremost unsolved question of theoretical computer
+science.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="jXRuKfHWdQnxhqBYQQVMOPSJlRrttssh">
+<div class="header" data-title="Questions About Hashing?"><h2>Questions About Hashing?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UrylhnSKFGZYgkhSQkPKHJGYWieJttOA">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>New
+<a href="https://prairielearn.engr.illinois.edu/pl/course_instance/8235/assessment_instance/416409" target="_blank" class="external">exam
+practice problems</a> are available.</p>
+</li>
+<li>
+<p><a href="/MP/2018/spring/7/">MP7 (the final project)</a> is out.
+Please get started!</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Beautiful Machines</title>
+  <meta name="description" lang="en-us" content="Introduction to computer hardware.">
+
+  <meta name="slider-id" content="e10434d6-a563-4fbd-a679-d47af8693aa6">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 oneword logo bespoke-active bespoke-slide" data-slideid="zFbqQnZekEASzVhRxuWgDBfCnvSvtzEz">
+<div class="header" data-title="Beautiful Machines"><h2>Beautiful Machines</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IHmHImknLzofholxMXsIXdeLNHfNQvgA">
+<div class="header" data-title="What Are Computers Good At?"><h2>What Are Computers Good At?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Basic math</p>
+</li>
+<li class="bullet">
+<p>Simple decision making</p>
+</li>
+<li class="bullet">
+<p>Doing things over and over again very, very fast</p>
+</li>
+<li class="bullet">
+<p>And storing data</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BQrajZdCZObtVIdnhXcBIAtnEfNKOMpF">
+<div class="header" data-title="What is a Computer?"><h2>What is a Computer?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Almost all computers share several core components:</p>
+</div>
+<div class="ulist lead">
+<ul>
+<li>
+<p>A CPU (central processing unit), or just a <em>processor</em></p>
+</li>
+<li>
+<p>Random Access Memory (RAM), or just <em>memory</em></p>
+</li>
+<li>
+<p>Stable storage, also known as a <em>disk</em></p>
+</li>
+<li>
+<p>Input/Output devices, also known as <em>peripherals</em>, which include keyboards,
+mice, graphics cards to drive monitors, networking cards, etc.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gbzyBzUJtxLAjYTlJnLgbtuUTQBcCjxZ">
+<div class="header" data-title="Processors"><h2>Processors</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Processors do basic math and simple decision making over and over again
+<em>extremely quickly</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The processor is the most <em>expensive</em> and most <em>complex</em> single component of most
+modern computers.</p>
+</li>
+<li class="bullet">
+<p>Processors are made from <em>millions</em> of transistors, a basic electronic build
+block that is used to create more complex circuits that can add and store data</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GODeVXdzQNHblVqktcifZhGillwEkXjd">
+<div class="header" data-title="John Bardeen: Co-Inventor of the Transistor"><h2>John Bardeen: Co-Inventor of the Transistor</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="imageblock right">
+<div class="content">
+<a class="image" href="https://upload.wikimedia.org/wikipedia/commons/4/4a/Bardeen.jpg" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Bardeen.jpg" alt="Bardeen" width="120"></a>
+</div>
+</div>
+<div class="paragraph lead">
+<p><a href="https://en.wikipedia.org/wiki/John_Bardeen" target="_blank" class="external">John Bardeen</a>
+is the only person to win <em>two</em> Nobel prizes in physics.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>The first was shared with
+<a href="https://en.wikipedia.org/wiki/William_Shockley" target="_blank" class="external">William Shockley</a>
+and
+<a href="https://en.wikipedia.org/wiki/Walter_Houser_Brattain" target="_blank" class="external">Walter Brattain</a>
+for the invention of the transistor.</p>
+</li>
+<li class="bullet">
+<p>The transistor is right behind fire as one of the most important inventions in
+human history.
+It made modern electronics and computers possible.</p>
+</li>
+<li class="bullet">
+<p>John Bardeen also taught here at Illinois for many years.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BWfgAppwIeqIrEJXJgNcTruJgkwzWJmn">
+<div class="header" data-title="What is a Transistor?"><h2>What is a Transistor?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can think of a transistor as a tiny electronic switch.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Combine a few together and you can do simple logical operators like <code>NOT</code> and
+<code>AND</code>.</p>
+</li>
+<li class="bullet">
+<p>Combine a few of those and you can create an <em>adder</em>: a circuit that adds two
+numbers</p>
+</li>
+<li class="bullet">
+<p>Combine a few of those and you can create an arithmetic logic unit, or ALU,
+one of the core components of modern processors</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="VtojwLjCdztvAiyEhjhcqJTVOOTcxAwc">
+<div class="header" data-title="Transistor Not Gate"><h2>Transistor Not Gate</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="http://d2r5da613aq50s.cloudfront.net/wp-content/uploads/311277.image0.jpg" alt="311277.image0" width="400" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zZVslqCbkECbYfiwLwsWgoIaEbAazoeQ">
+<div class="header" data-title="4-Bit Adder"><h2>4-Bit Adder</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="http://wiringdiagramcircuit.co/wp-content/uploads/2018/02/best-4-bit-full-adder-circuit-diagram-half-adders-and-full-adders.png" alt="best 4 bit full adder circuit diagram half adders and full adders" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ygQIbIhGgttcMjDHBQIfuhzRilSPyhQZ">
+<div class="header" data-title="Smaller Means More"><h2>Smaller Means More</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Moore%27s_Law_Transistor_Count_1971-2016.png/1920px-Moore%27s_Law_Transistor_Count_1971-2016.png" alt="1920px Moore%27s Law Transistor Count 1971 2016" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ujNLpAESuNFFVqppzoXPRzvDQDvtbRCZ">
+<div class="header" data-title="Moore&#x2019;s Law"><h2>Moore&#x2019;s Law</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Moore%27s_law" target="_blank" class="external">Moore&#x2019;s law</a>
+is the <em>observation</em> that the number of transistors in a dense integrated circuit
+doubles about every two years.
+The observation is named after Gordon Moore.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Moore&#x2019;s &quot;Law&quot; is not a law, but rather a feat of engineering.
+Three cheers for ECE!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="NArfqiMXpQjztWctgVvLgCKvnpQsXFtT">
+<div class="header" data-title="Smaller Means Faster&#x2026;&#x200B;"><h2>Smaller Means Faster&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/tyjWM.jpg" alt="tyjWM" width="360" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="CMRnqMTzPrItCcIKpDAkmaVRxsmfmunA">
+<div data-title=" &#x2026;&#x200B;Until Recently"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://www.technologyreview.com/s/601441/moores-law-is-dead-now-what/%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BKHdKoGzMZsNydoDAxiFzUdnLjFGKugZ">
+<div class="header" data-title="The End of Moore&#x2019;s Law"><h2>The End of Moore&#x2019;s Law</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Until recently:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Smaller transistors</strong> made it possible to run chips at <em>lower voltages</em></p>
+</li>
+<li class="bullet">
+<p><strong>Lower voltages</strong> made it possible to switch transistors <em>faster</em></p>
+</li>
+<li class="bullet">
+<p>Thus, <strong>smaller transistors</strong> led to increases in <em>clock speed</em>, and allowed
+processors to complete the same calculations faster</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rMjyxFqIebPLZkaZlUzKTIHRVEMYAjzm">
+<div class="header" data-title="Until Recently"><h2>Until Recently</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Technically Moore&#x2019;s Law is still going. What has broken down in known as
+<em>Dennard Scaling</em>:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Since around 2005&#x2013;2007 Dennard scaling appears to have broken down.
+As of 2016, transistor counts in integrated circuits are still growing, but the
+resulting improvements in performance are more gradual than the speed-ups
+resulting from significant frequency increases.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vUjpnTCpBcFlaLpfALRAjqWCvNBRgOBw">
+<div class="header" data-title="What&#x2019;s the Culprit: Heat"><h2>What&#x2019;s the Culprit: <em>Heat</em></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Smaller transistors generate more heat per unit area, and at a certain point
+reach a thermal density that can damage the chip itself.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Hence, we&#x2019;ve gone from faster single processors to more cores per processor.</p>
+</li>
+<li class="bullet">
+<p>This increases the amount of work that the computer can do through parallelism
+but not the speed at which it can perform a single task.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="vARymJUypbASXbZckGLNiFukuRkUAMoK">
+<div class="header" data-title="Intel 10 nm Process Broken"><h2>Intel 10 nm Process Broken</h2></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://www.tomshardware.com/news/intel-cpu-10nm-earnings-amd,36967.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AEBEVMiaOMjedgpbgSNZWgMUJBOEVAna">
+<div class="header" data-title="Case Study: Pentium 4"><h2>Case Study: Pentium 4</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://information2share.files.wordpress.com/2011/05/intel-pentium-4-northwood.jpg" alt="intel pentium 4 northwood" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZsXKQOLfJHvEjUEMtGRTzjBLiqeupXzE">
+<div class="header" data-title="In Comparison, the i7"><h2>In Comparison, the i7</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/iG7o9.jpg" alt="iG7o9" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YQIzfZrXKendooZxMLFtlXujDtiGAwhN">
+<div class="header" data-title="A Computer Full of Processors"><h2>A Computer Full of Processors</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The CPU is just one of many processors found in a typical computer.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>It&#x2019;s the most powerful and general purpose</p>
+</li>
+<li class="bullet">
+<p>But many other specialized processors exist, for doing things like graphics
+processing, decoding MP3s or other media formats, arranging communication
+between the CPU and other parts of the system, decoding or encoding network
+packets, etc.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CtTXNLOoGaHBwLdcinhsPMDnUMRcgzTb">
+<div class="header" data-title="Random Access Memory (RAM)"><h2>Random Access Memory (RAM)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>RAM provides high-speed volatile storage.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Like the CPU, RAM is made of millions of transistors</p>
+</li>
+<li class="bullet">
+<p>RAM is usually faster than reading and writing data to disk&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but it is much slower than other <em>caches</em> that are closer to the processor</p>
+</li>
+<li class="bullet">
+<p>RAM is <em>volatile</em>, meaning that its contents are lost when the computer is
+powered down</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rartWTtEZECWyPooGNSxnxKnFKEAebEJ">
+<div class="header" data-title="Cache Hierarchy"><h2>Cache Hierarchy</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="http://wiki.expertiza.ncsu.edu/images/4/43/Memchart.jpg" alt="Memchart" width="360" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GSxxXmvgOlMyOTDRmkgWgECrjGWGuEcp">
+<div class="header" data-title="Pentium 4 Caches"><h2>Pentium 4 Caches</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://information2share.files.wordpress.com/2011/05/intel-pentium-4-northwood.jpg" alt="intel pentium 4 northwood" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nJOagEAIleIBAAXhVpFvIolDgbReXKAC">
+<div class="header" data-title="i7 Caches"><h2>i7 Caches</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/iG7o9.jpg" alt="iG7o9" width="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="cPUxdudpNbNynYIyrosxzHZQiPngNEFJ">
+<div class="header" data-title="Case Study: RAM"><h2>Case Study: RAM</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qzbOCgGlwwvsJsFMMJHddfoEwtfeahqA">
+<div class="header" data-title="Non-Volatile Storage"><h2>Non-Volatile Storage</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Disks provide low-speed non-volatile storage.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Older drives (HDDs) store data magnetically on spinning platters</p>
+</li>
+<li class="bullet">
+<p>Newer drives (SSDs) store data electronically using a new kind of transistor</p>
+</li>
+<li class="bullet">
+<p>Disks are much slower than RAM&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but the data that they store is retained even if the device is powered off.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xJkzMakfPXiOBASDGYjhCxHHXtMkWWQp">
+<div class="header" data-title="Disk In Action"><h2>Disk In Action</h2></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+<div class="lazyiframe" data-attribs="%7B%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22https://www.youtube.com/embed/9eMWG3fwiEU%22,%22frameborder%22:%220%22,%22allow%22:%22autoplay;%20encrypted-media%22,%22allowfullscreen%22:%22%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="krIgbzhJHZqCiwSQiNSWiWJAlGomBuqR">
+<div class="header" data-title="Case Study: HDD"><h2>Case Study: HDD</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(Newer disks are kind of boring, but luckily we still have one with moving
+parts!)</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="lAloPrZMmxEsMgeHiBDxHYYjqQQAwkoj">
+<div class="header" data-title="Case Study: Other Stuff"><h2>Case Study: Other Stuff</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eVFVKCmtNKSvqZrgxyILYFwHSCKgbXyU">
+<div class="header" data-title="Laptops and Phones"><h2>Laptops and Phones</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Laptops and phones are built from the same set of core components but present
+some difficult design challenges.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Everything has to be crammed into a much smaller case</p>
+</li>
+<li class="bullet">
+<p>There&#x2019;s no room for a huge heat sink and fan for the processor</p>
+</li>
+<li class="bullet">
+<p>If the processor gets very hot it can actually cause human discomfort</p>
+</li>
+<li class="bullet">
+<p>Battery lifetime becomes a concern</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="jcHdfUIjwqvfYiYBDtjMiScUIcjVuyFK">
+<div class="header" data-title="Questions About Hardware?"><h2>Questions About Hardware?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hug a computer engineer today. They have truly given us some beautiful machines.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hURymIQKGLIkmaKofcKdSizIXjCWLYOz">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/7/">MP7 (the final project)</a> is out.
+Please get started!</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

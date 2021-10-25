@@ -1,0 +1,1624 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Sorting Algorithms</title>
+  <meta name="description" lang="en-us" content="Introduction to array recursion, sorting and Insertion Sort.">
+
+  <meta name="slider-id" content="34d1f9ea-72a4-4858-8fee-170fd2f1c495">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="vQhCNZPmhDkacsIkVENqhlvWmIoVZXYl">
+
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+static int[] sort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(sort(testArray)));</textarea><!-- beautify ignore:start --><div class="output" data-blank="Sorting Algorithms&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Sorting Algorithms<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tWmnKBMqfoRCsdWaBLdNQJQtenqSHetK">
+<div class="header" data-title="E1 Review: MinMax"><h2>E1 Review: <code>MinMax</code></h2></div>
+<div class="sectionbody">
+<div class="openblock small">
+<div class="content">
+<div class="paragraph">
+<p>Complete the implementation of a public non-final class called <code>MinMax</code>.
+<code>MinMax</code> should provide the following instance methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add</code>: takes a reference to any Java object that implements <code>Comparable</code>.</p>
+</li>
+<li>
+<p><code>min</code>: takes no arguments and returns a reference (as a <code>Comparable</code>) to the
+<em>minimum</em> of all values previously added to the instance using <code>add</code>.
+If no values have been <code>added</code> it should return <code>null</code>.</p>
+</li>
+<li>
+<p><code>max</code> takes no arguments and returns a reference (as a <code>Comparable</code>) to the
+<em>maximum</em> of all values previously added to the instance using <code>add</code>.
+If no values have been <code>added</code> it should return <code>null</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="flasKzYifkXiwPKjhydUevfGzwteZiXy">
+<div class="header" data-title="E1 Review: MinMax"><h2>E1 Review: <code>MinMax</code></h2></div>
+<div class="sectionbody">
+<div class="openblock small">
+<div class="content">
+<div class="paragraph">
+<p>You should compare <code>Comparable</code> objects using <code>compareTo</code>.
+As a reminder, <code>first.compareTo(second)</code> returns a positive value if <code>first</code> is
+larger than <code>second</code>, a negative value if <code>first</code> is smaller than <code>second</code>, and
+0 if they are equal.</p>
+</div>
+<div class="paragraph">
+<p><code>MinMax</code> should also provide two constructors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An empty constructor that takes no arguments.</p>
+</li>
+<li>
+<p>A constructor taking a single reference to a <code>Comparable</code> object.
+This constructor behaves like the empty constructor followed by a call to <code>add</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that the test suite will always pass the same type of argument to each
+<code>MinMax</code> instance once it has been created.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="qmdtanWnfRFowJCtmWhrdudXQueBpuRA">
+<div data-title=" MinMax"></div>
+<textarea class="janini spelling_exception">public class Example {
+  public static void main(String[] unused) {
+    MinMax minMax = new MinMax();
+    for (int i = 0; i &lt; 10; i++) {
+      minMax.add(i);
+      System.out.println(minMax.min() + &quot; &quot; + minMax.max());
+    }
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="foNaBjkOdfrcrnSTTHxQSnnqWOmSnnaF">
+<div class="header" data-title="Questions About Midterm 1?"><h2>Questions About Midterm 1?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pxteXKKdyCZGTrkOnzndCdGiiVhhiIWW">
+<div class="header" data-title="Recursive Tree Traversal"><h2>Recursive Tree Traversal</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s find all nodes in the tree and add them to a list.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="AFRvWZfeQQeGdVMvXnMzPEVICMgonSdu">
+<div class="header" data-title="What&#x2019;s Our (Recursive) Algorithm?"><h2>What&#x2019;s Our (Recursive) Algorithm?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WoTyiduwYKpDJQqjEQouvluMZvMMMVtx">
+<div class="header" data-title="Recursive Tree Traversal"><h2>Recursive Tree Traversal</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Base case</strong>: <span class="bullet">We&#x2019;ve reached a <code>null</code> node, at which point we can stop.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Recursive step</strong>: <span class="bullet">Consider our right tree and left tree separately.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Combine results</strong>: <span class="bullet">Add ourselves to the list of nodes.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ngyjededPiWzJRbJEefcJndHYEAaanwn">
+<div class="header" data-title="Java ArrayLists"><h2>Java <code>ArrayList</code>s</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Lists are one of the two data structures you meet in heaven.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ve studied them in class together.
+But you&#x2019;ll usually use Java`s built-in implementations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="HYqlNDapesPenEQfkFhuOjHcdeaozZnd">
+<div data-title=" Java List Interface"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/util/List.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="PvTLWdfnSyZiVbCqNAoJVZumecHuRfTP">
+<div data-title=" Java ArrayLists"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="uVJpYoHLxekeOagIBhsAKNLEUXnddLlp">
+<div data-title="Recursive Right Greater Than Left Example"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+    } else if (current.right == null) {
+      current.right = new Node(value);
+    } else if (current.left == null) {
+      current.left = new Node(value);
+    } else if (random.nextBoolean()) {
+      add(current.right, value);
+    } else {
+      add(current.left, value);
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return &quot;&quot;;
+    }
+    return &quot;[&quot; + current.value.toString() + &quot;]&quot; +
+      toString(current.right) + toString(current.left);
+  }
+  public List allValues() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
+    System.out.println(binaryTree.allValues());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dlFNBwsqXFAyyhoLtlAUEfOdFTVxCjtN">
+<div class="header" data-title="Other Recursive Data Structures"><h2>Other Recursive Data Structures</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Every sub(blank) of a (blank) is, itself, a (blank).</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Tree</p>
+</li>
+<li class="bullet">
+<p>(Contiguous) List</p>
+</li>
+<li class="bullet">
+<p>(Contiguous) Array</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="ygNFFhaGzqpqHdDCEbdTtuhXruhPGpUE">
+<div class="header" data-title="But Don&#x2019;t Recurse on Lists"><h2>But Don&#x2019;t Recurse on Lists</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Just use a loop.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="pemHoMguzTIZdBZrRZUdaDLTDoiLinXj">
+<div data-title=" Iterative List Reversal"></div>
+<textarea class="janini spelling_exception">public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  public Item start;
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i &gt;= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+    }
+  }
+  public void reverse() {
+    if (start == null) {
+      return;
+    }
+    Item previous = null;
+    Item current = start;
+    while (current != null) {
+      // Save next since we are about to overwrite it
+      Item next = current.next;
+      current.next = previous;
+      previous = current;
+      current = next;
+    }
+    start = previous;
+    return;
+  }
+  public String toString() {
+    String toReturn = &quot;&quot;;
+    for (Item current = start; current != null; current = current.next) {
+      toReturn += current.value;
+    }
+    return toReturn;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleList = new SimpleLinkedList(new Integer[] { 1, 2, 5 });
+    System.out.println(simpleList);
+    simpleList.reverse();
+    System.out.println(simpleList);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="fRYSVhjZFSqSrcQxQJUwIFnOmSiELoOV">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="FnYMFpnCMoCyMoXwXBZKkDgesOkgFxIn">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="tQxxuMUWKQobEQNYHlSIVZoXmGlBvQwx">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="SOdLTSSAsCIlrVMJKuHvVseAmhfqGRgV">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="TWmxrRwPgWRlqQYhoIjxtOeCnYZJGJrE">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="GPjlznIJPJQTqOskvXOKQCZZLMaHqMoK">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ChpYEykifjLwpwVRhzhZPEoCQCZitSBj">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="NAkqTkwtbVhUObBRiahACtGdXwDaPEAW">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="sAAHDoMDcEBqTqoQaLagSyOjKyhhEOsy">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QjcqYYIDQXRtnTYMvnETFaEDDyOlKjFN">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="vFvinbLxcBtZFpxLRzBzzhqQtDmSrdkU">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ttJCuudnFWLahjaMHholCnXmZfPUoaJY">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ppfwZoJPNzulpyaZRxbvNYzkANVTdRKW">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QDbbKzWxMVtGodvPExHEzUMWyGvEbcwh">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="cpZwGLAOPJjNHNevULDJtSleWnVlKNRl">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="cyyScLzhUVvSHWPiZBRZBPvdGDCnSsNH">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like with trees and lists, we need a way to both make the problem smaller
+<em>and</em> identify the smallest subproblem.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>How do we make the problem smaller?</strong> <span class="bullet">Break the list into two smaller
+subarrays.</span></p>
+</li>
+<li class="bullet">
+<p><strong>What&#x2019;s the smallest subproblem?</strong> <span class="bullet">An array with a single item.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sAPnGAwOXnBnpsaxiKHFBzvTRHFdvvHd">
+<div class="header" data-title="Sorting Algorithms"><h2>Sorting Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Sorting algorithms bring together several of the things that we have discussed
+recently:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Imperative programming</p>
+</li>
+<li class="bullet">
+<p>Big-O algorithm runtime analysis</p>
+</li>
+<li class="bullet">
+<p>Recursion</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iGCyTSiKXNfsaBVeoPLKYPWvrUCgRsPc">
+<div class="header" data-title="Sorting Matters"><h2>Sorting Matters</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Sorting is often a building block for many other algorithms.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><em>Searching</em> is more efficient if the data is sorted first</p>
+</li>
+<li class="bullet">
+<p>Sorting can be used to <em>detect duplicates</em></p>
+</li>
+<li class="bullet">
+<p>Sorting is often used to produce a canonical representation of data or for
+presentation to human users</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="UzdywHbjMcMOrUOmWfhFtSuqvxQroXyl">
+<div data-title=" Sorting Matters"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://sortbenchmark.org/%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sHTXsaPnEYBhYRsqvojNwHmdfjslfdOD">
+<div class="header" data-title="In Memory of Jim Gray, Turing Award Winner"><h2>In Memory of Jim Gray, Turing Award Winner</h2></div>
+<div class="sectionbody">
+<div class="imageblock right">
+<div class="content">
+<a class="image" href="http://jimgray.azurewebsites.net/jimgrayvita.htm" target="_blank"><img src="http://jimgray.azurewebsites.net/Photos/Portrait1.jpg" alt="Portrait1" width="240"></a>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Jim_Gray_(computer_scientist)" target="_blank" class="external">Jim Gray</a>
+was a pioneer in the fields of databases and data processing.</p>
+</div>
+<div class="paragraph">
+<p>He vanished at seat in 2007 and, despite a worldwide crowdsourced effort to
+locate his boat, was never found.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uRnJiWZsMXJNZDfbOXlwNGuTovCgQJhE">
+<div class="header" data-title="There Are Many Sorting Algorithms"><h2>There Are Many Sorting Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>And we won&#x2019;t discuss them all&#x2026;&#x200B;</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Insertion_sort" target="_blank" class="external">Insertion sort</a> (today)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Selection_sort" target="_blank" class="external">Selection sort</a> (lab)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Merge_sort" target="_blank" class="external">Merge sort</a> (lecture)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Heapsort" target="_blank" class="external">Heapsort</a></p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Quicksort" target="_blank" class="external">Quicksort</a> (lecture)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Bubble_sort" target="_blank" class="external">Bubble sort</a> (lab)</p>
+</li>
+<li class="bullet">
+<p>And even new ones, like <a href="https://en.wikipedia.org/wiki/Timsort" target="_blank" class="external">Timsort</a> (circa
+2002)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="khwhfRJyzLZyFdPywtVhtqeQpekquiND">
+<div class="header" data-title="Sorting Basics"><h2>Sorting Basics</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We&#x2019;ll discuss sorting on <strong>arrays</strong> which allow random access, although many
+algorithms will also work on lists.</p>
+</li>
+<li class="bullet">
+<p>We&#x2019;ll be sorting in <strong>ascending order</strong>, although obviously descending order
+sorts are also possible.</p>
+</li>
+<li class="bullet">
+<p>We can sort anything that we can compare&#x2014;but we&#x2019;ll mostly be sorting
+integers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BMTnhTaELTJyHufbMgBIqXtQdHPGzoUb">
+<div class="header" data-title="Analyzing Sorting Algorithms"><h2>Analyzing Sorting Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Since sorting algorithms handle data, we care about <em>both</em> time and space
+complexity.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Time complexity</strong>: how long does it take?</p>
+</li>
+<li class="bullet">
+<p><strong>Space complexity</strong>: how much space is required?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="rduBAmSBMxCXSMfKQswgKuLkfohHLiLr">
+<div class="header" data-title="Insertion Sort: Overview"><h2>Insertion Sort: Overview</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li class="bullet">
+<p>Insertion sort divides the array into two parts: a sorted part and an unsorted
+part</p>
+</li>
+<li class="bullet">
+<p>The sorted part starts at the beginning of the array and grows during each
+step</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="McABCCCztQYwbnywwZOfnTfacDdqWIBN">
+<div class="header" data-title="Insertion Sort: Overview"><h2>Insertion Sort: Overview</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest showfirst noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Insertion sort divides the array into two parts: a sorted part and an unsorted
+part</p>
+</li>
+<li>
+<p>The sorted part starts at the beginning of the array and grows during each
+step</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="pskIjVoBGhXeMZAunJMYFYKwlNoksQWa">
+<div class="header" data-title="Insertion Sort: Insertion"><h2>Insertion Sort: Insertion</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest showfirst noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">-1</p></td>
+</tr>
+<tr class="bullet">
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">-1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>In each step we take the <em>first</em> item from the unsorted region and <em>insert it</em>
+in the right place in the sorted region</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="mkBQVhdzbbOIQJEZQlvzcooLTdZDOJYA">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest showfirst noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="IzfRqlwlxzlLjUaetMrMtfstNYwdiiNV">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="wUxGyKuoxqVZpAjTvzoFYdRaJJQPlUEp">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="cBuJPtBqAImzMFdJuANACGoJQjCeMocq">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QnXPZwaayBzDMGBnwkyaQwVydrrVqHzC">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="JPNeswvlPxYiBLJzBkQJRRLCQxbnfSTX">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="URhhqfcvhRRkZWIgvpkKAIxtiTXxoBUg">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="TUPqdwoStLAYpNafCGBVvuXfgSNSyvLw">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: yellow;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">&#xA0;</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="wwfxxKPdIRRatvmHBSvabsQuYLQaOStK">
+<div class="header" data-title="Insertion Sort: A Single Step"><h2>Insertion Sort: A Single Step</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table smallest noborder array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">3</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightgreen;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">8</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: salmon;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="ulist">
+<ul>
+<li>
+<p>Let&#x2019;s look at one step in more detail</p>
+</li>
+</ul>
+</div></div></div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="cVLFezUZVrLAtiUPpIWGDIEUFTqzRKJv">
+<div data-title=" Implement Insertion Sort"></div>
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+static int[] insertionSort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] { 8, 5, 7, 3, 4, 11, 6, -1 };
+System.out.println(Arrays.toString(insertionSort(testArray)));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tcFsyPhgXpQkjLqKfPfWqdWIxPwpjtxS">
+<div class="header" data-title="Insertion Sort Runtime"><h2>Insertion Sort Runtime</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Time complexity</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Worst case</strong>: <span class="bullet">O(n^2) if the array is sorted in descending order (for this
+implementation)</span></p>
+</li>
+<li class="bullet">
+<p><strong>Best case</strong>: <span class="bullet">O(n) if the array is already sorted (for this implementation)</span></p>
+</li>
+<li class="bullet">
+<p><strong>Average case</strong>: <span class="bullet">O(n^2)</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Space complexity</strong>: <span class="bullet">can be done in place with one temporary variable, so
+O(1)</span></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RlkNanLYawqmEuDppmdiRAqDPbbjLOQi">
+<div class="header" data-title="Insertion Sort Runtime"><h2>Insertion Sort Runtime</h2></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Measure</th>
+<th class="tableblock valign-middle text-center">Best Case</th>
+<th class="tableblock valign-middle text-center">Worst Case</th>
+<th class="tableblock valign-middle text-center">Average Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Time</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(n)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(n^2)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(n^2)</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Space</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(1)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(1)</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">O(1)</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="mAIBVftltgWjmzzQAnLbOunYFOxnhido">
+<div class="header" data-title="We Can Do Better"><h2>We Can Do Better</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Optimal sorting algorithms should be <strong>O(n log n)</strong> in the <em>worst</em> case and <em>close
+to</em> <strong>O(n)</strong> in the best case.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oJRhVCGGxcwKUTUPuqKsQJQQYbKIkOtm">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The early <a href="/MP/2018/fall/5/">MP5</a> deadline is <em>next Monday</em>.
+Please get started!</p>
+</li>
+<li>
+<p>I now have office hours MWF from 10AM&#x2013;12PM in Siebel 2227.
+Please stop by!</p>
+</li>
+<li>
+<p>Remember to provide feedback on the course using the
+<a href="/info/feedback/">anonymous feedback form</a>.</p>
+</li>
+<li>
+<p>I&#x2019;ve started to respond to existing feedback
+<a href="https://cs125-forum.cs.illinois.edu/c/feedback" target="_blank" class="external">on the forum</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

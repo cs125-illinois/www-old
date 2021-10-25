@@ -1,0 +1,637 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP5: Final Project</title>
+		<meta name="description" lang="en-us" content="MP5 gives you a chance to show what you&apos;ve learned this semester by planning and executing a project of your own choosing.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/" onclick="return false;">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li>
+              <a href="/MP/5/" class="active" onclick="return false;">MP5<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/setup/git/">Git</a>
+                </li>
+                <!--
+                <li>
+                  <a data-active="^MP/setup/EWS" href="/MP/setup/EWS/">EWS</a>
+                </li>
+          	  -->
+              </ul>
+            </li>
+            <li>
+              <span class="option">Archive</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/fall/0/">Fall 2019</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/0/">Spring 2019</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/fall/0/">Fall 2018</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/spring/0/">Spring 2018</a>
+                </li>
+                <li>
+                  <a href="/MP/2017/fall/1/">Fall 2017</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#rules">2. Rules</a>
+            <ul>
+              <li><a class="nav-link" href="#partnering">2.1. Partner Rules</a></li>
+              <li><a class="nav-link" href="#ui">2.2. UI Checkpoint</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#help">3. Help and Tips</a>
+            <ul>
+              <li><a class="nav-link" href="#libraries">3.1. Using Libraries</a></li>
+              <li><a class="nav-link" href="#webrequests">3.2. Making Web Requests</a></li>
+              <li><a class="nav-link" href="#github">3.3. Publishing to GitHub</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">4. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#extra">4.1. Final Project Extra Credit</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">5. Submitting Your Work</a>
+            <ul>
+              <li><a class="nav-link" href="#cheating">5.1. Academic Integrity</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+
+      <a class="anchor" id="top"></a>
+        <h1>MP5: Final Project</h1>
+      <div class="paragraph lead">
+<p>You&#x2019;ve learned a lot this semester.
+Now it&#x2019;s time to try out your newly-acquired super powers.
+MP5 is not about us giving you something to do&#x2014;it&#x2019;s about you
+accomplishing something <em>you want</em> to do using computer science.</p>
+</div>
+<div class="paragraph">
+<p>MP5 is different than previous MPs.
+It is done in pairs with a partner.
+And it&#x2019;s due on lab day during the last week of class: so <strong>Tuesday 5/5/2020</strong>
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Cinco de Mayo!&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+<div class="paragraph">
+<p>Also the best projects as rated by the class will earn <a href="#extra">1% extra credit</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If the Machine Project had you execute a carefully-planned route from point A
+to point B, the Final Project takes you on a journey off the map.
+You&#x2019;ll learn how to plan and execute a small Android project of your own design.
+You&#x2019;ll also learn how to work with a partner.
+All the skills you learned in the MP checkpoints will continue to be useful.</p>
+</div>
+<div class="paragraph">
+<p>In many ways, the Machine Project has been designed to prepare you for this
+moment.
+The Final Project brings everything together and starts you out on a career as
+an independent software developer&#x2014;working on your own projects and
+learning things that interest you.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="rules"></a><h2>2. Rules</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Our goal in MP5 is to give you as much flexibility as possible, so there are few
+rules about what you can and can&#x2019;t do.
+But those that we do have are important:</p>
+</div>
+<div class="paragraph">
+<p>You <em>must</em> do something new for MP5.
+Do not submit something from another class, or something you&#x2019;ve done previously.
+You may want to work on something that you&#x2019;ve started on previously, but given
+that you&#x2019;ll be working with a partner that&#x2019;s not fair to them.
+So you should pick something new to do for MP5.
+It doesn&#x2019;t have to be a huge project&#x2014;you only have a few weeks.
+But it should be original work.</p>
+</div>
+<div class="paragraph">
+<p>Here are the rest of the rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You need to build an Android app.</p>
+</li>
+<li>
+<p>You need to design a simple UI. We&#x2019;ll provide help with that in lab.</p>
+</li>
+<li>
+<p>You need to finish a UI mockup by the week before the final due date and show it in lab.</p>
+</li>
+<li>
+<p>You need to use a new web API, software library, or Android feature.</p>
+</li>
+<li>
+<p>You need to commit your work to version control&#x2014;to either a public or private repository.</p>
+</li>
+<li>
+<p><strong>You cannot build a weather app or a calorie counter.</strong> We&#x2019;ve seen too many of those recently.</p>
+</li>
+<li>
+<p><strong>Other than that, what to do is up to you.</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that we did <em>not</em> say that your Android app has to be written in Java.
+The adventurous among you may want to try out
+<a href="https://developer.android.com/kotlin" target="_blank" class="external">Kotlin</a>,
+which is now Google&#x2019;s preferred language for Android development.
+And the even more adventurous among you may want to give cross-platform app
+development a try using a framework like
+<a href="https://facebook.github.io/react-native/" target="_blank" class="external">React Native</a>.
+The goal here is to learn something new, so these kinds of adventures are not
+discouraged.
+However, keep in mind that on a whole the course staff will be less helpful if
+you choose to use a language or framework they are less familiar with.</p>
+</div>
+<div class="paragraph">
+<p>You turn in the Final Project by recording a YouTube presentation which will be
+shown in lab during the last week of class.
+You and your partner should plan that together.
+<strong>You <em>do</em> have to publish your work on GitHub (or GitLab, or something
+similar)&#x2014;privately if you want.</strong>
+So you should set up your project using Git and be able to show that you have
+committed and pushed your code to GitHub as part of your turn-in presentation.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="partnering"></a><h3>2.1. Partner Rules</h3>
+<div class="paragraph">
+<p>The Final Project is done in <strong>groups of two</strong>.
+Obviously you want to find someone to work with that you enjoy working with and
+think that you can do an awesome project with&#x2014;since we will be giving
+extra credit for some of the best projects.
+You will also want to make sure that at least one of you has a laptop that can
+smoothly run Android Studio and the emulator, or an Android phone for demoing
+your new application.
+This semester you&#x2019;ll also need to consider finding a partner that you can
+regularly meet with remotely, meaning that they are in a similar time zone or at
+least there is enough overlap so that you can communicate when needed.</p>
+</div>
+<div class="paragraph">
+<p>You should start looking for a partner today (4/14/2020) and select one over the
+next few days.
+Feel free to reach out to friends, or use the forum to find a partner.
+There is a UI checkpoint two weeks from now, so you will start losing credit
+quickly if you don&#x2019;t have a partner.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p>We expect you to work in pairs. Projects completed by larger groups will not be
+graded.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="ui"></a><h3>2.2. UI Checkpoint</h3>
+<div class="paragraph">
+<p>The second-to-last lab, on Tuesday 4/28/2020, will be dedicated to you showing
+your TA the progress you&#x2019;ve made so far.
+By then, you should have at least a mockup of your app&#x2019;s user interface.</p>
+</div>
+<div class="paragraph">
+<p>The app&#x2019;s functionality doesn&#x2019;t need to work yet, but you should have set up
+much of the UI in your layout resource(s).
+Pressing buttons should trigger <em>something</em>, even if that&#x2019;s just writing to the
+Logcat to show that you&#x2019;ve attached handler stubs that will be implemented
+later.</p>
+</div>
+<div class="paragraph">
+<p>This means that your app must have an interface that the user can interact with.
+Apps that only run in the background or exit immediately do not qualify.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="help"></a><h2>3. Help and Tips</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While the Final Project is self-driven, please feel free to approach the course
+staff for help.
+Post on the <a href="https://cs125-forum.cs.illinois.edu/c/spring2020-mp/mp5/" class="noexternal">forum</a>, or come to office hours and discuss your project idea and
+implementation with the course staff.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="libraries"></a><h3>3.1. Using Libraries</h3>
+<div class="paragraph">
+<p>To use features and classes provided by a software library, you need to add it
+to your project.
+Many Java libraries are published to repositories that Gradle&#x2014;the most
+common Android build system&#x2014;can access.
+You can have Gradle install a library into your project by adding the library&#x2019;s
+<em>dependency coordinate</em> to the <code>dependencies</code> section of your Gradle
+buildscript, the <code>build.gradle</code> file inside the <code>app</code> folder of your project.
+The library&#x2019;s web page will probably include the line you can add to your
+buildscript.
+It will usually look something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy" data-lang="groovy">implementation &apos;com.android.volley:volley:1.1.1&apos;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>implementation</code> directive means that the library is used by your app, as
+opposed to used only by tests or only needed at compile time.
+The string inside the quotes is the dependency coordinate.  Here,
+<code>com.android.volley</code> is the <em>group</em>, <code>volley</code> is the <em>artifact</em>, and <code>1.1.1</code> is
+the <em>version</em>.
+Gradle accepts multiple ways of identifying a dependency, so you might see other
+formats too.</p>
+</div>
+<div class="paragraph">
+<p>Some libraries&apos; web sites might also provide instructions for downloading the
+library code and manually adding it as a module to your project.
+This is usually <em>not</em> what you want.
+If possible, find a dependency coordinate and install the library using Gradle.</p>
+</div>
+<div class="paragraph">
+<p>(If the library isn&#x2019;t published in a way that allows you to import it using
+Gradle, then we might advise you to steer clear anyway.
+This is a sign of an old or poorly-maintained library.)</p>
+</div>
+<div class="paragraph">
+<p>To learn how to use a specific library, refer to its documentation or search the
+Internet for examples.
+While the course staff are happy to help you look for resources, they have not
+used every possible library.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="webrequests"></a><h3>3.2. Making Web Requests</h3>
+<div class="paragraph">
+<p>If you are using a web API for your app, you will need some way to make web
+requests.
+While there are several HTTP libraries for Android, we recommend the
+<a href="https://developer.android.com/training/volley/index.html" target="_blank" class="external">Volley</a> library.
+It is very similar to the <code>WebApi</code> component we provided with the Machine
+Project <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;In fact, the HTTP parts of &lt;code&gt;WebApi&lt;/code&gt; are a wrapper around Volley with a little extra work for integration with Firebase Authentication and Gson.&lt;/body&gt;&lt;/html&gt;">2</span>.
+Android provides <a href="https://developer.android.com/training/volley/simple.html" target="_blank" class="external">an
+introduction to using it</a>.</p>
+</div>
+<div class="paragraph">
+<p>All Volley requests are processed by a <code>RequestQueue</code>.
+You can make just one queue per activity <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;or per app, though be careful with &lt;code&gt;static&lt;/code&gt; in Android&lt;/body&gt;&lt;/html&gt;">3</span> and use it for multiple requests.
+To make a request, first instantiate a request object like a <code>StringRequest</code>.
+The request object specifies the HTTP method, URL, response handler, error
+handler, and possibly POST data depending on the request class.
+Start the request by passing it to a queue&#x2019;s <code>add</code> method. Some time in the
+future, your response or error handler will be called.</p>
+</div>
+<div class="paragraph">
+<p><code>StringRequest</code>s give you raw string responses, but many web APIs return JSON.
+You can use <a href="https://github.com/google/gson" target="_blank" class="external">Gson</a>&apos;s <code>JsonParser</code> to turn the
+string into a Gson object <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Gson even has ways to parse JSON into instances of your custom Java classes.&lt;/body&gt;&lt;/html&gt;">4</span>.
+You could alternatively use Volley&#x2019;s
+<a href="https://javadoc.io/static/com.android.volley/volley/1.1.1/com/android/volley/toolbox/JsonObjectRequest.html" target="_blank" class="external"><code>JsonObjectRequest</code></a>
+or
+<a href="https://javadoc.io/static/com.android.volley/volley/1.1.1/com/android/volley/toolbox/JsonArrayRequest.html" target="_blank" class="external"><code>JsonArrayRequest</code></a>
+to have the text parsed for you, albeit into a different kind of Java object
+than you used for the Machine Project.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="github"></a><h3>3.3. Publishing to GitHub</h3>
+<div class="paragraph">
+<p>Android Studio can help you put your project on GitHub.
+The <em>VCS | Import into Version Control | Share Project on GitHub</em> menu command
+will start a process to create a GitHub repository and upload the contents of
+your project.</p>
+</div>
+<div class="paragraph">
+<p>To give your partner write access to the repository, add them as a collaborator
+by opening the repository on the GitHub web site, going to the Settings tab,
+selecting the Collaborators section, and adding them.
+Your partner can clone the repository onto their computer, make changes, and
+push just like you can.
+You will want to pull (<em>VCS | Git | Pull</em>) before starting a work session so
+that you can get any changes made by your partner.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Final Project grading is quite generous.
+We care that you tried something new, not that you succeeded fully your first time.
+It is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>20 points</strong> for building an original <em>and working</em> Android app</p>
+</li>
+<li>
+<p><strong>20 points</strong> for the first UI checkpoint, shown in lab on 4/28/2020</p>
+</li>
+<li>
+<p><strong>20 points</strong> for using a new web API, software library, or Android feature</p>
+</li>
+<li>
+<p><strong>10 points</strong> for ensuring that all team members have roles in the project</p>
+</li>
+<li>
+<p><strong>20 points</strong> for recording your YouTube video</p>
+</li>
+<li>
+<p><strong>10 points</strong> for properly publishing your work to a version control site like GitHub</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Unlike the Machine Project, there is no autograding or online testing for the
+Final Project.
+Grades are entirely at the discretion of the course staff.</p>
+</div>
+<div class="paragraph">
+<p><strong>Also note that the Final Project cannot be dropped.</strong>
+It&#x2019;s too important&#x2014;this is your chance to do something cool, creative, and
+to show us everything you&#x2019;ve learned this semester.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="extra"></a><h3>4.1. Final Project Extra Credit</h3>
+<div class="paragraph">
+<p>MP5 also provides an opportunity to earn extra credit by creating a very
+impressive final project.
+We will provide a form allowing staff to vote on which projects they found the
+most impressive.
+Each lab staff member will vote on all the projects from their lab.
+The top rated projects <em>across the entire class</em> will receive a <strong>1%</strong> increase
+<em>in your final CS 125 grade</em>.</p>
+</div>
+<div class="paragraph">
+<p>Note that <em>we will take into account your level of ability when you started CS
+125</em> when determining how impressive your project is.
+So this is open to students of all ability levels.
+This extra credit is also independent from any previous extra credit that you
+might have earned earlier this semester.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You and your partner must prepare a presentation of at most <em>4 minutes</em> before
+the last lab section during the final week of class.
+Prerecord your presentation and upload it to YouTube.
+Lab staff will evaluate your video and project by viewing your video on Tuesday
+5/5/2020, meaning that your videos must be uploaded by then if you want to
+receive credit for the final project.</p>
+</div>
+<div class="paragraph">
+<p>Your presentation should cover what you did, why you did it, who did what, and
+any other interesting details: interesting technical problems you encountered,
+how you collaborated, or ideas for future work.
+You should also confirm that this was an original project and that it was
+published under one or both of the project partners&apos; accounts.
+Don&#x2019;t use more than 4 minutes, but if you can demo your project and discuss it
+sufficiently in less time, that&#x2019;s great!</p>
+</div>
+<div class="paragraph">
+<p>We will post a form in a few weeks that you can use to submit details about your
+final project.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="cheating"></a><h3>5.1. Academic Integrity</h3>
+<div class="paragraph">
+<p>Any attempt to turn in non-original work will be treated as an academic integrity violation.
+Having someone else do your project for you or copying an existing codebase are forbidden.</p>
+</div>
+<div class="paragraph">
+<p>However, in the real world it is very common to get <em>some</em> help with projects
+from other people or online sources.
+You are free to show some code from your final project on the public <a href="https://cs125-forum.cs.illinois.edu/c/spring2020-mp/mp5/" class="noexternal">forum</a> or
+copy-paste snippets of code from programming web sites.
+If you use substantial snippets from outside sources, it can be good practice to
+include the URL in a comment above the code that you borrowed.
+This serves both to acknowledge the source and to remind you where it came from
+in case you or your partner is trying to debug or understand it.
+If in doubt, ask the course staff.</p>
+</div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/5.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/5.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

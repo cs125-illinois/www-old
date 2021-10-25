@@ -1,0 +1,526 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Strings</title>
+  <meta name="description" lang="en-us" content="An introduction to Java strings and object usage, and continued practice with functions and basic imperative programming.">
+
+  <meta name="slider-id" content="9b5c7ba4-4e4a-4a6e-b8d1-df66fdc85f27">
+  <meta name="slider-semester" content="Fall2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini small nozoom bespoke-active bespoke-slide" data-slideid="RymbwXCSvxAKhgLtbrVytdXMwSvxMHvJ">
+
+<textarea class="janini spelling_exception">String courseName = &quot;CS 125&quot;;
+System.out.println(courseName);
+System.out.println(courseName.length());
+System.out.println(courseName + &quot; rocks&quot;);
+System.out.println(courseName.startsWith(&quot;CS&quot;));</textarea><!-- beautify ignore:start --><div class="output" data-blank="Strings&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Strings<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="KyeBTpvODHYaQeozocunsgOEpZedbYuX">
+<div class="header" data-title="Thanks, Ben!"><h2>Thanks, Ben!</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="dRxNKtZJDhTepLRaySELsUVxnmTaisii">
+<div class="header" data-title="Questions About Functions?"><h2>Questions About Functions?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YKIvyTKSPnBfEqFecIqlZPIdTOHVIfUb">
+<div class="header" data-title="Storing Data"><h2>Storing Data</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So far we know how to store a few different types of data using Java&#x2019;s
+8 <em>primitive</em> types:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p><strong>Integers</strong>: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></p>
+</li>
+<li class="bullet">
+<p><strong>Floating point numbers</strong>: <code>float</code>, <code>double</code></p>
+</li>
+<li class="bullet">
+<p><strong>Character</strong>: <code>char</code></p>
+</li>
+<li class="bullet">
+<p><strong>True or false</strong>: <code>boolean</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="PouzGeQaOVepywQDkEYEPshgXjLvTThm">
+<div class="header" data-title="What&#x2019;s Missing?"><h2>What&#x2019;s Missing?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="wOiXEJdgbfGPXuUmdxBdAREJWwtCfmQf">
+
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="http://infinitesummer.org/images/final-page-dfw-autograph1-full.jpg" alt="final page dfw autograph1 full" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="NyForrcGjinbQfWloCVOiFepnZirgYci">
+
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://www.howtogeek.com/wp-content/uploads/2016/07/01_no_times_on_messages.png" alt="01 no times on messages" height="480" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="HbgrrKBaDgYOEQYQLAGLMEDJjkjreHpD">
+
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://www.cyberdriveillinois.com/images/licenseplates/pap/passengerpersonalized.gif" alt="passengerpersonalized" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="PYhkVAmazGGwxDSEazwgjdtnbaGtvKUf">
+
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://stuart-mcintyre.com/wp-content/uploads/2016/10/Ihate-Passwords-2.jpg" alt="Ihate Passwords 2" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wWUlHcEZkxzdfMkuBiPWxHonySKJGkGN">
+<div class="header" data-title="Strings"><h2>Strings</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Much of the interesting data in our <em>human</em> world is in text form.</p>
+</div>
+<div class="paragraph">
+<p>As a computer scientist, you call text <em>a string</em>.</p>
+</div>
+<div class="openblock small bullet">
+<div class="content">
+<div class="paragraph">
+<p>(I realize that I cannot remember not knowing that term. I guess I&#x2019;m old, or
+just have really become a computer scientist.)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FcKdeYMaKKBIcEDIQtxjauJDzrWKzAab">
+<div class="header" data-title="Java Strings"><h2>Java Strings</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Unsurprisingly, Java has a <code>String</code> type.</p>
+</div>
+<div class="paragraph">
+<p>We can declare, assign, and pass them to functions like primitive types.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String maybe;
+maybe = &quot;Challen&quot;; // No, bad
+maybe = &quot;Geoff&quot;; // Better, thanks
+callMe(maybe); // You have my number?</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="CJfOIXpOQnKKkQsNlcCcqdQLehzcuKMt">
+<div class="header" data-title="Strings Seem Familiar, But Behave Differently"><h2>Strings Seem Familiar, But Behave Differently</h2></div>
+<textarea class="janini spelling_exception">String password = &quot;chuchudog&quot;;
+System.out.println(password.length());
+System.out.println(password.equals(&quot;xyzcat&quot;));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tilOsJdZUxdxwRUxjagFrbnsqFcJosVE">
+<div class="header" data-title="Our First Object"><h2>Our First Object</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In Java a <code>String</code> is our first <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;actually second, if you count arrays&lt;/body&gt;&lt;/html&gt;">1</span>
+example of an <em>object</em>.</p>
+</div>
+<div class="paragraph">
+<p>Objects combine <em>state</em> (like variables) and <em>behavior</em> (like functions).</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Each <code>String</code> has <strong>state</strong>: the array of characters in that string</p>
+</li>
+<li class="bullet">
+<p>Each <code>String</code> also has <strong>behavior</strong>: functions that we can call on it
+that operate on its state</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="OvtJcTTuXcjKTJlXFFSHNAHjCiynSXmV">
+<div class="header" data-title="What does it store, and what does it do?"><h2>What does it <em>store</em>, and what does it <em>do</em>?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eOfhoslUTfTbEOhXkqlLDWNAJNDehpYp">
+<div class="header" data-title="Objects v. Primitives"><h2>Objects v. Primitives</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>Primitives:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Store something that can be represented as a <em>single number</em></p>
+</li>
+<li>
+<p>Have type names that start with a lowercase letter: <code>int</code>, <code>char</code>, etc.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>Objects:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Can be made up of multiple other objects or primitive types</p>
+</li>
+<li>
+<p>Have type names that start with an <em>uppercase</em> letter: <code>String</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="zOHUuJANCnSTKPaWnIIJzqBkQzeVCtsb">
+<div class="header" data-title="Objects"><h2>Objects</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You will get a <em>lot</em> of practice working with and designing your own objects.</p>
+</div>
+<div class="paragraph">
+<p>For now we&#x2019;re going to use strings as a gentle introduction to <em>using</em> objects.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QGsUEhwPCbMRSNMEumCMtxAOOyALebns">
+<div class="header" data-title="Strings"><h2>Strings</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Normally to initialize an object in Java you use the <code>new</code> keyword.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String myString = new String(&quot;ABC&quot;);
+String anotherString = new String(&quot;DEF&quot;);</code></pre>
+</div>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p>However, strings are so common that Java provides a shorthand:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String myString = &quot;ABC&quot;;
+String anotherString = &quot;DEF&quot;;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock small bullet">
+<div class="content">
+<div class="paragraph">
+<p>(In practice there are minor differences between the two code snippets above,
+but we&#x2019;re not going to worry about them.)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RDEFXJGKGNBJOJETVQILZISFVDXPAZEQ">
+<div class="header" data-title="String Literal"><h2>String Literal</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In Java, the <code>String</code> object is so important that is (almost
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;See &lt;a href=&quot;https://docstore.mik.ua/orelly/java-ent/jnut/ch02_08.htm&quot; target=&quot;_blank&quot; class=&quot;external&quot;&gt;here&lt;/a&gt; for the other&lt;/body&gt;&lt;/html&gt;">2</span>)
+the only object in Java that supports <em>literals</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int first = 3; // 3 is a numeric literal
+boolean isHot = true; // true is a boolean literal
+
+char one = &apos;a&apos;; // one is a char literal
+String test = &quot;Test Me&quot;; // &quot;Test Me&quot; is a String literal</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UIhmBZCHezDDxGMCrlnFcekMApNqVoqb">
+<div class="header" data-title="Arrays Are Also Objects"><h2>Arrays Are Also Objects</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Do you remember? We&#x2019;ve seen <code>new</code> before&#x2026;&#x200B;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] array = new int[8];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java arrays are also objects&#x2014;which is why we create them with <code>new</code> and
+can access their length property as <code>array.length</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="fxYUpZnKjOeBhxuPdCUXUaDtToHWshqX">
+<div class="header" data-title="Combining Strings"><h2>Combining Strings</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can combine strings using the concatenation operator: <code>+</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String first = &quot;Geoffrey&quot;;
+String last = &quot;Challen&quot;;
+String full = first + &quot; &quot; + last;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="MdFtcLZfcghYDQctqpaAvHQfVHRAztHx">
+<div class="header" data-title="Creating Strings"><h2>Creating Strings</h2></div>
+<textarea class="janini spelling_exception">String myString = new String(&quot;ABC&quot;);
+String anotherString = &quot;DEF&quot;;
+String combined = myString + anotherString;</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qgyZJGVcnPbtmGwsjvZKKNHgQkHSJLfk">
+<div class="header" data-title="Dot Notation"><h2>Dot Notation</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We access an object&#x2019;s state and methods using <em>dot notation</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String example = &quot;test&quot;;
+System.out.println(example.length());
+System.out.println(example.replace(&apos;t&apos;, &apos;b&apos;));
+System.out.println(example.toUpperCase());</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="uGQxGsSonXYAoTfonqAAaqsjVcidGsjz">
+<div data-title=" All About Strings"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/lang/String.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="YucAlGbdPpwYwFOIXNsWismCONtiOZiC">
+<div class="header" data-title="Dot Notation"><h2>Dot Notation</h2></div>
+<textarea class="janini spelling_exception">String example = &quot;test&quot;;
+System.out.println(example.length());
+System.out.println(example.replace(&apos;t&apos;, &apos;b&apos;));
+System.out.println(example.toUpperCase());</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="HTzskjeLoQJegEVEiJEfzGbpwcnLafeR">
+<div class="header" data-title="Fun With Strings"><h2>Fun With Strings</h2></div>
+<textarea class="janini spelling_exception">String myString = new String(&quot;ABC&quot;);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="WWDpfkPXJQHdXQWuGkdSppQodHJoBZiw">
+<div class="header" data-title="Questions About Strings?"><h2>Questions About Strings?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JMPKZOQAATNOOYFKKITPXUWSBGHNCEFC">
+<div class="header" data-title="Consecutive Identical Values"><h2>Consecutive Identical Values</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given <span class="line-through">an array of chars</span> <em>a String</em>, find all cases where
+consecutive characters are the same.</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Examine each character in the string</p>
+</li>
+<li class="bullet">
+<p>Compare it with the next value&#x2014;but how do we get at that?</p>
+</li>
+<li class="bullet">
+<p>Print it out if they are the same</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="LUICRMZIENAXDUQDJYVAGKDNTVYTAEZA">
+<div data-title=" All About Strings"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/lang/String.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="TVSNKHWSKTYCIKSALIZGDIBDCSNSRHWO">
+<div data-title=" Consecutive Identical Characters"></div>
+<textarea class="janini spelling_exception">// Print when consecutive characters are identical
+String input = &quot;Mississippi&quot;;</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WPSJSvOmtUmlYdTgiKWnbYfzgIxAdLdz">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2019/fall/0/">MP0</a> is out and the first checkpoint is due this weekend. Please get started!</p>
+</li>
+<li>
+<p>Yesterday&#x2019;s lab has been reopened for you to complete today or tomorrow.</p>
+</li>
+<li>
+<p>I&#x2019;m not going to read these announcements anymore&#x2014;but please view them
+and of course also anything we post on the forum in the announcements category.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

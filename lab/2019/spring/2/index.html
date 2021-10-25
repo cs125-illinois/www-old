@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Algorithms</title>
+		<meta name="description" lang="en-us" content="Today you&apos;ll go through an algorithm design exercises including another in-lab homework problem. Then we&apos;ve set aside time to get a good start on MP0, which is due in under a week.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/MP" href="/MP/5/">MPs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/lab" href="/lab/14/">Labs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav small">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/14/">14: Final Project Demos</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/13/">13: Final Project Checkpoint</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/12/">12: Final Project UI</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/11/">11: Sorting and Searching</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/10/">10: A Knight&apos;s Tour</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/8/">8: Escape the Maze</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/7/">7: Data Modeling</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/6/">6: Testing</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/5/">5: Reverse Engineering</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/3/">3: Strings</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/2/" class="active" onclick="return false;">2: Algorithms<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/1/">1: Debugging and More Android Setup</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/0/">0: Ready to Start</a>
+            </li>
+            <li>
+              <strong><a href="/lab/">Return to Current Labs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Algorithm Design and Implementation (60 Minutes Total)</a>
+            <ul>
+              <li><a class="nav-link" href="#_algorithm_design_least_common_multiple_20_minutes">1.1. Algorithm Design: Least Common Multiple (20 Minutes)</a></li>
+              <li><a class="nav-link" href="#_implement_lcm_40_minutes">1.2. Implement LCM (40 Minutes)</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#mp0">2. Getting Started on MP0 (Remaining Time)</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#done">3. Before You Leave</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This lab is from a previous version of CS 125.
+          <a href="/lab/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Algorithms</h1>
+      <div class="paragraph lead">
+<p>Today&#x2019;s lab gives you more practice designing computer <em>algorithms</em>: the sets of
+steps that a computer takes to solve a problem.
+You&#x2019;ll design an algorithm with your lab and then implement it as a homework
+problem.
+Next we&#x2019;ve set aside time for you to begin or continue work on MP0, which is due
+in under a week!</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="algorithms"></a><h2>1. Algorithm Design and Implementation <span class="text-muted">(60 Minutes Total)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In class we&#x2019;ve begun to discuss the process of designing and implementing
+computer algorithms.
+Remember that an algorithm is <em>not</em> computer code&#x2014;it&#x2019;s a way to solve a
+problem that can be implemented in a variety of computer languages.
+In this way we distinguish between the <em>algorithm itself</em> and a specific
+<em>implementation</em> of that algorithm.</p>
+</div>
+<div class="paragraph">
+<p>Today we&#x2019;ll give you more practice designing and implementing a computer
+algorithm to solve a specific problem.
+Our goal is to focus your attention on the <em>process</em>: design first,
+implementation second.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_algorithm_design_least_common_multiple_20_minutes"></a><h3>1.1. Algorithm Design: Least Common Multiple <span class="text-muted">(20 Minutes)</span></h3>
+<div class="paragraph">
+<p>Too often beginning computer scientists tend to rush into trying to implement a
+solution before they really understand what they are trying to accomplish.
+Trust me: if you don&#x2019;t know what you are trying to do, you&#x2019;ll never be able to
+code it up.
+Even when you <em>do</em> know exactly what you are trying to do it&#x2019;s still often hard
+to translate that into working code.
+But without a design you are truly lost at sea.</p>
+</div>
+<div class="paragraph">
+<p>So today we&#x2019;ve set up the homework to prevent you from just jumping right in to
+the code
+You <strong>must</strong> spend the next 20 minutes designing a algorithm with the rest of your
+lab.
+Only then can you begin to implement and test it.</p>
+</div>
+<div class="paragraph">
+<p>The problem you are going to solve is computing the
+<a href="https://en.wikipedia.org/wiki/Least_common_multiple" target="_blank" class="external">least common multiple (or
+LCM)</a>
+of two integers.
+As it&#x2019;s name implies, the LCM is the <em>smallest</em> number that is a whole multiple
+of each number.
+So, for example, the LCM of 4 and 6 is 12, because 12 is 4 * 3 and 2 * 6.</p>
+</div>
+<div class="paragraph">
+<p>You can easily find complex and efficient algorithms for computing the LCM
+online.
+However, our goal today is not to force you to implement something
+sophisticated.
+Rather, you should take advantage of the fact that computers can repeat
+operations extremely quickly&#x2014;one of their most important capabilities.
+We can frequently use this capability to our advantage, since it can allow us to
+use a simpler but less efficient approach to solving a problem&#x2014;at least in
+cases where we are not <em>too</em> concerned with how long the computation takes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Work with your partner and other members of your lab to come up with an
+algorithm to compute the LCM.</strong>
+Talk to each other, brainstorm on whiteboards, exchange ideas, work through
+examples.
+About the only thing that you should <em>not</em> do is use your computer.</p>
+</div>
+<div class="paragraph">
+<p>Your lab may develop several different solutions to this problem.
+That&#x2019;s great!
+If you do, discuss some of the tradeoffs between the two.
+Which is harder to understand?
+Which do you expect to complete more quickly?</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_implement_lcm_40_minutes"></a><h3>1.2. Implement LCM <span class="text-muted">(40 Minutes)</span></h3>
+<div class="paragraph">
+<p>Next, you should 40 minutes on our in-lab homework problem, which you can find
+on PrairieLearn.
+<strong>Just like last week, you will only be able to access this homework beginning
+20 minutes after your lab starts and ending 40 minutes later.</strong>
+If you are in the wrong lab you will not be able to complete the lab
+homework assignment&#x2014;please attend the right lab next time.</p>
+</div>
+<div class="paragraph">
+<p>Please feel free to work with a partner or in a small group on the lab
+homework.
+<strong>But every student must submit their own answers to receive credit.</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="mp0"></a><h2>2. Getting Started on MP0 <span class="text-muted">(Remaining Time)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#x2019;ve set aside the remainder of lab for you to work on
+<a href="/MP/2019/spring/0/">MP0</a>.
+Please take advantage of this opportunity to work with your lab mates and course
+staff!
+If you haven&#x2019;t started, your goal should be to get to the point where you have
+submitted for the first time&#x2014;and maybe even earned a few points!
+If you have started, your goal should be to make some progress.
+And if you&#x2019;ve <em>finished</em> <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Really? Wow!&lt;/body&gt;&lt;/html&gt;">1</span>, then help out others around
+you.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="done"></a><h2>3. Before You Leave</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Don&#x2019;t leave lab until</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You&#x2019;ve designed your LCM algorithm and completed our second lab homework problem</p>
+</li>
+<li>
+<p>You&#x2019;ve made some progress on <a href="/MP/2019/spring/0/">MP0</a>&#x2026;&#x200B;</p>
+</li>
+<li>
+<p>And so has everyone else in your lab!</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you need more help completing the tasks above please come to
+<a href="/info/2019/spring/syllabus/#calendar">office hours</a>
+or post on the <a href="https://cs125-forum.cs.illinois.edu" class="noexternal">forum</a>.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/lab/2019/spring/2.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/lab/2019/spring/2.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

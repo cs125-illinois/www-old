@@ -1,0 +1,1459 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Recursion and Sorting</title>
+  <meta name="description" lang="en-us" content="Introduction to array and list recursion and sorting.">
+
+  <meta name="slider-id" content="b9931049-b737-4df7-8f68-b850ee9e157a">
+  <meta name="slider-semester" content="Fall2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="vQhCNZPmhDkacsIkVENqhlvWmIoVZXYl">
+
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+static int[] sort(int[] inputArray) {
+  return inputArray;
+}
+int[] testArray = new int[] {8, 5, 7, 3, 4, 11, 6, -1};
+System.out.println(Arrays.toString(sort(testArray)));</textarea><!-- beautify ignore:start --><div class="output" data-blank="Recursion and Sorting&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Recursion and Sorting<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD">
+<div class="header" data-title="Recursive Tree Search"><h2>Recursive Tree Search</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Base case</strong>: <span class="bullet">We&#x2019;ve reached a node with no descendants. Return true if
+its value matches, zero otherwise.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Recursive step</strong>: <span class="bullet">Consider our right tree and left tree separately.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Combine results</strong>: <span class="bullet">Return true if either we or our right or left subtree
+contain the search value.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm">
+<div data-title="Recursive Tree Search"></div>
+<textarea class="janini spelling_exception">import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return &quot;&quot;;
+    }
+    return &quot;[&quot; + current.value.toString() + &quot;]&quot;
+      + toString(current.right) + toString(current.left);
+  }
+  public boolean search(Object value) {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] {1, 2, 3, 4});
+		System.out.println(binaryTree.search(4));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="DdYpDyJIvrmHWCutyOgMifXNhGVyLsyp">
+<div class="header" data-title="How Could We Make This Search More Efficient?"><h2>How Could We Make This Search More Efficient?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="ikMBvyRKzYemTuEmWrBWnouucgybiufG">
+<div data-title=" Binary Search"></div>
+<textarea class="janini spelling_exception">public class BinarySearchTree {
+  private class Node {
+    private Comparable value;
+    private Node right;
+    private Node left;
+    Node(Comparable setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinarySearchTree(Comparable[] values) {
+    for (Comparable value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Comparable value) {
+    add(root, value);
+  }
+  private void add(Node current, Comparable value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (current.value.compareTo(value) &gt;= 0) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return &quot;&quot;;
+    }
+    return &quot;[&quot; + current.value.toString() + &quot;]&quot;
+      + toString(current.right) + toString(current.left);
+  }
+  public boolean search(Object value) {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinarySearchTree binarySearchTree = new BinarySearchTree(new Integer[] {1, 2, 3, 4});
+    System.out.println(binarySearchTree.search(3));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pxteXKKdyCZGTrkOnzndCdGiiVhhiIWW">
+<div class="header" data-title="Recursive Tree Traversal"><h2>Recursive Tree Traversal</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s find all nodes in the tree and add them to a list.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="AFRvWZfeQQeGdVMvXnMzPEVICMgonSdu">
+<div class="header" data-title="What&#x2019;s Our (Recursive) Algorithm?"><h2>What&#x2019;s Our (Recursive) Algorithm?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WoTyiduwYKpDJQqjEQouvluMZvMMMVtx">
+<div class="header" data-title="Recursive Tree Traversal"><h2>Recursive Tree Traversal</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Base case</strong>: <span class="bullet">We&#x2019;ve reached a <code>null</code> node, at which point we can stop.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Recursive step</strong>: <span class="bullet">Consider our right tree and left tree separately.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Combine results</strong>: <span class="bullet">Add ourselves to the list of nodes.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ngyjededPiWzJRbJEefcJndHYEAaanwn">
+<div class="header" data-title="Java ArrayLists"><h2>Java <code>ArrayList</code>s</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Lists are one of the two data structures you meet in heaven.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ve studied them in class together.
+But you&#x2019;ll usually use Java`s built-in implementations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="HYqlNDapesPenEQfkFhuOjHcdeaozZnd">
+<div data-title=" Java List Interface"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/util/List.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="PvTLWdfnSyZiVbCqNAoJVZumecHuRfTP">
+<div data-title=" Java ArrayLists"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="uVJpYoHLxekeOagIBhsAKNLEUXnddLlp">
+<div data-title="Recursive Traversal Example"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return &quot;&quot;;
+    }
+    return &quot;[&quot; + current.value.toString() + &quot;]&quot;
+      + toString(current.right) + toString(current.left);
+  }
+  public List allValues() {
+  }
+}
+
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] {1, 2, 3, 4});
+    System.out.println(binaryTree.allValues());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dlFNBwsqXFAyyhoLtlAUEfOdFTVxCjtN">
+<div class="header" data-title="Other Recursive Data Structures"><h2>Other Recursive Data Structures</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Every sub(blank) of a (blank) is, itself, a (blank).</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Tree</p>
+</li>
+<li class="bullet">
+<p>(Contiguous) List</p>
+</li>
+<li class="bullet">
+<p>(Contiguous) Array</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="kmbZhVumjGSPFcCcMibmLWEDUwnRrJhe">
+<div class="header" data-title="List Recursion"><h2>List Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="264pt" viewBox="0.00 0.00 93.00 264.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="hnkhlpzddmvnWEMh">
+<g id="graph0_hnkhlpzddmvnWEMh" class="graph" transform="scale(1 1) rotate(0) translate(4 260)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-260 89,-260 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_hnkhlpzddmvnWEMh" class="node">
+<title>Item</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_hnkhlpzddmvnWEMh" class="node">
+<title>Item8</title>
+<polygon fill="none" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge3_hnkhlpzddmvnWEMh" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- Item5 -->
+<g id="node3_hnkhlpzddmvnWEMh" class="node">
+<title>Item5</title>
+<polygon fill="none" stroke="#e84a27" points="0,-146.5 0,-182.5 85,-182.5 85,-146.5 0,-146.5"/>
+<text text-anchor="middle" x="27" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-146.5 54,-182.5 "/>
+<text text-anchor="middle" x="69.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- Item5&#45;&gt;Item8 -->
+<g id="edge2_hnkhlpzddmvnWEMh" class="edge">
+<title>Item5-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+<!-- Item6 -->
+<g id="node4_hnkhlpzddmvnWEMh" class="node">
+<title>Item6</title>
+<polygon fill="none" stroke="#e84a27" points="0,-219.5 0,-255.5 85,-255.5 85,-219.5 0,-219.5"/>
+<text text-anchor="middle" x="27" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-219.5 54,-255.5 "/>
+<text text-anchor="middle" x="69.5" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">6</text>
+</g>
+<!-- Item6&#45;&gt;Item5 -->
+<g id="edge1_hnkhlpzddmvnWEMh" class="edge">
+<title>Item6-&gt;Item5</title>
+<path fill="none" stroke="#13294b" d="M42.5,-219.4551C42.5,-211.3828 42.5,-201.6764 42.5,-192.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-192.5903 42.5,-182.5904 39.0001,-192.5904 46.0001,-192.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="fPLwvRZpMLpgAbFmsmVXykozRMYLXgkE">
+<div class="header" data-title="List Recursion"><h2>List Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="264pt" viewBox="0.00 0.00 93.00 264.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="BfEYaiyQoPAYioOT">
+<g id="graph0_BfEYaiyQoPAYioOT" class="graph" transform="scale(1 1) rotate(0) translate(4 260)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-260 89,-260 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_BfEYaiyQoPAYioOT" class="node">
+<title>Item</title>
+<polygon fill="#fa8072" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_BfEYaiyQoPAYioOT" class="node">
+<title>Item8</title>
+<polygon fill="#fa8072" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge3_BfEYaiyQoPAYioOT" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- Item5 -->
+<g id="node3_BfEYaiyQoPAYioOT" class="node">
+<title>Item5</title>
+<polygon fill="#fa8072" stroke="#e84a27" points="0,-146.5 0,-182.5 85,-182.5 85,-146.5 0,-146.5"/>
+<text text-anchor="middle" x="27" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-146.5 54,-182.5 "/>
+<text text-anchor="middle" x="69.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- Item5&#45;&gt;Item8 -->
+<g id="edge2_BfEYaiyQoPAYioOT" class="edge">
+<title>Item5-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+<!-- Item6 -->
+<g id="node4_BfEYaiyQoPAYioOT" class="node">
+<title>Item6</title>
+<polygon fill="#add8e6" stroke="#e84a27" points="0,-219.5 0,-255.5 85,-255.5 85,-219.5 0,-219.5"/>
+<text text-anchor="middle" x="27" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-219.5 54,-255.5 "/>
+<text text-anchor="middle" x="69.5" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">6</text>
+</g>
+<!-- Item6&#45;&gt;Item5 -->
+<g id="edge1_BfEYaiyQoPAYioOT" class="edge">
+<title>Item6-&gt;Item5</title>
+<path fill="none" stroke="#13294b" d="M42.5,-219.4551C42.5,-211.3828 42.5,-201.6764 42.5,-192.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-192.5903 42.5,-182.5904 39.0001,-192.5904 46.0001,-192.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QJZCNssehzpodbsXIwumIgkJjqbesXxa">
+<div class="header" data-title="List Recursion"><h2>List Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="264pt" viewBox="0.00 0.00 93.00 264.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="ZoBHvgXTHOReFdie">
+<g id="graph0_ZoBHvgXTHOReFdie" class="graph" transform="scale(1 1) rotate(0) translate(4 260)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-260 89,-260 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_ZoBHvgXTHOReFdie" class="node">
+<title>Item</title>
+<polygon fill="#fa8072" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_ZoBHvgXTHOReFdie" class="node">
+<title>Item8</title>
+<polygon fill="#fa8072" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge3_ZoBHvgXTHOReFdie" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- Item5 -->
+<g id="node3_ZoBHvgXTHOReFdie" class="node">
+<title>Item5</title>
+<polygon fill="#add8e6" stroke="#e84a27" points="0,-146.5 0,-182.5 85,-182.5 85,-146.5 0,-146.5"/>
+<text text-anchor="middle" x="27" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-146.5 54,-182.5 "/>
+<text text-anchor="middle" x="69.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- Item5&#45;&gt;Item8 -->
+<g id="edge2_ZoBHvgXTHOReFdie" class="edge">
+<title>Item5-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+<!-- Item6 -->
+<g id="node4_ZoBHvgXTHOReFdie" class="node">
+<title>Item6</title>
+<polygon fill="none" stroke="#e84a27" points="0,-219.5 0,-255.5 85,-255.5 85,-219.5 0,-219.5"/>
+<text text-anchor="middle" x="27" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-219.5 54,-255.5 "/>
+<text text-anchor="middle" x="69.5" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">6</text>
+</g>
+<!-- Item6&#45;&gt;Item5 -->
+<g id="edge1_ZoBHvgXTHOReFdie" class="edge">
+<title>Item6-&gt;Item5</title>
+<path fill="none" stroke="#13294b" d="M42.5,-219.4551C42.5,-211.3828 42.5,-201.6764 42.5,-192.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-192.5903 42.5,-182.5904 39.0001,-192.5904 46.0001,-192.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="SAWIkJIKdArGDGWOEuSIOckVUonqVeVQ">
+<div class="header" data-title="List Recursion"><h2>List Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="264pt" viewBox="0.00 0.00 93.00 264.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="QwUGndtBPBCndnVA">
+<g id="graph0_QwUGndtBPBCndnVA" class="graph" transform="scale(1 1) rotate(0) translate(4 260)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-260 89,-260 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_QwUGndtBPBCndnVA" class="node">
+<title>Item</title>
+<polygon fill="#fa8072" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_QwUGndtBPBCndnVA" class="node">
+<title>Item8</title>
+<polygon fill="#add8e6" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge3_QwUGndtBPBCndnVA" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- Item5 -->
+<g id="node3_QwUGndtBPBCndnVA" class="node">
+<title>Item5</title>
+<polygon fill="none" stroke="#e84a27" points="0,-146.5 0,-182.5 85,-182.5 85,-146.5 0,-146.5"/>
+<text text-anchor="middle" x="27" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-146.5 54,-182.5 "/>
+<text text-anchor="middle" x="69.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- Item5&#45;&gt;Item8 -->
+<g id="edge2_QwUGndtBPBCndnVA" class="edge">
+<title>Item5-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+<!-- Item6 -->
+<g id="node4_QwUGndtBPBCndnVA" class="node">
+<title>Item6</title>
+<polygon fill="none" stroke="#e84a27" points="0,-219.5 0,-255.5 85,-255.5 85,-219.5 0,-219.5"/>
+<text text-anchor="middle" x="27" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-219.5 54,-255.5 "/>
+<text text-anchor="middle" x="69.5" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">6</text>
+</g>
+<!-- Item6&#45;&gt;Item5 -->
+<g id="edge1_QwUGndtBPBCndnVA" class="edge">
+<title>Item6-&gt;Item5</title>
+<path fill="none" stroke="#13294b" d="M42.5,-219.4551C42.5,-211.3828 42.5,-201.6764 42.5,-192.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-192.5903 42.5,-182.5904 39.0001,-192.5904 46.0001,-192.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="htyLoPaJeGNagdUbhSiZBycNHKepYWxQ">
+<div class="header" data-title="List Recursion"><h2>List Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    value = setValue;
+    next = setNext;
+  }
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="264pt" viewBox="0.00 0.00 93.00 264.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="vSNnadpsBzCoedBu">
+<g id="graph0_vSNnadpsBzCoedBu" class="graph" transform="scale(1 1) rotate(0) translate(4 260)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-260 89,-260 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_vSNnadpsBzCoedBu" class="node">
+<title>Item</title>
+<polygon fill="#add8e6" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_vSNnadpsBzCoedBu" class="node">
+<title>Item8</title>
+<polygon fill="none" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge3_vSNnadpsBzCoedBu" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- Item5 -->
+<g id="node3_vSNnadpsBzCoedBu" class="node">
+<title>Item5</title>
+<polygon fill="none" stroke="#e84a27" points="0,-146.5 0,-182.5 85,-182.5 85,-146.5 0,-146.5"/>
+<text text-anchor="middle" x="27" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-146.5 54,-182.5 "/>
+<text text-anchor="middle" x="69.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- Item5&#45;&gt;Item8 -->
+<g id="edge2_vSNnadpsBzCoedBu" class="edge">
+<title>Item5-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+<!-- Item6 -->
+<g id="node4_vSNnadpsBzCoedBu" class="node">
+<title>Item6</title>
+<polygon fill="none" stroke="#e84a27" points="0,-219.5 0,-255.5 85,-255.5 85,-219.5 0,-219.5"/>
+<text text-anchor="middle" x="27" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-219.5 54,-255.5 "/>
+<text text-anchor="middle" x="69.5" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">6</text>
+</g>
+<!-- Item6&#45;&gt;Item5 -->
+<g id="edge1_vSNnadpsBzCoedBu" class="edge">
+<title>Item6-&gt;Item5</title>
+<path fill="none" stroke="#13294b" d="M42.5,-219.4551C42.5,-211.3828 42.5,-201.6764 42.5,-192.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-192.5903 42.5,-182.5904 39.0001,-192.5904 46.0001,-192.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vbXBPPTomEodDCheSwtbLJKhaEJVlbgk">
+<div class="header" data-title="List Recursion"><h2>List Recursion</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like with trees, we need a way to both make the problem smaller <em>and</em>
+identify the smallest subproblem.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>How do we make the problem smaller?</strong> <span class="bullet">Break the list into the current
+item and the rest of the list.</span></p>
+</li>
+<li class="bullet">
+<p><strong>What&#x2019;s the smallest subproblem?</strong> <span class="bullet">A list with a single element.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="fRYSVhjZFSqSrcQxQJUwIFnOmSiELoOV">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="FnYMFpnCMoCyMoXwXBZKkDgesOkgFxIn">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="tQxxuMUWKQobEQNYHlSIVZoXmGlBvQwx">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="SOdLTSSAsCIlrVMJKuHvVseAmhfqGRgV">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="TWmxrRwPgWRlqQYhoIjxtOeCnYZJGJrE">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="GPjlznIJPJQTqOskvXOKQCZZLMaHqMoK">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ChpYEykifjLwpwVRhzhZPEoCQCZitSBj">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="NAkqTkwtbVhUObBRiahACtGdXwDaPEAW">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="sAAHDoMDcEBqTqoQaLagSyOjKyhhEOsy">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QjcqYYIDQXRtnTYMvnETFaEDDyOlKjFN">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="vFvinbLxcBtZFpxLRzBzzhqQtDmSrdkU">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ttJCuudnFWLahjaMHholCnXmZfPUoaJY">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ppfwZoJPNzulpyaZRxbvNYzkANVTdRKW">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QDbbKzWxMVtGodvPExHEzUMWyGvEbcwh">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="cpZwGLAOPJjNHNevULDJtSleWnVlKNRl">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table array notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock">1</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">10</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">5</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">6</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">4</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">11</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">7</p></td>
+<td class="tableblock valign-middle text-center" style="background-color: lightblue;"><p class="tableblock">-1</p></td>
+</tr>
+</tbody>
+</table></div></div><div style="width:48%;"><div class="paragraph">
+<p>Each contiguous subarray of an array is, itself, an array.</p>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="cyyScLzhUVvSHWPiZBRZBPvdGDCnSsNH">
+<div class="header" data-title="Array Recursion"><h2>Array Recursion</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like with trees and lists, we need a way to both make the problem smaller
+<em>and</em> identify the smallest subproblem.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>How do we make the problem smaller?</strong> <span class="bullet">Break the list into two smaller
+subarrays.</span></p>
+</li>
+<li class="bullet">
+<p><strong>What&#x2019;s the smallest subproblem?</strong> <span class="bullet">An array with a single item.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="utQvgAAhylswpYDCUslTQpeZpOjqdPtO">
+<div class="header" data-title="Questions About Recursion?"><h2>Questions About Recursion?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sAPnGAwOXnBnpsaxiKHFBzvTRHFdvvHd">
+<div class="header" data-title="Sorting Algorithms"><h2>Sorting Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Sorting algorithms bring together several of the things that we have discussed
+recently:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Imperative programming</p>
+</li>
+<li class="bullet">
+<p>Big-O algorithm runtime analysis</p>
+</li>
+<li class="bullet">
+<p>Recursion</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iGCyTSiKXNfsaBVeoPLKYPWvrUCgRsPc">
+<div class="header" data-title="Sorting Matters"><h2>Sorting Matters</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Sorting is often a building block for many other algorithms.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><em>Searching</em> is more efficient if the data is sorted first</p>
+</li>
+<li class="bullet">
+<p>Sorting can be used to <em>detect duplicates</em></p>
+</li>
+<li class="bullet">
+<p>Sorting is often used to produce a canonical representation of data or for
+presentation to human users</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="UzdywHbjMcMOrUOmWfhFtSuqvxQroXyl">
+<div data-title=" Sorting Matters"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://sortbenchmark.org/%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="sHTXsaPnEYBhYRsqvojNwHmdfjslfdOD">
+<div class="header" data-title="In Memory of Jim Gray, Turing Award Winner"><h2>In Memory of Jim Gray, Turing Award Winner</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+
+<div style="width:48%;"><div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Jim_Gray_(computer_scientist)" target="_blank" class="external">Jim Gray</a>
+was a pioneer in the fields of databases and data processing.</p>
+</div><div class="paragraph">
+<p>He vanished at seat in 2007 and, despite a worldwide crowdsourced effort to
+locate his boat, was never found.</p>
+</div></div><div style="width:48%;"><div class="imageblock">
+<div class="content">
+<a class="image" href="http://jimgray.azurewebsites.net/jimgrayvita.htm" target="_blank"><img src="http://jimgray.azurewebsites.net/Photos/Portrait1.jpg" alt="Portrait1" width="240"></a>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uRnJiWZsMXJNZDfbOXlwNGuTovCgQJhE">
+<div class="header" data-title="There Are Many Sorting Algorithms"><h2>There Are Many Sorting Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>And we won&#x2019;t discuss them all&#x2026;&#x200B;</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Insertion_sort" target="_blank" class="external">Insertion sort</a> (Friday)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Selection_sort" target="_blank" class="external">Selection sort</a> (lab)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Merge_sort" target="_blank" class="external">Merge sort</a> (lecture)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Heapsort" target="_blank" class="external">Heapsort</a></p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Quicksort" target="_blank" class="external">Quicksort</a> (lecture)</p>
+</li>
+<li class="bullet">
+<p><a href="https://en.wikipedia.org/wiki/Bubble_sort" target="_blank" class="external">Bubble sort</a> (lab)</p>
+</li>
+<li class="bullet">
+<p>And even new ones, like <a href="https://en.wikipedia.org/wiki/Timsort" target="_blank" class="external">Timsort</a> (circa
+2002)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="khwhfRJyzLZyFdPywtVhtqeQpekquiND">
+<div class="header" data-title="Sorting Basics"><h2>Sorting Basics</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We&#x2019;ll discuss sorting on <strong>arrays</strong> which allow random access, although many
+algorithms will also work on lists.</p>
+</li>
+<li class="bullet">
+<p>We&#x2019;ll be sorting in <strong>ascending order</strong>, although obviously descending order
+sorts are also possible.</p>
+</li>
+<li class="bullet">
+<p>We can sort anything that we can compare&#x2014;but we&#x2019;ll mostly be sorting
+integers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BMTnhTaELTJyHufbMgBIqXtQdHPGzoUb">
+<div class="header" data-title="Analyzing Sorting Algorithms"><h2>Analyzing Sorting Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Since sorting algorithms handle data, we care about <em>both</em> time and space
+complexity.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Time complexity</strong>: how long does it take?</p>
+</li>
+<li class="bullet">
+<p><strong>Space complexity</strong>: how much space is required?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="iBEibjgrsUjidKlUanILdeVbCctzwKIe">
+<div class="header" data-title="CS 125 Project Fair"><h2>CS 125 Project Fair</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iFJXhHSwmyelvbyequhRjdneNfenakHm">
+<div class="header" data-title="Fair Overview"><h2>Fair Overview</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>This will be our fourth CS 125 Final Project Fair: bigger and better than ever.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Date:</strong> Thursday 12/12/2019, time TBD.</p>
+</li>
+<li class="bullet">
+<p><strong>Participation:</strong> <em>Optional</em> but worth <strong>1% extra credit</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Location</strong>: TBD, but probably in and around Siebel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nOYsfksqNFeDtLWnedcWSkMnRDDuZqff">
+<div class="header" data-title="How to Not Get a Great CS Job"><h2>How to Not Get a Great CS Job</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>All of you will get a job.
+Not all of you will get a <em>great</em>
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Change the world kind of&lt;/body&gt;&lt;/html&gt;">1</span>
+job.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s a good strategy for not getting a good job:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Take CS classes.</p>
+</li>
+<li class="bullet">
+<p>Do the projects.</p>
+</li>
+<li class="bullet">
+<p>Get good grades.</p>
+</li>
+<li class="bullet">
+<p>Don&#x2019;t do any side projects: focus on grades instead.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="edrfAnHBTbCoURGLfVRZneuxOnwMuivs">
+<div class="header" data-title="How to Get a Great CS Job"><h2>How to Get a Great CS Job</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>Show your passion for technology.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The CS 125 Project Fair is intended to get you started doing that.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iBsnBqtjtIRjZDKVzDvCInanmDdoxhNH">
+<div class="header" data-title="Example Spring 2019 Fair Projects"><h2>Example Spring 2019 Fair Projects</h2></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125.cs.illinois.edu/info/fair%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oApTeMfnuZvIlKHitawrVCWwZsdsdjoD">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2019/fall/4/">MP4</a> is out. <strong>Please get started!</strong></p>
+</li>
+<li>
+<p>I have office hours today from 1&#x2013;3PM in Siebel 2227.
+Please come by and say hi!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

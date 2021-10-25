@@ -1,0 +1,648 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Eclipse Setup</title>
+		<meta name="description" lang="en-us" content="Prepare your computer to complete the Java-based machine problems (MPs).">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Fall 2017</strong>
+            </li>
+            <li><div class="dropdown-divider"></div></li>
+            <li>
+              <a href="/MP/2017/fall/7/">MP7</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/6/">MP6</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/1/">MP1</a>
+            </li>
+            <li>
+              <span data-active="^MP/2017/fall/setup" class="option active">Setup<span class="sr-only">(current)</span></span>
+              <ul>
+                <li>
+                  <a href="/MP/2017/fall/setup/subversion/">Subversion</a>
+                </li>
+                <li>
+                  <a href="/MP/2017/fall/setup/eclipse/" class="active" onclick="return false;">Eclipse<span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Eclipse</a>
+            <ul>
+              <li><a class="nav-link" href="#windows">1.1. Windows</a></li>
+              <li><a class="nav-link" href="#mac">1.2. Mac</a></li>
+              <li><a class="nav-link" href="#linux">1.3. Linux</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#plugins">2. Eclipse Plugins</a>
+            <ul>
+              <li><a class="nav-link" href="#subversive">2.1. Subversive Subversion Plugin</a></li>
+              <li><a class="nav-link" href="#connectors">2.2. Subversion Connectors</a></li>
+              <li><a class="nav-link" href="#checkstyle">2.3. checkstyle</a></li>
+              <li><a class="nav-link" href="#testng">2.4. TestNG</a></li>
+              <li><a class="nav-link" href="#gradle">2.5. Gradle</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This guide is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Eclipse Setup</h1>
+      <div class="paragraph lead">
+<p>To complete the CS 125 machine problems (MPs) you&#x2019;ll write
+<a href="https://www.java.com/en/" target="_blank" class="external">Java</a>
+code using the
+<a href="http://www.eclipse.org/home/index.php" target="_blank" class="external">Eclipse</a>
+Integrated Development Environment (IDE), augmented with several plugins.
+This guide will help you install and configure this important and powerful
+tool.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="eclipse"></a><h2>1. Eclipse</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="http://www.eclipse.org/home/index.php" target="_blank" class="external">Eclipse</a>
+is a powerful and popular open-source integrated development environment
+(IDE).
+Many programmers utilize IDEs to simplify the process of writing, building,
+testing, and debugging both large and small applications.</p>
+</div>
+<div class="paragraph">
+<p>If you have a laptop or desktop that you plan to use for CS 125, you should
+install Eclipse on it.
+Follow the instructions below that are appropriate for your machine.
+Unfortunately Eclipse is not always the easiest piece of software to install,
+so don&#x2019;t be discouraged if you get stuck.
+We&#x2019;re here to help.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note that you should always download the
+<a href="https://www.eclipse.org/downloads/" target="_blank" class="external">latest version of Eclipse</a>.</strong>
+As of late August 2017 that is Eclipse Oxygen.</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/LN-pvim9HKE%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="sect2">
+<a class="anchor" id="windows"></a><h3>1.1. Windows</h3>
+<div class="paragraph">
+<p>The easiest solution for Windows machines is to use the very nice
+<a href="https://ninite.com/" target="_blank" class="external">Ninite</a> bundled installed
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Ninite is actually the creation of a student I know from college&amp;#x2010;which is how I found out about it.&lt;/body&gt;&lt;/html&gt;">1</span>.
+It will allow you to install both the Java Software Development Kit (SDK) and
+the Eclipse Integrated Development Environment (IDE) at the same time.</p>
+</div>
+<div class="paragraph">
+<p>Here are the steps to follow:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <a href="https://ninite.com/" target="_blank" class="external"><code>ninite.com</code></a>.</p>
+</li>
+<li>
+<p>At minimum you need to check the &quot;Eclipse&quot; and the &quot;JDK x64 8&quot; boxes
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Of course, if you want other software this is a good time to get it!&lt;/body&gt;&lt;/html&gt;">2</span>.</p>
+</li>
+<li>
+<p>Download and run the installer.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>At this point you should be able to find Eclipse in your installed
+applications, or as a shortcut on your desktop.</p>
+</div>
+<div class="paragraph">
+<p>If you&#x2019;re nervous about using Ninite&#x2014;despite
+their backing by <a href="http://www.ycombinator.com/" target="_blank" class="external">Y Combinator</a> and glowing reviews
+by <a href="http://www.ycombinator.com/" target="_blank" class="external">PC World</a> and others&#x2014;perhaps this will
+assuage your fears.
+I actually went to school with Patrick Swieskowski, one of the Ninite
+co-founders.
+He&#x2019;s both a great guy and a tremendous developer.
+I would trust him to install software on my machine <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;I actually found out about Ninite because I looked him up once. Normally I have little interest in Windows software.&lt;/body&gt;&lt;/html&gt;">3</span>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="mac"></a><h3>1.2. Mac</h3>
+<div class="paragraph">
+<p>On Mac there are two steps to installing Eclipse.
+First, you must install the Java Software Development Kit (SDK):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to
+<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" class="external">this
+website</a>.
+Accept the license agreement and download the Java SE Development Kit for Mac
+OS X.</p>
+</li>
+<li>
+<p>Run the installer to complete the installation.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Next, install the latest version of Eclipse:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <a href="https://eclipse.org/" target="_blank" class="external"><code>eclipse.org</code></a> and click on the download link.
+Continue by clicking on the download link on the next page.</p>
+</li>
+<li>
+<p>Download and run the installer to complete the installation.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>By default Eclipse installs itself into an <code>eclipse</code> folder in your home
+directory.
+If you want it in your applications, move the installed binary into your
+Applications folder.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="linux"></a><h3>1.3. Linux</h3>
+<div class="paragraph">
+<p>The first step when running Linux is to install Oracle Java.
+You can follow
+<a href="https://www.java.com/en/download/help/linux_x64_install.xml" target="_blank" class="external">these instructions</a>
+on the Java homepage.
+Many distributions also have Sun Java packages as well&#x2014;for example, Ubuntu
+and Mint users can follow
+<a href="http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html" target="_blank" class="external">these
+instructions</a> to use the Web Upd8 PPA.</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/EiGl2Ag35AI%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>To get Eclipse, start by downloading the
+<a href="https://www.eclipse.org/downloads/" target="_blank" class="external">Eclipse Oxygen</a>
+tarball from the Eclipse homepage.
+Unpack it and you should have a executable binary.
+The screencast above walks you through that process.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="plugins"></a><h2>2. Eclipse Plugins</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Once you have <a href="#eclipse">Eclipse installed</a>, continue by installing several
+plugins.
+Plugins extend Eclipse by providing new features or capabilities.
+Remembers: computers are powerful and <em>love</em> performing repetitive tasks.
+So they are great at doing things like <a href="#checkstyle">checking our code for formatting
+problems</a>, <a href="#testng">running tests</a>, and <a href="#gradle">building large projects from multiple source code
+files</a>.</p>
+</div>
+<div class="paragraph">
+<p>Note that while these instructions are written for
+<a href="https://projects.eclipse.org/releases/oxygen" target="_blank" class="external">Eclipse Oxygen</a>,
+they have also been tested on Eclipse Neon.
+<strong>While we strongly suggest that you use Oxygen</strong>, Neon is currently installed
+on the Engineering Workstations (<a href="https://it.engineering.illinois.edu/ews" target="_blank" class="external">EWS</a>).
+Note that there is a small difference in the Neon instructions once you read the
+<a href="#gradle">Gradle</a> section.</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/BCBV_ONqMmA%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="sect2">
+<a class="anchor" id="subversive"></a><h3>2.1. Subversive Subversion Plugin</h3>
+<div class="paragraph">
+<p><a href="http://subversion.apache.org/" target="_blank" class="external">Subversion</a> is a software version control
+system (VCS).
+It allows both individual developers and teams to work together more
+effectively.
+You will use Subversion to retrieve your machine problem (MP) assignments, and
+to submit your solutions.</p>
+</div>
+<div class="paragraph">
+<p>To install the Subversive Subversion Eclipse plugin, follow the following
+instructions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Eclipse Software Marketplace: &quot;Help &#x2192; Eclipse Marketplace&quot;.</p>
+</li>
+<li>
+<p>Search for &quot;subversive&quot;.</p>
+</li>
+<li>
+<p>Install the latest version of the &quot;Subversive - SVN Team Provider&quot; plugin.</p>
+</li>
+<li>
+<p>Restart Eclipse if it doesn&#x2019;t automatically.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="connectors"></a><h3>2.2. Subversion Connectors</h3>
+<div class="paragraph">
+<p>Now we need to install some additional software to allow Subversion to connect
+to our course repository.
+Continue by following these instructions to set up so-called Subversive
+connectors:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Eclipse software sources dialog: &quot;Help &#x2192; Install New
+Software&quot;.</p>
+</li>
+<li>
+<p>Work with <a href="http://community.polarion.com/projects/subversive/download/eclipse/6.0/update-site/" class="noclick spelling_exception" target="_blank">http://community.polarion.com/projects/subversive/download/eclipse/6.0/update-site/</a>
+and click &quot;Add&quot;.</p>
+</li>
+<li>
+<p>Name the repository anything you want&#x2014; &quot;Subversive Connectors&quot; is
+fine.</p>
+</li>
+<li>
+<p>Select both the &quot;Subversive SVN Connectors&quot; and &quot;Subversive SVN Connectors
+Sources&quot; checkboxes.</p>
+</li>
+<li>
+<p>Complete the rest of the installation dialog. When it prompts you about
+installing untrusted sources, click install anyway.</p>
+</li>
+<li>
+<p>Eclipse should restart again, at which point you are all done.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="checkstyle"></a><h3>2.3. checkstyle</h3>
+<div class="paragraph">
+<p>When you write code, style matters.
+This is particularly important as you start to work with others.
+Inconsistent style produces code that is hard for others to read and understand.</p>
+</div>
+<div class="paragraph">
+<p>As a result, almost all large <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;and even most small&lt;/body&gt;&lt;/html&gt;">4</span> software projects
+produce <em>style guidelines</em>.
+These are rules about how code should be formatted to ensure consistency across
+multiple developers.
+Some languages, like <a href="https://golang.org/" target="_blank" class="external">Go</a>, have even gone as far to make
+certain stylistic choices part of the code language specification.</p>
+</div>
+<div class="paragraph">
+<p>To prepare you for the big wide communal world of programming, we&#x2019;re going to
+have you install and use an Eclipse style checking plugin.
+<a href="http://checkstyle.sourceforge.net/" target="_blank" class="external">checkstyle</a> is a Java style checking tool
+that is used and supported by large companies that write Java&#x2014;including
+Google <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Most Android app development is done in Java.&lt;/body&gt;&lt;/html&gt;">5</span>.
+Our style guidelines are based on the
+<a href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html" target="_blank" class="external">Sun
+Code Conventions</a>.</p>
+</div>
+<div class="paragraph">
+<p>Installing the checkstyle plugin for Eclipse is fairly easy by using the
+software marketplace:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Eclipse Software Marketplace: &quot;Help &#x2192; Eclipse Marketplace&quot;.</p>
+</li>
+<li>
+<p>Search for &quot;checkstyle&quot;.</p>
+</li>
+<li>
+<p>Install the latest version of the &quot;CheckStyle&quot; plugin.</p>
+</li>
+<li>
+<p>Restart Eclipse if it doesn&#x2019;t automatically.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="testng"></a><h3>2.4. TestNG</h3>
+<div class="paragraph">
+<p>Writing good tests are an important part of effective software development.
+Eclipse comes with built-in support for the <a href="http://junit.org/" target="_blank" class="external">JUnit</a> testing
+framework, but we may want to experiment with another testing framework called
+<a href="http://testng.org/doc/" target="_blank" class="external">TestNG</a>.
+It has some nice features that JUnit lacks&#x2014;even if it has a much uglier
+website.</p>
+</div>
+<div class="paragraph">
+<p>The process is quite similar to the one for <a href="#checkstyle">checkstyle</a>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Eclipse Software Marketplace: &quot;Help &#x2192; Eclipse Marketplace&quot;.</p>
+</li>
+<li>
+<p>Search for &quot;testng&quot;.</p>
+</li>
+<li>
+<p>Install the latest version of the &quot;TestNG for Eclipse&quot; plugin.</p>
+</li>
+<li>
+<p>Restart Eclipse if it doesn&#x2019;t automatically.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="gradle"></a><h3>2.5. Gradle</h3>
+<div class="paragraph">
+<p>Building large software projects consisting of multiple source code files is a
+complex process.
+To address this problem, developers frequently use so-called <em>build systems</em>
+to automate this process.
+Build systems can intelligently determine what steps need to be taken to build
+a complete application, automatically do things like check style (using tools
+like <a href="#checkstyle">checkstyle</a>) or run tests (using tools like <a href="#testng">TestNG</a>).
+We&#x2019;re also going to use Gradle to run the tests on your code that will produce
+your grade for each MP.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://gradle.org/" target="_blank" class="external">Gradle</a> is a build system.
+It is frequently used for Java projects, but can be used to build a variety of
+different kinds of software projects.</p>
+</div>
+<div class="paragraph">
+<p>The instructions that follow are slightly different for Oxygen and Neon, so make
+sure that you follow the ones appropriate to your version of Eclipse.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_oxygen"></a><h4>2.5.1. Oxygen</h4>
+<div class="paragraph">
+<p>Gradle is actually so important that Eclipse Oxygen comes with it pre-installed.
+Unfortunately, the bundled version is out of date so we need to update it
+manually.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s what to do:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Eclipse Software Marketplace: &quot;Help &#x2192; Eclipse Marketplace&quot;.</p>
+</li>
+<li>
+<p>Search for &quot;buildship&quot;. It should say &quot;Installed&quot;.</p>
+</li>
+<li>
+<p>Click on &quot;Installed&quot;, then &quot;Update&quot;.</p>
+</li>
+<li>
+<p>Accept the license agreement.</p>
+</li>
+<li>
+<p>Restart Eclipse if it doesn&#x2019;t automatically.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_neon"></a><h4>2.5.2. Neon</h4>
+<div class="paragraph">
+<p>Unlike Oxygen, Eclipse Neon <em>does not</em> come with Gradle installed.
+But it&#x2019;s easy to install it.
+Here&#x2019;s what to do:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Eclipse Software Marketplace: &quot;Help &#x2192; Eclipse Marketplace&quot;.</p>
+</li>
+<li>
+<p>Install the latest version of the &quot;Buildship Gradle Integration 2.0&quot; plugin.</p>
+</li>
+<li>
+<p>Restart Eclipse if it doesn&#x2019;t automatically.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2017/fall/setup/eclipse.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2017/fall/setup/eclipse.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

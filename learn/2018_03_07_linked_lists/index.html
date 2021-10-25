@@ -1,0 +1,720 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Linked Lists</title>
+  <meta name="description" lang="en-us" content="Continuation of a discussion of linked lists, including inserting elements and iteration.">
+
+  <meta name="slider-id" content="10f2eb06-251f-4e3d-bacb-3161eb9d3265">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="pgYMuWIZOClhbnKQazmcPUWjaySoCIar">
+
+<textarea class="janini spelling_exception">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public int get(int index) {
+    Item current = start;
+    for (int i = 0; i &lt; index; i++) {
+      current = current.next;
+    }
+    return current.value;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Linked Lists&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Linked Lists<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="ZcSyAWnnkkSqpuXrEGLIRzspjCMTqMDZ">
+<div class="header" data-title="No Professor Of The Day Award For Me"><h2>No Professor Of The Day Award For Me</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(At least not today.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rJOxXOGNaQrhuLzoqiKfoeSvEbCZcvww">
+<div class="header" data-title="Lecture Participation Reminder"><h2>Lecture Participation Reminder</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Lecture participation scores will be up later today.
+<strong>Some of you will be unhappy.</strong></p>
+</div>
+<div class="paragraph">
+<p>Our participation tracking algorithm is <em>very</em> generous. But, to earn
+participation credit, you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>To be in the right place.</strong> No points for attending the wrong lecture.</p>
+</li>
+<li class="bullet">
+<p><strong>To be following along with the slides.</strong> No points for just being logged in.</p>
+</li>
+<li class="bullet">
+<p>Questions?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mtewUULnaMvHglEMtJNEctwLkKXbHVqt">
+<div class="header" data-title="Cheating"><h2>Cheating</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>I take academic integrity extremely seriously.
+Cheaters will be caught and punished.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ve begun checking submissions for plagiarism.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>99% of you are fine. <strong>Thanks for being honest and working hard.</strong></p>
+</li>
+<li class="bullet">
+<p>1% of you are not fine. <strong>You&#x2019;ll be hearing from us.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="eHRxJUhDLukJpzNYHmPYdwCshvuiEpya">
+<div class="header" data-title="Course Policies Questions?"><h2>Course Policies Questions?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have good reasons for the choices we&#x2019;ve made about how the course is set up.
+But there are always tradeoffs. I&#x2019;m happy to discuss.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HwVpzjiKlFDIqWjicoyRqrHirVqKCEvl">
+<div class="header" data-title="Remainder of the Semester"><h2>Remainder of the Semester</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In happier news, here&#x2019;s what we have on tap for the rest of the semester.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>MP5: out Friday, due after Spring Break.</p>
+</li>
+<li class="bullet">
+<p>After break: MP6 and MP7, one week MPs on Android development and API usage.</p>
+</li>
+<li class="bullet">
+<p>2.5 week final project, done in pairs, due in the last lab.</p>
+</li>
+<li class="bullet">
+<p><strong>CS 125 Fair</strong>: held on Reading Day, optional (but worth 1% extra credit),
+highlights chosen in lab.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yIksCGacXTpEUsZJulwkCHBpwsvWMNFp">
+<div class="header" data-title="Q6 Review: Terminology"><h2>Q6 Review: Terminology</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Parent { }
+class Child extends Parent { }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In Java, any method that will accept an instance of <code>Parent</code> will also accept an
+instance of <code>Child</code>. This is due to&#x2026;&#x200B;</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gYbroZRyPeylyRcTrRpQrGjbrWCeOXEr">
+<div class="header" data-title="Q6 Review: Object Casting"><h2>Q6 Review: Object Casting</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Top {
+  public static void printOne(Top top) {
+    Bottom bottom = (Bottom) top;
+    bottom.print();
+  }
+  public void print() {
+    System.out.println(&quot;Top&quot;);
+  }
+}
+public class Bottom extends Top {
+  public void print() {
+    System.out.println(&quot;Bottom&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Top top = new Top();
+    Top.printOne(top);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the <code>main</code> method runs, what will be printed?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="HSVhcAvjRKzeCPcLEVVjOyYZngrXrGlM">
+<div data-title=" Q6 Review: Object Casting"></div>
+<textarea class="janini spelling_exception">public class Top {
+  public static void printOne(Top top) {
+    Bottom bottom = (Bottom) top;
+    bottom.print();
+  }
+  public void print() {
+    System.out.println(&quot;Top&quot;);
+  }
+}
+public class Bottom extends Top {
+  public void print() {
+    System.out.println(&quot;Bottom&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Top top = new Top();
+    Top.printOne(top);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="drGfkPQUuIWlQbKrBMzouxWqWQEOivkK">
+<div class="header" data-title="Q6 Review: References"><h2>Q6 Review: References</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Car {
+  public int odometer;
+  public Car(int initialOdometer) {
+    odometer = initialOdometer;
+  }
+  public int increaseMileage() {
+    return odometer++;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Car[] cars = new Car[10];
+    Car car = new Car(10);
+    for (int i = 0; i &lt; cars.length; i++) {
+      cars[i] = car;
+    }
+    for (int i = 0; i &lt; cars.length; i++) {
+      cars[i].increaseMileage();
+    }
+    System.out.println(cars[0].odometer);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the <code>main</code> method runs, what will be printed?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="aVHprWTYNpzLYYXgewmOZeORloIAGRRB">
+<div data-title=" Q6 Review: References"></div>
+<textarea class="janini spelling_exception">public class Car {
+  public int odometer;
+  public Car(int initialOdometer) {
+    odometer = initialOdometer;
+  }
+  public int increaseMileage() {
+    return odometer++;
+  }
+  public boolean equals(Car other) {
+    return odometer == other.odometer;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Car[] cars = new Car[10];
+    Car car = new Car(10);
+    for (int i = 0; i &lt; cars.length; i++) {
+      cars[i] = car;
+    }
+    for (int i = 0; i &lt; cars.length; i++) {
+      cars[i].increaseMileage();
+    }
+    System.out.println(cars[0].odometer);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LcyEAmVtUdcHjdXtILAeYWjLVFHCYoLE">
+<div class="header" data-title="Q6 Review: Polymorphism"><h2>Q6 Review: Polymorphism</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Shape {
+  public String toString() {
+    return &quot;Shape&quot;;
+  }
+}
+public class FourSides extends Shape {
+  public String toString() {
+    return &quot;FourSides&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    FourSides s = new Shape();
+    System.out.println(s);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the <code>main</code> method above runs, what will be printed?</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="fNGgzyoKhumeyEtMqZgwOMgVXpiCilEK">
+<div data-title=" Q6 Review: Polymorphism"></div>
+<textarea class="janini spelling_exception">public class Shape {
+  public String toString() {
+    return &quot;Shape&quot;;
+  }
+}
+public class FourSides extends Shape {
+  public String toString() {
+    return &quot;FourSides&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    FourSides s = new Shape();
+    System.out.println(s);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vDfnzUuMOuMRHAAdncCKUaciSuZDBygs">
+<div class="header" data-title="Q6 Review: Garbage Collection"><h2>Q6 Review: Garbage Collection</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Example {
+  public static void main(String[] unused) {
+    String[] strings = new String[10];
+    for (int i = 0; ; i++) {
+      strings[i % 10] = new String();
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the code above runs for a while, how many valid <code>String</code> objects will
+exist in the system?</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="VgYgAHgZIcREUpqGNdxTklOAGrPTRLtU">
+<div class="header" data-title="Linked Lists"><h2>Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="bPzPQuXqzJCYzMTEVwglDCplYhvLWJnQ">
+<div class="header" data-title="Linked Lists"><h2>Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="118pt" viewBox="0.00 0.00 93.00 118.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="rHmHFbwqeZbTJZqn">
+<g id="graph0_rHmHFbwqeZbTJZqn" class="graph" transform="scale(1 1) rotate(0) translate(4 114)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-114 89,-114 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_rHmHFbwqeZbTJZqn" class="node">
+<title>Item</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- items -->
+<g id="node2_rHmHFbwqeZbTJZqn" class="node">
+<title>items</title>
+<polygon fill="none" stroke="#e84a27" points="12,-73.5 12,-109.5 73,-109.5 73,-73.5 12,-73.5"/>
+<text text-anchor="middle" x="42.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">items</text>
+</g>
+<!-- items&#45;&gt;Item -->
+<g id="edge1_rHmHFbwqeZbTJZqn" class="edge">
+<title>items-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QGCsOehngugYkACMiMSLsbHMSjAVOkho">
+<div class="header" data-title="Linked Lists"><h2>Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="191pt" viewBox="0.00 0.00 93.00 191.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="mJBjLWwVIaNbuUYn">
+<g id="graph0_mJBjLWwVIaNbuUYn" class="graph" transform="scale(1 1) rotate(0) translate(4 187)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-187 89,-187 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_mJBjLWwVIaNbuUYn" class="node">
+<title>Item</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_mJBjLWwVIaNbuUYn" class="node">
+<title>Item8</title>
+<polygon fill="none" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge2_mJBjLWwVIaNbuUYn" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- items -->
+<g id="node3_mJBjLWwVIaNbuUYn" class="node">
+<title>items</title>
+<polygon fill="none" stroke="#e84a27" points="12,-146.5 12,-182.5 73,-182.5 73,-146.5 12,-146.5"/>
+<text text-anchor="middle" x="42.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">items</text>
+</g>
+<!-- items&#45;&gt;Item8 -->
+<g id="edge1_mJBjLWwVIaNbuUYn" class="edge">
+<title>items-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="GtlmuxhzhfUyTAHMaqczUJfMltCOYeMn">
+<div class="header" data-title="Linked Lists"><h2>Linked Lists</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+Item items = new Item(0, null);
+items = new Item(8, items);
+items = new Item(5, items);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small TB mx-auto"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="264pt" viewBox="0.00 0.00 93.00 264.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="zeizasnunYsaCVDc">
+<g id="graph0_zeizasnunYsaCVDc" class="graph" transform="scale(1 1) rotate(0) translate(4 260)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-260 89,-260 89,4 -4,4"/>
+<!-- Item -->
+<g id="node1_zeizasnunYsaCVDc" class="node">
+<title>Item</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 85,-36.5 85,-.5 0,-.5"/>
+<text text-anchor="middle" x="27" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-.5 54,-36.5 "/>
+<text text-anchor="middle" x="69.5" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- Item8 -->
+<g id="node2_zeizasnunYsaCVDc" class="node">
+<title>Item8</title>
+<polygon fill="none" stroke="#e84a27" points="0,-73.5 0,-109.5 85,-109.5 85,-73.5 0,-73.5"/>
+<text text-anchor="middle" x="27" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-73.5 54,-109.5 "/>
+<text text-anchor="middle" x="69.5" y="-87.7" font-family="Open Sans" font-size="16.00" fill="#000000">8</text>
+</g>
+<!-- Item8&#45;&gt;Item -->
+<g id="edge3_zeizasnunYsaCVDc" class="edge">
+<title>Item8-&gt;Item</title>
+<path fill="none" stroke="#13294b" d="M42.5,-73.4551C42.5,-65.3828 42.5,-55.6764 42.5,-46.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-46.5903 42.5,-36.5904 39.0001,-46.5904 46.0001,-46.5903"/>
+</g>
+<!-- Item5 -->
+<g id="node3_zeizasnunYsaCVDc" class="node">
+<title>Item5</title>
+<polygon fill="none" stroke="#e84a27" points="0,-146.5 0,-182.5 85,-182.5 85,-146.5 0,-146.5"/>
+<text text-anchor="middle" x="27" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">Item</text>
+<polyline fill="none" stroke="#e84a27" points="54,-146.5 54,-182.5 "/>
+<text text-anchor="middle" x="69.5" y="-160.7" font-family="Open Sans" font-size="16.00" fill="#000000">5</text>
+</g>
+<!-- Item5&#45;&gt;Item8 -->
+<g id="edge2_zeizasnunYsaCVDc" class="edge">
+<title>Item5-&gt;Item8</title>
+<path fill="none" stroke="#13294b" d="M42.5,-146.4551C42.5,-138.3828 42.5,-128.6764 42.5,-119.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-119.5903 42.5,-109.5904 39.0001,-119.5904 46.0001,-119.5903"/>
+</g>
+<!-- items -->
+<g id="node4_zeizasnunYsaCVDc" class="node">
+<title>items</title>
+<polygon fill="none" stroke="#e84a27" points="12,-219.5 12,-255.5 73,-255.5 73,-219.5 12,-219.5"/>
+<text text-anchor="middle" x="42.5" y="-233.7" font-family="Open Sans" font-size="16.00" fill="#000000">items</text>
+</g>
+<!-- items&#45;&gt;Item5 -->
+<g id="edge1_zeizasnunYsaCVDc" class="edge">
+<title>items-&gt;Item5</title>
+<path fill="none" stroke="#13294b" d="M42.5,-219.4551C42.5,-211.3828 42.5,-201.6764 42.5,-192.6817"/>
+<polygon fill="#13294b" stroke="#13294b" points="46.0001,-192.5903 42.5,-182.5904 39.0001,-192.5904 46.0001,-192.5903"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TqpqrwnmogqCyDjXoapZgGkybZhBPNVy">
+<div class="header" data-title="Linked Lists: Iteration"><h2>Linked Lists: Iteration</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class LinkedList {
+  private Item start;
+}
+public class Item {
+  public int value;
+  public Item next;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>We can iterate through our <code>LinkedList</code> using a <code>for</code> loop.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="nlYljBaffrrPZfYjSwRRokqjNFrUqSkm">
+<div data-title=" LinkedList for"></div>
+<textarea class="janini spelling_exception">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i &gt;= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = &quot;&quot;;
+    Item current = start;
+    while (current != null) {
+      string += current.value + &quot; &quot;;
+      current = current.next;
+    }
+    return string.trim();
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    // Write a for loop using myList
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JtyGwCLnUwqkqAhWVlTcYzOsTAUtRBQG">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/4/">MP4</a> is due Friday.</p>
+</li>
+<li>
+<p>We&#x2019;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>Continue to communicate with the course staff about the strike as needed.
+We&#x2019;re trying to keep everything up and running.</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

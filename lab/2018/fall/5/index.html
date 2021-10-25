@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Objects II</title>
+		<meta name="description" lang="en-us" content="Objects are an important programming concept in Java as well as other programming languages. Today, we continue a multi-week introduction to objects by discussing visibility modifiers, constructors, and overloading.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/MP" href="/MP/5/">MPs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/lab" href="/lab/14/">Labs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav small">
+            <li class="entry">
+              <strong>Fall 2018</strong>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/14/">14: Final Project Demos</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/13/">13: Final Project Checkpoint</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/12/">12: Web APIs</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/11/">11: Final Project UI</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/10/">10: Searching and Sorting</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/9/">9: Recursion</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/8/">8: Morse Decoding</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/7/">7: Android Setup</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/6/">6: Objects III</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/5/" class="active" onclick="return false;">5: Objects II<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/4/">4: Objects I</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/3/">3: Trace Points</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/2/">2: Amaze State</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/1/">1: Algorithms and MP0</a>
+            </li>
+            <li>
+              <a href="/lab/2018/fall/0/">0: Ready to Start</a>
+            </li>
+            <li>
+              <strong><a href="/lab/">Return to Current Labs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Written Exercises (45 Minutes)</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#coding">2. Object Practice (50 Minutes)</a>
+            <ul>
+              <li><a class="nav-link" href="#cloning">2.1. Forking and Cloning the Lab5 IntelliJ Project</a></li>
+              <li><a class="nav-link" href="#objects">2.2. Your Goal</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#mp3">3. Help with MP3 (15 Minutes)</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+
+      <a class="anchor" id="top"></a>
+        <h1>Objects II</h1>
+      <div class="paragraph lead">
+<p>Today we continue introducing you to <em>objects</em>.
+Objects are an important concept in many programming languages, and particularly
+in Java.
+Today&#x2019;s focus is on several components of object-oriented programming:
+visibility modifiers, encapsulation, constructors, and overloading.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="exercises"></a><h2>1. Written Exercises <span class="text-muted">(45 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>As usual, we begin with a written lab component.
+Please complete these exercises carefully.
+Your course staff will review and discuss your answers along with the rest of
+your section.</p>
+</div>
+<div class="paragraph">
+<p>Complete this part of the lab in pairs using Google Docs.
+Create a copy of
+<a href="https://goo.gl/Wsqxux" target="_blank" class="external">our document template</a>
+and then edit it to record you and your partner&#x2019;s answers.
+<strong>Note that you must open this document using your @illinois.edu Google Apps
+account.</strong>
+We will not grant access to non-Illinois users.</p>
+</div>
+<div class="paragraph">
+<p>Have a course staff member check your answers as you go.
+When you are done, move on to the next section.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="coding"></a><h2>2. Object Practice <span class="text-muted">(50 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In the second half of the lab we&#x2019;ll provide you with some practice with the
+concepts discussed in the first half.</p>
+</div>
+<div class="paragraph">
+<p>To try and make it interesting, we continue the bank account example used in the
+previous week&#x2019;s written exercises.
+Everyone likes money, right?</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="cloning"></a><h3>2.1. Forking and Cloning the Lab5 IntelliJ Project</h3>
+<div class="paragraph">
+<p>We&#x2019;ve set up an
+<a href="https://github.com/cs125-illinois/Fall-2018-Lab5" target="_blank" class="external">Lab 5 GitHub repository</a>
+containing an IntelliJ Project that&#x2019;s correctly configured for Lab 5.
+Getting access to it is similar to how you
+<a href="/MP/2018/fall/setup/git/#importing">imported MP0</a>.
+But you have to fork our repository first.
+If it&#x2019;s not obvious how to do that, try following
+<a href="https://help.github.com/articles/fork-a-repo/" target="_blank" class="external">these instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="objects"></a><h3>2.2. Your Goal</h3>
+<div class="paragraph lead">
+<p>Your job is to complete the provided classes so that they work properly and
+employ object-oriented principles correctly.
+You&#x2019;ll need to use your newly-acquired knowledge about objects and object
+syntax.
+The course staff will circulate to help out and provide useful advice.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="mp3"></a><h2>3. Help with MP3 <span class="text-muted">(15 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use any remaining time in your lab section to get help with <a href="/MP/2018/fall/3/">MP3</a>.</p>
+</div>
+</div>
+</div>
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/lab/2018/fall/5.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/lab/2018/fall/5.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

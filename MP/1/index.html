@@ -1,0 +1,714 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP1: Area Mode</title>
+		<meta name="description" lang="en-us" content="The MP1 checkpoint introduces you to objects by having you build the other gameplay mode of the game app you&apos;ll continue to work on.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li>
+              <a href="/MP/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/1/" class="active" onclick="return false;">MP1<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/setup/git/">Git</a>
+                </li>
+                <!--
+                <li>
+                  <a data-active="^MP/setup/EWS" href="/MP/setup/EWS/">EWS</a>
+                </li>
+          	  -->
+              </ul>
+            </li>
+            <li>
+              <span class="option">Archive</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/fall/0/">Fall 2019</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/0/">Spring 2019</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/fall/0/">Fall 2018</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/spring/0/">Spring 2018</a>
+                </li>
+                <li>
+                  <a href="/MP/2017/fall/1/">Fall 2017</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. MP1 Deadline</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#learning">2. Getting Started with MP1</a>
+            <ul>
+              <li><a class="nav-link" href="#_obtaining_mp1">2.1. Obtaining MP1</a></li>
+              <li><a class="nav-link" href="#_late_mp0_submissions">2.2. Late MP0 Submissions</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_multiple_activities_in_android">3. Multiple Activities in Android</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_your_goal">4. Your Goal</a>
+            <ul>
+              <li><a class="nav-link" href="#_areadivider_class">4.1. AreaDivider Class</a></li>
+              <li><a class="nav-link" href="#_area_mode_gameplay">4.2. Area Mode Gameplay</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_grading">5. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#_test_cases">5.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#_submitting_your_work">5.2. Submitting Your Work</a></li>
+              <li><a class="nav-link" href="#_style_points">5.3. Style Points</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cliffhanger">6. Cliffhanger</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cheating">7. Cheating</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+
+      <a class="anchor" id="top"></a>
+        <h1>MP1: Area Mode</h1>
+      <div class="paragraph lead">
+<p>In the first Machine Project checkpoint, <a href="/MP/0/">MP0</a>, you started making a
+cool Android app
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Well, at least &lt;em&gt;we&lt;/em&gt; think it&amp;#x2019;s cool&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">1</span>.
+This checkpoint and all subsequent ones build on that codebase, adding new
+features and improving the structure of the code.</p>
+</div>
+<div class="paragraph">
+<p>In this second checkpoint (MP1), you will use your new <em>object-oriented
+programming</em> skills to package up some game logic into a <em>class</em> that will help
+you implement a new mode of the game.</p>
+</div>
+<div class="paragraph">
+<p>In <em>area mode</em>, the objectives that can be captured are rectangular cells on an
+evenly spaced grid rather than specific targets.
+Entering a cell captures it&#x2014;if possible.
+If at least one capture has already been made, subsequent cells can only be
+captured if they share a side with the most recently captured cell.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="_mp1_deadline"></a><h2>1. MP1 Deadline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Again, <strong>deadlines for each checkpoint vary by your deadline group</strong>.
+MP1 is due at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>11:59 PM on Sunday 03/01/2020 for the Blue Group</strong>: all labs starting at 3 PM or
+earlier</p>
+</li>
+<li>
+<p><strong>11:59 PM on Monday 03/02/2020 for the Orange Group</strong>: all labs starting at 4 PM
+or later</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Since MP1 is another multi-week checkpoint, 10% of your grade on it is for
+submitting code that earns at least <em>40 points</em> by 11:59PM on <strong>Sunday
+02/23/2020 (Blue)</strong> or <strong>Monday 02/24/2020 (Orange)</strong>.
+Late submissions will be subject to the
+<a href="/info/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="learning"></a><h2>2. Getting Started with MP1</h2>
+<div class="sectionbody">
+<div class="sect2">
+<a class="anchor" id="_obtaining_mp1"></a><h3>2.1. Obtaining MP1</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/rDnpYJ15TBY%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph lead">
+<p>You&#x2019;ll be working on the same repository for the entirety of the Machine
+Project, so you already have your GitHub repository ready to go; all that&#x2019;s missing is
+some provided UI and the test suite for Checkpoint 1.</p>
+</div>
+<div class="paragraph">
+<p>To do this we are going to provide you with a <em>remote</em>:
+an alternate version of the Git repository from which changes can be merged.
+The one we will provide contains multiple changes to your current project.
+The release for MP1 adds two important files: the test suite itself and an Android Studio
+run configuration that will allow you to run the test suites easily.
+It also modifies <code>MainActivity</code> a bit so the user can choose what mode of game they want to
+play in your app.</p>
+</div>
+<div class="paragraph">
+<p>To update your project with the remote and get started on MP1, follow these instructions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>First, commit your work!</strong>
+This makes sure that you can easily undo any problems that the merge may cause.
+It should complete cleanly, but you never know.</p>
+</li>
+<li>
+<p><strong>Next, go to <em>VCS | Git | Remotes</em>.</strong>
+A dialog should appear listing the existing remote (your personal repository).</p>
+</li>
+<li>
+<p><strong>Press the small plus button.</strong>
+This brings up the Define Remote dialog. Enter <code>release</code> for the name and this for the URL:
+<a href="https://github.com/cs125-illinois/Spring2020-MP-Release.git" class="noclick link_exception spelling_exception" target="_blank">https://github.com/cs125-illinois/Spring2020-MP-Release.git</a></p>
+</li>
+<li>
+<p><strong>Press OK on both dialogs.</strong>
+You&#x2019;ve added the remote.</p>
+</li>
+<li>
+<p><strong>Get the remote code.</strong>
+Select <em>VCS | Git | Fetch</em> from the menu to download the remote commit.
+However, it still needs to be merged with your work.</p>
+</li>
+<li>
+<p><strong>Merge the changes!</strong>
+Now we need to merge the changes from your computer with our remote repository,
+so go back to the menu and choose <em>VCS | Git | Merge Changes</em>.
+Check the <code>remotes/release/mp1</code> branch you just fetched and press Merge!
+The Version Control pane will appear to inform you of 4 items updated from the server.</p>
+</li>
+<li>
+<p><strong>If the branches don&#x2019;t merge properly, please get help right away!</strong>
+Post on the forum, come down to office hours, or get help in lab next week.
+MP1 is a challenge and we want you to get started right away.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>You also need to configure the autograder</strong> so that it knows that you&#x2019;re working
+on MP1.
+Open the <code>grade.yaml</code> file in the root of the project, change the <code>checkpoint</code>
+setting from <code>0</code> to <code>1</code>, and do <em>File | Sync Project with Gradle Files</em>.
+Running the Grade task should then produce a grade report for Checkpoint 1
+rather than Checkpoint 0.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_late_mp0_submissions"></a><h3>2.2. Late MP0 Submissions</h3>
+<div class="paragraph">
+<p>If you didn&#x2019;t finish the <code>TargetVisitChecker</code> functions in MP0, you can still do
+MP1.
+Changing the <code>useProvided</code> setting in <code>grade.yaml</code> from <code>false</code> to <code>true</code> (after
+updating <code>checkpoint</code> to <code>1</code>) and doing a Gradle sync will make the app and
+grader use our correct <code>TargetVisitChecker</code> implementation.
+That is, calling <code>TargetVisitChecker</code> functions from <code>GameActivity</code> will produce
+the result from our solution, not your code.
+If you&#x2019;re happy with your <code>TargetVisitChecker</code> implementation, leave
+<code>useProvided</code> set to <code>false</code> to continue using your MP0 code.</p>
+</div>
+<div class="paragraph">
+<p>5% of the MP1 grade requires a working target mode game, so even if you use our
+provided <code>TargetVisitChecker</code> functions, you will still need to implement the
+<code>GameActivity</code> logic of MP0 yourself.
+If you have not done this, please do so now.
+Come to office hours if you need help.</p>
+</div>
+<div class="paragraph">
+<p>If you want to go back later and work on a late MP0 submission for half credit,
+change the <code>checkpoint</code> setting in <code>grade.yaml</code> back to <code>0</code>.
+That tells our grader to do an MP0 grading run.
+It&#x2019;s OK if you&#x2019;ve started working on MP1 or even a later checkpoint when you
+regrade MP0.
+The test suites are forward-compatible.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_multiple_activities_in_android"></a><h2>3. Multiple Activities in Android</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Most apps have multiple different screens that are shown at different times.
+To switch to a different activity, code has to launch the new activity using an <code>Intent</code>.
+An intent specifies what is to be done and provides any extra information needed to do
+that&#x2014;kind of like calling a function.</p>
+</div>
+<div class="paragraph">
+<p>To create an intent to launch an activity, you need to specify the current context
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;usually &lt;code&gt;this&lt;/code&gt; but possibly &lt;code&gt;CurrentActivity.this&lt;/code&gt; if you&amp;#x2019;re inside a non-concise handler&lt;/body&gt;&lt;/html&gt;">2</span>
+and the new activity:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">Intent intent = new Intent(this, OtherActivity.class);
+// Don&apos;t worry about what the .class part means</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have an intent, you can pass it to the <code>startActivity</code> function to act on it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">startActivity(intent);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, when a new activity is launched, the user can return to the old one
+by using the back button on the device.
+To make the old activity completely finish and no longer be available, you can
+call <code>finish()</code> after the <code>startActivity</code> call.</p>
+</div>
+<div class="paragraph">
+<p>Additional data that needs to be passed to the new activity can be placed in <em>extras</em>.
+Intent extras are identified by a string name and can have various kinds of values.
+Each intent can have many extras.
+To add an extra, use a <code>putExtra</code> instance method of the intent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">intent.putExtra(&quot;name&quot;, &quot;Jane Smith&quot;);
+intent.putExtra(&quot;gpa&quot;, 4.0);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To access this data from the new activity, use the <code>getIntent</code> function to get
+the <code>Intent</code> that was used to launch the activity.
+To extract extras from the intent, call the <code>get&lt;Type&gt;Extra</code> functions, like
+<code>getStringExtra</code> or <code>getDoubleExtra</code>.
+The functions to get extras of primitive types require you to specify a default
+value that will be returned in case that extra wasn&#x2019;t present.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">Intent intent = getIntent();
+String name = intent.getStringExtra(&quot;name&quot;);
+double gpa = intent.getDoubleExtra(&quot;gpa&quot;, 0.0); // 0.0 is the default</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#x2019;d like more information, feel free to refer to Android&#x2019;s
+<a href="https://developer.android.com/guide/components/intents-filters" target="_blank" class="external">official <code>Intent</code> documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_your_goal"></a><h2>4. Your Goal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you&#x2019;re done with MP1, your Campus Snake 125 app will support target mode and the new area mode.
+In area mode, the map will show a grid of cells and highlight captured cells with green rectangles.
+There will be a user interface to select the game mode and set game configuration
+(proximity threshold for target mode, area and cell size for area mode).</p>
+</div>
+<div class="paragraph">
+<p>MP1 is a step up from MP0, and may seem overwhelming at first.
+This is normal!
+As we always recommend: <strong>start early</strong>, take it one step at a time, get help
+when you need it, and you&#x2019;ll be able to build amazing things.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_areadivider_class"></a><h3>4.1. <code>AreaDivider</code> Class</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/sooQXrIEuZQ%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>You may notice after acquiring the Checkpoint 1 test suite that the project can
+no longer compile.
+This is because the test code refers to an <code>AreaDivider</code> class that you need to
+create.
+So the first order of business is to define that class and the needed functions
+on it, and <strong>you need to make it in the <code>logic</code> directory.</strong></p>
+</div>
+<div class="paragraph">
+<p>To add a new class file in the Project view, right-click the package folder
+(<code>logic</code> inside <code>edu.illinois.cs.cs125.spring2020.mp</code>) that contains all the existing logic files
+you&#x2019;ve been working on and choose <em>New | Java Class</em>.
+Enter the class name, <code>AreaDivider</code> in this case, in the Name box and press OK.
+If prompted to add the file to Git, press Add.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p><strong>You must create the new file in our <code>logic</code> package</strong>,
+the one containing <code>LineCrossDetector</code> and <code>TargetVisitChecker</code>.
+If you incorrectly create it elsewhere, it will not be accessible during grading.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>To see what you need to add to this class</strong>, refer to our
+<a href="https://cs125-illinois.github.io/Spring2020-MP-Writeups/1/edu/illinois/cs/cs125/spring2020/mp/logic/AreaDivider.html" target="_blank" class="external">official Javadoc</a>.
+You may find our <a href="/MP/0/#_understanding_the_coordinate_system">coordinate system figure</a> helpful.</p>
+</div>
+<div class="paragraph">
+<p>You should finish <code>AreaDivider</code> before moving on to the rest of the MP, so please be sure to start on this section as soon as possible!</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_area_mode_gameplay"></a><h3>4.2. Area Mode Gameplay</h3>
+<div class="paragraph">
+<p>Now that we provided the user&#x2019;s game setup stored in intents
+and you have your <code>AreaDivider</code> class to help with area division and grid drawing,
+you can add logic to <code>GameActivity</code> to make area mode games work.</p>
+</div>
+<div class="paragraph">
+<p>First, <code>GameActivity</code> needs to know the game configuration.
+Add logic to <code>onCreate</code> to get the intent and record the needed information in
+instance variables of your design.
+You will probably want to wrap our provided target mode variable setup in an if
+statement, then use the other (area mode) branch to create an <code>AreaDivider</code>
+instance to manage cell boundaries and a <code>boolean[][]</code> to store whether each
+cell has been visited.</p>
+</div>
+<div class="paragraph">
+<p>Update <code>setUpMap</code> to check the game mode and render the grid if the game is area mode.
+This should be very easy because all the work is done by the <code>AreaDivider</code> object.
+If the game is target mode, markers should still be placed at target positions like in MP0.</p>
+</div>
+<div class="paragraph">
+<p>Similarly, add a branch to <code>onLocationUpdate</code> with area mode gameplay logic:
+detect cell capture and show the user&#x2019;s progress on the map.
+Initially any cell in the area can be captured.
+Subsequent captures are only possible of the cell the user is currently in is
+uncaptured and shares one side with the most recently captured cell
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;which you can keep track of with instance variables&lt;/body&gt;&lt;/html&gt;">3</span>.
+When a cell is captured, it should be filled with a green polygon
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;If you use the same color constant as in MP0, the polygons will be completely opaque. That&amp;#x2019;s perfectly fine, but if you want to make them &lt;em&gt;translucent&lt;/em&gt; green the test suite can accept that.&lt;/body&gt;&lt;/html&gt;">4</span>.
+To add a polygon to a Google Maps control, pass a
+<a href="https://developers.google.com/android/reference/com/google/android/gms/maps/model/PolygonOptions" target="_blank" class="external"><code>PolygonOptions</code></a>
+instance to the map&#x2019;s <code>addPolygon</code> method.
+As you read the <code>PolygonOptions</code> method summary, look for two methods that
+you&#x2019;ll need: one to add vertices to the polygon and one to set the polygon&#x2019;s
+fill color.</p>
+</div>
+<div class="paragraph">
+<p>To make the custom proximity threshold take effect, tweak your MP0 target mode logic in
+<code>onLocationUpdate</code> to use your proximity threshold variable instead of a constant.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_grading"></a><h2>5. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP1 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for implementing <code>isValid</code> in <code>AreaDivider</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for implementing <code>getXCells</code> and <code>getYCells</code> in <code>AreaDivider</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for implementing <code>getXIndex</code> and <code>getYIndex</code> in <code>AreaDivider</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for implementing <code>getCellBounds</code> in <code>AreaDivider</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for implementing <code>renderGrid</code> in <code>AreaDivider</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for making target mode respect the user&#x2019;s proximity threshold setting</p>
+</li>
+<li>
+<p><strong>20 points</strong> for making area mode work in <code>NewGameActivity</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for having no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least <em>40 points</em> by 8 PM on your early deadline day</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<a class="anchor" id="_test_cases"></a><h3>5.1. Test Cases</h3>
+<div class="paragraph">
+<p>Just like <a href="/MP/0/#_test_cases">on MP0</a>, we have provided a test suite that exhaustively
+tests your code.
+You should not modify the test suite, but feel free to examine it to see
+what it is doing with your code, especially when you&#x2019;re debugging test failures.
+<code>Checkpoint1Test</code> is stored in the same folder as <code>Checkpoint0Test</code>, under the <code>test</code> part
+of the <code>src</code> folder hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>To run Checkpoint 1 tests, change the run configurations dropdown to Test
+Checkpoint 1 and press the green run button.
+You can also run a specific test function using the button in the left margin
+when looking at the test suite code.
+After updating <code>grade.yaml</code>, the Grade run configuration that you used in MP0
+will grade MP1 instead.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_submitting_your_work"></a><h3>5.2. Submitting Your Work</h3>
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/setup/git/#submitting">submitting portion</a>
+of the
+<a href="/MP/setup/git/#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_style_points"></a><h3>5.3. Style Points</h3>
+<div class="paragraph lead">
+<p>Like in MP0, 10% of your MP1 score is from successful <code>checkstyle</code> validation.
+One thing checked by <code>checkstyle</code> is the presence of Javadoc documentation on each function
+and function parameter.</p>
+</div>
+<div class="paragraph">
+<p>Android Studio can help with this: once you&#x2019;ve written a function signature,
+typing <code>/**</code> (the start of a Javadoc comment) right above the function and
+pressing Enter will insert any necessary <code>@param</code> and <code>@return</code> tags for you to
+fill out.
+<code>checkstyle</code> also wants all function parameters to be declared <code>final</code> (like we
+did in MP0), which means you cannot reassign them inside the function.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cliffhanger"></a><h2>6. Cliffhanger</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After completing MP1 you may be thinking that it would be nice to bundle all the
+target mode logic together in one place and all the area mode logic together in
+another, rather than having all those if statements throughout <code>GameActivity</code>.
+Later in lecture you&#x2019;ll learn about a concept called <em>polymorphism</em> that will
+allow us to do this.</p>
+</div>
+<div class="paragraph">
+<p>Now that we can create customized games, we&#x2019;ll want some way to share or join
+games with other people and see ongoing games&apos; configuration.
+We&#x2019;ll start on that in the next checkpoint by connecting the app to a server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cheating"></a><h2>7. Cheating</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All submissions on all CS 125 assignments will be checked for plagiarism.
+You may not submit work done by anyone else, nor may you share your assignment
+code with others.
+Please review the
+<a href="/info/syllabus/#cheating">cheating policies</a>
+from the syllabus.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/1.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/1.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

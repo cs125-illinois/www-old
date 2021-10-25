@@ -1,0 +1,668 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Conditional Expressions</title>
+  <meta name="description" lang="en-us" content="Introduction to comparisons and conditional expressions, the basis for programmatic decision making.">
+
+  <meta name="slider-id" content="fe26501b-628d-4169-b3f6-e9f8ee4e1151">
+  <meta name="slider-semester" content="Fall2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="kHoCSCXzvsIAFbIrBWoBZmaPCNVOOCdM">
+
+<textarea class="janini spelling_exception">boolean todayIsMonday = true;
+boolean weAreHavingClass = true;
+if (todayIsMonday &amp;&amp; weAreHavingClass) {
+  System.out.println(&quot;Let&apos;s learn CS&quot;);
+} else if (todayIsMonday) {
+  System.out.println(&quot;We&apos;re celebrating Labor Day...&quot;);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Comparisons and conditional expressions&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Comparisons and conditional expressions<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RTEKAAWDBTRSMXEAOVWANGHYBZFYMWPW">
+<div class="header" data-title="Review: Variable Types"><h2>Review: Variable Types</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java has <em>eight</em>
+<a href="http://cs.fit.edu/~ryan/java/language/java-data.html" target="_blank" class="external">primitive data types</a>.</p>
+</div>
+<div class="paragraph">
+<p>All other data in Java is represented by <em>combinations</em> of these building blocks.
+You can break them into four categories:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Integers</strong>: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></p>
+</li>
+<li>
+<p><strong>Floating point numbers</strong>: <code>float</code>, <code>double</code></p>
+</li>
+<li>
+<p><strong>Character</strong>: <code>char</code></p>
+</li>
+<li>
+<p><strong>True or false</strong>: <code>boolean</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IffEzqifWagrJAUVhbtbZpBeXbJOthRh">
+<div class="header" data-title="Why Are There Multiple Numeric Types?"><h2>Why Are There Multiple Numeric Types?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="olist arabic lead">
+<ol class="arabic">
+<li>
+<p><strong>Integers</strong>: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></p>
+</li>
+<li>
+<p><strong>Floating point numbers</strong>: <code>float</code>, <code>double</code></p>
+</li>
+</ol>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p>Different types take up different amounts of <em>computer memory</em> and so can store
+different values.</p>
+</div>
+</div>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>Don&#x2019;t worry too much about how things are stored yet.</strong> But the limits are
+important to understand.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="pTpMZAKphudHMkrjPpLsyJkayPzKtKhG">
+<div class="header" data-title="Type Limitations"><h2>Type Limitations</h2></div>
+<textarea class="janini spelling_exception">byte smallest = 10;
+smallest += 256;
+System.out.println(smallest);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="jWVQatsSaYPEkUmTBXBmHDqOvukSqwsa">
+<div data-title="Don&#x2019;t Memorize: Look Up"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jCkFZoKCBKjtJmyLFfIlxyNqxWopKADh">
+<div class="header" data-title="Why Types"><h2>Why Types</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist lead">
+<ul>
+<li class="bullet">
+<p>Types force you to specify how much space you need to store your data. That
+can make your program more efficient</p>
+</li>
+<li class="bullet">
+<p>Types also help catch many common programming errors</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="thNGNuVJZgpjeuixrcjzWZgDtmmWCvwM">
+<div class="header" data-title="Our Types"><h2>Our Types</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In CS 125 we&#x2019;ll primarily be dealing with just a few of Java&#x2019;s primitive types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>int</code> for storing integers</p>
+</li>
+<li class="bullet">
+<p><code>double</code> for storing floating point values</p>
+</li>
+<li class="bullet">
+<p><code>boolean</code> for storing truth values</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="BOWngHncunytquMaQrLQnEBSLSwCARUu">
+<div class="header" data-title="Questions About Variables or Types?"><h2>Questions About Variables or Types?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="PVdesknoTzodrebNUEmVdNDGvCYmidfd">
+<div class="header" data-title="I Want You Here Until December"><h2>I Want You Here Until December</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All of you. <strong>Especially the beginners.</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="POtIiKbRQNuZuYwSwdCgAeuyZhpQbmsv">
+<div class="header" data-title="What Are Computers Good At?"><h2>What Are Computers Good At?</h2></div>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><span class="line-through">Basic math</span></p>
+</li>
+<li>
+<p><strong>Simple decision making</strong></p>
+</li>
+<li>
+<p>Doing things over and over again very, very fast</p>
+</li>
+<li>
+<p><span class="line-through">Storing data</span></p>
+</li>
+<li>
+<p>And communicating</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bAuWhpDPmVGgDaepoowJukwlfVQsJPdR">
+<div class="header" data-title="Comparisons"><h2>Comparisons</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java also allows me to compare variables: either against literal values, or
+against other variables.</p>
+</div>
+<div class="paragraph">
+<p>This is basis for <em>simple decision making</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="EuddnTejTlEZaIAttmJUDwqxLAWdYNQd">
+<div class="header" data-title="Simple Comparisons"><h2>Simple Comparisons</h2></div>
+<textarea class="janini spelling_exception">// Let&apos;s try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int tester = 10;
+// This is equality
+System.out.println(tester == 10);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kfjlldprRQUOtUaTuYveJPZEbFCgHlCU">
+<div class="header" data-title="A Common Mistake"><h2>A Common Mistake</h2></div>
+<div class="sectionbody">
+<div class="ulist lead">
+<ul>
+<li>
+<p><code>a = 10</code> means <strong>set a to 10</strong></p>
+</li>
+<li>
+<p><code>a == 10</code> means <strong>test if a is equal to 10</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="uOanIxfYhyBAYDDSDumbwovkhBiwNNcg">
+<div class="header" data-title="Don&#x2019;t Get Confused"><h2>Don&#x2019;t Get Confused</h2></div>
+<textarea class="janini spelling_exception">int tester = 10;
+// This is equality
+System.out.println(tester == 10);
+// This is not
+System.out.println(tester = 5);
+System.out.println(tester);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="NZRZqEBsBPejsjEIMEUExRtpUZwnPHvN">
+<div class="header" data-title="Variable Comparisons"><h2>Variable Comparisons</h2></div>
+<textarea class="janini spelling_exception">// Let&apos;s try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int first = 10;
+int second = 20;
+System.out.println(first &gt; first);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="JXtQIUEitmTgnNBVMLHYYnkyMeHylXzT">
+<div class="header" data-title="More Complex Comparisons"><h2>More Complex Comparisons</h2></div>
+<textarea class="janini spelling_exception">// Let&apos;s try out ==, !=, &lt;, &lt;=, &gt;, and &gt;=
+int first = 10;
+int second = 20;
+System.out.println(first + second == 30);
+System.out.println(first - second &lt;= 10);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="GieGtJaHsXZBBBMvZqGAdPacxybqOQxP">
+<div class="header" data-title="Questions About Simple Comparisons?"><h2>Questions About Simple Comparisons?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BueiLwuNKbnJPZVcrKBddwHYcdYQyvjx">
+<div class="header" data-title="Compound Comparisons"><h2>Compound Comparisons</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can combine multiple comparisons together using logical and (<code>&amp;&amp;</code>) and or
+(<code>||</code>) operators.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="vDROZOQyBuCsHvUlGCATsKriCrZxCmeK">
+<div data-title=" Combining Comparisons"></div>
+<textarea class="janini spelling_exception">int first = 10;
+System.out.println(first &gt; 5 &amp;&amp; first &lt; 10);
+System.out.println(first &lt; 10 &amp;&amp; first &gt; 5);
+System.out.println(first &gt; 10 || first &gt; 5);
+System.out.println(first &gt; 10 || false);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FBXXgCFgySnrwZHYfSoUHPKWaxwklwjZ">
+<div class="header" data-title="Evaluation Order and Grouping"><h2>Evaluation Order and Grouping</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>There are a few more rules that Java applies when evaluating conditionals
+expressions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Conditionals are always evaluated from left to right, and evaluation stops as
+soon as the result is known.</p>
+</li>
+<li class="bullet">
+<p>Comparisons can be grouped using parentheses (<code>(</code> and <code>)</code>)</p>
+</li>
+<li class="bullet">
+<p>But we&#x2019;ll try and keep our comparisons simple for now&#x2014;and you should
+too!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest nozoom bespoke-inactive bespoke-slide" data-slideid="OHLyesdredLunhwymnQglBoPznFWnGEv">
+<div data-title=" Grouping Comparisons"></div>
+<textarea class="janini spelling_exception">int first = 10;
+System.out.println((first &gt; 0 &amp;&amp; first &lt; 10) || (first == 10));
+System.out.println((first &gt; 0 &amp;&amp; first &lt; 10) &amp;&amp; (first == 10));
+System.out.println(first &lt; 10 &amp;&amp; (first == 0 || first == 10));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="kTKjdTjMotZBlcgraocBlOSIGadWncvF">
+<div class="header" data-title="Comparisons Enable Decisions"><h2>Comparisons Enable Decisions</h2></div>
+<textarea class="janini spelling_exception">// Comparisons enable decisions
+int first = 10;
+if (first &gt; 20) {
+  System.out.println(&quot;First is greater than 20&quot;);
+} else {
+  System.out.println(&quot;First is not greater than 20&quot;);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZVszIucHlwfpNThvCPzvAuGXDQoXGDJm">
+<div class="header" data-title="if-else"><h2><code>if-else</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if-else</code> statements are the building block for programmatic decision making:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><em>if</em> something is true, do one thing;</p>
+</li>
+<li class="bullet">
+<p><em>otherwise</em>, if something else is true, do some other thing;</p>
+</li>
+<li class="bullet">
+<p><em>otherwise</em>, if something else is true, do some other thing;</p>
+</li>
+<li class="bullet">
+<p>etc.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mKZSZKIqiozOhiBMXfrUaxnAYmcEWiNU">
+<div class="header" data-title="if-elseif-elseif-else"><h2><code>if-elseif-elseif-else</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if</code> statements can have multiple clauses:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (firstThing) {
+  // do one thing
+} else if (secondThing) {
+  // do another thing
+} else if (thirdThing) {
+  // another thing
+} else {
+  // run if firstThing, secondThing, and thirdThing are all false
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>else</code> statements are run if no if statement matches.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="CDpGeuKlxKgJwOfLsqWUIfCazJSauLSt">
+<div data-title=" Only One Statement Runs"></div>
+<textarea class="janini spelling_exception">// Only the first matching branch of if is executed
+int comparison = 10;
+if (comparison &gt; 5) {
+  System.out.println(&quot;I&apos;ll be executed&quot;);
+} else if (comparison &gt; 3) {
+  System.out.println(&quot;I won&apos;t be executed&quot;);
+} else {
+  System.out.println(&quot;I definitely won&apos;t be executed&quot;);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ulsvDseRWSMaJGiZXigRkKHBdYgQEGwm">
+<div class="header" data-title="Remember: At Most One Statement Runs"><h2>Remember: At Most One Statement Runs</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>In any if statement, at most one statement is executed.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If there is an <code>else</code> statement <em>exactly</em> one statement runs</p>
+</li>
+<li class="bullet">
+<p>If there is <em>not</em> an <code>else</code> statement <em>at most</em> one statement runs, but it&#x2019;s
+possible than no statement runs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="sCTwbrbupLHdZwRvBbUQlfGFoutbJTfB">
+<div class="header" data-title="Somewhat Useful Example"><h2>Somewhat Useful Example</h2></div>
+<textarea class="janini spelling_exception">// Create an int called numSuperBowls, and then add 1 to it
+// if patriotsWinAgain is true</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="fcnIiRcbbDBZyWPgBSCPEDBMiSUCxLEy">
+<div class="header" data-title="Nested Conditionals"><h2>Nested Conditionals</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if</code> statements can be nested inside other <code>if</code> statements</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (testMe) {
+  if (testMeAgain) {
+    // I am well tested
+  } else {
+    // I&apos;m only moderated well-tested
+  }
+} else {
+  // You need to write better tests
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="ySgvSxVBLXrmJCUTffzlhLYXqdWCKBeX">
+<div data-title="Practice With Nested Conditionals"></div>
+<textarea class="janini spelling_exception">// What should we decide today?</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PgMLuXcxwdrkzLNqnpFFWLNAsIHpiYTB">
+<div class="header" data-title="Variable Scope"><h2>Variable Scope</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>if</code> statements provide our first example of a <em>block</em> of code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (...) {
+  // I&apos;m a block of code
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Blocks are enclosed by braces and can have multiple statements</p>
+</li>
+<li class="bullet">
+<p>Variables declared <em>inside</em> a block are not visible <em>outside</em> it&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>But variables declared outside (and prior to) a block <em>are</em> visible <em>inside</em> it</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="ECKCAOoavGvvNXrOtQqqIZMxNKnbmBAj">
+<div data-title="Practice With Scope"></div>
+<textarea class="janini spelling_exception">int outside = 5;
+if (true) {
+  int inside = 10;
+  System.out.println(outside);
+}
+System.out.println(inside);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uyjfRCHsbnKWGDOzAwWeAPodEDLQbWjP">
+<div class="header" data-title="Indentation Hints"><h2>Indentation Hints</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Assuming you are indenting your code properly, a general rule of thumb about
+scope:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You <strong>can</strong> access variables &quot;to the left&quot;</p>
+</li>
+<li class="bullet">
+<p>You <strong>cannot</strong> access variables &quot;to the right&quot;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>(Where directions are defined relative to the start of the line of code you are
+writing.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="eUWkVtCUwaoLWfYANZKlTLvlRthqeEIz">
+<div data-title="Practice With Scope"></div>
+<textarea class="janini spelling_exception">int outside = 5;
+if (true) {
+  int inside = 10;
+  // outside is to my left, so OK
+  System.out.println(outside);
+}
+// inside is to my right, so bad
+System.out.println(inside);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SJSRWJEKJTEENRTVYEBXXQBLIVDQKYVB">
+<div class="header" data-title="Homework Progress"><h2>Homework Progress</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Please don&#x2019;t get behind already!</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>HW0: 862</p>
+</li>
+<li class="bullet">
+<p>HW1: 844</p>
+</li>
+<li class="bullet">
+<p>HW2: 803</p>
+</li>
+<li class="bullet">
+<p>HW3: <em>675</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BktXnudeogGZUmOmuiDvjUHIvfkvtGud">
+<div class="header" data-title="Preparing for Quizzes"><h2>Preparing for Quizzes</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Your first real CS 125 quiz starts next week in the CBTF.
+Here&#x2019;s how to prepare.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Multiple-choice questions will test content covered in class&#x2014;so
+review the slides</p>
+</li>
+<li class="bullet">
+<p>Also read the assigned chapter in
+<a href="https://www.amazon.com/Coders-Making-Tribe-Remaking-World/dp/0735220565" target="_blank" class="external">&quot;Coders&quot;</a>.</p>
+</li>
+<li class="bullet">
+<p>Programming questions will be quite similar to the homework problems&#x2014;so
+review them too</p>
+</li>
+<li class="bullet">
+<p>You have <em>unlimited</em> attempts on the programming questions but limited
+attempts on the multiple-choice questions</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bAMIDJtTOruAKgjPWiRdBcIJIwClvpMV">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist small">
+<ul>
+<li>
+<p>I have office hours <em>today</em> from 1&#x2013;3PM in Siebel 2227.
+<strong>Please come by and say hi!</strong></p>
+</li>
+<li>
+<p>Homework continues <em>today</em>, <em>over the weekend</em>, <strong>and on Monday</strong>.</p>
+</li>
+<li>
+<p><strong>No class or office hours on Monday (Labor Day)</strong> <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;But there is homework!&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</li>
+<li>
+<p>Your first real quiz will start next week in the CBTF and cover variables
+and conditionals&#x2014;material up through today.</p>
+</li>
+<li>
+<p>We have <a href="/info/resources/#hours">office hours</a>
+until 5PM today.</p>
+</li>
+<li>
+<p>Please fill out the <a href="https://forms.gle/AfQKi6QihhM3Fe1f6" target="_blank" class="external">initial student
+survey</a>.
+1% extra credit for anyone who does by <strong>Sunday 09/08/2019</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

@@ -1,0 +1,4665 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>CS 125 Classes</title>
+		<meta name="description" lang="en-us" content="Learn basic programming and computer science concepts through fun and highly-interactive classes.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link active" href="/learn/" onclick="return false;">Learn<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/MP" href="/MP/5/">MPs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li>
+              <a href="/learn/" class="active" onclick="return false;">Lectures<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="https://prairielearn.engr.illinois.edu/pl" target="_blank" class="external">Homework</a>
+            </li>
+            <!--
+            <li>
+              <a data-active="^learn/exams/" href="/learn/exams/">Exams</a>
+            </li>
+            -->
+            <li>
+              <a href="/learn/more/">More</a>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+
+      <a class="anchor" id="top"></a>
+        <h1>CS 125 Classes</h1>
+      <p class="lead">
+  Slides are available for all CS 125 classes. All slide decks contain many
+  examples that you can run and interact with.
+</p>
+
+<p>
+  Note that full captions are available for all videos from
+  <a href="#Fall_2018">Fall 2018</a> only.
+</p>
+
+<a class="anchor" id="Spring_2020"></a>
+<h1>Spring 2020</h1>
+
+<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-prqPEhUJm0ZbpkJ03ADQTGR" target="_blank" class="external">
+  YouTube Playlist
+</a>&#xA0;//<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-pquA8loodFthBKnUI0pT_WI" target="_blank" class="external">
+  Pre-Class Music
+</a>
+
+<hr>
+
+<div class="mt-2 smaller">
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_05_06_spring_2020_by_the_numbers"></a><h2 class="h3">
+        Wed 5.6.2020.
+        <span style="font-weight: normal;">
+          Spring 2020 By The Numbers
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_05_06_spring_2020_by_the_numbers">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Aa-Iq9-jH5I">YouTube</a>
+      </div>
+      <p>
+        A quantitative summary of everything you did this semester, and what to do next.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_05_01_more_generics"></a><h2 class="h3">
+        Fri 5.1.2020.
+        <span style="font-weight: normal;">
+          More Generics
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_05_01_more_generics">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/VL62G5TN8cg">YouTube</a>
+      </div>
+      <p>
+        How to program with Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_29_generics"></a><h2 class="h3">
+        Wed 4.29.2020.
+        <span style="font-weight: normal;">
+          Generics
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_29_generics">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/-qYDJzca9IA">YouTube</a>
+      </div>
+      <p>
+        Wrap up of hashing and a discussion of how to program with Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_27_hashing_and_maps"></a><h2 class="h3">
+        Mon 4.27.2020.
+        <span style="font-weight: normal;">
+          Hashing and Maps
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_27_hashing_and_maps">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/q2hRXro-fxc">YouTube</a>
+      </div>
+      <p>
+        Hash tables, maps, and some theory behind hashing.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_24_more_about_exceptions"></a><h2 class="h3">
+        Fri 4.24.2020.
+        <span style="font-weight: normal;">
+          More About Exceptions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_24_more_about_exceptions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/ENB-Zi1GXOA">YouTube</a>
+      </div>
+      <p>
+        Working with and throwing exceptions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_22_exceptions_and_errors"></a><h2 class="h3">
+        Wed 4.22.2020.
+        <span style="font-weight: normal;">
+          Exceptions and Errors
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_22_exceptions_and_errors">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/tWOyIqiPnpg">YouTube</a>
+      </div>
+      <p>
+        Discussion of Java errors and error handling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_20_web_and_web_apis"></a><h2 class="h3">
+        Mon 4.20.2020.
+        <span style="font-weight: normal;">
+          Web and Web APIs
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_20_web_and_web_apis">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/UvuJ7Yd77EE">YouTube</a>
+      </div>
+      <p>
+        Introduction to the HTTP transport protocol and web APIs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_17_internet_introduction"></a><h2 class="h3">
+        Fri 4.17.2020.
+        <span style="font-weight: normal;">
+          Internet Introduction
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_17_internet_introduction">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/ZtjSfKr8b2E">YouTube</a>
+      </div>
+      <p>
+        Introduction to the internet.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_15_quicksort"></a><h2 class="h3">
+        Wed 4.15.2020.
+        <span style="font-weight: normal;">
+          Quicksort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_15_quicksort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/JgnOzhl7tHY">YouTube</a>
+      </div>
+      <p>
+        Discussion of Quicksort and sorting comparisons.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_13_merge_sort"></a><h2 class="h3">
+        Mon 4.13.2020.
+        <span style="font-weight: normal;">
+          Merge Sort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_13_merge_sort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/-HLvCSG9BR8">YouTube</a>
+      </div>
+      <p>
+        Completion of Merge Sort.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_10_insertion_sort"></a><h2 class="h3">
+        Fri 4.10.2020.
+        <span style="font-weight: normal;">
+          Insertion Sort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_10_insertion_sort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/j8bf4Z2MkwQ">YouTube</a>
+      </div>
+      <p>
+        Discussion of insertion sort.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_08_recursion_and_sorting"></a><h2 class="h3">
+        Wed 4.8.2020.
+        <span style="font-weight: normal;">
+          Recursion and Sorting
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_08_recursion_and_sorting">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/OfqVu_eCAtY">YouTube</a>
+      </div>
+      <p>
+        Introduction to array and list recursion and sorting.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_06_more_practice_with_recursion"></a><h2 class="h3">
+        Mon 4.6.2020.
+        <span style="font-weight: normal;">
+          More Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_06_more_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/aQJPWQoKO3o">YouTube</a>
+      </div>
+      <p>
+        More practice with recursion, including on non-tree structures.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_03_practice_with_recursion"></a><h2 class="h3">
+        Fri 4.3.2020.
+        <span style="font-weight: normal;">
+          Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_03_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/LOmodT8fOEg">YouTube</a>
+      </div>
+      <p>
+        Continuation of recursive practice on binary trees.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_04_01_trees_and_recursion"></a><h2 class="h3">
+        Wed 4.1.2020.
+        <span style="font-weight: normal;">
+          Trees and Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_04_01_trees_and_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/jSTLDy1aL4w">YouTube</a>
+      </div>
+      <p>
+        Introduction to trees and recursion.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_30_linked_lists"></a><h2 class="h3">
+        Mon 3.30.2020.
+        <span style="font-weight: normal;">
+          Linked Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_30_linked_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/xm54gi4YHv4">YouTube</a>
+      </div>
+      <p>
+        Completion of a discussion of linked lists and midterm exam review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_27_lists"></a><h2 class="h3">
+        Fri 3.27.2020.
+        <span style="font-weight: normal;">
+          Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_27_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/iNVgfAm7Qrw">YouTube</a>
+      </div>
+      <p>
+        Practice with big-O notation and analysis of two different list implementations.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_25_algorithm_runtime"></a><h2 class="h3">
+        Wed 3.25.2020.
+        <span style="font-weight: normal;">
+          Algorithm Runtime
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_25_algorithm_runtime">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/sdwy7iqgXdA">YouTube</a>
+      </div>
+      <p>
+        An introduction to the analysis of algorithm runtime and big-O notation and an introduction to the list data structure.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_23_introduction_to_algorithms_(and_the_rest_of_the_semester)"></a><h2 class="h3">
+        Mon 3.23.2020.
+        <span style="font-weight: normal;">
+          Introduction to Algorithms (and the Rest of the Semester)
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_23_introduction_to_algorithms_(and_the_rest_of_the_semester)">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/fw94n3G5-rI">YouTube</a>
+      </div>
+      <p>
+        Introduction to algorithms, algorithm runtime analysis, and how CS 125 will work for the rest of the semester.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_13_more_about_interfaces"></a><h2 class="h3">
+        Fri 3.13.2020.
+        <span style="font-weight: normal;">
+          More About Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_13_more_about_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/pz3s2gIMtbg">YouTube</a>
+      </div>
+      <p>
+        A continuation of a discussion of interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_11_interfaces"></a><h2 class="h3">
+        Wed 3.11.2020.
+        <span style="font-weight: normal;">
+          Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_11_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/_axXcz15zTg">YouTube</a>
+      </div>
+      <p>
+        Continuation of an introduction to Java interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_09_review_of_references"></a><h2 class="h3">
+        Mon 3.9.2020.
+        <span style="font-weight: normal;">
+          Review of References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_09_review_of_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Xjh50gTqBro">YouTube</a>
+      </div>
+      <p>
+        A review of object references and an introduction to interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_06_polymorphism_and_references"></a><h2 class="h3">
+        Fri 3.6.2020.
+        <span style="font-weight: normal;">
+          Polymorphism and References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_06_polymorphism_and_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/BIbfsO-r7i4">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of polymorphism in light of what we now know about object references.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_04_object_references"></a><h2 class="h3">
+        Wed 3.4.2020.
+        <span style="font-weight: normal;">
+          Object References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_04_object_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/I0rs5T840jA">YouTube</a>
+      </div>
+      <p>
+        An introduction to object references and their implications for Java programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_03_02_object_review"></a><h2 class="h3">
+        Mon 3.2.2020.
+        <span style="font-weight: normal;">
+          Object Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_03_02_object_review">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/i8jiLJ6CwXs">YouTube</a>
+      </div>
+      <p>
+        A chance to slow down and review Java objects, including instances, constructors, class design, inheritance, and polymorphism.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_26_polymorphism"></a><h2 class="h3">
+        Wed 2.26.2020.
+        <span style="font-weight: normal;">
+          Polymorphism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_26_polymorphism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/sn17sI6C4y0">YouTube</a>
+      </div>
+      <p>
+        A introduction to Java polymorphism, a discussion of Java object casting, and more practice with inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_24_inheritance"></a><h2 class="h3">
+        Mon 2.24.2020.
+        <span style="font-weight: normal;">
+          Inheritance
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_24_inheritance">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/uAcrq7BKm4Q">YouTube</a>
+      </div>
+      <p>
+        A review of static, the final keyword, and an introduction to inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_21_getters_and_setters"></a><h2 class="h3">
+        Fri 2.21.2020.
+        <span style="font-weight: normal;">
+          Getters and Setters
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_21_getters_and_setters">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Ot75ILJDY3o">YouTube</a>
+      </div>
+      <p>
+        More about Java objects, including static methods and variables and object modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_19_constructors_and_visibility"></a><h2 class="h3">
+        Wed 2.19.2020.
+        <span style="font-weight: normal;">
+          Constructors and Visibility
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_19_constructors_and_visibility">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/8TUpap2mLwE">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of Java objects, introducing constructors and visibility.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_17_introduction_to_objects"></a><h2 class="h3">
+        Mon 2.17.2020.
+        <span style="font-weight: normal;">
+          Introduction to Objects
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_17_introduction_to_objects">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/6Mmv7QBzVok">YouTube</a>
+      </div>
+      <p>
+        An introduction to Java objects, including terminology, instance variables, and data modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_14_midterm_0_review"></a><h2 class="h3">
+        Fri 2.14.2020.
+        <span style="font-weight: normal;">
+          Midterm 0 Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_14_midterm_0_review">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/KK2jZw4uu8k">YouTube</a>
+      </div>
+      <p>
+        AMA review session for the first midterm review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_12_compilation"></a><h2 class="h3">
+        Wed 2.12.2020.
+        <span style="font-weight: normal;">
+          Compilation
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_12_compilation">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/z3mKGedaEQk">YouTube</a>
+      </div>
+      <p>
+        A last review of imperative programming including a few more constructs and a behind-the-scenes look at what happens when your code is compiled and executed.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_10_more_dimensions"></a><h2 class="h3">
+        Mon 2.10.2020.
+        <span style="font-weight: normal;">
+          More Dimensions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_10_more_dimensions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/jff6P3iFdHY">YouTube</a>
+      </div>
+      <p>
+        Two-dimensional arrays, more imperative programming constructs, and more practice with algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_07_practice_with_functions_and_strings"></a><h2 class="h3">
+        Fri 2.7.2020.
+        <span style="font-weight: normal;">
+          Practice with Functions and Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_07_practice_with_functions_and_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/woh4V1-M2Es">YouTube</a>
+      </div>
+      <p>
+        A discussion of method overloading and type casting, followed by more practice with Java functions and Strings.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_05_strings"></a><h2 class="h3">
+        Wed 2.5.2020.
+        <span style="font-weight: normal;">
+          Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_05_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/0dEr9qJhtfM">YouTube</a>
+      </div>
+      <p>
+        An introduction to Java strings and object usage, and continued practice with functions and basic imperative programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_02_03_functions"></a><h2 class="h3">
+        Mon 2.3.2020.
+        <span style="font-weight: normal;">
+          Functions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_02_03_functions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/AlSli5L9cBg">YouTube</a>
+      </div>
+      <p>
+        Introduction to functions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_01_31_arrays_and_algorithms"></a><h2 class="h3">
+        Fri 1.31.2020.
+        <span style="font-weight: normal;">
+          Arrays and Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_01_31_arrays_and_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/yuusSpTfUuY">YouTube</a>
+      </div>
+      <p>
+        Continuation of arrays and introduction and practice with simple algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_01_29_arrays_and_loops"></a><h2 class="h3">
+        Wed 1.29.2020.
+        <span style="font-weight: normal;">
+          Arrays and Loops
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_01_29_arrays_and_loops">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Sd0zU0q5_o8">YouTube</a>
+      </div>
+      <p>
+        An introduction to arrays of data and the loops that we use to process them.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_01_27_conditional_expressions"></a><h2 class="h3">
+        Mon 1.27.2020.
+        <span style="font-weight: normal;">
+          Conditional Expressions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_01_27_conditional_expressions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/nK7AZkVzYf0">YouTube</a>
+      </div>
+      <p>
+        Introduction to comparisons and conditional expressions, the basis for programmatic decision making.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_01_24_types_and_variables"></a><h2 class="h3">
+        Fri 1.24.2020.
+        <span style="font-weight: normal;">
+          Types and Variables
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_01_24_types_and_variables">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/bZFwB-vl7X0">YouTube</a>
+      </div>
+      <p>
+        Introduction to Java primitive types, variable initialization and declaration, and modifying variable values through a variety of expressions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2020_01_22_welcome_to_cs_125"></a><h2 class="h3">
+        Wed 1.22.2020.
+        <span style="font-weight: normal;">
+          Welcome to CS 125
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2020_01_22_welcome_to_cs_125">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/-HDThjCQRgg">YouTube</a>
+      </div>
+      <p>
+        Introduction to an introduction to computer science, the course staff, and course policies.
+      </p>
+    </div>
+  </div>
+</div>
+
+<a class="anchor" id="Fall_2019"></a>
+<h1>Fall 2019</h1>
+
+<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-pp2TuLhN2cZaPubBqYpsJX6" target="_blank" class="external">
+  YouTube Playlist
+</a>&#xA0;//<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-pratVxm_3_v3zrY0JzHkPWX" target="_blank" class="external">
+  Pre-Class Music
+</a>
+
+<hr>
+
+<div class="mt-2 smaller">
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_12_11_fall_2019_by_the_numbers"></a><h2 class="h3">
+        Wed 12.11.2019.
+        <span style="font-weight: normal;">
+          Fall 2019 By The Numbers
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_12_11_fall_2019_by_the_numbers">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/cPoXVTtHaUA">YouTube</a>
+      </div>
+      <p>
+        A quantitative summary of everything you did this semester, what to do next, and completion of the course evaluation forms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_12_09_mtdash"></a><h2 class="h3">
+        Mon 12.9.2019.
+        <span style="font-weight: normal;">
+          MTDash
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_12_09_mtdash">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/QS8EOZ83J5I">YouTube</a>
+      </div>
+      <p>
+        Ben visits us to discuss MTDash.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_12_06_more_generics"></a><h2 class="h3">
+        Fri 12.6.2019.
+        <span style="font-weight: normal;">
+          More Generics
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_12_06_more_generics">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/NmC_QPL1QNI">YouTube</a>
+      </div>
+      <p>
+        How to program with Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_12_04_generics"></a><h2 class="h3">
+        Wed 12.4.2019.
+        <span style="font-weight: normal;">
+          Generics
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_12_04_generics">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/z36J6RktX0Y">YouTube</a>
+      </div>
+      <p>
+        Wrap up of hashing and a discussion of how to program with Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_12_02_hashing_and_maps"></a><h2 class="h3">
+        Mon 12.2.2019.
+        <span style="font-weight: normal;">
+          Hashing and Maps
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_12_02_hashing_and_maps">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/bs8zI3EM-BM">YouTube</a>
+      </div>
+      <p>
+        Hash tables, maps, and some theory behind hashing.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_22_more_about_exceptions"></a><h2 class="h3">
+        Fri 11.22.2019.
+        <span style="font-weight: normal;">
+          More About Exceptions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_22_more_about_exceptions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/mLQlyYSvCEw">YouTube</a>
+      </div>
+      <p>
+        Working with and throwing exceptions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_20_exceptions_and_errors"></a><h2 class="h3">
+        Wed 11.20.2019.
+        <span style="font-weight: normal;">
+          Exceptions and Errors
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_20_exceptions_and_errors">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/CuTQvABxna4">YouTube</a>
+      </div>
+      <p>
+        Discussion of Java errors and error handling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_18_web_and_web_apis"></a><h2 class="h3">
+        Mon 11.18.2019.
+        <span style="font-weight: normal;">
+          Web and Web APIs
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_18_web_and_web_apis">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/P7t8doV1BcU">YouTube</a>
+      </div>
+      <p>
+        Introduction to the HTTP transport protocol and web APIs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_15_internet_introduction"></a><h2 class="h3">
+        Fri 11.15.2019.
+        <span style="font-weight: normal;">
+          Internet Introduction
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_15_internet_introduction">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/0O2g1QfLwiM">YouTube</a>
+      </div>
+      <p>
+        Introduction to the internet.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_13_quicksort"></a><h2 class="h3">
+        Wed 11.13.2019.
+        <span style="font-weight: normal;">
+          Quicksort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_13_quicksort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/1b21BlbYKH4">YouTube</a>
+      </div>
+      <p>
+        Discussion of Quicksort and sorting comparisons.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_11_merge_sort"></a><h2 class="h3">
+        Mon 11.11.2019.
+        <span style="font-weight: normal;">
+          Merge Sort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_11_merge_sort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/pcwDFjHuSZA">YouTube</a>
+      </div>
+      <p>
+        Completion of Merge Sort.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_06_recursion_and_sorting"></a><h2 class="h3">
+        Wed 11.6.2019.
+        <span style="font-weight: normal;">
+          Recursion and Sorting
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_06_recursion_and_sorting">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/GCYWVFNBXPg">YouTube</a>
+      </div>
+      <p>
+        Introduction to array and list recursion and sorting.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_04_more_practice_with_recursion"></a><h2 class="h3">
+        Mon 11.4.2019.
+        <span style="font-weight: normal;">
+          More Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_04_more_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/PSZIN-tIYM4">YouTube</a>
+      </div>
+      <p>
+        More practice with recursion, including on non-tree structures.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_11_01_practice_with_recursion"></a><h2 class="h3">
+        Fri 11.1.2019.
+        <span style="font-weight: normal;">
+          Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_11_01_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/uyQpCy5nmOo">YouTube</a>
+      </div>
+      <p>
+        Continuation of recursive practice on binary trees.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_30_trees_and_recursion"></a><h2 class="h3">
+        Wed 10.30.2019.
+        <span style="font-weight: normal;">
+          Trees and Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_30_trees_and_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Vm25NABHyN8">YouTube</a>
+      </div>
+      <p>
+        Introduction to trees and recursion.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_28_linked_lists"></a><h2 class="h3">
+        Mon 10.28.2019.
+        <span style="font-weight: normal;">
+          Linked Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_28_linked_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/7v6QfGHp6x4">YouTube</a>
+      </div>
+      <p>
+        Completion of a discussion of linked lists and midterm exam review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_25_lists"></a><h2 class="h3">
+        Fri 10.25.2019.
+        <span style="font-weight: normal;">
+          Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_25_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/8jt0dkakXBc">YouTube</a>
+      </div>
+      <p>
+        Practice with big-O notation and analysis of two different list implementations.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_23_algorithm_runtime"></a><h2 class="h3">
+        Wed 10.23.2019.
+        <span style="font-weight: normal;">
+          Algorithm Runtime
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_23_algorithm_runtime">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/i51zoggp_eI">YouTube</a>
+      </div>
+      <p>
+        An introduction to the analysis of algorithm runtime and big-O notation and an introduction to the list data structure.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_21_introduction_to_algorithms"></a><h2 class="h3">
+        Mon 10.21.2019.
+        <span style="font-weight: normal;">
+          Introduction to Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_21_introduction_to_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/h0718RvQnDk">YouTube</a>
+      </div>
+      <p>
+        Introduction to algorithms and algorithm runtime analysis.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_18_more_about_interfaces"></a><h2 class="h3">
+        Fri 10.18.2019.
+        <span style="font-weight: normal;">
+          More About Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_18_more_about_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/z4hc14OtlM4">YouTube</a>
+      </div>
+      <p>
+        A continuation of a discussion of interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_16_interfaces"></a><h2 class="h3">
+        Wed 10.16.2019.
+        <span style="font-weight: normal;">
+          Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_16_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/pfJV0zLvnXo">YouTube</a>
+      </div>
+      <p>
+        Continuation of an introduction to Java interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_14_review_of_references"></a><h2 class="h3">
+        Mon 10.14.2019.
+        <span style="font-weight: normal;">
+          Review of References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_14_review_of_references">Slides</a>
+      </div>
+      <p>
+        A review of object references and an introduction to interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_11_polymorphism_and_references"></a><h2 class="h3">
+        Fri 10.11.2019.
+        <span style="font-weight: normal;">
+          Polymorphism and References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_11_polymorphism_and_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/RG-yau1v1N0">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of polymorphism in light of what we now know about object references.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_09_object_references"></a><h2 class="h3">
+        Wed 10.9.2019.
+        <span style="font-weight: normal;">
+          Object References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_09_object_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/eH7Ndf6-yo4">YouTube</a>
+      </div>
+      <p>
+        An introduction to object references and their implications for Java programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_07_object_review"></a><h2 class="h3">
+        Mon 10.7.2019.
+        <span style="font-weight: normal;">
+          Object Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_07_object_review">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/XgDbzmHQh_w">YouTube</a>
+      </div>
+      <p>
+        A chance to slow down and review Java objects, including instances, constructors, class design, inheritance, and polymorphism.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_10_02_polymorphism"></a><h2 class="h3">
+        Wed 10.2.2019.
+        <span style="font-weight: normal;">
+          Polymorphism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_10_02_polymorphism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/-08y8tdLkvw">YouTube</a>
+      </div>
+      <p>
+        A introduction to Java polymorphism, a discussion of Java object casting, and more practice with inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_30_inheritance"></a><h2 class="h3">
+        Mon 9.30.2019.
+        <span style="font-weight: normal;">
+          Inheritance
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_30_inheritance">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Xkdk4amQbJs">YouTube</a>
+      </div>
+      <p>
+        A review of static, the final keyword, and an introduction to inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_27_getters_and_setters"></a><h2 class="h3">
+        Fri 9.27.2019.
+        <span style="font-weight: normal;">
+          Getters and Setters
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_27_getters_and_setters">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/6mBboXcBM1w">YouTube</a>
+      </div>
+      <p>
+        More about Java objects, including static methods and variables and object modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_25_constructors_and_visibility"></a><h2 class="h3">
+        Wed 9.25.2019.
+        <span style="font-weight: normal;">
+          Constructors and Visibility
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_25_constructors_and_visibility">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/5svBDRjXSBU">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of Java objects, introducing constructors and visibility.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_23_introduction_to_objects"></a><h2 class="h3">
+        Mon 9.23.2019.
+        <span style="font-weight: normal;">
+          Introduction to Objects
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_23_introduction_to_objects">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/TIFnm2OwzEU">YouTube</a>
+      </div>
+      <p>
+        An introduction to Java objects, including terminology, instance variables, and data modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_20_midterm_0_review"></a><h2 class="h3">
+        Fri 9.20.2019.
+        <span style="font-weight: normal;">
+          Midterm 0 Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_20_midterm_0_review">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/U-43SV_hRIs">YouTube</a>
+      </div>
+      <p>
+        AMA review session for the first midterm review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_18_compilation"></a><h2 class="h3">
+        Wed 9.18.2019.
+        <span style="font-weight: normal;">
+          Compilation
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_18_compilation">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Peohjub6OJ4">YouTube</a>
+      </div>
+      <p>
+        A last review of imperative programming including a few more constructs and a behind-the-scenes look at what happens when your code is compiled and executed.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_16_more_dimensions"></a><h2 class="h3">
+        Mon 9.16.2019.
+        <span style="font-weight: normal;">
+          More Dimensions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_16_more_dimensions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/j2DqOddHQuo">YouTube</a>
+      </div>
+      <p>
+        Two-dimensional arrays, more imperative programming constructs, and more practice with algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_13_practice_with_functions_and_strings"></a><h2 class="h3">
+        Fri 9.13.2019.
+        <span style="font-weight: normal;">
+          Practice with Functions and Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_13_practice_with_functions_and_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/JU_dD9qwS1M">YouTube</a>
+      </div>
+      <p>
+        A discussion of method overloading and type casting, followed by more practice with Java functions and Strings.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_11_strings"></a><h2 class="h3">
+        Wed 9.11.2019.
+        <span style="font-weight: normal;">
+          Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_11_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/2xd526Ga--A">YouTube</a>
+      </div>
+      <p>
+        An introduction to Java strings and object usage, and continued practice with functions and basic imperative programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_09_functions"></a><h2 class="h3">
+        Mon 9.9.2019.
+        <span style="font-weight: normal;">
+          Functions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_09_functions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/_HmUt9WNs6c">YouTube</a>
+      </div>
+      <p>
+        Introduction to functions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_06_arrays_and_algorithms"></a><h2 class="h3">
+        Fri 9.6.2019.
+        <span style="font-weight: normal;">
+          Arrays and Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_06_arrays_and_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/MR3CjYC6mNM">YouTube</a>
+      </div>
+      <p>
+        Continuation of arrays and introduction and practice with simple algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_09_04_arrays_and_loops"></a><h2 class="h3">
+        Wed 9.4.2019.
+        <span style="font-weight: normal;">
+          Arrays and Loops
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_09_04_arrays_and_loops">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/r1mxrczIzF0">YouTube</a>
+      </div>
+      <p>
+        An introduction to arrays of data and the loops that we use to process them.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_08_30_conditional_expressions"></a><h2 class="h3">
+        Fri 8.30.2019.
+        <span style="font-weight: normal;">
+          Conditional Expressions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_08_30_conditional_expressions">Slides</a>
+      </div>
+      <p>
+        Introduction to comparisons and conditional expressions, the basis for programmatic decision making.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_08_28_types_and_variables"></a><h2 class="h3">
+        Wed 8.28.2019.
+        <span style="font-weight: normal;">
+          Types and Variables
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_08_28_types_and_variables">Slides</a>
+      </div>
+      <p>
+        Introduction to Java primitive types, variable initialization and declaration, and modifying variable values through a variety of expressions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_08_26_welcome_to_cs_125"></a><h2 class="h3">
+        Mon 8.26.2019.
+        <span style="font-weight: normal;">
+          Welcome to CS 125
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_08_26_welcome_to_cs_125">Slides</a>
+      </div>
+      <p>
+        Introduction to an introduction to computer science, the course staff, and course policies. Also begins a discussion of variables.
+      </p>
+    </div>
+  </div>
+</div>
+
+<a class="anchor" id="Spring_2019"></a>
+<h1>Spring 2019</h1>
+
+<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-po13lr8381OFhWqmE_xHDoO" target="_blank" class="external">
+  YouTube Playlist
+</a>&#xA0;//<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-pqdHPdZRW_1aEpKdHH4hy4O" target="_blank" class="external">
+  Pre-Class Music
+</a>
+
+<hr>
+
+<div class="mt-2 smaller">
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_05_03_cs_125_awards"></a><h2 class="h3">
+        Fri 5.3.2019.
+        <span style="font-weight: normal;">
+          CS 125 Awards
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_05_03_cs_125_awards">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/APnZUzhTUT4">YouTube</a>
+      </div>
+      <p>
+        Awards for both the best projects at the Final Project Fair and recognizing students that embody the spirit of CS 125.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_05_01_spring_2019_by_the_numbers"></a><h2 class="h3">
+        Wed 5.1.2019.
+        <span style="font-weight: normal;">
+          Spring 2019 By The Numbers
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_05_01_spring_2019_by_the_numbers">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/ocExQoCIv0I">YouTube</a>
+      </div>
+      <p>
+        A quantitative summary of everything you did this semester, what to do next, and completion of the course evaluation forms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_29_functional_java"></a><h2 class="h3">
+        Mon 4.29.2019.
+        <span style="font-weight: normal;">
+          Functional Java
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_29_functional_java">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/W2lRpexJKMg">YouTube</a>
+      </div>
+      <p>
+        A brief introduction to functional programming and functional programming in Java.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_26_more_generics"></a><h2 class="h3">
+        Fri 4.26.2019.
+        <span style="font-weight: normal;">
+          More Generics
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_26_more_generics">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/WLhtXaLrvCs">YouTube</a>
+      </div>
+      <p>
+        How to program with Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_24_generics"></a><h2 class="h3">
+        Wed 4.24.2019.
+        <span style="font-weight: normal;">
+          Generics
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_24_generics">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/GW7d3QS5af0">YouTube</a>
+      </div>
+      <p>
+        Wrap up of hashing and a discussion of how to program with Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_22_hashing_and_maps"></a><h2 class="h3">
+        Mon 4.22.2019.
+        <span style="font-weight: normal;">
+          Hashing and Maps
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_22_hashing_and_maps">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/TnhO9K6NY-k">YouTube</a>
+      </div>
+      <p>
+        Hash tables, maps, and some theory behind hashing.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_19_exceptions_and_hash_functions"></a><h2 class="h3">
+        Fri 4.19.2019.
+        <span style="font-weight: normal;">
+          Exceptions and Hash Functions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_19_exceptions_and_hash_functions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/fS-jresbkjM">YouTube</a>
+      </div>
+      <p>
+        Working with exceptions and an introduction to hash functions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_17_exceptions_and_errors"></a><h2 class="h3">
+        Wed 4.17.2019.
+        <span style="font-weight: normal;">
+          Exceptions and Errors
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_17_exceptions_and_errors">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/0Ih46m1w6Rg">YouTube</a>
+      </div>
+      <p>
+        Discussion of Java errors and error handling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_15_web_and_web_apis"></a><h2 class="h3">
+        Mon 4.15.2019.
+        <span style="font-weight: normal;">
+          Web and Web APIs
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_15_web_and_web_apis">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/NdB_LqARUao">YouTube</a>
+      </div>
+      <p>
+        Introduction to the HTTP transport protocol and web APIs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_12_internet_introduction"></a><h2 class="h3">
+        Fri 4.12.2019.
+        <span style="font-weight: normal;">
+          Internet Introduction
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_12_internet_introduction">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/_0P3_853ugo">YouTube</a>
+      </div>
+      <p>
+        Introduction to the internet.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_10_sorting_finale"></a><h2 class="h3">
+        Wed 4.10.2019.
+        <span style="font-weight: normal;">
+          Sorting Finale
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_10_sorting_finale">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/MIxuEJoGuyA">YouTube</a>
+      </div>
+      <p>
+        Conclusion of a discussion of Quicksort and sorting comparisons.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_08_quicksort"></a><h2 class="h3">
+        Mon 4.8.2019.
+        <span style="font-weight: normal;">
+          Quicksort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_08_quicksort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Ci6k2QzLI4Q">YouTube</a>
+      </div>
+      <p>
+        Completion of Merge Sort, discussion of Quicksort, and a overview of sorting algorithms and their tradeoffs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_05_insertion_and_merge_sort"></a><h2 class="h3">
+        Fri 4.5.2019.
+        <span style="font-weight: normal;">
+          Insertion and Merge Sort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_05_insertion_and_merge_sort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/GjLzUQ5wIUk">YouTube</a>
+      </div>
+      <p>
+        Discussion of insertion sort, merge sort, and Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_03_recursion_and_sorting"></a><h2 class="h3">
+        Wed 4.3.2019.
+        <span style="font-weight: normal;">
+          Recursion and Sorting
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_03_recursion_and_sorting">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/jiceVp6IpKg">YouTube</a>
+      </div>
+      <p>
+        Introduction to array and list recursion and sorting.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_04_01_more_practice_with_recursion"></a><h2 class="h3">
+        Mon 4.1.2019.
+        <span style="font-weight: normal;">
+          More Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_04_01_more_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/S_QperjAeSE">YouTube</a>
+      </div>
+      <p>
+        More practice with recursion, including on non-tree structures.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_29_practice_with_recursion"></a><h2 class="h3">
+        Fri 3.29.2019.
+        <span style="font-weight: normal;">
+          Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_29_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/pU_NW2g2wGY">YouTube</a>
+      </div>
+      <p>
+        Continuation of recursive practice on binary trees.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_27_trees_and_recursion"></a><h2 class="h3">
+        Wed 3.27.2019.
+        <span style="font-weight: normal;">
+          Trees and Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_27_trees_and_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/kY9EaClAchk">YouTube</a>
+      </div>
+      <p>
+        Introduction to trees and recursion.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_25_linked_lists"></a><h2 class="h3">
+        Mon 3.25.2019.
+        <span style="font-weight: normal;">
+          Linked Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_25_linked_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/i1_lUPBPKBE">YouTube</a>
+      </div>
+      <p>
+        Completion of a discussion of linked lists and midterm exam review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_15_lists"></a><h2 class="h3">
+        Fri 3.15.2019.
+        <span style="font-weight: normal;">
+          Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_15_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/yCuqdB3a1QE">YouTube</a>
+      </div>
+      <p>
+        Practice with big-O notation and analysis of two different list implementations.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_13_algorithm_runtime"></a><h2 class="h3">
+        Wed 3.13.2019.
+        <span style="font-weight: normal;">
+          Algorithm Runtime
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_13_algorithm_runtime">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/EPYl4WM45Qo">YouTube</a>
+      </div>
+      <p>
+        An introduction to the analysis of algorithm runtime and big-O notation and an introduction to the list data structure.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_11_introduction_to_algorithms"></a><h2 class="h3">
+        Mon 3.11.2019.
+        <span style="font-weight: normal;">
+          Introduction to Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_11_introduction_to_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/q2Sbh4TQGpk">YouTube</a>
+      </div>
+      <p>
+        Introduction to algorithms and algorithm runtime analysis.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_08_more_about_interfaces"></a><h2 class="h3">
+        Fri 3.8.2019.
+        <span style="font-weight: normal;">
+          More About Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_08_more_about_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/zhO53isv4do">YouTube</a>
+      </div>
+      <p>
+        A continuation of discussion of interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_06_references_and_java_memory_management"></a><h2 class="h3">
+        Wed 3.6.2019.
+        <span style="font-weight: normal;">
+          References and Java Memory Management
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_06_references_and_java_memory_management">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/3nVUzTHxdn4">YouTube</a>
+      </div>
+      <p>
+        A discussion of Java memory management with reminders about references.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_04_references_and_interfaces"></a><h2 class="h3">
+        Mon 3.4.2019.
+        <span style="font-weight: normal;">
+          References and Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_04_references_and_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/DysB_KbV_sU">YouTube</a>
+      </div>
+      <p>
+        A continuation of a discussion of object references and an overview of Java interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_03_01_object_references"></a><h2 class="h3">
+        Fri 3.1.2019.
+        <span style="font-weight: normal;">
+          Object References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_03_01_object_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/oambGgeMhbw">YouTube</a>
+      </div>
+      <p>
+        An introduction to object references and their implications for Java programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_25_more_polymorphism"></a><h2 class="h3">
+        Mon 2.25.2019.
+        <span style="font-weight: normal;">
+          More Polymorphism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_25_more_polymorphism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Juj2K8NJNds">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of polymorphism and practice with inheritance and class design.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_22_object_review"></a><h2 class="h3">
+        Fri 2.22.2019.
+        <span style="font-weight: normal;">
+          Object Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_22_object_review">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/7TsEAl42nig">YouTube</a>
+      </div>
+      <p>
+        A chance to slow down and review Java objects, including instances, constructors, class design, inheritance, and polymorphism.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_20_polymorphism"></a><h2 class="h3">
+        Wed 2.20.2019.
+        <span style="font-weight: normal;">
+          Polymorphism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_20_polymorphism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Chlr9hk1mFU">YouTube</a>
+      </div>
+      <p>
+        A introduction to Java polymorphism, a discussion of Java object casting, and more practice with inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_18_inheritance"></a><h2 class="h3">
+        Mon 2.18.2019.
+        <span style="font-weight: normal;">
+          Inheritance
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_18_inheritance">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/jef1_esbAdc">YouTube</a>
+      </div>
+      <p>
+        A review of static, the final keyword, and an introduction to inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_15_getters_and_setters"></a><h2 class="h3">
+        Fri 2.15.2019.
+        <span style="font-weight: normal;">
+          Getters and Setters
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_15_getters_and_setters">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/-g4khHrqzTk">YouTube</a>
+      </div>
+      <p>
+        More about Java objects, including static methods and variables and object modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_13_constructors_and_visibility"></a><h2 class="h3">
+        Wed 2.13.2019.
+        <span style="font-weight: normal;">
+          Constructors and Visibility
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_13_constructors_and_visibility">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/bJmFmAMHBfY">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of Java objects, introducing constructors and visibility.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_11_introduction_to_objects"></a><h2 class="h3">
+        Mon 2.11.2019.
+        <span style="font-weight: normal;">
+          Introduction to Objects
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_11_introduction_to_objects">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/BhgzlksxnMs">YouTube</a>
+      </div>
+      <p>
+        An introduction to Java objects, including terminology, instance variables, and data modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_08_midterm_0_review"></a><h2 class="h3">
+        Fri 2.8.2019.
+        <span style="font-weight: normal;">
+          Midterm 0 Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_08_midterm_0_review">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Nhm2wQ7gSJ4">YouTube</a>
+      </div>
+      <p>
+        AMA review session for the first midterm review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_07_emp3"></a><h2 class="h3">
+        Thu 2.7.2019.
+        <span style="font-weight: normal;">
+          EMP3
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://tinyurl.com/y4cyc8kw">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Al2xJwFCxpI">YouTube</a>
+      </div>
+      <p>
+        Our fourth even more practice (EMP) session. Course content will be reviewed by Anjali Menon and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_06_compilation"></a><h2 class="h3">
+        Wed 2.6.2019.
+        <span style="font-weight: normal;">
+          Compilation
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_06_compilation">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/9q2N6bKMWic">YouTube</a>
+      </div>
+      <p>
+        A last review of imperative programming including a few more constructs and a behind-the-scenes look at what happens when your code is compiled and executed.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_04_more_dimensions"></a><h2 class="h3">
+        Mon 2.4.2019.
+        <span style="font-weight: normal;">
+          More Dimensions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_04_more_dimensions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/OGrl0Y3ezg8">YouTube</a>
+      </div>
+      <p>
+        Two-dimensional arrays, more imperative programming constructs, and more practice with algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_02_01_practice_with_functions_and_strings"></a><h2 class="h3">
+        Fri 2.1.2019.
+        <span style="font-weight: normal;">
+          Practice with Functions and Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_02_01_practice_with_functions_and_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Ax8hcZIx6Po">YouTube</a>
+      </div>
+      <p>
+        A discussion of method overloading and type casting, followed by more practice with Java functions and Strings.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_31_emp2"></a><h2 class="h3">
+        Thu 1.31.2019.
+        <span style="font-weight: normal;">
+          EMP2
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://tinyurl.com/y26e742m">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/0vH_rnY4rKw">YouTube</a>
+      </div>
+      <p>
+        Our third even more practice (EMP) session. Course content will be reviewed by Anjali Menon and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_30_strings"></a><h2 class="h3">
+        Wed 1.30.2019.
+        <span style="font-weight: normal;">
+          Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_01_30_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/pHpp8U9s4mc">YouTube</a>
+      </div>
+      <p>
+        An introduction to Java strings and object usage, and continued practice with functions and basic imperative programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_28_functions"></a><h2 class="h3">
+        Mon 1.28.2019.
+        <span style="font-weight: normal;">
+          Functions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_01_28_functions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/S6D1UhdMYLg">YouTube</a>
+      </div>
+      <p>
+        Introduction to functions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_25_arrays_and_algorithms"></a><h2 class="h3">
+        Fri 1.25.2019.
+        <span style="font-weight: normal;">
+          Arrays and Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_01_25_arrays_and_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/LZDMb0tDTSI">YouTube</a>
+      </div>
+      <p>
+        Continuation of arrays and introduction and practice with simple algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_24_emp1"></a><h2 class="h3">
+        Thu 1.24.2019.
+        <span style="font-weight: normal;">
+          EMP1
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://tinyurl.com/y3mz5x9w">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/9_y4jmmtTXM">YouTube</a>
+      </div>
+      <p>
+        Our second even more practice (EMP) session. Course content will be reviewed by Anjali Menon and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_23_loops_and_arrays"></a><h2 class="h3">
+        Wed 1.23.2019.
+        <span style="font-weight: normal;">
+          Loops and Arrays
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_01_23_loops_and_arrays">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/mqpxMor44iQ">YouTube</a>
+      </div>
+      <p>
+        Overview of several kinds of loops and an introduction to arrays.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_18_conditional_expressions"></a><h2 class="h3">
+        Fri 1.18.2019.
+        <span style="font-weight: normal;">
+          Conditional Expressions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_01_18_conditional_expressions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/jS3ap0I2fX0">YouTube</a>
+      </div>
+      <p>
+        Introduction to comparisons and conditional expressions, the basis for programmatic decision making.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_17_emp0"></a><h2 class="h3">
+        Thu 1.17.2019.
+        <span style="font-weight: normal;">
+          EMP0
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://tinyurl.com/y4d5m742">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/QWG022556Ro">YouTube</a>
+      </div>
+      <p>
+        Our first even more practice (EMP) session. Course content will be reviewed by Anjali Menon and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_16_types_and_variables"></a><h2 class="h3">
+        Wed 1.16.2019.
+        <span style="font-weight: normal;">
+          Types and Variables
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_01_16_types_and_variables">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/UnXOqBt-Ezo">YouTube</a>
+      </div>
+      <p>
+        Introduction to Java primitive types, variable initialization and declaration, and modifying variable values through a variety of expressions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2019_01_14_welcome_to_cs_125"></a><h2 class="h3">
+        Mon 1.14.2019.
+        <span style="font-weight: normal;">
+          Welcome to CS 125
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2019_01_14_welcome_to_cs_125">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/tEputItJj04">YouTube</a>
+      </div>
+      <p>
+        Introduction to an introduction to computer science, the course staff, and course policies. Also begins a discussion of variables.
+      </p>
+    </div>
+  </div>
+</div>
+
+<a class="anchor" id="Fall_2018"></a>
+<h1>Fall 2018</h1>
+
+<a href="https://www.youtube.com/playlist?list=PLi9J8D4T_-pqnWHhc67TDbZQiyPWPMnmV" target="_blank" class="external">
+  YouTube Playlist
+</a>&#xA0;//<a href="https://goo.gl/n2Uzkj" target="_blank" class="external">
+  Pre-Class Music
+</a>
+
+<hr>
+
+<div class="mt-2 smaller">
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_12_13_cs_125_awards"></a><h2 class="h3">
+        Thu 12.13.2018.
+        <span style="font-weight: normal;">
+          CS 125 Awards
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_12_13_cs_125_awards">Slides</a>
+      </div>
+      <p>
+        Awards for both the best projects at the Final Project Fair and recognizing students that embody the spirit of CS 125.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_12_12_fall_2018_by_the_numbers"></a><h2 class="h3">
+        Wed 12.12.2018.
+        <span style="font-weight: normal;">
+          Fall 2018 By The Numbers
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_12_12_fall_2018_by_the_numbers">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/GDTaNkroSD8">YouTube</a>
+      </div>
+      <p>
+        A quantitative summary of everything you did this semester, what to do next, and completion of the course evaluation forms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_12_10_functional_java"></a><h2 class="h3">
+        Mon 12.10.2018.
+        <span style="font-weight: normal;">
+          Functional Java
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_12_10_functional_java">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/1yhhgBhtGeM">YouTube</a>
+      </div>
+      <p>
+        A brief introduction to functional programming and functional programming in Java.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_12_07_concurrency_and_parallelism"></a><h2 class="h3">
+        Fri 12.7.2018.
+        <span style="font-weight: normal;">
+          Concurrency and Parallelism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_12_07_concurrency_and_parallelism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/-rnv9HxuttY">YouTube</a>
+      </div>
+      <p>
+        Wrap up generics and introduction to concurrency, parallelism, race conditions, and synchronization.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_12_06_emp13"></a><h2 class="h3">
+        Thu 12.6.2018.
+        <span style="font-weight: normal;">
+          EMP13
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/JQ5gUH">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/EGN-Q9cS0Bc">YouTube</a>
+      </div>
+      <p>
+        Our last even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_12_05_generics"></a><h2 class="h3">
+        Wed 12.5.2018.
+        <span style="font-weight: normal;">
+          Generics
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_12_05_generics">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/GW7d3QS5af0">YouTube</a>
+      </div>
+      <p>
+        Wrap up of hashing and a discussion of how to program with Java generics.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_12_03_hashing_and_maps"></a><h2 class="h3">
+        Mon 12.3.2018.
+        <span style="font-weight: normal;">
+          Hashing and Maps
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_12_03_hashing_and_maps">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/2cdEaS07yBE">YouTube</a>
+      </div>
+      <p>
+        Hash tables, maps, and some theory behind hashing.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_30_exceptions_and_hash_functions"></a><h2 class="h3">
+        Fri 11.30.2018.
+        <span style="font-weight: normal;">
+          Exceptions and Hash Functions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_30_exceptions_and_hash_functions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/rJOGVGCQ5To">YouTube</a>
+      </div>
+      <p>
+        Working with exceptions and an introduction to hash functions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_29_emp12"></a><h2 class="h3">
+        Thu 11.29.2018.
+        <span style="font-weight: normal;">
+          EMP12
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/d1QdbC">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/fUi8RdbFSv0">YouTube</a>
+      </div>
+      <p>
+        Our twelfth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_28_exceptions_and_errors"></a><h2 class="h3">
+        Wed 11.28.2018.
+        <span style="font-weight: normal;">
+          Exceptions and Errors
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_28_exceptions_and_errors">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/9BPtHCc7WqE">YouTube</a>
+      </div>
+      <p>
+        Discussion of Java errors and error handling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_26_web_apis"></a><h2 class="h3">
+        Mon 11.26.2018.
+        <span style="font-weight: normal;">
+          Web APIs
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_26_web_apis">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/QNqfZ5pqYHw">YouTube</a>
+      </div>
+      <p>
+        Introduction to the HTTP transport protocol and web APIs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_16_internet_and_web"></a><h2 class="h3">
+        Fri 11.16.2018.
+        <span style="font-weight: normal;">
+          Internet and Web
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_16_internet_and_web">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/4Ccz3tJkFzE">YouTube</a>
+      </div>
+      <p>
+        Introduction to the internet, the world-wide web (WWW), the HTTP transport protocol, and web APIs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_15_emp11"></a><h2 class="h3">
+        Thu 11.15.2018.
+        <span style="font-weight: normal;">
+          EMP11
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/JrV4yN">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/hYFJ0d0y23w">YouTube</a>
+      </div>
+      <p>
+        Our eleventh even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_12_quicksort"></a><h2 class="h3">
+        Mon 11.12.2018.
+        <span style="font-weight: normal;">
+          Quicksort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_12_quicksort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Bv1zNIELBZs">YouTube</a>
+      </div>
+      <p>
+        Completion of Merge Sort, discussion of Quicksort, and a overview of sorting algorithms and their tradeoffs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_08_emp10"></a><h2 class="h3">
+        Thu 11.8.2018.
+        <span style="font-weight: normal;">
+          EMP10
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/9HDmBT">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/rccUO0Chk2U">YouTube</a>
+      </div>
+      <p>
+        Our tenth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_07_sorting_algorithms"></a><h2 class="h3">
+        Wed 11.7.2018.
+        <span style="font-weight: normal;">
+          Sorting Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_07_sorting_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/9G2OyK0Uyh4">YouTube</a>
+      </div>
+      <p>
+        Introduction to array recursion, sorting and Insertion Sort.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_05_more_practice_with_recursion"></a><h2 class="h3">
+        Mon 11.5.2018.
+        <span style="font-weight: normal;">
+          More Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_05_more_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/ySlCtkgPU2M">YouTube</a>
+      </div>
+      <p>
+        More practice with recursion, including on non-tree structures.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_02_practice_with_recursion"></a><h2 class="h3">
+        Fri 11.2.2018.
+        <span style="font-weight: normal;">
+          Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_11_02_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/NzC-IjJQwO8">YouTube</a>
+      </div>
+      <p>
+        Continuation of recursive practice on binary trees.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_11_01_emp9"></a><h2 class="h3">
+        Thu 11.1.2018.
+        <span style="font-weight: normal;">
+          EMP9
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/m4GnGt">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/T70dNGGg8Wk">YouTube</a>
+      </div>
+      <p>
+        Our ninth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_31_trees_and_recursion"></a><h2 class="h3">
+        Wed 10.31.2018.
+        <span style="font-weight: normal;">
+          Trees and Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_31_trees_and_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/9gUM2ZC0SFQ">YouTube</a>
+      </div>
+      <p>
+        Introduction to trees and recursion.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_29_linked_lists"></a><h2 class="h3">
+        Mon 10.29.2018.
+        <span style="font-weight: normal;">
+          Linked Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_29_linked_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Wvm-irRVeYI">YouTube</a>
+      </div>
+      <p>
+        Completion of a discussion of linked lists and midterm exam review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_26_lists"></a><h2 class="h3">
+        Fri 10.26.2018.
+        <span style="font-weight: normal;">
+          Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_26_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/eu_5Lk8BaYE">YouTube</a>
+      </div>
+      <p>
+        Practice with big-O notation and analysis of two different list implementations.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_25_emp8"></a><h2 class="h3">
+        Thu 10.25.2018.
+        <span style="font-weight: normal;">
+          EMP8
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://youtu.be/zaRDPn66We4">YouTube</a>
+      </div>
+      <p>
+        Our eighth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_24_algorithm_runtime"></a><h2 class="h3">
+        Wed 10.24.2018.
+        <span style="font-weight: normal;">
+          Algorithm Runtime
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_24_algorithm_runtime">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/-uZQkP-VzA8">YouTube</a>
+      </div>
+      <p>
+        An introduction to the analysis of algorithm runtime and big-O notation.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_22_introduction_to_algorithms"></a><h2 class="h3">
+        Mon 10.22.2018.
+        <span style="font-weight: normal;">
+          Introduction to Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_22_introduction_to_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/NFKC7VWY_uM">YouTube</a>
+      </div>
+      <p>
+        Completion of a discussion of interfaces and introduction to algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_19_more_about_interfaces"></a><h2 class="h3">
+        Fri 10.19.2018.
+        <span style="font-weight: normal;">
+          More About Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_19_more_about_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/ikOBWRXIkog">YouTube</a>
+      </div>
+      <p>
+        A continuation of discussion of interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_18_emp7"></a><h2 class="h3">
+        Thu 10.18.2018.
+        <span style="font-weight: normal;">
+          EMP7
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/T5FTjX">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/uX3_tGWixJY">YouTube</a>
+      </div>
+      <p>
+        Our seventh even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_17_references_and_java_memory_management"></a><h2 class="h3">
+        Wed 10.17.2018.
+        <span style="font-weight: normal;">
+          References and Java Memory Management
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_17_references_and_java_memory_management">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/B565yfwqcv4">YouTube</a>
+      </div>
+      <p>
+        A discussion of Java memory management with reminders about references.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_15_references_and_interfaces"></a><h2 class="h3">
+        Mon 10.15.2018.
+        <span style="font-weight: normal;">
+          References and Interfaces
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_15_references_and_interfaces">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/slLQDja0x-E">YouTube</a>
+      </div>
+      <p>
+        A continuation of a discussion of object references and an overview of Java interfaces.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_12_object_references"></a><h2 class="h3">
+        Fri 10.12.2018.
+        <span style="font-weight: normal;">
+          Object References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_12_object_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/m4NC4ykQ1R8">YouTube</a>
+      </div>
+      <p>
+        An introduction to object references, their implications for Java programming, and a bit about Java memory management.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_11_emp6"></a><h2 class="h3">
+        Thu 10.11.2018.
+        <span style="font-weight: normal;">
+          EMP6
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/P6MPsM">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/RaF5SEHcaAc">YouTube</a>
+      </div>
+      <p>
+        Our sixth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_08_more_polymorphism_and_class_design"></a><h2 class="h3">
+        Mon 10.8.2018.
+        <span style="font-weight: normal;">
+          More Polymorphism and Class Design
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_08_more_polymorphism_and_class_design">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/jm1C1xupojA">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of polymorphism and practice with inheritance and class design.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_05_polymorphism"></a><h2 class="h3">
+        Fri 10.5.2018.
+        <span style="font-weight: normal;">
+          Polymorphism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_05_polymorphism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/WoTJnK9mfBc">YouTube</a>
+      </div>
+      <p>
+        A introduction to Java polymorphism, a discussion of Java object casting, and more practice with inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_04_emp5"></a><h2 class="h3">
+        Thu 10.4.2018.
+        <span style="font-weight: normal;">
+          EMP5
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/Tz58ts">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/2i9x7hY4ju4">YouTube</a>
+      </div>
+      <p>
+        Our fifth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_03_inheritance"></a><h2 class="h3">
+        Wed 10.3.2018.
+        <span style="font-weight: normal;">
+          Inheritance
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_03_inheritance">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/bUWNnrQIxUA">YouTube</a>
+      </div>
+      <p>
+        A review of static, the final keyword, and an introduction to inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_10_01_static_and_modeling"></a><h2 class="h3">
+        Mon 10.1.2018.
+        <span style="font-weight: normal;">
+          Static and Modeling
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_10_01_static_and_modeling">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/2S8oyTZrRQA">YouTube</a>
+      </div>
+      <p>
+        Midterm review followed by more about Java objects, including static methods and variables.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_28_getters_and_setters"></a><h2 class="h3">
+        Fri 9.28.2018.
+        <span style="font-weight: normal;">
+          Getters and Setters
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_28_getters_and_setters">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/QQx1_WHoH-A">YouTube</a>
+      </div>
+      <p>
+        More about Java objects, including static methods and variables and object modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_27_emp4"></a><h2 class="h3">
+        Thu 9.27.2018.
+        <span style="font-weight: normal;">
+          EMP4
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/riC97P">Slides</a>
+      </div>
+      <p>
+        Our fourth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_26_constructors_and_visibility"></a><h2 class="h3">
+        Wed 9.26.2018.
+        <span style="font-weight: normal;">
+          Constructors and Visibility
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_26_constructors_and_visibility">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/vpUc12bfAow">YouTube</a>
+      </div>
+      <p>
+        A continued discussion of Java objects, introducing constructors and visibility.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_24_midterm_0_review"></a><h2 class="h3">
+        Mon 9.24.2018.
+        <span style="font-weight: normal;">
+          Midterm 0 Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_24_midterm_0_review">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/6XWcKjZrrDs">YouTube</a>
+      </div>
+      <p>
+        AMA review session for the first midterm review.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_21_introduction_to_objects"></a><h2 class="h3">
+        Fri 9.21.2018.
+        <span style="font-weight: normal;">
+          Introduction to Objects
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_21_introduction_to_objects">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/WPSX_wON7oA">YouTube</a>
+      </div>
+      <p>
+        An introduction to Java objects, including terminology, instance variables, and data modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_20_emp3"></a><h2 class="h3">
+        Thu 9.20.2018.
+        <span style="font-weight: normal;">
+          EMP3
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/fGbd5g">Slides</a>
+      </div>
+      <p>
+        Our fourth even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_19_constructs_and_compilation"></a><h2 class="h3">
+        Wed 9.19.2018.
+        <span style="font-weight: normal;">
+          Constructs and Compilation
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_19_constructs_and_compilation">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/xoGJ2aiCJ6I">YouTube</a>
+      </div>
+      <p>
+        A last review of imperative programming including a few more constructs and a behind-the-scenes look at what happens when your code is compiled and executed.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_17_more_dimensions"></a><h2 class="h3">
+        Mon 9.17.2018.
+        <span style="font-weight: normal;">
+          More Dimensions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_17_more_dimensions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/0JwuEFnYlb0">YouTube</a>
+      </div>
+      <p>
+        Two-dimensional arrays, more imperative programming constructs, and more practice with algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_14_practice_with_functions_and_strings"></a><h2 class="h3">
+        Fri 9.14.2018.
+        <span style="font-weight: normal;">
+          Practice with Functions and Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_14_practice_with_functions_and_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/iuYfa4Arwk8">YouTube</a>
+      </div>
+      <p>
+        A discussion of method overloading and type casting, followed by more practice with Java functions and Strings.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_13_emp2"></a><h2 class="h3">
+        Thu 9.13.2018.
+        <span style="font-weight: normal;">
+          EMP2
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/6TMFij">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/yBgR1kNWHPs">YouTube</a>
+      </div>
+      <p>
+        Our third even more practice (EMP) session. Course content will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_12_strings"></a><h2 class="h3">
+        Wed 9.12.2018.
+        <span style="font-weight: normal;">
+          Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_12_strings">Slides</a>
+      </div>
+      <p>
+        An introduction to Java strings and object usage, and continued practice with functions and basic imperative programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_10_functions"></a><h2 class="h3">
+        Mon 9.10.2018.
+        <span style="font-weight: normal;">
+          Functions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_10_functions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/Ozqnew94k3A">YouTube</a>
+      </div>
+      <p>
+        Introduction to functions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_07_arrays_and_algorithms"></a><h2 class="h3">
+        Fri 9.7.2018.
+        <span style="font-weight: normal;">
+          Arrays and Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_07_arrays_and_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/5wEjDjGwnW8">YouTube</a>
+      </div>
+      <p>
+        Continuation of arrays and introduction and practice with simple algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_06_emp1"></a><h2 class="h3">
+        Thu 9.6.2018.
+        <span style="font-weight: normal;">
+          EMP1
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/mMFUvv">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/ocnI62HMgdY">YouTube</a>
+      </div>
+      <p>
+        Our second even more practice (EMP) session. Conditional expressions, loops, and arrays will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_09_05_loops_and_arrays"></a><h2 class="h3">
+        Wed 9.5.2018.
+        <span style="font-weight: normal;">
+          Loops and Arrays
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_09_05_loops_and_arrays">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/t93WqX0vhg8">YouTube</a>
+      </div>
+      <p>
+        Overview of several kinds of loops and an introduction to arrays.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_08_31_conditional_expressions"></a><h2 class="h3">
+        Fri 8.31.2018.
+        <span style="font-weight: normal;">
+          Conditional Expressions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_08_31_conditional_expressions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/RR5Txa0VgWs">YouTube</a>
+      </div>
+      <p>
+        Introduction to comparisons and conditional expressions, the basis for programmatic decision making.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_08_29_types_and_variables"></a><h2 class="h3">
+        Wed 8.29.2018.
+        <span style="font-weight: normal;">
+          Types and Variables
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_08_29_types_and_variables">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/lxzpikSgDdw">YouTube</a>
+      </div>
+      <p>
+        Introduction to Java primitive types, variable initialization and declaration, and modifying variable values through a variety of expressions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_08_27_welcome_to_cs_125"></a><h2 class="h3">
+        Mon 8.27.2018.
+        <span style="font-weight: normal;">
+          Welcome to CS 125
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_08_27_welcome_to_cs_125">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://youtu.be/L46gERedOEo">YouTube</a>
+      </div>
+      <p>
+        Introduction to an introduction to computer science, the course staff, and course policies. Also begins a discussion of variables.
+      </p>
+    </div>
+  </div>
+</div>
+
+<a class="anchor" id="Spring_2018"></a>
+<h1>Spring 2018</h1>
+
+<a href="https://echo360.org/section/8cef8dac-8c35-444a-85a6-d4148eca942f/home" target="_blank" class="external">
+  Echo360
+</a>&#xA0;//<a href="https://goo.gl/n2Uzkj" target="_blank" class="external">
+  Pre-Class Music
+</a>
+
+<hr>
+
+<div class="mt-2 smaller">
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_05_02_exam_review"></a><h2 class="h3">
+        Wed 5.2.2018.
+        <span style="font-weight: normal;">
+          Exam Review
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_05_02_exam_review">Slides</a>
+      </div>
+      <p>
+        Exam AMA.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_30_concurrency_and_parallelism"></a><h2 class="h3">
+        Mon 4.30.2018.
+        <span style="font-weight: normal;">
+          Concurrency and Parallelism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_30_concurrency_and_parallelism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/qphwxN">Echo360</a>
+      </div>
+      <p>
+        Introduction to concurrency, parallelism, race conditions, and synchronization.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_27_beautiful_machines"></a><h2 class="h3">
+        Fri 4.27.2018.
+        <span style="font-weight: normal;">
+          Beautiful Machines
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_27_beautiful_machines">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/QxnXnw">Echo360</a>
+      </div>
+      <p>
+        Introduction to computer hardware.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_25_exceptions_and_errors_continued"></a><h2 class="h3">
+        Wed 4.25.2018.
+        <span style="font-weight: normal;">
+          Exceptions and Errors Continued
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_25_exceptions_and_errors_continued">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/zGieMx">Echo360</a>
+      </div>
+      <p>
+        Continuation of a discussion of Java errors and error handling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_23_emp12"></a><h2 class="h3">
+        Mon 4.23.2018.
+        <span style="font-weight: normal;">
+          EMP12
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/G5mZ2n">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/gJJrNv">Echo360</a>
+      </div>
+      <p>
+        Review of recent material led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_23_exceptions_and_errors"></a><h2 class="h3">
+        Mon 4.23.2018.
+        <span style="font-weight: normal;">
+          Exceptions and Errors
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_23_exceptions_and_errors">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/ymkehW">Echo360</a>
+      </div>
+      <p>
+        Discussion of Java errors and error handling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_20_more_hashing_and_maps"></a><h2 class="h3">
+        Fri 4.20.2018.
+        <span style="font-weight: normal;">
+          More Hashing and Maps
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_20_more_hashing_and_maps">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/KvLrV4">Echo360</a>
+      </div>
+      <p>
+        Continuation of an introduction to hash functions, various uses of hashing, and hash tables and maps.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_18_hashing_and_maps"></a><h2 class="h3">
+        Wed 4.18.2018.
+        <span style="font-weight: normal;">
+          Hashing and Maps
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_18_hashing_and_maps">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/4HY89E">Echo360</a>
+      </div>
+      <p>
+        An introduction to hash functions, various uses of hashing, and hash tables and maps.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_16_emp11"></a><h2 class="h3">
+        Mon 4.16.2018.
+        <span style="font-weight: normal;">
+          EMP11
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/XrgNdn">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/FZ3zS2">Echo360</a>
+      </div>
+      <p>
+        Review of recent material led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_16_imports_and_build_systems"></a><h2 class="h3">
+        Mon 4.16.2018.
+        <span style="font-weight: normal;">
+          Imports and Build Systems
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_16_imports_and_build_systems">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/6rkLAi">Echo360</a>
+      </div>
+      <p>
+        Introduction how to how Java libraries are packaged, distributed, and imported. Includes a discussion of the Gradle build system and the role it can play in this process.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_13_web_apis"></a><h2 class="h3">
+        Fri 4.13.2018.
+        <span style="font-weight: normal;">
+          Web APIs
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_13_web_apis">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/byGAAN">Echo360</a>
+      </div>
+      <p>
+        Discussion of how web APIs work and how you can use them in your own projects.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_11_web"></a><h2 class="h3">
+        Wed 4.11.2018.
+        <span style="font-weight: normal;">
+          Web
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_11_web">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/Rnvbsk">Echo360</a>
+      </div>
+      <p>
+        Introduction to the world-wide web, including protocols and document types and roles.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_09_emp10"></a><h2 class="h3">
+        Mon 4.9.2018.
+        <span style="font-weight: normal;">
+          EMP10
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/wU1eLQ">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/UKHXYp">Echo360</a>
+      </div>
+      <p>
+        Review of sorting led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_09_internet"></a><h2 class="h3">
+        Mon 4.9.2018.
+        <span style="font-weight: normal;">
+          Internet
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_09_internet">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/DarXwc">Echo360</a>
+      </div>
+      <p>
+        Introduction to the internet, the world-wide web (WWW), and the HTTP transport protocol.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_06_introduction_to_android"></a><h2 class="h3">
+        Fri 4.6.2018.
+        <span style="font-weight: normal;">
+          Introduction to Android
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_06_introduction_to_android">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/myuRJ3">Echo360</a>
+      </div>
+      <p>
+        An introduction to Android, hacking, and MP6.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_04_quicksort"></a><h2 class="h3">
+        Wed 4.4.2018.
+        <span style="font-weight: normal;">
+          Quicksort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_04_04_quicksort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/ije6Cx">Echo360</a>
+      </div>
+      <p>
+        Discussion of Quicksort and a overview of sorting algorithms and their tradeoffs.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_04_02_emp9"></a><h2 class="h3">
+        Mon 4.2.2018.
+        <span style="font-weight: normal;">
+          EMP9
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/DwCHSt">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/U8pWQ7">Echo360</a>
+      </div>
+      <p>
+        Review of sorting and recursion led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_30_merge_sort"></a><h2 class="h3">
+        Fri 3.30.2018.
+        <span style="font-weight: normal;">
+          Merge Sort
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_30_merge_sort">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/wQ8KMF">Echo360</a>
+      </div>
+      <p>
+        Discussion of merge sort.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_28_sorting_algorithms"></a><h2 class="h3">
+        Wed 3.28.2018.
+        <span style="font-weight: normal;">
+          Sorting Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_28_sorting_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/r9iV92">Echo360</a>
+      </div>
+      <p>
+        Introduction to sorting and Insertion Sort.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_26_emp8"></a><h2 class="h3">
+        Mon 3.26.2018.
+        <span style="font-weight: normal;">
+          EMP8
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/ukr3kE">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/M6iQju">Echo360</a>
+      </div>
+      <p>
+        Review of recursion led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_26_more_practice_with_recursion"></a><h2 class="h3">
+        Mon 3.26.2018.
+        <span style="font-weight: normal;">
+          More Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_26_more_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/ibUfnV">Echo360</a>
+      </div>
+      <p>
+        More practice with recursion, including on non-tree structures.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_14_practice_with_recursion"></a><h2 class="h3">
+        Wed 3.14.2018.
+        <span style="font-weight: normal;">
+          Practice with Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_14_practice_with_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/BRKaRB">Echo360</a>
+      </div>
+      <p>
+        Continuation of recursive practice on binary trees.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_12_emp7"></a><h2 class="h3">
+        Mon 3.12.2018.
+        <span style="font-weight: normal;">
+          EMP7
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/NDTH4H">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/YYBqGy">Echo360</a>
+      </div>
+      <p>
+        Review of big-O analysis led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_12_introduction_to_recursion"></a><h2 class="h3">
+        Mon 3.12.2018.
+        <span style="font-weight: normal;">
+          Introduction to Recursion
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_12_introduction_to_recursion">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/KGEwN4">Echo360</a>
+      </div>
+      <p>
+        Introduction to recursion on binary trees
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_09_lists_and_trees"></a><h2 class="h3">
+        Fri 3.9.2018.
+        <span style="font-weight: normal;">
+          Lists and Trees
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_09_lists_and_trees">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/PPhBnz">Echo360</a>
+      </div>
+      <p>
+        Completion of a discussion of linked lists, and introduction to binary trees.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_07_linked_lists"></a><h2 class="h3">
+        Wed 3.7.2018.
+        <span style="font-weight: normal;">
+          Linked Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_07_linked_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/YNxvFF">Echo360</a>
+      </div>
+      <p>
+        Continuation of a discussion of linked lists, including inserting elements and iteration.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_05_emp6"></a><h2 class="h3">
+        Mon 3.5.2018.
+        <span style="font-weight: normal;">
+          EMP6
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/F33SRo">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/pzmaoV">Echo360</a>
+      </div>
+      <p>
+        Review of references led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_05_lists"></a><h2 class="h3">
+        Mon 3.5.2018.
+        <span style="font-weight: normal;">
+          Lists
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_05_lists">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/mWYvXT">Echo360</a>
+      </div>
+      <p>
+        Discussion of lists implemented both using arrays and linked lists.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_03_02_algorithm_complexity"></a><h2 class="h3">
+        Fri 3.2.2018.
+        <span style="font-weight: normal;">
+          Algorithm Complexity
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_03_02_algorithm_complexity">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/QPnjc7">Echo360</a>
+      </div>
+      <p>
+        An introduction algorithm complexity analysis and big-O notation.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_28_algorithm_runtime"></a><h2 class="h3">
+        Wed 2.28.2018.
+        <span style="font-weight: normal;">
+          Algorithm Runtime
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_28_algorithm_runtime">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/ENmEHH">Echo360</a>
+      </div>
+      <p>
+        An introduction to the analysis of algorithm runtime and big-O notation.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_26_emp5"></a><h2 class="h3">
+        Mon 2.26.2018.
+        <span style="font-weight: normal;">
+          EMP5
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/m3Pv41">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/WgfuAg">Echo360</a>
+      </div>
+      <p>
+        Review of objects led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_26_object_references"></a><h2 class="h3">
+        Mon 2.26.2018.
+        <span style="font-weight: normal;">
+          Object References
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_26_object_references">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/cNRfRU">Echo360</a>
+      </div>
+      <p>
+        An introduction to object references, their implications for Java programming, and a bit about Java memory management.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_23_polymorphism"></a><h2 class="h3">
+        Fri 2.23.2018.
+        <span style="font-weight: normal;">
+          Polymorphism
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_23_polymorphism">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/TzP9tw">Echo360</a>
+      </div>
+      <p>
+        A review of Java polymorphism, a discussion of Java object casting, and more practice with inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_21_inheritance"></a><h2 class="h3">
+        Wed 2.21.2018.
+        <span style="font-weight: normal;">
+          Inheritance
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_21_inheritance">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/dAnR9P">Echo360</a>
+      </div>
+      <p>
+        An introduction to relations between Java objects and inheritance.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_19_emp4"></a><h2 class="h3">
+        Mon 2.19.2018.
+        <span style="font-weight: normal;">
+          EMP4
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/Djw3Cr">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/AD1gdj">Echo360</a>
+      </div>
+      <p>
+        Review of objects review led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_19_object_design"></a><h2 class="h3">
+        Mon 2.19.2018.
+        <span style="font-weight: normal;">
+          Object Design
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_19_object_design">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/gpUL8A">Echo360</a>
+      </div>
+      <p>
+        A discussion of how to use Java objects to model various simple entities.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_16_visibility_and_static"></a><h2 class="h3">
+        Fri 2.16.2018.
+        <span style="font-weight: normal;">
+          Visibility and Static
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_16_visibility_and_static">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/2gzgrk">Echo360</a>
+      </div>
+      <p>
+        A continued discussion of Java objects, introducing visibility and static methods and variables.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_14_constructors_and_visibility"></a><h2 class="h3">
+        Wed 2.14.2018.
+        <span style="font-weight: normal;">
+          Constructors and Visibility
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_14_constructors_and_visibility">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/5qifBR">Echo360</a>
+      </div>
+      <p>
+        A continued discussion of Java objects, introducing constructors and visibility.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_12_emp3"></a><h2 class="h3">
+        Mon 2.12.2018.
+        <span style="font-weight: normal;">
+          EMP3
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/oRpzLE">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/EPZ6jr">Echo360</a>
+      </div>
+      <p>
+        Our next even more practice (EMP) session, with more review led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_12_introduction_to_objects"></a><h2 class="h3">
+        Mon 2.12.2018.
+        <span style="font-weight: normal;">
+          Introduction to Objects
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_12_introduction_to_objects">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/7u8rJf">Echo360</a>
+      </div>
+      <p>
+        An introduction to Java objects, including terminology, instance variables, and data modeling.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_09_imperative_finale"></a><h2 class="h3">
+        Fri 2.9.2018.
+        <span style="font-weight: normal;">
+          Imperative Finale
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_09_imperative_finale">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/N9X3rn">Echo360</a>
+      </div>
+      <p>
+        More imperative constructs and practice.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_07_more_constructs"></a><h2 class="h3">
+        Wed 2.7.2018.
+        <span style="font-weight: normal;">
+          More Constructs
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_07_more_constructs">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/2cZ9hi">Echo360</a>
+      </div>
+      <p>
+        More imperative programming constructs and practice with algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_05_emp2"></a><h2 class="h3">
+        Mon 2.5.2018.
+        <span style="font-weight: normal;">
+          EMP2
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/2bac1m">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/i9bYqq">Echo360</a>
+      </div>
+      <p>
+        Our third even more practice (EMP) session, with more review led by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_05_more_dimensions"></a><h2 class="h3">
+        Mon 2.5.2018.
+        <span style="font-weight: normal;">
+          More Dimensions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_05_more_dimensions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/z5tPF8">Echo360</a>
+      </div>
+      <p>
+        Two-dimensional arrays, more imperative programming constructs, and more practice with algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_02_02_practice_with_functions_and_strings"></a><h2 class="h3">
+        Fri 2.2.2018.
+        <span style="font-weight: normal;">
+          Practice with Functions and Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_02_02_practice_with_functions_and_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/p5zyXq">Echo360</a>
+      </div>
+      <p>
+        More practice with functions and Java Strings.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_31_strings"></a><h2 class="h3">
+        Wed 1.31.2018.
+        <span style="font-weight: normal;">
+          Strings
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_31_strings">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/8vmHa6">Echo360</a>
+      </div>
+      <p>
+        An introduction to Java strings and object usage, and continued practice with functions and basic imperative programming.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_29_emp1"></a><h2 class="h3">
+        Mon 1.29.2018.
+        <span style="font-weight: normal;">
+          EMP1
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="https://goo.gl/inpbz7">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/shCoLU">Echo360</a>
+      </div>
+      <p>
+        Our second even more practice (EMP) session. Conditional expressions, loops, arrays, and algorithms will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_29_functions"></a><h2 class="h3">
+        Mon 1.29.2018.
+        <span style="font-weight: normal;">
+          Functions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_29_functions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/ajbsDW">Echo360</a>
+      </div>
+      <p>
+        Introduction to functions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_26_arrays_and_algorithms"></a><h2 class="h3">
+        Fri 1.26.2018.
+        <span style="font-weight: normal;">
+          Arrays and Algorithms
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_26_arrays_and_algorithms">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/kkigCQ">Echo360</a>
+      </div>
+      <p>
+        Continuation of arrays and introduction and practice with simple algorithms.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_24_loops_and_arrays"></a><h2 class="h3">
+        Wed 1.24.2018.
+        <span style="font-weight: normal;">
+          Loops and Arrays
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_24_loops_and_arrays">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/kaWWVL">Echo360</a>
+      </div>
+      <p>
+        Overview of several kinds of loops and an introduction to arrays.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_22_emp0"></a><h2 class="h3">
+        Mon 1.22.2018.
+        <span style="font-weight: normal;">
+          EMP0
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_22_emp0">Slides</a>
+      </div>
+      <p>
+        Our first even more practice (EMP) session. Primitive types, variables, expressions, statements and conditionals will be reviewed by Liia Butler and the fantastic EMP course assistants.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_22_conditional_expressions"></a><h2 class="h3">
+        Mon 1.22.2018.
+        <span style="font-weight: normal;">
+          Conditional Expressions
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_22_conditional_expressions">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/CrM9Ld">Echo360</a>
+      </div>
+      <p>
+        Introduction to comparisons and conditional expressions, the basis for programmatic decision making.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_19_types_and_variables"></a><h2 class="h3">
+        Fri 1.19.2018.
+        <span style="font-weight: normal;">
+          Types and Variables
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_19_types_and_variables">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/rBsamk">Echo360</a>
+      </div>
+      <p>
+        Introduction to Java primitive types, variable initialization and declaration, and modifying variable values through a variety of expressions.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a class="anchor" id="_2018_01_17_welcome_to_cs_125"></a><h2 class="h3">
+        Wed 1.17.2018.
+        <span style="font-weight: normal;">
+          Welcome to CS 125
+        </span>
+      </h2>
+      <div class="h6" style="font-weight: normal;">
+          <a class="external" target="_blank" href="/learn/2018_01_17_welcome_to_cs_125">Slides</a>
+          //
+          <a class="external" target="_blank" href="https://goo.gl/sHof2R">Echo360</a>
+      </div>
+      <p>
+        Introduction to an introduction to computer science, the course staff, and course policies. Also begins a discussion of variables.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="col-xl-3 d-none d-xl-block toc">
+  <nav id="toc" class="nav flex-column">
+    <ul class="section-nav">
+      <li class="entry">
+        <a class="nav-link" href="#Spring_2020">Spring 2020</a>
+        <ul>
+          <li class="small">
+            <a class="nav-link" href="#_2020_05_06_spring_2020_by_the_numbers"><code>05.06.2020</code>: Spring 2020 By The Numbers</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_05_01_more_generics"><code>05.01.2020</code>: More Generics</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_29_generics"><code>04.29.2020</code>: Generics</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_27_hashing_and_maps"><code>04.27.2020</code>: Hashing and Maps</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_24_more_about_exceptions"><code>04.24.2020</code>: More About Exceptions</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_22_exceptions_and_errors"><code>04.22.2020</code>: Exceptions and Errors</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_20_web_and_web_apis"><code>04.20.2020</code>: Web and Web APIs</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_17_internet_introduction"><code>04.17.2020</code>: Internet Introduction</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_15_quicksort"><code>04.15.2020</code>: Quicksort</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_13_merge_sort"><code>04.13.2020</code>: Merge Sort</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_10_insertion_sort"><code>04.10.2020</code>: Insertion Sort</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_08_recursion_and_sorting"><code>04.08.2020</code>: Recursion and Sorting</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_06_more_practice_with_recursion"><code>04.06.2020</code>: More Practice with Recursion</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_03_practice_with_recursion"><code>04.03.2020</code>: Practice with Recursion</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_04_01_trees_and_recursion"><code>04.01.2020</code>: Trees and Recursion</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_30_linked_lists"><code>03.30.2020</code>: Linked Lists</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_27_lists"><code>03.27.2020</code>: Lists</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_25_algorithm_runtime"><code>03.25.2020</code>: Algorithm Runtime</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_23_introduction_to_algorithms_(and_the_rest_of_the_semester)"><code>03.23.2020</code>: Introduction to Algorithms (and the Rest of the Semester)</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_13_more_about_interfaces"><code>03.13.2020</code>: More About Interfaces</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_11_interfaces"><code>03.11.2020</code>: Interfaces</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_09_review_of_references"><code>03.09.2020</code>: Review of References</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_06_polymorphism_and_references"><code>03.06.2020</code>: Polymorphism and References</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_04_object_references"><code>03.04.2020</code>: Object References</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_03_02_object_review"><code>03.02.2020</code>: Object Review</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_26_polymorphism"><code>02.26.2020</code>: Polymorphism</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_24_inheritance"><code>02.24.2020</code>: Inheritance</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_21_getters_and_setters"><code>02.21.2020</code>: Getters and Setters</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_19_constructors_and_visibility"><code>02.19.2020</code>: Constructors and Visibility</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_17_introduction_to_objects"><code>02.17.2020</code>: Introduction to Objects</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_14_midterm_0_review"><code>02.14.2020</code>: Midterm 0 Review</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_12_compilation"><code>02.12.2020</code>: Compilation</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_10_more_dimensions"><code>02.10.2020</code>: More Dimensions</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_07_practice_with_functions_and_strings"><code>02.07.2020</code>: Practice with Functions and Strings</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_05_strings"><code>02.05.2020</code>: Strings</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_02_03_functions"><code>02.03.2020</code>: Functions</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_01_31_arrays_and_algorithms"><code>01.31.2020</code>: Arrays and Algorithms</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_01_29_arrays_and_loops"><code>01.29.2020</code>: Arrays and Loops</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_01_27_conditional_expressions"><code>01.27.2020</code>: Conditional Expressions</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_01_24_types_and_variables"><code>01.24.2020</code>: Types and Variables</a>
+          </li>
+          <li class="small">
+            <a class="nav-link" href="#_2020_01_22_welcome_to_cs_125"><code>01.22.2020</code>: Welcome to CS 125</a>
+          </li>
+        </ul>
+      </li>
+      <li class="entry">
+        <a class="nav-link" href="#Fall_2019">Fall 2019</a>
+      </li>
+      <li class="entry">
+        <a class="nav-link" href="#Spring_2019">Spring 2019</a>
+      </li>
+      <li class="entry">
+        <a class="nav-link" href="#Fall_2018">Fall 2018</a>
+      </li>
+      <li class="entry">
+        <a class="nav-link" href="#Spring_2018">Spring 2018</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/learn/index.html.hbs" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/learn/index.html.hbs" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

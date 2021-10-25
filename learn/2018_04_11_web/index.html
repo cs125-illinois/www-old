@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Web</title>
+  <meta name="description" lang="en-us" content="Introduction to the world-wide web, including protocols and document types and roles.">
+
+  <meta name="slider-id" content="9fb0b19a-c8f3-41a5-b3cc-c7394895d17e">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 oneword logo bespoke-active bespoke-slide" data-slideid="HVnGZbaPCPKUZAUCdxLIwtJkHkEeYqwl">
+<div class="header" data-title="Web"><h2>Web</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some examples for today are available here:
+<a href="https://github.com/cs125-illinois/lecture-webapis-examples" target="_blank" class="external"><code>https://github.com/cs125-illinois/lecture-webapis-examples</code></a>
+Feel free to fork!</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="pDiIYKqVcVXMtYzblXhkxFUrQjyZOTbp">
+<div data-title=" Walk List"></div>
+<textarea class="janini spelling_exception">public class Item {
+  public int value;
+  public Item next;
+  Item(int setValue, Item setNext) {
+    this.value = setValue;
+    this.next = setNext;
+  }
+}
+public class LinkedList {
+  private Item start;
+  public LinkedList(int[] array) {
+    for (int i = array.length - 1; i &gt;= 0; i--) {
+      this.addToFront(array[i]);
+    }
+  }
+  public void addToFront(int value) {
+    start = new Item(value, start);
+  }
+  public String toString() {
+    String string = &quot;&quot;;
+    Item current = start;
+    while (current != null) {
+      string += current.value + &quot; &quot;;
+      current = current.next;
+    }
+    return string.trim();
+  }
+  public int getLast() {
+    return 0;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LinkedList myList = new LinkedList(new int[] { 1, 2, 3 });
+    System.out.println(myList.getLast());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pTHCdYuCyqqRzhfrZBmPVlxaMMqlQqxq">
+<div class="header" data-title="What is the World Wide Web?"><h2>What is the World Wide Web?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>A protocol</strong>: the Hypertext Transfer Protocol
+<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" class="external">(HTTP)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A markup language</strong>: the Hypertext Markup Language
+<a href="https://en.wikipedia.org/wiki/HTML" target="_blank" class="external">(HTML)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A styling language</strong>: Cascading Style Sheets
+<a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets" target="_blank" class="external">(CSS)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A programming language</strong>:
+<a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" class="external">JavaScript</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="feLPwPHMQSsPpUmshWroUcSKcWKeCxbd">
+<div class="header" data-title="HTTP: GET Request"><h2>HTTP: <code>GET</code> Request</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP defines how web browsers request (<code>GET</code>) content:</p>
+</div>
+<div class="paragraph">
+<p>When you type
+<a href="http://cs125-illinois.github.io/lecture-webapis-examples/simple.html" target="_blank" class="external"><code>http://cs125-illinois.github.io/lecture-webapis-examples/simple.html</code></a>
+into your browser, it sends a message to <code>cs125-illinois.github.io</code> that looks
+like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">GET /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jqBzouDGtPyaHKmOwnbpCvRASaKvBFfC">
+<div class="header" data-title="GET Parameters"><h2><code>GET</code> Parameters</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can send some data to the server in a <code>GET</code> request using <em>query
+parameters</em>.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>These follow the path and an <code>?</code> sign in the URL</p>
+</li>
+<li class="bullet">
+<p>Each takes the form <code>key=value</code></p>
+</li>
+<li class="bullet">
+<p>Key-value pairs are separated by <code>&amp;</code> delimiters</p>
+</li>
+<li class="bullet">
+<p>Here&#x2019;s an example: <code>search?safe=off&amp;source=hp?q=cs125</code>:</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>safe=off</code></p>
+</li>
+<li class="bullet">
+<p><code>source=hp</code></p>
+</li>
+<li class="bullet">
+<p><code>q=cs125</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZYZfArcqHGbcpMGDWpUxTEAYpHhSMMOP">
+<div class="header" data-title="HTTP: GET Response"><h2>HTTP: <code>GET</code> Response</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If the request succeeds, the server responds with something that looks like
+this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">HTTP/1.1 200 OK
+Date: Sun, 08 Apr 2018 08:56:53 GMT
+Last-Modified: Sat, 20 Nov 2014 07:16:26 GMT
+Content-Length: 44
+Content-Type: text/html
+
+&lt;html&gt;
+  &lt;body&gt;
+    ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BszNyUYxaqPnTlZclvOYZTyRJdgHHnmX">
+<div class="header" data-title="HTTP: POST Request"><h2>HTTP: <code>POST</code> Request</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP also defines how web browsers submit information (<code>POST</code>):</p>
+</div>
+<div class="paragraph">
+<p>When you submit the form on
+<a href="http://cs125-illinois.github.io/lecture-webapis-examples/form.html" target="_blank" class="external"><code>http://cs125-illinois.github.io/lecture-webapis-examples/form.html</code></a>,
+it sends a message to <code>cs125-illinois.github.io</code> that looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">POST /lecture-webapis-examples/simple.html HTTP/1.1
+Host: cs125-illinois.github.io
+
+text=word</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that this fails on <code>github.io</code> because it only serves <em>static</em> pages and
+doesn&#x2019;t deal with data provided by users.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uEuXCurrnJzwJygQyftDiaVpiXQzPHbU">
+<div class="header" data-title="HTTP: GET and POST"><h2>HTTP: <code>GET</code> and <code>POST</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP defines many other types of requests, but <code>GET</code> and <code>POST</code> are by far the
+most common.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Every time you load a web page</strong> it starts with a <code>GET</code>, and usually that&#x2019;s
+followed by many other <code>GET</code> requests to fetch others parts of the page: style
+sheets, images, JavaScript code.</p>
+</li>
+<li class="bullet">
+<p><strong>Every time you submit a form</strong> it uses a <code>POST</code> to send data to the server, at
+which point your Facebook comment is recorded, or your credit card is charged
+and an package starts its way toward your house</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QKSooQlYPRANKRYoWgElNxbqrvVrScFm">
+<div class="header" data-title="HTTP: GET v POST"><h2>HTTP: <code>GET</code> v <code>POST</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The HTTP protocol specifies different semantics for <code>GET</code> and <code>POST</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>GET</code> <em>should not</em> change anything about the world, just return a document</p>
+</li>
+<li class="bullet">
+<p><code>POST</code> <em>should</em> change something about the world&#x2014;create a new account,
+pay your bill, purchase something, send a message, etc.</p>
+</li>
+<li class="bullet">
+<p>As a result it is <em>safe</em> to repeat a <code>GET</code> but potentially <em>problematic</em> to
+repeat a <code>POST</code>: hence the &quot;Do not click back&quot; and &quot;Do not submit this form
+twice&quot; kind of warnings.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ENeAbNYgDNrbwqRpHZJduekhgMOdxOow">
+<div class="header" data-title="Web Page Contents: HTML"><h2>Web Page Contents: HTML</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTML defines how each page is <em>structured</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-html spelling_exception lang-html" data-lang="html">&lt;h1&gt;This is a Simple Web Page&lt;/h1&gt;
+
+&lt;p&gt;
+  HTML includes both content and instructions to the browser determining
+  how the content should look. For example, the following items should be
+  in a numbered list:
+&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Third&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+  &lt;strong&gt;Here is some bold text.&lt;/strong&gt; &lt;i&gt;And this in italics.&lt;/i&gt;
+&lt;/p&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="hKVjQbpzQALswjASEhlGXSTyHHgkGWvD">
+<div data-title=" Web Page Contents: HTML"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125-illinois.github.io/lecture-webapis-examples/simple.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jusdaKZZdKzMfBIQchXrTXKenbeDgzBl">
+<div class="header" data-title="Web Evolution"><h2>Web Evolution</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The web has gone through many design changes over the years.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Static Sites</strong>: the web server returns a <em>file</em> from the disk that contains a
+complete web document</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Example: most of <code>cs125.cs.illinois.edu</code> is a static website</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>Dynamic Sites</strong>: the web server <em>runs code</em> to produce an HTML document and
+respond to <code>POST</code> requests created by forms</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Example: sites like <code>my.cs.illinois.edu</code> are dynamic sites</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>Web Apps</strong>: most of the site is <em>generated by JavaScript</em> that runs in the
+user&#x2019;s browser, with the server providing data as needed</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Examples: <code>cs125.cs.illinois.edu/m/grades</code>, Discourse, Gmail, Google Docs</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kVGxyCnuUrtKMDbQUEwsrVEZuOyXqgyo">
+<div class="header" data-title="Web Page Contents: CSS"><h2>Web Page Contents: CSS</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>CSS defines how each page <em>looks</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-css spelling_exception lang-css" data-lang="css">body {
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="QCnklVenUskadiskeZRvQQIlwAPyKXZl">
+<div data-title=" Web Page Contents: CSS"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125-illinois.github.io/lecture-webapis-examples/css.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bqpQtLWMeCreTUItFEeLrXrmwetlXSJR">
+<div class="header" data-title="Web Page Contents: JavaScript"><h2>Web Page Contents: JavaScript</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>JavaScript defines what each page <em>does</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-javascript spelling_exception lang-javascript" data-lang="javascript">setInterval(function () {
+  var x = document.getElementById(&quot;title&quot;)
+  if (x.style.visibility === &quot;visible&quot;) {
+    x.style.visibility = &quot;hidden&quot;
+  } else {
+    x.style.visibility = &quot;visible&quot;
+  }
+}, 1000)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="hvUpMeTGNRDIIgBOLjgIAGAeTuZUDHdv">
+<div data-title=" Web Page Contents: JavaScript"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125-illinois.github.io/lecture-webapis-examples/javascript.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ReefhsOZCrSqsNCRBofFMqYMOjJZtIBz">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>We&#x2019;ve posted some
+<a href="/MP/2018/spring/6/#errata">MP6 errata</a>.
+Please follow these screencasts if you are having a hard time getting your
+environment set up.</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

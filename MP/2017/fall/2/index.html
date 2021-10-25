@@ -1,0 +1,619 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP2: String Games</title>
+		<meta name="description" lang="en-us" content="MP2 has you complete three small programming tasks that all involve string processing.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Fall 2017</strong>
+            </li>
+            <li><div class="dropdown-divider"></div></li>
+            <li>
+              <a href="/MP/2017/fall/7/">MP7</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/6/">MP6</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/2/" class="active" onclick="return false;">MP2<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2017/fall/1/">MP1</a>
+            </li>
+            <li>
+              <span data-active="^MP/2017/fall/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2017/fall/setup/subversion/">Subversion</a>
+                </li>
+                <li>
+                  <a href="/MP/2017/fall/setup/eclipse/">Eclipse</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#getting">2.1. Obtaining MP2</a></li>
+              <li><a class="nav-link" href="#requirements">2.2. Your Goal</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#approach">3. How to Approach MP2</a>
+            <ul>
+              <li><a class="nav-link" href="#_review_java_lang_string">3.1. Review java.lang.String</a></li>
+              <li><a class="nav-link" href="#_documenting_your_work">3.2. Documenting Your Work</a></li>
+              <li><a class="nav-link" href="#readable">3.3. Writing Readable Code</a></li>
+              <li><a class="nav-link" href="#_getting_help">3.4. Getting Help</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">4. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#testing">4.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#autograding">4.2. Autograding</a></li>
+              <li><a class="nav-link" href="#style">4.3. Style Points</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">5. Submitting Your Work</a>
+            <ul>
+              <li><a class="nav-link" href="#cheating">5.1. Academic Integrity</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP2: String Games</h1>
+      <div class="paragraph lead">
+<p>Strings are an important data type in every programming language.
+While computers understand bits, bytes, and numbers, humans communicate using
+letters, words, and sentences.</p>
+</div>
+<div class="paragraph">
+<p>MP2 comprises three string-based programming tasks that will familiarize you
+with strings and string processing.
+<strong>It is due Friday, September 29th, 2017 @ 5PM. To receive full credit, you must
+submit by this deadline.</strong></p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of MP2 is to familiarize you with Java strings and string
+processing.
+You&#x2019;ll begin to learn how to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>interpret text as a series of lines, lines as a series of words, and words as
+a series of characters</p>
+</li>
+<li>
+<p>use simple looping constructs to iterate over arrays of strings and strings
+themselves</p>
+</li>
+<li>
+<p>implement simple state machines</p>
+</li>
+<li>
+<p>write function definitions</p>
+</li>
+<li>
+<p>correct Javadoc comments</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also continue to reinforce the <a href="/MP/2017/fall/1/#objectives">learning objectives
+from MP1</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP2 consists of three short programs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://cs125-illinois.github.io/Fall-2017-MP2/FindLine.html" target="_blank" class="external"><code>FindLine.java</code></a>:
+finds lines in provided multi-line text</p>
+</li>
+<li>
+<p><a href="https://cs125-illinois.github.io/Fall-2017-MP2/ScriptPrinter.html" target="_blank" class="external"><code>ScriptPrinter.java</code></a>:
+parses a script and returns lines for a particular actress (or actor)</p>
+</li>
+<li>
+<p><a href="https://cs125-illinois.github.io/Fall-2017-MP2/StrictPalindrome.html" target="_blank" class="external"><code>StrictPalindrome.java</code></a>:
+tests whether a provided string is a palindrome</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You may find our official
+<a href="https://cs125-illinois.github.io/Fall-2017-MP2/" target="_blank" class="external">MP2 online documentation</a>
+helpful in understanding what each function is supposed to do.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="getting"></a><h3>2.1. Obtaining MP2</h3>
+<div class="paragraph">
+<p>Please follow the instructions from <a href="/MP/2017/fall/1/#getting">MP1</a>.
+You&#x2019;ll find MP2 in an <code>MP2</code> folder in your Subversion home directory.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="deleted"></a><h4>2.1.1. Recovering in case of accidental deletion</h4>
+<div class="paragraph">
+<p>If for some reason you delete you original copy, there are
+<a href="https://stackoverflow.com/questions/497423/how-to-undelete-a-file-with-subversive" target="_blank" class="external">ways
+to get it back using Subversion</a>
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Since this is one of the main reasons for using version control!&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+<div class="paragraph">
+<p>Unlike MP1, we will not provide a tarball.
+If you delete your MP2 for whatever reason, you will need to recover it using
+Subversion.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="requirements"></a><h3>2.2. Your Goal</h3>
+<div class="paragraph">
+<p>All programs and incomplete and need work.
+The structure of each program is similar:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each contains a <code>main</code> method that solicits input from the user.
+<strong>You do not need to modify the <code>main</code> methods</strong>, but you should understand how
+they work.</p>
+</li>
+<li>
+<p>User inputs are passed to a separate helper function that you are assigned to
+write.
+These functions do the heavy lifting for each program: searching text
+(<code>printMatchingLines</code>), returning an actress&#x2019;s lines (<code>printLinesFor</code>), and
+testing whether a string is a palindrome (<code>isStrictPalindrome</code>).</p>
+</li>
+<li>
+<p>Each program includes a test suite: <code>FindLineTest.java</code>, <code>ScriptPrinterTest.java</code>,
+and <code>StrictPalindromeTest.java</code>.
+The test suite does not test the main method.
+Instead, it directly tests the method that you are assigned to write.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Your goal is to correctly implement the missing methods so that all of the tests
+pass.
+Doing so will earn you almost full credit on the assignment&#x2014;but see the
+section on <a href="#style">style below</a>.
+<strong>In contrast to last week, you may need to add methods and fix checkstyle
+errors right out of the box.</strong>
+Until you fix these problems, your initial grade on MP2 will be a zero.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="approach"></a><h2>3. How to Approach MP2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All of <a href="/MP/2017/fall/1/#approach">the MP1 guidelines</a> still apply.
+In addition, let us provide some new advice for MP2.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_review_java_lang_string"></a><h3>3.1. Review <code>java.lang.String</code></h3>
+<div class="paragraph">
+<p>An important part of MP2 is understanding the various methods that you can call
+on Java strings.
+The best place to find a complete list is the
+<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank" class="external">Javadoc
+documentation for the Java String type</a>.</p>
+</div>
+<div class="paragraph">
+<p>You will definitely want to review the
+<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#method_detail" target="_blank" class="external">list
+of String methods</a> to find things that might be useful.
+Specifically, the String methods <code>split</code>, <code>toLowerCase</code>, <code>toUpperCase</code>,
+<code>startsWith</code> may be useful in completing MP2.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_documenting_your_work"></a><h3>3.2. Documenting Your Work</h3>
+<div class="paragraph lead">
+<p>While comments are not processed by the computer, they are some of the most
+important things that you will write (and read) as a software developer.</p>
+</div>
+<div class="paragraph">
+<p>The reason that comments are so important is simple&#x2014;while the code you
+write is <em>run</em> by a computer, is is <em>used</em> by other human beings.
+Regardless of whether a computer can understand what your code is trying to do,
+if other people cannot you will be in trouble.
+In the open-source community, nobody will be able to use your
+contributions&#x2014;even if they want to.
+At a job, poorly documented code will get you fired extremely quickly.</p>
+</div>
+<div class="paragraph">
+<p>So an important job when writing code is <em>documenting</em> it so that others can use
+it.
+We will give you practice at doing this on the MPs, and also go over it several
+times during lab sections.
+But here are some general guidelines to get you started:</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_documentation_for_packages_and_functions_is_extremely_important"></a><h4>3.2.1. Documentation for packages and functions is extremely important</h4>
+<div class="paragraph">
+<p>This is one of the reasons that we are forcing you to write Javadoc comments,
+since they can be easily used to generate documentation.
+<a href="https://cs125-illinois.github.io/mazemaker/" target="_blank" class="external">Here is an example from a previous
+lab.</a>
+Well-written documentation makes it possible for others to use your code without
+understanding your implementation.
+That is critical to modern software development.</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_comments_within_functions_should_be_used_sparingly"></a><h4>3.2.2. Comments within functions should be used sparingly</h4>
+<div class="paragraph">
+<p>On the other hand, comments <em>within</em> your code should be used sparingly.
+They are not a substitute for <a href="#readable">writing clear and readable code</a>.</p>
+</div>
+<div class="paragraph">
+<p>A good way to think about comments in your code is as a chance to explain
+something unusual that might confuse another person that is reading your
+code&#x2014;or, more likely, you!</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="readable"></a><h3>3.3. Writing Readable Code</h3>
+<div class="paragraph">
+<p>Comments and documentation are not a substitute for writing reading code.
+Think of it this way&#x2014;documentation is for others that will try to use your
+code, including collaborators and co-workers.
+Comments document unusual situations, but are primarily for you, not for others,
+since you&#x2019;re the one who&#x2019;s most likely to have to read (and probably debug) your
+code.</p>
+</div>
+<div class="paragraph">
+<p>Readable code is even more important for you and you alone.
+So treat writing code that is clear and easy to understand as personal and
+selfish challenge, since it is most likely to benefit you.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_good_variable_names"></a><h4>3.3.1. Good variable names</h4>
+<div class="paragraph">
+<p>One basic aspect of writing good code is good choices of variable names.
+A good variable name should allow me to understand how it is being used
+<em>without</em> reading much of the code.</p>
+</div>
+<div class="paragraph">
+<p>Good variable names depend a lot on context, but one good practice to get in to
+is to <strong>avoid generic names</strong> like <code>i</code>, <code>j</code>, <code>index</code>, <code>count</code>, etc.
+Try more specific names like <code>indexInString</code>, <code>countOfLetters</code>, etc.
+<code>count</code> could be anything&#x2014;whereas <code>countOfLetters</code> lets me know more about
+what is being counted.
+Keystrokes are cheap, understanding is expensive.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_help"></a><h3>3.4. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/2017/fall/syllabus/#calendar">office hours</a>, or post on the
+<a href="https://cs125-forum.cs.illinois.edu" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP2 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>30 points</strong>: <code>FindLine.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for submitting code that compiles</p>
+</li>
+<li>
+<p><strong>20 points</strong> for passing the test</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>30 points</strong>: <code>ScriptPrinter.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for submitting code that compiles</p>
+</li>
+<li>
+<p><strong>20 points</strong> for passing the test</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>30 points</strong>: <code>StrictPalindrome.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for submitting code that compiles</p>
+</li>
+<li>
+<p><strong>20 points</strong> for passing the test</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="testing"></a><h3>4.1. Test Cases</h3>
+<div class="paragraph">
+<p>Like <a href="/MP/2017/fall/1">MP1</a>, we have provided exhaustive test cases for each part of
+MP2.
+Please review the <a href="/MP/2017/fall/1/#testing">MP1 testing instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>4.2. Autograding</h3>
+<div class="paragraph">
+<p>Like <a href="/MP/2017/fall/1/">MP1</a>, we have provided you with an autograding script that you
+can use to estimate your current grade as often as you want.
+The Eclipse project contains a launcher that will run MP2 autograder.</p>
+</div>
+<div class="paragraph">
+<p>Unless you have modified the test cases or autograder configuration files, the
+autograding output should equal the score that you will earn when you submit.
+If you modify our test cases or the autograding configuration, all bets are off.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="style"></a><h3>4.3. Style Points</h3>
+<div class="paragraph">
+<p>First, review the <a href="/MP/2017/fall/1/#style">style notes from MP1</a>.</p>
+</div>
+<div class="paragraph">
+<p>However, for MP2 you will have to correct some existing style errors.
+Please look at the Javadoc comments on other provided functions for examples of
+how to use the <code>@param</code> and <code>@return</code> tag.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Overall you should refer to <a href="/MP/2017/fall/setup/subversion">our instructions for using
+Subversion</a>.
+Commit early and often!
+You only earn credit for the version of your code that is committed to your
+repository, so ensure that we have your best submission before the deadline.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="cheating"></a><h3>5.1. Academic Integrity</h3>
+<div class="paragraph">
+<p>Please review the <a href="/MP/2017/fall/1/">MP1 academic integrity guidelines</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2017/fall/2.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2017/fall/2.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

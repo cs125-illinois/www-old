@@ -1,0 +1,419 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Practice with Functions and Strings</title>
+  <meta name="description" lang="en-us" content="A discussion of method overloading and type casting, followed by more practice with Java functions and Strings.">
+
+  <meta name="slider-id" content="ce7e59e5-77c3-422f-bd6c-fe1dd64af492">
+  <meta name="slider-semester" content="Spring2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini small nozoom bespoke-active bespoke-slide" data-slideid="tEtREXcdwvLNenEEApUWWxYcIyInPqrh">
+
+<textarea class="janini spelling_exception">String[] courses = { &quot;CS 125&quot;, &quot;CS 225&quot;, &quot;CS 241&quot;, &quot;STAT 107&quot; };
+static void bestCourse(String[] options) {
+  for (String course: options) {
+    System.out.print(course);
+    if (course.contains(&quot;125&quot;)) {
+      System.out.print(&quot; is the best&quot;);
+    }
+    System.out.println();
+  }
+}
+bestCourse(courses);</textarea><!-- beautify ignore:start --><div class="output" data-blank="Practice with Functions and Strings&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Practice with Functions and Strings<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="QXeDdtoIJghFLWgVVxlLDTyJGYnfkMyM">
+<div class="header" data-title="Algorithmic Thinking and Problem Solving"><h2>Algorithmic Thinking and Problem Solving</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="BujyetipnNDrtCDwOkrBiiTJbXjxHwVu">
+<div class="header" data-title="But First: More About Functions"><h2>But First: More About Functions</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="JCBOUZUKUWSRGZEDXOKZVEPQBNWADGRD">
+<div class="header" data-title="But First: How Are You?"><h2>But First: How <em>Are</em> You?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WYGKDMJrYLPMExMvDrlPcHvhJXJULrdT">
+<div class="header" data-title="Java Method Overloading"><h2>Java Method Overloading</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>I told you that functions couldn&#x2019;t have the same name.</p>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p><strong>I lied.</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="iJVMrRgNoMDSQndAuhyBGsxwipXUxmyY">
+<div data-title=" Bad Professor"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://www.usnews.com/education/blogs/professors-guide/2010/01/06/10-warning-signs-of-a-bad-professor%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="wswjWrauPrlUigRkLcyzcewZsvsCXVAL">
+<div data-title=" Java Method Overloading"></div>
+<textarea class="janini spelling_exception">static int sum(int first, int second) {
+  return first + second;
+}
+static double sum(double first, double second) {
+  return first + second;
+}
+System.out.println(sum(10, 20));
+System.out.println(sum(10.0, 20.0));
+System.out.println(&quot;WTF?!&quot;);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hMOkqKTcxmOlCMscnAhDrISCCrbmuKSA">
+<div class="header" data-title="Java Method Overloading"><h2>Java Method Overloading</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java uses <em>both</em> the function name <em>and</em> the the list of arguments and types to
+determine which function to call.</p>
+</div>
+<div class="paragraph">
+<p>Together they are called the <em>function signature</em>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p><strong>Does the function have the right name?</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Does the function take the right arguments in the right order?</strong></p>
+</li>
+<li class="bullet">
+<p>Java will also try to convert types to find a match as long as no loss of
+precision occurs</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="gSVpdvguUsItuviFdwvmyPOhnMVwlErX">
+<div data-title=" Java Method Overloading"></div>
+<textarea class="janini spelling_exception">static int sum(int first, int second) {
+  System.out.println(&quot;Summing ints&quot;);
+  return first + second;
+}
+static double sum(double first, double second) {
+  System.out.println(&quot;Summing doubles&quot;);
+  return first + second;
+}
+System.out.println(sum(10, 20));
+System.out.println(sum(10.0, 20.0));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uHxLfZRUUSeKHKZXVkQEndWETbAOgXOj">
+<div class="header" data-title="Function Input Validation"><h2>Function Input Validation</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A common function design pattern is to <em>check your inputs at the top</em>.</p>
+</div>
+<div class="paragraph">
+<p>Think about all the bad inputs you could possibly get from the caller.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int sum(int[] numbers) {
+  // check numbers to make sure it&apos;s sane
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="IvXkDdLRgNBLsSBPsbafXVMWXMQbkIQF">
+<div data-title=" Function Input Validation"></div>
+<textarea class="janini spelling_exception">static int sum(int[] numbers) {
+  // check numbers to make sure it&apos;s sane
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yBXWpiIYZpCTIiwedPUiflmeXRDXXbyM">
+<div class="header" data-title="null Arrays"><h2><code>null</code> Arrays</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>What is the value of array declared below?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] output = null;
+System.out.println(output);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Java has a special value that can be used to indicate that an object has not
+been initialized: <code>null</code>.</p>
+</li>
+<li class="bullet">
+<p><code>null</code> is not a valid object: it has no properties or methods that you can
+use.</p>
+</li>
+<li class="bullet">
+<p>Attempts to use <code>null</code> will result in an error</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="EaGRLETbzDaduqdILxVMZGtholIVxhZu">
+<div data-title=" null Arrays"></div>
+<textarea class="janini spelling_exception">int[] output = null;
+System.out.println(output);
+System.out.println(output.length);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="MtRsCbMHmLhOLCCaHMlzRjbUaAvypYeW">
+<div class="header" data-title="Defensive Programming 101"><h2>Defensive Programming 101</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>Always check objects for <code>null</code>.</strong></p>
+</div>
+<div class="paragraph">
+<p>Java and other Java-like languages now also have better primitives for dealing
+with <code>null</code> and avoiding
+<a href="https://kotlinlang.org/docs/reference/null-safety.html" target="_blank" class="external">the Billion Dollar
+Mistake</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HltJmohVAiSOVkbDyMDvVSxVeYTnaQmt">
+<div class="header" data-title="Casting"><h2>Casting</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If you want to <em>force</em> Java to convert a variable from one type to another you
+can try applying a <em>cast</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int i = 10;
+double d = i; // This works since no information is lost
+i = d; // This does not work since we&apos;d have to throw out the fraction
+i = (int) d; // But we can force Java to do it</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="bcsEuCBErjgIjQHaKvcOzsFASZdTIemI">
+<div data-title=" Casting"></div>
+<textarea class="janini spelling_exception">int i = 10;
+double d = i; // This works since no information is lost
+i = d; // This does not work...
+i = (int) d; // ...but we can force Java to do it</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="bFVBvhmjufzGfxvxxruaPuBSduFKcJlu">
+<div class="header" data-title="Let&#x2019;s Solve Some Problems!"><h2>Let&#x2019;s Solve Some Problems!</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EDTZMRFNRRZFQZYYRWOPMGMNQFDXONJQ">
+<div class="header" data-title="String Reverse"><h2>String Reverse</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given a <code>String</code>, return it in reverse order.</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong>
+I can think of at least three ways to do this&#x2026;&#x200B;</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Examine each character in the input <code>String</code></p>
+</li>
+<li class="bullet">
+<p>Put it in the right place in the output <code>String</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="CTLBHVPUNNQVONERMCWGDEIBZODITFTE">
+<div data-title=" String Reverse"></div>
+<textarea class="janini spelling_exception">static String reverse(String input) {
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="OEzuTpurwrhHSauViYyTwSIyybNxVVVz">
+<div data-title=" Read The Documentation"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/lang/String.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IiSngNdYzdEnzLMjikxwjrNwXThqAOAO">
+<div class="header" data-title="Dropped Grade Policy"><h2>Dropped Grade Policy</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>CS 125 has a generous dropped grade policy.
+However, these are <em>not</em> &quot;get out of class free&quot; cards.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Dropped lectures and labs are pre-excused absences intended to accommodate
+<em>all</em> the reasons you might miss class or not complete a homework problem:
+sickness, family emergencies, travel, religious obligations, extracurricular
+activities, etc.</p>
+</li>
+<li class="bullet">
+<p><strong>As a result we don&#x2019;t excuse absences.</strong>
+Please don&#x2019;t email us about this.</p>
+</li>
+<li class="bullet">
+<p><strong>We expect you to try to attend and complete everything.</strong>
+But the dropped grades are for times when circumstances intervene.</p>
+</li>
+<li class="bullet">
+<p>If you use them up skipping class just because you don&#x2019;t feel like coming, and
+then your fish dies and you are bereft, you don&#x2019;t get more.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xQXgbdRgVarmQwliOIBZtdzszqeKYBPZ">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist small">
+<ul>
+<li>
+<p><a href="/MP/2019/spring/0/">MP0</a> is out and due <em>next Monday</em>.
+The early deadline is <em>today</em> at 5PM.
+Please get started!
+Office hours start immediately after class in Siebel 0403.</p>
+</li>
+<li>
+<p>My office hours today will be in <strong>Siebel 0403</strong> from 1&#x2013;3PM.</p>
+</li>
+<li>
+<p>Please fill out the <a href="https://goo.gl/forms/FWkjiW2jp9HoU82U2" target="_blank" class="external">initial student
+survey</a>.
+1% extra credit for anyone who does by <strong>Sunday 02/03/2019</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

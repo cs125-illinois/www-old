@@ -1,0 +1,669 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Introduction to Git and GitHub</title>
+		<meta name="description" lang="en-us" content="Introduction to the Git version control system and GitHub Git online service.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/spring/setup" class="option active">Setup<span class="sr-only">(current)</span></span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/spring/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/git/" class="active" onclick="return false;">Git<span class="sr-only">(current)</span></a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/EWS/">EWS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Why Use Source Version Control?</a>
+            <ul>
+              <li><a class="nav-link" href="#_versioning_entire_projects">1.1. Versioning Entire Projects</a></li>
+              <li><a class="nav-link" href="#_version_comments">1.2. Version Comments</a></li>
+              <li><a class="nav-link" href="#_merging_changes">1.3. Merging Changes</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#git">2. Introduction to Git and GitHub</a>
+            <ul>
+              <li><a class="nav-link" href="#_basic_principles">2.1. Basic Principles</a></li>
+              <li><a class="nav-link" href="#install">2.2. Installing Git</a></li>
+              <li><a class="nav-link" href="#account">2.3. Joining GitHub</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#workflow">3. CS 125 Git Workflow</a>
+            <ul>
+              <li><a class="nav-link" href="#cloning">3.1. Cloning the MP Starter Code</a></li>
+              <li><a class="nav-link" href="#identifying">3.2. Identifying Yourself</a></li>
+              <li><a class="nav-link" href="#autograding">3.3. Running the Autograder</a></li>
+              <li><a class="nav-link" href="#committing">3.4. Committing (Saving) Your Work</a></li>
+              <li><a class="nav-link" href="#submitting">3.5. Pushing and Submitting Your Work</a></li>
+              <li><a class="nav-link" href="#troubleshooting">3.6. Troubleshooting the Submission Process</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_how_to_learn_more">4. How to Learn More</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Introduction to Git and GitHub</h1>
+      <div class="paragraph lead">
+<p><a href="https://git-scm.com/" target="_blank" class="external">Git</a> is a source code version control system (VCS), also
+known as <em>version control</em>.
+<a href="https://github.com/" target="_blank" class="external">GitHub</a> is as website providing Git repository hosting and
+an attractive and powerful Git web interface.
+Version control systems are at the heart of how programmers manage and share
+source code.
+Both Git and GitHub are extremely commonly used in the world of software
+development, and you will benefit greatly from familiarity with them.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p><strong>Note that if have not
+<a href="/MP/2019/spring/setup/android-studio/">installed Android Studio</a>
+you should do that first.</strong>
+Return here when you&#x2019;re done.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="vcs"></a><h2>1. Why Use Source Version Control?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A source code repository is a bit like the shared folders that are provided by
+services like <a href="https://www.dropbox.com" target="_blank" class="external">Dropbox</a>, <a href="https://www.box.com" target="_blank" class="external">Box</a>, and
+<a href="https://drive.google.com" target="_blank" class="external">Google Drive</a>.
+You can save files and folders and share them with other users in various
+ways.
+Some of these tools even track allow you to undo and redo changes and see how
+files have changed over time.
+These are useful tools, and a great way to collaborate with others in a
+variety of different scenarios.
+So it&#x2019;s normal to wonder: what&#x2019;s different about source version control?</p>
+</div>
+<div class="paragraph">
+<p>Compared to tools like Dropbox, source version control provides programmers
+with several important advantages.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_versioning_entire_projects"></a><h3>1.1. Versioning Entire Projects</h3>
+<div class="paragraph">
+<p>First, version control systems track the version of <em>all the files in each
+repository</em>, rather than individual files separately.
+Programming frequently involves making a set of changes to a group of files that
+together accomplish something&#x2014;like fixing a bug or adding a new feature.
+So when you commit your work using Git, it remembers the state of all the files
+in your repository at that time.
+This allows you to compare what your project looked like at different times, and
+undo an entire set of changes that might have caused a problem.</p>
+</div>
+<div class="paragraph">
+<p>Note that this also means that Git <strong>does not</strong> track all the changes you save
+to a file.
+Unless you commit your changes, they are not saved to your repository.
+This may seem like an annoyance&#x2014;after all, systems like Dropbox will sync
+your files every time you save them.</p>
+</div>
+<div class="paragraph">
+<p>But when programming this turns out to be a <em>huge</em> advantage.
+Let&#x2019;s say you save a version of <code>Foo.java</code> to test&#x2014;but it contains errors.
+Now if you are using Dropbox, everyone has that broken version of the file.
+But if you are using Git, you can test your code, notice the errors, and fix
+them before committing.</p>
+</div>
+<div class="paragraph">
+<p>A Git commit is really their equivalent of the save operation.
+Regardless of whether you save your files in Android Studio or any other way, you have
+to add commit them to your repository before it will save and remember them.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_version_comments"></a><h3>1.2. Version Comments</h3>
+<div class="paragraph">
+<p>Version control systems also allow you to add your own notes to each commit.
+This is called a <em>comment</em>.
+Comments should summarize what changes are included in the new version of the
+project.
+Good comments are extremely helpful to other developers that are trying to
+understand how the code is evolving.
+All version control systems have ways to view the list of version with their
+comments.
+This can be useful when you want to see how things have changed, or back up
+and use an older version of a project where some feature was working that
+isn&#x2019;t any more.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_merging_changes"></a><h3>1.3. Merging Changes</h3>
+<div class="paragraph">
+<p>Second, version control systems help you merge changes made by different
+developers&#x2014;even to the same file.
+Say that <code>Foo.java</code> has 1000 lines.
+Alice makes a change at the top of the file.
+Concurrently, Bob makes a change to the bottom of the file.
+Systems like Dropbox will typically force you to address this conflict by
+choosing either Alice&#x2019;s version of the file or Bob&#x2019;s.
+But version control systems can frequently <em>automatically</em> merge
+non-overlapping changes to source code files&#x2014;allowing you to choose to
+combine the changes from Alice with the changes from Bob.
+When you are working in large teams on large software projects, this
+capability is extremely handy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="git"></a><h2>2. Introduction to Git and GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Now let&#x2019;s go through the basics of how to use Git.
+But please don&#x2019;t consider this guide exhaustive&#x2014;there are much more useful
+and up-to-date guides all over the internet.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_basic_principles"></a><h3>2.1. Basic Principles</h3>
+<div class="paragraph">
+<p>Git organizes your files into a <em>repository</em>.
+A repository can contain any number of files organized any way you like.
+A single repository usually contains all of the code used by a single project.
+For CS 125, you will use a single repository for each MP <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;and for some labs&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+<div class="paragraph">
+<p>Git stores a copy of your repository on your local machine.
+But to submit and to backup your work, you are going to <em>push</em> your changes to
+the GitHub Git hosting service.
+So first we have to create a GitHub account and configure Android Studio to use it.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="install"></a><h3>2.2. Installing Git</h3>
+<div class="paragraph">
+<p>Before you can use Git with Android Studio you may need to install the underlying Git
+tool itself.
+We suggest you follow
+<a href="https://medium.com/code-yoga/how-to-link-android-studio-with-github-312037a13b99" target="_blank" class="external">the
+first two steps of this tutorial</a>
+to install Git and integrate it with Android Studio.</p>
+</div>
+<div class="paragraph">
+<p>Note that you do <em>not</em> need to install a GUI for Git&#x2014;or the
+<a href="https://desktop.github.com/" target="_blank" class="external">GitHub Desktop</a>
+application.
+We&#x2019;re going to use Android Studio&#x2019;s excellent built-in Git interface.
+So once you&#x2019;ve
+<a href="https://git-scm.com/downloads" target="_blank" class="external">installed Git</a>
+you can move on.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="account"></a><h3>2.3. Joining GitHub</h3>
+<div class="paragraph">
+<p>Joining GitHub is simple!
+If you don&#x2019;t already have an account, head to
+<a href="https://github.com/join" target="_blank" class="external">this page</a>
+to sign up.
+It&#x2019;s quick, free, and painless.</p>
+</div>
+<div class="paragraph">
+<p>If you already have an account, just keep using it for your CS 125 assignments.
+Note that there is also no requirement that you identify yourself as a CS 125 or
+even as an Illinois student with GitHub to submit your CS 125 assignments.
+We&#x2019;ll discuss how to identify yourself your submissions
+<a href="#identify">later</a>.
+However, if you add your <code>@illinois.edu</code> email to your profile as your primary
+email address, it will improve integration with our official grading system.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="workflow"></a><h2>3. CS 125 Git Workflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Almost all of your interaction with Git this semester will be through two
+powerful interfaces: the
+<a href="/MP/2019/spring/setup/android-studio/">Android Studio IDE</a>
+and
+<a href="https://github.com/" target="_blank" class="external">GitHub</a>.
+Let&#x2019;s walk through a typical MP workflow to get a sense for how you will
+normally be using Git.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="cloning"></a><h3>3.1. Cloning the MP Starter Code</h3>
+<div class="paragraph">
+<p>To begin each MP <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;and many labs&lt;/body&gt;&lt;/html&gt;">2</span> you will use a special link to
+<em>clone</em> a Git repository on
+<a href="https://github.com/" target="_blank" class="external">GitHub</a>.
+That repository contains starter code that we provide for each assignment,
+including completed portions of the assignment and testing suites.
+Cloning a Git repository on GitHub makes a copy of it that you now have
+permission to modify.</p>
+</div>
+<div class="paragraph">
+<p>It is straightforward to start a new Android Studio project Using an existing
+GitHub repository&#x2014;&#x200B;either one you created or one that was created for you when
+you accepted our MP invitation link.
+Simply choose the &quot;Check out project from Version Control&quot; option in the main Android
+Studio menu and then select &quot;Git&quot;.</p>
+</div>
+<div class="paragraph">
+<p>Paste the link that you obtain when you choose &quot;Clone or download&quot; at the GitHub
+page for your project.
+It should look like
+<a href="https://github.com/cs125-illinois-students/MP0-Spring2019-username.git" class="noclick link_exception spelling_exception" target="_blank">https://github.com/cs125-illinois-students/MP0-Spring2019-username.git</a>,
+where <code>username</code> is your GitHub username.</p>
+</div>
+<div class="paragraph">
+<p>If you have not yet added your GitHub credentials to Android Studio, it will ask
+you to do that.
+At that point Android Studio will download the code from GitHub to your local
+machine and allow you to begin making and testing your changes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note that you should never use the &quot;Download ZIP&quot; or &quot;Open in Desktop&quot; options
+on GitHub.</strong>
+These will result in an incorrect project setup that is hard to fix.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="identifying"></a><h3>3.2. Identifying Yourself</h3>
+<div class="paragraph">
+<p>Before you can run the local autograder or receive credit for a submission, you
+must identify yourself.
+This links your <code>@illinois.edu</code> identify to your repository so that you can
+receive credit for your work.</p>
+</div>
+<div class="paragraph">
+<p>In the root directory of each project you will submit, there is a file called
+<code>email.txt</code>.
+In Android Studio you&#x2019;ll need to switch to the project view to locate this file.
+Enter your <code>@illinois.edu</code> email address into that file on a single line.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note that it is critical that you do this properly.</strong>
+If you enter an incorrect email address, you will not receive credit for your
+work.
+If you enter the email address of another student, we will investigate your
+submission for plagiarism and potentially file a
+<a href="https://history.illinois.edu/resources/faculty-resources/reporting-academic-integrity-infractions" target="_blank" class="external">FAIR
+report</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>3.3. Running the Autograder</h3>
+<div class="paragraph">
+<p>As you complete each assignment, you&#x2019;ll want to track your progress and get a
+sense of how you are doing.
+To aid with that process, we&#x2019;ve provided an autograder that you can run as
+many times as you like.
+Each time, it <em>estimates</em> the score that you&#x2019;d earn on the assignment.</p>
+</div>
+<div class="paragraph">
+<p><strong>Please note that the autograder only provides an estimate of your score.</strong>
+While we have tried as hard as possible to make the autograder run similarly on
+your machine and in official grading, it is impossible to ensure identical
+behavior.
+So use the autograder to estimate your score as you go&#x2014;but be sure to
+submit and view your official score before the assignment deadline.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="committing"></a><h3>3.4. Committing (Saving) Your Work</h3>
+<div class="imageblock right">
+<div class="content">
+<img src="https://hikaruzone.files.wordpress.com/2015/10/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png?w=800&amp;h=559" alt="in case of fire 1 git commit 2 git push 3 leave building2" width="150">
+</div>
+</div>
+<div class="paragraph">
+<p>Version control systems only save the change you have made when you
+tell them to.
+This is called a <em>commit</em>, and the process called <em>committing</em>.
+Given that committing is essentially saving your changes, this have given rise
+to memes like the one on the right.</p>
+</div>
+<div class="paragraph">
+<p>Once you commit a version of a file, Git will remember its committed
+contents forever&#x2014;even if you change or delete it the file.
+So you should get into the habit of committing early and often.
+Here are some good times to commit your code:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You just started a project&#x2014;make sure to record it in its initial
+state!</p>
+</li>
+<li>
+<p>You just finished writing a function&#x2014;that way you can always get back
+to that version if you make changes later.</p>
+</li>
+<li>
+<p>You just passed one test case&#x2014;make sure that Git remembers what
+worked forever!</p>
+</li>
+<li>
+<p>You are about to take a break or go to bed.</p>
+</li>
+<li>
+<p>The MP deadline is in thirty minutes&#x2014;or in five minutes!</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Get in the habit now of committing your code regularly.</strong>
+Version control systems are very efficient at storing commits, and so the
+overhead of performing them is small.
+Better to have things saved than to want desperately to get back to a previous
+version or remember how you did something and not have it committed.</p>
+</div>
+<div class="paragraph">
+<p>Note that most version control systems will require you to tell them the first
+time you want to add a new file to a project.
+Once you do this once, that file will be tracked in the future&#x2014;but there
+is an initial step that you may sometimes miss.
+However, Android Studio is good about reminding you about this, as long as you don&#x2019;t
+disable those reminders.</p>
+</div>
+<div class="paragraph">
+<p>Android Studio has a convenient interface for committing changes, adding commit
+messages, pushing to GitHub, and generally tracking the state of your
+repository.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="submitting"></a><h3>3.5. Pushing and Submitting Your Work</h3>
+<div class="paragraph">
+<p>For CS 125 you submit your work by <em>pushing</em> it to GitHub.
+We will grade each version of your MP that you push and provide you with the
+best score modulo penalties and other score calculations.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="troubleshooting"></a><h3>3.6. Troubleshooting the Submission Process</h3>
+<div class="paragraph">
+<p>Except around deadlines, MP grading usually completes quite quickly.
+In most cases you&#x2019;ll see your latest submission show up
+<a href="/m/grades/MPs">on the MP grades page</a>
+within a few minutes.
+<strong>However, if you submit right before a deadline, you may need to wait
+longer&#x2014;maybe even several hours.</strong>
+Note that there is no need to reload the page: it will update automatically.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#x2019;t find your commit there here are some common problems:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Your submission isn&#x2019;t graded yet.</strong>
+If you submitted right before a deadline, you may need to wait several hours for
+grading to complete.
+As a reminder, you can and should use our <a href="#autograding">local autograder</a> to
+estimate your score as you work.
+Don&#x2019;t submit until you are confident that you have earned the score that you are
+aiming for.</p>
+</li>
+<li>
+<p><strong>Your commit is there, it just didn&#x2019;t get the score you thought it would.</strong>
+We put your best commit at the top of the list.
+If you newer commit doesn&#x2019;t score as well, it will end up below your best
+commit, meaning that you might miss it.
+And when two best commits earn the same score we place the <em>oldest</em> on top, not
+the newest.</p>
+</li>
+<li>
+<p><strong>You didn&#x2019;t enter your email correctly into the <code>email.txt</code> file.</strong>
+This is probably the most common problem.
+If you don&#x2019;t enter your email address correctly we have no way to know that it&#x2019;s
+you!
+So double- and triple-check that your email is correct.</p>
+</li>
+<li>
+<p><strong><code>checkstyle</code> couldn&#x2019;t parse one of your files.</strong>
+If <code>checkstyle</code> can&#x2019;t <em>parse</em> one of your files then the entire build fails
+before we have a chance to record your email address.
+Note that this is different than a <code>checkstyle</code> error&#x2014;it means that the
+file was not valid Java syntax, and usually wouldn&#x2019;t have compiled anyway.
+Currently any syntax errors that cause <code>checkstyle</code> to fail in <em>any</em> of your
+sources files will fail the entire build and cause you to not receive a grade.
+We hope to fix this limitation in a future release of our grading plugin.</p>
+</li>
+<li>
+<p><strong>You&#x2019;re pushing the the wrong repository.</strong>
+You should be pushing to a repository in the <code>cs125-illinois-students</code>
+organization.
+<strong>If you&#x2019;ve somehow created another repository on GitHub, remove it
+immediately once you&#x2019;ve pushed to the correct repository.</strong>
+It can put you at serious risk for committing an academic integrity violation.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_how_to_learn_more"></a><h2>4. How to Learn More</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As usual the internet is the best way to find out more about anything related
+to technology.
+There are great Git tutorials out there that you can find on Google.
+And feel free to ask questions
+<a href="https://cs125-forum.cs.illinois.edu" target="_blank" class="external">on the forum</a>.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/spring/setup/git.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/spring/setup/git.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

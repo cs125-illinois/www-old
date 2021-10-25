@@ -1,0 +1,690 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Exceptions and Errors Continued</title>
+  <meta name="description" lang="en-us" content="Continuation of a discussion of Java errors and error handling.">
+
+  <meta name="slider-id" content="f30171aa-7e17-430e-a421-387ac5d652db">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smaller nozoom bespoke-active bespoke-slide" data-slideid="QvnzLXdQHdksGlXPpcJDmjidkjBtRjek">
+
+<textarea class="janini spelling_exception">static void throwError() throws Exception {
+  throw new Exception(&quot;Exceptions and Errors Continued&quot;);
+}
+
+try {
+  throwError();
+} catch (Exception e) {
+  System.out.println(e);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Exceptions and Errors Continued&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Exceptions and Errors Continued<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="nbmxbUangABLUEHOCwqeRuKpLzOAqZQd">
+<div data-title=" Q11 Review and Warmup"></div>
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+/**
+ * Class for storing the last ten integers added.
+ *
+ * Your class should be named LastTen.
+ *
+ * Your class should implement two public methods as described below:
+ * 1. void add(int newValue):
+ *    add a new integer to the values that we are rememebring
+ * 2. int[] getLastTen():
+ *    return the last ten values that were added using add, in any order.
+ *    If fewer than ten values were added, you should return zeros in their
+ *    place.
+ *
+ * Examples:
+ *   1. add(1), add(2)
+ *      getLastTen: [1, 2, 0, 0, 0, ... ]
+ *   2. add(0), add(1), add(2), ... add(10)
+ *      getLastTen: [1, 2, 3, 4, ... 10]
+ *
+ * Your class should also provide a constructor that takes no arguments.
+ */
+
+public class Example {
+  public static void main(final String[] unused) {
+    LastTen lastTen = new LastTen();
+    for (int i = 0; i &lt; 20; i++) {
+      lastTen.add(i);
+    }
+    System.out.println(Arrays.toString(lastTen.getLastTen()));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="NgSMAwsMTdJArBYXQLnHeUxhTHnfkOWO">
+<div class="header" data-title="Exceptions"><h2>Exceptions</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because things go wrong&#x2026;&#x200B;</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aGPxoRnNcYNYDrkciLIXCQtcfauqstFG">
+<div class="header" data-title="Exceptional Control Flow"><h2>Exceptional Control Flow</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>When an error is thrown control flow <em>immediately</em> jumps to an
+enclosing <code>catch</code> statement, if one exists.</p>
+</div>
+<div class="paragraph">
+<p>The <code>catch</code> may be in the caller or multiple levels up.</p>
+</div>
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="SeOQGYKwsgXdStZpbnLyKXRzcnodvdkg">
+<div data-title=" try-catch with Functions Example"></div>
+<textarea class="janini spelling_exception">static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}
+foo4();</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hHpJlOjfMZHLDFIEtYEVveZKGChYtAoT">
+<div class="header" data-title="Types of Exceptions"><h2>Types of Exceptions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java exceptions are broken into three distinct categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Checked exceptions</strong>: these are for places where you <em>know</em> something might go
+wrong and it&#x2019;s out of your control</p>
+</li>
+<li class="bullet">
+<p><strong>Unchecked exceptions</strong> (or runtime errors): these are usually caused by
+something dumb that you (the programmer) did wrong</p>
+</li>
+<li class="bullet">
+<p><strong>Errors</strong>: these are reserved for serious system problems that are probably not
+recoverable</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mDntiMShclykEeTHFbbcWpaIaMDOtslB">
+<div class="header" data-title="Checked Exceptions: Handling"><h2>Checked Exceptions: Handling</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If you use a function that may generate a checked exception, you must either
+wrap it in a <code>try-catch</code> block or declare that you may throw it.</p>
+</div>
+<div class="listingblock smaller bullet">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">static URI createURI(final String input) {
+  // Example where we handle URISyntaxExceptions
+  try {
+    return new URI(input);
+  } catch (URISyntaxException e) {
+    System.out.println(input + &quot; is not a valid URI&quot;);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock smaller mt-2 bullet">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">// Example where we throw URISyntaxExceptions
+static URI createURI(final String input) throws URISyntaxException {
+  return new URI(input);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="fQksWEmXdgBjncevNfmiwEpQtfJUdBqp">
+<div class="header" data-title="Unchecked Exceptions: Examples"><h2>Unchecked Exceptions: Examples</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Unchecked examples are usually the result of <em>programmer error</em>.</p>
+</div>
+<div class="paragraph">
+<p>You&#x2019;ve probably made many of these mistakes by now&#x2026;&#x200B;</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ArrayIndexOutOfBoundsException.html" target="_blank" class="external"><code>ArrayIndexOutOfBoundsException</code></a>:
+<span class="bullet">you walked off the end of an array</span></p>
+</li>
+<li class="bullet">
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html" target="_blank" class="external"><code>NullPointerException</code></a>:
+<span class="bullet">you dereferenced a <code>null</code> reference</span></p>
+</li>
+<li class="bullet">
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ClassCastException.html" target="_blank" class="external"><code>ClassCastException</code></a>:
+<span class="bullet">you tried to cast something to a subclass of which it is not an instance</span></p>
+</li>
+<li class="bullet">
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html" target="_blank" class="external"><code>IllegalArgumentException</code></a>:
+<span class="bullet">you passed incorrect arguments to a function or constructor</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="ISJDepXiVBpgjPhbyHGqeRxQaBOzKVBD">
+<div data-title=" Unchecked Exceptions: Examples"></div>
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+static void faulter() {
+}
+try {
+  faulter();
+} catch (ArrayIndexOutOfBoundsException e) {
+  System.out.println(&quot;Whoops!&quot;);
+} catch (NullPointerException e) {
+  System.out.println(&quot;Oh, no!&quot;);
+} catch (ClassCastException e) {
+  System.out.println(&quot;That&apos;s too bad...&quot;);
+} catch (IllegalArgumentException e) {
+  System.out.println(&quot;Don&apos;t do that!&quot;);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="JeobqXuXzWOKfLNYVANnZhhpASBkdiJz">
+<div data-title=" Arrays Again"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JoSAhTRGjusouJkDfQshuUUDdlPlJWEs">
+<div class="header" data-title="Unchecked Exceptions: Handling"><h2>Unchecked Exceptions: Handling</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Unlike checked exceptions, you do not need to declare or handle unchecked
+exceptions.</p>
+</div>
+<div class="paragraph">
+<p>However, you <em>can</em> handle them:</p>
+</div>
+<div class="listingblock smaller bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">try {
+  String s = callMyPartnersDodgyCode();
+  if (s.length() == 0) {
+    return;
+  }
+} catch (NullPointerException e) {
+  return;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kQbOfdZFwWMQsOQmhbBQogCUGHympVWJ">
+<div class="header" data-title="Errors: Examples"><h2>Errors: Examples</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java errors indicate serious conditions that are usually not recoverable:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/OutOfMemoryError.html" target="_blank" class="external"><code>OutOfMemoryError</code></a>:
+Java ran out of memory and is going to crash</p>
+</li>
+<li class="bullet">
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html" target="_blank" class="external"><code>StackOverflowError</code></a>:
+You recursed too deeply and Java is going to crash</p>
+</li>
+<li class="bullet">
+<p>Note that sometimes <em>these are still your fault</em>: you used too much memory or
+forgot your base case</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ajpSqxeufhVlXQkgrigFcjuJqXwzCANS">
+<div class="header" data-title="Exception Handling Strategies"><h2>Exception Handling Strategies</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Here are reasonable strategies for handling each kind of exception:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Errors</strong>: <em>don&#x2019;t</em> try to handle these, just go bye-bye</p>
+</li>
+<li class="bullet">
+<p><strong>Unchecked exceptions</strong>: try to <em>avoid</em> these by improving your code</p>
+</li>
+<li class="bullet">
+<p><strong>Checked exceptions</strong>: try to handle these and have your program
+continue running, or exit gracefully&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>but don&#x2019;t go on unless you can.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="RoxnUIFqZCBrBZnusOrpzbLuksmJMpdG">
+<div class="header" data-title="Working with Exceptions"><h2>Working with Exceptions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java exceptions are just another kind of Java object&#x2014;and they have some
+useful features, particularly when debugging:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>toString</code>: like every other Java <code>Object</code>, exceptions can be printed</p>
+</li>
+<li class="bullet">
+<p><code>getMessage</code>: retrieves just the message associated with this exception</p>
+</li>
+<li class="bullet">
+<p><code>printStackTrace</code>: print a <em>stack trace</em> for the error showing what caused it
+and what other functions were involved</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="wIAiKctczCEQFknYPSiRbruXLqBIGBMy">
+<div data-title="Throwable Documentation"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="zzlPSnhuaDjSgoGIAkpIjUQZeiuerNQe">
+<div data-title="Working with Exceptions Examples"></div>
+<textarea class="janini spelling_exception">static void foo1() {
+  Object it = null;
+  int hash = it.hashCode();
+}
+static void foo2() {
+  foo1();
+}
+static void foo3() {
+  foo2();
+}
+static void foo4() {
+  try {
+    foo3();
+  } catch (Exception e) {
+  }
+}
+foo4();</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CTsKSqiFCfFyikLMwtUmDbmSXijFayAL">
+<div class="header" data-title="Rethrowing Exceptions"><h2>Rethrowing Exceptions</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Sometimes you may want to just record what happened but not know what to do with
+an error.</p>
+</div>
+<div class="paragraph">
+<p>In that case you may want to rethrow it out of the catch block:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">static URI createURI(final String input) {
+  // Example where we handle URISyntaxExceptions
+  try {
+    return new URI(input);
+  } catch (URISyntaxException e) {
+    // Log that something went wrong
+    Log.e(TAG, input + &quot; is not a valid URI&quot;);
+    // Rethrow the exception
+    throw(e);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="diIiwLksuhFzuaiuxOuRIZnfIpgBPFnP">
+<div class="header" data-title="Throwing Your Own Exceptions"><h2>Throwing Your Own Exceptions</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So how do we handle a case like this?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize &lt;= 0) {
+      // what now?
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller compiler nozoom bespoke-inactive bespoke-slide" data-slideid="tZEORkretvixoGRTiPQxDkXOhkrgdAUE">
+<div data-title=" Throwing Your Own Exceptions"></div>
+<textarea class="janini spelling_exception">public class StringStorage {
+  /**
+   * Create a new object to store strings.
+   *
+   * @param storageSize the size of the StringStorage,
+   *        must be positive
+   */
+  public StringStorage(final int storageSize) {
+    if (storageSize &lt;= 0) {
+      // what now?
+    }
+  }
+}
+public class Example {
+  public static void main(final String[] unused) {
+    StringStorage stringStorage = new StringStorage(-1);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TyzTkvyjvmKDPkZwmxwufvXMjajIlrHV">
+<div class="header" data-title="throw"><h2><code>throw</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To throw an exception in Java we use the <code>throw</code> keyword:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">Exception e = new Exception(&quot;you did something awful&quot;);
+throw(e);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qoTmuDmRuBRgiUxPONZaOVhCRmlElcLw">
+<div class="header" data-title="throw Well"><h2><code>throw</code> Well</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>If you need to throw an exception:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Look for an existing <code>Exception</code> class that&#x2019;s a good fit</p>
+</li>
+<li class="bullet">
+<p>Or, create your own:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock smaller bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class MyException extends Exception {
+}
+throw(new MyException(&quot;bad bad&quot;));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SRZEFPcrGpKfBdzGREcjDZALhTbKaIsC">
+<div class="header" data-title="finally"><h2><code>finally</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java&#x2019;s <code>try-catch</code> also supports a <code>finally</code> block. It is <em>always</em> executed after
+<em>either</em> the <code>try</code> or the <code>catch</code> completes:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">try {
+  System.out.println(&quot;start&quot;);
+  couldError();
+  System.out.println(&quot;done&quot;);
+} catch (Exception e) {
+  System.out.println(&quot;catch&quot;);
+} finally {
+  System.out.println(&quot;finally&quot;);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="mhmYjmPPucLHcPEFfhzCtQfFbnqfuYjZ">
+<div data-title=" finally Example"></div>
+<textarea class="janini spelling_exception">import java.util.Random;
+
+static void couldError() {
+  Random random = new Random();
+  if (random.nextBoolean()) {
+    Object it = null;
+    it.hashCode();
+  }
+}
+
+try {
+  System.out.println(&quot;start&quot;);
+  couldError();
+  System.out.println(&quot;done&quot;);
+} catch (Exception e) {
+  System.out.println(&quot;catch&quot;);
+} finally {
+  System.out.println(&quot;finally&quot;);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eZOQBRhCvuQhjkIrABjfwolqygMADAfE">
+<div class="header" data-title="Intelligent try Usage"><h2>Intelligent <code>try</code> Usage</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can make intelligent use of <code>try-catch</code> blocks to avoid repetitive sanity
+checking:</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">JsonParser parser = new JsonParser();
+JsonObject info = parser.parse(json).getAsJsonObject();
+if (!info.has(&quot;metadata&quot;)) {
+  return 0;
+}
+JsonObject metadata = info.getAsJsonObject(&quot;metadata&quot;);
+if (!metadata.has(&quot;width&quot;)) {
+  return 0;
+}
+JsonElement width = metadata.getAsJsonElement(&quot;width&quot;);
+return width.getAsInt();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PTcgGbrBNJAzQGjhIpXKlPnMXeUoxUmP">
+<div class="header" data-title="Intelligent try Usage"><h2>Intelligent <code>try</code> Usage</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You can make intelligent use of <code>try-catch</code> blocks to avoid repetitive sanity
+checking:</p>
+</div>
+<div class="paragraph">
+<p>(This is particularly nice when you can chain calls together.)</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">try {
+  JsonParser parser = new JsonParser();
+  return parser.parse(json)
+    .getAsJsonObject()
+    .getAsJsonObject(&quot;metadata&quot;)
+    .get(&quot;width&quot;)
+    .getAsInt();
+} catch (Exception e) {
+  return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MOtQFFYNnjbBbeGMOidiZDswLFnfSKxo">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/7/">MP7 (the final project)</a> is out.
+Please get started!</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

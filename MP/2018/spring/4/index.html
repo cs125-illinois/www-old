@@ -1,0 +1,801 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP4: 2D</title>
+		<meta name="description" lang="en-us" content="In MP4 you have a chance to work with two-dimensional arrays and complete a simple photo editing application.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Spring 2018</strong>
+            </li>
+            <li><div class="dropdown-divider"></div></li>
+            <li>
+              <a href="/MP/2018/spring/7/">MP7</a>
+            </li>
+            <li>
+              <a href="/MP/2018/spring/6/">MP6</a>
+            </li>
+            <li>
+              <a href="/MP/2018/spring/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2018/spring/4/" class="active" onclick="return false;">MP4<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2018/spring/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2018/spring/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2018/spring/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2018/spring/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2018/spring/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2018/spring/setup/java/">Java</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/spring/setup/intellij/">IntelliJ</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/spring/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/spring/setup/git/">Git</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/spring/setup/EWS/">EWS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#getting">2.1. Obtaining MP4</a></li>
+              <li><a class="nav-link" href="#requirements">2.2. Your Goal</a></li>
+              <li><a class="nav-link" href="#running">2.3. Running MP4</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#approach">3. Approaching MP4</a>
+            <ul>
+              <li><a class="nav-link" href="#dry">3.1. Don&#x2019;t Repeat Yourself (DRY)</a></li>
+              <li><a class="nav-link" href="#coordinates">3.2. Understand Your Coordinate System</a></li>
+              <li><a class="nav-link" href="#_getting_help">3.3. Getting Help</a></li>
+              <li><a class="nav-link" href="#overview">3.4. How All Of MP4 Works</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">4. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#testing">4.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#autograding">4.2. Autograding</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">5. Submitting Your Work</a>
+            <ul>
+              <li><a class="nav-link" href="#cheating">5.1. Academic Integrity</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP4: 2D</h1>
+      <div class="paragraph lead">
+<p>As we have learned previously, computers are frequently used to transform and
+analyze data.
+And an increasing amount of that data is <em>multi-dimensional</em>: including both
+photo and video data.
+People are taking a
+<a href="https://www.theatlantic.com/technology/archive/2015/11/how-many-photographs-of-you-are-out-there-in-the-world/413389/" target="_blank" class="external">huge
+amount of photos and video</a>,
+and processing that data is almost entirely done on or by computers.
+For MP4 you&#x2019;ll be working with two-dimensional photo pixel data as you complete
+the server part of a simple photo editing application.</p>
+</div>
+<div class="paragraph">
+<p><strong>MP4 is due Friday 3/9/2018 @ 5PM.
+To receive full credit, you must submit by this deadline.</strong>
+In addition, 10% of your grade on MP4 is for submitting code that earns at least
+<em>50 points</em> by <strong>Monday 3/5/2018 @ 5PM.</strong></p>
+</div>
+<div class="paragraph">
+<p>As usual, late submissions will be subject to the
+<a href="/info/2018/spring/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of MP4 is to continue introducing you to data transformation.
+You&#x2019;ll begin to learn how to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>implement various image transformations by performing transformations on 2D
+arrays</p>
+</li>
+<li>
+<p>avoid writing repetitive code by identifying similarities between various
+transformations</p>
+</li>
+<li>
+<p>work with existing object classes</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also continue to reinforce the learning objectives from previous MPs
+(<a href="/MP/2018/spring/0/">0</a>, <a href="/MP/2018/spring/1/">1</a>, <a href="/MP/2018/spring/2/">2</a>, and <a href="/MP/2018/spring/3/">3</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like <a href="/MP/2018/spring/3/">MP3</a>, MP4 consists of a simple client-server system.
+The HTML, CSS, and JavaScript for the client are provided for you.
+But it relies on your backend to work properly.</p>
+</div>
+<div class="paragraph">
+<p>Your job is to complete the required transformations in <code>Transform.java</code>.
+These make use of a pixel class defined in <code>RGBAPixel.java</code>.
+These functions are called by the web server that is set up using <code>WebServer.java</code>.</p>
+</div>
+<div class="paragraph">
+<p>As always, you may find our official
+<a href="https://cs125-illinois.github.io/Spring-2018-MP4-Starter/" target="_blank" class="external">MP4 online documentation</a>
+helpful in understanding what each function and class is supposed to do.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="getting"></a><h3>2.1. Obtaining MP4</h3>
+<div class="paragraph">
+<p>Use
+<a href="https://classroom.github.com/a/cjTkpLN6" target="_blank" class="external">this GitHub Classroom invitation link</a>
+to fork your copy of MP4.
+Once your repository has been created, import it into IntelliJ following
+<a href="/MP/2018/spring/setup/git/#workflow">our assignment Git workflow guide</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="requirements"></a><h3>2.2. Your Goal</h3>
+<div class="paragraph">
+<p>At this point you should be familiar with the requirements from previous MPs.
+See the <a href="#grading">grading description below</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="running"></a><h3>2.3. Running MP4</h3>
+<div class="paragraph">
+<p>To run MP4, follow the instructions from
+<a href="/MP/2018/spring/3#running">MP3</a>.</p>
+</div>
+<div class="paragraph">
+<p>At first, nothing will work because you have not implemented any of the required
+transformations yet.
+Our web interface also uses some new-ish browser features, and of course Internet
+Explorer hasn&#x2019;t implemented all of them yet.
+We have confirmed that
+<a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank" class="external">Chrome</a>,
+<a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank" class="external">Firefox</a>,
+and
+<a href="https://www.apple.com/safari/" target="_blank" class="external">Safari</a>
+work on both Mac and Windows <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Well, not Safari on Windows, for obvious reasons&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="approach"></a><h2>3. Approaching MP4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All of our previous advice about how to approach the CS 125 MPs still applies.
+But MP4 has some unique features that are designed to continue your development
+as computer scientists and software developers.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="dry"></a><h3>3.1. Don&#x2019;t Repeat Yourself (DRY)</h3>
+<div class="paragraph lead">
+<p>Whenever you write software, you should try to adhere to the DRY principle:
+<em>don&#x2019;t repeat yourself</em>.</p>
+</div>
+<div class="paragraph">
+<p>What does this mean?
+It means that you should try to avoid writing duplicative code&#x2014;multiple
+functions (or parts of the same function) that perform identical tasks.</p>
+</div>
+<div class="paragraph">
+<p>Consider the fact that any computer program <em>could</em> be written as one giant
+function and with no subroutines at all
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Don&amp;#x2019;t try this at home.&lt;/body&gt;&lt;/html&gt;">2</span>.
+But the result would be awful, since any time the program needed to repeat a
+task it would have to repeat the code needed to accomplish that task.
+And any time you fixed a bug in one part of the code, you&#x2019;d have to find every
+other identical part and fix the bug there as well.
+Code like this quickly becomes impossible to understand, test, debug, and
+improve&#x2014;and will also make it hard to keep a job.</p>
+</div>
+<div class="paragraph">
+<p>At first glance, MP4 may seem daunting.
+You have <em>22</em> functions to write!
+And yes, you can complete MP4 by writing 22 separate independent functions.</p>
+</div>
+<div class="paragraph">
+<p>But there is a much smarter way to approach MP4.
+As a hint, the solution set consists of only <em>six</em> real functions&#x2014;with the
+rest just calling into this much smaller set of <em>helper functions</em>.
+The reason is that many of the transformations perform similar operations.
+For example, a shift down is similar to a shift up, as well as a shift left and
+a shift right.
+So rather than writing four separate extremely-similar functions, I can write a
+slightly more complicate generic shift function and have it called by all of the
+others.</p>
+</div>
+<div class="paragraph">
+<p>There is a balance here that requires practice to get right.
+Trying to reduce the needs of 22 different functions to one single method
+produces overly-complicate and brittle code.
+But writing them all separately misses opportunities to harness common
+subroutines.
+You&#x2019;ll get better at this with practice, and MP4 is a good chance to get some.
+So <strong>do not</strong> implement 22 separate transformation functions, but also <strong>do not</strong>
+attempt to implement one function that does everything.
+There are some natural groupings that you will probably be able to identify.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="coordinates"></a><h3>3.2. Understand Your Coordinate System</h3>
+<div class="paragraph">
+<p>If you are used to working with the coordinate plane in mathematics, the canvas
+coordinate system can take some getting used to.
+In particular:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>(0, 0)</code> is at the <em>top left</em>, not the bottom left.</p>
+</li>
+<li>
+<p>Increasing Y values move the image <em>down</em>, not up&#x2014;keep this in mind when
+implementing <code>shiftUp</code> and <code>shiftDown</code>.</p>
+</li>
+<li>
+<p>Increasing X values move the image to the right, which matches the
+mathematical coordinate system.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Another important pitfall is that the that way that two-dimensional arrays in
+Java are initialized <em>does not</em> match up with this coordinate system.
+So, for example, this static array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[][] myArray = {
+  { 1, 2 },
+  { 3, 4 }
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>corresponds to <em>this</em> image array:</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>3</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>4</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>We suggest that you <em>do not</em> try to interpret the statically initialized arrays in
+the test suite directly.
+Instead, use the output from <code>RGBAPixel</code> helper methods, which is correctly
+formatted.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_centering"></a><h4>3.2.1. Centering</h4>
+<div class="paragraph">
+<p>Understanding the coordinate system is also important when centering the image
+around <code>(0, 0)</code>, which you need to do to implement the rotate, flip, and resize
+transformations.
+This is probably one of the trickier parts of MP4, so think it through
+carefully.</p>
+</div>
+<div class="paragraph">
+<p>It is helpful to work some simple examples.
+For example, consider vertically flipping a 2x2 array.
+In our coordinate system, the coordinate values of the pixels in the array would
+be:</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 0)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 0)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 1)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 1)</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p><strong>Note that these are the coordinate values, not the pixel contents</strong>.
+In order to flip the array properly, we need to adjust the coordinate values as
+follows:</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(-0.5, -0.5)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0.5, -0.5)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(-0.5, 0.5)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0.5, 0.5)</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>At this point I can swap either the X or Y values and achieve either a
+horizontal or vertical flip around the origin.
+There is only one problem&#x2014;Java can&#x2019;t use <code>double</code> types as array indices.
+So we need to do this transformation on a pixel-by-pixel basis.
+Roughly, here is the approach.
+For each pixel in the original image:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Center the pixel</p>
+</li>
+<li>
+<p>Determine how to transform it to a new location in the transformed image</p>
+</li>
+<li>
+<p>Undo the centering transformation</p>
+</li>
+<li>
+<p>Move data from the original image to the transformed image</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once you have a centering procedure that works, you can use it for the
+rotations, flips, expands, and shrinks.
+But this is one of the tougher parts of the assignment, so you might want to
+start with the parts that don&#x2019;t require centering: position shifts, color
+shifts, green screen and the mystery function.</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_shrinking_and_expanding"></a><h4>3.2.2. Shrinking and expanding</h4>
+<div class="paragraph">
+<p>As a final note about coordinates, please consider carefully how to implement
+the shrink and expand transformations.
+Specifically, if I start with this 2x6 array (with pixel values shown):</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>and expand it horizontally by a factor of 3, this is the correct result:</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>But it is easy to get this instead:</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>0</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>You will want to think about this carefully.
+As a hint, instead of starting with the original array and trying to figure out
+where each pixel <em>goes</em> in the transformed array, you may want to start with the
+transformed array and calculate where each pixel should <em>come from</em>.
+Also keep in mind that simply casting a double to an integer <em>does not round the
+value properly</em>.
+So <code>(int) doubleValue != Math.round(doubleValue)</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Finally, note that shrinking is not tested by the test suite.</strong>
+You can feel free to implement it to get your web interface to work like the
+solution, but it will not affect your score.</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_testing_diff_helper"></a><h4>3.2.3. Testing diff helper</h4>
+<div class="paragraph">
+<p>You will notice that the <code>RGBAPixel</code> class defines a not very helpful <code>static</code>
+method to show the difference between two photo arrays.
+You should feel free to improve this method so that it is more useful during
+your debugging.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_help"></a><h3>3.3. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/2018/spring/syllabus/#calendar">office hours</a>, or post on the
+<a href="https://cs125-forum.cs.illinois.edu/c/mps/spring2018-mp4" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="overview"></a><h3>3.4. How All Of MP4 Works</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/v0TSgrVK8kA%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>The video above is optional, but may interest those that are curious about how a
+modern web application works.
+It walks through most of what happens from the moment you click one of the image
+transformation buttons, to when transformed data returns from the server.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP4 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>80 points</strong>: <code>Transform.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>20 points</strong> for completing the position shift transformations</p>
+</li>
+<li>
+<p><strong>20 points</strong> for completing the rotation and flip transformations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for completing the color shift transformations</p>
+</li>
+<li>
+<p><strong>15 points</strong> for completing the expand transformations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for completing the green screen transformation</p>
+</li>
+<li>
+<p><strong>5 points</strong> for completing a mystery transformation</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least 50 points before <strong>Monday
+3/5/2018 @ 5PM.</strong></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="testing"></a><h3>4.1. Test Cases</h3>
+<div class="paragraph">
+<p>As in previous MPs, we have provided exhaustive test cases
+for each part of MP4.
+Please review the <a href="/MP/2018/spring/0/#testing">MP0 testing instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>4.2. Autograding</h3>
+<div class="paragraph">
+<p>Like previous MPs we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+Please review the <a href="/MP/2018/spring/0#autograding">MP0 autograding instructions</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/2018/spring/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/2018/spring/setup/git#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+<div class="paragraph">
+<p>And remember, you must submit something that earns 50 points before <strong>Monday
+2/5/2018 @ 5PM</strong> to earn 10 points on the assignment.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="cheating"></a><h3>5.1. Academic Integrity</h3>
+<div class="paragraph">
+<p>Please review the <a href="/MP/2018/spring/0#cheating">MP0 academic integrity guidelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s an example of the training that the CS 125 course staff undertakes to
+make sure we catch cheaters:</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/XfZFuw7a13E%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2018/spring/4.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2018/spring/4.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

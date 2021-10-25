@@ -1,0 +1,1008 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP3: Libraries, APIs, and JSON</title>
+		<meta name="description" lang="en-us" content="MP3 introduces you to the JSON data serialization format and working with external libraries and web APIs.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/3/" class="active" onclick="return false;">MP3<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/spring/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/spring/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/git/">Git</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/EWS/">EWS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#lib">2.1. MP3 Image Recognition Library (lib)</a></li>
+              <li><a class="nav-link" href="#app">2.2. MP3 App</a></li>
+              <li><a class="nav-link" href="#getting">2.3. Obtaining MP3</a></li>
+              <li><a class="nav-link" href="#requirements">2.4. Your Goal</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#apis">3. APIs</a>
+            <ul>
+              <li><a class="nav-link" href="#_what_is_an_api">3.1. What is an API?</a></li>
+              <li><a class="nav-link" href="#_microsoft_cognitive_services">3.2. Microsoft Cognitive Services</a></li>
+              <li><a class="nav-link" href="#_using_the_cognitive_services_computer_vision_api">3.3. Using the Cognitive Services Computer Vision API</a></li>
+              <li><a class="nav-link" href="#_gaining_api_access">3.4. Gaining API Access</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#json">4. JSON</a>
+            <ul>
+              <li><a class="nav-link" href="#_what_is_json">4.1. What is JSON?</a></li>
+              <li><a class="nav-link" href="#_parsing_json">4.2. Parsing JSON</a></li>
+              <li><a class="nav-link" href="#csapi-json">4.3. Example JSON</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">5. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#testing">5.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#autograding">5.2. Autograding</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">6. Submitting Your Work</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#cheating">7. Academic Integrity</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP3: Libraries, APIs, and JSON</h1>
+      <div class="paragraph lead">
+<p>To build great things today it helps to stand on the shoulders of giants.
+MP3 introduces you to two different ways of using code provided by others: both
+through working with external libraries and remote application programmer interfaces.
+You also get practice working with data formatted in
+<a href="https://www.json.org/" target="_blank" class="external">JavaScript Object Notation (JSON)</a>,
+a simple and widely-supported data exchange format.
+And we&#x2019;ll also continue to sharpen your Android UI design abilities.</p>
+</div>
+<div class="paragraph">
+<p><strong>MP3 is due Friday 3/15/2019 @ 5PM.
+To receive full credit, you must submit by this deadline.</strong>
+In addition, 10% of your grade on MP3 is for submitting code that earns at least
+<em>50 points</em> by <strong>Monday 3/11/2019 @ 5PM.</strong>
+As usual, late submissions will be subject to the
+<a href="/info/2019/spring/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP3 introduces you to using integrating external libraries and APIs into your
+Android projects.
+We&#x2019;ll show you how to use the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> to analyze image data, and you&#x2019;ll
+learn how to process the results using the
+<a href="https://github.com/google/gson" target="_blank" class="external">Google GSON</a> library.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also continue to reinforce the learning objectives from previous MPs
+(<a href="/MP/2019/spring/0/">0</a>, <a href="/MP/2019/spring/1/">1</a>, and
+<a href="/MP/2019/spring/2/">2</a>).
+In particular MP3 forces you to do more with Android UI layout than you have in
+the past&#x2014;this will help prepare you for the final project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like previous Android MPs, MP3 is split into two pieces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/lib/</code>: a small library that extracts certain pieces of information from the
+JSON image data returned by the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> using the
+<a href="https://github.com/google/gson" target="_blank" class="external">Google GSON library</a>.</p>
+</li>
+<li>
+<p><code>/app/</code>: an Android app for you to use for your own interactive testing.
+The Android app is <em>almost</em> complete, but needs a few modifications from you.
+And, for the app to work correctly, you need to finish the library in <code>lib</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that you need to create <code>RecognizePhoto.java</code> in the proper directory and
+add it to the <code>edu.illinois.cs.cs125.spring2019.mp3.lib</code> package.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="lib"></a><h3>2.1. MP3 Image Recognition Library (<code>lib</code>)</h3>
+<div class="paragraph">
+<p>The <a href="#app">MP3 app</a> handles uploading photos to the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a>.
+However, once the results are returned it relies on your library to extract a
+few pieces of information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>The image width, height, and format</strong>: using <code>getWidth</code>, <code>getHeight</code>, and
+<code>getFormat</code>.</p>
+</li>
+<li>
+<p><strong>The autogenerated image caption</strong>: using <code>getCaption</code></p>
+</li>
+<li>
+<p><strong>Whether the image contains a dog or a cat</strong> <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Or both!&lt;/body&gt;&lt;/html&gt;">1</span>: using
+<code>isADog</code> and <code>isACat</code></p>
+</li>
+<li>
+<p><strong>Whether you&#x2019;ve been
+<a href="https://en.wikipedia.org/wiki/Rickrolling" target="_blank" class="external">rickrolled</a></strong>:
+that is, whether the photo contains
+<a href="https://en.wikipedia.org/wiki/Rick_Astley" target="_blank" class="external">Rick Astley</a>,
+using <code>isRick</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As always, you may find our
+<a href="https://cs125-illinois.github.io/Spring2019-MP3-Solution/" target="_blank" class="external">official MP3 online documentation</a>
+useful as you understand what you need to do.
+If you believe that the documentation is unclear, please post on the <a href="https://cs125-forum.cs.illinois.edu/c/mps/mp3" class="noexternal">forum</a> and
+we&#x2019;ll offer clarification as needed.
+To complete this part of the assignment you&#x2019;ll want to review the
+<a href="#json">section on JSON below</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="app"></a><h3>2.2. MP3 App</h3>
+<div class="paragraph">
+<p>The MP3 app handles obtaining images&#x2014;either ones saved previously on the
+device, captured by the camera, or downloaded from the internet.
+It also uploads those images to the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> and updates the UI
+appropriately&#x2014;or at least parts of it.</p>
+</div>
+<div class="paragraph">
+<p>To complete MP3 most of the lines of code that you write will be completing the
+<a href="#lib">image recognition library</a>.
+However, there are a few changes that you&#x2019;ll need to make to earn full points
+and ensure that the user interface functions properly.
+To complete the UI you&#x2019;ll need to do the following things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ensure that your app is requesting data properly from the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a>.</strong>
+Investigate <code>Tasks.java</code> to ensure that your API call is retrieving all the
+necessary information.</p>
+</li>
+<li>
+<p><strong>Add and update UI components to display information about the photo and the
+autogenerated caption.</strong>
+Note that this <code>TextView</code> doesn&#x2019;t even exist in the layout yet!
+You&#x2019;ll need to create it and update it appropriately&#x2014;both when a photo is
+loaded into the app and when the photo is cleared.
+You should use the information returned by your <code>RecognizePhoto</code> library to set
+the photo information and caption properly.</p>
+</li>
+<li>
+<p><strong>Add and update dog and cat icons appropriately.</strong>
+When the image is a dog you should show a dog icon, and when it is a cat you
+should show a cat icon.
+If it is neither a dog nor a cat you should not show either animal icon.
+Again, these UI components don&#x2019;t even exist yet!
+You get to add them to the UI and update them appropriately, using the results
+from your photo recognition library.</p>
+</li>
+<li>
+<p><strong>Do something when you find Rick.</strong>
+You do want to celebrate, right?
+Maybe try something
+<a href="https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent" target="_blank" class="external">like
+this</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="getting"></a><h3>2.3. Obtaining MP3</h3>
+<div class="paragraph">
+<p>Use
+<a href="https://classroom.github.com/a/Pdpwi1qv" target="_blank" class="external">this GitHub Classroom invitation link</a>
+to fork your copy of MP3.
+Once your repository has been created, import it into Android Studio following
+<a href="/MP/2019/spring/setup/git/#workflow">our assignment Git workflow guide</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="requirements"></a><h3>2.4. Your Goal</h3>
+<div class="paragraph">
+<p>At this point you should be familiar with the requirements from previous MPs.
+See the <a href="#grading">grading description below</a>.
+However, note that for MP3 <strong>we have not provided a complete test suite</strong>.
+You will have to figure out how to test your Rick Astley detection yourself.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="apis"></a><h2>3. APIs</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank" class="external">API stands for
+<em>application programming interface</em></a>.
+The better you become at understanding and using existing APIs, the faster and
+more easily you will be able to build powerful apps and programs.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_what_is_an_api"></a><h3>3.1. What is an API?</h3>
+<div class="paragraph">
+<p>In the most general terms, an API is
+<a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank" class="external">&quot;a set of clearly defined methods of communication between various software components&quot;</a>.
+For MP3 and your final project we are particularly interested in the subset of
+<em>remote web-based APIs</em>.
+These APIs are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>remote</em>: they are accessed over the internet, and</p>
+</li>
+<li>
+<p><em>web-based</em>: they are accessed using standard web protocols.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>One way of thinking about APIs is that somewhere, in some data center full of
+computers, is a computer that will run certain functions for you if ask it
+nicely.
+To use that functionality you don&#x2019;t have to know where that computer is, or how
+the function works.
+You just have to learn how to get the data to the API in the format that it
+expects, and understand how to interpret the results.</p>
+</div>
+<div class="paragraph">
+<p>An API like a collection of functions, with each function providing different
+functionality.
+Using an API is very much like calling a function&#x2014;except that to use a
+<em>remote</em> API we need to figure out how to get the data to the API and get the
+results back.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_microsoft_cognitive_services"></a><h3>3.2. Microsoft Cognitive Services</h3>
+<div class="paragraph">
+<p>MP3 requires you to use a portion of the
+<a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft
+Cognitive Services API</a>.
+It provides a variety of features focused on enabling interaction with users in
+intuitive ways&#x2014;processing vision and speech data, and providing
+intelligent search, recommendation, and natural language services.</p>
+</div>
+<div class="paragraph">
+<p>Why should you use this API?
+Well, imagine that you want to extract information from photos taken by users of
+your new app.
+You have two options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Spend several years mastering the sophisticated machine learning and computer
+vision algorithms required to implement your own solution&#x2026;&#x200B;</p>
+</li>
+<li>
+<p>&#x2026;&#x200B;or, use the Microsoft Cognitive Services Computer Vision API.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By using APIs you are truly able to stand on the shoulders of giants.
+Don&#x2019;t waste your time solving problems that you aren&#x2019;t interested in solving!
+Chances are that somebody else is waiting for you to solve the problem that
+<em>you</em> want to solve.
+Get on to that and focus on changing the world, not re-solving problems that
+others have already solved.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_using_the_cognitive_services_computer_vision_api"></a><h3>3.3. Using the Cognitive Services Computer Vision API</h3>
+<div class="paragraph">
+<p>To get a sense of what the Cognitive Services Computer Vision API can do,
+experiment with some of the examples
+<a href="https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/" target="_blank" class="external">on
+this page</a>.
+For each feature, upload your own images to get a sense of what kind of
+capabilities this API has.</p>
+</div>
+<div class="paragraph">
+<p>MP3 focuses on the image analysis feature: the first one listed on
+<a href="https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/" target="_blank" class="external">this
+page</a>.
+Go through the sample images and see if you can understand the results returned
+by the API:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Are the results accurate?</p>
+</li>
+<li>
+<p>In cases where they are inaccurate, can you figure out why?</p>
+</li>
+<li>
+<p>What kind of information is reported by the API?</p>
+</li>
+<li>
+<p>What parts of it are you most surprised by and why?</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_gaining_api_access"></a><h3>3.4. Gaining API Access</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/UJc6L36wkfQ%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Like many remote APIs, gaining <em>programmatic</em> access to the Microsoft Cognitive
+Services API in your app requires a <em>key</em>.
+Keys allow API provides to control who uses their services, and allows providers
+to begin to charge API users if their usage exceeds various thresholds.</p>
+</div>
+<div class="paragraph">
+<p>Happily, many remote APIs provide free access for usage that is more than
+sufficient to develop and test your own programs.
+And, as a student, you also have access to many free programs offered by
+companies to introduce you to their APIs and services.
+So you can try out a lot of things without paying a dime.
+Of course, once your app built using the Microsoft Cognitive API takes off and
+is being used by one million people, you&#x2019;ll need to start shelling out some
+money to Microsoft.
+But let&#x2019;s get there first.</p>
+</div>
+<div class="paragraph">
+<p>So the first step to gaining access to the Cognitive Services API is to get an
+API key.
+First, use
+<a href="https://azure.microsoft.com/en-us/free/students/" target="_blank" class="external">this link</a>
+to create a free Azure for Students account.
+This provides free access to many existing Microsoft APIs as well as $100 of
+free cloud credits.</p>
+</div>
+<div class="paragraph">
+<p>Next,
+<a href="https://azure.microsoft.com/en-us/try/cognitive-services/" target="_blank" class="external">use this link to start
+the process of creating an API key for cognitive services</a>.
+<strong>Make sure that your key is created in the West Central region!</strong>
+If it is not you&#x2019;ll have to modify other parts of MP3 for your key to work.</p>
+</div>
+<div class="paragraph">
+<p>The screencast above also shows you how we use the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> in MP3 and how to add
+<em>your</em> <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> key to your project so that you can make your own requests.
+Specifically, you need to create a file called <code>secrets.properties</code> in the <code>app</code>
+folder of your project and add the following content to that file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">API_KEY=&lt;Your Cognitive Services API Key&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should replace &quot;Your Cognitive Services API Key&quot; with the key that you
+obtained following the instructions above.</p>
+</div>
+<div class="paragraph">
+<p>Of course, like any artificial intelligence system, the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> is not perfect.
+We&#x2019;ve seen it produce some very amusing results.
+If you find a good one, post it on the <a href="https://cs125-forum.cs.illinois.edu/c/mps/mp3" class="noexternal">forum</a> for us to giggle at.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="json"></a><h2>4. JSON</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Object-oriented languages make it easy to model data internally by designing
+classes.
+But at times we need to exchange data between two different programs or systems,
+possibly implemented in different languages.
+That requires representing the data in a format that <em>both</em> systems can
+understand.
+JSON (JavaScript Object Notation) is one popular <em>data exchange</em> format in wide
+use on the internet, and frequently used to communicate with web APIs.</p>
+</div>
+<div class="paragraph">
+<p>JSON is both simple and incredibly powerful.
+It is based on only two different principles, but can represent a wide variety
+of different data.
+Using the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> requires understanding JSON, and completing MP3 requires that
+you implement several simple JSON parsing tasks.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_what_is_json"></a><h3>4.1. What is JSON?</h3>
+<div class="paragraph">
+<p>Imagine we have an instance of the following Java class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public Person {
+    public String name;
+    public int age;
+
+    Person(String setName, String setAge) {
+        name = setName;
+        age = setAge;
+    }
+}
+Person geoffrey = new Person(&quot;Geoffrey&quot;, 38);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now image we want to send this information to another computer program: for
+example, from an Android app written in Java to a web application programmer
+interface (API) that could be written in Java, Python, or any other language.
+How do we represent this information in a way that is correct and complete, yet
+also portable.</p>
+</div>
+<div class="paragraph">
+<p>JSON (JavaScript Object Notation) has become a popular answer to that question.
+While it is named after
+<a href="https://www.javascript.com/" target="_blank" class="external">JavaScript</a>,
+the language that introduced JSON, JSON is now supported by pretty much every
+common programming language.
+This allows an app written in Java to communicate with a web API written in
+Python, or a web application written in JavaScript to communicate with a web
+backend written in Rust.</p>
+</div>
+<div class="paragraph">
+<p>Enough talk.
+Here&#x2019;s how the object above could be represented in JSON:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;name&quot;: &quot;Geoffrey&quot;,
+  &quot;age&quot;: 38
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>JSON has only <em>two</em> ways to structure data: objects and arrays.
+Above you seen an example object.
+Like Java, it has named variable (<code>name</code>, <code>age</code>) each of which takes on a
+particular value (&quot;Geoffrey&quot;, 38).
+Here&#x2019;s another example.
+The following instance of this Java object:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public Course {
+    public String name;
+    public int enrollment;
+    public double averageGrade;
+
+    Course(String setName, String setEnrollment, double setAverageGrade) {
+        name = setName;
+        enrollment = setEnrollment;
+        averageGrade = setAverageGrade;
+    }
+}
+Course cs125 = new Course(&quot;CS 125&quot;, 500, 3.9);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>would be represented as this JSON string:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;name&quot;: &quot;CS 125&quot;,
+  &quot;enrollment&quot;: 500,
+  &quot;averageGrade&quot;: 3.9
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>JSON can also represent arrays.
+This Java array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] array = new int[] { 1, 2, 10, 8 };</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>would be represented using this JSON string:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">[1, 2, 10, 8]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also represent nested objects and objects with array instance variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public Person {
+    public String name;
+    public int age;
+
+    Person(String setName, String setAge) {
+        name = setName;
+        age = setAge;
+    }
+}
+public Course {
+    public String name;
+    public int enrollment;
+    public double averageGrade;
+    public Person instructor;
+    public int[] grades;
+
+    Course(String setName, String setEnrollment,
+        double setAverageGrade, Person setInstructor,
+        int[] setGrades) {
+        name = setName;
+        enrollment = setEnrollment;
+        averageGrade = setAverageGrade;
+        instructor = setInstructor;
+        grades = setGrades;
+    }
+}
+Course cs125 = new Course(&quot;CS 125&quot;, 500, 3.9,
+  new Person(&quot;Geoffrey&quot;, 38), new int[] { 4, 4, 3 });</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;name&quot;: &quot;CS 125&quot;,
+  &quot;enrollment&quot;: 500,
+  &quot;averageGrade&quot;: 3.9,
+  &quot;instructor&quot;: {
+    &quot;name&quot;: &quot;Geoffrey&quot;,
+    &quot;age&quot;: 38
+  },
+  &quot;grades&quot;: [
+    4,
+    4,
+    3
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_parsing_json"></a><h3>4.2. Parsing JSON</h3>
+<div class="paragraph">
+<p>Because JSON is supported by many different programming languages, many web APIs
+return data in JSON format.
+The <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> is one of them.
+To utilize this data, you must first <em>parse</em> it or <em>deserialize</em> it.
+The process of converting a Java object&#x2014;or object in any language&#x2014;to
+JSON is called serialization.
+The reverse process is called deserialization.</p>
+</div>
+<div class="paragraph">
+<p>Happily, good libraries exist to parse JSON in every programming language.
+Java is no exception.
+We have included the
+<a href="https://github.com/google/gson" target="_blank" class="external">Google GSON</a>
+JSON parsing library in your project for you to use.
+<strong>Note that you must use the GSON library to parse JSON for MP3.</strong>
+Attempts to add other JSON parsing libraries to your project will fail during
+remote grading.</p>
+</div>
+<div class="paragraph">
+<p>One way to use GSON is to create a class that matches your JSON string.
+So if you were provided with this JSON from a web API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;number&quot;: 0,
+  &quot;caption&quot;: &quot;I&apos;m a zero&quot;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you would design this Java class to represent it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Result {
+    public int number;
+    public String caption;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note how our classes mirrors both the names (<code>number</code>, <code>caption</code>) and types (<code>int</code>,
+<code>String</code>) from the JSON result.</p>
+</div>
+<div class="paragraph">
+<p>However, when you are working with unfamiliar JSON data, as you are in MP3, we
+suggest that you <em>not</em> create new classes and instead
+<a href="https://stackoverflow.com/questions/16595493/gson-parsing-without-a-lot-of-classes" target="_blank" class="external">use
+the built-in Java classes</a>.
+Here&#x2019;s an example of how to do this given the JSON string shown above:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">JsonParser parser = new JsonParser();
+JsonObject result = parser.parse(jsonString).getAsJsonObject();
+int number = result.get(&quot;number&quot;).getAsInt();
+String caption = result.get(&quot;caption&quot;).getAsString();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note that for MP3 we will not grade any additional class files you add to your
+<code>lib</code> directory.</strong>
+So we suggest you follow our example above <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Or define your deserialization classes as inner classes to the &lt;code&gt;RecognizePhoto&lt;/code&gt; class you are working on&amp;#x2026;&amp;#x200B; if you really know what you are doing.&lt;/body&gt;&lt;/html&gt;">2</span>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="csapi-json"></a><h3>4.3. Example JSON</h3>
+<div class="paragraph">
+<p><a href="/MP/2019/spring/3/example.json" class="external" target="_blank">Here is some example JSON</a> produced by
+the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a>.
+You may want to consult this as you begin work on your image recognition
+functions.
+The app will also display the JSON returned for the photo that you have loaded
+below the image after the API request completes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>5. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP3 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>55 points</strong>: <code>RecognizePhoto.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>5 points</strong> for <code>getWidth</code></p>
+</li>
+<li>
+<p><strong>5 points</strong> for <code>getHeight</code></p>
+</li>
+<li>
+<p><strong>5 points</strong> for <code>getFormat</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for <code>getCaption</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for <code>isADog</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for <code>isACat</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for <code>isRick</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>25 points</strong>: <code>MainActivity.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>5 points</strong> for making an API request properly when the button is clicked</p>
+</li>
+<li>
+<p><strong>5 points</strong> for setting the metadata properly</p>
+</li>
+<li>
+<p><strong>5 points</strong> for setting the caption properly</p>
+</li>
+<li>
+<p><strong>10 points</strong> for adjusting the animal icons properly</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for committing code that earns at least 50 points before
+<strong>Monday 3/11/2019 @ 5PM.</strong></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="testing"></a><h3>5.1. Test Cases</h3>
+<div class="paragraph">
+<p>As in previous MPs, we have provided test cases for MP3.
+Please review the <a href="/MP/2019/spring/0/#testing">MP0 testing instructions</a>.</p>
+</div>
+<div class="paragraph">
+<p>However, <em>unlike</em> previous MPs we have not provided <em>complete</em> test cases for
+MP3.
+Specifically, we have not provided a test for <code>isRick</code>.
+This is intentional, and designed to force you to do your own local testing.
+It is also designed to not give away exactly what features of the JSON returned
+by the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a> you will need to look at to complete <code>isRick</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>5.2. Autograding</h3>
+<div class="paragraph">
+<p>Like previous MPs we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+Please review the <a href="/MP/2019/spring/0/#autograding">MP0 autograding instructions</a>.
+However, as <a href="#testing">described above</a> note that the local test suite will not
+test <code>isRick</code>, while the remote test suite will.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>6. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/2019/spring/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/2019/spring/setup/git#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+<div class="paragraph">
+<p>And remember, you must submit something that earns 50 points before <strong>Monday
+3/11/2019 @ 5PM</strong> to earn 10 points on the assignment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="cheating"></a><h2>7. Academic Integrity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Please review the <a href="/MP/2019/spring/0/#cheating">MP0 academic integrity guidelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you cheat, we will make your watch this over and over again:</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/dQw4w9WgXcQ%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/spring/3.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/spring/3.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

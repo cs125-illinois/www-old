@@ -1,0 +1,916 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Web and Web APIs</title>
+  <meta name="description" lang="en-us" content="Introduction to the HTTP transport protocol and web APIs.">
+
+  <meta name="slider-id" content="0735c8a4-ceac-4e3c-9f0a-91172b3386a6">
+  <meta name="slider-semester" content="Spring2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 oneword logo bespoke-active bespoke-slide" data-slideid="VjfKKABkUbOgOjTipLjwTRiUVnkCprlC">
+<div class="header" data-title="Web APIs"><h2>Web APIs</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some examples for today are available here:
+<a href="https://github.com/cs125-illinois/lecture-webapis-examples" target="_blank" class="external"><code>https://github.com/cs125-illinois/lecture-webapis-examples</code></a>
+Feel free to fork!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="veOnIpogLKueYWhbDivieYRcjKowfnre">
+<div class="header" data-title="Review: Internet As Wired Infrastructure"><h2>Review: Internet As Wired Infrastructure</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The internet comprises an enormous amount of physical infrastructure.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Most of it is <em>wired</em>, not wireless.</strong> Wireless is mainly used for the first
+hop.</p>
+</li>
+<li class="bullet">
+<p><strong>Most of it is <em>fiber</em> (glass), not copper.</strong> Signals degrade quickly in copper
+but travel faster and with less attenuation in glass <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;This is why &lt;a href=&quot;https://www.dow.com/en-us/electrical/markets/telecommunications/fiber-optic-cable&quot; target=&quot;_blank&quot; class=&quot;external&quot;&gt;Dow Corning&lt;/a&gt; has such a nice visitor center!&lt;/body&gt;&lt;/html&gt;">1</span>. Copper is only used for the last 100
+meters.</p>
+</li>
+<li class="bullet">
+<p><strong>The internet wouldn&#x2019;t exist without fiber optic cable.</strong> It&#x2019;s one of the
+wonders of the modern world. It&#x2019;s not just glass, it&#x2019;s <em>really clear</em> glass.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XJuAWlWvHKbznPnvNKsVXeIhuVedsJJB">
+<div class="header" data-title="Internet As Wireless Infrastructure"><h2>Internet As Wireless Infrastructure</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In recent years we&#x2019;ve also built out a huge amount of <em>wireless</em> internet
+infrastructure.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Short range wireless</strong> is dominated by
+<a href="https://en.wikipedia.org/wiki/Wi-Fi" target="_blank" class="external">WiFi</a>
+and what you use when you&#x2019;re on campus, at home, or at a coffee shop</p>
+</li>
+<li class="bullet">
+<p><strong>Medium-range wireless</strong> is used to provide connectivity to mobile devices like
+smartphones over longer distances.
+You usually buy this from a cellular provider like Verizon or Sprint.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CkjdIfoTgcqkpmGqJTAKkBeNopyvqhng">
+<div class="header" data-title="Review: Internet As Connectivity"><h2>Review: Internet As Connectivity</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The result is that by connecting a computer to the internet, you are now
+connected to <em>4 billion</em> other computers.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Many times the first connection is <em>wireless</em></p>
+</li>
+<li class="bullet">
+<p>But after that point there is literally a wire that you can follow from your
+computer to the other computer</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uABWjaBQLWAHnUzqcZzSwSopLIVGbKpW">
+<div class="header" data-title="Review: The Internet Protocol (IP)"><h2>Review: The Internet Protocol (IP)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The
+<a href="https://en.wikipedia.org/wiki/Internet_Protocol" target="_blank" class="external">Internet Protocol (IP)</a>
+consists of a series of agreements that allow internet-connected devices to
+communicate.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>What do we call each other?</strong>
+IP specifies the format of internet protocol addresses, also called IP
+addresses.</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Here&#x2019;s one: <code>192.17.96.8</code> (IPv4)</p>
+</li>
+<li class="bullet">
+<p>Here&#x2019;s a new one: <code>2607:f8b0:4009:807::2004</code> (IPv6)</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>How are our message structured?</strong>
+IP specifies a <em>format</em> for each message (or datagram) exchanged across the
+internet.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="ndudfAZJrCuGyqeSYOMfiiFIXJriLpdu">
+<div data-title=" Circuit Switching"></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://www.northcountrypublicradio.org/news/images/20170531-OldForge-28edited.jpg" alt="20170531 OldForge 28edited" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="fDadnxxTGAaixGWumzJapUMbUczdIBid">
+<div class="header" data-title="Packet Switching"><h2>Packet Switching</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Data is transferred over the internet in small units called <em>packets</em>.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Each packet may travel a different route between the source and destination</p>
+</li>
+<li class="bullet">
+<p>The internet protocol (IP) provides <em>best effort</em> packet transmission&#x2014;but
+delivery is not guaranteed!</p>
+</li>
+<li class="bullet">
+<p>Internet <em>routers</em> are responsible for transferring packets one hop closer to
+their destination</p>
+</li>
+<li class="bullet">
+<p>Packet switching was revolutionary when it was proposed&#x2014;but now even
+traditional voice traffic is moving to packet-based networks</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="DDvXuHrweAWYMhTgXZMOxVgECWBGVKuz">
+<div data-title="Internet Routing"></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://news.wisc.edu/content/uploads/2017/04/Internet-Atlas-map.jpg" alt="Internet Atlas map" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XAIXXwMRSThffUnNzkCdDDuLTjUjxQLT">
+<div class="header" data-title="Internet Protocol Stack"><h2>Internet Protocol Stack</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>One of the beautiful things about IP is that it supports many other protocols.</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Protocol(s)</th>
+<th class="tableblock valign-middle text-center">Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><strong><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" class="external">HTTP</a></strong></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">The World Wide Web</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><strong><a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol" target="_blank" class="external">SMTP</a></strong></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Email</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><strong><a href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank" class="external">DNS</a></strong></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Translating names (<code>cs125.cs.illinois.edu</code>) to IP addresses (<code>192.17.96.8</code>)</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><strong>YNP</strong></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Your New Protocol, which does something cool and useful!</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="xehUSxrjbjVcIwmVbtmcKWGtdSveGImN">
+<div class="header" data-title="So The Web Is Not The Internet"><h2>So The Web <em>Is Not</em> The Internet</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The web is just <em>one of many</em> services running over the internet.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wNsnAdboNaMfwJQQGoHjzDJgBVvYpfVI">
+<div class="header" data-title="What is the World Wide Web?"><h2>What is the World Wide Web?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>A protocol</strong>: the Hypertext Transfer Protocol
+<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" class="external">(HTTP)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A markup language</strong>: the Hypertext Markup Language
+<a href="https://en.wikipedia.org/wiki/HTML" target="_blank" class="external">(HTML)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A styling language</strong>: Cascading Style Sheets
+<a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets" target="_blank" class="external">(CSS)</a></p>
+</li>
+<li class="bullet">
+<p><strong>A programming language</strong>:
+<a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" class="external">JavaScript</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gzVWnKntRdaWetSwyLuadYFPntJXusHU">
+<div class="header" data-title="HTTP GET and POST"><h2>HTTP <code>GET</code> and <code>POST</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTTP defines many other types of requests, but <code>GET</code> and <code>POST</code> are by far the
+most common.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Every time you load a web page</strong> it starts with a <code>GET</code>, and usually that&#x2019;s
+followed by many other <code>GET</code> requests to fetch others parts of the page: style
+sheets, images, JavaScript code.</p>
+</li>
+<li class="bullet">
+<p><strong>Every time you submit a form</strong> it uses a <code>POST</code> to send data to the server, at
+which point your Facebook comment is recorded, or your credit card is charged
+and an package starts its way toward your house</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MKWZqVVGklEKImCOLjMlSstXeLBUXybc">
+<div class="header" data-title="HTTP: GET v POST"><h2>HTTP: <code>GET</code> v <code>POST</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The HTTP protocol specifies different semantics for <code>GET</code> and <code>POST</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>GET</code> <em>should not</em> change anything about the world, just return a document</p>
+</li>
+<li class="bullet">
+<p><code>POST</code> <em>should</em> change something about the world&#x2014;create a new account,
+pay your bill, purchase something, send a message, etc.</p>
+</li>
+<li class="bullet">
+<p>As a result it is <em>safe</em> to repeat a <code>GET</code> but potentially <em>problematic</em> to
+repeat a <code>POST</code>: hence the &quot;Do not click back&quot; and &quot;Do not submit this form
+twice&quot; kind of warnings.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ENeAbNYgDNrbwqRpHZJduekhgMOdxOow">
+<div class="header" data-title="Web Page Contents: HTML"><h2>Web Page Contents: HTML</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>HTML defines how each page is <em>structured</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-html spelling_exception lang-html" data-lang="html">&lt;h1&gt;This is a Simple Web Page&lt;/h1&gt;
+
+&lt;p&gt;
+  HTML includes both content and instructions to the browser determining
+  how the content should look. For example, the following items should be
+  in a numbered list:
+&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Third&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+  &lt;strong&gt;Here is some bold text.&lt;/strong&gt; &lt;i&gt;And this in italics.&lt;/i&gt;
+&lt;/p&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="hKVjQbpzQALswjASEhlGXSTyHHgkGWvD">
+<div data-title=" Web Page Contents: HTML"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125-illinois.github.io/lecture-webapis-examples/simple.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jusdaKZZdKzMfBIQchXrTXKenbeDgzBl">
+<div class="header" data-title="Web Evolution"><h2>Web Evolution</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The web has gone through many design changes over the years.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Static Sites</strong>: the web server returns a <em>file</em> from the disk that contains a
+complete web document</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Example: most of <code>cs125.cs.illinois.edu</code> is a static website</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>Dynamic Sites</strong>: the web server <em>runs code</em> to produce an HTML document and
+respond to <code>POST</code> requests created by forms</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Example: sites like <code>my.cs.illinois.edu</code> are dynamic sites</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="bullet">
+<p><strong>Web Apps</strong>: most of the site is <em>generated by JavaScript</em> that runs in the
+user&#x2019;s browser, with the server providing data as needed</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Examples: <code>cs125.cs.illinois.edu/m/grades</code>, Discourse, Gmail, Google Docs</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="kVGxyCnuUrtKMDbQUEwsrVEZuOyXqgyo">
+<div class="header" data-title="Web Page Contents: CSS"><h2>Web Page Contents: CSS</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>CSS defines how each page <em>looks</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-css spelling_exception lang-css" data-lang="css">body {
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="QCnklVenUskadiskeZRvQQIlwAPyKXZl">
+<div data-title=" Web Page Contents: CSS"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125-illinois.github.io/lecture-webapis-examples/css.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bqpQtLWMeCreTUItFEeLrXrmwetlXSJR">
+<div class="header" data-title="Web Page Contents: JavaScript"><h2>Web Page Contents: JavaScript</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>JavaScript defines what each page <em>does</em>:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-javascript spelling_exception lang-javascript" data-lang="javascript">setInterval(function () {
+  var x = document.getElementById(&quot;title&quot;)
+  if (x.style.visibility === &quot;visible&quot;) {
+    x.style.visibility = &quot;hidden&quot;
+  } else {
+    x.style.visibility = &quot;visible&quot;
+  }
+}, 1000)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="hvUpMeTGNRDIIgBOLjgIAGAeTuZUDHdv">
+<div data-title=" Web Page Contents: JavaScript"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125-illinois.github.io/lecture-webapis-examples/javascript.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="wfdQvQZAipVkTZPRnQrNavedMEtHXFyO">
+<div class="header" data-title="So What&#x2019;s a Web API?"><h2>So What&#x2019;s a Web <em>API</em>?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yyuJpkncwjTgIiTBmtNZIUHdZFQnXSGU">
+<div class="header" data-title="What&#x2019;s An API?"><h2>What&#x2019;s An API?</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank" class="external">In computer
+programming, an application programming interface (API)</a>
+is a set of subroutine definitions, protocols, and tools for building
+application software.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>In English, an <em>API</em> is a set of functions that perform a set of related and
+useful tasks.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="VhKcyDdXgMnfeOXUFUtqYTEIXFRxBmua">
+<div class="header" data-title="Example API"><h2>Example API</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s say we wanted to find out the weather at a particular location:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)
+
+// Get the current weather a particular location and a particular time
+static WeatherInfo getAtLocation(WeatherLocation location, Date date)
+
+// Get a list of possible WeatherInfo objects for a given location string
+static WeatherLocation[] searchLocations(String query)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JLNFoBPiCoEGSAeKEmLVCEayqKYizNUm">
+<div class="header" data-title="Web APIs"><h2>Web APIs</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A <em>web API</em> is just an API that you access over the web. Consider that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We can send data to a web server using <code>POST</code> and also using URL parameters in
+a <code>GET</code> request</p>
+</li>
+<li class="bullet">
+<p>The web server can run code in response</p>
+</li>
+<li class="bullet">
+<p>And return a response, <span class="bullet"><em>which does not have to be an HTML document</em></span></p>
+</li>
+<li class="bullet">
+<p>And in many cases custom internet protocols are blocked by firewalls, making
+it attractive to run APIs over HTTP</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sQoshKdkerQbElGQyoWmkEymnLkzrZKF">
+<div class="header" data-title="Web APIs: Sending Arguments"><h2>Web APIs: Sending Arguments</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To send the <code>location</code> argument to the <code>getAtLocation</code> function over the web we
+have several options:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Stick it the URL: <code>/api/getAtLocation/(location)/</code>, which can be mapped to a
+function call</p>
+</li>
+<li class="bullet">
+<p>Add it as a query parameter: <code>/api/getAtLocation?location=(location)</code></p>
+</li>
+<li class="bullet">
+<p>Use a <code>POST</code> request and put it in the body, possibly as JSON:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock small bullet">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">POST /api/getAtLocation/
+
+{
+  &quot;location&quot;: (location)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ijoYpJSPQQLblMzMSckYOpVMqASJepju">
+<div class="header" data-title="Web APIs: Returning Results"><h2>Web APIs: Returning Results</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Get the current weather a particular location
+static WeatherInfo getAtLocation(WeatherLocation location)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In many cases web APIs return results using <em>JSON</em> (JavaScript Object Notation):</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;consolidated_weather&quot;: [
+  {
+    &quot;id&quot;: 6511056423747584,
+      &quot;weather_state_name&quot;: &quot;Thunder&quot;,
+      &quot;weather_state_abbr&quot;: &quot;t&quot;,
+      &quot;wind_direction_compass&quot;: &quot;E&quot;,
+      &quot;created&quot;: &quot;2018-04-09T02:37:19.655990Z&quot;,
+      &quot;applicable_date&quot;: &quot;2018-04-08&quot;,
+      &quot;min_temp&quot;: -2.6099999999999999,
+      &quot;max_temp&quot;: 2.2149999999999999,
+      &quot;the_temp&quot;: 2.4950000000000001,
+      &quot;wind_speed&quot;: 2.8707529204565336,
+      ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="ZsOQNCeyFRLfYMLCfmRDxwhgFYiBXBXm">
+<div class="header" data-title="What&#x2019;s Awesome&#x2026;&#x200B;"><h2>What&#x2019;s Awesome&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Is that there are
+<a href="https://github.com/toddmotto/public-apis" target="_blank" class="external">a gazillion</a>
+public APIs out there.
+So go have fun!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ehlqzEhyBDazbIHaqTjpObNLXLubhqWa">
+<div class="header" data-title="What is REST?"><h2>What is REST?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You&#x2019;ll often hear of REST or RESTful web APIs.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>REST is a <em>design pattern</em> for creating web APIs.</p>
+</li>
+<li class="bullet">
+<p>URLs map to resources: so <code>GET</code> <code>/products</code> returns a list of all products,
+while <code>GET</code> <code>/products/10</code> get information about product with ID 10</p>
+</li>
+<li class="bullet">
+<p>HTTP verbs are meaningful: <code>GET</code> gets something, <code>POST</code> creates a new entity,
+<code>DELETE</code> removes one, etc.</p>
+</li>
+<li class="bullet">
+<p>HTTP response codes are meaningful: 200 is <code>OK</code>, 405 is not authorized, etc.</p>
+</li>
+<li class="bullet">
+<p>The bodies of requests and responses are in <code>JSON</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SpcgsfLVgvldZzAVoUJHsBiUOxSPvLEE">
+<div class="header" data-title="REST Examples"><h2>REST Examples</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Request</th>
+<th class="tableblock valign-middle text-center">Meaning</th>
+<th class="tableblock valign-middle text-center">Java-Like Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>GET /items</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Retrieve a list of all items</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static Item[] getItems()</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>GET /items/81</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Retrieve information about item 81</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static Item[] getItems(int id)</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>GET /items?type=frisbee</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Retrieve a list of all items that are frisbees</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static Item[] getItems(String type)</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>POST /items</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Create a new item</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static boolean createItem(Item newItem)</code></span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FKPZGlamLRDVEJHjjxFnDjkqMxooAsMH">
+<div class="header" data-title="More REST Examples"><h2>More REST Examples</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With two additional useful HTTP verbs: <code>PUT</code> and <code>DELETE</code></p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">Request</th>
+<th class="tableblock valign-middle text-center">Meaning</th>
+<th class="tableblock valign-middle text-center">Java-Like Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>PUT /items/81</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Update information about item 81</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static boolean updateItem(Item updateTime, int id)</code></span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>DELETE /items/81</code></span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Delete item 81</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><code>public static boolean deleteItem(int id)</code></span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="JuTQULKcDJyYbpOvzZuoVHSBBAMPJKQI">
+<div class="header" data-title="Questions About Internet, Web, or Web APIs?"><h2>Questions About Internet, Web, or Web APIs?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HtKEWqTEwzEPzDSjqfIvDwiIWZWSzXqQ">
+<div class="header" data-title="Internet Design Principles"><h2>Internet Design Principles</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The internet established many powerful and important <em>design principles</em>.
+One of the most important is the <em>end-to-end principle</em>:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In networks designed according to the
+<a href="https://en.wikipedia.org/wiki/End-to-end_principle" target="_blank" class="external">end-to-end principle</a>,
+application-specific features reside in the communicating end nodes of the
+network, rather than in intermediary nodes, such as gateways and routers, that
+exist to establish the network.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="lTVxOqKIJeqpxtlWpxSuzjPINWGWZOwK">
+<div class="header" data-title="End-to-End Example: Reliable Delivery"><h2>End-to-End Example: Reliable Delivery</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Reliable delivery is <em>not guaranteed</em> by the core Internet Protocol.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Not every application needs it!</p>
+</li>
+<li class="bullet">
+<p>Moved to the <em>endpoints</em>: that is, implemented on your device and whatever
+computer you want to communicate with reliably.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GiuISzhloTQxbzcjHBBhFhJAzWSOnGUx">
+<div class="header" data-title="End-to-End Principle: Consequences"><h2>End-to-End Principle: Consequences</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The end-to-end principles has had powerful implications for internet design and
+evolution.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The core network stays simple</p>
+</li>
+<li class="bullet">
+<p>The core network <em>doesn&#x2019;t choose winners and losers</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WsnIIRchesWsJjxchaCCShmRJuhiaGML">
+<div class="header" data-title="Net Neutrality"><h2>Net Neutrality</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Net neutrality is essentially enshrining the end-to-end principle in law.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Internet service providers should not discriminate against traffic based on
+where it comes from, where it is going, or other features</p>
+</li>
+<li class="bullet">
+<p><strong>This keeps the internet available for the kinds of transformative innovation
+it has supported since its creation.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="PCmWKojKEZEbGdSLJwQxcCBCHMeHVXBk">
+<div class="header" data-title="This Will Be Your Problem Soon"><h2>This Will Be Your Problem Soon</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Please do the right thing.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="JnbDWRLxHyezxdypdCAdLwXGseAepanB">
+<div class="header" data-title="Questions about the Internet, Web, and Web APIs?"><h2>Questions about the Internet, Web, and Web APIs?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AsxLmEDgtPbMjuytmPbVygodvIRkWGZA">
+<div class="header" data-title="Final Project Reminders"><h2>Final Project Reminders</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You need a partner from your lab section.</p>
+</li>
+<li class="bullet">
+<p>In general groups of three are not allowed.</p>
+</li>
+<li class="bullet">
+<p><strong>You have a 20-point checkpoint <em>next week</em>.</strong> So get started!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oApTeMfnuZvIlKHitawrVCWwZsdsdjoD">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>This week&#x2019;s quiz is on sorting. Good luck!</p>
+</li>
+<li>
+<p>Good luck finishing up <a href="/MP/2019/spring/4/">MP4</a>!</p>
+</li>
+<li>
+<p>There is <em>no homework</em> today, but problems will resume tomorrow.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>More Practice with Recursion</title>
+  <meta name="description" lang="en-us" content="More practice with recursion, including on non-tree structures.">
+
+  <meta name="slider-id" content="acd8a605-4706-4a63-ae49-b17867443c69">
+  <meta name="slider-semester" content="Spring2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="jrRQIGHYmPhPUoMLkIWzHUsgoPNdbBOn">
+
+<textarea class="janini spelling_exception">public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  public Item start;
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i &gt;= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+    }
+  }
+  public void reverse() {
+		return;
+  }
+  public String toString() {
+    String toReturn = &quot;&quot;;
+    for (Item current = start; current != null; current = current.next) {
+      toReturn += current.value;
+    }
+    return toReturn;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleLinkedList = new SimpleLinkedList(new Integer[] { 1, 2, 5 });
+    System.out.println(simpleLinkedList);
+    simpleLinkedList.reverse();
+    System.out.println(simpleLinkedList);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="More Practice with Recursion&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">More Practice with Recursion<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="AddzJUOGGAEvClilSsefpmpcNddIUiAX">
+<div class="header" data-title="Welcome Back!"><h2>Welcome Back!</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I hope you all had a restful weekend.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WAyrLFXUzCWZNywsuBwGVRNlfQyIsaxV">
+<div class="header" data-title="Recursive Tree Print Leaves"><h2>Recursive Tree Print Leaves</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s print <em>only</em> leaf nodes: those that have neither a left nor a right child.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="wFkePtuoPHtjiQgMUaRMxqrXubVNPQoY">
+<div class="header" data-title="What&#x2019;s Our (Recursive) Algorithm?"><h2>What&#x2019;s Our (Recursive) Algorithm?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nBBvXLuotvVfrtrnfEEjpVKYJqQqZZYK">
+<div class="header" data-title="Recursive Tree Print Leaves"><h2>Recursive Tree Print Leaves</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Base case</strong>: <span class="bullet">We&#x2019;ve reached a tree with no left or right node. It&#x2019;s also a
+a leaf node, so print our value.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Recursive step</strong>: <span class="bullet">Consider our right tree and left tree separately.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Combine results</strong>: <span class="bullet">Nothing to do here, just continue down the tree.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="ApTsFupsyGxTnQxQNOutQbJTYqctEttB">
+<div data-title="Recursive Tree Print Leaves"></div>
+<textarea class="janini spelling_exception">import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return &quot;&quot;;
+    }
+    return &quot;[&quot; + current.value.toString() + &quot;]&quot; +
+      toString(current.right) + toString(current.left);
+  }
+  public void printLeaves() {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
+    binaryTree.printLeaves();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hEQFCftiCbUeeqhYNCdtcAliBQFMeBsE">
+<div class="header" data-title="Writing Perfect Code"><h2>Writing Perfect Code</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Starting today we&#x2019;ll be assigning a <em>small</em> amount of credit on each homework
+problem for writing &quot;perfect&quot; code.</p>
+</div>
+<div class="paragraph">
+<p>Obviously we can&#x2019;t tell whether your code is <em>really</em> perfect <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Yet!&lt;/body&gt;&lt;/html&gt;">1</span>&#x2014;meaning
+correct, beautiful, minimal, concise, readable.
+But for the purposes of automated checking we will consider your code not to be
+perfect if:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>It contains dead or <em>unreachable</em> code.</p>
+</li>
+<li class="bullet">
+<p>It is overly complex compared to our solution.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PGfdgeecFutSuJehIurfApSaupuZUKsG">
+<div class="header" data-title="Dead Code"><h2>Dead Code</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class YourBinaryTree extends BinaryTree {
+  public int size() {
+    return size(root);
+  }
+  private int size(Node current) {
+    if (current == null) {
+      return 0;
+    }
+    if (current != null) {
+      return 1 + size(current.left) + size(current.right);
+    } else {
+      return 0;
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The last <code>return 0</code> will never be reached!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hGTaVDLvuRWYmaMiiHTDeKSXtDlYMefO">
+<div class="header" data-title="High Complexity"><h2>High Complexity</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class YourBinaryTree extends BinaryTree {
+  public int size() {
+    return size(root);
+  }
+  private int size(Node current) {
+    if (current == null) {
+      return 0;
+    }
+    if (current.left == null) {
+      return 1 + size(current.right);
+    } else if (current.right == null) {
+      return 1 + size(current.left);
+    } else {
+      return 1 + size(current.right) + size(current.left);
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>There are <em>5</em> paths through <code>size(Node current)</code></p>
+</li>
+<li class="bullet">
+<p>For the solution there are only <em>2</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="iGeDDuAGheLcsDveIlxakkRpOcIWeEbQ">
+<div class="header" data-title="Questions About Perfection?"><h2>Questions About Perfection?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MKTKEwmTmxMuIDInwIpRNxHlUZshIsmb">
+<div class="header" data-title="Recursive Tree Search"><h2>Recursive Tree Search</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Let&#x2019;s determine whether a tree contains a certain value.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="ngirvffoqoVGBWAiUDJsvyNkZwEiGOey">
+<div class="header" data-title="What&#x2019;s Our (Recursive) Algorithm?"><h2>What&#x2019;s Our (Recursive) Algorithm?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ewLkRIFqyrsFlNUbTYbeQysFyvkpYWoD">
+<div class="header" data-title="Recursive Tree Search"><h2>Recursive Tree Search</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Base case</strong>: <span class="bullet">We&#x2019;ve reached a node with no descendants. Return true if
+its value matches, zero otherwise.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Recursive step</strong>: <span class="bullet">Consider our right tree and left tree separately.</span></p>
+</li>
+<li class="bullet">
+<p><strong>Combine results</strong>: <span class="bullet">Return true if either we or our right or left subtree
+contain the search value.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="LByULNOsTbXEXKjWCAKWIPaJmRtpKfIm">
+<div data-title="Recursive Tree Search"></div>
+<textarea class="janini spelling_exception">import java.util.Random;
+
+public class BinaryTree {
+  private static Random random = new Random();
+  private class Node {
+    private Object value;
+    private Node right;
+    private Node left;
+    Node(Object setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinaryTree(Object[] values) {
+    for (Object value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Object value) {
+    add(root, value);
+  }
+  private void add(Node current, Object value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (random.nextBoolean()) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return &quot;&quot;;
+    }
+    return &quot;[&quot; + current.value.toString() + &quot;]&quot; +
+      toString(current.right) + toString(current.left);
+  }
+  public boolean search(Object value) {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinaryTree binaryTree = new BinaryTree(new Integer[] { 1, 2, 3, 4 });
+		System.out.println(binaryTree.search(4));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="DdYpDyJIvrmHWCutyOgMifXNhGVyLsyp">
+<div class="header" data-title="How Could We Make This Search More Efficient?"><h2>How Could We Make This Search More Efficient?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="ikMBvyRKzYemTuEmWrBWnouucgybiufG">
+<div data-title=" Binary Search"></div>
+<textarea class="janini spelling_exception">public class BinarySearchTree {
+  private class Node {
+    private Comparable value;
+    private Node right;
+    private Node left;
+    Node(Comparable setValue) {
+      value = setValue;
+    }
+  }
+  private Node root;
+  BinarySearchTree(Comparable[] values) {
+    for (Comparable value : values) {
+      add(root, value);
+    }
+  }
+  public void add(Comparable value) {
+    add(root, value);
+  }
+  private void add(Node current, Comparable value) {
+    if (current == null) {
+      root = new Node(value);
+      return;
+    }
+    if (current.value.compareTo(value) &gt;= 0) {
+      if (current.right == null) {
+        current.right = new Node(value);
+      } else {
+        add(current.right, value);
+      }
+    } else {
+      if (current.left == null) {
+        current.left = new Node(value);
+      } else {
+        add(current.left, value);
+      }
+    }
+  }
+  public String toString() {
+    return toString(root);
+  }
+  private String toString(Node current) {
+    if (current == null) {
+      return &quot;&quot;;
+    }
+    return &quot;[&quot; + current.value.toString() + &quot;]&quot; +
+      toString(current.right) + toString(current.left);
+  }
+  public boolean search(Object value) {
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    BinarySearchTree binarySearchTree = new BinarySearchTree(new Integer[] { 1, 2, 3, 4 });
+    System.out.println(binarySearchTree.search(3));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dlFNBwsqXFAyyhoLtlAUEfOdFTVxCjtN">
+<div class="header" data-title="Other Recursive Data Structures"><h2>Other Recursive Data Structures</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Every sub(blank) of a (blank) is, itself, a (blank).</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Tree</p>
+</li>
+<li class="bullet">
+<p>(Contiguous) List</p>
+</li>
+<li class="bullet">
+<p>(Contiguous) Array</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="oApTeMfnuZvIlKHitawrVCWwZsdsdjoD">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2019/spring/4/">MP4</a> is out.</p>
+</li>
+<li>
+<p>We also have our usual heavy office hours today. Come by and get started on
+<a href="/MP/2019/spring/4/">MP4</a>!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

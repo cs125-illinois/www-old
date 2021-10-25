@@ -1,0 +1,636 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Inheritance</title>
+  <meta name="description" lang="en-us" content="A review of static, the final keyword, and an introduction to inheritance.">
+
+  <meta name="slider-id" content="bed394df-691d-4cf7-a5fd-119a20bb3437">
+  <meta name="slider-semester" content="Spring2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini compiler small nozoom bespoke-active bespoke-slide" data-slideid="wGEQuJkAUhyxysXZUnzyNGFHNKOzeXJi">
+
+<textarea class="janini spelling_exception">public class Course {
+  public void printName() {
+    System.out.println(&quot;Some course&quot;);
+  }
+}
+public class BestCourse extends Course {
+  public void printName() {
+    System.out.println(&quot;CS 125&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course course = new Course();
+    course.printName();
+    BestCourse bestCourse = new BestCourse();
+    bestCourse.printName();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Inheritance&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Inheritance<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uUTYrQKUGOmFrxidnSeoGRtPjfsFVxCD">
+<div class="header" data-title="Midterm Review"><h2>Midterm Review</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Overall the class did well on the midterm&#x2013;congratulations!</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>I&#x2019;ve released two example programming questions to the HW125 problem set.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="dvnpgcRYWKBFVtTXjYDnKlNfxvdfXTnW">
+<div class="header" data-title="Interpreting Your Midterm Result"><h2>Interpreting Your Midterm Result</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#x2019;d mainly consider how you did on the <em>programming questions</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>3/3</strong>: Great job.</p>
+</li>
+<li class="bullet">
+<p><strong>2/3</strong>: You did well, but plan to continue working hard for the rest of the
+semester.</p>
+</li>
+<li class="bullet">
+<p><strong>1/3</strong>: Something about how you are preparing for exams needs to change&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p><strong>0/3</strong>: <strong>Please talk to a course staff member.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="LoBVEQwudsruuogwwunEsUpSxUhWFLiX">
+<div class="header" data-title="Questions?"><h2>Questions?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>About the midterm, grading, or anything in particular?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eTgfLgcMsxPQEsxdUuCOfSKOCVKugAYZ">
+<div class="header" data-title="Review: The static Keyword"><h2>Review: The <code>static</code> Keyword</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public static void printName() {
+    System.out.println(&quot;Name&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // We can call printName without creating an instance
+    Course.printName();
+    // We can increment count without creating an instance
+    Course.count++;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods and variables belong to the <em>class</em>, not to a specific
+instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JcfeftoggWYEqmVcqHqWFWLVDrBYSrKv">
+<div class="header" data-title="Review: static Methods"><h2>Review: <code>static</code> Methods</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static void printName() {
+    System.out.println(&quot;Name&quot;);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    // This works
+    Course.printName();
+    // This also works
+    Course CS125 = new Course();
+    CS125.printName();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>static</code> methods are called directly on the class, rather than on an instance</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but they <em>can</em> be called on the instance as well.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="GogDSWyLriatEwvWVbqNnpNScdTGsZnm">
+<div class="header" data-title="Review: static Methods and this"><h2>Review: <code>static</code> Methods and <code>this</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public String name;
+  public static void printName() {
+    // This doesn&apos;t work
+    System.out.println(this.name);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> methods can be called without an instance, and so can&#x2019;t use <code>this</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AGXzadhOVsBxnfSsSKGKsHhYNePpixZD">
+<div class="header" data-title="Review: static Variables"><h2>Review: <code>static</code> Variables</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Course {
+  public static int count = 0;
+  public void printCount() {
+    System.out.println(count);
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Course CS125 = new Course();
+    Course CS225 = new Course();
+    Course.count++;
+    CS125.printCount();
+    CS225.printCount();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p><code>static</code> variables are shared by all instances of a given <code>class</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XHfGpqVIAFIKzUxynzGVJLgDpLnzNwON">
+<div class="header" data-title="Review: static and public"><h2>Review: <code>static</code> and <code>public</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><code>public</code> and <code>private</code> also work on static variables and methods</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the (static) variable can be read or written by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the (static) variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li class="bullet">
+<p><code>public</code>: the (static) method can be called by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the (static) method can only be called by other methods <em>on that class</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="edyTnfheyncuqOGTqDCiVblPbDhDspnE">
+<div class="header" data-title="static Object Creation Method"><h2><code>static</code> Object Creation Method</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can also use a class method to be able to return <code>null</code> when creating a new
+object if invalid parameters are supplied.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="vYdcSSHUfxavYQtnRnYMNLTmZdeandOy">
+<div data-title=" static for Object Creation"></div>
+<textarea class="janini spelling_exception">public class Storage {
+  private int[] storage;
+}
+public class Example {
+  public static void main(String[] unused) {
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mlqtMBxERmbmWOjsDoKPXMdagktpcoHC">
+<div class="header" data-title="final and Constants"><h2><code>final</code> and Constants</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Example {
+  /** The number of hours of sleep you should get per night. */
+  public static final int HOURS_PER_NIGHT = 8;
+  ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java a <code>final</code> variable <em>cannot be modified</em>.</p>
+</div>
+<div class="paragraph">
+<p>You usually see this done to establish useful constant values&#x2014;which can be
+either <code>public</code> or <code>private</code></p>
+</div>
+</div>
+</div>
+<div class="sect1 janini small compiler nozoom bespoke-inactive bespoke-slide" data-slideid="aRzsozxWPRNaTyegwrsSvYWsqtLGDtIE">
+<div data-title=" Example of final"></div>
+<textarea class="janini spelling_exception">public class Example {
+  public static final int HOURS_PER_NIGHT = 8;
+
+  public static void main(String[] unused) {
+    HOURS_PER_NIGHT = 4;
+    System.out.println(HOURS_PER_NIGHT);
+    HOURS_PER_NIGHT = 2;
+    System.out.println(HOURS_PER_NIGHT);
+    // I will never change!
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="FWfeifigjMBgeePuDDBqjptSumhLvikp">
+<div class="header" data-title="Questions About static or final?"><h2>Questions About <code>static</code> or <code>final</code>?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 janini small compiler nozoom bespoke-inactive bespoke-slide" data-slideid="kZbZRqBRAJYIOPOaCescsSsfdHSwSljm">
+<div data-title=" A Puzzle"></div>
+<textarea class="janini spelling_exception">// Why does this work?
+public class Example {
+  public static void main(String[] unused) {
+    Example example = new Example();
+    System.out.println(example.toString());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="konQFOEwPtcDQyBaBNGjJqYCQcSGJWhF">
+<div class="header" data-title="Inheritance"><h2>Inheritance</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println(&quot;I&apos;m a &quot; + this.type + &quot; named &quot; + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = &quot;Dog&quot;;
+  }
+}
+Dog chuchu = new Dog(&quot;Chuchu&quot;);
+chuchu.printMe();</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Java allows objects to <em>inherit</em> state and behavior from another class.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wTNNwUEDjkZqaKToynKrhgypMFbDeDxc">
+<div class="header" data-title="Inheritance Terminology"><h2>Inheritance Terminology</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet { }
+public class Dog extends Pet { }
+public class Cat extends Pet { }</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java we establish inheritance using the <code>extends</code> keyword.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>Dog</code> extends <code>Pet</code> and so <em>inherits</em> state and behavior from <code>Pet</code></p>
+</li>
+<li class="bullet">
+<p><code>Cat</code> also extends <code>Pet</code> and so also <em>inherits</em> state and behavior from <code>Pet</code></p>
+</li>
+<li class="bullet">
+<p>We sometimes call <code>Pet</code> <code>Dog</code>&apos;s and <code>Cat</code>&apos;s <em>parent</em> class</p>
+</li>
+<li class="bullet">
+<p>We sometimes call <code>Dog</code> and <code>Cat</code> <code>Pet</code>&apos;s <em>children</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZtxtPnriCGjIZxAAReEntXKwQJOMgPOo">
+<div class="header" data-title="More Inheritance Terminology"><h2>More Inheritance Terminology</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet { }
+public class Dog extends Pet { }
+public class Mutt extends Dog { }</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java we can have have multiple levels of inheritance.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>Dog</code> extends <code>Pet</code> and so <em>inherits</em> state and behavior from <code>Pet</code></p>
+</li>
+<li class="bullet">
+<p><code>Mutt</code> extends <code>Dog</code> and so <em>inherits</em> state and behavior from <code>Dog</code> <strong>and</strong> <code>Pet</code></p>
+</li>
+<li class="bullet">
+<p>We sometimes call <code>Pet</code> and <code>Dog</code> <code>Mutt</code>&apos;s <em>ancestors</em></p>
+</li>
+<li class="bullet">
+<p>We sometimes call <code>Dog</code> and <code>Mutt</code>  <code>Pet</code>&apos;s <em>descendants</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EWGqFYyFGhaIiRMGqHCZmAAlEYacebZN">
+<div class="header" data-title="protected"><h2><code>protected</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet {
+  public String name; // Anyone can set me
+  private String secret; // Only I can set this value
+  protected String type; // My descendants can use this value
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = &quot;Dog&quot;;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the variable can be read or written by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li class="bullet">
+<p><strong><code>protected</code></strong>: the variable can only read or written by methods defined on that
+class <em>or its descendants</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="vQUxfPBiPWXztrplkCsSmaMctvPszGzJ">
+<div data-title=" Inheritance"></div>
+<textarea class="janini spelling_exception">public class Pet {
+  protected String name;
+  protected String type;
+
+  public void printMe() {
+    System.out.println(&quot;I&apos;m a &quot; + this.type + &quot; named &quot; + this.name);
+  }
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+    this.type = &quot;Dog&quot;;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog(&quot;Chuchu&quot;);
+    chuchu.printMe();
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IHiQsyleCpwPeVYOopjNdQKqSCutxtaE">
+<div class="header" data-title="The Dirty Truth About protected"><h2>The Dirty Truth About <code>protected</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Pet {
+  protected String name;
+}
+public class Dog extends Pet {
+  Dog(String name) {
+    this.name = name;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Dog chuchu = new Dog(&quot;Chuchu&quot;);
+    chuchu.name = &quot;Xyz&quot;; // This works...
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong><code>protected</code></strong>: the variable can read or written by methods defined on that
+class <em>or its descendants</em>&#x2026;&#x200B; in <em>any package</em></p>
+</li>
+<li class="bullet">
+<p><strong><code>protected</code></strong>: the variable can also be read and written by any method in the
+same <em>package</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="etbCgxcOIaavnXUYIwlYkvuFMEzVvDiw">
+<div class="header" data-title="public, private, and protected"><h2><code>public</code>, <code>private</code>, and <code>protected</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Variables</strong>:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the variable can be read or written by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the variable can only read or written by methods defined <em>on that
+class</em></p>
+</li>
+<li class="bullet">
+<p><code>protected</code>: the variable can be read or written by methods defined on any
+descendant of that class <em>in any package</em> or any class in the same package</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Methods</strong>:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><code>public</code>: the method can be called by anyone</p>
+</li>
+<li class="bullet">
+<p><code>private</code>: the method can only be called by other methods <em>on that class</em></p>
+</li>
+<li class="bullet">
+<p><code>protected</code>: the method can be called by other methods defined on any
+descendant of that class <em>in any package</em> or any class in the same package</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PzievfvBAnLYMbjqVoPmzSAhYzhqmAFt">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2019/spring/1/">MP1</a> is due at <strong>5PM today</strong>.
+Good luck finishing up!</p>
+</li>
+<li>
+<p>Labs resume as usual this week.</p>
+</li>
+<li>
+<p><a href="/MP/2019/spring/2/">MP2</a> will be released later today.</p>
+</li>
+<li>
+<p>I have office hours from 2&#x2013;3PM in Siebel 0403. See you there!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

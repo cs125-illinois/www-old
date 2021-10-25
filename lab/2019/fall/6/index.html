@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Testing</title>
+		<meta name="description" lang="en-us" content="Today we&apos;ll introduce you to the art of software testing. We&apos;ll discuss what testing is and why we do it, and then give you practice at testing several functions that you wrote previously this semester.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/MP" href="/MP/5/">MPs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/lab" href="/lab/14/">Labs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav small">
+            <li class="entry">
+              <strong>Fall 2019</strong>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/14/">14: Final Project Demos</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/13/">13: Final Project Checkpoint</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/12/">12: Final Project</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/11/">11: Sorting and Searching</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/10/">10: A Knight&apos;s Tour</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/8/">8: Escape the Maze</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/7/">7: Data Modeling</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/6/" class="active" onclick="return false;">6: Testing<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/5/">5: Reverse Engineering</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/4/">4: MP1</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/3/">3: Strings</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/2/">2: Algorithms</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/1/">1: Debugging and Android Setup</a>
+            </li>
+            <li>
+              <a href="/lab/2019/fall/0/">0: Ready to Start</a>
+            </li>
+            <li>
+              <strong><a href="/lab/">Return to Current labs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Software Testing (50 Minutes Total)</a>
+            <ul>
+              <li><a class="nav-link" href="#_why_test">1.1. Why Test?</a></li>
+              <li><a class="nav-link" href="#_types_of_tests">1.2. Types of Tests</a></li>
+              <li><a class="nav-link" href="#_testing_in_cs_125">1.3. Testing in CS 125</a></li>
+              <li><a class="nav-link" href="#_writing_good_tests">1.4. Writing Good Tests</a></li>
+              <li><a class="nav-link" href="#_get_testing">1.5. Get Testing!</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#mp2">2. Starting MP2 (Any Remaining Time)</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#done">3. Before You Leave</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This lab is from a previous version of CS 125.
+          <a href="/lab/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Testing</h1>
+      <div class="paragraph lead">
+<p>Today&#x2019;s lab introduces an incredibly important part of software development:
+<em>testing</em>.
+By writing tests we allow computers to help us debug and maintain our code.
+It may seem strange to write more code to help test your existing code&#x2014;but
+that&#x2019;s what we do.
+In fact, some claim you should write your tests <em>first</em> and your code <em>second</em>.</p>
+</div>
+<div class="paragraph">
+<p>Testing is not a topic that we ask you to examine on the MPs, and not something
+that we&#x2019;ve even approached in CS 125 previously.
+But today&#x2019;s lab is intended to give you a bit of a taste of the adversarial
+mindset associated with writing good software tests.
+Properly applied, that mindset can help you write better code until the point
+where writing tests becomes a normal part of how you develop software
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;And trust us&amp;#x2014;that day is coming soon!&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="testing"></a><h2>1. Software Testing <span class="text-muted">(50 Minutes Total)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Up to this point in CS 125 we&#x2019;ve focused on writing code to solve problems.
+But there is a big problem that we encountered over and over again&#x2014;how do
+we know that our code works?
+And indeed, because we are computer scientists, we are going to solve that
+problem the same way that we solve other problems.
+<strong>By writing more code.</strong></p>
+</div>
+<div class="paragraph">
+<p>Software testing usually refers to the process of writing code to test your
+code.
+Some software testing is impossible to automate and done manually by
+humans&#x2014;but that&#x2019;s extremely tedious.
+So a lot of work has gone into automating as much testing as possible, meaning
+that it is done by code rather than by hand.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ve budgeted 10 minutes for you to review the material below, at which point
+you&#x2019;ll have the remainder of lab to complete the testing homework on PrairieLearn.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_why_test"></a><h3>1.1. Why Test?</h3>
+<div class="paragraph">
+<p>Every decent software project contains tests&#x2014;usually a lot of them.
+<a href="https://github.com/JetBrains/intellij-community/tree/master/java/java-tests/testSrc/com/intellij" target="_blank" class="external">Here
+is the testing directory for IntelliJ, which powers Android Studio</a>.
+<a href="https://github.com/chromium/chromium/tree/master/testing" target="_blank" class="external">And here&#x2019;s the testing
+directory for Chromium, the open-source version of Chrome</a>.
+<a href="https://github.com/discourse/discourse/tree/master/test" target="_blank" class="external">And here are the tests
+for Discourse, the open source software that powers our CS 125 forum</a>.
+Anyway&#x2014;our point is that all sane software developers write tests.
+Frequently a lot of them.
+Sometimes you actually end up with <em>more</em> testing code than you have non-testing
+code&#x2014;particularly if you are trying to test a particularly complex or
+important piece of software.</p>
+</div>
+<div class="paragraph">
+<p>Companies also devote a huge amount of time to software testing.
+Somewhere in a room at Google or Microsoft or Facebook or Twitter or Instagram
+is a room full of computers (or phones) that are churning away night and day
+running tests to identify bugs in new versions of their products.
+When you begin writing software in industry, frequently the <em>first</em> step in
+changing something is making sure all existing tests have passed.
+Then you&#x2019;ll be required to write your own tests for whatever new feature you are
+trying to add.
+Only once existing tests all pass and new ones are added will anyone even
+<em>think</em> about actually accepting your new change.</p>
+</div>
+<div class="paragraph">
+<p><strong>Why?
+Because almost every piece of useful software is complicated.</strong>
+And really useful ones can become incredibly complex.
+What seems like a small change to you can affect other parts of the application
+or program in ways that you didn&#x2019;t intend and could never foresee.
+This problem is exacerbated by the fact that frequently no one person
+understands the entire program or system.
+So rather than try and use our limited human brains to try and determine how a
+change will affect the rest of the program, we just write a lot of tests and
+hope that they will identify anything that breaks.
+Computers helping us write more computer code
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Will they appreciate the irony of the situation once they become sentient and take over?&lt;/body&gt;&lt;/html&gt;">2</span>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_types_of_tests"></a><h3>1.2. Types of Tests</h3>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Software_testing" target="_blank" class="external">Software testing</a>
+employs many different strategies and methods&#x2014;far, far too many to cover
+in one lab.</p>
+</div>
+<div class="paragraph">
+<p>But one important thing to realize is that tests are typically done at different
+<a href="https://en.wikipedia.org/wiki/Software_testing#Testing_levels" target="_blank" class="external">levels of
+granularity</a>.
+From bottom to top:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Unit testing</strong>: these tests focus on isolating the smallest part of the
+program possible.
+Frequently they test a single function.
+You&#x2019;ll be writing unit tests on today&#x2019;s homework.</p>
+</li>
+<li>
+<p><strong>Integration testing</strong>: these tests focus on verifying that larger parts of a
+complete program fit together (or integrate) properly.
+Another way to think about integration tests is that, if Alice wrote one part of
+an app and Bob wrote another, integration tests should ensure that they
+interoperate properly.</p>
+</li>
+<li>
+<p><strong>System testing</strong>: the highest level of tests are designed to ensure that
+the app or program works from the perspective of a user.
+A user doesn&#x2019;t care what functions get called or different parts of the system
+interact when they click on a button that should open a menu&#x2014;they just
+expect it to work.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_testing_in_cs_125"></a><h3>1.3. Testing in CS 125</h3>
+<div class="paragraph">
+<p>Given the size of the problems you are able to solve in CS 125, almost all of
+our tests are <em>unit tests</em>.</p>
+</div>
+<div class="paragraph">
+<p>However, we want to point out that the tests that you find on our CS 125 MPs
+<em>are not</em> good examples of how to write tests.
+Why not?
+Because they were written <em>with access to a solution</em>.
+Normally you are testing your code because you aren&#x2019;t sure whether it solves a
+problem.
+In contrast, when <em>grading</em> your code we <em>are</em> sure that our solution is correct
+and we want to test whether or not your code behaves the same way.
+However, we also don&#x2019;t want to give away our solution.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_writing_good_tests"></a><h3>1.4. Writing Good Tests</h3>
+<div class="paragraph">
+<p>On today&#x2019;s homework problems we give you practice writing test cases for a few
+small programming problems.
+These are unit tests, since each is testing a single function.</p>
+</div>
+<div class="paragraph">
+<p>Writing good tests requires a certain adversarial mindset.
+You have to think&#x2014;what kind of mistakes is someone implementing this
+likely to make?
+Or, put another way, you can ask the question: how would <em>I</em> mess this up?
+Then, for each potential error, you construct a test case to catch it.</p>
+</div>
+<div class="paragraph">
+<p>How do you know the right answer?
+Well, you could write a function to compute it&#x2014;but then you&#x2019;d have
+something else to test!
+Instead, what we typically do is compute the result beforehand, offline.</p>
+</div>
+<div class="paragraph">
+<p>As an example, say that I am testing a function that takes an array as input and
+returns an <code>int</code>.
+The documentation says that, if the array is <code>null</code>, the function should return
+-1.
+Knowing myself, I might miss that part.
+So I know that I want to test to make sure that <code>null</code> is handled properly, and
+I should check that it returns -1 in that case, since that&#x2019;s what the
+documentation says will happen.</p>
+</div>
+<div class="paragraph">
+<p>Coming up with good adversarial inputs also depends on what you are trying to
+test.
+For example, one of the homework problems today is testing a generalized version
+of <code>String</code> rotation.
+An input like <code>aaa</code> is an awful input for testing <code>String</code> rotation&#x2014;while
+<code>abc</code> could be a good input.
+Similarly, tests that always use 0 as the amount to rotate will fail to uncover
+many bugs.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_get_testing"></a><h3>1.5. Get Testing!</h3>
+<div class="paragraph">
+<p>OK, now get started on our testing homework challenge.
+<strong>Please feel free to discuss the problems with other students in your lab</strong>,
+although everyone needs to submit their own work.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="mp2"></a><h2>2. Starting MP2 <span class="text-muted">(Any Remaining Time)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#x2019;ve set aside the remainder of lab for you to begin work on
+<a href="/MP/2019/fall/2/">MP2</a>.
+Good luck getting started!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="done"></a><h2>3. Before You Leave</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Don&#x2019;t leave lab until</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You&#x2019;ve completed our in-lab testing homework problems.</p>
+</li>
+<li>
+<p>You&#x2019;ve made some more progress on <a href="/MP/2019/fall/2/">MP2</a>&#x2026;&#x200B;</p>
+</li>
+<li>
+<p>And so has everyone else in your lab!</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you need more help completing the tasks above please come to
+<a href="/info/2019/fall/syllabus/#calendar">office hours</a>
+or post on the <a href="https://cs125-forum.cs.illinois.edu" class="noexternal">forum</a>.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/lab/2019/fall/6.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/lab/2019/fall/6.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

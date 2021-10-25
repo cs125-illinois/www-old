@@ -1,0 +1,803 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Imports and Build Systems</title>
+  <meta name="description" lang="en-us" content="Introduction how to how Java libraries are packaged, distributed, and imported. Includes a discussion of the Gradle build system and the role it can play in this process.">
+
+  <meta name="slider-id" content="4731a6cc-caad-4a89-a45b-058bb0b47d53">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 oneword logo bespoke-active bespoke-slide" data-slideid="vUysyTyNHTLMsWADDPULMCNEJsEcuFXh">
+<div class="header" data-title="Imports and Build Systems"><h2>Imports and Build Systems</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>IntelliJ projects for today&#x2019;s lecture:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/cs125-illinois/lecture-packaging-app" class="bare external" target="_blank">https://github.com/cs125-illinois/lecture-packaging-app</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cs125-illinois/sortlib" class="bare external" target="_blank">https://github.com/cs125-illinois/sortlib</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smaller nozoom bespoke-inactive bespoke-slide" data-slideid="SMFdnvJhmxRPmfzSxslToJkCJBmihneF">
+<div data-title=" Find the Most Common Value"></div>
+<textarea class="janini spelling_exception">/**
+ * Find the most common value.
+ *
+ * If two values occur an equal number of times, then the one that appears first
+ * in the array should be returned.
+ */
+static int findMostCommon(int[] inputArray) {
+  return 0;
+}
+System.out.println(findMostCommon(new int[] { 1, 1, 5, 6, 7, 7 }));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JthNsUgeTznQuvsFSPMRjFsrzMQZYHuB">
+<div class="header" data-title="Analyzing Your Solution"><h2>Analyzing Your Solution</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>What was your algorithm?</p>
+</li>
+<li>
+<p>What was the big-O runtime of your implementation?</p>
+</li>
+<li>
+<p>What are the worst- and best-case inputs for your implementation?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="IylddtZJXZOfaFGZxOEEvZkoLDGboSmt">
+<div class="header" data-title="I promised that&#x2026;&#x200B;"><h2>I promised that&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>you&#x2019;d understand <em>every</em> line of a typical Java source file.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vBnPLekwLKSwctchhYVDzwDYAcHnLwtF">
+<div class="header" data-title="Java Packages"><h2>Java Packages</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A Java <em>package</em> is a bundle of resources&#x2014;mainly classes&#x2014;that
+provide related functionality.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>The Java SDK provides a set of packages starting with <code>java</code> or
+<code>javax</code>: like <code>java.util</code>.</p>
+</li>
+<li class="bullet">
+<p>These <em>standard libraries</em> are always available for
+you to use when you write Java code.</p>
+</li>
+<li class="bullet">
+<p>Other companies and organizations can create and distribute their own software
+packages: like <code>com.google.common.math</code> or <code>org.apache.commons.text</code>.</p>
+</li>
+<li class="bullet">
+<p>Unlike the standard libraries, you have to do some extra work to make these
+libraries available for each project you are working on.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OxCNCEdjJZZhBNvuwRZYlAXXjEEarnYS">
+<div class="header" data-title="Package Naming"><h2>Package Naming</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java establishes <em>naming conventions</em> to ensure that multiple developers can
+work on similar projects without collisions.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Standard libraries start with <code>java</code> or <code>javax</code></p>
+</li>
+<li class="bullet">
+<p>External libraries use a reversed domain name: <code>com.google&#x2026;&#x200B;</code>,
+<code>edu.illinois.cs.cs125&#x2026;&#x200B;.</code>, or <code>com.github.cs125-illinois&#x2026;&#x200B;</code>.</p>
+</li>
+<li class="bullet">
+<p>If you publish to GitHub, <code>com.github.&lt;username&gt;&#x2026;&#x200B;</code> is a good choice.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="dvUyavhbysBlokxBLJZlQUVNFNfTHNJM">
+<div class="header" data-title="Don&#x2019;t Do It Yourself"><h2>Don&#x2019;t Do It Yourself</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You <em>have</em> to learn to use software libraries.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LMhibrQYIFqYfnFusRNzCWzgqggvdDfk">
+<div class="header" data-title="Course v. Real Programming"><h2>Course v. Real Programming</h2></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">&#xA0;</th>
+<th class="tableblock valign-middle text-center">Course</th>
+<th class="tableblock valign-middle text-center">Real</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>You start with&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">A small amount of great code</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">A large amount of complex and confusing code</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Most of your time is spent&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Programming</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Understanding the system</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>You solve problems&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Yourself!</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>By finding existing solutions</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>You end up building&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Something small</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Something really cool</p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>We call this&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Doing the MP</p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock">Hacking</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="YwpAOrPEaokQVLVClBDbPxGMbzzaxiaX">
+<div data-title=" The Java Standard Library"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/8/docs/api/overview-summary.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="mSdYyLaxMJsosGasHkNxcWBMMBrZIWZJ">
+<div data-title=" Standard Library Example"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wpYzILHVHcoqixovDBWbQwmQeuQkoADR">
+<div class="header" data-title="Importing Standard Libraries"><h2>Importing Standard Libraries</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// If I use the fully-qualified name I don&apos;t need an import...
+System.out.println(java.util.Arrays.toString(new int[] { 1, 2, 3 }));</code></pre>
+</div>
+</div>
+<div class="listingblock mt-3 bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// ...but it&apos;s common to use one.
+// This makes Arrays available in this class
+import java.util.Arrays;
+// Now I can use its methods
+System.out.println(Arrays.toString(new int[] { 1, 2, 3 }));</code></pre>
+</div>
+</div>
+<div class="listingblock mt-3 bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// I can also import all classes from java.util, although
+// checkstyle will complain
+import java.util.*;
+// Now I can use its methods
+System.out.println(Arrays.toString(new int[] { 1, 2, 3 }));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="rzbCoCaoKnyUenfrONuOeInBDrCZJdFW">
+<div data-title=" Java External Libraries"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://mvnrepository.com/%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 nologo bespoke-inactive bespoke-slide" data-slideid="oSeXSCuViZSEmEXAvyOuDYeuzHCWoGkr">
+<div data-title=" External Library Example"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://google.github.io/guava/releases/19.0/api/docs/com/google/common/math/BigIntegerMath.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tWOJqoHXhtlVOfPgGblCjbhAXjdTmfCM">
+<div class="header" data-title="Importing Non-Standard Libraries"><h2>Importing Non-Standard Libraries</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Unfortunately, it&apos;s not quite this easy...
+import com.google.common.math.BigIntegerMath;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="illRZGGRjlgKrBSTfbAqhaioSnpwLFqO">
+<div class="header" data-title="Gradle to the Rescue"><h2>Gradle to the Rescue</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>There are multiple ways to make external libraries available as part of your
+project. We&#x2019;re going to show you how to do this using
+<a href="https://gradle.org/" target="_blank" class="external"><em>Gradle</em></a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="cYGaEIKPtCRIvfHaPklwBzMbsVaErrBz">
+<div class="header" data-title="What is Gradle [1]?"><h2>What is Gradle <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;not &amp;quot;the Gradle&amp;quot;&lt;/body&gt;&lt;/html&gt;">1</span>?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="https://gradle.org/" target="_blank" class="external">Gradle</a> is a <em>build tool</em>. It helps with things like:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>building your Java program or Android app</p>
+</li>
+<li class="bullet">
+<p>running test suites and code quality tools like <code>checkstyle</code></p>
+</li>
+<li class="bullet">
+<p>packaging your Java code into a <em>package</em>, if appropriate</p>
+</li>
+<li class="bullet">
+<p>build Javadoc documentation</p>
+</li>
+<li class="bullet">
+<p><em>fetching any dependencies that your project needs</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DHZgxVaSgEKWRvqlfCajAZtBWZNVrVSv">
+<div class="header" data-title="Example build.gradle"><h2>Example <code>build.gradle</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy" data-lang="groovy">// We&apos;re building a Java application
+apply plugin: &apos;java&apos;
+
+// Look for dependencies on jcenter
+repositories {
+    jcenter()
+}
+
+// We don&apos;t have any dependencies yet
+dependencies {
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pDMdxhPDDeLXxJkpQxIETxvFllmYXfWV">
+<div class="header" data-title="IntelliJ Example Using Google&#x2019;s Guava Library"><h2>IntelliJ Example Using Google&#x2019;s Guava Library</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Link to Google&#x2019;s Documentation: <a href="https://github.com/google/guava" class="bare external" target="_blank">https://github.com/google/guava</a></p>
+</li>
+<li>
+<p>Link to starter code: <a href="https://github.com/cs125-illinois/lecture-packaging-app" class="bare external" target="_blank">https://github.com/cs125-illinois/lecture-packaging-app</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nrdlFHtMGnMzOjAxtuHvcDnABgmhFzut">
+<div class="header" data-title="build.gradle With Dependency"><h2><code>build.gradle</code> With Dependency</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy" data-lang="groovy">// We&apos;re building a Java application
+apply plugin: &apos;java&apos;
+
+// Look for dependencies on jcenter
+repositories {
+    jcenter()
+}
+
+// Use the Google Guava library version 24.1-jre
+dependencies {
+    // When I compile the project I need this library
+    compile &apos;com.google.guava:guava:24.1-jre&apos;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UtfvqbakmGiuQxhhWGwqUmKFTMxwSCjZ">
+<div class="header" data-title="Gradle Dependency Format"><h2>Gradle Dependency Format</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy" data-lang="groovy">dependencies {
+    compile &apos;com.google.guava:guava:24.1-jre&apos;
+    // example: compile &apos;GROUP:ARTIFACT:VERSION&apos;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Gradle&#x2019;s dependency block breaks each dependency into three parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>GROUP</code>: usually indicates an organization that provides this dependency,
+like <code>com.google</code> or <code>com.github.cs125-illinois</code>.</p>
+</li>
+<li class="bullet">
+<p><code>ARTIFACT</code>: a string identifying the dependency to add to the project.</p>
+</li>
+<li class="bullet">
+<p><code>VERSION</code>: a version string identifying which version of the library to use.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vBbwgXiXNfHOtRkJiNElbzHnMInRkSLQ">
+<div class="header" data-title="Maven Format"><h2>Maven Format</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Sometimes you see the dependency in this format, which is used by another build
+tool called Maven:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml spelling_exception lang-xml" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+  &lt;artifactId&gt;commons-text&lt;/artifactId&gt;
+  &lt;version&gt;1.3&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p>This is equivalent to <code>org.apache.commons:commons-text:1.3</code> in Gradle.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uMDkZjyFXZhwZhZfqXoWnfoHVpMvmMaF">
+<div class="header" data-title="GROUP and ARTIFACT"><h2><code>GROUP</code> and <code>ARTIFACT</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just be aware that these are <em>not necessarily</em> related to the package name.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>com.google.guava:guava</code> provides <code>com.google.common.math</code>, etc.</p>
+</li>
+<li class="bullet">
+<p><code>com.github.cs125-illinois:sortlib</code> provides
+<code>edu.illinois.cs.cs125.sortlib</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TOBMAZXTnIlkYxXmasplpfPNxSLWHZAs">
+<div class="header" data-title="VERSION"><h2><code>VERSION</code></h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Package versioning is <em>incredibly important</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If you develop your app to work with <code>1.10.1</code>, it may not work with <code>2.0.0</code>.</p>
+</li>
+<li class="bullet">
+<p>So you pin your app at a particular version of a library.</p>
+</li>
+<li class="bullet">
+<p>However, it <em>is</em> important to periodically update your libraries to the latest
+version, but not that that may take some time and energy.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="goAVHEprLupuCbtxiqjucUiGaOhLvtxT">
+<div class="header" data-title=".jar Files"><h2><code>.jar</code> Files</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A single Java library usually consists of many different class files and other
+resources. They are packaged into a single <em>Java archive</em>, or <code>.jar</code> file.</p>
+</div>
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-bash spelling_exception lang-bash" data-lang="bash">$ jar tvf sortlib.jar
+     0 Sun Apr 15 16:00:08 CDT 2018 META-INF/
+    25 Sun Apr 15 16:00:08 CDT 2018 META-INF/MANIFEST.MF
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/cs125/
+     0 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/cs125/sortlib/
+   595 Sun Apr 15 16:00:08 CDT 2018 edu/illinois/cs/cs125/sortlib/Sorting.class</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JpxSRmgPwDVseQJCohhOBUxuhMlDJRep">
+<div class="header" data-title="Creating And Publishing Your Own Libraries"><h2>Creating And Publishing Your Own Libraries</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>It&#x2019;s a big moment as a programmer to begin sharing your code with others.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Other people may use your code! That&#x2019;s exciting.</p>
+</li>
+<li class="bullet">
+<p>They&#x2019;ll complain when it doesn&#x2019;t work. That&#x2019;s frustrating.</p>
+</li>
+<li class="bullet">
+<p>They&#x2019;ll want you to document it carefully. That&#x2019;s worth doing.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="FBroTYEaArgHKvHvMYksIfFAKKRqSwaH">
+<div class="header" data-title="Packaging Your Code"><h2>Packaging Your Code</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java&#x2019;s <code>package</code> statement allows you to put your class into a package:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Declare that this class is part of this package
+package edu.illinois.cs.cs125.sortlib;
+
+public class Sorting {
+}</code></pre>
+</div>
+</div>
+<div class="openblock bullet">
+<div class="content">
+<div class="paragraph">
+<p>You can then import it in another project like this:</p>
+</div>
+<div class="listingblock mt-3 small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import edu.illinois.cs.cs125.sortlib.Sorting;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vXEpgucrRmMSDqprWmsHQiQGwkkEjpjD">
+<div class="header" data-title="Java Package Repositories"><h2>Java Package Repositories</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java has several existing code repositories where developers publish their work:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://bintray.com/bintray/jcenter" target="_blank" class="external"><code>jcenter</code></a></p>
+</li>
+<li>
+<p><a href="https://search.maven.org/" target="_blank" class="external">maven Central</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy" data-lang="groovy">repositories {
+    // Look for dependencies on jcenter
+    jcenter()
+    // Look for dependencies on maven Central
+    mavenCentral()
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ANglPAMGnrZetJSUgXSEwESXYnMELcsX">
+<div class="header" data-title="jitpack.io"><h2><code>jitpack.io</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="https://jitpack.io/" target="_blank" class="external"><code>jitpack.io</code></a> is another example and possibly easier to use
+if you are maintaining your code on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xvWNIFUCQFXVNlZOvEBbsWOBJLyZRXKB">
+<div class="header" data-title="IntelliJ Example Using jitpack.io"><h2>IntelliJ Example Using <code>jitpack.io</code></h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Link to starter app: <a href="https://github.com/cs125-illinois/lecture-packaging-app" class="bare external" target="_blank">https://github.com/cs125-illinois/lecture-packaging-app</a></p>
+</li>
+<li>
+<p>Link to starter library: <a href="https://github.com/cs125-illinois/sortlib" class="bare external" target="_blank">https://github.com/cs125-illinois/sortlib</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="fDPjgqUhTgtUStBDcLJJppjEUZrMDwix">
+<div class="header" data-title="build.gradle with jitpack.io"><h2><code>build.gradle</code> with <code>jitpack.io</code></h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy" data-lang="groovy">apply plugin: &apos;java&apos;
+
+repositories {
+    jcenter()
+    maven { url &apos;https://jitpack.io&apos; }
+}
+
+dependencies {
+    compile &apos;com.google.guava:guava:24.1-jre&apos;
+    compile &apos;com.github.cs125-illinois:sortlib:0.0.1&apos;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="MkhStbcDLeywHghFQSwWIhcALnzUXbko">
+<div class="header" data-title="Questions?"><h2>Questions?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I know that this is dull and a bit confusing. Post on the forum if you need
+help!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xYPCExtLlLAkdqmJoBKkywmBJdrbZkrF">
+<div class="header" data-title="Final Project Discussion"><h2>Final Project Discussion</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#x2019;ve released the <a href="/MP/2018/spring/7/">MP7</a> final project specification. Here&#x2019;s an
+overview:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>You need to build an Android app. <em>If your development environment isn&#x2019;t
+working you&#x2019;ll need to address that</em>.</p>
+</li>
+<li class="bullet">
+<p>You need to design a simple UI. We&#x2019;ll provide help with that in lab.</p>
+</li>
+<li class="bullet">
+<p>You&#x2019;ll need to finish your UI mockup in a week.</p>
+</li>
+<li class="bullet">
+<p>You need to use a new web API, software library, or Android feature.</p>
+</li>
+<li class="bullet">
+<p>You need to commit your work to GitHub.</p>
+</li>
+<li class="bullet">
+<p>You need to work with someone in your lab section.</p>
+</li>
+<li class="bullet">
+<p><strong>Other than that, what to do is up to you.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ocRExoJsLsNPkSexYFyfCtQSeQEFaDoQ">
+<div class="header" data-title="Final Project Evaluation"><h2>Final Project Evaluation</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You&#x2019;ll demo your final project in lab during the last week of class: either 5/1
+or 5/2.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You will probably need to record a YouTube video or screencast of your app so
+that we can complete the app presentations in one lab section.</p>
+</li>
+<li class="bullet">
+<p>Grading will be generous.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IkvaVELzwbvWqqEhuyLzeofahUfbbUDL">
+<div class="header" data-title="Final Project Fair"><h2>Final Project Fair</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>On Thursday 5/3 (Reading Day), we&#x2019;ll hold our first Final Project Fair from
+4&#x2013;6PM in Siebel.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>The course staff will be on hand to review the final projects and select a few
+that we consider to be the most impressive.</p>
+</li>
+<li class="bullet">
+<p><strong>If you had never programmed before this semester and build something simple
+and cool, <em>that&#x2019;s impressive</em>.</strong></p>
+</li>
+<li class="bullet">
+<p>Participation is optional&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>&#x2026;&#x200B;but worth 1% extra credit.</p>
+</li>
+<li class="bullet">
+<p>We&#x2019;ll be handing out more extra credit to the best projects, and to the lab
+sections that produce the best final projects.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mnObEMpNdknIiyvShibXymkmdHBUIblb">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/MP/2018/spring/7/">MP7 (the final project)</a> is out.
+Please get started!</p>
+</li>
+<li>
+<p>The
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+remains available on the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

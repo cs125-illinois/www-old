@@ -1,0 +1,1222 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP2: Web APIs</title>
+		<meta name="description" lang="en-us" content="The MP2 checkpoint starts connecting your app to our web service and continues building its UI.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li>
+              <a href="/MP/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2/" class="active" onclick="return false;">MP2<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/setup/git/">Git</a>
+                </li>
+                <!--
+                <li>
+                  <a data-active="^MP/setup/EWS" href="/MP/setup/EWS/">EWS</a>
+                </li>
+          	  -->
+              </ul>
+            </li>
+            <li>
+              <span class="option">Archive</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/fall/0/">Fall 2019</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/0/">Spring 2019</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/fall/0/">Fall 2018</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/spring/0/">Spring 2018</a>
+                </li>
+                <li>
+                  <a href="/MP/2017/fall/1/">Fall 2017</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_assignment_structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#_obtaining_mp2">2.1. Obtaining MP2</a></li>
+              <li><a class="nav-link" href="#_late_mp1_submissions">2.2. Late MP1 Submissions</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_android">3. Android</a>
+            <ul>
+              <li><a class="nav-link" href="#_manipulating_ui_from_java">3.1. Manipulating UI from Java</a></li>
+              <li><a class="nav-link" href="#_android_manifest">3.2. Android Manifest</a></li>
+              <li><a class="nav-link" href="#_getting_results_from_activities">3.3. Getting Results from Activities</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_web_api">4. Web API</a>
+            <ul>
+              <li><a class="nav-link" href="#json">4.1. What is JSON?</a></li>
+              <li><a class="nav-link" href="#_using_gson">4.2. Using Gson</a></li>
+              <li><a class="nav-link" href="#_making_web_requests">4.3. Making Web Requests</a></li>
+              <li><a class="nav-link" href="#_our_api_documentation">4.4. Our API Documentation</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_your_goal">5. Your Goal</a>
+            <ul>
+              <li><a class="nav-link" href="#_gamesummary">5.1. GameSummary</a></li>
+              <li><a class="nav-link" href="#_login_setup">5.2. Login Setup</a></li>
+              <li><a class="nav-link" href="#_invitationgame_buttons">5.3. Invitation/Game Buttons</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_grading">6. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#_test_cases">6.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#_style_points">6.2. Style Points</a></li>
+              <li><a class="nav-link" href="#_submitting_your_work">6.3. Submitting Your Work</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cliffhanger">7. Cliffhanger</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cheating">8. Cheating</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+
+      <a class="anchor" id="top"></a>
+        <h1>MP2: Web APIs</h1>
+      <div class="paragraph lead">
+<p>In <a href="/MP/0/">MP0</a> and <a href="/MP/1/">MP1</a>, you implemented both game modes for a
+singleplayer version to an authentication service and our central game server.</p>
+</div>
+<div class="paragraph">
+<p>To make the multiplayer game work, users will need to be able to identify
+themselves to the app and to a central server that relays information between
+users.
+Displaying data from the server first requires fetching it.
+Services designed to make information accessible to other machines, like our
+central server, expose a <em>web API</em> that programs can contact in a structured
+manner to receive structured information.</p>
+</div>
+<div class="paragraph">
+<p>Now that you know how to create and use objects, you can take advantage of an
+incredible number of existing pieces of software, often referred to as
+<em>libraries</em>, to easily add features to your program.
+This checkpoint uses Google&#x2019;s
+<a href="https://firebase.google.com/docs/auth" target="_blank" class="external">Firebase Authentication</a>,
+<a href="https://sites.google.com/site/gson/gson-user-guide" target="_blank" class="external">Gson</a>,
+and (indirectly)
+<a href="https://developer.android.com/training/volley/index.html" target="_blank" class="external">Volley</a>
+libraries to let the user log in and respond to game invitations.</p>
+</div>
+<div class="paragraph">
+<p>As usual, <strong>deadlines for each checkpoint vary by your deadline group</strong>.
+MP2 is due at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>11:59 PM on <em>Wednesday</em> 3/11/2020 for the Blue Group</strong>: all labs starting at 3 PM or earlier</p>
+</li>
+<li>
+<p><strong>11:59 PM on <em>Thursday</em> 3/12/2020 for the Orange Group</strong>: all labs starting at 4 PM or later</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that because MP2 ends right before spring break, it is due on a Wednesday
+and Thursday rather than a Sunday and Monday.
+We <em>will</em> hold office hours on Wednesday 3/11/2020 to support the blue group
+finishing.</p>
+</div>
+<div class="paragraph">
+<p>Even on this shorter MP we want you to get started early.
+So 10% of your grade on it is for submitting code that earns at least <em>40
+points</em> by 11:59PM on <strong>Sunday 3/8/2020 (Blue)</strong> or <strong>Monday 3/9/2020
+(Orange)</strong>.
+And as always, late submissions will be subject to the
+<a href="/info/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="_learning_objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP2 introduces several major skills that will be extremely useful for your final project
+and in software development in general.
+You will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrate existing libraries into your application to provide functionality to
+your users without needing to implement all those features yourself</p>
+</li>
+<li>
+<p>Access data from a web service according to a web API specification</p>
+</li>
+<li>
+<p>Design an Android UI</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also keep making use of your imperative programming, object-oriented
+programming skills.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_assignment_structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You already have the one MP repository you&#x2019;ll be working on and are familiar with the
+relevant parts of the folder structure.
+You just need the test suite for Checkpoint 2.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_obtaining_mp2"></a><h3>2.1. Obtaining MP2</h3>
+<div class="paragraph">
+<p>To update your project with the remote and get started on MP2, follow these instructions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Get the remote code.</strong>
+Select <em>VCS | Git | Fetch</em> from the menu to download the remote commit.
+However, it still needs to be merged with your work.</p>
+</li>
+<li>
+<p><strong>Merge the changes!</strong>
+Now we need to merge the changes from your computer with our remote repository,
+so go back to the menu and choose <em>VCS | Git | Merge Changes</em>.
+Check the <code>remotes/release/mp2</code> branch you just fetched and press Merge!
+The Version Control pane will appear to inform you of items updated from the server.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_late_mp1_submissions"></a><h3>2.2. Late MP1 Submissions</h3>
+<div class="paragraph">
+<p>If you didn&#x2019;t finish MP1 or even MP0, you can still do MP2.
+Setting <code>useProvided</code> in <code>grade.yaml</code> to <code>true</code> will make the app use our
+<code>AreaDivider</code> class, <code>GameActivity</code> logic, and singleplayer game setup UI.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_android"></a><h2>3. Android</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here we introduce some Android activities and UI designer logic that will allow
+you even more flexibility in building apps.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_manipulating_ui_from_java"></a><h3>3.1. Manipulating UI from Java</h3>
+<div class="paragraph lead">
+<p>Usually at least part of a user interface is dynamic, changing at runtime when the user
+does something or when data is fetched.
+To make this happen, your Java code needs to be able to manipulate the UI elements.</p>
+</div>
+<div class="paragraph">
+<p>Android exposes views to Java as objects with functions that allow you to get
+information about the view or modify its attributes.
+If a view has an ID set in the Attributes pane of the UI designer, you can get
+an object representing it from the <code>findViewById</code> function.
+For example, this code gets a <code>TextView</code> object corresponding to the <code>TextView</code>
+with ID <code>greeting</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">TextView label = findViewById(R.id.greeting);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The variable type (e.g. <code>TextView</code>) must match the type of view from the UI designer.
+The variable name (e.g. <code>label</code>) can be anything of your choosing.
+The field name after <code>R.id.</code> is the view ID from the UI designer.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p>Since the view classes are defined in Android rather than your project, they
+have to be <em>imported</em> before you can use them from your code.
+Android Studio can help with this: if you tab-complete the class name as you&#x2019;re
+typing it, the needed import statement will be automatically added to the top of
+the file.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have a view object, you can use dot notation to call its functions and
+do something with it.
+For example, all views have a <code>setVisibility</code> method to change whether the view
+can be seen.
+If the greeting label was invisible or gone, this code would make it visible
+again:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">label.setVisibility(View.VISIBLE);
+// or pass View.INVISIBLE to make it invisible
+// or View.GONE to make it gone (invisible and taking up no space)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Views that display text have a <code>setText</code> method to change the text:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">label.setText(&quot;Hello!&quot;);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Member functions can also be used to set handlers&#x2014;code that will be run
+when something happens to the view, like a button being clicked.
+The syntax for handlers is a little messy, but Android Studio&#x2019;s tab completion
+can help you with it, as can the examples in our starter code or in lab.
+For example, this attaches a click handler to a <code>Button</code> variable named
+<code>goodbye</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">goodbye.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(final View v) {
+        // Change the label&apos;s text
+        label.setText(&quot;Goodbye.&quot;);
+    }
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or more concisely:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">goodbye.setOnClickListener(v -&gt; {
+    // Change the label&apos;s text
+    label.setText(&quot;Goodbye.&quot;);
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_android_manifest"></a><h3>3.2. Android Manifest</h3>
+<div class="paragraph">
+<p>Every Android Studio project has a file called <code>AndroidManifest.xml</code>.
+Let&#x2019;s look at a deprecated example of the Android manifest for our Campus Snake 125 app.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    package=&quot;edu.illinois.cs.cs125.spring2020.mp&quot;&gt;
+
+    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.FOREGROUND_SERVICE&quot; /&gt;
+
+    &lt;application
+        android:allowBackup=&quot;false&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/AppTheme&quot;
+        tools:ignore=&quot;GoogleAppIndexingWarning&quot;&gt;
+
+        &lt;activity android:name=&quot;edu.illinois.cs.cs125.spring2020.mp.NewGameActivity&quot; /&gt;
+        &lt;activity android:name=&quot;edu.illinois.cs.cs125.spring2020.mp.GameActivity&quot; /&gt;
+        &lt;activity android:name=&quot;edu.illinois.cs.cs125.spring2020.mp.MainActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+&lt;/manifest&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, our <code>AndroidManifest</code> file first declares some system
+permissions that the app&#x2019;s user must grant in order for the app.
+In our case, the app needs internet and location services access from the user,
+as our game uses location-tracking and a web API to store information about
+games.</p>
+</div>
+<div class="paragraph">
+<p>In the <code>&lt;application/&gt;</code> component we list the different Android activities for
+the app, such as <code>GameActivity</code>.
+The <code>&lt;intent-filter/&gt;</code> component within the <code>Main Activity</code> indicates that <code>Main
+Activity</code> is launched when the app is opened by the user.</p>
+</div>
+<div class="paragraph">
+<p>You can read more about the Android Manifest file on the official
+<a href="https://developer.android.com/guide/topics/manifest/manifest-intro" target="_blank" class="external">Android
+website</a>.
+That documentation will come in handy when working on the first part of this MP!</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_results_from_activities"></a><h3>3.3. Getting Results from Activities</h3>
+<div class="paragraph">
+<p>You previously launched other activities by passing an <code>Intent</code> to the
+<code>startActivity</code> function.
+Sometimes the activity you launched needs to return the user to your activity
+once some data has been produced.
+For example, when you go to attach a picture to a text message, your phone takes
+you to a camera or gallery screen.
+Once you take or select a picture, you&#x2019;re taken back to the texting screen which
+received the chosen picture.</p>
+</div>
+<div class="paragraph">
+<p>To start an activity that you need to get a result from, use the
+<code>startActivityForResult</code> function.
+It takes the intent specifying the activity to launch and a numeric <em>request
+code</em> of your choice that is useful in case your activity issues multiple
+different requests.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Suppose intent is an Intent variable and MY_REQUEST_CODE is an int constant
+startActivityForResult(intent, MY_REQUEST_CODE);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the activity finishes and produces its result, the Android system calls the
+original activity&#x2019;s <code>onActivityResult</code> function to deliver the result.
+To act on that notification, you need to override <code>onActivityResult</code> (similar to
+how all activities override <code>onCreate</code> to do something when they are created):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+ * Invoked by the Android system when a request launched by startActivityForResult completes.
+ * @param requestCode the request code passed by to startActivityForResult
+ * @param resultCode a value indicating how the request finished (e.g. completed or canceled)
+ * @param data an Intent containing results (e.g. as a URI or in extras)
+ */
+@Override
+protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == MY_REQUEST_CODE) {
+        // Do something that depends on the result of that request
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_web_api"></a><h2>4. Web API</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>In computer science the term
+<a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank" class="external"><em>API</em></a>
+stands for Application Programming Interface.
+An API specifies the structure or <em>contract</em> for communication between
+applications.
+When using an API you don&#x2019;t need to be concerned about <em>how</em> the service is
+implemented.
+You just need to properly submit a request and understand the response.</p>
+</div>
+<div class="paragraph">
+<p>Here and for your final project we are most interested in <em>web APIs</em>, which are accessed
+over the Internet using standardized web protocols.
+The most common Internet protocol is
+<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" class="external">HTTP</a>,
+the Hypertext Transfer Protocol.
+Each HTTP request specifies a document, method, and sometimes a body.
+When browsing the web, the document specifies which page you&#x2019;d like to look at.
+When using an API, the document is often referred to as the <em>endpoint</em> and specifies
+what function you would like the service to do for you.
+The most common HTTP methods are <code>GET</code> and <code>POST</code>.
+<code>GET</code> requests access data; <code>POST</code> requests make a submission, change something, or generally
+take an action.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="json"></a><h3>4.1. What is JSON?</h3>
+<div class="paragraph">
+<p>In object-oriented languages, structured data can be modeled with classes.
+But servers and clients can be written in many different languages with wildly
+varying conceptions of how data should be laid out.
+So for the response data to be transferred between them, it must be written in
+(<em>serialized</em> into) a mutually understandable format that correctly conveys the
+structure of the information.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/JSON" target="_blank" class="external">JSON</a> has become an extremely common format
+for exchanging data on the web.
+JSON is text that describes a hierarchy of objects and their properties.
+A Google Maps <code>LatLng</code> object might be represented like this in JSON:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;latitude&quot;: 40.109187,
+  &quot;longitude&quot;: -88.227213
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Curly braces surround the contents of a JSON object.
+Each <em>property</em> (which corresponds to a variable in Java) has a quoted name
+before the colon and a value after.
+Values can be numbers, strings, booleans, objects, or arrays
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;or even null&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s a more complicated JSON object partially representing a class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json spelling_exception lang-json" data-lang="json">{
+  &quot;name&quot;: &quot;CS 125&quot;,
+  &quot;enrollment&quot;: 500,
+  &quot;location&quot;: {
+    &quot;name&quot;: &quot;Lincoln Hall Theater&quot;,
+    &quot;allows_food&quot;: false,
+    &quot;latitude&quot;: 40.105952,
+    &quot;longitude&quot;: -88.227204
+  },
+  &quot;lecture_days&quot;: [
+    &quot;Monday&quot;,
+    &quot;Wednesday&quot;,
+    &quot;Friday&quot;
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There, the value of the <code>location</code> property on the root object is another
+object, which has four properties of its own.
+<code>lecture_days</code> on the root object is an array of the three strings <code>Monday</code>,
+<code>Wednesday</code>, and <code>Friday</code>.
+Arrays may contain any kind of value including objects or other arrays.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_using_gson"></a><h3>4.2. Using Gson</h3>
+<div class="paragraph">
+<p>Virtually all languages in common use today have JSON libraries available, so you don&#x2019;t
+have to parse the JSON text yourself.</p>
+</div>
+<div class="paragraph">
+<p>For the MP we&#x2019;ll be using Google&#x2019;s Gson library to work with JSON.
+We have added it to the project for you and provided helper functions that
+automatically parse JSON received from our server into instances of Gson
+classes.
+The classes you&#x2019;ll be working with most are
+<a href="https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonElement.html" target="_blank" class="external"><code>JsonElement</code></a>,
+<a href="https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonObject.html" target="_blank" class="external"><code>JsonObject</code></a>,
+and
+<a href="https://static.javadoc.io/com.google.code.gson/gson/2.8.5/com/google/gson/JsonArray.html" target="_blank" class="external"><code>JsonArray</code></a>.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p>The Android SDK includes very similarly named classes like
+<code>JSONObject</code>&#x2014;note the difference in capitalization.
+You must use Gson; attempting to use other JSON libraries will fail during
+grading.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>A <code>JsonObject</code> represents a curly-braced JSON object.
+Its <code>get</code> method returns the value of a specified property as a <code>JsonElement</code>
+(or null if the requested property was absent).
+<code>JsonElement</code>s have several methods to get the value as a specific type: for
+example, <code>getAsInt</code> interprets the value as an integer and returns a Java <code>int</code>.
+For example, this snippet gets the class name and enrollment from the second
+example object in the previous section:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Suppose cs125 is a JsonObject variable
+String className = cs125.get(&quot;name&quot;).getAsString();
+int enrollment = cs125.get(&quot;enrollment&quot;).getAsInt();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Accessing values from nested objects requires getting a <code>JsonObject</code> for those
+nested objects first.
+Trying to get the <code>allows_food</code> property on the root object would fail because
+it doesn&#x2019;t exist there, but this works:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">JsonObject venue = cs125.get(&quot;location&quot;).getAsJsonObject();
+boolean allowsFoodInClass = venue.get(&quot;allows_food&quot;).getAsBoolean();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>JsonArray</code>s have a <code>get</code> method to get the value at the specified index,
+but they are also iterable with the enhanced for loop like a normal array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">JsonArray lectureDays = cs125.get(&quot;lecture_days&quot;).getAsJsonArray();
+for (JsonElement d : lectureDays) {
+    String day = d.getAsString();
+    // Do something with day?
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_making_web_requests"></a><h3>4.3. Making Web Requests</h3>
+<div class="paragraph">
+<p>We have provided a <code>WebApi</code> class with some functions that issue web requests by
+using Google&#x2019;s Volley library.
+Web requests take a while, so rather than stalling the execution of your app,
+Volley waits for the request&#x2019;s completion in the background and runs a handler
+when the response comes back.
+If the request failed for some reason (maybe the phone isn&#x2019;t connected to the
+Internet), Volley notifies a different handler of the error.
+You can make a <code>GET</code> request from activity code like this:</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_example_get_request"></a><h4>4.3.1. Example GET Request</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">WebApi.startRequest(this, WebApi.API_BASE + &quot;/some/endpoint&quot;, response -&gt; {
+    // Code in this handler will run when the request completes successfully
+    // Do something with the response?
+}, error -&gt; {
+    // Code in this handler will run if the request fails
+    // Maybe notify the user of the error?
+    Toast.makeText(this, &quot;Oh no!&quot;, Toast.LENGTH_LONG).show();
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first parameter is the Android context, which can just be the current
+activity instance.
+The second is the URL to contact.
+In the MP, it should always be <code>WebApi.API_BASE</code> concatenated with the endpoint
+you&#x2019;d like to access.
+In the success handler, the <code>response</code> object will contain the response data as
+a <code>JsonObject</code> if the endpoint returns a result, otherwise it will be null.
+We don&#x2019;t test for any specific error-related behavior, so your error handler can
+do anything you think is reasonable.</p>
+</div>
+<div class="paragraph">
+<p>Note that the <code>GET Request</code> required for this checkpoint is already provided to
+you, but it is helpful to note for when you do work with making other web API
+requests.</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_example_post_request"></a><h4>4.3.2. Example POST Request</h4>
+<div class="paragraph">
+<p>To make a <code>POST</code> request, use the more complex overload of <code>startRequest</code> that
+allows specifying the method and including a body.
+The method parameter can be either <code>Request.Method.POST</code> or <code>Request.Method.GET</code>
+(imported from Volley).
+For this checkpoint, the body parameter can always be null, since no data needs
+to be uploaded.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">WebApi.startRequest(this, WebApi.API_BASE + &quot;/some/endpoint&quot;, Request.Method.POST, null, response -&gt; {
+    // response code handler similar to a GET request
+}, error -&gt; {
+    Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
+});</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_our_api_documentation"></a><h3>4.4. Our API Documentation</h3>
+<div class="paragraph lead">
+<p>To use an API, you need to know what requests are valid and what format of data you get back.
+This section tells you the endpoints you need to contact and the structure of the JSON response.</p>
+</div>
+<div class="paragraph">
+<p>The <code>/games</code> endpoint accepts <code>GET</code> requests and returns information on the
+games the user is involved in or invited to.
+The resulting object has a single property called <code>games</code>, which is an array.
+Our provided code will iterate over the games array for you, so code you write
+will only need to consider one game entry object at a time.
+Each element of that array is an object with at least these properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id</code> (string) is the game&#x2019;s unique ID for use in other requests about that
+game specifically.</p>
+</li>
+<li>
+<p><code>owner</code> (string) is the email address of the game&#x2019;s owner/creator.</p>
+</li>
+<li>
+<p><code>state</code> (integer) is the <code>GameStateID</code> code for the game&#x2019;s current status.</p>
+</li>
+<li>
+<p><code>mode</code> (string) is the game mode, either &quot;area&quot; or &quot;target&quot;.</p>
+</li>
+<li>
+<p><code>players</code> is the array of all players, including the current user, invited to
+or involved in the game.
+Each object has at least these properties:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>email</code> (string) is the player&#x2019;s email.</p>
+</li>
+<li>
+<p><code>state</code> (integer) is the <code>PlayerStateID</code> code for the player&#x2019;s current
+status in the game.</p>
+</li>
+<li>
+<p><code>team</code> (integer) is the <code>TeamID</code> code for the player&#x2019;s team/role in the
+game.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You may find this <a href="/MP/files/MP2/games.json"><strong>example JSON response</strong></a> helpful.</p>
+</div>
+<div class="paragraph">
+<p>Some of the values mentioned are numeric codes: integers that indicate different
+states, like Android&#x2019;s <code>View.VISIBLE</code> or <code>View.GONE</code>.
+Constants for game-relevant codes are provided in the <code>GameStateID</code>,
+<code>PlayerStateID</code>, and <code>TeamID</code> classes.
+So rather than comparing against the magic number 2 to see if the game is over,
+compare against <code>GameStateID.ENDED</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following three endpoints accept <code>POST</code> requests regarding the user&#x2019;s participation in
+a specific game and return no information.
+Replace <code>GAME_ID</code> in the endpoint with the game&#x2019;s unique ID from the above results.
+All will fail with an HTTP 404 error if the specific game does not exist.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/games/GAME_ID/accept</code> accepts the invitation to the game.
+Will fail if the user does not have a pending invitation to it.</p>
+</li>
+<li>
+<p><code>/games/GAME_ID/decline</code> declines the invitation to the game.
+Will fail if the user does not have a pending invitation to it.</p>
+</li>
+<li>
+<p><code>/games/GAME_ID/leave</code> leaves an ongoing game that the user previously
+accepted an invitation to.
+Will fail if the user already left or was never invited.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_your_goal"></a><h2>5. Your Goal</h2>
+<div class="sectionbody">
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/HKNXybORduI%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Once you finish Checkpoint 2, the app will start by requiring the user to log in.
+The main activity will show a list of invitations fetched from our central game server
+and allow the user to accept or decline them.
+It will also list ongoing games (accepted invitations) and provide UI to enter the game or withdraw from it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/MP/images/MP2/gameslists.png" alt="completed games lists UI">
+</div>
+</div>
+<div class="paragraph">
+<p>While there may be slightly more lines of code necessary for MP2 than previous
+checkpoints, it should be more straightforward than MP1 if you <strong>read the above
+sections</strong> and refer to them as you apply their concepts to the project.
+As always, <strong>starting early</strong> and making steady progress is the best strategy to
+succeed on the MP.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_gamesummary"></a><h3>5.1. GameSummary</h3>
+<div class="paragraph">
+<p>For Checkpoint 2 you will need to create a <code>GameSummary</code> class in the logic
+sub-folder of our directory.
+You can check out the
+<a href="https://cs125-illinois.github.io/Spring2020-MP-Writeups/2/edu/illinois/cs/cs125/spring2020/mp/logic/GameSummary.html" target="_blank" class="external">official Javadoc</a>
+for reference.
+One GameSummary instance corresponds to one object from the games array in the
+response from the server&#x2019;s <code>/games</code> endpoint.</p>
+</div>
+<div class="paragraph">
+<p>You should be creating game classification logic to parse the JsonObject passed
+into your GameSummary to determine the type of the game, as well as its owner
+and other details.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_login_setup"></a><h3>5.2. Login Setup</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/KDi2QI3Ucc4%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Like when you first started Checkpoint 1, the test suites will not be able to
+compile immediately after acquiring the new Checkpoint 2 files.
+You need to create the <code>LaunchActivity</code> activity, which will become the app&#x2019;s
+new initial/startup activity, as well as create the <code>GameSummary</code> class in your
+<code>logic</code> sub-directory.</p>
+</div>
+<div class="paragraph">
+<p>Right-click our package that contains all the Java files you&#x2019;ve been working
+with and select <em>New | Activity | Empty Activity</em>.
+Enter <code>LaunchActivity</code> in the Activity Name box, which should automatically set
+the Layout Name to <code>activity_launch</code>.
+Make sure the Source Language is set to Java, then press Finish to create the
+activity.
+If prompted to add the new files to Git, do so.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_android_manifest_2"></a><h4>5.2.1. Android Manifest</h4>
+<div class="paragraph">
+<p>To change the app&#x2019;s startup activity, we need to change the <em>manifest</em>, an XML
+file that contains various registration and metadata about the app.
+It is named <code>AndroidManifest.xml</code>, located directly inside the <code>main</code> folder.
+Your objective here is to move the <code>&lt;intent-filter&gt;</code> section from
+<code>MainActivity</code>&apos;s registration to <code>LaunchActivity</code>&apos;s so that the app launches
+<code>LaunchActivity</code> instead of <code>MainActivity</code>.
+You can refer to
+<a href="https://developer.android.com/guide/topics/manifest/manifest-intro" target="_blank" class="external">Android&#x2019;s official manifest documentation</a>
+for reference.</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_launch_activity"></a><h4>5.2.2. Launch Activity</h4>
+<div class="paragraph">
+<p>We will be using Google&#x2019;s Firebase Authentication service to display a login
+flow and manage credentials.
+We want the user to be sent directly to the main app if they&#x2019;re already logged
+in, but if not we will start the login process.
+So the <code>onCreate</code> logic will have this structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (/* the user is logged in */) { // see below discussion
+    // launch MainActivity
+    finish();
+} else {
+    // start login activity for result - see below discussion
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>FirebaseAuth.getInstance().getCurrentUser()</code> returns an object representing the
+authenticated user or null if the user has not logged in.
+Checking it for null allows you to determine whether the user needs to sign in.
+Later in this checkpoint you&#x2019;ll find this object&#x2019;s <code>getEmail()</code> function useful
+for getting the current user&#x2019;s email, which serves as their identifier in the
+game.</p>
+</div>
+<div class="paragraph">
+<p>If you&#x2019;ve determined that the user needs to log in, you can start the Firebase Authentication UI flow according to
+<a href="https://github.com/firebase/snippets-android/blob/21f7bda3ac075e6c75d49955e37330044c95dfbe/auth/app/src/main/java/com/google/firebase/quickstart/auth/FirebaseUIActivity.java#L50-L68" target="_blank" class="external">this Google example</a>
+(specifically the functions <code>createSignInIntent</code> and <code>onActivityResult</code>) but with only email authentication enabled.
+The example code assumes an <code>RC_SIGN_IN</code> constant (&quot;<em>r</em>equest <em>c</em>ode for <em>sign</em>-<em>in</em>&quot;),
+which you may define as an integer of your choice or pick a different name for.
+Either way, the value you pass to <code>startActivityForResult</code> will be passed as the request code to
+<code>onActivityResult</code> when the login flow completes.</p>
+</div>
+<div class="paragraph">
+<p><code>onActivityResult</code>, as described in the Getting Results from Activities section,
+will be called when the login flow is over whether or not the user actually
+signed in.
+So <code>onActivityResult</code> will need logic to check that before proceeding to the
+main activity:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">if (/* the result is from the login request */) {
+    if (/* the user successfully logged in */) { // see below discussion
+        // launch MainActivity
+        finish();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To see if the login flow was successful, you can either check the result code against
+<code>RESULT_OK</code> like Google&#x2019;s example does, or repeat the logic you used to determine whether
+the user was signed in in the first place.</p>
+</div>
+<div class="paragraph">
+<p>If the user canceled the login flow, they&#x2019;ll see the <code>LaunchActivity</code> UI.
+Use the UI designer to add a button with ID <code>goLogin</code>.
+Feel free to caption this whatever you like and add any explanatory labels about
+needing to log in to use the app.
+Pushing the button should start the login process again.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p>When testing your app in the emulator, you&#x2019;ll be prompted to create an account with email
+and password.
+Even if you use your university email address, your account with the game service
+will not be linked to Shibboleth.
+For your security, do not reuse your Active Directory (NetID)
+password here.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_invitationgame_buttons"></a><h3>5.3. Invitation/Game Buttons</h3>
+<div class="paragraph">
+<p>To allow the user to respond to invitations or leave games, we will need to make
+it possible to interact with the game information chunks.</p>
+</div>
+<div class="paragraph">
+<p>Pressing Accept, Decline, or Leave should send the appropriate web request to
+inform the server of the user&#x2019;s decision.
+Once that request completes, the games list should be fetched again and the UI
+should be updated so that the user sees that their decision took effect.</p>
+</div>
+<div class="paragraph">
+<p>Your job is to add handlers to these buttons (already fetched in
+<code>MainActivity.java</code>) so that they launch the appropriate activities and make
+requests or finish activities, as appropriate.</p>
+</div>
+<div class="paragraph">
+<p><strong>To confirm that these buttons and web requests are working</strong>, you can use
+<a href="https://misc.rigeltechnical.com/campussnake/invitetest.html" target="_blank" class="external">the invitation testing site</a>.
+The &quot;invitation status&quot; column will update immediately when you respond to an invitation
+or leave a game created by a virtual player.</p>
+</div>
+<div class="paragraph">
+<p>When the app is done, pressing the Enter button on an ongoing game will enter
+that game, showing the map and putting the user into active gameplay.
+Multiplayer games aren&#x2019;t implemented yet, but we can set up the intent in
+advance.
+Make clicking an Enter button launch <code>GameActivity</code> with that game&#x2019;s unique ID
+(a string) in the <code>game</code> extra.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_grading"></a><h2>6. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP2 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>5 points</strong> for making <code>LaunchActivity</code> the startup activity</p>
+</li>
+<li>
+<p><strong>20 points</strong> for the login flow</p>
+</li>
+<li>
+<p><strong>10 points</strong> for correctly summarizing game information</p>
+</li>
+<li>
+<p><strong>10 points</strong> for correctly summarizing player and team roles</p>
+</li>
+<li>
+<p><strong>10 points</strong> for correctly classifying games</p>
+</li>
+<li>
+<p><strong>15 points</strong> for the invitation response buttons</p>
+</li>
+<li>
+<p><strong>10 points</strong> for the enter-game intent</p>
+</li>
+<li>
+<p><strong>10 points</strong> for having no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least <em>40 points</em>
+by 8 PM on your early deadline day</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<a class="anchor" id="_test_cases"></a><h3>6.1. Test Cases</h3>
+<div class="paragraph">
+<p>Because this checkpoint involves creating Android activities and building more
+backend logic to your app, the Checkpoint 2 test suite will directly test your
+<code>GameSummary</code> class, as well as interact with your app in a simulated Android
+environment.
+While fully understanding how <code>Checkpoint2Test</code> works is not expected, reading
+the assertions it makes may help you understand what exactly the tests are
+looking for.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_style_points"></a><h3>6.2. Style Points</h3>
+<div class="paragraph">
+<p>Proper style continues to constitute 10% of your grade.
+Android Studio and <code>checkstyle</code> may have different opinions on how much handlers
+should be indented when passed as parameters to functions like
+<code>WebApi.startRequest</code>.
+If the default indentation level does not satisfy <code>checkstyle</code>, you can select a
+chunk of code and use Shift+Tab to remove one level of indentation or Tab to add
+one level.
+Alternatively, you can select some of the spaces at the beginning of the line
+and press Delete to remove them without Android Studio trying to put them back.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_submitting_your_work"></a><h3>6.3. Submitting Your Work</h3>
+<div class="paragraph">
+<p>As before, submitting your work requires committing <strong>and pushing</strong> the files
+you modified or added.
+You can review the <a href="/MP/setup/git/#submitting">submitting portion</a> of our Git
+workflow.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cliffhanger"></a><h2>7. Cliffhanger</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is somewhat common in larger projects for a feature to not be very useful to
+the application overall until several pieces of functionality are in place.
+While the app can show and respond to invitations after you complete Checkpoint
+2, there is no way to actually create or invite anyone to a multiplayer game.
+Checkpoint 3 will make it possible to configure multiplayer games and send
+invitations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cheating"></a><h2>8. Cheating</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="/info/syllabus/#cheating">cheating policies</a> in the syllabus continue to
+apply.
+Do not submit work done by anyone else or share your MP code with others.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

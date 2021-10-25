@@ -1,0 +1,510 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Trace Points</title>
+		<meta name="description" lang="en-us" content="Work on simple code reading, algorithm development, variable assignment, and word counting exercises.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/MP" href="/MP/5/">MPs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/lab" href="/lab/14/">Labs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav small">
+            <li class="entry">
+              <strong>Spring 2018</strong>
+            </li>
+            <li><div class="dropdown-divider"></div></li>
+            <li>
+              <a href="/lab/2018/spring/14/">14: Final Project Demos</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/13/">13: Final Project Checkpoint</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/12/">12: Final Project UI</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/11/">11: Web and Web APIs</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/10/">10: Searching and Sorting</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/9/">9: Android and APIs</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/8/">8: Recursion</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/7/">7: Morse Decoding</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/6/">6: Objects III</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/5/">5: Objects II</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/4/">4: Objects I</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/3/" class="active" onclick="return false;">3: Trace Points<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/2/">2: Amaze State</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/1/">1: Binary and Algorithms</a>
+            </li>
+            <li>
+              <a href="/lab/2018/spring/0/">0: Ready to Start</a>
+            </li>
+            <li>
+              <strong><a href="/lab/">Return to Current Labs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Written Exercises (40 Minutes)</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#scraping">2. Simple Web Scraping (40 Minutes)</a>
+            <ul>
+              <li><a class="nav-link" href="#starting">2.1. Creating a New IntelliJ Project</a></li>
+              <li><a class="nav-link" href="#_getting_to_the_main_point">2.2. Getting to the main Point</a></li>
+              <li><a class="nav-link" href="#_a_bit_of_help">2.3. A Bit of Help</a></li>
+              <li><a class="nav-link" href="#_word_counting">2.4. Word Counting</a></li>
+              <li><a class="nav-link" href="#push">2.5. Saving Your Work</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#mp2">3. Help with MP2 (20 Minutes)</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#done">4. Before You Leave</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This lab is from a previous version of CS 125.
+          <a href="/lab/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Trace Points</h1>
+      <div class="paragraph lead">
+<p>In this lab we focus our attention on the art and craft&#x2014;the
+<a href="https://en.wikipedia.org/wiki/Techne" target="_blank" class="external"><em>techne</em></a>&#x2014;of programming.
+We&#x2019;ll do some code reading and talk style; continue developing our algorithmic
+chops; and get practice with variable assignment, loops, and counters.
+We&#x2019;ve also set aside some time to talk <a href="/MP/2018/spring/2/">MP2</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="exercises"></a><h2>1. Written Exercises <span class="text-muted">(40 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We begin with a set of code reading and writing exercises.</p>
+</div>
+<div class="paragraph">
+<p>Complete this part of the lab in pairs using Google Docs.
+Create a copy of <a href="https://goo.gl/XJ1Aur" target="_blank" class="external">our document template</a>, and then edit it
+to record you and your partner&#x2019;s answers.
+<strong>Note that you must open this document using your @illinois.edu Google Apps
+account.</strong>
+We will not grant access to non-Illinois users <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;One of these weeks we&amp;#x2019;re going to say this and &lt;em&gt;not&lt;/em&gt; get a bunch of requests to share the document to Gmail addresses. Maybe this week?&lt;/body&gt;&lt;/html&gt;">1</span>.</p>
+</div>
+<div class="paragraph">
+<p>Have a course staff member check your answers as you go.
+When you are done, move on to the next section.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="scraping"></a><h2>2. Simple Web Scraping <span class="text-muted">(40 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>For the second part of this lab we&#x2019;re going to do a quick code writing exercise.
+Our goal is to show how easy it is to fetch and process content from the
+web&#x2014;the most impressive library of text the world has ever created.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="starting"></a><h3>2.1. Creating a New IntelliJ Project</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/tlx5VZfaz5M%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>In this lab we&#x2019;re going to show you how to create a <em>new</em> IntelliJ project,
+rather than using one that we&#x2019;ve already set up for you.
+Follow the screencast above to learn how to do that&#x2014;or just look it up
+online.
+There are plenty of good instructions out there.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_to_the_main_point"></a><h3>2.2. Getting to the <code>main</code> Point</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/tHt1A_5lvXQ%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Working with our Lab3 project, create a new class.
+You can call it anything you like.
+Make sure that it has a main method&#x2014;we&#x2019;ll be using it throughout the lab.
+IntelliJ has a way to create a command line app that will add this function for
+you, or you can add it later.
+Refer to the screencast above for guidance about how to create a new class in
+IntelliJ.
+<strong>And make sure to add version control to your project as well, also as shown in
+the screencast above.</strong>
+Ask a neighbor or a staff member for help if you need it.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_a_bit_of_help"></a><h3>2.3. A Bit of Help</h3>
+<div class="paragraph">
+<p>Our goal is to give you the chance to process web content as strings.
+You could very easily find out how to do this online, probably discovering the
+<a href="https://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code" target="_blank" class="external">same advice that our approach is based on</a>.</p>
+</div>
+<div class="paragraph">
+<p>But, to speed the plow a bit, we&#x2019;re going to provide you with a helper function.
+Cut and paste the following function into the class you created above.
+Don&#x2019;t put it <em>inside</em> the main method&#x2014;make it a separate function.
+<strong>Also note that the <code>import</code> statements have to go at the top of your file, not
+at the same level as the new function.</strong></p>
+</div>
+<script src="https://gist.github.com/gchallen/9dbbd5eb426f34b03cf507985d5fc722.js"></script>
+<div class="sect3">
+<a class="anchor" id="_nothing_is_magic"></a><h4>2.3.1. Nothing is magic</h4>
+<div class="paragraph">
+<p><strong>You don&#x2019;t need to understand this code&#x2014;just be able to use it.</strong>
+But here&#x2019;s an explanation for the curious <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;And this is just about as easy as anything gets in Java&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">2</span>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Lines 1&#x2013;3</strong>: import the parts of the Java standard library that we need.</p>
+</li>
+<li>
+<p><strong>Lines 12&#x2013;17</strong>: we allocate a new
+<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html" target="_blank" class="external">Scanner</a>
+object (Line 12) and then initialize it (Line 14).</p>
+</li>
+<li>
+<p><strong>Line 14</strong>:
+<a href="https://docs.oracle.com/javase/7/docs/api/java/net/URL.html#openStream()" target="_blank" class="external">URL.openStream</a>
+can throw several kinds of exceptions.
+Normally we&#x2019;d let the caller handle them, but in this case we&#x2019;ll suppress them
+and return an empty string on error (Line 16).</p>
+</li>
+<li>
+<p><strong>Line 18</strong>: now we have to convert the contents to a string.
+<a href="https://community.oracle.com/blogs/pat/2004/10/23/stupid-scanner-tricks" target="_blank" class="external">This
+post</a> explains a bit of the &quot;\\A&quot; part, which I don&#x2019;t fully understand but it
+seems to work.</p>
+</li>
+<li>
+<p><strong>19&#x2013;20</strong>: Then we close our urlScanner to avoid a resource leak and return the string
+contents.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_word_counting"></a><h3>2.4. Word Counting</h3>
+<div class="paragraph">
+<p>Once you have our <code>urlToString</code> function integrated into your code, test it out
+using <code>System.out.println</code>.
+Here are some URLs that may be interesting to try.
+Note that they all return raw text, rather than the
+<a href="https://en.wikipedia.org/wiki/HTML" target="_blank" class="external">HTML</a> that you are using to seeing online.
+But you should also experiment with some HTML pages, like
+<a href="https://cs.illinois.edu/" target="_blank" class="external">this one</a>.</p>
+</div>
+<div class="openblock spelling_exception">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://erdani.com/tdpl/hamlet.txt" target="_blank" class="external">http://erdani.com/tdpl/hamlet.txt</a></p>
+</li>
+<li>
+<p><a href="https://www.bls.gov/tus/charts/chart9.txt" target="_blank" class="external">https://www.bls.gov/tus/charts/chart9.txt</a></p>
+</li>
+<li>
+<p><a href="http://tgftp.nws.noaa.gov/data/raw/fz/fzus53.klot.srf.lot.txt" target="_blank" class="external">http://tgftp.nws.noaa.gov/data/raw/fz/fzus53.klot.srf.lot.txt</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, for each of the pages above, compute a <em>word count</em>.
+Your class should compute the total number of words on the page.</p>
+</div>
+<div class="paragraph">
+<p><strong>We are intentionally not giving you a lot of help with this part of the lab.</strong>
+But don&#x2019;t get discouraged!
+Look around for help online, ask your neighbor, and be sure to ask your TA and
+doyen for help as well.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_counting_one_word"></a><h4>2.4.1. Counting One Word</h4>
+<div class="paragraph">
+<p>Now modify your code above so that it looks for and counts occurrences of a
+specific word, which you can define as a constant in your code.
+For example, how many times does the word &quot;Prince&quot; appear in
+<a href="http://erdani.com/tdpl/hamlet.txt" target="_blank" class="external">Hamlet</a>?
+Can you make your new function case-insensitive, so that &quot;Prince&quot; and &quot;prince&quot;
+are counted as the same word?</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_challenge_unique_word_counting"></a><h4>2.4.2. Challenge: Unique Word Counting</h4>
+<div class="paragraph">
+<p>If you get your word counting done with time to spare, try changing it so it
+counts the number of <em>unique</em> words in each file.
+For example, the number of words in &quot;this is a string is a string&quot; is 7, but the
+number of <em>unique</em> words is 4.</p>
+</div>
+<div class="paragraph">
+<p>Completing this part of the lab will probably require you explore advanced Java
+data structures that you will not see for a while in this course.
+But give it a shot if you get here with time to spare.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="push"></a><h3>2.5. Saving Your Work</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/QWu66Qxn06E%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>To complete Lab 3, you&#x2019;ll learn how to create a new empty GitHub repository, add
+it to your project, and push your code to it.
+Note that, unlike your MPs, this repository can be public.
+Follow the screencast above to learn how to do this.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="mp2"></a><h2>3. Help with MP2 <span class="text-muted">(20 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use any remaining time in your lab section to get help with <a href="/MP/2018/spring/2/">MP2</a>.
+If you are done or making good progress, please help others&#x2014;but help them
+<em>learn</em>, don&#x2019;t just give them the answers.
+And if you are behind, please reach out the course staff for help.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="done"></a><h2>4. Before You Leave</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Don&#x2019;t leave lab until</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You&#x2019;ve completed the entire <a href="https://goo.gl/XJ1Aur" target="_blank" class="external">handout</a></p>
+</li>
+<li>
+<p>You&#x2019;ve finished the <a href="#scraping">web scraping exercise</a></p>
+</li>
+<li>
+<p>You&#x2019;ve pushed your work to GitHub and showed a TA or CA</p>
+</li>
+<li>
+<p>You&#x2019;ve considered sticking around for a few minutes to help
+others&#x2014;either with the lab or with <a href="/MP/2018/spring/2/">MP2</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/lab/2018/spring/3.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/lab/2018/spring/3.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

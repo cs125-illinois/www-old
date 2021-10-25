@@ -1,0 +1,639 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Final Project UI</title>
+		<meta name="description" lang="en-us" content="Today you&apos;ll get started on your final project. Specifically, you&apos;ll find a partner and begin planning your project by sketching out a user interface design for your app. You&apos;ll work on the final part of the lab using a technique called pair programming.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/MP" href="/MP/5/">MPs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/lab" href="/lab/14/">Labs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav small">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/14/">14: Final Project Demos</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/13/">13: Final Project Checkpoint</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/12/" class="active" onclick="return false;">12: Final Project UI<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/11/">11: Sorting and Searching</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/10/">10: A Knight&apos;s Tour</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/8/">8: Escape the Maze</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/7/">7: Data Modeling</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/6/">6: Testing</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/5/">5: Reverse Engineering</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/3/">3: Strings</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/2/">2: Algorithms</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/1/">1: Debugging and More Android Setup</a>
+            </li>
+            <li>
+              <a href="/lab/2019/spring/0/">0: Ready to Start</a>
+            </li>
+            <li>
+              <strong><a href="/lab/">Return to Current Labs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Pair Programming</a>
+            <ul>
+              <li><a class="nav-link" href="#partnering">1.1. Picking a Project Partner</a></li>
+              <li><a class="nav-link" href="#pairprogramming">1.2. Pair Programming</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#diyui">2. DIY UI (90 Minutes)</a>
+            <ul>
+              <li><a class="nav-link" href="#_forking_and_cloning_the_lab12_android_studio_project">2.1. Forking and Cloning the Lab12 Android Studio Project</a></li>
+              <li><a class="nav-link" href="#_examining_the_existing_layout">2.2. Examining the Existing Layout</a></li>
+              <li><a class="nav-link" href="#_android_design_principles">2.3. Android Design Principles</a></li>
+              <li><a class="nav-link" href="#_part_1_button">2.4. Part 1: Button</a></li>
+              <li><a class="nav-link" href="#_part_2_location_display">2.5. Part 2: Location Display</a></li>
+              <li><a class="nav-link" href="#_part_3_user_input">2.6. Part 3: User Input</a></li>
+              <li><a class="nav-link" href="#_part_4_help_others">2.7. Part 4: Help Others</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#mockup">3. Final Project Planning and UI Mockup (20 Minutes)</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This lab is from a previous version of CS 125.
+          <a href="/lab/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Final Project UI</h1>
+      <div class="paragraph lead">
+<p>Today&#x2019;s lab marks the beginning of the end of your introduction to computer
+science.
+You&#x2019;ll begin preliminary work on your final project and gain insights into how
+to design a <em>user interface</em>.</p>
+</div>
+<div class="paragraph">
+<p>Note that there is no written part of this lab.
+Instead, we&#x2019;ll expect you to seek out any required information yourself or
+consulting your lab members for help.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="pairs"></a><h2>1. Pair Programming</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You&#x2019;ll work in pairs on today&#x2019;s activity.
+You should pick with and work with your <a href="#partnering">final project partner</a>.
+And you&#x2019;ll also have a chance to practice a programming approach called <em>pair
+programming</em>.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="partnering"></a><h3>1.1. Picking a Project Partner</h3>
+<div class="paragraph">
+<p>Today you should pick someone that you will work with on your final project and
+in lab together for the next few weeks.
+Obviously you want to find someone to work with that you enjoy working with and
+think that you can do an awesome project with&#x2014;since we will be giving
+extra credit for some of the best projects.
+Another consideration is ensuring that at least one of you has a laptop that can
+smoothly run Android Studio and the emulator, or an Android phone for demoing
+your new application.</p>
+</div>
+<div class="paragraph">
+<p><strong>If you don&#x2019;t have a partner yet, find one before proceeding.</strong></p>
+</div>
+<div class="paragraph">
+<p>If you would like to work with someone from another lab section, <em>you must both
+attend the same lab and work together</em>.
+This means that only one of you will receive participation credit for that lab.
+<strong>You will not receive credit for working in lab without your
+partner.</strong>
+If you want to work with someone from another lab, this is the tradeoff you will
+have to make.
+(Remember that you have three excused lab absences.)</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="pairprogramming"></a><h3>1.2. Pair Programming</h3>
+<div class="paragraph">
+<p>By now you&#x2019;ve probably realized that programming is a mentally taxing full-brain
+activity.
+So, frequently when programming, two heads are <em>literally</em> better than one.
+That&#x2019;s where the idea of
+<a href="https://en.wikipedia.org/wiki/Pair_programming" target="_blank" class="external"><em>pair programming</em></a>
+comes from.</p>
+</div>
+<div class="paragraph">
+<p>What is pair programming?
+Simply put, it describes any programming approach where two programmers work
+together simultaneously using a single machine.
+No&#x2014;you don&#x2019;t type with all four hands <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Although if you can do that, there&amp;#x2019;s probably some YouTube fame in it for you&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">1</span>.
+Instead, pair programming divides the work into two roles:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Driver</strong>: this programmer touches the keyboard and does all code editing
+tasks.</p>
+</li>
+<li>
+<p><strong>Observer</strong>: the second programmer <em>does not touch the keyboard</em> but rather
+observes what the driver is doing, reviewing each line of code, asking
+questions, and generally serving as a guide and check on what the driver is
+doing.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As a metaphor, think about the process of navigating a vehicle before voice
+navigation <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Can you remember those days?&lt;/body&gt;&lt;/html&gt;">2</span>.
+One person, the driver, keeps their hands on the wheel and their eyes on the
+road.
+The second person, the navigator, is able to observe the surroundings, look at
+the map, and generally help keep the trip on track.</p>
+</div>
+<div class="paragraph">
+<p>Pair programmers should switch roles often, and you should multiple times as you
+complete the lab tasks below.
+Pair programming is widely used in industry, partly because it is sometimes
+considered to produce better code, but mainly because it&#x2019;s more fun than working
+alone.</p>
+</div>
+<div class="paragraph">
+<p><strong>Why are we doing this today?</strong>
+Simple: we want to help make sure that you and your partner can communicate and
+work together effectively.
+Pair programming forces you to communicate with your partner.
+If you are driving and not communicating, your observer has no idea what you are
+trying to do.
+If you are observing and not communicating, your driver has no way to
+incorporate your guidance.</p>
+</div>
+<div class="paragraph">
+<p>So please complete the following tasks <em>using pair programming</em>.
+Each group should only have one laptop active and the other put away.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="diyui"></a><h2>2. DIY UI <span class="text-muted">(90 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Your first pair challenge for today&#x2019;s lab is to add a user interface (UI) to a
+simple Android app.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ve set up the app to look up the location of different Internet Protocol (IP)
+addresses using
+<a href="https://ipinfo.io/" class="bare external" target="_blank">https://ipinfo.io/</a>.
+Currently it just looks up a single fixed IP address on startup: <code>192.17.96.8</code>,
+which is a very special and important IP address.</p>
+</div>
+<div class="paragraph">
+<p>But currently the app has no way to take input from the user or display results.
+It&#x2019;s missing a UI!
+So that&#x2019;s your challenge.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note that this is far from easy.</strong>
+If you have never done UI design before, you will soon gain an appreciation for
+how hard it is <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Many a night I have spent trying to get a particular website to just look a &lt;em&gt;bit&lt;/em&gt; different&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">3</span>.
+And you&#x2019;ll quickly develop an appreciation for all of the beautiful and
+well-designed apps that you use on a regular basis.
+Design is hard!</p>
+</div>
+<div class="paragraph">
+<p>Another reason that we are doing this MP now is that we want you to come up with
+realistic UI goals for your final project.
+That&#x2019;s what we&#x2019;ll work on during the <a href="#mockup">second part of today&#x2019;s lab</a>.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_forking_and_cloning_the_lab12_android_studio_project"></a><h3>2.1. Forking and Cloning the Lab12 Android Studio Project</h3>
+<div class="paragraph">
+<p>We&#x2019;ve set up an
+<a href="https://github.com/cs125-illinois/Lab12" target="_blank" class="external">Lab 12 GitHub repository</a>
+containing an Android Studio Project that&#x2019;s correctly configured for Lab 12.
+Getting access to it is similar to how you
+<a href="/MP/2019/spring/setup/git/#importing">imported MP0</a>.
+But you have to fork our repository first.
+If it&#x2019;s not obvious how to do that, try following
+<a href="https://help.github.com/articles/fork-a-repo/" target="_blank" class="external">these instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_examining_the_existing_layout"></a><h3>2.2. Examining the Existing Layout</h3>
+<div class="paragraph">
+<p>We haven&#x2019;t really provided much for you to start with for Lab 12.
+But go ahead and open up <code>res/layout/activity_main.xml</code> and examine the
+skeleton that we&#x2019;ve provided.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="_design_view_v_text_view"></a><h4>2.2.1. Design view v. text view</h4>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/vmlK8pQpCGc%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>When working with Android UIs, it&#x2019;s important to understand that Android uses
+its own kind of markup language to design user interfaces.
+Just like HTML determines the structure of a web page, Android uses XML to
+define and position layout elements.</p>
+</div>
+<div class="paragraph">
+<p>Android Studio always provides two ways to examine the layout: one is the
+<em>design view</em> that shows a graphical representation of how the UI will look.
+The second is the <em>text view</em> that shows the XML markup used to generate the
+layout.</p>
+</div>
+<div class="paragraph">
+<p>As you get started with UI design, we suggest using the design view as much as
+possible&#x2014;it will make things easier.
+But if you want to continue Android development you&#x2019;ll want to get comfortable
+with the XML view as well, and may want to learn how to design UIs by writing
+the XML directly.</p>
+</div>
+</div>
+<div class="sect3">
+<a class="anchor" id="_linearlayout"></a><h4>2.2.2. <code>LinearLayout</code></h4>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/x0W0UU-KUsU%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Your app&#x2019;s <code>MainActivity</code> currently uses a single UI layout called a
+<a href="https://developer.android.com/guide/topics/ui/layout/linear.html" target="_blank" class="external"><code>LinearLayout</code></a>.
+It arranges all elements inside it into a single row, either horizontally or
+vertically.
+A <code>LinearLayout</code> is not suitable for more complex UI designs, but it can be a
+decent starting point for simple applications.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_android_design_principles"></a><h3>2.3. Android Design Principles</h3>
+<div class="paragraph">
+<p>Roughly speaking we can break the available Android UI components into three
+categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Layouts</strong>: these determine how the elements inside them are positioned.
+Examples include the <code>LinearLayout</code>, the new <code>ConstraintLayout</code>, as well as
+<code>FrameLayout</code> and <code>TableLayout</code>. Layouts are largely invisible to the user.</p>
+</li>
+<li>
+<p><strong>Containers</strong>: these determine how a larger amount of content is displayed, for
+example by scrolling (<code>ScrollView</code>, <code>HorizontalScrollView</code>), in a drop-down menu
+(<code>Spinner</code>), or by using tabs (<code>TabLayout</code>). Containers may have navigation
+elements that are visible, like a scroll bar, but mainly exist to organize the
+things that they contain.</p>
+</li>
+<li>
+<p><strong>Components</strong>: these are everything that is actually visible to the user,
+including images (<code>ImageView</code>), buttons (<code>Button</code>, <code>ImageButton</code>), progress
+bars, text input fields, etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>One way to approach Android design is to start by answering the question: what
+will the user see or interact with?
+Then pick which component to use.
+Next, figure out how to use the containers or layouts to adjust where the
+component appears on the screen.
+More often than not, that&#x2019;s the really tricky part.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_part_1_button"></a><h3>2.4. Part 1: Button</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/kMAimyVNeVk%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>To begin, add a button to the UI.
+Have that button trigger a lookup of some IP address.
+Feel free to look at previous labs and MPs for help.
+When the button is clicked you should see something like this printed in the
+logs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="spelling_exception">D/Lab12:Main: {
+      &quot;ip&quot;: &quot;192.17.96.8&quot;,
+      &quot;hostname&quot;: &quot;cs125-stu-01.cs.illinois.edu&quot;,
+      &quot;city&quot;: &quot;Urbana&quot;,
+      &quot;region&quot;: &quot;Illinois&quot;,
+      &quot;country&quot;: &quot;US&quot;,
+      &quot;loc&quot;: &quot;40.1106,-88.2073&quot;,
+      &quot;postal&quot;: &quot;61801&quot;,
+      &quot;org&quot;: &quot;AS38 University of Illinois&quot;
+    }
+I/Lab12:Main: cs125-stu-01.cs.illinois.edu</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the data in JSON format returned by the web interface that your app is
+using.</p>
+</div>
+<div class="paragraph">
+<p>Note that each UI element that you want to access in your code must have a
+unique ID.
+You can can elements whatever you want, but a good name for this button might be
+<code>lookup_address</code> or something like that.
+It&#x2019;s good to pick a meaningful name so that you remember what the button is for
+what you are adding code to your <code>MainActivity.java</code> class.</p>
+</div>
+<div class="paragraph">
+<p>Here are the steps required to add the button:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the button to the UI. You can do this easily using the UI designer.</p>
+</li>
+<li>
+<p>Make sure that the button has useful text and a useful ID.</p>
+</li>
+<li>
+<p>Register a click handle for the button in your <code>onCreate</code> method, similar to
+what you&#x2019;ve done on several previous MPs.</p>
+</li>
+<li>
+<p>Have that click handler run the function that retrieves information about the
+current IP address.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<a class="anchor" id="_viewing_the_xml"></a><h4>2.4.1. Viewing the XML</h4>
+<div class="paragraph">
+<p>When you&#x2019;re done with adding your button using the UI designer, flip over to the
+text view and take a look at what&#x2019;s there now.
+Try to get a general understanding of how the various components fit together.
+Try changing a few of the XML properties and see if you can alter how things
+look on the display, and gain an understanding of what each property is for.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_part_2_location_display"></a><h3>2.5. Part 2: Location Display</h3>
+<div class="paragraph">
+<p>Next, find a way to display something about the location of the IP address on
+the user interface.
+You&#x2019;ll need to parse a portion of the retrieved JSON and stick it into a text
+box.
+We&#x2019;ve provided a starting point as an example.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_part_3_user_input"></a><h3>2.6. Part 3: User Input</h3>
+<div class="paragraph">
+<p>Finally add a way to take an IP address to look up from the user.
+You&#x2019;ll want to combine a text box for input, the button you added above, and a
+separate text view to show something about the output.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_part_4_help_others"></a><h3>2.7. Part 4: Help Others</h3>
+<div class="paragraph">
+<p>Are you done early?
+Great!
+There&#x2019;s probably someone else in your lab that needs help.
+Please try and provide them with some guidance.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="mockup"></a><h2>3. Final Project Planning and UI Mockup <span class="text-muted">(20 Minutes)</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You and your partner should use the remaining lab time to begin work on two
+important final project objectives.</p>
+</div>
+<div class="paragraph">
+<p>First, you should decide what you are going to try and accomplish.
+Keep in mind how much time and energy you have left, your relative ability
+levels, and how much you want (or need) 1% extra credit.
+<strong>We also highly suggest working on a project that you enjoy.</strong>
+Excitement about the final product is extremely important to get you through the
+inevitable moments of frustration.</p>
+</div>
+<div class="paragraph">
+<p>Once you have decided on a final project idea, you should begin sketching a user
+interface for your app.
+Please use this lab to inform your UI design.
+If you have some experience in this area, or just really like what you did for
+the first hour, then by all means consider something a bit complicated.
+If you struggled, stick with something simple.
+Note that Android provides some built-in activities that come with basic layouts
+designed for certain types of apps.
+You can explore those by right-clicking on your project, choosing new and then
+either activity or Google, which also contains some starter activities.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/lab/2019/spring/12.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/lab/2019/spring/12.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

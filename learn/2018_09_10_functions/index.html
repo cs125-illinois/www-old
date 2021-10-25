@@ -1,0 +1,598 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Functions</title>
+  <meta name="description" lang="en-us" content="Introduction to functions.">
+
+  <meta name="slider-id" content="d20d71e7-3793-46b4-9628-38fd856d8729">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini small nozoom bespoke-active bespoke-slide" data-slideid="MngJfafahKmsXTxAdgJdAoqdOOziwdhn">
+
+<textarea class="janini spelling_exception">static int maximum(int[] numbers) {
+  int currentMaximum = numbers[0];
+  for (int i = 1; i &lt; numbers.length; i++) {
+    if (numbers[i] &gt; currentMaximum) {
+      currentMaximum = numbers[i];
+    }
+  }
+  return currentMaximum;
+}
+int[] numbers = { 1, 2, 5 };
+System.out.println(maximum(numbers));</textarea><!-- beautify ignore:start --><div class="output" data-blank="Functions&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Functions<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="SUHVIMGAXDCXYZSXDMWUIXVQVNPUNCVX">
+<div class="header" data-title="This is How We Do This"><h2>This is How We Do This</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It won&#x2019;t get easier, but it also won&#x2019;t get much worse.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YFOIXWLFRFEIMCFHRHUOUMOIEKTXHMBJ">
+<div class="header" data-title="Your Week in CS 125"><h2>Your Week in CS 125</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Monday</strong>: finish MPN - 1, start MPN. Homework. Lecture. Office Hours.</p>
+</li>
+<li>
+<p><strong>Tuesday</strong>: Lab. Quiz. MPN. Homework. Residential Office Hours (!).</p>
+</li>
+<li>
+<p><strong>Wednesday</strong>: Quiz. MPN. Homework. Lecture. Residential Office Hours (!).</p>
+</li>
+<li>
+<p><strong>Thursday</strong>: Lab. Quiz. MPN. Homework. Office Hours.</p>
+</li>
+<li>
+<p><strong>Friday</strong>: MPN. Homework. Lecture. Office Hours.</p>
+</li>
+<li>
+<p><strong>Weekend</strong>: MPN.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ZMsRhBTAKzQDcNqJhGfbQBaNFSLionBV">
+<div class="header" data-title="What Are Computers Good At?"><h2>What Are Computers Good At?</h2></div>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><span class="line-through">Basic math</span></p>
+</li>
+<li>
+<p><span class="line-through">Simple decision making</span></p>
+</li>
+<li>
+<p><span class="line-through">Doing things over and over again very, very fast</span></p>
+</li>
+<li>
+<p><span class="line-through">Storing data</span></p>
+</li>
+<li>
+<p>And communicating (we&#x2019;ll get there)</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ebsIAGHktJXCWiXlllplCDkytNHXBEjq">
+<div class="header" data-title="What&#x2019;s Next?"><h2>What&#x2019;s Next?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>These are the three main challenges that will occupy us for the remainder of the
+semester:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Algorithms</strong>: How do we use computers to solve problems?</p>
+</li>
+<li class="bullet">
+<p><strong>Data structures</strong>: How do we structure information to enable efficient
+algorithms?</p>
+</li>
+<li class="bullet">
+<p><strong>Software development</strong>: How do we write, debug, test, and publish <em>good</em>
+computer software?</p>
+</li>
+<li class="bullet">
+<p>And we&#x2019;re going to have <em>a lot of fun</em> continuing to learn everything and
+anything about how computers and computer systems work.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vrCcLFuUvwOmdCBjYCObdECLzGvjWCwm">
+<div class="header" data-title="How Do We Structure Good Computer Programs?"><h2>How Do We Structure Good Computer Programs?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Break our code into reusable, testable, and understandable pieces</p>
+</li>
+<li class="bullet">
+<p>Combine state and behavior</p>
+</li>
+<li class="bullet">
+<p>Document our code appropriately</p>
+</li>
+<li class="bullet">
+<p>Reuse preexisting solutions as much as possible</p>
+</li>
+<li class="bullet">
+<p>Share our code with others!</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hYhFitgISnHLduMUspeEhttwBEKcyCmX">
+<div class="header" data-title="Functions (Or Subroutines)"><h2>Functions (Or Subroutines)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Subroutine" target="_blank" class="external">Function</a>:
+a sequence of program instructions that perform a specific task, packaged as a
+unit. This unit can then be used in programs wherever that particular task
+should be performed.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>In Java, a function takes <em>zero or more inputs</em> and produces <em>no or one output</em>.</p>
+</li>
+<li class="bullet">
+<p>Functions are built of the imperative programming building blocks we have
+already seen: variables, loops, conditional statements.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="vrMmLkjEfsujbHoVyjzWIAbdDLQzDdKH">
+<div class="header" data-title="Functions (Or Subroutines)"><h2>Functions (Or Subroutines)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A good function:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Does one thing well</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Can be easily tested</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Can be reused in multiple places</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="tyrmxoGtViFOOACbFiqDBpgEhhmfxOTl">
+<div class="header" data-title="Function Declaration"><h2>Function Declaration</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}</code></pre>
+</div>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>In Java every function has a <em>name</em>, a list of <em>arguments</em>, a <em>return
+type</em>,
+<a href="https://en.wikipedia.org/wiki/Javadoc" target="_blank" class="external"><em>a Javadoc description</em></a>,
+and a <em>return statement</em>.</p>
+</li>
+<li class="bullet">
+<p>The <strong>name</strong> and <strong>description are for you</strong>, the programmer</p>
+</li>
+<li class="bullet">
+<p>The <strong>arguments</strong> and <strong>return type</strong> are both for you and for Java</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="hOiebdTyavDHVMcZmkojBrMZeABlFXjT">
+<div class="header" data-title="Calling Functions"><h2>Calling Functions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To <em>call</em> a function we provide the arguments it requires and expect a result of
+the type it is declared to return.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The code that calls the function is referred to as the <em>caller</em>.</p>
+</li>
+<li class="bullet">
+<p>When a function is called, the caller waits until the function
+returns</p>
+</li>
+<li class="bullet">
+<p>The result can be saved, used like a literal of the
+return type, or ignored</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YZvTRZGcPWaZtWxjxrlSVmRLzCozyasQ">
+<div class="header" data-title="add Example"><h2><code>add</code> Example</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}
+int result = add(3, 4);
+System.out.println(add(4, 5));
+int biggerResult = add(10, 20) + add(20, 30) + 10;
+System.out.println(biggerResult);
+add(6, 7); // This is dumb code but will compile and run</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="uArzOsQICgDsGEJnEiOtfLfyMwtRYWVz">
+<div data-title=" Add Two Numbers"></div>
+<textarea class="janini spelling_exception">// Ignore the extra static for now in our examples...
+static int add(int firstNumber, int secondNumber) {
+  return firstNumber + secondNumber;
+}
+int result = add(3, 4);
+System.out.println(add(4, 5));
+int biggerResult = add(10, 20) + add(20, 30) + 10;
+System.out.println(biggerResult);
+add(6, 7); // This is dumb code but will compile and run</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HfURoLPdmmuKEbHfnrzRlKJcbTPttYZE">
+<div class="header" data-title="Good Variable Function Names"><h2>Good <span class="line-through">Variable</span> Function Names</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like <a href="/learn/variables/#7">variables</a>, choosing good <em>function</em> names
+will make your life a lot easier as a programmer.</p>
+</div>
+<div class="paragraph">
+<p>Good function names are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Descriptive</p>
+</li>
+<li class="bullet">
+<p>Indicative of the function&#x2019;s function&#x2014;what it does</p>
+</li>
+<li class="bullet">
+<p>As succinct as possible&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>But see #2 above</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sPuYAsjxUtxNgZiMnUrKhLahWgUSvwTm">
+<div class="header" data-title="Function Arguments"><h2>Function Arguments</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>When a function begins executing the code has access to the variables declared
+as arguments, which will contain the values passed by the caller.</p>
+</div>
+<div class="paragraph">
+<p>You can think of these variables as pre-declared and pre-initialized.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="WqnehuZUvbySXIyiIAJIecmtJfjBoORf">
+<div class="header" data-title="add Example"><h2><code>add</code> Example</h2></div>
+<div class="sectionbody">
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+ * Add two numbers together.
+ *
+ * @param firstNumber the first number to add
+ * @param secondNumber the second number to add
+ * @return the sum of the two numbers
+ */
+int add(int firstNumber, int secondNumber) {
+  System.out.println(firstNumber);
+  System.out.println(secondNumber);
+  return firstNumber + secondNumber;
+}
+System.out.println(&quot;Start&quot;);
+int result = add(3, 4);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="gflghmydtJybAJRsQIHkkTsoLnzRotAc">
+<div data-title=" Add Two Numbers"></div>
+<textarea class="janini spelling_exception">// Ignore the extra static for now in our examples...
+static int add(int firstNumber, int secondNumber) {
+  System.out.println(firstNumber);
+  System.out.println(secondNumber);
+  return firstNumber + secondNumber;
+}
+System.out.println(&quot;Start&quot;);
+int result = add(3, 4);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="mXPpRQOkwFXdigorsNOAJvEuKGjvoPeq">
+<div class="header" data-title="return and Return Type"><h2><code>return</code> and Return Type</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A <code>return</code> statement <em>immediately exits the function</em> and returns a result.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>return</code> statements can appear anywhere inside a function: inside a loop or
+conditional statement</p>
+</li>
+<li class="bullet">
+<p>A function can include multiple return statements</p>
+</li>
+<li class="bullet">
+<p>Regardless of where they appear or how many are used, the function returns <strong>as
+soon as the first <code>return</code> statement is reached</strong></p>
+</li>
+<li class="bullet">
+<p>A function <em>must return a value of the type it declared</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SARozugeSuiSZToETgfUqoaDOggJhFWF">
+<div class="header" data-title="Javadoc Documentation"><h2>Javadoc Documentation</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Good code requires documentation.
+This is for the humans that use it.</p>
+</div>
+<div class="paragraph">
+<p>In Java, we utilize the
+<a href="https://en.wikipedia.org/wiki/Javadoc" target="_blank" class="external">Javadoc</a>
+tool to turn comments into our code into structured online documentation.</p>
+</div>
+<div class="paragraph">
+<p>That allows this:</p>
+</div>
+<div class="listingblock small">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+ * Example Javadoc.
+ *
+ * @param firstArgument first argument to my function
+ * @return 0
+ */</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#x2026;&#x200B;to become this&#x2026;&#x200B;</p>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="XwuvvgCiGDqvXVmEZMcOFFEkOhfwmVsZ">
+<div data-title=" Example Javadoc Output"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/7/docs/api/java/lang/String.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="qyjMaUvtyjciWNidWzkSmNadSwUcJIuy">
+<div data-title=" Function Examples"></div>
+<textarea class="janini spelling_exception">/**
+ * Prints &quot;Me!&quot; to standard out.
+ */
+static void printMe() {
+  System.out.println(&quot;Me!&quot;);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="WMIXpAhbQaTskdstiILhxUgbcbLLsFyk">
+<div data-title=" Average Of An Array"></div>
+<textarea class="janini spelling_exception">// Compute the average
+float[] toAverage = { 0.1, 6.7, 8.9, 10.4, 11.2, 0.9 };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="AjBeDNYHtDWIWkZvzfaEpqDlNbGHGHTK">
+<div class="header" data-title="Functions Frequently Implement Algorithms"><h2>Functions Frequently Implement Algorithms</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JMPKZOQAATNOOYFKKITPXUWSBGHNCEFC">
+<div class="header" data-title="Consecutive Identical Values"><h2>Consecutive Identical Values</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given an array of chars, find all cases where consecutive elements are the same.</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Examine each value in the array</p>
+</li>
+<li class="bullet">
+<p>Compare it with the next value&#x2014;but how do we get at that?</p>
+</li>
+<li class="bullet">
+<p>Print it out if they are the same</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 janini small nozoom bespoke-inactive bespoke-slide" data-slideid="TVSNKHWSKTYCIKSALIZGDIBDCSNSRHWO">
+<div data-title=" Consecutive Identical Characters"></div>
+<textarea class="janini spelling_exception">// Print when consecutive characters are identical
+char[] characters = { &apos;a&apos;, &apos;b&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;c&apos;, &apos;c&apos; };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OBLbAkJElAJAKOCSqyEIEFgKyaPMwouY">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Daily homework continues <em>today</em> and now each assignment is due <strong>on that day</strong>.
+<strong>No exceptions.</strong></p>
+</li>
+<li>
+<p><a href="/MP/2018/fall/0/">MP0</a> is due <em>today</em> at 7PM.
+We have office hours all day starting at 10AM, and there are CAs waiting to help
+you!</p>
+</li>
+<li>
+<p><a href="/MP/2018/fall/1/">MP1</a> will be released today and due in <em>one week</em>.
+Please get started as soon as the assignment is released!
+Note that there are 10 points on MP1 for earning 20 points by <strong>5PM on Friday.</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

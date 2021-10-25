@@ -1,0 +1,1337 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>References and Java Memory Management</title>
+  <meta name="description" lang="en-us" content="A discussion of Java memory management with reminders about references.">
+
+  <meta name="slider-id" content="75bae9b0-ba66-4461-bebc-fb9a175abce7">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="XvVPGwaRhahvjdxCblIifRgJogEUVwFu">
+
+<textarea class="janini spelling_exception">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="References and Java Memory Management&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">References and Java Memory Management<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="RkliOLTPuAhdvGWYPAFzrKmGWaPUfXgH">
+<div class="header" data-title="You&#x2019;re Halfway There"><h2>You&#x2019;re Halfway There</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UadeeCkeSgAdNxowguiLSoYhJRdguKFW">
+<div class="header" data-title="Before/After: Content"><h2>Before/After: Content</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Before</strong>: imperative and object-oriented programming</p>
+</li>
+<li class="bullet">
+<p><strong>After</strong>: algorithms, data structures, recursive and functional programming</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LgdffzhfPunAMesAbWZBqllohPQOYWff">
+<div class="header" data-title="Before/After: Assessments"><h2>Before/After: Assessments</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Before</strong>: 3 short MPs, one long MP, one midterm</p>
+</li>
+<li class="bullet">
+<p><strong>After</strong>: 2 long Android MPs, one Android final project, two midterms</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="cenLRPaenukyZMdPCFcWGfinjtuOQxqN">
+<div class="header" data-title="Current Status"><h2>Current Status</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Overall the class is doing quite well:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Without drops</strong>: median 82, average 79</p>
+</li>
+<li class="bullet">
+<p><strong>With drops</strong>: median 94, average 89</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nltGUOTpOBUxKVDdfZrgjnrlZqsPsfAt">
+<div class="header" data-title="Midterm Grades"><h2>Midterm Grades</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We will post course grade statistics on our grading page today or tomorrow.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>This information is intended to help you decide whether to continue in
+the course or not</p>
+</li>
+<li class="bullet">
+<p>Have feedback you want to share?
+Use the
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pldddmEseeLzsgZhznFeEAojBuonZzoV">
+<div data-title=" Anonymous Feedback Form"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://cs125.cs.illinois.edu/info/feedback/%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="KforFFinAoafSeZwPUmMnQduNOEIEwrV">
+<div class="header" data-title="Questions?"><h2>Questions?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anything is fair game.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nVhGDIPHKdueqliUaiRGIurGcDZWYxOc">
+<div class="header" data-title="Homework Review: Creator"><h2>Homework Review: <code>Creator</code></h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Implement a public class called <code>Creator</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>Creator</code> should provide one public class method called <code>newOrOld</code> taking a
+single <code>boolean</code> argument.
+If the argument is <code>true</code>, <code>newOrOld</code> should return a reference to a <em>new</em>
+<code>Creator</code> instance.
+If the argument is <code>false</code>, <code>newOrOld</code> should return a reference to the last
+<code>Creator</code> created by <code>newOrOld</code>.
+If <code>newOrOld</code> has never been called before, you should return <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>Creator</code> should not expose any public state or allow itself to be extended.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="CnPOgXHnlenordetuHtoMtFgwpduZMTC">
+<div data-title=" Homework Review: Creator"></div>
+<textarea class="janini spelling_exception">public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Creator.newOrOld(false));
+    System.out.println(Creator.newOrOld(true));
+    System.out.println(Creator.newOrOld(false));
+    System.out.println(Creator.newOrOld(true));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="MYbJkxqkLVQuvtjnDxEeBGmfrdLdWzEB">
+<div class="header" data-title="Review: Pass By (Copied) Reference"><h2>Review: Pass By (Copied) Reference</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));
+System.out.println(me.age);</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>In Java methods receive <em>a copy</em> of a reference to the passed object.</p>
+</div>
+<div class="paragraph">
+<p>So they <strong>can</strong> modify the object the reference refers to.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="TdUJjnCRyzPUGrDNttMsPxuJeOlgIIsO">
+<div class="header" data-title="Review: Pass By (Copied) Reference"><h2>Review: Pass By (Copied) Reference</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="73pt" viewBox="0.00 0.00 207.00 73.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="VBrdIKXwjpfOMFsE">
+<g id="graph0_VBrdIKXwjpfOMFsE" class="graph" transform="scale(1 1) rotate(0) translate(4 69)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-69 203,-69 203,4 -4,4"/>
+<!-- Person -->
+<g id="node1_VBrdIKXwjpfOMFsE" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="92,-.5 92,-64.5 199,-64.5 199,-.5 92,-.5"/>
+<text text-anchor="middle" x="145.5" y="-43.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="92,-32.5 199,-32.5 "/>
+<text text-anchor="middle" x="145.5" y="-11.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 38</text>
+</g>
+<!-- me -->
+<g id="node2_VBrdIKXwjpfOMFsE" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="0,-14.5 0,-50.5 56,-50.5 56,-14.5 0,-14.5"/>
+<text text-anchor="middle" x="28" y="-27.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_VBrdIKXwjpfOMFsE" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M56.1442,-32.5C63.9381,-32.5 72.7291,-32.5 81.6782,-32.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.8045,-36.0001 91.8045,-32.5 81.8044,-29.0001 81.8045,-36.0001"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="QeoegaQWqRCqwRWjFgcHecPcBnblAsuu">
+<div class="header" data-title="Review: Pass By (Copied) Reference"><h2>Review: Pass By (Copied) Reference</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="100pt" viewBox="0.00 0.00 272.00 100.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="FZfdUnTdbzRGGfif">
+<g id="graph0_FZfdUnTdbzRGGfif" class="graph" transform="scale(1 1) rotate(0) translate(4 96)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-96 268,-96 268,4 -4,4"/>
+<!-- Person -->
+<g id="node1_FZfdUnTdbzRGGfif" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="157,-13.5 157,-77.5 264,-77.5 264,-13.5 157,-13.5"/>
+<text text-anchor="middle" x="210.5" y="-56.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="157,-45.5 264,-45.5 "/>
+<text text-anchor="middle" x="210.5" y="-24.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 39</text>
+</g>
+<!-- me -->
+<g id="node2_FZfdUnTdbzRGGfif" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="9.5,-55.5 9.5,-91.5 65.5,-91.5 65.5,-55.5 9.5,-55.5"/>
+<text text-anchor="middle" x="37.5" y="-68.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_FZfdUnTdbzRGGfif" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M65.6805,-68.939C87.5957,-65.392 118.8594,-60.332 146.7332,-55.8206"/>
+<polygon fill="#13294b" stroke="#13294b" points="147.5132,-59.24 156.8255,-54.1872 146.3948,-52.3299 147.5132,-59.24"/>
+</g>
+<!-- toSet -->
+<g id="node3_FZfdUnTdbzRGGfif" class="node">
+<title>toSet</title>
+<polygon fill="none" stroke="#e84a27" points="0,-.5 0,-36.5 75,-36.5 75,-.5 0,-.5"/>
+<text text-anchor="middle" x="37.5" y="-13.5" font-family="Open Sans" font-size="20.00" fill="#000000">toSet</text>
+</g>
+<!-- toSet&#45;&gt;Person -->
+<g id="edge2_FZfdUnTdbzRGGfif" class="edge">
+<title>toSet-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M75.0384,-24.3586C95.9944,-27.6292 122.6671,-31.792 146.7926,-35.5572"/>
+<polygon fill="#13294b" stroke="#13294b" points="146.5319,-39.0588 156.952,-37.1428 147.6114,-32.1426 146.5319,-39.0588"/>
+<text text-anchor="middle" x="116" y="-38.7" font-family="Open Sans" font-size="16.00" fill="#000000">age++</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="LCApeGyQtFkuQzuHRiWVCZeNpdydfeht">
+<div class="header" data-title="Review: Pass By (Copied) Reference"><h2>Review: Pass By (Copied) Reference</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">class Person {
+  public int age;
+  Person(int setAge) {
+    this.age = setAge;
+  }
+}
+int birthday(Person toSet) {
+  toSet.age++;
+  return toSet.age;
+}
+Person me = new Person(38);
+System.out.println(birthday(me));
+System.out.println(me.age);</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph default"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="73pt" viewBox="0.00 0.00 261.00 73.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="aTjtnaiecXqiJFHZ">
+<g id="graph0_aTjtnaiecXqiJFHZ" class="graph" transform="scale(1 1) rotate(0) translate(4 69)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-69 257,-69 257,4 -4,4"/>
+<!-- Person -->
+<g id="node1_aTjtnaiecXqiJFHZ" class="node">
+<title>Person</title>
+<polygon fill="none" stroke="#e84a27" points="146,-.5 146,-64.5 253,-64.5 253,-.5 146,-.5"/>
+<text text-anchor="middle" x="199.5" y="-43.5" font-family="Open Sans" font-size="20.00" fill="#000000">Person</text>
+<polyline fill="none" stroke="#e84a27" points="146,-32.5 253,-32.5 "/>
+<text text-anchor="middle" x="199.5" y="-11.5" font-family="Open Sans" font-size="20.00" fill="#000000">age = 39</text>
+</g>
+<!-- me -->
+<g id="node2_aTjtnaiecXqiJFHZ" class="node">
+<title>me</title>
+<polygon fill="none" stroke="#e84a27" points="0,-14.5 0,-50.5 56,-50.5 56,-14.5 0,-14.5"/>
+<text text-anchor="middle" x="28" y="-27.5" font-family="Open Sans" font-size="20.00" fill="#000000">me</text>
+</g>
+<!-- me&#45;&gt;Person -->
+<g id="edge1_aTjtnaiecXqiJFHZ" class="edge">
+<title>me-&gt;Person</title>
+<path fill="none" stroke="#13294b" d="M56.3197,-32.5C77.8318,-32.5 108.2683,-32.5 135.5512,-32.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="135.8281,-36.0001 145.828,-32.5 135.828,-29.0001 135.8281,-36.0001"/>
+<text text-anchor="middle" x="101" y="-37.7" font-family="Open Sans" font-size="16.00" fill="#000000">get age</text>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YkxyDKHKOIwHLcdjIZCcUkSxnwqzgejc">
+<div class="header" data-title="References Are Powerful"><h2>References Are Powerful</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>References are a widely-used idea in computer science.</p>
+</div>
+<div class="paragraph">
+<p>By controlling the process of dereferencing or <em>translating</em> a reference we can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>move</strong> objects from place to place: just like your phone can move around with
+the same number</p>
+</li>
+<li class="bullet">
+<p><strong>block</strong> translation in certain cases: just like you can reject email from
+certain senders</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="VjdvpgqzTAgeaTuQOvPNlsUiBIhYcxFE">
+<div class="header" data-title="And Memory Management"><h2>And Memory Management</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(Or why you never need to <code>delete</code> anything in Java&#x2026;&#x200B;)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LMkQlNJtjcgVmFapXzOxalWcbrMgJCdj">
+<div class="header" data-title="Java Memory Management"><h2>Java Memory Management</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java utilizes references to automatically clean up unused objects to reclaim
+memory&#x2014;a process known as <em>garbage collection</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If a reference to an object exists, it must still be useful, <strong>so keep it</strong></p>
+</li>
+<li class="bullet">
+<p>If no reference to an object exists, <em>it cannot be used</em>, <strong>so remove it</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ExXBunKhuHMRMgeissCMJFagFMaATymr">
+<div class="header" data-title="Reference Counting Example"><h2>Reference Counting Example</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 0
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="100pt" viewBox="0.00 0.00 164.00 100.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="inAfYwWePCCgANvA">
+<g id="graph0_inAfYwWePCCgANvA" class="graph" transform="scale(1 1) rotate(0) translate(4 96)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-96 160,-96 160,4 -4,4"/>
+<!-- String -->
+<g id="node1_inAfYwWePCCgANvA" class="node">
+<title>String</title>
+<polygon fill="none" stroke="#e84a27" points="92,-19.5 92,-71.5 156,-71.5 156,-19.5 92,-19.5"/>
+<text text-anchor="middle" x="124" y="-54.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-45.5 156,-45.5 "/>
+<text text-anchor="middle" x="124" y="-28.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- save -->
+<g id="node2_inAfYwWePCCgANvA" class="node">
+<title>save</title>
+<polygon fill="none" stroke="#e84a27" points="0,-55.5 0,-91.5 56,-91.5 56,-55.5 0,-55.5"/>
+<text text-anchor="middle" x="28" y="-69.7" font-family="Open Sans" font-size="16.00" fill="#000000">save</text>
+</g>
+<!-- save&#45;&gt;String -->
+<g id="edge1_inAfYwWePCCgANvA" class="edge">
+<title>save-&gt;String</title>
+<path fill="none" stroke="#13294b" d="M56.0252,-65.326C64.1477,-62.9569 73.199,-60.317 81.9791,-57.7561"/>
+<polygon fill="#13294b" stroke="#13294b" points="83.0931,-61.0771 91.7131,-54.917 81.133,-54.3571 83.0931,-61.0771"/>
+</g>
+<!-- s -->
+<g id="node3_inAfYwWePCCgANvA" class="node">
+<title>s</title>
+<polygon fill="none" stroke="#e84a27" points="1,-.5 1,-36.5 55,-36.5 55,-.5 1,-.5"/>
+<text text-anchor="middle" x="28" y="-14.7" font-family="Open Sans" font-size="16.00" fill="#000000">s</text>
+</g>
+<!-- s&#45;&gt;String -->
+<g id="edge2_inAfYwWePCCgANvA" class="edge">
+<title>s-&gt;String</title>
+<path fill="none" stroke="#13294b" d="M55.253,-26.1649C63.639,-28.5235 73.0712,-31.1763 82.1992,-33.7435"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.3466,-37.1395 91.9208,-36.4777 83.2419,-30.4009 81.3466,-37.1395"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="DhaLhZFXsqpNrJSlnhNezfCAhyJMtdkH">
+<div class="header" data-title="Reference Counting Example"><h2>Reference Counting Example</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 1
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="132pt" viewBox="0.00 0.00 164.00 132.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="eJddadkGwncvJBCh">
+<g id="graph0_eJddadkGwncvJBCh" class="graph" transform="scale(1 1) rotate(0) translate(4 128)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-128 160,-128 160,4 -4,4"/>
+<!-- String -->
+<g id="node1_eJddadkGwncvJBCh" class="node">
+<title>String</title>
+<polygon fill="none" stroke="#e84a27" points="92,-.5 92,-52.5 156,-52.5 156,-.5 92,-.5"/>
+<text text-anchor="middle" x="124" y="-35.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-26.5 156,-26.5 "/>
+<text text-anchor="middle" x="124" y="-9.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- String1 -->
+<g id="node2_eJddadkGwncvJBCh" class="node">
+<title>String1</title>
+<polygon fill="none" stroke="#e84a27" points="92,-71.5 92,-123.5 156,-123.5 156,-71.5 92,-71.5"/>
+<text text-anchor="middle" x="124" y="-106.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-97.5 156,-97.5 "/>
+<text text-anchor="middle" x="124" y="-80.7" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- save -->
+<g id="node3_eJddadkGwncvJBCh" class="node">
+<title>save</title>
+<polygon fill="none" stroke="#e84a27" points="0,-8.5 0,-44.5 56,-44.5 56,-8.5 0,-8.5"/>
+<text text-anchor="middle" x="28" y="-22.7" font-family="Open Sans" font-size="16.00" fill="#000000">save</text>
+</g>
+<!-- save&#45;&gt;String -->
+<g id="edge1_eJddadkGwncvJBCh" class="edge">
+<title>save-&gt;String</title>
+<path fill="none" stroke="#13294b" d="M56.0252,-26.5C64.0604,-26.5 73.0044,-26.5 81.6958,-26.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.7131,-30.0001 91.7131,-26.5 81.713,-23.0001 81.7131,-30.0001"/>
+</g>
+<!-- s -->
+<g id="node4_eJddadkGwncvJBCh" class="node">
+<title>s</title>
+<polygon fill="none" stroke="#e84a27" points="1,-79.5 1,-115.5 55,-115.5 55,-79.5 1,-79.5"/>
+<text text-anchor="middle" x="28" y="-93.7" font-family="Open Sans" font-size="16.00" fill="#000000">s</text>
+</g>
+<!-- s&#45;&gt;String1 -->
+<g id="edge2_eJddadkGwncvJBCh" class="edge">
+<title>s-&gt;String1</title>
+<path fill="none" stroke="#13294b" d="M55.253,-97.5C63.5498,-97.5 72.8706,-97.5 81.9078,-97.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.9208,-101.0001 91.9208,-97.5 81.9207,-94.0001 81.9208,-101.0001"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="ySGaaRXUtptkhVrcBQumHCwMiBCjyqCp">
+<div class="header" data-title="Reference Counting Example"><h2>Reference Counting Example</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 2
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="203pt" viewBox="0.00 0.00 164.00 203.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="BkofgYebOVBizdsW">
+<g id="graph0_BkofgYebOVBizdsW" class="graph" transform="scale(1 1) rotate(0) translate(4 199)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-199 160,-199 160,4 -4,4"/>
+<!-- String -->
+<g id="node1_BkofgYebOVBizdsW" class="node">
+<title>String</title>
+<polygon fill="none" stroke="#e84a27" points="92,-.5 92,-52.5 156,-52.5 156,-.5 92,-.5"/>
+<text text-anchor="middle" x="124" y="-35.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-26.5 156,-26.5 "/>
+<text text-anchor="middle" x="124" y="-9.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- String1 -->
+<g id="node2_BkofgYebOVBizdsW" class="node">
+<title>String1</title>
+<polygon fill="none" stroke="#e84a27" points="92,-71.5 92,-123.5 156,-123.5 156,-71.5 92,-71.5"/>
+<text text-anchor="middle" x="124" y="-106.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-97.5 156,-97.5 "/>
+<text text-anchor="middle" x="124" y="-80.7" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- String2 -->
+<g id="node3_BkofgYebOVBizdsW" class="node">
+<title>String2</title>
+<polygon fill="none" stroke="#e84a27" points="92,-142.5 92,-194.5 156,-194.5 156,-142.5 92,-142.5"/>
+<text text-anchor="middle" x="124" y="-177.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-168.5 156,-168.5 "/>
+<text text-anchor="middle" x="124" y="-151.7" font-family="Open Sans" font-size="16.00" fill="#000000">2</text>
+</g>
+<!-- save -->
+<g id="node4_BkofgYebOVBizdsW" class="node">
+<title>save</title>
+<polygon fill="none" stroke="#e84a27" points="0,-8.5 0,-44.5 56,-44.5 56,-8.5 0,-8.5"/>
+<text text-anchor="middle" x="28" y="-22.7" font-family="Open Sans" font-size="16.00" fill="#000000">save</text>
+</g>
+<!-- save&#45;&gt;String -->
+<g id="edge1_BkofgYebOVBizdsW" class="edge">
+<title>save-&gt;String</title>
+<path fill="none" stroke="#13294b" d="M56.0252,-26.5C64.0604,-26.5 73.0044,-26.5 81.6958,-26.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.7131,-30.0001 91.7131,-26.5 81.713,-23.0001 81.7131,-30.0001"/>
+</g>
+<!-- s -->
+<g id="node5_BkofgYebOVBizdsW" class="node">
+<title>s</title>
+<polygon fill="none" stroke="#e84a27" points="1,-150.5 1,-186.5 55,-186.5 55,-150.5 1,-150.5"/>
+<text text-anchor="middle" x="28" y="-164.7" font-family="Open Sans" font-size="16.00" fill="#000000">s</text>
+</g>
+<!-- s&#45;&gt;String2 -->
+<g id="edge2_BkofgYebOVBizdsW" class="edge">
+<title>s-&gt;String2</title>
+<path fill="none" stroke="#13294b" d="M55.253,-168.5C63.5498,-168.5 72.8706,-168.5 81.9078,-168.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.9208,-172.0001 91.9208,-168.5 81.9207,-165.0001 81.9208,-172.0001"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="zEHDaKoSAyMYFCMSoqKCpNYvHppfhklu">
+<div class="header" data-title="Reference Counting Example"><h2>Reference Counting Example</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="274pt" viewBox="0.00 0.00 164.00 274.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="CwCfVGPxfmZneosU">
+<g id="graph0_CwCfVGPxfmZneosU" class="graph" transform="scale(1 1) rotate(0) translate(4 270)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-270 160,-270 160,4 -4,4"/>
+<!-- String -->
+<g id="node1_CwCfVGPxfmZneosU" class="node">
+<title>String</title>
+<polygon fill="none" stroke="#e84a27" points="92,-.5 92,-52.5 156,-52.5 156,-.5 92,-.5"/>
+<text text-anchor="middle" x="124" y="-35.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-26.5 156,-26.5 "/>
+<text text-anchor="middle" x="124" y="-9.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- String1 -->
+<g id="node2_CwCfVGPxfmZneosU" class="node">
+<title>String1</title>
+<polygon fill="none" stroke="#e84a27" points="92,-71.5 92,-123.5 156,-123.5 156,-71.5 92,-71.5"/>
+<text text-anchor="middle" x="124" y="-106.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-97.5 156,-97.5 "/>
+<text text-anchor="middle" x="124" y="-80.7" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- String2 -->
+<g id="node3_CwCfVGPxfmZneosU" class="node">
+<title>String2</title>
+<polygon fill="none" stroke="#e84a27" points="92,-142.5 92,-194.5 156,-194.5 156,-142.5 92,-142.5"/>
+<text text-anchor="middle" x="124" y="-177.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-168.5 156,-168.5 "/>
+<text text-anchor="middle" x="124" y="-151.7" font-family="Open Sans" font-size="16.00" fill="#000000">2</text>
+</g>
+<!-- String3 -->
+<g id="node4_CwCfVGPxfmZneosU" class="node">
+<title>String3</title>
+<polygon fill="none" stroke="#e84a27" points="92,-213.5 92,-265.5 156,-265.5 156,-213.5 92,-213.5"/>
+<text text-anchor="middle" x="124" y="-248.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-239.5 156,-239.5 "/>
+<text text-anchor="middle" x="124" y="-222.7" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- save -->
+<g id="node5_CwCfVGPxfmZneosU" class="node">
+<title>save</title>
+<polygon fill="none" stroke="#e84a27" points="0,-8.5 0,-44.5 56,-44.5 56,-8.5 0,-8.5"/>
+<text text-anchor="middle" x="28" y="-22.7" font-family="Open Sans" font-size="16.00" fill="#000000">save</text>
+</g>
+<!-- save&#45;&gt;String -->
+<g id="edge1_CwCfVGPxfmZneosU" class="edge">
+<title>save-&gt;String</title>
+<path fill="none" stroke="#13294b" d="M56.0252,-26.5C64.0604,-26.5 73.0044,-26.5 81.6958,-26.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.7131,-30.0001 91.7131,-26.5 81.713,-23.0001 81.7131,-30.0001"/>
+</g>
+<!-- s -->
+<g id="node6_CwCfVGPxfmZneosU" class="node">
+<title>s</title>
+<polygon fill="none" stroke="#e84a27" points="1,-221.5 1,-257.5 55,-257.5 55,-221.5 1,-221.5"/>
+<text text-anchor="middle" x="28" y="-235.7" font-family="Open Sans" font-size="16.00" fill="#000000">s</text>
+</g>
+<!-- s&#45;&gt;String3 -->
+<g id="edge2_CwCfVGPxfmZneosU" class="edge">
+<title>s-&gt;String3</title>
+<path fill="none" stroke="#13294b" d="M55.253,-239.5C63.5498,-239.5 72.8706,-239.5 81.9078,-239.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.9208,-243.0001 91.9208,-239.5 81.9207,-236.0001 81.9208,-243.0001"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="GrSlJoshnMHiqwfLmUJHgieSBvLWhWFV">
+<div class="header" data-title="Reference Counting Example"><h2>Reference Counting Example</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="274pt" viewBox="0.00 0.00 164.00 274.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="kotZItWoGIdWbRGv">
+<g id="graph0_kotZItWoGIdWbRGv" class="graph" transform="scale(1 1) rotate(0) translate(4 270)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-270 160,-270 160,4 -4,4"/>
+<!-- String -->
+<g id="node1_kotZItWoGIdWbRGv" class="node">
+<title>String</title>
+<polygon fill="none" stroke="#e84a27" points="92,-.5 92,-52.5 156,-52.5 156,-.5 92,-.5"/>
+<text text-anchor="middle" x="124" y="-35.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-26.5 156,-26.5 "/>
+<text text-anchor="middle" x="124" y="-9.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- String1 -->
+<g id="node2_kotZItWoGIdWbRGv" class="node">
+<title>String1</title>
+<polygon fill="#ff0000" stroke="#e84a27" points="92,-71.5 92,-123.5 156,-123.5 156,-71.5 92,-71.5"/>
+<text text-anchor="middle" x="124" y="-106.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-97.5 156,-97.5 "/>
+<text text-anchor="middle" x="124" y="-80.7" font-family="Open Sans" font-size="16.00" fill="#000000">1</text>
+</g>
+<!-- String2 -->
+<g id="node3_kotZItWoGIdWbRGv" class="node">
+<title>String2</title>
+<polygon fill="#ff0000" stroke="#e84a27" points="92,-142.5 92,-194.5 156,-194.5 156,-142.5 92,-142.5"/>
+<text text-anchor="middle" x="124" y="-177.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-168.5 156,-168.5 "/>
+<text text-anchor="middle" x="124" y="-151.7" font-family="Open Sans" font-size="16.00" fill="#000000">2</text>
+</g>
+<!-- String3 -->
+<g id="node4_kotZItWoGIdWbRGv" class="node">
+<title>String3</title>
+<polygon fill="none" stroke="#e84a27" points="92,-213.5 92,-265.5 156,-265.5 156,-213.5 92,-213.5"/>
+<text text-anchor="middle" x="124" y="-248.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-239.5 156,-239.5 "/>
+<text text-anchor="middle" x="124" y="-222.7" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- save -->
+<g id="node5_kotZItWoGIdWbRGv" class="node">
+<title>save</title>
+<polygon fill="none" stroke="#e84a27" points="0,-8.5 0,-44.5 56,-44.5 56,-8.5 0,-8.5"/>
+<text text-anchor="middle" x="28" y="-22.7" font-family="Open Sans" font-size="16.00" fill="#000000">save</text>
+</g>
+<!-- save&#45;&gt;String -->
+<g id="edge1_kotZItWoGIdWbRGv" class="edge">
+<title>save-&gt;String</title>
+<path fill="none" stroke="#13294b" d="M56.0252,-26.5C64.0604,-26.5 73.0044,-26.5 81.6958,-26.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.7131,-30.0001 91.7131,-26.5 81.713,-23.0001 81.7131,-30.0001"/>
+</g>
+<!-- s -->
+<g id="node6_kotZItWoGIdWbRGv" class="node">
+<title>s</title>
+<polygon fill="none" stroke="#e84a27" points="1,-221.5 1,-257.5 55,-257.5 55,-221.5 1,-221.5"/>
+<text text-anchor="middle" x="28" y="-235.7" font-family="Open Sans" font-size="16.00" fill="#000000">s</text>
+</g>
+<!-- s&#45;&gt;String3 -->
+<g id="edge2_kotZItWoGIdWbRGv" class="edge">
+<title>s-&gt;String3</title>
+<path fill="none" stroke="#13294b" d="M55.253,-239.5C63.5498,-239.5 72.8706,-239.5 81.9078,-239.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.9208,-243.0001 91.9208,-239.5 81.9207,-236.0001 81.9208,-243.0001"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="kYPIHYzgsQZYzQsiBRpOBnQwzxswiPLl">
+<div class="header" data-title="Reference Counting Example"><h2>Reference Counting Example</h2></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">String save;
+for (long i = 0; ; i++) {
+  String s = new String(i);
+  if (i == 0) {
+    save = s;
+  }
+  // i == 3
+}</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="digraph small"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ --><!-- Title: G Pages: 1 --><svg width="100%" height="132pt" viewBox="0.00 0.00 164.00 132.00" xmlns="http://www.w3.org/2000/svg" class="spelling_exception" id="wbpvhjXkLousFkfe">
+<g id="graph0_wbpvhjXkLousFkfe" class="graph" transform="scale(1 1) rotate(0) translate(4 128)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-128 160,-128 160,4 -4,4"/>
+<!-- String -->
+<g id="node1_wbpvhjXkLousFkfe" class="node">
+<title>String</title>
+<polygon fill="none" stroke="#e84a27" points="92,-.5 92,-52.5 156,-52.5 156,-.5 92,-.5"/>
+<text text-anchor="middle" x="124" y="-35.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-26.5 156,-26.5 "/>
+<text text-anchor="middle" x="124" y="-9.7" font-family="Open Sans" font-size="16.00" fill="#000000">0</text>
+</g>
+<!-- String3 -->
+<g id="node2_wbpvhjXkLousFkfe" class="node">
+<title>String3</title>
+<polygon fill="none" stroke="#e84a27" points="92,-71.5 92,-123.5 156,-123.5 156,-71.5 92,-71.5"/>
+<text text-anchor="middle" x="124" y="-106.7" font-family="Open Sans" font-size="16.00" fill="#000000">String</text>
+<polyline fill="none" stroke="#e84a27" points="92,-97.5 156,-97.5 "/>
+<text text-anchor="middle" x="124" y="-80.7" font-family="Open Sans" font-size="16.00" fill="#000000">3</text>
+</g>
+<!-- save -->
+<g id="node3_wbpvhjXkLousFkfe" class="node">
+<title>save</title>
+<polygon fill="none" stroke="#e84a27" points="0,-8.5 0,-44.5 56,-44.5 56,-8.5 0,-8.5"/>
+<text text-anchor="middle" x="28" y="-22.7" font-family="Open Sans" font-size="16.00" fill="#000000">save</text>
+</g>
+<!-- save&#45;&gt;String -->
+<g id="edge1_wbpvhjXkLousFkfe" class="edge">
+<title>save-&gt;String</title>
+<path fill="none" stroke="#13294b" d="M56.0252,-26.5C64.0604,-26.5 73.0044,-26.5 81.6958,-26.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.7131,-30.0001 91.7131,-26.5 81.713,-23.0001 81.7131,-30.0001"/>
+</g>
+<!-- s -->
+<g id="node4_wbpvhjXkLousFkfe" class="node">
+<title>s</title>
+<polygon fill="none" stroke="#e84a27" points="1,-79.5 1,-115.5 55,-115.5 55,-79.5 1,-79.5"/>
+<text text-anchor="middle" x="28" y="-93.7" font-family="Open Sans" font-size="16.00" fill="#000000">s</text>
+</g>
+<!-- s&#45;&gt;String3 -->
+<g id="edge2_wbpvhjXkLousFkfe" class="edge">
+<title>s-&gt;String3</title>
+<path fill="none" stroke="#13294b" d="M55.253,-97.5C63.5498,-97.5 72.8706,-97.5 81.9078,-97.5"/>
+<polygon fill="#13294b" stroke="#13294b" points="81.9208,-101.0001 91.9208,-97.5 81.9207,-94.0001 81.9208,-101.0001"/>
+</g>
+</g>
+</svg>
+</div></div></div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="bsXbUlKaQeGfqKCdyACmnTqmWQHfuiqE">
+<div class="header" data-title="Questions About Object References?"><h2>Questions About Object References?</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This concept is critical once we start talking about data structures and
+algorithms next week.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nRANkNJSPjdGATReHMsdJtMowgfdvacN">
+<div class="header" data-title="Review: What Is An Interface?"><h2>Review: What Is An Interface?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Interface_(computing)" target="_blank" class="external">Interface:</a>
+a shared boundary across which two or more separate components of a computer
+system exchange information.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Interfaces can be between two pieces of software, between software and
+hardware, between computers and their users, or between various permutation of
+these components.</p>
+</li>
+<li class="bullet">
+<p>Interfaces enable different parts of a system to interact in a structured way.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="urfTHuaUJiLxdlIRadfUXiTfXyeBnveI">
+<div class="header" data-title="Java Interfaces"><h2>Java Interfaces</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Java interfaces look like <em>empty</em> objects: just method signatures with no
+implementation.</p>
+</li>
+<li class="bullet">
+<p>Interfaces can declare both <em>methods</em> and <em>variables</em>.</p>
+</li>
+<li class="bullet">
+<p>However, interfaces variables are <code>public static final</code> by default, meaning
+that they are only useful for declaring constants.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="unVKWfJBnPHKkzFZdbdIGmJoJBHCnMOc">
+<div class="header" data-title="Implementing Interfaces"><h2>Implementing Interfaces</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Interfaces don&#x2019;t do anything useful by themselves. Instead, they have to be
+implemented by specific classes.</p>
+</li>
+<li class="bullet">
+<p>To declare that a class implements an interface you use the <code>implements</code>
+keyword as shown above.</p>
+</li>
+<li class="bullet">
+<p>To implement an interface you must implement all of the methods that it
+declares.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler nozoom bespoke-inactive bespoke-slide" data-slideid="BdnXbduyfQHxbenhlWdAhSfPFdqJGKna">
+<div data-title=" Implementing Interfaces"></div>
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public class Adder { }
+public class Example {
+  public static void main(String[] unused) {
+    Add add = new Adder();
+    System.out.println(add.add(10, 12));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QeBikhKGCCQHedOcUpNgVegJocjqdrHd">
+<div class="header" data-title="Interface Casting"><h2>Interface Casting</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int multiply(int first, int second) {
+    return first * second;
+  }
+}
+Add add = new Adder();
+System.out.println(add.add(10, 20));
+// But this doesn&apos;t work because multiply is not part of the add interface
+System.out.println(add.multiply(10, 20));</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Similar to inheritance I can automatically cast an object reference to any
+interface that it implements.</p>
+</li>
+<li class="bullet">
+<p>However, if I do that I can no longer access methods that are not part of the
+interface.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="mVcBIAzpuSsnLeDGUdeJcEiHouyCvdWA">
+<div data-title=" Interface Casting"></div>
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public class Adder implements Add {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int multiply(int first, int second) {
+    return first * second;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Add add = new Adder();
+    System.out.println(add.add(10, 20));
+    // But this doesn&apos;t work because multiply is not part of the add interface
+    System.out.println(add.multiply(10, 20));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="AjPdceiZEPcnzdphcoCNberJfMTRQNle">
+<div class="header" data-title="Interfaces v. Inheritance"><h2>Interfaces v. Inheritance</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So far this seems very similar to inheritance and overloading.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The interface is like the parent class</p>
+</li>
+<li class="bullet">
+<p><code>implement</code> is like <code>extends</code></p>
+</li>
+<li class="bullet">
+<p>Providing your own implementation is like overriding a parent&#x2019;s method</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="rEXiyfgutbqfnnJnxneeVZDEdCdHnLqu">
+<div class="header" data-title="abstract Methods"><h2><code>abstract</code> Methods</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>It&#x2019;s actually even more similar than it seems.
+Remember <code>abstract</code> classes?
+<code>abstract</code> classes can also have <code>abstract</code> methods:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public abstract class Add {
+  public abtract int add(int first, int second);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="cgqGfQnuLznNbTnHhTcGnSPLtdtnLnNY">
+<div class="header" data-title="So Why Interfaces?"><h2>So Why Interfaces?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SIRVlqjiefQqAEiHiMgrnuxdiXzHkHKH">
+<div class="header" data-title="Added Flexibility"><h2>Added Flexibility</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://staff.fnwi.uva.nl/a.j.p.heck/Courses/JAVAcourse/ch3/lettertree.gif" alt="lettertree" width="240" class="mx-auto" style="display: block;">
+</div>
+</div>
+<div class="paragraph lead">
+<p>Sometimes we want to mix capabilities from different branches of the tree.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JehncmFFCYjfTcxTEnEdObdfAnKGGpeH">
+<div class="header" data-title="Multiple Inheritance"><h2>Multiple Inheritance</h2></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Add {
+  int add(int first, int second);
+}
+public interface Subtract {
+  int subtract(int first, int second);
+}
+public class Mathy implements Add, Subtract {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int subtract(int first, int second) {
+    return first - second;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unlike inheritance, classes can implement <em>multiple</em> interfaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini compiler smallest nozoom bespoke-inactive bespoke-slide" data-slideid="XPzikFARbfcneuJoHBxZfaMQEiddCkef">
+<div data-title=" Multiple Inheritance"></div>
+<textarea class="janini spelling_exception">public interface Add {
+  int add(int first, int second);
+}
+public interface Subtract {
+  int subtract(int first, int second);
+}
+public class Mathy implements Add, Subtract {
+  public int add(int first, int second) {
+    return first + second;
+  }
+  public int subtract(int first, int second) {
+    return first - second;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    Add adder = new Mathy();
+    System.out.println(adder.add(10, 20));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TgyvkReesVRJvuBmvfrivqzSsgxxivvd">
+<div class="header" data-title="Interface as Contract"><h2>Interface as Contract</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">/**
+ * Compares this object with the specified object for order.
+ *
+ * Returns a negative integer, zero, or a positive integer as this object is
+ * less than, equal to, or greater than the specified object.
+ */
+public interface Comparable {
+  int compareTo(Object other);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Interfaces represent a <em>contract</em> between the interface <em>provider</em> and the
+interface <em>user</em>.</p>
+</div>
+<div class="paragraph">
+<p>The interface represents all that the two components on either side need to
+agree on for things to work correctly.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sVdXyCWBTTprmCBMuEpRIDdytnfdFSVk">
+<div class="header" data-title="Interface as Contract"><h2>Interface as Contract</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Comparable {
+  int compareTo(Object other);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By implementing
+<a href="https://docs.oracle.com/javase/10/docs/api/java/lang/Comparable.html" target="_blank" class="external"><code>Comparable</code></a>
+you commit to being able to compare two instances of your class.</p>
+</div>
+<div class="paragraph">
+<p>Using this ability I can implement code that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><em>sorts</em> an array containing instances of your class</p>
+</li>
+<li class="bullet">
+<p>finds the <em>maximum</em> or <em>minimum</em> value of multiple instances of your class</p>
+</li>
+<li class="bullet">
+<p>arranges instances of your class into a <em>binary tree</em> <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;which we&amp;#x2019;ll learn more about soon&lt;/body&gt;&lt;/html&gt;">1</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="iktVwdkWdFSXEKZXMEdRNettxaVZflWn">
+<div class="header" data-title="Interface as Abstraction Barrier"><h2>Interface as Abstraction Barrier</h2></div>
+<div class="sectionbody">
+<div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public interface Comparable {
+  int compareTo(Object other);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Good interfaces also represent a <em>barrier</em> between two unrelated parts of a
+computer program or system.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If I <em>implement</em> <code>Comparable</code> I don&#x2019;t need to worry about how my
+implementation is <em>used</em>, but suddenly my class will have many new desirable
+features</p>
+</li>
+<li>
+<p>If I <em>use</em> <code>Comparable</code> I don&#x2019;t need to worry about how the interface is
+<em>implemented</em> but I know that I can correctly compare two objects</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="hAIYbXvZIbCeHuFcdefAdTFdKMeLZzcV">
+<div data-title=" Comparable Example"></div>
+<textarea class="janini spelling_exception">public interface Comparable {
+  int compareTo(Object other);
+}
+public class Value {
+}
+public class Example {
+  public static void main(String[] unused) {
+    Value[] values = new Value[] { new Value(10), new Value(12), new Value(13) };
+    System.out.println(maximum(values));
+  }
+  public static Object maximum(Comparable[] values) {
+    return null;
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IPwtwBceSNaXMCFlJnBIxcmlZUHcfPkw">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>MP4 is out and due in <em>less than 2 weeks</em>.
+It&#x2019;s our first Android MP and we&#x2019;ll do Android setup in lab this week.</p>
+</li>
+<li>
+<p>I have office hours today from 10AM&#x2013;12PM.
+<strong>If you need to do an instructor interview please come by at 11AM if
+possible.</strong>
+I&#x2019;m tired of talking about myself and am not going to grant any more of these.</p>
+</li>
+<li>
+<p>Please provide feedback on the course using our
+<a href="/info/feedback/">anonymous feedback form</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

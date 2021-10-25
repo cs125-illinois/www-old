@@ -1,0 +1,701 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP2: ConnectN</title>
+		<meta name="description" lang="en-us" content="MP2 provides you with practice in Java class design and working with objects. And you get to implement a fun game along the way.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/2/" class="active" onclick="return false;">MP2<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/spring/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/spring/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/git/">Git</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/EWS/">EWS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#getting">2.1. Obtaining MP2</a></li>
+              <li><a class="nav-link" href="#requirements">2.2. Your Goal</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#approach">3. Approaching MP2</a>
+            <ul>
+              <li><a class="nav-link" href="#_read_the_fine_manual">3.1. Read the Fine Manual</a></li>
+              <li><a class="nav-link" href="#_getters_and_setters">3.2. Getters and Setters</a></li>
+              <li><a class="nav-link" href="#_game_logic">3.3. Game Logic</a></li>
+              <li><a class="nav-link" href="#_getting_help">3.4. Getting Help</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#android">4. More About Android</a>
+            <ul>
+              <li><a class="nav-link" href="#activitys">4.1. Multiple Activities (or Screens)</a></li>
+              <li><a class="nav-link" href="#dynamiclayout">4.2. Dynamic Layout</a></li>
+              <li><a class="nav-link" href="#uielements">4.3. UI Element Properties</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">5. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#testing">5.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#autograding">5.2. Autograding</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">6. Submitting Your Work</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#cheating">7. Academic Integrity</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP2: ConnectN</h1>
+      <div class="paragraph lead">
+<p>Maybe you play them, maybe you don&#x2019;t, maybe you carry your gaming desktop with
+you at all times&#x2014;but regardless of how you feel about it, a fair number of
+people use computers to play games.
+Some of those games can be instructive, some can be fun.
+But an MP where you get to build a fun game is both fun <em>and</em> instructive!
+For MP2 you&#x2019;ll be learning Java class design and object-oriented programming as
+you complete a simple Connect-4-like game.
+You&#x2019;ll also have a chance to continue sharpening your Android development
+skills.</p>
+</div>
+<div class="paragraph">
+<p><strong>MP2 is due Monday 3/4/2019 @ 5PM.
+To receive full credit, you must submit by this deadline.</strong>
+In addition, 10% of your grade on MP2 is for submitting code that earns at least
+<em>50 points</em> by <strong>Monday 2/25/2019 @ 5PM.</strong>
+Note that, unlike <a href="/MP/2019/spring/1/">MP1</a>, you have to do a bit more work on MP2 to get
+to 50 points.</p>
+</div>
+<div class="paragraph">
+<p>As usual, late submissions will be subject to the
+<a href="/info/2019/spring/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of MP2 is to begin introducing you to object-oriented programming.
+MP2 does not explore more advanced topics like inheritance, interfaces, or
+polymorphism.
+It sticks to the basics: instance and class variables, getters and setters,
+constructors, and instance and class methods.
+You&#x2019;ll begin to learn how to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>design a class that meets a given specification</p>
+</li>
+<li>
+<p>implement that class including both properly-protected variables and
+appropriate methods</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also introduce you some new parts of this simple Android
+app&#x2014;including multiple activities, dynamic layouts, and modifying UI
+element visibility.</p>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also continue to reinforce the learning objectives from
+<a href="/MP/2019/spring/0/">MP0</a>,
+and <a href="/MP/2019/spring/1/">MP1</a>: imperative programming, working with 2D arrays
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Although this is much, much simpler on MP2&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">1</span>, and Android app
+development and testing.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like <a href="/MP/2019/spring/0/">MP0</a> and <a href="/MP/2019/spring/1/">MP1</a>, MP2 is a single Android app with its
+source code divided into two pieces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/lib/</code>: a library that manages the ConnectN game state.
+60 / 100 points on the MP are for completing the library, which requires that
+you complete the implementation of the <code>ConnectN</code> class in <code>ConnectN.java</code>.</p>
+</li>
+<li>
+<p><code>/app/</code>: an Android app for you to use for your own interactive testing.
+The Android app is <em>almost</em> complete, but needs a few modifications from you.
+20 / 100 points on the MP are for completing the app, which requires that you
+understand the code that we have provided and make minor changes.
+And, to work correctly, you need to finish the library in <code>lib</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Your primary job is to complete the game logic in <code>ConnectN.java</code>.
+Like <a href="/MP/2019/spring/1/">MP1</a>, this file doesn&#x2019;t even exist yet.
+You&#x2019;ll have to create it, and then declare, complete, and document the required
+functions as listed in the
+<a href="https://cs125-illinois.github.io/Spring2019-MP2-Solution/" target="_blank" class="external">official online documentation</a>.
+These make use of a player class defined in <code>Player.java</code>.
+These functions are called by the app and, once you complete them, your app will
+be almost completely functional&#x2014;and we&#x2019;ll be happy to help you with the
+rest.</p>
+</div>
+<div class="paragraph">
+<p>As always, you may find our official
+<a href="https://cs125-illinois.github.io/Spring2019-MP2-Solution/" target="_blank" class="external">MP2 online documentation</a>
+helpful in understanding what each function and class is supposed to do.</p>
+</div>
+<div class="paragraph">
+<p>The MP2 app is a bit more complicated than the MP1 app <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;which was a bit more complicated than the MP0 app&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">2</span>.
+It has <em>two</em> activities: <code>SetupActivity.java</code> and <code>GameActivity.java</code>, each
+corresponding to one screen of the app.
+Unlike the previous apps, this app has two different screens: one to set up the
+game and a second to render it as it is being played.
+<code>GameActivity.java</code> also includes code that creates a <em>custom game layout</em>,
+allowing the game board to be sized according to parameters entered by the user.</p>
+</div>
+<div class="paragraph">
+<p>As usual you don&#x2019;t need to fully understand either file yet,
+but you do need to explore and experiment with them to finish the app and earn
+full credit.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="getting"></a><h3>2.1. Obtaining MP2</h3>
+<div class="paragraph">
+<p>Use
+<a href="https://classroom.github.com/a/mWtc5Evb" target="_blank" class="external">this GitHub Classroom invitation link</a>
+to fork your copy of MP2.
+Once your repository has been created, import it into Android Studio following
+<a href="/MP/2019/spring/setup/git/#workflow">our assignment Git workflow guide</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="requirements"></a><h3>2.2. Your Goal</h3>
+<div class="paragraph">
+<p>At this point you should be familiar with the requirements from previous MPs.
+See the <a href="#grading">grading description below</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="approach"></a><h2>3. Approaching MP2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While the concepts are new, MP2 is not a lot of code to write, and you have two
+weeks.
+But here are the bits that are likely to trip you up.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_read_the_fine_manual"></a><h3>3.1. Read the Fine Manual</h3>
+<div class="paragraph">
+<p>To complete MP2 you <em>must</em> understand the
+<a href="https://cs125-illinois.github.io/Spring2019-MP2-Solution/" target="_blank" class="external">specification</a>.
+That&#x2019;s your starting point, and your returning point when you get confused.</p>
+</div>
+<div class="paragraph">
+<p>Writing code to a specification is an important skill to learn.
+In many software companies, designing code and implementing it are not always
+done by the same group.
+A project manager or program manager may write a specification, which is
+provided to developers to implement.
+Or a team of developers may come up with a specification, and then divide up the
+implementation work between them.</p>
+</div>
+<div class="paragraph">
+<p>Regardless of where it comes from, writing code in groups almost always requires
+a specification to be successful&#x2014;unlike when you do independent projects
+and can make up things as you go.
+A lot of the design work and high-level decisions end up going in to the
+specification, so by the time the implementation begins the hard and interesting
+choices have been made.
+That&#x2019;s not to say it still isn&#x2019;t fun at that point&#x2014;even developing to a
+spec provides huge opportunities for simultaneous creativity and correctness in
+that unique programming way.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getters_and_setters"></a><h3>3.2. Getters and Setters</h3>
+<div class="paragraph">
+<p>MP2 requires you to implement some simple getters and setters (just return or
+change the variable), and some ones with more complicated behavior.
+Be sure to read the documentation carefully.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_game_logic"></a><h3>3.3. Game Logic</h3>
+<div class="paragraph">
+<p>You will need to do a bit of work to implement the game board.
+ConnectN is a Connect-4-like game.
+Tiles fall in the top (large Y values) and sit at the bottom.
+We&#x2019;re in the proper first quadrant of 2D space, with X values going left
+to right and Y values going down to up:</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(2, 2)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 1)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 1)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(2, 1)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 0)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 0)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(2, 0)</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>A ConnectN game ends when either player plays N consecutive tiles in either a
+single row or column <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;There: I said row and column.&lt;/body&gt;&lt;/html&gt;">3</span>.
+Tiles always have to be played at the lowest possible location in each
+column&#x2014;in a real Connect-4 board they fall downward and rest on the tiles
+below them.
+Consult the <a href="https://en.wikipedia.org/wiki/Connect_Four" target="_blank" class="external">Wikipedia</a> page for more
+details.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_help"></a><h3>3.4. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/2019/spring/syllabus/#calendar">office hours</a>, or post on the
+<a href="https://cs125-forum.cs.illinois.edu/c/spring2019-mp2" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="android"></a><h2>4. More About Android</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>MP2 continues introducing new Android ideas.
+You&#x2019;ll still have to poke around a bit to finish your app, although at this
+point you should be comfortable doing that from previous MPs.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="activitys"></a><h3>4.1. Multiple Activities (or Screens)</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/fObxlqDO57c%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Until this point all of our MP apps have only had a single activity (or screen).
+In <a href="/MP/2019/spring/0/">MP0</a> that single screen showed location data.
+In <a href="/MP/2019/spring/1/">MP1</a> that single screen showed your transformed image and
+background.</p>
+</div>
+<div class="paragraph">
+<p>But a typical app has multiple screens which a user can navigate to, each
+displaying different information.
+For example, a chat app might have a contacts screen and a settings menu along
+with the main chat display.
+An email app might have a screen for navigating between different folders or
+labels, a settings screen, and the main inbox or folder screen.</p>
+</div>
+<div class="paragraph">
+<p>In Android each screen is typically represented by a separate <code>Activity</code>, each
+in its own class.
+In the screencast above we walk through how activities are launched, can launch
+other activities, and can pass information to launched activities using
+<code>Intent</code>s.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="dynamiclayout"></a><h3>4.2. Dynamic Layout</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/nxO7jfzgdng%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Our previous MP apps also had a single static layout per activity, which we
+created using Android Studio&#x2019;s UI designer.
+This is fairly normal for many apps when core components of the layout don&#x2019;t
+change.
+You set up a layout using the designer and then populate each field with
+appropriate content depending on the data available to the app.</p>
+</div>
+<div class="paragraph">
+<p>MP2, however, has different requirements, because configuring the game
+differently can and should produce different board views.
+To accomplish this we create a layout <em>programmatically</em>&#x2014;using code in our
+app&#x2014;rather than statically.
+The screencast above walks you through how this is done.
+If you are considering creating a game for your final project you may be curious
+in exploring this further, since many games need various kinds of dynamic
+layouts.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="uielements"></a><h3>4.3. UI Element Properties</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/xaCXieAnWNU%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>Finally, a common way to interact with the user is to modify the properties of
+existing UI elements.
+You might create a text view using the layout designer when you are creating
+your app, but then have the text shown in the view be determined and modified
+when the app runs.
+Alternatively, apps can modify the visibility of UI elements to react to changes
+in the app state&#x2014;for example, to display or hide a warning message
+appropriately.</p>
+</div>
+<div class="paragraph">
+<p>The screencast above uses an example from the MP2 configuration activity to show
+how this is done.
+You&#x2019;ll need to do something similar in the board activity to earn full credit on
+MP2.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>5. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP2 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>60 points</strong>: <code>ConnectN.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>15 points total</strong> for completing the width, height, and N value getters and
+setters</p>
+</li>
+<li>
+<p><strong>10 points</strong> for completing the constructors</p>
+</li>
+<li>
+<p><strong>15 points</strong> for completing the get and set board functions</p>
+</li>
+<li>
+<p><strong>10 points</strong> for determining the game winner properly</p>
+</li>
+<li>
+<p><strong>10 points</strong> for class static methods, including equality checks and factory
+creation methods</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>20 points</strong>: <code>SetupActivity.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for properly making the game tiles clickable</p>
+</li>
+<li>
+<p><strong>10 points</strong> for adjusting the UI properly on each turn and when the game
+ends</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least 50 points before <strong>Monday
+2/25/2019 @ 5PM.</strong></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="testing"></a><h3>5.1. Test Cases</h3>
+<div class="paragraph">
+<p>As in previous MPs, we have provided exhaustive test cases
+for each part of MP2.
+Please review the <a href="/MP/2019/spring/0/#testing">MP0 testing instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>5.2. Autograding</h3>
+<div class="paragraph">
+<p>Like <a href="/MP/2019/spring/0">MP0</a> and <a href="/MP/2019/spring/1/">MP1</a>, we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+Please review the <a href="/MP/2019/spring/0#autograding">MP0 autograding instructions</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>6. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/2019/spring/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/2019/spring/setup/git#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+<div class="paragraph">
+<p>And remember, you must submit something that earns 50 points before <strong>Monday
+2/25/2019 @ 5PM</strong> to earn 10 points on the assignment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="cheating"></a><h2>7. Academic Integrity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Please review the <a href="/MP/2019/spring/0#cheating">MP0 academic integrity guidelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s how <em>we&#x2019;ll</em> feel if we catch you cheating in CS 125:</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/1-BfDBTFLSc%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/spring/2.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/spring/2.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

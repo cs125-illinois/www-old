@@ -1,0 +1,610 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP3: ConnectN</title>
+		<meta name="description" lang="en-us" content="MP3 provides you with practice in Java class design and working with objects. And you get to implement a fun game along the way.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Fall 2018</strong>
+            </li>
+            <li>
+              <a href="/MP/2018/fall/6/">MP6</a>
+            </li>
+            <li>
+              <a href="/MP/2018/fall/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2018/fall/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2018/fall/3/" class="active" onclick="return false;">MP3<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2018/fall/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2018/fall/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2018/fall/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2018/fall/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2018/fall/setup/git/">Git</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/fall/setup/intellij/">IntelliJ</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/fall/setup/java/">Java</a>
+                </li>
+                <li>
+                  <a href="/MP/2018/fall/setup/android-studio/">Android Studio</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#getting">2.1. Obtaining MP3</a></li>
+              <li><a class="nav-link" href="#requirements">2.2. Your Goal</a></li>
+              <li><a class="nav-link" href="#running">2.3. Running MP3</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#approach">3. Approaching MP3</a>
+            <ul>
+              <li><a class="nav-link" href="#_read_the_fine_manual">3.1. Read the Fine Manual</a></li>
+              <li><a class="nav-link" href="#_getters_and_setters">3.2. Getters and Setters</a></li>
+              <li><a class="nav-link" href="#_game_logic">3.3. Game Logic</a></li>
+              <li><a class="nav-link" href="#_class_variables_and_methods">3.4. Class Variables and Methods</a></li>
+              <li><a class="nav-link" href="#_equality">3.5. Equality</a></li>
+              <li><a class="nav-link" href="#_getting_help">3.6. Getting Help</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">4. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#testing">4.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#autograding">4.2. Autograding</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#submitting">5. Submitting Your Work</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#cheating">6. Academic Integrity</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+
+      <a class="anchor" id="top"></a>
+        <h1>MP3: ConnectN</h1>
+      <div class="paragraph lead">
+<p>Maybe you play them, maybe you don&#x2019;t, maybe you carry your gaming desktop with
+you at all times&#x2014;but regardless of how you feel about it, a fair number of
+people use computers to play games.
+Some of those games can be instructive, some can be fun.
+But an MP where you get to build a fun game is both fun <em>and</em> instructive!
+For MP3 you&#x2019;ll be learning Java class design and object-oriented programming as
+you complete a simple Connect-4-like game.</p>
+</div>
+<div class="paragraph">
+<p><strong>MP3 is our first two (plus) week MP and due Monday 10/15/2018 @ 5PM.
+To receive full credit, you must submit by this deadline.</strong>
+In addition, 10% of your grade on MP3 is for submitting code that earns at least
+<em>40 points</em> by <strong>Monday 10/8/2018 @ 5PM.</strong>
+Note that, unlike <a href="/MP/2018/fall/2">MP2</a>, you have to do a bit more work on MP3 to get
+to 40 points&#x2014;but the early deadline is also later to accommodate that.</p>
+</div>
+<div class="paragraph">
+<p>As usual, late submissions will be subject to the
+<a href="/info/2018/fall/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of MP3 is to begin introducing you to object-oriented programming.
+MP3 does not explore more advanced topics like inheritance, interfaces, or
+polymorphism.
+It sticks to the basics: instance and class variables, getters and setters,
+constructors, and instance and class methods.
+You&#x2019;ll begin to learn how to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>design a class that meets a given specification</p>
+</li>
+<li>
+<p>implement that class including both properly-protected variables and
+appropriate methods</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We&#x2019;ll also continue to reinforce the learning objectives from <a href="/MP/2018/fall/0/">MP0</a>,
+<a href="/MP/2018/fall/1/">MP1</a>, and <a href="/MP/2018/fall/2/">MP2</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP3 consists of a simple client-server system.
+The HTML, CSS, and JavaScript for the client are provided for you.
+But it relies on your backend to work properly.</p>
+</div>
+<div class="paragraph">
+<p>Your job is to create and complete <code>ConnectN.java</code>.
+These functions are called by the web server that is set up using <code>WebServer.java</code>.</p>
+</div>
+<div class="paragraph">
+<p>MP3 provides a bit less scaffolding than previous MPs.
+This is intentional.
+Eventually you&#x2019;ll need to write code from scratch, and frequently you&#x2019;ll need to
+follow a specification written by other developers or a project manager.</p>
+</div>
+<div class="paragraph">
+<p>For MP3, the official specification is our
+<a href="https://cs125-illinois.github.io/Fall-2018-MP3-Starter/package-summary.html" target="_blank" class="external">MP3 online documentation</a>.
+It should precisely define what each public method in <code>ConnectN.java</code> should do.
+If you believe that the documentation is unclear, please post on
+the <a href="https://cs125-forum.cs.illinois.edu/c/mps/fall2018-mp3" class="noexternal">forum</a> and we&#x2019;ll offer a clarification if needed.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="getting"></a><h3>2.1. Obtaining MP3</h3>
+<div class="paragraph">
+<p>Use
+<a href="https://classroom.github.com/a/yGCBqHKd" target="_blank" class="external">this GitHub Classroom invitation link</a>
+to fork your copy of MP3.
+Once your repository has been created, import it into IntelliJ following
+<a href="/MP/2018/fall/setup/git/#workflow">our assignment Git workflow guide</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="requirements"></a><h3>2.2. Your Goal</h3>
+<div class="paragraph">
+<p>At this point you should be familiar with the requirements from previous MPs.
+See the <a href="#grading">grading description below</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="running"></a><h3>2.3. Running MP3</h3>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/rZ306uoFhlk%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>To experiment with the web interface, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run <code>WebServer.java</code> as a Java application.
+You&#x2019;ll need to at least create <code>ConnectN.java</code> and get a few things working
+before the web server will run at all.</p>
+</li>
+<li>
+<p>Open your web browser and navigate to <a href="http://localhost:8126" target="_blank" class="external"><code>http://localhost:8126</code></a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>At first, nothing will work because you have not implemented any of the required
+game transformation functions yet.</p>
+</div>
+<div class="paragraph">
+<p>As far as browser support, we have confirmed that
+<a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank" class="external">Chrome</a>
+works.
+Other browsers may or may not&#x2014;but Chrome definitely does.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="approach"></a><h2>3. Approaching MP3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While the concepts are new, MP3 is not a lot of code to write, and you have two
+weeks.
+But here are the bits that are likely to trip you up.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_read_the_fine_manual"></a><h3>3.1. Read the Fine Manual</h3>
+<div class="paragraph">
+<p>To complete MP3 you <em>must</em> understand the
+<a href="https://cs125-illinois.github.io/Fall-2018-MP3-Starter/" target="_blank" class="external">specification</a>.
+That&#x2019;s your starting point, and your returning point when you get confused.</p>
+</div>
+<div class="paragraph">
+<p>Writing code to a specification is an important skill to learn.
+In many software companies, designing code and implementing it are not always
+done by the same group.
+A project manager or program manager may write a specification, which is
+provided to developers to implement.
+Or a team of developers may come up with a specification, and then divide up the
+implementation work between them.</p>
+</div>
+<div class="paragraph">
+<p>Regardless of where it comes from, writing code in groups almost always requires
+a specification to be successful&#x2014;unlike when you do independent projects
+and can make up things as you go.
+A lot of the design work and high-level decisions end up going in to the
+specification, so by the time the implementation begins the hard and interesting
+choices have been made.
+That&#x2019;s not to say it still isn&#x2019;t fun at that point&#x2014;even developing to a
+spec provides huge opportunities for simultaneous creativity and correctness in
+that unique programming way.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getters_and_setters"></a><h3>3.2. Getters and Setters</h3>
+<div class="paragraph">
+<p>MP3 requires you to implement some simple getters and setters (just return or
+change the variable), and some ones with more complicated behavior.
+Be sure to read the documentation carefully.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_game_logic"></a><h3>3.3. Game Logic</h3>
+<div class="paragraph">
+<p>You will need to do a bit of work to implement the game board.
+ConnectN is a Connect-4-like game.
+Tiles fall in the top (large Y values) and sit at the bottom.
+We&#x2019;re in the proper first quadrant of 2D space, with X values going left
+to right and Y values going down to up:</p>
+</div>
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table-bordered notdatatables">
+
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(2, 2)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 1)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 1)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(2, 1)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(0, 0)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(1, 0)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(2, 0)</code></p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="paragraph">
+<p>A ConnectN game ends when either player plays N consecutive tiles in either a
+single row or column <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;There: I said row and column.&lt;/body&gt;&lt;/html&gt;">1</span>.
+Tiles always have to be played at the lowest possible location in each
+column&#x2014;in a real Connect-4 board they fall downward and rest on the tiles
+below them.
+Consult the <a href="https://en.wikipedia.org/wiki/Connect_Four" target="_blank" class="external">Wikipedia</a> page for more
+details.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_class_variables_and_methods"></a><h3>3.4. Class Variables and Methods</h3>
+<div class="paragraph">
+<p>Classes can define methods and variables that are not attached to instances.
+See <code>Player.java</code> for an example of a class variable used to provide each
+instance with a unique ID.
+You&#x2019;ll need to implement some of these for <code>ConnectN.java</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_equality"></a><h3>3.5. Equality</h3>
+<div class="paragraph">
+<p>Be careful about varying definitions of equality.
+You&#x2019;ll need to implement <code>ConnectN.equals</code>, but its definition of equality is
+quite strict.
+On the other hand, the class comparison methods use a different definition of
+equality.
+Passing all of the tests requires distinguishing between the two and
+implementing each correctly.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_help"></a><h3>3.6. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/2018/fall/syllabus/#calendar">office hours</a>, or post on the
+<a href="https://cs125-forum.cs.illinois.edu/c/mps/fall2018-mp3" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>4. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP3 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>80 points</strong>: <code>ConnectN.java</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>15 points total</strong> for completing the width, height, and N value getters and
+setters</p>
+</li>
+<li>
+<p><strong>10 points</strong> for completing the constructors</p>
+</li>
+<li>
+<p><strong>15 points</strong> for completing the get and set board functions</p>
+</li>
+<li>
+<p><strong>10 points</strong> for determining the game winner properly</p>
+</li>
+<li>
+<p><strong>10 points</strong> for calculating equality correctly</p>
+</li>
+<li>
+<p><strong>10 points</strong> for class static methods, including equality checks and factory
+creation methods</p>
+</li>
+<li>
+<p><strong>10 points</strong> for maintaining the game count and ID properly</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least 40 points before <strong>Monday
+10/8/2018 @ 5PM.</strong></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="testing"></a><h3>4.1. Test Cases</h3>
+<div class="paragraph">
+<p>As in previous MPs, we have provided exhaustive test cases
+for each part of MP3.
+Please review the <a href="/MP/2018/fall/0/#testing">MP0 testing instructions</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>4.2. Autograding</h3>
+<div class="paragraph">
+<p>Like <a href="/MP/2018/fall/0">MP0</a> and <a href="/MP/2018/fall/1/">MP1</a>, we have provided you with an
+autograding script that you can use to estimate your current grade as often as
+you want.
+Please review the <a href="/MP/2018/fall/0#autograding">MP0 autograding instructions</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="submitting"></a><h2>5. Submitting Your Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/2018/fall/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/2018/fall/setup/git#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+<div class="paragraph">
+<p>And remember, you must submit something that earns 40 points before <strong>Monday
+10/15/2018 @ 5PM</strong> to earn 10 points on the assignment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="cheating"></a><h2>6. Academic Integrity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Please review the <a href="/MP/2018/fall/0#cheating">MP0 academic integrity guidelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#x2019;s how <em>we&#x2019;ll</em> feel if we catch you cheating in CS 125:</p>
+</div>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/1-BfDBTFLSc%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2018/fall/3.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2018/fall/3.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

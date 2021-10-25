@@ -1,0 +1,466 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Introduction to Android</title>
+  <meta name="description" lang="en-us" content="An introduction to Android, hacking, and MP6.">
+
+  <meta name="slider-id" content="1a0f9881-10e2-4755-9708-00ad8bc2b925">
+  <meta name="slider-semester" content="Spring2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="nOptlHpDiVEoKvgYkAIxbOrAxuKGgAcK">
+
+<textarea class="janini spelling_exception">static String tooSimple() {
+  return &quot;Most programming is not like this!&quot;;
+}
+System.out.println(tooSimple());</textarea><!-- beautify ignore:start --><div class="output" data-blank="Hacking Android&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Hacking Android<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="uxwvJxVFpFmmSAsSbJnLONkqKraEiXtP">
+<div class="header" data-title="MP6 Review"><h2>MP6 Review</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#x2019;re going to do a few exercises in class today using <a href="/MP/2018/spring/6/">MP6</a>.</p>
+</div>
+<div class="paragraph">
+<p>So if you haven&#x2019;t already, please accept our
+<a href="https://classroom.github.com/a/qJ5dPKlE" target="_blank" class="external">GitHub Classroom link</a>
+and have the code up either in Android Studio (best) or on GitHub.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ErraAvjBDaogJiRLOnOILsiiCexXpLmq">
+<div class="header" data-title="Warm-Up Exercise"><h2>Warm-Up Exercise</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Implement a sorting algorithm of your choice&#x2026;&#x200B;</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="XchWguyNyUYpQVpaxbiUgcQSTRIQQAHX">
+<div data-title=" Warm-Up Exercise"></div>
+<textarea class="janini spelling_exception">import java.util.Arrays;
+
+static void sort(int[] array) {
+  return;
+}
+int[] testArray = new int[] { 5, 8, 1, 4, 7, 6, 4, 2 };
+sort(testArray);
+System.out.println(Arrays.toString(testArray));</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LjbQytaoKUvbNlGPnxHZKibfiiWDQavy">
+<div class="header" data-title="Your Algorithm"><h2>Your Algorithm</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>What did you implement?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>What are its best and worst case runtime?</p>
+</li>
+<li class="bullet">
+<p>What are its best and worst case inputs?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="pcQtsWcDcWkfEbhBAxdzUtIuGaLpPQff">
+<div class="header" data-title="&#x2026;&#x200B; But Most Programming Is Not Like This"><h2>&#x2026;&#x200B; But Most Programming Is Not Like This</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(It would be kind of fun if it was, but also a bit sad.)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="NFJaVxKBmueaytbPIBhWLvgELHNmyXcX">
+<div class="header" data-title="Course v. Real Programming"><h2>Course v. Real Programming</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="table-responsive-sm"><table class="tableblock frame-all grid-all stretch table small notdatatables">
+
+<thead>
+<tr>
+<th class="tableblock valign-middle text-center">&#xA0;</th>
+<th class="tableblock valign-middle text-center">Course</th>
+<th class="tableblock valign-middle text-center">Real</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>You start with&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">A small amount of great code</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">A large amount of complex and confusing code</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>Most of your time is spent&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Programming</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Understanding the system</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>You solve problems&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Yourself!</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">By finding existing solutions</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>You end up building&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Something small</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Something really cool</span></p></td>
+</tr>
+<tr>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><strong>We call this&#x2026;&#x200B;</strong></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet">Doing the MP</span></p></td>
+<td class="tableblock valign-middle text-center"><p class="tableblock"><span class="bullet"><strong>Hacking</strong></span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="TjhJwgWbrJcriRUSANLhtIbsdlpdZXvr">
+<div class="header" data-title="Android Hacking"><h2>Android Hacking</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Starting today you&#x2019;ll be hacking on Android.
+<a href="/MP/2018/spring/6/">MP6</a> also introduces you to the <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" class="external">Microsoft Cognitive Services API</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="mjrDpswDUcYiVOZPIVAtZWxLcyBIFfca">
+<div class="header" data-title="Why Android?"><h2>Why Android?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="KxTkAtdQMgISTgLLFyCgkBxjtXJgfGoY">
+<div class="header" data-title="How About 2 Billion Reasons&#x2026;&#x200B;"><h2>How About 2 Billion Reasons&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" alt="The Earth seen from Apollo 17" width="400" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aFcyZkUYDIFOALnwJusNwwtLcbGkuHtV">
+<div class="header" data-title="Android Overview"><h2>Android Overview</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>iOS may be flashier, but Android is <em>the</em> dominant smartphone platform on Earth
+today&#x2014;particularly outside the US.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><em>2 billion</em> active monthly users (v. 700 million for iOS)</p>
+</li>
+<li class="bullet">
+<p>24,000 different <em>devices</em>, both phones and tablets, as of 2015 (!)</p>
+</li>
+<li class="bullet">
+<p>2.8 million available apps (v. 2.2 million for iOS)</p>
+</li>
+<li class="bullet">
+<p>Programmed in Java, as well as other newer options like
+<a href="https://developer.android.com/kotlin/index.html" target="_blank" class="external">Kotlin</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="EIAAjzMIieHdlyOYnGvoxeRqPdRyflPs">
+<div class="header" data-title="Don&#x2019;t Worry: You&#x2019;re Ready!"><h2>Don&#x2019;t Worry: You&#x2019;re Ready!</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We chose Android because it&#x2019;s the most fun and highest impact thing you can hack
+on as a Java programmer.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PzgRiPqKcKeKRHFSwdgEMEfyLqOASELs">
+<div class="header" data-title="How To Hack"><h2>How To Hack</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="/MP/2018/spring/6/">MP6</a> forces you to confront new and unfamiliar code
+and concepts.
+To do that well:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Look around</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Experiment</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Iterate</strong></p>
+</li>
+<li class="bullet">
+<p><strong>Imitate</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="QPoDjQnftjyLMKtQhUpDIDWDTaJGXWrH">
+<div class="header" data-title="Look Around"><h2>Look Around</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Develop loose theories about what various parts of the the code that you are
+working with do.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>But don&#x2019;t try to understand everything in detail until you need to</p>
+</li>
+<li class="bullet">
+<p>Some parts you will need to understand&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p>others parts you never will!</p>
+</li>
+<li class="bullet">
+<p>When you write code for others, keep this in mind when naming functions and
+providing documentation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="taDtNXpFHStBloniQbxUHxVnVIzkaIMu">
+<div class="header" data-title="Experiment"><h2>Experiment</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Try things!</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Hacking requires a <em>highly experimental</em> mindset</p>
+</li>
+<li class="bullet">
+<p>Consider yourself a scientist performing experiments on an alien piece of
+code: poke it in various ways, and see what happens</p>
+</li>
+<li class="bullet">
+<p>But do good experiments: formulate hypotheses and only test one thing at a
+time</p>
+</li>
+<li class="bullet">
+<p>Nothing you do will launch any missiles!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="DtwXqHZSRRpzfvsArldgPjVvhBEXGQHt">
+<div class="header" data-title="Iterate"><h2>Iterate</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Making progress experimentally requires being able to iterate&#x2014;try things
+again and again quickly</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Change one small thing, run your app, collect some data, try again</p>
+</li>
+<li class="bullet">
+<p>The faster you can keep this loop, the better</p>
+</li>
+<li class="bullet">
+<p>Sometimes spending even medium amounts of time on just improving your
+development cycle can really pay off in the long run</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OayIFnbWjvFlDguTtQtNAxkindjRLgxT">
+<div class="header" data-title="Imitate (But Don&#x2019;t Copy)"><h2>Imitate (But Don&#x2019;t Copy)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Find snippets of code either in your project or elsewhere that seem useful and
+understand and use them</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If you can find ones that already exist in your project, that&#x2019;s sometimes best
+since it matches the existing style and idioms</p>
+</li>
+<li class="bullet">
+<p>If you find ones online, <em>don&#x2019;t blindly copy them</em>&#x2026;&#x200B; you don&#x2019;t learn that way</p>
+</li>
+<li class="bullet">
+<p>Instead, <em>reproduce</em> them in a way that&#x2019;s appropriate to your goals and
+project</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="JUvuTBNsAWbitXeuEEukztpcyPPOFwzZ">
+<div class="header" data-title="Questions About Android or MP6?"><h2>Questions About Android or <a href="/MP/2018/spring/6/">MP6</a>?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PkalNfXOdwjTsNhEkMMFDspxaxklrYPD">
+<div class="header" data-title="CBTF Programming"><h2>CBTF Programming</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>As a reminder, we&#x2019;ve posted
+<a href="https://goo.gl/69ZyLz" target="_blank" class="external">a PrairieLearn &quot;homework&quot; assignment</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#x2019;ll be moving quiz questions there each week</p>
+</li>
+<li>
+<p>It&#x2019;s not worth any credit&#x2026;&#x200B;</p>
+</li>
+<li>
+<p>But you <em>should</em> use it to practice for the kinds of programming questions you
+should expect to see on the exam</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sEPWELUiMDzUHbhoitfODkKKNYbkLMYK">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>(Obviously) <a href="/MP/2018/spring/6/">MP6</a> is out, due a week from today on Friday. 40 point
+early deadline next Wednesday.</p>
+</li>
+<li>
+<p>Get your Android environment set up! Come to office hours if you need help.</p>
+</li>
+<li>
+<p>We&#x2019;ve added an
+<a href="https://cs125.cs.illinois.edu/info/feedback/" target="_blank" class="external">anonymous feedback form</a>
+to the course website. Use it to give us feedback!</p>
+</li>
+<li>
+<p>My office hours continue today at 11AM in the lounge outside of Siebel 0226.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

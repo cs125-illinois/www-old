@@ -1,0 +1,934 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Generics</title>
+  <meta name="description" lang="en-us" content="Wrap up of hashing and a discussion of how to program with Java generics.">
+
+  <meta name="slider-id" content="a2d65667-048b-4c44-8e82-22f1eeffbcd3">
+  <meta name="slider-semester" content="Fall2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini jdk compiler smaller nozoom bespoke-active bespoke-slide" data-slideid="dCpHsyaBAaBpgNerMebmXnqvbeSuiedh">
+
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+
+public class LastTen&lt;T&gt; {
+  private List&lt;T&gt; values = new ArrayList&lt;&gt;(10);
+  private int currentIndex = 0;
+  LastTen() {
+    for (int i = 0; i &lt; 10; i++) {
+      values.add(i, null);
+    }
+  }
+  public void add(T newValue) {
+    values.set(currentIndex, newValue);
+    currentIndex = (currentIndex + 1) % 10;
+  }
+  public List&lt;T&gt; get() {
+    return values;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    LastTen&lt;String&gt; lastTen = new LastTen&lt;&gt;();
+    for (int i = 0; i &lt; 30; i++) {
+      lastTen.add(&quot;foo&quot; + i);
+    }
+    System.out.println(lastTen.get());
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Generics&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Generics<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BFsbQonOROfQfifbDIJlLLgeMhdrjZBu">
+<div class="header" data-title="Cryptographic Hash Function"><h2>Cryptographic Hash Function</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hash functions already provide:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li>
+<p><strong>Determinism</strong>: it can convert an arbitrary amount of data into a single
+limited-size value. If we repeat the computation on the same data, we get the
+same value.</p>
+</li>
+<li>
+<p><strong>Uniformity</strong>: over many inputs, each output value is equally likely.</p>
+</li>
+<li>
+<p><span class="line-through"><strong>Efficiency</strong>: it is efficient to compute.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>But what if there were hash functions with the following <em>new</em> properties:</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p>Given the hash, it is <em>infeasible</em> to determine the original input</p>
+</li>
+<li class="bullet">
+<p>A small change to the input produces a <em>large</em> change in the output</p>
+</li>
+<li class="bullet">
+<p>The function is <em>difficult</em> to compute, not easy</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ahHxfzfBcLQvvuWqeAEfuFsGFcjqWsMQ">
+<div class="header" data-title="Cryptographic Hash Functions"><h2>Cryptographic Hash Functions</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A hash function that satisfies these properties is known as a <em>cryptographic
+hash function</em>, largely because they are ubiquitous in modern cryptography.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PdxviDVjqwEyJNsBsEAQRzzhphhYRviR">
+<div class="header" data-title="A Simple Example"><h2>A Simple Example</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>I need to be able to check your password, but I don&#x2019;t want to save it.
+<strong>Is that possible?</strong></p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>Yes!</strong></p>
+</li>
+<li class="bullet">
+<p>Save the cryptographic hash of your password, not the password itself.</p>
+</li>
+<li class="bullet">
+<p>When you submit your password, I hash it and compare it with the saved hash.</p>
+</li>
+<li class="bullet">
+<p>If someone steals my database, they can&#x2019;t recover the original passwords.</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Given the hashes, you can&#x2019;t recover the original passwords</p>
+</li>
+<li class="bullet">
+<p>Hash values reveal nothing about how close you are to the actual password</p>
+</li>
+<li class="bullet">
+<p>Hashing inputs to test them is expensive</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ftekiIkwjKDBRIAPKfeeeZroLcenjgfG">
+<div class="header" data-title="HBGary Hack"><h2>HBGary Hack</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Note that this does not mean that simply storing hashed password is safe,
+particularly if your users don&#x2019;t choose good passwords.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>For a great description of a sophisticated security breach using several
+different techniques,
+<a href="https://arstechnica.com/tech-policy/2011/02/anonymous-speaks-the-inside-story-of-the-hbgary-hack/" target="_blank" class="external">read
+this article</a></p>
+</li>
+<li class="bullet">
+<p><strong>Note that I am in no way condoning the actions of Anonymous in this case</strong></p>
+</li>
+<li class="bullet">
+<p>But reading about what HBGary did wrong can help you avoid similar mistakes,
+and understand a bit more about computer security and hashing</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sqifxqIMMsbqDxLiLedePYbVGYpYDhzx">
+<div class="header" data-title="Another Example"><h2>Another Example</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Heard of blockchain?</p>
+</div>
+<div class="paragraph">
+<p>Blocks are linked through <em>cryptographic hashes</em>.
+And the blockchain is secured through an old idea called
+<a href="https://en.wikipedia.org/wiki/Hashcash" target="_blank" class="external">Hashcash</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Given a hash value of a given size, I can estimate how much work you&#x2019;ll have
+to do to guess the input that produced that value</p>
+</li>
+<li class="bullet">
+<p>So I can force you to do that work and verify that you did it easily by
+hashing the value that you gave me</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gRZDKTXJypxDiTAoVSSwTfZOMUNyUxCG">
+<div class="header" data-title="Hashcash Example"><h2>Hashcash Example</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Alice: &quot;Here&#x2019;s a challenge for you Bob, find an input that produces hash
+<code>39c3aa4015e7964914c311915316a2f78157c946</code>.</p>
+</li>
+<li class="bullet">
+<p>Bob: &quot;Geez, that&#x2019;s hard. Give me a few minutes&#x2026;&#x200B; OK, got it.&quot;</p>
+</li>
+<li class="bullet">
+<p>Alice: &quot;Wow, you&#x2019;re right. I computed the hash and it&#x2019;s
+<code>39c3aa4015e7964914c311915316a2f78157c946</code> that must have been hard.&quot;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="guRSGeBImDPQydnsrPLxWGdCcxlgidXd">
+<div class="header" data-title="Blockchain Proof of Work"><h2>Blockchain Proof of Work</h2></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://en.bitcoin.it/wiki/Proof_of_work%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="qGSmwzyNQfEsKimoddEsPTmTCROlLAfV">
+<div class="header" data-title="Unintended Consequences"><h2>Unintended Consequences</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hashcash was intended to help fight spam. Now it&#x2019;s the reason that Bitcoin
+mining
+<a href="https://www.nytimes.com/2018/01/21/technology/bitcoin-mining-energy-consumption.html" target="_blank" class="external">is
+ruining the planet</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aGqRxSJOrbpxveHPtfUbwZvbJQMzOGnp">
+<div class="header" data-title="And, Beautiful Theory"><h2>And, Beautiful Theory</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In computer science, a
+<a href="https://en.wikipedia.org/wiki/One-way_function" target="_blank" class="external">one-way function</a>
+is a function that is easy to compute on every input, but hard to invert given
+the function&#x2019;s output for a random input.</p>
+</div>
+<div class="paragraph">
+<p><strong>The existence of such one-way functions is still an open conjecture.</strong>
+In fact, their existence would prove that the complexity classes P and NP are
+not equal, thus resolving the foremost unsolved question of theoretical computer
+science.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="jXRuKfHWdQnxhqBYQQVMOPSJlRrttssh">
+<div class="header" data-title="Questions About Hashing?"><h2>Questions About Hashing?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aPkedSJgDzeujqwbdAasRSTZJjBMUVbF">
+<div class="header" data-title="Java Generics"><h2>Java Generics</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Lists and maps are the two data structures you meet in heaven.
+Together you can use them to solve almost any problem.</p>
+</div>
+<div class="paragraph">
+<p>But you&#x2019;ll usually use Java`s built-in implementations.</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+List list = new ArrayList();
+List anotherList = new LinkedList();
+Map map = new HashMap();
+Map anotherMap = new TreeMap();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="VazQjvfefhYtQVZbbAfnIinPqkOhFcuL">
+<div data-title=" Bare ArrayLists and HashMaps"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List list = new ArrayList();
+    // What goes in is a string...
+    list.add(&quot;string&quot;);
+    // But what comes out is an Object
+    String s = list.get(0);
+    // We can downcast this, but that&apos;s not safe
+
+    Map map = new HashMap();
+    // Keys and values can be any Java object...
+    map.put(&quot;key&quot;, 8);
+    // But what comes out is an Object
+    Integer i = map.get(&quot;key&quot;);
+    // We can downcast this, but that&apos;s (still) not safe
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CfhXqjfTVWkvvUQsiviIgULshCtvBoql">
+<div class="header" data-title="Compiler Errors v. Runtime Errors"><h2>Compiler Errors v. Runtime Errors</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java and many languages that followed it have tried to transform <em>runtime</em>
+errors into <em>compiler</em> errors.
+<strong>Why?</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You compile your code <em>before</em> it runs: and so before you have to demo it to a
+client, or before you deploy it to hundreds of users.</p>
+</li>
+<li class="bullet">
+<p>Catching errors at this stage is <em>critical</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CAmWlXhrXPgQfqJnzxuEyMbiMZcmBlDK">
+<div class="header" data-title="Generics"><h2>Generics</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java generics allow us to create reusable classes while allowing the compiler to
+check our code for correctness.</p>
+</div>
+<div class="paragraph">
+<p>Type parameters tell the compiler what we are going to do with each data
+structure.</p>
+</div>
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+List&lt;Integer&gt; integerlist = new ArrayList&lt;&gt;(); // This is list of Integers
+Map&lt;Integer, String&gt; = new HashMap&lt;&gt;(); // This maps Integers to Strings</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="HsFQlSwEtyfFNiuOFdOsVftCdsCHdLrh">
+<div class="header" data-title="Generic Rationale"><h2>Generic Rationale</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java generics allow to combine two desirable features of the language:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Polymorphism</strong>: because every object inherits from <code>Object</code> it is easy to
+build general purpose data structures that can operate on every Java object</p>
+</li>
+<li class="bullet">
+<p><strong>Type Checking</strong>: however, upcasting everything to <code>Object</code> makes it
+impossible for the compiler to perform compile-time type checking</p>
+</li>
+<li class="bullet">
+<p>Generics are intended to allow us to have the best of both worlds</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini jdk compiler smaller nozoom bespoke-inactive bespoke-slide" data-slideid="icfvQmfITTojvuLTENxWELDeeUJPWeWO">
+<div data-title=" Generic ArrayLists"></div>
+<textarea class="janini spelling_exception">import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Example {
+  public static void main(String[] unused) {
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    // What goes in is a string...
+    list.add(&quot;string&quot;);
+    // What comes out is a string
+    String s = list.get(0);
+    // I can&apos;t add Objects that aren&apos;t Strings or don&apos;t descend from String
+    list.add(new Integer(10));
+
+    Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+    // The compiler can check my mappings...
+    map.put(&quot;key&quot;, 8);
+    // And cast what comes out safely for me
+    Integer i = map.get(&quot;key&quot;);
+    // I can&apos;t add invalid mappings
+    map.put(8, 10);
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="xeDYzlBEYAuWmiyunissqSphJYPGdfRN">
+<div data-title=" Generics In Documentation"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22src%22:%22https://docs.oracle.com/javase/10/docs/api/java/util/Map.html%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="ufnapiBBDPHnqhSKjaQWNGdfyDcOWJVS">
+<div class="header" data-title="Generifying Your Classes"><h2>Generifying Your Classes</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>So we know how to use existing generic class.
+But how do we provide our own?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="gshanQpcjpeifKipeXsEwdwgrcRXdvee">
+<div class="header" data-title="Class Type Parameters"><h2>Class Type Parameters</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>First, we have to declare our class to accept <em>type parameters</em>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// T is a type parameter that can be used throughout our class
+public class SimpleLinkedList&lt;E&gt; {
+  // get returns a reference of type E
+  public E get(int index) {
+  }
+  // set takes a reference of type T as its second argument
+  public void set(int index, E value) {
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PmTBHbqtdzEwfOnTUNQqNLKNbdNtCnsc">
+<div class="header" data-title="Parameters Are Not Variables"><h2>Parameters Are Not Variables</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Class parameters <em>are not</em> variables.</p>
+</div>
+<div class="paragraph">
+<p>I can use them where I would normally provide a type, but I can&#x2019;t get or set
+their values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class SimpleLinkedList&lt;E&gt; {
+  // I can use the parameter here as a return type...
+  public E get(int index) {
+    E = String; // But I can&apos;t do something like this
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="yFUOEpPuuncaCyOreneyqcdTWzAeDgTn">
+<div class="header" data-title="Compiling Generic Classes"><h2>Compiling Generic Classes</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To help understand how generics work you can imagine the compiler rewriting them
+when it compiles your code.</p>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="nIOLajpCRkeiqzqdfVGABscHwBcJsFPJ">
+<div class="header" data-title="Original and Rewritten List"><h2>Original and Rewritten List</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List&lt;E&gt; {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List&lt;String&gt; list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List {
+  public String get(int i) {
+  }
+  public void set(int i, String value) {
+  }
+}
+List list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="rjGEMqeTIbLcWeCtNxiOeLLUdiZedeEI">
+<div class="header" data-title="Original and Rewritten List"><h2>Original and Rewritten List</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List&lt;E&gt; {
+  public E get(int i) {
+  }
+  public void set(int i, E value) {
+  }
+}
+List&lt;Integer&gt; list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class List {
+  public Integer get(int i) {
+  }
+  public void set(int i, Integer value) {
+  }
+}
+List list = new List&lt;&gt;();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PIyilhvdeQiJwljjSFmLVauXiVUleFhn">
+<div class="header" data-title="Type Erasure"><h2>Type Erasure</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><strong>Note that this is not actually what happens.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The compiler only creates <em>one</em> instance of each generic class</p>
+</li>
+<li class="bullet">
+<p>Type information is used during compilation to check access but then
+<em>erased</em></p>
+</li>
+<li class="bullet">
+<p>But this isn&#x2019;t a bad mental model of how generics work in practice</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OrueWINOdsdAZvLfddaaMKJoRgIuUxJS">
+<div class="header" data-title="Multiple Type Parameters"><h2>Multiple Type Parameters</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Classes can use one or several type parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// This is a generic list storing elements of type T
+public class SimpleLinkedList&lt;T&gt; { }
+
+// This is a generic map mapping elements of type K to type V
+public class SimpleMap&lt;K,V&gt; { }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="drYDduyVUSIMCAtgQvtfToxfemixBIsy">
+<div class="header" data-title="Parameter Naming Conventions"><h2>Parameter Naming Conventions</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>To avoid confusing type parameters with variable names or other keywords, Java
+has established conventions for naming them.</p>
+</div>
+<div class="ulist small">
+<ul>
+<li class="bullet">
+<p><strong>By convention</strong> type names are single uppercase letters: <code>T</code>, <code>K</code>, <code>V</code>, <code>E</code>,
+etc.</p>
+</li>
+<li class="bullet">
+<p>Note that this is just a convention: it&#x2019;s not enforced by the compiler</p>
+</li>
+<li class="bullet">
+<p>Certain type parameters have conventional meanings:</p>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><code>E</code> for element (which we&#x2019;ll use for our lists)</p>
+</li>
+<li class="bullet">
+<p><code>K</code> for key and <code>V</code> for value, (which we&#x2019;ll use for our maps)</p>
+</li>
+<li class="bullet">
+<p><code>N</code> for a number</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="axHmNRJzTadAmepLanZWLuHzdffndwnf">
+<div class="header" data-title="Original and Rewritten Map"><h2>Original and Rewritten Map</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map&lt;K, V&gt; {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map&lt;String, Double&gt; map = new Map&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map {
+  public Double get(String key) {
+  }
+  public void put(String key, Double val) {
+  }
+}
+Map map = new Map();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 ss logo bespoke-inactive bespoke-slide" data-slideid="eYOiAiRGjSSJrWYBWRwbfOwipdpennhD">
+<div class="header" data-title="Original and Rewritten Map"><h2>Original and Rewritten Map</h2></div><div class="bullet"></div>
+<div class="sectionbody" style="display: flex; flex-direction: row; justify-content: space-between;">
+
+
+
+<div style="width:48%;"><div class="listingblock smallest">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map&lt;K, V&gt; {
+  public V get(K key) {
+  }
+  public void put(K key, V val) {
+  }
+}
+Map&lt;Integer, String&gt; map = new Map&lt;&gt;();</code></pre>
+</div>
+</div></div><div style="width:48%;"><div class="listingblock smallest bullet">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">public class Map {
+  public String get(Integer key) {
+  }
+  public void put(Integer key, String val) {
+  }
+}
+Map map = new Map();</code></pre>
+</div>
+</div></div></div>
+</div>
+<div class="sect1 janini jdk smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="uAusintTCqeDSeGJzQzEfhxebKxeSdZk">
+<div data-title=" Generifying SimpleLinkedList"></div>
+<textarea class="janini spelling_exception">public class SimpleLinkedList {
+  class Item {
+    Object value;
+    Item next;
+    Item(Object setValue, Item setNext) {
+      value = setValue;
+      next = setNext;
+    }
+  }
+  private Item start;
+  private int currentSize;
+
+  public SimpleLinkedList() { }
+
+  public SimpleLinkedList(Object[] array) {
+    for (int i = array.length - 1; i &gt;= 0; i--) {
+      this.add(0, array[i]);
+    }
+  }
+
+  public void add(int index, Object toAdd) {
+    if (index == 0) {
+      start = new Item(toAdd, start);
+      currentSize++;
+      return;
+    }
+    Item previousItem = getItem(index - 1);
+    if (previousItem == null) {
+      return;
+    }
+    Item newItem = new Item(toAdd, previousItem.next);
+    previousItem.next = newItem;
+    currentSize++;
+  }
+
+  public Object remove(int index) {
+    Object toReturn;
+    if (index == 0) {
+      toReturn = start;
+      start = start.next;
+      return toReturn;
+    }
+    Item previousItem = getItem(index - 1);
+    toReturn = previousItem.next;
+    previousItem.next = previousItem.next.next;
+    return toReturn;
+  }
+
+  public Object get(int index) {
+    Item item = getItem(index);
+    if (item == null) {
+      return null;
+    } else {
+      return item.value;
+    }
+  }
+
+  public void set(int index, Object toSet) {
+    Item item = getItem(index);
+    if (item != null) {
+      item.value = toSet;
+    }
+  }
+
+  public int size() {
+    return currentSize;
+  }
+
+  protected Item getItem(int index) {
+    if (index &lt; 0 || index &gt;= currentSize) {
+      return null;
+    }
+    int currentIndex = 0;
+    for (Item current = start; current != null; current = current.next) {
+      if (currentIndex == index) {
+        return current;
+      }
+      currentIndex++;
+    }
+    return null;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    SimpleLinkedList simpleList = new SimpleLinkedList();
+    for (int i = 0; i &lt; 10; i++) {
+      simpleList.add(0, i);
+    }
+    System.out.println(simpleList.size());
+    for (int i = 0; i &lt; 5; i++) {
+      simpleList.remove(i);
+    }
+    System.out.println(simpleList.get(0));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="uMnbIPzTufFEHnvuXezGuoQWziZdYXxm">
+<div class="header" data-title="Questions About Generics?"><h2>Questions About Generics?</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="qspXdnnnPMrHPIZooCVmfOAwPMtAqefr">
+<div class="header" data-title="Midterm 2"><h2>Midterm 2</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The third and final midterm starts next <strong>Monday</strong>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>The focus is data structures and algorithms, but completing the programming
+questions will require both imperative and object-oriented programming</p>
+</li>
+<li class="bullet">
+<p>There are three programming problems together worth 50 points. Most have
+partial credit.</p>
+</li>
+<li class="bullet">
+<p>Our final midterm represents your more sophisticated set of programming tasks
+yet.</p>
+</li>
+<li class="bullet">
+<p>(My goal is to irritate you before you complete the course evaluations&#x2026;&#x200B;)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PveideRkgiIGNisIczvYRBpdILPqoFlL">
+<div class="header" data-title="Midterm 2 Problems"><h2>Midterm 2 Problems</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>As always, the best way to review for the midterm is to review the practice
+homework problems.</p>
+</div>
+<div class="paragraph">
+<p>Midterm 2 includes three programming tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>One question on lists that is very similar to a homework problem</p>
+</li>
+<li class="bullet">
+<p>One question on trees that is very similar to a homework problem</p>
+</li>
+<li class="bullet">
+<p>One question on sorting <strong>that is directly drawn from the homework</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="jmNDeZXUdennBYdbVPnnJdeHyiRSidrS">
+<div class="header" data-title="Next Few Classes"><h2>Next Few Classes</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Friday</strong>: more about generics.</p>
+</li>
+<li class="bullet">
+<p><strong>Monday</strong>: Ben will be here to discuss the process of making a project app
+real&#x2026;&#x200B;</p>
+</li>
+<li class="bullet">
+<p><strong>Wednesday</strong>: wrap up and ICES forms</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

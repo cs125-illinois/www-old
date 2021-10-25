@@ -1,0 +1,1003 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP1: Area Mode</title>
+		<meta name="description" lang="en-us" content="The MP1 checkpoint introduces you to Android UI by having you build the other gameplay mode of the game app you&apos;ll continue to work on.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Fall 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/1/" class="active" onclick="return false;">MP1<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <a href="/MP/2019/fall/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/fall/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/fall/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/fall/setup/git/">Git</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#mp1">2.1. Obtaining MP1</a></li>
+              <li><a class="nav-link" href="#_late_mp0_submissions">2.2. Late MP0 Submissions</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_android">3. Android</a>
+            <ul>
+              <li><a class="nav-link" href="#_ui_designer">3.1. UI Designer</a></li>
+              <li><a class="nav-link" href="#_manipulating_ui_from_java">3.2. Manipulating UI from Java</a></li>
+              <li><a class="nav-link" href="#_multiple_activities">3.3. Multiple Activities</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_your_goal">4. Your Goal</a>
+            <ul>
+              <li><a class="nav-link" href="#_areadivider_class">4.1. AreaDivider Class</a></li>
+              <li><a class="nav-link" href="#_create_game_button">4.2. Create Game Button</a></li>
+              <li><a class="nav-link" href="#_game_setup_ui">4.3. Game Setup UI</a></li>
+              <li><a class="nav-link" href="#_game_setup_intent">4.4. Game Setup Intent</a></li>
+              <li><a class="nav-link" href="#_area_mode_gameplay">4.5. Area Mode Gameplay</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_grading">5. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#_test_cases">5.1. Test Cases</a></li>
+              <li><a class="nav-link" href="#_submitting_your_work">5.2. Submitting Your Work</a></li>
+              <li><a class="nav-link" href="#_style_points">5.3. Style Points</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cliffhanger">6. Cliffhanger</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#_cheating">7. Cheating</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP1: Area Mode</h1>
+      <div class="paragraph lead">
+<p>In the first Machine Project checkpoint, <a href="/MP/2019/fall/0">MP0</a>, you started making a
+cool Android app
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Well, at least &lt;em&gt;we&lt;/em&gt; think it&amp;#x2019;s cool&amp;#x2026;&amp;#x200B;&lt;/body&gt;&lt;/html&gt;">1</span>.
+This checkpoint and all subsequent ones build on that codebase, adding new
+features and improving the structure of the code.</p>
+</div>
+<div class="paragraph">
+<p>In this second checkpoint (MP1), you will use your new <em>object-oriented
+programming</em> skills to package up some game logic into a <em>class</em> that will help
+you implement a new mode of the game.
+You will take advantage of Android Studio&#x2019;s UI designer to create an interface
+that allows the user to select the game mode.</p>
+</div>
+<div class="paragraph">
+<p>In <em>area mode</em>, the objectives that can be captured are rectangular cells on an
+evenly spaced grid rather than specific targets.
+Entering a cell captures it&#x2014;if possible.
+If at least one capture has already been made, subsequent cells can only be
+captured if they share a side with the most recently captured cell.</p>
+</div>
+<div class="paragraph">
+<p>Again, <strong>deadlines for each checkpoint vary by your deadline group</strong>.
+MP1 is due at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>8 PM on Sunday 10/6/2019 for the Blue Group</strong>: all labs starting at 2 PM or
+earlier</p>
+</li>
+<li>
+<p><strong>8 PM on Monday 10/7/2019 for the Orange Group</strong>: all labs starting at 3 PM
+or later</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Since MP1 is another multi-week checkpoint, 10% of your grade on it is for
+submitting code that earns at least <em>40 points</em> by <strong>Sunday 9/29/2019 (Blue)</strong>
+or <strong>Monday 9/30/2019 (Orange)</strong>.
+Late submissions will be subject to the
+<a href="/info/2019/fall/syllabus#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="learning"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the first checkpoint that makes use of object-oriented programming.
+In addition to the imperative skills you practiced on MP0, you will:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>implement a class to bundle state and behavior,</p>
+</li>
+<li>
+<p>obtain and use instances of existing classes,</p>
+</li>
+<li>
+<p>work with data in multidimensional arrays, and</p>
+</li>
+<li>
+<p>design a user interface</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#x2019;ll be working on the same repository for the entirety of the Machine
+Project.
+MP0 focused only on the Java code files, but Android projects have another major
+part: <em>resources</em>.
+These are found in the <code>res</code> folder, which is in the <code>main</code> folder that also
+holds <code>java</code>.
+The resources you&#x2019;ll work with most are <em>layouts</em>, which are stored in the
+<code>layout</code> subfolder of <code>res</code>.
+They represent the screens and controls the user sees when using your app.
+The Android section later in this document will tell you more about how to work
+on the user interface.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="mp1"></a><h3>2.1. Obtaining MP1</h3>
+<div class="paragraph lead">
+<p>You already have your GitHub repository ready to go; all that&#x2019;s missing is the
+test suite for Checkpoint 1.</p>
+</div>
+<div class="paragraph">
+<p>To do this we are going to provide you with a <em>patch</em>: a single file that
+contains multiple changes to your project.
+The patch for MP1 adds two files: the test suite itself and an Android Studio
+run configuration that will allow you to run the test suites easily.</p>
+</div>
+<div class="paragraph">
+<p>To apply the patch and get started on MP1, follow the following instructions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>First, commit your work!</strong>
+This makes sure that you can easily undo any problems that the patch may cause.
+It should apply cleanly, but you never know.</p>
+</li>
+<li>
+<p><strong>Next, download the
+<a href="/MP/2019/fall/patches/MP1.patch">patch file</a></strong>.
+Remember where you put it since you&#x2019;ll need it in the next step.</p>
+</li>
+<li>
+<p><strong>Open your MP in Android Studio and then select &quot;VCS | Apply Patch&quot;.</strong>
+Select the patch you saved in the previous step.
+Android Studio will allow you to review the changes that the patch will make to
+your project.
+You&#x2019;ll see two new files: <code>Checkpoint1Test.java</code> (the test suite) and
+<code>Test_Checkpoint_1.xml</code> (the Android Studio run configuration).</p>
+</li>
+<li>
+<p><strong>When you&#x2019;re ready select OK to apply the patch.</strong>
+If the patch is successfully applied, you&#x2019;re ready to get started on MP1!
+You should have a new &quot;Test Checkpoint 1&quot; test menu item available&#x2014;if not,
+try repeating the magic &quot;Sync Project with Gradle Files&quot; from the File menu.</p>
+</li>
+<li>
+<p><strong>If the patch does not apply cleanly, please get help right away!</strong>
+Post on the forum, come down to office hours, or get help in lab next week.
+MP1 is a challenge and we want you to get started right away.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You also need to configure the autograder so that it knows that you&#x2019;re working
+on MP1.
+Open the <code>grade.yaml</code> file in the root of the project, change the <code>checkpoint</code>
+setting from <code>0</code> to <code>1</code>, and do <em>File | Sync Project with Gradle Files</em>.
+Running the Grade task should then produce a grade report for Checkpoint 1
+rather than Checkpoint 0.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_late_mp0_submissions"></a><h3>2.2. Late MP0 Submissions</h3>
+<div class="paragraph">
+<p>If you didn&#x2019;t finish the <code>TargetVisitChecker</code> functions in MP0, you can still do
+MP1.
+Changing the <code>useProvided</code> setting in <code>grade.yaml</code> from <code>false</code> to <code>true</code> (after
+updating <code>checkpoint</code> to <code>1</code>) and doing a Gradle sync will make the app and
+grader use our correct <code>TargetVisitChecker</code> implementation.
+That is, calling <code>TargetVisitChecker</code> functions from <code>GameActivity</code> will produce
+the result from our solution, not your code.
+If you&#x2019;re happy with your <code>TargetVisitChecker</code> implementation, leave
+<code>useProvided</code> set to <code>false</code> to continue using your MP0 code.</p>
+</div>
+<div class="paragraph">
+<p>5% of the MP1 grade requires a working target mode game, so even if you use our
+provided <code>TargetVisitChecker</code> functions, you will still need to implement the
+<code>GameActivity</code> logic of MP0 yourself.
+If you have not done this, please do so now.
+Come to office hours if you need help.</p>
+</div>
+<div class="paragraph">
+<p>If you want to go back later and work on a late MP0 submission for half credit,
+change the <code>checkpoint</code> setting in <code>grade.yaml</code> back to <code>0</code>.
+That tells our grader to do an MP0 grading run.
+It&#x2019;s OK if you&#x2019;ve started working on MP1 or even a later checkpoint when you
+regrade MP0.
+The test suites are forward-compatible.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_android"></a><h2>3. Android</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP1 continues introducing you to Android development.
+We&#x2019;ll introduce a couple new ideas and tools below.
+There&#x2019;s a bit more work to do than on MP0, but the MP1 tasks should be more
+straightforward, especially since you&#x2019;ve started finding your way around the
+codebase.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_ui_designer"></a><h3>3.1. UI Designer</h3>
+<div class="paragraph">
+<p>Most Android resources are <a href="https://en.wikipedia.org/wiki/XML" target="_blank" class="external">XML</a> files.
+While it is possible <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;and necessary for advanced applications&lt;/body&gt;&lt;/html&gt;">2</span> to edit
+these directly, Android Studio provides a graphical interface that makes it much
+easier to design your UI layouts.
+When you open a layout XML file, Android Studio shows a preview of the layout in
+the main view.
+(If you instead see a bunch of text, switch to the Design tab in the lower
+left.)</p>
+</div>
+<div class="paragraph">
+<p>Every piece of user interface offered by Android has a type of <em>view</em>, also
+called a <em>control</em> or <em>UI element</em>.
+For example, a <code>Button</code> view represents a button the user can push to do
+something.
+A <code>TextView</code> is a plain label that displays some text.
+An <code>EditText</code> is a box that the user can type text into.
+To the upper right of the UI preview, you&#x2019;ll find the Palette pane, which shows
+many kinds of views available to you.</p>
+</div>
+<div class="paragraph">
+<p>Android organizes views into containers nested inside each other.
+For example, a row of buttons might be represented by a <code>LinearLayout</code>
+containing several <code>Button</code>s.
+That could then be nested inside other containers to build a more complex
+screen.
+To the lower left of the preview, you&#x2019;ll see a Component Tree pane.
+This shows the hierarchy of all controls in the layout.
+To add a view, drag your desired kind of view from the Palette pane to where you
+want it to be in the Component Tree.
+To delete a view and any views inside it, right-click it in the Component Tree
+and choose Delete.</p>
+</div>
+<div class="paragraph">
+<p>When you select a view in the preview or Component Tree, the Attributes pane on
+the right shows many <em>attributes</em> (properties) that you can set for that view.
+For controls that have text, the <code>text</code> attribute sets the text initially
+displayed by the view.
+The <code>id</code> attribute at the top sets the view&#x2019;s ID that can be used in code to
+manipulate the view.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p>Some attributes appear twice in the Attributes pane, once with a wrench icon and
+once without.
+The value of the setting with the wrench is only visible in the preview, not
+during testing or in the app.
+You almost always want to use the setting <em>without</em> the wrench.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_manipulating_ui_from_java"></a><h3>3.2. Manipulating UI from Java</h3>
+<div class="paragraph lead">
+<p>Usually at least part of a user interface is dynamic, changing at runtime when the user
+does something or when data is fetched.
+To make this happen, your Java code needs to be able to manipulate the UI elements.</p>
+</div>
+<div class="paragraph">
+<p>Android exposes views to Java as objects with functions that allow you to get
+information about the view or modify its attributes.
+If a view has an ID set in the Attributes pane of the UI designer, you can get
+an object representing it from the <code>findViewById</code> function.
+For example, this code gets a <code>TextView</code> object corresponding to the <code>TextView</code>
+with ID <code>greeting</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">TextView label = findViewById(R.id.greeting);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The variable type (e.g. <code>TextView</code>) must match the type of view from the UI designer.
+The variable name (e.g. <code>label</code>) can be anything of your choosing.
+The field name after <code>R.id.</code> is the view ID from the UI designer.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p>Since the view classes are defined in Android rather than your project, they
+have to be <em>imported</em> before you can use them from your code.
+Android Studio can help with this: if you tab-complete the class name as you&#x2019;re
+typing it, the needed import statement will be automatically added to the top of
+the file.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have a view object, you can use dot notation to call its functions and
+do something with it.
+For example, all views have a <code>setVisibility</code> method to change whether the view
+can be seen.
+If the greeting label was invisible or gone, this code would make it visible
+again:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">label.setVisibility(View.VISIBLE);
+// or pass View.INVISIBLE to make it invisible
+// or View.GONE to make it gone (invisible and taking up no space)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Views that display text have a <code>setText</code> method to change the text:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">label.setText(&quot;Hello!&quot;);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Member functions can also be used to set handlers&#x2014;code that will be run
+when something happens to the view, like a button being clicked.
+The syntax for handlers is a little messy, but Android Studio&#x2019;s tab completion
+can help you with it, as can the examples in our starter code or in lab.
+For example, this attaches a click handler to a <code>Button</code> variable named
+<code>goodbye</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">goodbye.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(final View v) {
+        // Change the label&apos;s text
+        label.setText(&quot;Goodbye.&quot;);
+    }
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or more concisely:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">goodbye.setOnClickListener(v -&gt; {
+    // Change the label&apos;s text
+    label.setText(&quot;Goodbye.&quot;);
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_multiple_activities"></a><h3>3.3. Multiple Activities</h3>
+<div class="paragraph">
+<p>Most apps have multiple different screens that are shown at different times.
+To switch to a different activity, code has to launch the new activity using an <code>Intent</code>.
+An intent specifies what is to be done and provides any extra information needed to do
+that&#x2014;kind of like calling a function.</p>
+</div>
+<div class="paragraph">
+<p>To create an intent to launch an activity, you need to specify the current context
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;usually &lt;code&gt;this&lt;/code&gt; but possibly &lt;code&gt;CurrentActivity.this&lt;/code&gt; if you&amp;#x2019;re inside a non-concise handler&lt;/body&gt;&lt;/html&gt;">3</span>
+and the new activity:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">Intent intent = new Intent(this, OtherActivity.class);
+// Don&apos;t worry about what the .class part means</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have an intent, you can pass it to the <code>startActivity</code> function to act on it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">startActivity(intent);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, when a new activity is launched, the user can return to the old one
+by using the back button on the device.
+To make the old activity completely finish and no longer be available, you can
+call <code>finish()</code> after the <code>startActivity</code> call.</p>
+</div>
+<div class="paragraph">
+<p>Additional data that needs to be passed to the new activity can be placed in <em>extras</em>.
+Intent extras are identified by a string name and can have various kinds of values.
+Each intent can have many extras.
+To add an extra, use a <code>putExtra</code> instance method of the intent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">intent.putExtra(&quot;name&quot;, &quot;Jane Smith&quot;);
+intent.putExtra(&quot;gpa&quot;, 4.0);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To access this data from the new activity, use the <code>getIntent</code> function to get
+the <code>Intent</code> that was used to launch the activity.
+To extract extras from the intent, call the <code>get&lt;Type&gt;Extra</code> functions, like
+<code>getStringExtra</code> or <code>getDoubleExtra</code>.
+The functions to get extras of primitive types require you to specify a default
+value that will be returned in case that extra wasn&#x2019;t present.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">Intent intent = getIntent();
+String name = intent.getStringExtra(&quot;name&quot;);
+double gpa = intent.getDoubleExtra(&quot;gpa&quot;, 0.0); // 0.0 is the default</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#x2019;d like more information, feel free to refer to Android&#x2019;s
+<a href="https://developer.android.com/guide/components/intents-filters" target="_blank" class="external">official <code>Intent</code> documentation</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_your_goal"></a><h2>4. Your Goal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you&#x2019;re done with MP1, your Campus Snake 125 app will support target mode and the new area mode.
+In area mode, the map will show a grid of cells and highlight captured cells with green rectangles.
+There will be a user interface to select the game mode and set game configuration
+(proximity threshold for target mode, area and cell size for area mode).</p>
+</div>
+<div class="paragraph">
+<p>MP1 is a step up from MP0, and may seem overwhelming at first.
+This is normal!
+As we always recommend: <strong>start early</strong>, take it one step at a time, get help
+when you need it, and you&#x2019;ll be able to build amazing things.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_areadivider_class"></a><h3>4.1. <code>AreaDivider</code> Class</h3>
+<div class="paragraph">
+<p>You may notice after acquiring the Checkpoint 1 test suite that the project can
+no longer compile.
+This is because the test code refers to an <code>AreaDivider</code> class that you need to
+create.
+So the first order of business is to define that class and the needed functions
+on it.
+To add a new class file in the Project view, right-click the package folder
+(<code>edu.illinois.cs.cs125.fall2019.mp</code>) that contains all the existing files
+you&#x2019;ve been working on and choose <em>New | Java Class</em>.
+Enter the class name, <code>AreaDivider</code> in this case, in the Name box and press OK.
+If prompted to add the file to Git, press Add.</p>
+</div>
+<div class="openblock alert alert-warning">
+<div class="content">
+<div class="paragraph">
+<p><strong>You must create the new file in our package in <code>main</code> source set</strong>,
+the one containing all the other files you&#x2019;ve been working on.
+If you incorrectly create it in the <code>test</code> part of the project, the class may
+appear to work locally but will not be usable from <code>GameActivity</code> or during
+grading.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>To see what you need to add to this class</strong>, refer to our
+<a href="https://cs125-illinois.github.io/Fall2019-MP-Writeups/1/edu/illinois/cs/cs125/fall2019/mp/AreaDivider.html" target="_blank" class="external">official Javadoc</a>.
+You may find our <a href="/MP/2019/fall/0/#_understanding_the_coordinate_system">coordinate system figure</a> helpful.</p>
+</div>
+<div class="paragraph">
+<p>If you prefer to work on other parts of the checkpoint before <em>implementing</em> these functions,
+you can&#x2014;you just need the class and its members <em>declared</em> so that the test suite can compile.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_create_game_button"></a><h3>4.2. Create Game Button</h3>
+<div class="paragraph">
+<p>When the app is done, the main screen represented by <code>MainActivity</code> will have several options.
+We&#x2019;ll start on it in this checkpoint by adding a Create Game button that takes the user to
+the game setup screen, <code>NewGameActivity</code>.</p>
+</div>
+<div class="paragraph">
+<p>Open the <code>activity_main.xml</code> layout resource file.
+Add a <code>Button</code> with ID <code>createGame</code> and text &quot;Create Game&quot;.
+Then add code to the <code>MainActivity</code> Java file to make pushing the button launch
+<code>NewGameActivity</code>.
+For an example of how to attach a function as a button click handler, see the
+provided <code>NewGameActivity</code> code.
+For an example of how to switch to a new activity, see the existing code in
+<code>MainActivity</code>: you need to make it switch to <code>NewGameActivity</code> rather than
+<code>GameActivity</code> in the button click handler function.
+<code>MainActivity</code> should no longer immediately launch <code>GameActivity</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_game_setup_ui"></a><h3>4.3. Game Setup UI</h3>
+<div class="paragraph">
+<p>The game configuration screen will allow the user to select their desired game mode
+(area or target) and set other parameters like the cell size or proximity threshold.
+This screen&#x2019;s layout is <code>activity_new_game.xml</code> and its Java class is <code>NewGameActivity</code>.</p>
+</div>
+<div class="paragraph">
+<p>Our starter version of the layout contains a <code>RadioGroup</code> with id
+<code>gameModeGroup</code>.
+Add two <code>RadioButton</code>s (from the Buttons section of the Palette) to inside
+this group.
+One should have ID <code>targetModeOption</code> and the other should have ID
+<code>areaModeOption</code>.
+The user will use these to pick the game mode.</p>
+</div>
+<div class="paragraph">
+<p>Some settings only make sense for one game mode, so they shouldn&#x2019;t be shown all
+the time.
+For example, the user shouldn&#x2019;t see a setting for proximity threshold when
+setting up an area mode game.
+To allow showing and hiding the different game-mode-specific settings as a unit,
+we&#x2019;ll organize the views into containers.
+Add some kind of container <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;probably a &lt;code&gt;LinearLayout&lt;/code&gt;&lt;/body&gt;&lt;/html&gt;">4</span> inside the
+existing <code>LinearLayout</code> and give it the ID <code>areaSettings</code>.
+Move the <code>areaSizeMap</code> control inside this new container.
+Also add to this container a numeric <code>EditText</code> control with ID <code>cellSize</code>: this
+will allow the user to set the cell size.
+For target mode settings, add another container with ID <code>targetSettings</code> to the
+provided <code>LinearLayout</code>.
+Inside that new container, add another numeric text box with ID
+<code>proximityThreshold</code>: the user will use this to set a custom proximity
+threshold.
+Also feel free to add any labels or extra instructions you like.</p>
+</div>
+<div class="paragraph">
+<p>To make the radio buttons change the containers&apos; visibility, we need to add code
+to <code>NewGameActivity</code>.
+In <code>onCreate</code>, attach a handler that will be run when the selected radio button
+in the <code>RadioGroup</code> is changed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Suppose modeGroup is a RadioGroup variable (maybe an instance variable?)
+modeGroup = findViewById(R.id.gameModeGroup);
+modeGroup.setOnCheckedChangeListener((unused, checkedId) -&gt; {
+    // checkedId is the R.id constant of the currently checked RadioButton
+    // Your code here: make only the selected mode&apos;s settings group visible
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_game_setup_intent"></a><h3>4.4. Game Setup Intent</h3>
+<div class="paragraph">
+<p>Once the user has configured the game as they like by selecting the mode,
+entering a cell size or proximity threshold, and panning/zooming the area map if in area mode,
+they will press the Create Game button to start the game.
+We attached a handler to that button that calls the <code>createGameClicked</code> function in <code>NewGameActivity</code>.
+You need to fill out that function to populate an <code>Intent</code> with the game setup
+and start the game activity.</p>
+</div>
+<div class="paragraph">
+<p>Specifically, you need to add several extras to the <code>Intent</code> we initialized for
+you.
+The string extra named <code>mode</code> specifies the game mode, either &quot;target&quot; or
+&quot;area&quot;.
+If the game is target mode, there should be an integer extra named
+<code>proximityThreshold</code> specifying the proximity threshold.
+If the game is area mode, there should be an integer extra named <code>cellSize</code>
+specifying the cell size and four double extras&#x2014;<code>areaNorth</code>, <code>areaEast</code>,
+<code>areaSouth</code>, <code>areaWest</code>&#x2014;specifying the boundaries of the selected area.</p>
+</div>
+<div class="paragraph">
+<p>To get all of this information, you will need to call functions of the view
+objects.
+<code>RadioGroup</code>s have a
+<a href="https://developer.android.com/reference/android/widget/RadioGroup#getCheckedRadioButtonId()" target="_blank" class="external"><code>getCheckedRadioButtonId</code></a>
+function that returns the <code>R.id</code> constant of the selected option.
+Interestingly, the <code>getText</code> method of text-containing views doesn&#x2019;t return just
+a string, but the result&#x2019;s <code>toString</code> method will get just the text.
+To get the integer represented by a string of text, use Java&#x2019;s
+<code>Integer.parseInt</code> function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// Suppose textBox is an EditText variable
+String text = textBox.getText().toString();
+int number = Integer.parseInt(text); // This will crash if text isn&apos;t a number</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, Google Maps controls like <code>areaMap</code> have a function to get the visible
+region (for the area boundaries) as a
+<a href="https://developers.google.com/android/reference/com/google/android/gms/maps/model/LatLngBounds" target="_blank" class="external"><code>LatLngBounds</code></a>
+object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">LatLngBounds bounds = areaMap.getProjection().getVisibleRegion().latLngBounds;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the user didn&#x2019;t finish setting up the game before pressing Create Game&#x2014;that is,
+no radio button is selected or a needed numeric text box is empty&#x2014;no intent should be launched.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_area_mode_gameplay"></a><h3>4.5. Area Mode Gameplay</h3>
+<div class="paragraph">
+<p>Now that you have the user&#x2019;s game setup stored in intents and an <code>AreaDivider</code> class to help with
+area division and grid drawing, you can add logic to <code>GameActivity</code> to make area mode games work.</p>
+</div>
+<div class="paragraph">
+<p>First, <code>GameActivity</code> needs to know the game configuration.
+Add logic to <code>onCreate</code> to get the intent and record the needed information in
+instance variables of your design.
+You will probably want to wrap our provided target mode variable setup in an if
+statement, then use the other (area mode) branch to create an <code>AreaDivider</code>
+instance to manage cell boundaries and a <code>boolean[][]</code> to store whether each
+cell has been visited.</p>
+</div>
+<div class="paragraph">
+<p>Update <code>setUpMap</code> to check the game mode and render the grid if the game is area mode.
+This should be very easy because all the work is done by the <code>AreaDivider</code> object.
+If the game is target mode, markers should still be placed at target positions like in MP0.</p>
+</div>
+<div class="paragraph">
+<p>Similarly, add a branch to <code>updateLocation</code> with area mode gameplay logic:
+detect cell capture and show the user&#x2019;s progress on the map.
+Initially any cell in the area can be captured.
+Subsequent captures are only possible of the cell the user is currently in is
+uncaptured and shares one side with the most recently captured cell
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;which you can keep track of with instance variables&lt;/body&gt;&lt;/html&gt;">5</span>.
+When a cell is captured, it should be filled with a green polygon
+<span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;If you use the same color constant as in MP0, the polygons will be completely opaque. That&amp;#x2019;s perfectly fine, but if you want to make them &lt;em&gt;translucent&lt;/em&gt; green the test suite can accept that.&lt;/body&gt;&lt;/html&gt;">6</span>.
+To add a polygon to a Google Maps control, pass a
+<a href="https://developers.google.com/android/reference/com/google/android/gms/maps/model/PolygonOptions" target="_blank" class="external"><code>PolygonOptions</code></a>
+instance to the map&#x2019;s <code>addPolygon</code> method.
+As you read the <code>PolygonOptions</code> method summary, look for two methods that
+you&#x2019;ll need: one to add vertices to the polygon and one to set the polygon&#x2019;s
+fill color.</p>
+</div>
+<div class="paragraph">
+<p>To make the custom proximity threshold take effect, tweak your MP0 target mode logic in
+<code>updateLocation</code> to use your proximity threshold variable instead of a constant.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_grading"></a><h2>5. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP1 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>20 points</strong> for the area division calculation features of <code>AreaDivider</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for the <code>renderGrid</code> function of <code>AreaDivider</code></p>
+</li>
+<li>
+<p><strong>5 points</strong> for the Create Game button in <code>MainActivity</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for setting up the user interface in <code>NewGameActivity</code> and
+making the radio buttons work</p>
+</li>
+<li>
+<p><strong>10 points</strong> for making the Create Game button in <code>NewGameActivity</code> start a correctly
+configured <code>Intent</code></p>
+</li>
+<li>
+<p><strong>20 points</strong> for making area mode work by updating <code>GameActivity</code></p>
+</li>
+<li>
+<p><strong>5 points</strong> for making target mode respect the user&#x2019;s proximity threshold setting</p>
+</li>
+<li>
+<p><strong>10 points</strong> for having no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least <em>40 points</em> by 8 PM on your early deadline day</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<a class="anchor" id="_test_cases"></a><h3>5.1. Test Cases</h3>
+<div class="paragraph">
+<p>Just like <a href="/MP/2019/fall/0/#_test_cases">on MP0</a>, we have provided a test suite that exhaustively
+tests your code.
+You should not modify the test suite, but feel free to examine it to see
+what it is doing with your code, especially when you&#x2019;re debugging test failures.
+<code>Checkpoint1Test</code> is stored in the same folder as <code>Checkpoint0Test</code>, under the <code>test</code> part
+of the <code>src</code> folder hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>To run Checkpoint 1 tests, change the run configurations dropdown to Test
+Checkpoint 1 and press the green run button.
+You can also run a specific test function using the button in the left margin
+when looking at the test suite code.
+After updating <code>grade.yaml</code>, the Grade run configuration that you used in MP0
+will grade MP1 instead.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_submitting_your_work"></a><h3>5.2. Submitting Your Work</h3>
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/2019/fall/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/2019/fall/setup/git#workflow">CS 125 workflow</a>
+instructions.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_style_points"></a><h3>5.3. Style Points</h3>
+<div class="paragraph lead">
+<p>Like in MP0, 10% of your MP1 score is from successful <code>checkstyle</code> validation.
+One thing checked by <code>checkstyle</code> is the presence of Javadoc documentation on each function
+and function parameter.</p>
+</div>
+<div class="paragraph">
+<p>Android Studio can help with this: once you&#x2019;ve written a function signature,
+typing <code>/**</code> (the start of a Javadoc comment) right above the function and
+pressing Enter will insert any necessary <code>@param</code> and <code>@return</code> tags for you to
+fill out.
+<code>checkstyle</code> also wants all function parameters to be declared <code>final</code> (like we
+did in MP0), which means you cannot reassign them inside the function.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cliffhanger"></a><h2>6. Cliffhanger</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After completing MP1 you may be thinking that it would be nice to bundle all the target mode
+logic together in one place and all the area mode logic together in another
+rather than having all those if statements throughout <code>GameActivity</code>.
+Later in lecture you&#x2019;ll learn about a concept called <em>polymorphism</em> that will allow us to do this.</p>
+</div>
+<div class="paragraph">
+<p>Now that we can create customized games, we&#x2019;ll want some way to share or join
+games with other people and see ongoing games&apos; configuration.
+We&#x2019;ll start on that in the next checkpoint by connecting the app to a server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="_cheating"></a><h2>7. Cheating</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All submissions on all CS 125 assignments will be checked for plagiarism.
+You may not submit work done by anyone else, nor may you share your assignment
+code with others.
+Please review the <a href="/info/2019/fall/syllabus/#cheating">cheating policies</a> from the
+syllabus.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/fall/1.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/fall/1.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

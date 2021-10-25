@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Arrays and Algorithms</title>
+  <meta name="description" lang="en-us" content="Continuation of arrays and introduction and practice with simple algorithms.">
+
+  <meta name="slider-id" content="c929164d-25ee-4de1-8741-5e5ee9cf10ae">
+  <meta name="slider-semester" content="Fall2018">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini nozoom bespoke-active bespoke-slide" data-slideid="xwFAetEkwPYLqsDgwxkMoByfLxrCpBoS">
+
+<textarea class="janini spelling_exception">int[] numbers = {1, 2, 5};
+for (int number : numbers) {
+  System.out.println(number);
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Arrays and Algorithms&lt;br/&gt;&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">Arrays and Algorithms<br>&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sZSgKWqBudTJujJbOdxqeQdqvWigxelT">
+<div class="header" data-title="Review: Arrays"><h2>Review: Arrays</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>A Java array represents a series of zero or more values of the <em>same type</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Arrays are our first example of a <strong>data structure</strong>.</p>
+</li>
+<li class="bullet">
+<p>Arrays put values in order, one after another.</p>
+</li>
+<li class="bullet">
+<p>Values in an array also have an <em>index</em>, their position in the array.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LmwXyHhUNCVzlkFXeZUaUAoxLFWChLjo">
+<div class="header" data-title="Review: Declaring Arrays"><h2>Review: Declaring Arrays</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Just like other variables, arrays have a <em>name</em> and <em>type</em>.</p>
+</div>
+<div class="paragraph">
+<p>But when we declare them we use brackets to declare an array instead of a single
+value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// A single integer named single
+int integer;
+// An array of integers named multiple
+int[] multiple;
+
+// A single character named one
+char one;
+// An array of characters named all
+char[] all;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CabqmfPgmeNhrQvbvZrjxGSbovqlKpFV">
+<div class="header" data-title="Review: Initializing Arrays"><h2>Review: Initializing Arrays</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When it is declared an array is empty.
+To use it we have to tell Java how many <em>elements</em> it has.</p>
+</div>
+<div class="paragraph">
+<p><strong>The size cannot be changed once the array is initialized.</strong>
+All arrays have a <code>.length</code> property that we can use to get their size.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// An array of 8 integers named multiple
+int[] multiple = new int[8];
+System.out.println(multiple.length); // Prints 8
+
+// An array of characters named all
+char[] all;
+// Initialize all to hold 4 characters
+all = new char[4];</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aBQHizhlfNBFcQwZgzMEghiXNQbMBRjP">
+<div class="header" data-title="Review: Initializing Arrays With Values"><h2>Review: Initializing Arrays With Values</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We can also assign values to an array when it is initialized:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">// An array of the 4 integers 1, 2, 5, 10
+int[] multiple = { 1, 2, 5, 10 };
+
+// An array of the characters c, s, !
+char[] awesome = { &apos;c&apos;, &apos;s&apos;, &apos;!&apos; };</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="IPHnZDcTAbUPeAKGukqRQUbFNcSMTsTk">
+<div class="header" data-title="0 Indexing"><h2>0 Indexing</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>You&#x2019;re computer scientist now. You start counting at zero.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>An array&#x2019;s <em>first</em> value is <code>a[0]</code></p>
+</li>
+<li class="bullet">
+<p>An array&#x2019;s <em>last</em> value is <code>a[a.length - 1]</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="gwzZCUcRRQULWoxfcMRaGZTABFwBguwo">
+<div data-title=" Bracket Syntax"></div>
+<textarea class="janini spelling_exception">int[] twos = { 1, 2, 4 };
+System.out.println(twos[0]);
+twos[0] = 2;
+System.out.println(twos[0]);
+System.out.println(twos[2]);
+System.out.println(twos[twos.length - 1]);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="bJSoBAsMHJzBxvoiSmZyZnlXhOtEXTvf">
+<div class="header" data-title="Out Of Bounds"><h2>Out Of Bounds</h2></div>
+<textarea class="janini spelling_exception">int[] values = { 1, 2, 4, 8 };
+System.out.println(values[4]);</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YagQaxbUBvgniQPDXlnsIVNMgucOudgv">
+<div class="header" data-title="Array Limitations"><h2>Array Limitations</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Java arrays are <em>fixed size</em>, meaning that we need to know how large they are
+during initialization.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>This can complicate our programs.</p>
+</li>
+<li class="bullet">
+<p>(If your NetID is <code>janedoe2</code>, now you know why.)</p>
+</li>
+<li class="bullet">
+<p>Java has other array-like data structures that are more flexible&#x2014;we&#x2019;ll
+discuss them later.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OSijtUjhvcktoiTwoYydEuPJEHfjwgBc">
+<div class="header" data-title="Made For Each Other"><h2>Made For Each Other</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Loops and arrays are frequently used together.</p>
+</div>
+<div class="paragraph">
+<p>This is probably <em>the</em> most common for loop. It iterates over all members of the
+array: from 0 to <code>primes.length - 1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] primes = { 2, 3, 5, 7, 11, 13 };
+
+for (int i = 0; i &lt; primes.length; i++) {
+  System.out.println(primes[i]);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aVGgRghxygAxuchrRiBgyQDSaTPgpOCB">
+<div class="header" data-title="Enhanced for Loop"><h2>Enhanced <code>for</code> Loop</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] primes = { 2, 3, 5, 7, 11, 13 };
+for (int i = 0; i &lt; primes.length; i++) {
+  System.out.println(primes[i]);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is so common that Java recently introduced a shortcut for it, the so-called
+&quot;enhanced&quot; for loop syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] primes = { 2, 3, 5, 7, 11, 13 };
+for (int prime : primes) {
+  System.out.println(prime);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#x2019;t care about the index, only the value, this is a useful loop.</p>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="znWIKWOBOGvxYwKMyEXJWdLFDzarxqHU">
+<div data-title=" Practice With Arrays"></div>
+<textarea class="janini spelling_exception">// Print every member of toPrint
+char[] toPrint = { &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos; };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="zbHZzdvrISmKiNawIhLBwiFdTZGdaIpC">
+<div data-title=" Practice With Arrays"></div>
+<textarea class="janini spelling_exception">// Print every member of toPrint on the same line
+char[] toPrint = { &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos; };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="hWXhNNJNFoqysBqjrPZSdBIloVLSecQE">
+<div data-title=" Practice With Arrays"></div>
+<textarea class="janini spelling_exception">// Print every member of toPrint backwards
+char[] toPrint = { &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos; };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="EvnylzsonIhzCXzjafCcjfRAdHXeKRJF">
+<div data-title=" Practice With Arrays"></div>
+<textarea class="janini spelling_exception">// Print only members of toPrint with even indices
+char[] toPrint = { &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;, &apos;f&apos; };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="gKULlucOdlqQNRPGypVmBjvIFCGJgWdL">
+<div data-title=" Practice With Arrays"></div>
+<textarea class="janini spelling_exception">// Sum all members of the array
+int[] toSum = { 10, 20, 30, 40, 50 };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="byxqJUFxOoEPqQsBWQiEvdcjAIMyZbKG">
+<div class="header" data-title="What Are Computers Good At?"><h2>What Are Computers Good At?</h2></div>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><span class="line-through">Basic math</span></p>
+</li>
+<li>
+<p><span class="line-through">Simple decision making</span></p>
+</li>
+<li>
+<p><span class="line-through">Doing things over and over again very, very fast</span></p>
+</li>
+<li>
+<p><span class="line-through">And storing data</span></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now we understand how to harness our computers innate abilities.
+But how do we get it to do what we want?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="pLsAYxUijeDaSSOvrgXIDlcYkerLyrfy">
+<div class="header" data-title="Algorithms"><h2>Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" class="external">Algorithm</a>:
+a process or set of rules to be followed in calculations or other
+problem-solving operations, especially by a computer.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>As computer scientists, we implement algorithms by having computers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Perform simple calculations</p>
+</li>
+<li class="bullet">
+<p>Store the results</p>
+</li>
+<li class="bullet">
+<p>Make simple decisions</p>
+</li>
+<li class="bullet">
+<p>Do things over and over again as fast as possible</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="eDPSwXCanmERzKTKIsXTFfRvDUCpxAYp">
+<div class="header" data-title="Algorithm Word Usage"><h2>Algorithm Word Usage</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Algorithms are not a new idea&#x2014;but are heavily associated with a new
+technology.</p>
+</div>
+<div class="lazyiframe" data-attribs="%7B%22name%22:%22ngram_chart%22,%22src%22:%22https://books.google.com/ngrams/interactive_chart?year_start=1800&amp;year_end=2008&amp;corpus=15&amp;smoothing=7&amp;case_insensitive=on&amp;content=algorithm&amp;direct_url=t4%253B%252Calgorithm%253B%252Cc0%253B%252Cs0%253B%253Balgorithm%253B%252Cc0%253B%253BAlgorithm%253B%252Cc0%253B%253BALGORITHM%253B%252Cc0%22,%22width%22:%22600%22,%22height%22:%22480%22,%22marginwidth%22:%220%22,%22marginheight%22:%220%22,%22hspace%22:%220%22,%22vspace%22:%220%22,%22frameborder%22:%220%22,%22scrolling%22:%22no%22%7D"></div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="swWjFcJOdhdrOhilGvMgJZPKmRPUttqw">
+<div class="header" data-title="All Algorithms All the Time"><h2>All Algorithms All the Time</h2></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>For the next few weeks we will focus on implementing simple algorithms.</p>
+</div>
+<div class="paragraph">
+<p>This will allow us to practice our problem-solving abilities while we learn new
+strategies for structuring our programs.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="CzPWhJlvsKvQOZCTZQJqDrzXnEIQUFnF">
+<div class="header" data-title="Maximum Over An Array"><h2>Maximum Over An Array</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given an array of integers, find the maximum value.</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Declare a maximum value&#x2014;but what do we initialize it to?</p>
+</li>
+<li class="bullet">
+<p>Examine each value in the array</p>
+</li>
+<li class="bullet">
+<p>Compare it with the maximum we&#x2019;ve seen so far&#x2014;but then do what?</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="vpcybztlgRfiltilLJTYmPFMtfqbwlsX">
+<div data-title=" Maximum Over An Array"></div>
+<textarea class="janini spelling_exception">// Find the maximum value
+int[] toSearch = { 1, 10, 6, 7, 3, 15, 4 };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 janini nozoom bespoke-inactive bespoke-slide" data-slideid="DeBkVXtGAHkAKJinIoqPFkMcDhiJATxo">
+<div data-title=" Average Of An Array"></div>
+<textarea class="janini spelling_exception">// Compute the average
+double[] toAverage = { 0.1, 6.7, 8.9, 10.4, 11.2, 0.9 };</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run the code above"><pre style="color: white;">&gt; Click or hit Control-Enter to run the code above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="icoJyaqDTsjCkVXNYOlHmREZfZutimGi">
+<div class="header" data-title="Consecutive Identical Values"><h2>Consecutive Identical Values</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Given an array of chars, find all cases where consecutive elements are the same.</p>
+</div>
+<div class="paragraph">
+<p><strong>First, what is our algorithm?</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li class="bullet">
+<p>Examine each value in the array</p>
+</li>
+<li class="bullet">
+<p>Compare it with the next value&#x2014;but how do we get at that?</p>
+</li>
+<li class="bullet">
+<p>Print it out if they are the same</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="dkTKDbXZawhJBpCJFbkSOLpFzHmlSCFB">
+<div class="header" data-title="Next Time: Functions"><h2>Next Time: Functions</h2></div>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="LizCJIzqnCfpILsSbWQUMPNYGXNwUpQv">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>All homework problems for the first two weeks are due <em>today</em> at midnight.</p>
+</li>
+<li>
+<p><a href="/MP/2018/fall/0/">MP0</a> is due <strong>Monday</strong>! Come in for help if you need it.</p>
+</li>
+<li>
+<p><a href="/info/resources/#hours">Office hours</a>
+until 5PM today.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>

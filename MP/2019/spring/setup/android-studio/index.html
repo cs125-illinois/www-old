@@ -1,0 +1,430 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Android Studio Setup</title>
+		<meta name="description" lang="en-us" content="Prepare your computer to complete the Android-based machine problems (MPs).">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/0/">MP0</a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/spring/setup" class="option active">Setup<span class="sr-only">(current)</span></span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/spring/setup/android-studio/" class="active" onclick="return false;">Android Studio<span class="sr-only">(current)</span></a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/git/">Git</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/EWS/">EWS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Android Studio</a>
+            <ul>
+              <li><a class="nav-link" href="#version">1.1. Version</a></li>
+              <li><a class="nav-link" href="#install">1.2. Installation</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#plugins">2. Android Studio Plugins</a>
+            <ul>
+              <li><a class="nav-link" href="#checkstyle">2.1. checkstyle Plugin</a></li>
+              <li><a class="nav-link" href="#cs125plugin">2.2. CS 125 IntelliJ Plugin</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#emulator">3. Android Emulator</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#devices">4. Running on Real Devices</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>Android Studio Setup</h1>
+      <div class="paragraph lead">
+<p>To complete the Android CS 125 labs and machine problems (MPs) you&#x2019;ll write your
+<a href="https://www.java.com/en/" target="_blank" class="external">Java</a>
+code using the
+<a href="https://developer.android.com/studio/index.html" target="_blank" class="external">Android Studio</a>
+Integrated Development Environment (IDE) and test your apps using the
+<a href="https://developer.android.com/studio/run/emulator.html" target="_blank" class="external">Android Emulator</a>.
+This guide will help you install and configure this important and powerful
+development tool.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="intellij"></a><h2>1. Android Studio</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p><a href="https://developer.android.com/studio/index.html" target="_blank" class="external">Android Studio</a>
+is <em>the</em> integrated development environment (IDE) for Android development.
+This semester all CS 125 lab programming assignments and MPs will be done using
+Android Studio.</p>
+</div>
+<div class="paragraph">
+<p>Follow the instructions below that are appropriate for your machine.
+But keep in mind that installing new software can be challenging, so don&#x2019;t be
+discouraged if you get stuck.
+We&#x2019;re here to help!
+Come to office hours or
+<a href="https://cs125-forum.cs.illinois.edu/c/mps/android-studio" target="_blank" class="external">post on the forum in
+the Android Studio category</a>.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="version"></a><h3>1.1. Version</h3>
+<div class="paragraph">
+<p>For Spring 2019 we are using Android Studio version 3.3, which is the latest
+available as of January 2019.
+Please install this version of Android Studio and continue using it throughout
+the semester.
+Minor upgrades are probably safe to install.
+If a major upgrade is released, the course staff will let you if it is safe to
+use.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="install"></a><h3>1.2. Installation</h3>
+<div class="paragraph">
+<p>Begin by downloading the version of Android Studio appropriate for your machine
+using
+<a href="https://developer.android.com/studio/index.html" target="_blank" class="external">this link</a>.
+Next, follow
+<a href="https://developer.android.com/studio/install.html" target="_blank" class="external">these excellent installation
+instructions</a>.
+<strong>Please follow them carefully</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="plugins"></a><h2>2. Android Studio Plugins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once you have <a href="#install">installed Android Studio</a>, continue by installing two
+Android Studio plugins:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://plugins.jetbrains.com/plugin/1065-checkstyle-idea" target="_blank" class="external">The <code>checkstyle</code> IntelliJ plugin</a></p>
+</li>
+<li>
+<p>Our official <a href="/tech/intellijplugin/">CS 125 IntelliJ plugin</a></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="checkstyle"></a><h3>2.1. <code>checkstyle</code> Plugin</h3>
+<div class="paragraph">
+<p>We use
+<a href="http://checkstyle.sourceforge.net/" target="_blank" class="external"><code>checkstyle</code></a>
+to help you learn how to write beautiful and maintainable code by requiring you
+to adhere to a coding standard.
+<strong>There are points on each MP for <code>checkstyle</code>, so you want to get the plugin
+installed so that you can check your style in Android Studio.</strong></p>
+</div>
+<div class="paragraph">
+<p>Installing this plugin is straightforward:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Android Studio plugins menu</p>
+</li>
+<li>
+<p>Click on &quot;Browse repositories&#x2026;&#x200B;&quot;</p>
+</li>
+<li>
+<p>Search for &quot;checkstyle&quot; and install the &quot;Checkstyle-IDEA&quot; plugin that appears</p>
+</li>
+<li>
+<p>Restart Android Studio to complete the installation</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You should install the latest version of the <code>checkstyle</code> plugin, currently
+5.23.0.
+<code>checkstyle</code> plugin updates that are released during the semester should be safe
+to install.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="cs125plugin"></a><h3>2.2. CS 125 IntelliJ Plugin</h3>
+<div class="paragraph">
+<p>Our official <a href="/tech/intellijplugin">CS 125 IntelliJ plugin</a>
+will both simplify your MP development process and help us ensure that you are
+making satisfactory progress on each assignment.
+You can read more about it
+<a href="/tech/intellijplugin">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>Installing our plugin is straightforward and similar to <a href="#checkstyle">installing the <code>checkstyle</code> plugin</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Android Studio plugins menu</p>
+</li>
+<li>
+<p>Click on &quot;Browse repositories&#x2026;&#x200B;&quot;</p>
+</li>
+<li>
+<p>Search for &quot;CS 125&quot; and install the &quot;CS 125 @ Illinois&quot; plugin that appears</p>
+</li>
+<li>
+<p>Restart Android Studio to complete the installation</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You should install the latest version of our plugin, currently 0.2.1, and any
+updates we release during the semester.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="emulator"></a><h2>3. Android Emulator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An important part of Android development is to be able to test your work.
+If you have an Android device, you can configure Android Studio to install your
+test app onto it.
+However, if you don&#x2019;t have an Android device, or want to test on devices other
+than ones that you own, you&#x2019;ll need to utilize the
+<a href="https://developer.android.com/studio/run/emulator.html" target="_blank" class="external">Android Emulator</a>.</p>
+</div>
+<div class="paragraph">
+<p>The easiest way to get a virtual device set up is to
+<a href="https://developer.android.com/training/basics/firstapp/" target="_blank" class="external">start a project, build it,
+and then try to run it</a>.
+That will launch a dialog allowing you to configure a virtual device.
+Going through the
+<a href="https://developer.android.com/training/basics/firstapp/" target="_blank" class="external">Android &quot;Hello, World!&quot;
+tutorial</a>
+is also a great way to get started familiarizing yourself with app development.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="devices"></a><h2>4. Running on Real Devices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have an Android phone you can also install and run your apps on your own
+device, which will be faster and more fun that using the emulator.
+Follow
+<a href="https://developer.android.com/training/basics/firstapp/running-app" target="_blank" class="external">this
+tutorial</a>
+for instructions on how to configure your device properly to run your apps
+during development.</p>
+</div>
+</div>
+</div>
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/spring/setup/android-studio.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/spring/setup/android-studio.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

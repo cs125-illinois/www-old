@@ -1,0 +1,1029 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>MP0: Location</title>
+		<meta name="description" lang="en-us" content="MP0 has you complete three small well-contained programming tasks, and also challenges you to hack on some much more advanced and complicated code. All in the name of preparing you for this semester&apos;s Android development projects.">
+    <meta name="google-site-verification" content="y_Y-3Qy2OkNZGt3FSNhmY31PkAtFbaTGrDKrSZffbvE">
+
+      <link rel="stylesheet" href="/static-assets/site.ce01e59baf542a8794f1.css">
+
+      <script src="/static-assets/site.ce01e59baf542a8794f1.js" async></script>
+
+		<link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+		<link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="CS 125">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+		<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+		<link rel="manifest" href="/img/favicon/manifest.json">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#fff">
+		<meta name="application-name" content="CS 125">
+		<meta name="msapplication-TileColor" content="#fff">
+		<meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+		
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" defer></script>
+
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-45109275-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+      if (window.location.hostname === 'localhost') {
+        window['ga-disable-UA-45109275-2'] = true
+      }
+    </script>
+  </head>
+
+  <body data-spy="scroll" data-target="#toc">
+    <div id="navbarTop" class="fixed-top">
+      <nav class="navbar navbar-expand navbar-light bg-white pb-2 flex-column flex-md-row">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logos/cs125-wide-157x60.png" width="157" height="60" data-pagespeed-no-transform="true" class="d-none d-lg-inline-block align-top" alt="CS 125: Introduction to Computer Science">
+          <img src="/img/logos/cs125-60x60.png" width="46" height="46" data-pagespeed-no-transform="true" class="d-inline-block d-lg-none align-top" alt="CS 125: Introduction to Computer Science">
+        </a>
+        <button id="sidebar-button" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" class="d-block d-md-none" style="position: fixed; top: 20px; right: 20px;">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/info/syllabus/">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-forum.cs.illinois.edu">Forum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link noexternal" href="https://cs125-help.cs.illinois.edu">Help</a>
+          </li>
+          <!--
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/fair/"
+               data-active="^info/fair"><strong>Fair</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               href="/info/join/"
+               data-active="^(?!info/join)info">Join</a>
+          </li>
+          -->
+          <li class="nav-item">
+            <a class="nav-link" href="/learn/">Learn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/info/people/">People</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-redirect="/MP" href="/MP/5/">MPs<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-redirect="/lab" href="/lab/14/">Labs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/m/grades/">Grades</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-2">
+          <li id="login" class="d-flex mr-2 mr-xl-3"></li>
+          <li class="d-none d-md-flex nav-item mr-2 mr-xl-3">
+            <a href="//www.youtube.com/channel/UC8L44j0A6LAlC4FM8IiNx-w/videos" target="_blank" class="noexternal"><i class="fa fa-youtube-play fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+          <li class="d-none d-md-flex nav-item">
+            <a href="//github.com/cs125-illinois" target="_blank" class="noexternal"><i class="fa fa-github fa-2x navbar-icon" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="fadeout"></div>
+    </div>
+    
+    <!--
+      vim: et:ts=2:sw=2:ft=html
+    -->
+
+<!--
+  vim: et:ts=2:sw=2:ft=html
+-->
+
+<div id="content" class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div id="sidebar" class="collapse">
+        <nav class="nav flex-column">
+          <ul class="section-nav">
+            <li class="entry">
+              <strong>Spring 2019</strong>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/5/">MP5</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/4/">MP4</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/3/">MP3</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/2/">MP2</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/1/">MP1</a>
+            </li>
+            <li>
+              <a href="/MP/2019/spring/0/" class="active" onclick="return false;">MP0<span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+              <span data-active="^MP/2019/spring/setup" class="option">Setup</span>
+              <ul>
+                <li>
+                  <a href="/MP/2019/spring/setup/android-studio/">Android Studio</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/git/">Git</a>
+                </li>
+                <li>
+                  <a href="/MP/2019/spring/setup/EWS/">EWS</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong><a href="/MP/">Return to Current MPs</a></strong>
+            </li>
+          </ul>
+          
+          <!--
+            vim: et:ts=2:sw=2:ft=html
+          -->
+        </nav>
+        <div class="fadeout"></div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xl-2" style="z-index: -1;"></div>
+
+    <div class="col-xl-3 d-none d-xl-block toc">
+      <nav id="toc" class="nav flex-column">
+        <ul class="section-nav">
+          <li class="entry">
+            <a class="nav-link" href="#top">1. Learning Objectives</a>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#structure">2. Assignment Structure</a>
+            <ul>
+              <li><a class="nav-link" href="#preparation">2.1. MP0 Preparation</a></li>
+              <li><a class="nav-link" href="#getting">2.2. Obtaining MP0</a></li>
+              <li><a class="nav-link" href="#requirements">2.3. Your Goal</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#approach">3. How to Approach MP0</a>
+            <ul>
+              <li><a class="nav-link" href="#_understanding_what_you_need_to_do">3.1. Understanding What You Need to Do</a></li>
+              <li><a class="nav-link" href="#_getting_started">3.2. Getting Started</a></li>
+              <li><a class="nav-link" href="#_test_driven_development">3.3. Test-driven Development</a></li>
+              <li><a class="nav-link" href="#_getting_help">3.4. Getting Help</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#android">4. Android</a>
+            <ul>
+              <li><a class="nav-link" href="#logging">4.1. Logging</a></li>
+              <li><a class="nav-link" href="#activitys">4.2. Activitys and Activity Lifecycle</a></li>
+              <li><a class="nav-link" href="#uievents">4.3. UI Events</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#troubleshooting">5. Troubleshooting</a>
+            <ul>
+              <li><a class="nav-link" href="#_general_advice">5.1. General Advice</a></li>
+              <li><a class="nav-link" href="#_mp0_specific_advice">5.2. MP0 Specific Advice</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#grading">6. Grading</a>
+            <ul>
+              <li><a class="nav-link" href="#submitting">6.1. Submitting Your Work</a></li>
+              <li><a class="nav-link" href="#testing">6.2. Test Cases</a></li>
+              <li><a class="nav-link" href="#autograding">6.3. Autograding</a></li>
+              <li><a class="nav-link" href="#style">6.4. Style Points</a></li>
+            </ul>
+          </li>
+          <li class="entry">
+            <a class="nav-link" href="#cheating">7. Cheating</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <main class="col-12 col-md-9 col-xl-7 py-3">
+
+      <div id="outdated" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Warning: Outdated Content</h4>
+        <p>This MP is from a previous version of CS 125.
+          <a href="/mp/">Click here</a> to access the latest
+          version.
+        </p>
+      </div>
+
+      <a class="anchor" id="top"></a>
+        <h1>MP0: Location</h1>
+      <div class="paragraph lead">
+<p>Let&#x2019;s start hacking!
+Our goal with MP0 is to provide a gentle but realistic introduction to Android
+development.
+On one hand, most of the assignment is writing small pieces of code of the kind
+you should be increasingly familiar with.
+On the other hand, MP0 also challenges you to hack on an larger and scarier
+chunk of code&#x2014;the guts of a simple Android application.
+It also introduces you to the development workflow we&#x2019;ll use throughout the rest
+of the semester.</p>
+</div>
+<div class="paragraph">
+<p><strong>MP0 is due Monday 2/4/2019 @ 5PM.
+To receive full credit, you must submit by this deadline.</strong>
+In addition, 10% of your grade on MP0 is for submitting code that earns at least
+<em>30 points</em> by <strong>Friday 2/1/2019 @ 5PM.</strong>
+Late submissions will be subject to the
+<a href="/info/2019/spring/syllabus/#regrading">MP late submission policy</a>.</p>
+</div>
+<div class="sect1">
+<a class="anchor" id="objectives"></a><h2>1. Learning Objectives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The core objectives of MP0 are both to keep you practicing writing simple
+functions <em>and</em> to get you started working with Android.
+We&#x2019;ve brought both of those goals together in the form of location tracking app
+which is <em>almost</em> complete but needs a bit of help from you.</p>
+</div>
+<div class="paragraph">
+<p>Specifically, MP0 continues training you to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>initialize and use variables and arrays of appropriate types</p>
+</li>
+<li>
+<p>perform simple calculations using integer and floating point arithmetic</p>
+</li>
+<li>
+<p>use simple loops and conditional statements to process arrays containing data</p>
+</li>
+<li>
+<p>translate program descriptions into working code, and</p>
+</li>
+<li>
+<p>work with test suites as part of your development process.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="structure"></a><h2>2. Assignment Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like all the MPs this semester MP0 is an Android app.
+It&#x2019;s divided into two parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/lib/</code>: a library that performs various computations on location data
+collected by the app.</p>
+</li>
+<li>
+<p><code>/app/</code>: an Android app for you to use for your own interactive testing.
+The Android app is <em>almost</em> complete, but needs a few modifications from you.
+And, to work correctly, you need to finish the library in <code>lib</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Most</em> of the points for MP0 are for completing the three short functions in
+<code>Locator.java</code> in the library.
+These problems are a bit of an upgrade from what you have been doing on the
+homework, but not a dramatic change.</p>
+</div>
+<div class="paragraph">
+<p>In contrast, <code>MainActivity.java</code> in the app tosses you into the deep end of
+Android app development.
+This is not a complicated app, but it does contain a lot of new ideas and
+scary code.
+Don&#x2019;t worry&#x2014;you&#x2019;ll understand all of it by the end of the semester.
+But the app development part of the MP is designed to force you to get started
+on the uncomfortable task of <em>hacking</em> on large pieces of unfamiliar software.</p>
+</div>
+<div class="paragraph">
+<p>There are a few points for finishing the app, and that only requires <em>a few</em>
+lines of code <span class="badge badge-illinois-orange" data-toggle="popover" data-placement="top" data-html="true" data-content="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;technically, only one&lt;/body&gt;&lt;/html&gt;">1</span>.
+But you will spend a while poring over the app source code figuring out what on
+Earth is going on and what you need to do.
+Again, this is not uncommon.
+Modern software development involves working with large codebase with many
+contributors, meaning that it is rare to unheard of to understand every last
+bit of something you are working on.
+You may find our official
+<a href="https://cs125-illinois.github.io/Spring2019-MP0-Solution/" target="_blank" class="external">MP0 online documentation</a>
+helpful in understanding what each function and class is supposed to do.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="preparation"></a><h3>2.1. MP0 Preparation</h3>
+<div class="paragraph">
+<p>Before starting MP0 you should make sure that you have completed
+<a href="/MP/2019/spring/setup/android-studio">installing Android Studio</a>,
+and have either an emulator or real device that you can run Android apps on.
+<strong>If you don&#x2019;t please contact a course staff member immediately.</strong></p>
+</div>
+<div class="paragraph">
+<p>Next, work through our instructions on
+<a href="/MP/2019/spring/setup/git">installing and using Git</a>.
+We will provide time during lab this week to review how to use Git to submit
+MP0, but you are welcome to go through our instructions beforehand if you are
+raring to get going.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="getting"></a><h3>2.2. Obtaining MP0</h3>
+<div class="paragraph">
+<p>First,
+<a href="/MP/2019/spring/setup/git/#account">sign up for a GitHub account</a>
+if you haven&#x2019;t already.
+Then use
+<a href="https://classroom.github.com/a/ygd9hf0i" target="_blank" class="external">this GitHub Classroom invitation link</a>
+to obtain your copy of MP0.
+Once your repository has been created, import it into Android Studio following
+<a href="/MP/2019/spring/setup/git/#workflow">our assignment Git workflow guide</a>.</p>
+</div>
+<div class="openblock alert alert-danger">
+<div class="content">
+<div class="paragraph">
+<p><strong>Note that the first time you clone MP0 with Android Studio configuration may
+appear to fail with an &quot;IDE Error&quot;</strong>.
+This is OK.
+Just restart Android Studio at this point and you should be able to continue
+working.
+If that doesn&#x2019;t work check the <a href="#troubleshooting">troubleshooting section
+below</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="requirements"></a><h3>2.3. Your Goal</h3>
+<div class="paragraph lead">
+<p>Your goal is to complete the helper functions so that the app works properly and
+then make <em>one</em> small modifications to the user interface to fix a
+non-functional button.</p>
+</div>
+<div class="paragraph">
+<p>All of the core app code is in <code>MainActivity.java</code> in the <code>app</code> directory.
+That&#x2019;s the scary stuff&#x2014;although we have tried to comment it heavily to
+help you understand what&#x2019;s going on.</p>
+</div>
+<div class="paragraph">
+<p>But to work properly the app relies on three helper functions from
+<code>Locator.java</code> in the <code>lib</code> directory that process location data:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>farthestNorth</code>: given an array of positions, find the one that&#x2019;s the furthest
+north.</p>
+</li>
+<li>
+<p><code>beenHere</code>: given a current position and an array of positions, determine
+whether the current position already exists in the array&#x2014;meaning that
+we&#x2019;ve been there before.</p>
+</li>
+<li>
+<p><code>nextRandomLocation</code>: given a current position, randomly generate a new
+position to move to&#x2014;or stay put.
+This is used by a wandering feature of the app designed to help you see how it
+works without trekking all over campus.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We have provided test suites for all of the helper functions.
+Our test suites contains both simple tests for each method for you to use during
+development and then a more rigorous set of tests.</p>
+</div>
+<div class="paragraph">
+<p>Your goal is to correctly implement the missing methods so that all of the tests
+pass.
+Doing so will earn you almost full credit on the assignment&#x2014;but see the
+section on <a href="#style">style below</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="approach"></a><h2>3. How to Approach MP0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Although MP0 may seem daunting at first, do not get discouraged!
+Focus on identifying what you need to do and understanding the requirements of
+each function.
+There is really not a huge amount of code for you to write&#x2014;our solution
+adds only several dozen lines, although yours may be slightly longer.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_understanding_what_you_need_to_do"></a><h3>3.1. Understanding What You Need to Do</h3>
+<div class="paragraph">
+<p>A core task when approaching any programming assignment or task is to <em>identify
+what you need to do</em>.
+To finish the MP0 library there are three&#x2014;and only three&#x2014;functions
+that you need to change.
+Begin by identifying those functions and understanding their requirements.
+This will go <strong>a long way</strong> to helping you complete the MP.
+Once you are done with the library then you can tackle the more daunting change
+to <code>MainActivity.java</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_started"></a><h3>3.2. Getting Started</h3>
+<div class="paragraph">
+<p>Your initial clone of MP0 will receive 0 points.
+That&#x2019;s intentional!
+But once you start working you&#x2019;ll find that your score will go up quickly.
+You only have to finish <em>one</em> of the helper functions and correct the
+<code>checkstyle</code> error to get to 30 points by Friday.</p>
+</div>
+<div class="paragraph">
+<p>Use Android Studio to help you here.
+It can intelligently identify problems with your MP and guide you toward
+solutions.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_test_driven_development"></a><h3>3.3. Test-driven Development</h3>
+<div class="paragraph">
+<p>We have provided you with testing suites that you can use to perform iterative
+test-driven development.
+You should integrate this process into your normal
+<a href="/MP/2019/spring/setup/git#workflow">CS 125 Git workflow</a>.
+Here&#x2019;s how that works:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start with one function that you need to write for MP0&#x2014;say
+<code>farthestNorth</code> in <code>Locator.java</code>.</p>
+</li>
+<li>
+<p>Open <code>Locator.java</code>.
+Run the assignment test suite, which is installed as run configuration &quot;Test
+Library&quot;.
+Without changes to <code>Locator.java</code>, it should fail.</p>
+</li>
+<li>
+<p>Begin modifying the <code>farthestNorth</code> function.
+When you think that you have a solution, re-run the test suite.
+Better yet, run just one part of the test suite&#x2014;for example, the test
+that tests simple inputs to <code>farthestNorth</code>.</p>
+</li>
+<li>
+<p>If the test suite succeeds, you&#x2019;re <em>almost</em> done&#x2014;congratulations!</p>
+</li>
+<li>
+<p>But make sure to run the full grading test suite to ensure that you get full
+marks!
+There may be a case that the simple test suites are not trying that you are not
+handling correctly.</p>
+</li>
+<li>
+<p>If the test suite fails, try to diagnose the problem.
+Interactive testing can help diagnose these kinds of problems.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In general <strong>the fewer lines of code you write before running a test, the
+better.</strong>
+When you are starting out, it is easy to introduce bugs into your code.
+Bugs are easiest to catch one-by-one, and so the fewer lines of untested code
+the more likely you are to identify errors in your logic or implementation.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_getting_help"></a><h3>3.4. Getting Help</h3>
+<div class="paragraph">
+<p>The course staff is ready and willing to help you every step of the way!
+Please come to <a href="/info/2019/spring/syllabus/#calendar">office hours</a>, or post on the
+<a href="https://cs125-forum.cs.illinois.edu/c/mps/spring2019-mp0" class="noexternal">forum</a> when you need help.
+You should also feel free to help each other, as long as you do not violate the
+<a href="#cheating">academic integrity requirements</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="android"></a><h2>4. Android</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Android is a Java-based framework for building smartphone apps that run on the
+Android platform.
+By learning how to build Android apps, your programs can have enormous impact.
+As of a year ago, Google estimated that there were
+<a href="https://www.macrumors.com/2017/05/17/2-billion-active-android-devices/" target="_blank" class="external"><em>2
+billion</em></a>
+active Android devices.
+That&#x2019;s over 25% of people on Earth&#x2014;and
+<a href="http://fortune.com/2017/03/06/apple-iphone-use-worldwide/" target="_blank" class="external">several times more
+than iOS</a>.</p>
+</div>
+<div class="paragraph">
+<p>However, Android is also a huge and complex system.
+It&#x2019;s easy to feel lost when you are getting started.
+Our best advice is to just slow down, take a deep breath, and try to understand
+a bit of what is going on at a time.
+We&#x2019;ll try to walk you through a few of the salient bits for MP0 below.
+Google also maintains a
+<a href="https://developer.android.com/courses/fundamentals-training/overview-v2" target="_blank" class="external">great set of
+tutorials on beginning Android development</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note that you will use Android for all MPs this semester and for your final
+project</strong>, so put in some time to familiarizing yourself with it now.
+It&#x2019;s simply the best way to build exciting things in Android&#x2014;programs that
+you can share with your friends and family.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="logging"></a><h3>4.1. Logging</h3>
+<div class="paragraph">
+<p>Like any other computer program, an important part of developing on Android is
+generating debugging output.
+On Android, our familiar <code>System.out.println</code>
+<a href="https://stackoverflow.com/questions/2220547/why-doesnt-system-out-println-work-in-android" target="_blank" class="external">doesn&#x2019;t quite work the same way we&#x2019;re used to</a>.</p>
+</div>
+<div class="paragraph">
+<p>However, Android has a simple yet powerful <em>logging</em> system.
+Unlike <code>System.out.println</code>, logging systems allow you to specify multiple log
+<em>levels</em> indicating the kind of output that you are generating.
+This allows you to distinguish between, for example, debugging output that might
+only be useful during development and a warning message that might indicate a
+more serious problem or failure.
+The Android logger also allows you to attach a <code>String</code> <em>tag</em> to each message to
+help separate them when you are debugging or developing.
+So the final syntax of the call to generate a debugging message, for example, is
+<code>Log.d(TAG, message)</code>.</p>
+</div>
+<div class="paragraph">
+<p>For more information
+<a href="https://developer.android.com/reference/android/util/Log.html" target="_blank" class="external">Android&#x2019;s official
+logging documentation</a>.</p>
+</div>
+<div class="openblock alert alert-primary">
+<div class="content">
+<div class="paragraph">
+<p><strong>Do you need to know this to complete MP0?</strong>
+Probably, since you need to determine what you app is doing or how things are
+going wrong.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="activitys"></a><h3>4.2. <code>Activity</code>s and Activity Lifecycle</h3>
+<div class="paragraph">
+<p>The Android
+<a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank" class="external"><code>Activity</code> class</a>
+corresponds to a single screen that the user can interact with.
+Our simple app contains only one activity, but most apps consist of several:
+maybe an activity corresponding to the app&#x2019;s main screen, another for a
+settings dialog, and still others for other parts of the app.</p>
+</div>
+<div class="paragraph">
+<p>As you might expect, there are a few important moments for an activity: when it
+is created, when it appears on the screen, and when it leaves the screen.
+Android provides functions that you can override to handle both of these events:
+<code>onCreate</code>, <code>onResume</code>, and <code>onPause</code>.
+It is typical for on <code>onCreate</code> method to perform tasks required to make the
+activity ready for a user to use, such as configuring buttons and other UI
+elements.</p>
+</div>
+<div class="paragraph">
+<p>For more information
+review
+<a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank" class="external">Android&#x2019;s
+official <code>Activity</code> information</a>.</p>
+</div>
+<div class="openblock alert alert-primary">
+<div class="content">
+<div class="paragraph">
+<p><strong>Do you need to know this to complete MP0?</strong>
+No. But you may be confused by the overall app structure if you don&#x2019;t review it.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="uievents"></a><h3>4.3. UI Events</h3>
+<div class="paragraph">
+<p>Why does code in your app run?
+In many cases it&#x2019;s because a user <em>interacted</em> with an activity&#x2014;clicked a
+button, entered text into a dialog box, or adjusted an on-screen control.
+Android provides a way for each app to register <em>handlers</em>: functions that run
+when various user interface (UI) events take place.</p>
+</div>
+<div class="paragraph">
+<p>Our app uses these to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>enable and disable location tracking</p>
+</li>
+<li>
+<p>enable and disable randomly-generated fake locations, or <em>wandering</em></p>
+</li>
+<li>
+<p>center the map&#x2014;although this doesn&#x2019;t quite work yet</p>
+</li>
+</ul>
+</div>
+<div class="openblock alert alert-primary">
+<div class="content">
+<div class="paragraph">
+<p><strong>Do you need to know this to complete MP0?</strong>
+Yes!
+And it will be hard to understand how your app works without reviewing it.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="troubleshooting"></a><h2>5. Troubleshooting</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>When building apps with Android Studio any one of a number of things can go
+wrong.
+We&#x2019;ll try to keep an updated list here of troubleshooting strategies.</p>
+</div>
+<div class="sect2">
+<a class="anchor" id="_general_advice"></a><h3>5.1. General Advice</h3>
+<div class="paragraph">
+<p>If your app won&#x2019;t build, try the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Restart Android Studio.</strong>
+Yes, this does in fact sometimes do the trick.</p>
+</li>
+<li>
+<p><strong>Invalidate Caches / Restart.</strong>
+You&#x2019;ll find this under the &quot;File&quot; menu.
+Again, sometimes it seems to help.</p>
+</li>
+<li>
+<p><strong>Rebuild Project.</strong>
+You&#x2019;ll find this under the &quot;Build&quot; menu.
+Sometimes rebuilding will help you pinpoint errors that are preventing your app
+from starting or the test suites from running.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="_mp0_specific_advice"></a><h3>5.2. MP0 Specific Advice</h3>
+<div class="paragraph">
+<p>We&#x2019;ll add things here as we go, but please check the <a href="https://cs125-forum.cs.illinois.edu/c/mps/spring2019-mp0" class="noexternal">forum</a> first.</p>
+</div>
+<div class="sect3">
+<a class="anchor" id="gradlefix"></a><h4>5.2.1. Fix <code>build.gradle</code></h4>
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-12 col-lg-8">
+    <div class="embed-responsive embed-responsive-4by3">
+      <div class="lazyiframe" data-attribs="%7B%22class%22:%22embed-responsive-item%22,%22width%22:%22560%22,%22height%22:%22315%22,%22src%22:%22//www.youtube.com/embed/u9w3tvkSwWI%22,%22allowfullscreen%22:%22%22%7D"></div>
+    </div>
+  </div>
+</div>
+<div class="paragraph">
+<p>The following fix corrects the following error message you may see when you run the test suites:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/MP/2019/spring/images/MP0/NoTest.png" alt="NoTest" class="img-fluid">
+</div>
+</div>
+<div class="paragraph">
+<p>It also causes Android Studio to correctly display errors when you run the test suites.
+<strong>So it is important to apply this change!</strong>
+Read the instructions below or watch the screencast above.
+If you need help, post on the forum or come to office hours.</p>
+</div>
+<div class="paragraph">
+<p>To fix this error we&#x2019;re going to make two small changes to your root <code>build.gradle</code> file.
+Here&#x2019;s how to do that.
+First, switch the left pane to Project view.
+Next, expand the top (<code>MP0-Spring2019-</code>&#x2026;&#x200B;) folder, then double click <code>build.gradle</code>
+to open it.
+<strong>Note that there two other <code>build.gradle</code> files in the <code>app</code> and <code>lib</code> directory.</strong>
+You do not need to modify these files.</p>
+</div>
+<div class="paragraph">
+<p>There are <em>two</em> changes you need to make to the file.
+First, find the part that looks like this at the top:</p>
+</div>
+<div class="listingblock nonumber">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy nonumber" data-lang="groovy">buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url &apos;https://jitpack.io&apos;
+        }
+    }
+    dependencies {
+        classpath &apos;org.eclipse.jgit:org.eclipse.jgit:5.2.1.201812262042-r&apos;
+        classpath &apos;com.github.cs125-illinois:gradlegrader:0.13.0&apos;
+        classpath &apos;com.android.tools.build:gradle:3.3.0&apos;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We want to change the version of our CS 125 grading plugin from <code>0.13.0</code> to
+<code>0.13.4</code>.
+So change this line:</p>
+</div>
+<div class="listingblock nonumber">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy nonumber" data-lang="groovy">        classpath &apos;com.github.cs125-illinois:gradlegrader:0.13.0&apos;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>so that it looks like this:</p>
+</div>
+<div class="listingblock nonumber">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy nonumber" data-lang="groovy">        classpath &apos;com.github.cs125-illinois:gradlegrader:0.13.4&apos;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Android Studio will ask you to sync the Gradle configuration, but don&#x2019;t yet.</strong>
+Instead, make the next change first.</p>
+</div>
+<div class="paragraph">
+<p>Next, look at the bottom of the file for the portion that looks like this:</p>
+</div>
+<div class="listingblock nonumber">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy nonumber" data-lang="groovy">tasks.grade.dependsOn(&apos;checkstyleMain&apos;)
+defaultTasks &apos;grade&apos;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remove the first line.
+So afterward you should only have:</p>
+</div>
+<div class="listingblock nonumber">
+<div class="content">
+<pre class="highlight"><code class="language-groovy spelling_exception lang-groovy nonumber" data-lang="groovy">defaultTasks &apos;grade&apos;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>At this point you should use the yellow dialog to sync your Gradle
+configuration.</strong>
+Once the synchronization completes you&#x2019;ll be good to go.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="grading"></a><h2>6. Grading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MP0 is worth 100 points total, broken down as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>20 points</strong>: <code>farthestNorth</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for passing the simple tests</p>
+</li>
+<li>
+<p><strong>10 points</strong> for passing the randomized tests</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>20 points</strong>: <code>beenHere</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for passing the simple tests</p>
+</li>
+<li>
+<p><strong>10 points</strong> for passing the randomized tests</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>20 points</strong>: <code>nextRandomLocation</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>10 points</strong> for passing the simple tests</p>
+</li>
+<li>
+<p><strong>10 points</strong> for passing the randomized tests</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>20 points</strong>: <code>testCenterButton</code>: note that passing this test requires
+modifying <code>MainActivity.java</code></p>
+</li>
+<li>
+<p><strong>10 points</strong> for no <code>checkstyle</code> violations</p>
+</li>
+<li>
+<p><strong>10 points</strong> for submitting code that earns at least 30 points before <strong>Friday
+2/1/2019 @ 5PM.</strong></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<a class="anchor" id="submitting"></a><h3>6.1. Submitting Your Work</h3>
+<div class="paragraph">
+<p>Follow the instructions from the
+<a href="/MP/2019/spring/setup/git#submitting">submitting portion</a>
+of the
+<a href="/MP/2019/spring/setup/git#workflow">CS 125 workflow</a>
+instructions.
+Note that the first time you do this you&#x2019;ll want to pay careful attention to the
+<a href="/MP/2019/spring/setup/git/#troubleshooting">common submission pitfalls</a>,
+particularly if your submission doesn&#x2019;t show up when you think it should.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="testing"></a><h3>6.2. Test Cases</h3>
+<div class="paragraph">
+<p>You should carefully review the test cases in <code>LocatorTest.java</code>.
+The MP0 <em>library</em> testing suite tests your code using random inputs and
+pre-computed correct outputs.
+So, for example, when testing <code>beenHere</code>, we have pre-computed the correct
+answer for a small subset of test cases and use this to determine whether your
+solution works in all cases.</p>
+</div>
+<div class="paragraph">
+<p>In contrast, testing the user-facing parts of Android apps is notoriously
+difficult.
+This semester we&#x2019;ll be using
+<a href="http://robolectric.org/" target="_blank" class="external">Robolectric</a>
+to write lightweight interface tests.
+For MP0 all we are testing is that you&#x2019;ve hooked up the &quot;Center&quot; button
+properly, but in future MPs these tests will become more comprehensive.</p>
+</div>
+<div class="paragraph">
+<p>Automated testing is a hugely important part of modern software development.
+Just like computers are good at running programs, they are also good at running
+programs to debug other programs.
+Independently developing a method and the function that tests it allows the two
+to support each other.
+The test may find errors in the method, and, the method may also identify errors
+in the test.</p>
+</div>
+<div class="paragraph">
+<p>For all three library functions we provide you with both <em>simple</em> test cases
+using a small number of select inputs <strong>and</strong> exhaustive test cases that use many
+randomly-generated inputs.
+The former should be used during iterative development.
+For MP0, both are used during grading&#x2014;but on future MPs there will be few
+to no points for the simpler test suites.
+The <a href="#autograding">local autograder</a> we provide will be able to help you
+estimate your score before you submit.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="autograding"></a><h3>6.3. Autograding</h3>
+<div class="paragraph">
+<p>We have provided you with an autograding script that you can use to <em>estimate</em>
+your current grade as often as you want.
+Your Android Studio project contains run configuration called &quot;Grade&quot; that will run the
+autograder for MP0.
+You can also run the grader by installing
+<a href="/tech/intellijplugin/">our plugin</a>
+and then pressing the button that looks like the CS 125 shield.</p>
+</div>
+<div class="paragraph">
+<p>Unless you have modified the test cases or autograder configuration files, the
+autograding output should approximate the score that you will earn when you
+submit.
+If you modify our test cases or the autograding configuration, <em>all bets are
+off</em>.
+You may also lose points if your solution runs too slowly and exceeds the
+testing timeouts.</p>
+</div>
+</div>
+<div class="sect2">
+<a class="anchor" id="style"></a><h3>6.4. Style Points</h3>
+<div class="paragraph">
+<p>90 points on MP0 are for correctly implementing the required functions.
+The other 10 points are for <em>style</em>.
+Writing readable code according to a style guideline is extremely important, and
+we are going to help you get into this habit right from the start.
+Every software development company and most active open-source projects maintain
+style guidelines.
+Adhering to them will help others understand and integrate your contributions.</p>
+</div>
+<div class="paragraph">
+<p>We have configured the <code>checkstyle</code> plugin to enforce a variant of the
+<a href="http://checkstyle.sourceforge.net/sun_style.html" target="_blank" class="external">Sun Java coding style</a>.
+Android Studio should naturally generate code that meets this standard.
+So you should not have to fight with IntelliJ too much to avoid <code>checkstyle</code>
+violations.</p>
+</div>
+<div class="paragraph">
+<p>However, the <code>checkstyle</code> plugin does require you to add
+<a href="https://en.wikipedia.org/wiki/Javadoc" target="_blank" class="external">Javadoc</a>
+comments, and also avoid the use of so-called
+<a href="https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad" target="_blank" class="external"><em>magic
+numbers</em></a>.
+You may find these requirements a bit annoying at first, but we trust that you
+will get used to them.
+Once you build good style habits, you won&#x2019;t have to think about it anymore, and
+will just go on with your business writing beautiful code.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<a class="anchor" id="cheating"></a><h2>7. Cheating</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Please review the
+<a href="/info/2019/spring/syllabus#cheating">CS 125 cheating policies</a>.</p>
+</div>
+<div class="paragraph">
+<p>All submitted MP source code will be checked by automated plagiarism detection
+software.
+Cheaters will receive stiff penalties&#x2014;the hard-working students in the
+class that are willing to struggle for their grade demand it.</p>
+</div>
+</div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<div class="container hidden-print">
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-12">
+      <hr>
+    </div>
+    <div class="small col-xs-12 col-md-4 col-md-offset-4 text-center">
+      Created 10/24/2021 <br>
+      Updated 10/24/2021
+    </div>
+    <div class="small col-xs-12 col-md-4 text-center">
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commit/de5767a984544e8dfdb026aa4ee5cbf1a908f8c3" target="_blank">Commit <code>de5767a</code></a>
+      //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/commits/master/src/MP/2019/spring/0.adoc" target="_blank">History</a> //
+      <a class="link_exception external" href="https://github.com/cs125-illinois/www/blob/master/src/MP/2019/spring/0.adoc" target="_blank">View</a>
+      <br>
+      Built 10/24/2021 @ 20:26 EDT
+    </div>
+  </div>
+</div>
+
+<script src="/static-assets/highlight.c2ac4dbbbfbaa664d982.js"></script>
+
+
+
+
+
+
+
+</body></html><!--
+  vim: et:ts=2:sw=2:ft=html
+--><!--
+  vim: et:ts=2:sw=2:ft=html
+-->

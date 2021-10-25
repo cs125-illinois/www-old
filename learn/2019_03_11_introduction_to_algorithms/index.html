@@ -1,0 +1,629 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Introduction to Algorithms</title>
+  <meta name="description" lang="en-us" content="Introduction to algorithms and algorithm runtime analysis.">
+
+  <meta name="slider-id" content="8b48ba6b-d924-4320-937c-75e70504834d">
+  <meta name="slider-semester" content="Spring2019">
+
+  <link rel="stylesheet" href="/static-assets/slides.382c79664e8155774040.css">
+  <link rel="stylesheet" href="/static-assets/slider.c07795f2b4f26152e912.css">
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-45109275-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    if (window.location.hostname === 'localhost') {
+      window['ga-disable-UA-45109275-2'] = true
+    }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="228x228" href="/img/favicon/coast-228x228.png">
+  <link rel="yandex-tableau-widget" href="/img/favicon/yandex-browser-manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon-180x180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CS 125">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+  <link rel="manifest" href="/img/favicon/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#fff">
+  <meta name="application-name" content="CS 125">
+  <meta name="msapplication-TileColor" content="#fff">
+  <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="helpToggle" title="Keyboard shortcut help">
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
+      </a>
+      <a class="menuToggle" title="Close top menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </a>
+    </nav>
+  </header>
+  <div id="section">
+    <article id="content" data-width="640" data-height="480">
+      <div class="sect1 janini smallest compiler nozoom bespoke-active bespoke-slide" data-slideid="ZrRhHAiZmjGVCqKzTkVDkwpNGYoRBTci">
+
+<textarea class="janini spelling_exception">public final class Math {
+  public static int gcd(int first, int second) {
+    return 0;
+  }
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(Math.gcd(10, 20));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="Introduction to Algorithms&lt;br/&gt;&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">Introduction to Algorithms<br>&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="aUxsyjhTqYgprQGAtYgCJCpFInIbEnMP">
+<div class="header" data-title="Algorithms"><h2>Algorithms</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" class="external">Algorithm</a>:
+a process or set of rules to be followed in calculations or other
+problem-solving operations, especially by a computer.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>As computer scientists, we implement algorithms by having computers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Perform simple calculations</p>
+</li>
+<li class="bullet">
+<p>Store the results</p>
+</li>
+<li class="bullet">
+<p>Make simple decisions</p>
+</li>
+<li class="bullet">
+<p>Do things over and over again as fast as possible</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JGTmnbkHwboAihJynfxUiXyvQBMcEFus">
+<div class="header" data-title="Data Structures"><h2>Data Structures</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Data_structure" target="_blank" class="external">Data structure</a>:
+a collection of data values, the relationships among them, and the functions or
+operations that can be applied to the data.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>As Java programmers we implement more complicated data structures using a mix
+of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Primitive types and objects to <em>store</em> and organize data values</p>
+</li>
+<li class="bullet">
+<p>Existing data structures like arrays</p>
+</li>
+<li class="bullet">
+<p>References to reflect relationships among objects</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YumtfuKBaLhokozilRqGVVRzrwypGfOd">
+<div class="header" data-title="Algorithms and Data Structures"><h2>Algorithms and Data Structures</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Algorithms and data structures are <em>highly complementary</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>We will implement algorithms that utilize specific features of data structures</p>
+</li>
+<li class="bullet">
+<p>We will implement data structures to support specific algorithms</p>
+</li>
+<li class="bullet">
+<p>We will use our existing imperative and object-oriented ideas along the way</p>
+</li>
+<li class="bullet">
+<p>And we&#x2019;ll introduce a few more important ideas along the way</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="BzRRFIMstyqbRXhqEywqvIoQJUgYebbD">
+<div class="header" data-title="Example: Greatest Common Denominator"><h2>Example: Greatest Common Denominator</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>In mathematics, the
+<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor" target="_blank" class="external">greatest common divisor
+(GCD)</a>
+of two or more integers, which are not all zero, is the largest positive integer
+that divides each of the integers.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 bespoke-inactive bespoke-slide" data-slideid="pjDljAIzRjELOcfeobkDQFRinIBUMrhD">
+<div data-title=" GCD Algorithms"></div>
+<div class="sectionbody">
+<div class="embed-responsive embed-responsive-4by3">
+  <div class="lazyiframe" data-attribs="%7B%22class%22:%22full%20embed-responsive-item%22,%22src%22:%22https://en.wikipedia.org/wiki/Greatest_common_divisor#Calculation%22%7D"></div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="tDXMsVMWQaICoZpNjRwvYQvYvpkBVCKA">
+<div class="header" data-title="But If We&#x2019;re In A Hurry&#x2026;&#x200B;"><h2>But If We&#x2019;re In A Hurry&#x2026;&#x200B;</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What&#x2019;s a simpler approach?</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="JssrqejyvIyvwsXyrCkspJKxdKDMQLRk">
+<div class="header" data-title="Brute Force Solution"><h2>Brute Force Solution</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Brute-force_search" target="_blank" class="external">Brute force solution</a>:
+a very general problem-solving technique that consists of systematically
+enumerating all possible candidates for the solution and checking whether each
+candidate satisfies the problem&#x2019;s statement.</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>Computers today are very, <em>very</em> fast</p>
+</li>
+<li class="bullet">
+<p>So try the simple thing first</p>
+</li>
+<li class="bullet">
+<p>If it&#x2019;s too slow, try something a bit more sophisticated</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 janini smallest compiler nozoom bespoke-inactive bespoke-slide" data-slideid="qMuYttxuubacRODFMWhjihipuaPhWYqH">
+<div data-title=" GCD Implementation"></div>
+<textarea class="janini spelling_exception">public class SimpleMath {
+}
+public class Example {
+  public static void main(String[] unused) {
+    System.out.println(SimpleMath.GCD(10, 8));
+    System.out.println(SimpleMath.GCD(100, 50));
+    System.out.println(SimpleMath.GCD(94677, 65270));
+  }
+}</textarea><!-- beautify ignore:start --><div class="output" data-blank="&gt; Click or hit Control-Enter to run Example.main above"><pre style="color: white;">&gt; Click or hit Control-Enter to run Example.main above</pre></div><!-- beautify ignore:end -->
+</div>
+<div class="sect1 meme bespoke-inactive bespoke-slide" data-slideid="qdXwzQeEINKOPgbceNliwLWeLNyqnSVo">
+<div data-title=" Bring the Brute"></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto meme">
+<div class="content">
+<img src="https://cdn.vox-cdn.com/thumbor/wgMcgj6LStdjW-qlLkaHUBsdQzY=/0x0:2048x858/1200x800/filters:focal(834x251:1160x577)/cdn.vox-cdn.com/uploads/chorus_image/image/57442421/hulk_agnarok.0.jpg" alt="hulk agnarok.0" width="640" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 oneword logo bespoke-inactive bespoke-slide" data-slideid="SAkZunVquojxGluWfhHFkLljmuDEmoNB">
+<div class="header" data-title="You Don&#x2019;t Need the Fastest Algorithm to Change the World"><h2>You Don&#x2019;t Need the Fastest Algorithm to Change the World</h2></div>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That&#x2019;s a good thing!</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="KTGrHQJiStmgrdjVjvLJBvdHTokGvbGK">
+<div class="header" data-title="But Speed Eventually Matters"><h2>But Speed Eventually Matters</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Even if you don&#x2019;t at the beginning, you will eventually start to care about how
+fast your code runs.
+For any number of the following reasons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>You&#x2019;re embarrassed that your algorithm makes your incredibly fast computer
+seem slow</p>
+</li>
+<li class="bullet">
+<p>You have to start paying for machines</p>
+</li>
+<li class="bullet">
+<p>Your customer tells you that your program is too slow</p>
+</li>
+<li class="bullet">
+<p>You&#x2019;re in a job interview</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XIAanwdDVyALfCEgZLNQljuMKfylgtld">
+<div class="header" data-title="So How Long Will It Take?"><h2>So How Long Will It Take?</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>How long will our brute force GCD algorithm take?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>To compute the GCD of 4 and 6</p>
+</li>
+<li class="bullet">
+<p>To compute the GCD of 185 and 2045</p>
+</li>
+<li class="bullet">
+<p>To compute the GCD of M and N</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="UgJrBAbxmpaEtUFaigwcjbLnlTfcIOoF">
+<div class="header" data-title="Algorithm Analysis"><h2>Algorithm Analysis</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Analysis_of_algorithms" target="_blank" class="external">Algorithm analysis</a>:
+the determination of the computational complexity of algorithms, that is the
+amount of time, storage and/or other resources necessary to execute them.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="bzGJKlpimKGIHSRpMdozAZQHDQCfHegP">
+<div class="header" data-title="At The Limit"><h2>At The Limit</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>We&#x2019;re usually want to analyze an algorithm in the general case, rather than for
+a specific set of input.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>How does the algorithm perform on arbitrarily difficult or large inputs?</p>
+</li>
+<li class="bullet">
+<p>What are the best, average, and worst-case running times?</p>
+</li>
+<li class="bullet">
+<p><strong>How is the algorithm&#x2019;s performance related to its inputs?</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="wZpYuIQdhBkDdYLdffvSWUUvbhDCqzoG">
+<div class="header" data-title="Big-O Notation"><h2>Big-O Notation</h2></div>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Big_O_notation#Product" target="_blank" class="external">Big-O notation</a>
+is a mathematical notation that describes the limiting behavior of a function
+when the argument tends towards a particular value or infinity.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Put another way: we want to <em>estimate</em> what happens as the problem gets really,
+really hard.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="EQRiDkxGqVDXvndIjCapEccitPnbvEGQ">
+<div class="header" data-title="Big-O Notation"><h2>Big-O Notation</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="PQFsLLmCciovBjnIvpSxKmIPJCXAzYoJ">
+<div class="header" data-title="O(1)"><h2>O(1)</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] myArray = new int[1024];
+int getArrayValue = myArray[10]; // This is constant time</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>O(1) is sometimes called constant time.</p>
+</div>
+<div class="paragraph">
+<p>Life is good and livin&apos; is easy. But we&#x2019;re usually not this lucky.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="KUmETESzjfZHSFyAINSsXaxeFQsVuVJm">
+<div class="header" data-title="O(n)"><h2>O(n)</h2></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] myArray = new int[1024];
+int sum = 0;
+// A single loop through an array is usually O(n)
+for (int arrayValue : myArray) {
+  sum += arrayValue;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>O(n) is still not bad.</p>
+</div>
+<div class="paragraph">
+<p>Frequently we have to see each value in an array or other data structure at
+least once, so sometimes O(n) is the best we can do.</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="sTNJsQdYRrmmhUXSBCGikOvNhUqNSWjU">
+<div class="header" data-title="Big-O Notation"><h2>Big-O Notation</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="XEyHnEfcFZUsHzaakFKETZivAXESwbtK">
+<div class="header" data-title="O(n)"><h2>O(n)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">int[] myArray = new int[1024];
+for (int arrayValue : myArray) {
+  if (arrayValue == lookingFor) {
+    break;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>What about the example above?</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Best case</strong>: <span class="bullet">it&#x2019;s the <em>first</em> element</span></p>
+</li>
+<li class="bullet">
+<p><strong>Worst case</strong>: <span class="bullet">it&#x2019;s the <em>last</em> element</span></p>
+</li>
+<li class="bullet">
+<p><strong>Average case</strong>: <span class="bullet">O(n / 2), which we usually simplify to just O(n)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="SJmNLiTaeoZLwmjhQsdreyWPGCIPxVAU">
+<div class="header" data-title="O(n^2)"><h2>O(n^2)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">boolean isSorted(int[] array) {
+  for (int i = 0; i &lt; array.length; i++) {
+    for (int j = i; j &lt; array.length; j++) {
+      if (array[j] &lt; array[i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Now things are getting bad.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If we need to both loop through an array <em>and</em> compare every element with every
+other element we end up with an O(n^2) algorithm.</p>
+</li>
+<li class="bullet">
+<p>You can identify it by the nested loops.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="YGnWnQdwhPJBFhhXytgqnzLYeAaCdCIM">
+<div class="header" data-title="O(n^2)"><h2>O(n^2)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="listingblock smaller">
+<div class="content">
+<pre class="highlight"><code class="language-java spelling_exception lang-java" data-lang="java">boolean isSorted(int[] array) {
+  for (int i = 0; i &lt; array.length; i++) {
+    for (int j = i; j &lt; array.length; j++) {
+      if (array[j] &lt; array[i]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p><strong>Best case</strong>: <span class="bullet">the unsorted element is at the beginning</span></p>
+</li>
+<li class="bullet">
+<p><strong>Worst case</strong>: <span class="bullet">the array is <em>sorted</em></span></p>
+</li>
+<li class="bullet">
+<p><strong>Average case</strong>: <span class="bullet">O(n^2)</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="OBzQkylBMglxIaLuVfwNaYCfWmjSouom">
+<div class="header" data-title="Big-O Notation"><h2>Big-O Notation</h2></div>
+<div class="sectionbody">
+<div class="imageblock mx-auto">
+<div class="content">
+<img src="https://i.stack.imgur.com/WcBRI.png" alt="WcBRI" width="600" class="mx-auto" style="display: block;">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="ScMbnghrBMHGlbxLWUKSvPDdJjsFepRN">
+<div class="header" data-title="O(log n) and O(n log n)"><h2>O(log n) and O(n log n)</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>The logarithmic growth rates are usually caused by features of problems that we
+haven&#x2019;t seen yet&#x2014;but will soon.</p>
+</div>
+<div class="ulist">
+<ul>
+<li class="bullet">
+<p>If every step of the algorithm makes cut the size of the problem <em>in half</em>,
+then you end up with a O(log n) runtime.</p>
+</li>
+<li class="bullet">
+<p>Recursive algorithms frequently have this property.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="efsgaXBTFHpEdxGrToSwqgJExyuqqvqN">
+<div class="header" data-title="Dumb Algorithm, Clever Algorithm"><h2>Dumb Algorithm, Clever Algorithm</h2></div><div class="bullet"></div>
+<div class="sectionbody">
+<div class="paragraph lead bullet">
+<p>A <strong>dumb</strong> algorithm can move a problem <em>up</em> in the runtime categorization: for
+example, from O(n) to O(n^2). (Our sort test is dumb. The problem is O(n).)</p>
+</div>
+<div class="paragraph lead bullet">
+<p>A <strong>smart</strong> algorithm can move a problem <em>down</em> in the runtime categorization: for
+example, from O(n^2) to O(n log n). (Euclid&#x2019;s Method GCD is smart. The problem
+is O(log(N)).)</p>
+</div>
+</div>
+</div>
+<div class="sect1 logo bespoke-inactive bespoke-slide" data-slideid="nGsigkJsZbIIiuBueedkjOHenoatcePu">
+<div class="header" data-title="Announcements"><h2>Announcements</h2></div>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The MP3 early deadline is <em>today</em> at 5PM.
+Get your 50 points!</p>
+</li>
+<li>
+<p>My office hours will be around 3:30PM in Siebel 0403.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </article>
+  </div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="helpModalLabel">Keyboard Shortcuts</h5>
+				</div>
+				<div class="modal-body">
+          <p>Here is a list of potentially helpful keyboard shortcuts:</p>
+          <ul class="list-unstyled">
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-right"></i>
+              </span>: go forward to the next slide
+            </li>
+            <li>
+              <span class="key">
+                <i class="fa fa-caret-left"></i>
+              </span>: go back to the previous slide
+            </li>
+            <li>
+              <kbd class="overviewToggle">o</kbd>: open (and close) the slide overview
+            </li>
+            <li>
+              <kbd class="menuToggle">m</kbd>: open (and close) the top menu
+            </li>
+            <li>
+              <kbd class="helpToggle">h</kbd>: open (and close) this help menu
+            </li>
+          </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script src="/static-assets/slider.c07795f2b4f26152e912.js"></script>
+  <script>
+    $("a[href^='http://'], a[href^='https://'], a[href^='//']").each(function (i, elem) {
+      $(elem).click(function (event) {
+        event.preventDefault()
+        const url = $(elem).attr('href')
+        ga('send', 'event', 'outbound', 'click', url, {
+          'transport': 'beacon',
+          'hitCallback': () => {
+            if ($(elem).hasClass('external')) {
+              window.open(url, '_blank')
+            } else {
+              document.location = url
+            }
+          }
+        })
+      })
+    })
+  </script>
+
+
+</body></html>
