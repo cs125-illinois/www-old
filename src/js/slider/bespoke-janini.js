@@ -98,7 +98,7 @@ module.exports = () => {
       job.tasks = _.keys(tasks)
 
       $.ajax({
-        url: "https://cs125-cloud.cs.illinois.edu/jeed/",
+        url: "https://cloud.cs124.org/jeed/",
         type: 'POST',
         data: JSON.stringify(job),
         contentType: 'application/json; charset=utf-8',
