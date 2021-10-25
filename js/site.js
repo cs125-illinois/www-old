@@ -95,6 +95,7 @@ $(() => {
     })
   })
 
+  /*
   window.cookieconsent.initialise({
     "palette": {
       "popup": {
@@ -110,6 +111,7 @@ $(() => {
       "dismiss": "Got it!"
     }
   })
+  */
 })
 
 // vim: ts=2:sw=2:et
